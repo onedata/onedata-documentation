@@ -1,7 +1,6 @@
 <p align="left">
 <img src="doc/img/heading.png" width="380">
 </p>
-
 With Onedata scientists can access, store, process and publish data using global data storage backed by computing centers and storage providers worldwide.
 
 Focus on analyzing data, not on moving data to the computing resources, access the results directly from your local computer.
