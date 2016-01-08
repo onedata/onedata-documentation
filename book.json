@@ -1,0 +1,7 @@
+{
+    "plugins": ["onedata-theme@0.0.2"],
+    "variables": {
+       "draft":true,
+       "idea":true
+   }
+}
