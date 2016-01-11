@@ -1,9 +1,5 @@
 # Onedata overview
 
-{% if book.draft %}
-> It is true
-{% endif %}
-
 Before using Onedata, it's helpful to understand what functionality it provides, how data is organized and what are the various components of the platform.
 
 
