@@ -31,7 +31,7 @@ Read the [quickstart admin guide](doc/quickstart.md) or watch our screencasts:
 
 - [Single-node Installation of Onedata Provider on Google Cloud Compute Engine]()
 {% if book.draft %}
-- [Mingle-node Installation of Onedata Provider on Google Cloud Compute Engine]()
+- [Multi-node Installation of Onedata Provider on Google Cloud Compute Engine]()
 {% endif %}
 
 ### Manuals and tutorials
