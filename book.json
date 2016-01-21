@@ -1,7 +1,14 @@
 {
-    "plugins": ["onedata-theme@0.0.2"],
+    "plugins": ["onedata-theme@0.0.2", "youtube", "image-captions"],
     "variables": {
        "draft":true,
        "idea":true
-   }
+    },
+
+    "_see_": "https://github.com/todvora/gitbook-plugin-image-captions",
+    "pluginsConfig": {
+      "image-captions": {
+          "caption": "_CAPTION_"
+      }
+    }
 }
