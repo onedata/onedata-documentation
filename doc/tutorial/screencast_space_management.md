@@ -7,5 +7,4 @@ In this screencast you will learn:
 - about basic concepts such as space and default Space
 - how to change a default space
 
-
-[![Space Management](../img/tutorials/space_managment.png)](https://www.youtube.com/watch?v=_69IbOIrL4c "Space Managment ")
+{% youtube caption="Space Managment"%}https://www.youtube.com/watch?v=_69IbOIrL4c{% endyoutube %}
