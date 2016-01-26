@@ -1,11 +1,12 @@
 {
-    "plugins": ["onedata-theme@0.0.2", "youtube", "image-captions"],
+    "plugins": ["onedata-theme@0.0.2", "youtube", "image-captions", "styles-sass"],
     "variables": {
        "draft":false,
        "idea":true
     },
-
-    "_see_": "https://github.com/todvora/gitbook-plugin-image-captions",
+    "styles": {
+        "website": "node_modules/gitbook-plugin-onedata-theme/book/onedata.scss"
+    },
     "pluginsConfig": {
       "image-captions": {
           "caption": ""
