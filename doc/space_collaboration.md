@@ -5,7 +5,7 @@ You can give other users or groups access to your space by adding them to your s
 
 For more details on permissions, see [Space Management](space_management.md) page.
 
-## Invite another user's to your space
+## Invite another user to your space
 To share a space with another user:
 
 1. Navigate to **Manage spaces** page.
@@ -16,7 +16,7 @@ To share a space with another user:
 After another user joins your space you will be able to see him in the detailed space view.
 
 
-## Join another user space
+## Join another user's space
 To join a space of another user, you must request from them the token. After receiving the token:
 
 1. Navigate to **Manage spaces** page.
