@@ -24,4 +24,4 @@ After having your space supported by at least 1 provider, press *Click here to c
 4. Observe the *progress bars*. The first one tracks the overall progress of the upload, the second tracks the progress of the file being uploaded.
 
 ## Next steps
-After you are comfortable using basic file operations in your default space, see the [User Guide](user_guide.md) and learn how to work with multiple spaces.
+After you are comfortable using basic file operations in your default space, see the [User Guide](user_guide.md) and learn how to work with multiple spaces and perform some more advanced actions.
