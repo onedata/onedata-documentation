@@ -1,6 +1,4 @@
-<p align="left">
-<img src="doc/img/heading.png" width="380">
-</p>
+# ![Onedata](doc/img/heading.png) Documentation
 Onedata is a global data management system, providing easy access to distributed storage resources, supporting wide range of use cases from personal data management to data-intensive scientific computations.
 
 With Onedata, users can access, store, process and publish data using global data storage backed by computing centers and storage providers worldwide.
