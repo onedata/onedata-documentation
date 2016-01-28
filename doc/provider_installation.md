@@ -65,7 +65,7 @@ Once installed, it is recommended to register oneprovider with onedata registry,
 
 ### Step 1&2: Connection check and Ports configuration
 
-In order to communicate with onedata, oneprovider needs a public with ports `443` and `8443` opened, or a private address with those ports properly redirected.
+In order to communicate with onedata, oneprovider needs a public IP address with ports `443` and `8443` opened, or a private address with those ports properly redirected.
 
 <p align="center"><img src="img/admin/rstrep1_info.png"></p>
 
@@ -73,5 +73,7 @@ In order to communicate with onedata, oneprovider needs a public with ports `443
 
 
 ### Step 3: Name configuration
+The last step allows to set a name for the provider by which it will be identified in onedata registry and presented to users.
+
 <p align="center"><img src="img/admin/rstep2_name.png"></p>
-The last step is to set a name for a provider by which it will be identified in onedata ecosystem.
+
