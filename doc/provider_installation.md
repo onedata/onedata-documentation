@@ -8,10 +8,12 @@ Oneprovider instllation consists of two parts:
 
 ## Services Installation
 
-In order to install oneprovider service, you need a (virtual) machine with one of supported operating systems installed. Currently oneprovider can be installed on:
+In order to install oneprovider service, you need a (virtual) machine with one of supported operating systems installed. Currently oneprovider can be installed using RPM packages on:
 * Scientific Linux 6.x
 * CentoOS 7.x
-* Automatic
+
+and on other Linux platforms using Bash installation script.
+
 
 For detailed instructions on how to install oneprovider package on each of those systems please visit [download section](https://onedata.org/download) on Onedata hopepage.
 
