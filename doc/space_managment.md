@@ -1,22 +1,8 @@
 # Space Management
-
-{% if book.draft %}
-> This document should explain:
-* what the space is
-* how to support the space
-* how to create the space
-* how to delete the space
-
-
-> zostało join space
-> i space collaboration
-
-{% endif %}
-
 This document discusses in more detail what the space is, and how they can be managed through the Onedata web interface.
 
 ## Space concept overview
-You can think of a space as a virtual directory, which contents are stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all providers supporting it. 
+You can think of a space as a virtual directory, which contents are stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all providers supporting it.
 
 *It is important to note that even if a some file in the space is larger than any single provider quota but smaller that total storage quota left in the space, Onedata can still manage this file by splitting it between different storage providers.*
 
@@ -81,7 +67,7 @@ On the **Manage spaces** page, each listed space has a **Action**, which allows 
 | Set as default  | Set this space to be your default space.                                 |
 | Leave space     | Remove this space from the list of your spaces.                          |
 | Rename          | Rename this space.                                                       |
-| Remove          | Remove this space and all the data it contains.                               |
+| Remove          | Remove this space and all the data it contains.                          |
 | Invite user     | Add a user to this space.                                                |
 | Create group    | Create a group and add it to this space.                                 |
 | Invite group    | Add a group to this space.                                               |
