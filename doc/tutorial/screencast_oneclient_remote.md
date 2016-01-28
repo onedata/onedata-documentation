@@ -1,15 +1,8 @@
 
 # Installation and Use of Onedata Client
 
-<!--<center>
-<iframe width="420" height="315" title="YouTube video player"
-src="http://www.youtube.com/embed/sGbxmsDFVnE?autoplay=0" frameborder="0" allowfullscreen>
-</iframe>
-</center>-->
+{% youtube caption="Installation and Use of Onedata Client"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
 
-
-[![Everything Is AWESOME](http://i.imgur.com/1ES07Vo.png)](http://www.youtube.com/embed/sGbxmsDFVnE "Installation and Use of Onedata Client")
-http://i.imgur.com/z6z6zXi.png
 
 ## Prerequisites
 - access to a working Onedata Provider with publci ip address

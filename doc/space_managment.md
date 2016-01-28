@@ -54,7 +54,8 @@ New space will appear on the list of spaces designated with a unique ID.
 
 ### Space Properties
 On the **Manage spaces** page, you can see a detailed information about a space by clicking on it.
-<img  style="display:block;margin:0 auto;" src="img/spaces/space_details.png">
+<img  style="display:block;margin:0 auto;" src="img/spaces/space_details_supported.png">
+
 
 All information regarding you space is presented here, including:
 - a list of users who can access your space and their permissions
@@ -63,7 +64,31 @@ All information regarding you space is presented here, including:
 
 For more information about groups, see [Group Management](group_management.md).
 
-For more information about permissions, see [Access Control](access_control.md).
+
+#### Space Permissions
+
+You can control actions and the level of access to your space by setting dedicated permissions for a userp. In order to edit permissions:
+
+1. Navigate to **Manage spaces** page.
+2. Click on our **space**, to show space detailed view.
+3. To set a permission click on the **empty box**.
+4. To unset a permission click on the **box with a tick**.
+5. To save or discard changes use **Save** or **Discard** buttons.
+
+You can modify any of these permissions:
+
+| Permission Name | Description                                                                   |
+|:----------------|:------------------------------------------------------------------------------|
+| View Space      | User can see  files and folders in your space.                                |
+| Modify Space    | User can modify files and folders in your space.                              |
+| Remove Space    | User can delete your space.                                                   |
+| Invite user     | User can invite new users to your space.                                      |
+| Remove user     | User can remove  users from your space.                                       |
+| Invite group    | User can invite new groups to your space.                                     |
+| Remove group    | User can remove  groups from your space.                                      |
+| Invite provider | User can request a support from the provider.                                 |
+| Remove provider | User can remove provider form the list of providers that supports your space. |
+| Set privileges  | User can modify this privileges.                                              |
 
 ### Perform actions on your space
 One the **Manage spaces** page, each listed space has a **Action**, which allows you to:
@@ -90,7 +115,7 @@ In order to increase your space quota:
 
 The last step can be performed by email or by other means depending on the policies adopted by the provider. After the provider supports your space with more storage you will be able to see it in detailed space view.
 
-> dodac rysunke poakzuajcy ze quota spaca sie zwieksza
+<img  style="display:block;margin:0 auto;" src="img/spaces/space_details.png">
 
 ### Remove your space
 In order to remove your space:

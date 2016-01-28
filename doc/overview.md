@@ -6,38 +6,6 @@
 
 Before you start using Onedata, it's helpful to understand the overall landscape. Knowing what's available and how the parts work together can help you make decisions about how to proceed. This overview is designed to help you down that path. Here, we'll take a brief look at some of the commonly used features and provide pointers to documentation that can help you go deeper. We'll also point out some tutorials that you can use to try out Onedata in various scenarios.
 
-
-This is inline code: `some inline code`.
-
-This is code block:
-
-```
-some unknown
-code language
-```
-
-```javascript
-var fun = function() {
-  console.log('hello');
-};
-```
-
-```python
-class Baz:
-  def foo(self):
-    print 'bar'
-```
-
-<div class="right-side">
-{% youtube caption="Some music: The Joy Formidable"%}https://www.youtube.com/watch?v=ZvYDpmnwMno{% endyoutube %}
-</div>
-
-Nam sed scelerisque sem. Praesent quis condimentum diam, eu finibus est. Cras id risus vitae ex fermentum venenatis. Nulla sit amet dui at lectus molestie consectetur id vel ligula. Vestibulum at imperdiet ex. Sed nec justo ante. Aliquam tincidunt ultricies euismod. Nam vulputate lorem eget leo tincidunt accumsan.
-
-<div class="clearfix"></div>
-
-{% youtube %}https://www.youtube.com/watch?v=y8Kyi0WNg40{% endyoutube %}
-
 ## Onedata Concpets
 
 Onedata is composed of a global network of *Providers* that unify access to geographical distributed storage resources and provide access to physical storage devices. Those resources in turn can be accessed transparently with Onedata.

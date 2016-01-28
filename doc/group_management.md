@@ -40,7 +40,35 @@ All information regarding you group is presented here, including:
 - a list of members of this group and their permissions
 - a list of spaces that this group has joined
 
-For more information about permissions, see [Access Control](access_control.md).
+### Group permissions
+
+You can control actions and the level of access to your space by setting dedicated permissions or a group. In order to edit permissions:
+
+1. Navigate to **Grpup managment** page.
+2. Click on our **grpup**, to show space detailed view.
+3. To set a permission click on the **empty box**.
+4. To unset a permission click on the **box with a tick**.
+5. To save or discard changes use **Save** or **Discard** buttons.
+
+<img style="display:block;margin:0 auto;" src="img/group_permissions.png">
+
+
+
+| Permission Name | Description                                                                    |
+|:----------------|:-------------------------------------------------------------------------------|
+| View Space      | Group can see  files and folders in your space.                                |
+| Modify Space    | Group can modify files and folders in your space.                              |
+| Remove Space    | Group can delete your space.                                                   |
+| Invite user     | Group can invite new users to your space.                                      |
+| Remove user     | Group can remove  users from your space.                                       |
+| Invite group    | Group can invite new groups to your space.                                     |
+| Remove group    | Group can remove  groups from your space.                                      |
+| Invite provider | Group can request a support from the provider.                                 |
+| Remove provider | Group can remove provider form the list of providers that supports your space. |
+| Set privileges  | Group can modify this privileges.                                              |
+
+
+
 
 ### Perform actions on your group
 One the **Manage groups** page, each listed group has a **Action**, which allows you to:
@@ -55,7 +83,7 @@ One the **Manage groups** page, each listed group has a **Action**, which allows
 | Invite user            | Add a user to this group.                             |
 | Create space           | Create a space and allow this group to control it.    |
 | Join space             | Join existing space                                   |
-| Request space creation | ????                                                  |
+| Request space creation | Create a space for this group                         |
 
 
 ### Remove your group

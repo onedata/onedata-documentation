@@ -1,1 +1,0 @@
-Supportowanei psaca suera.
