@@ -6,6 +6,7 @@ Your account can be managed by clicking on your login name on the right side of 
 </p>
 
 In account management section you can add new certificates that will be used to authenticate with Onedata services.
+
 <p align="center">
 <img src="img/manage_account.png">
 </p>
