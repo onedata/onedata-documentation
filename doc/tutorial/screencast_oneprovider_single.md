@@ -4,12 +4,10 @@
 
 In this screencast you will learn how to install Ondata Provider on Centos 7 using Google Compute Engine.
 
-[![Space Management](../img/tutorials/space_managment.png)](https://www.youtube.com/watch?v=_69IbOIrL4c "Space Managment ")
-
+{% youtube caption="Space Managment"%}https://youtu.be/ITvSf_i4V-w{% endyoutube %}
 
 ## Prerequisites
 - active project on Google Cloud Compute Engine
-
 
 ## You will need that
 

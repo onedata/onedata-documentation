@@ -3,7 +3,7 @@
 
 You can give other users or groups access to your space by adding them to your space. The level of access a user or a group has depends on which permissions you choose to grant them.
 
-For more details on permissions, see [Access Control](access_control.md).
+For more details on permissions, see [Space Management](space_management.md) page.
 
 ## Invite another user to your space
 To share a space with another user:

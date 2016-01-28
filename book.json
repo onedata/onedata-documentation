@@ -8,7 +8,7 @@
     "_see_": "https://github.com/todvora/gitbook-plugin-image-captions",
     "pluginsConfig": {
       "image-captions": {
-          "caption": "_CAPTION_"
+          "caption": ""
       }
     }
 }
