@@ -1,12 +1,4 @@
 # User Quickstart
-{% if book.draft %}
-> This document serves as a entry point for the documentation for a user who is eager to start using onedata, regardles of his understanding of onedata concepts.
-
-> In this document we show step by step how to login into onedata, how to create a space and how to upload files.
-
-> All of it is quite easy.
-{% endif %}
-
 This step-by-step guide shows how to create an Onedata account, support your default space and upload files to your account.
 
 ## Set up an account

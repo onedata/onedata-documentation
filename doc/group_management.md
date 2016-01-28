@@ -11,9 +11,6 @@ In order to create your group:
 
 New group will appear on the list of groups designated with a unique ID.
 
-> acl na poziomei spaca i na poziomje plków
->jesli wymaga to wpodzailania wiecej niz 1 usera to trzaskamy rysunek
-
 ## Invite another user to your group
 To invite another user to join your group:
 
@@ -42,36 +39,36 @@ All information regarding you group is presented here, including:
 
 ### Group permissions
 
-You can control actions and the level of access to your space by setting dedicated permissions or a group. In order to edit permissions:
+You can control actions and the level of access to your group by setting dedicated permissions. In order to edit permissions:
 
 1. Navigate to **Grpup managment** page.
-2. Click on our **grpup**, to show space detailed view.
+2. Click on our **grpup**, to show group detailed view.
 3. To set a permission click on the **empty box**.
 4. To unset a permission click on the **box with a tick**.
 5. To save or discard changes use **Save** or **Discard** buttons.
 
 <img style="display:block;margin:0 auto;" src="img/group_permissions.png">
 
+A complete a list of available permissions:
 
-
-| Permission Name | Description                                                                    |
-|:----------------|:-------------------------------------------------------------------------------|
-| View Space      | Group can see  files and folders in your space.                                |
-| Modify Space    | Group can modify files and folders in your space.                              |
-| Remove Space    | Group can delete your space.                                                   |
-| Invite user     | Group can invite new users to your space.                                      |
-| Remove user     | Group can remove  users from your space.                                       |
-| Invite group    | Group can invite new groups to your space.                                     |
-| Remove group    | Group can remove  groups from your space.                                      |
-| Invite provider | Group can request a support from the provider.                                 |
-| Remove provider | Group can remove provider form the list of providers that supports your space. |
-| Set privileges  | Group can modify this privileges.                                              |
+| Permission Name | Description                                                                   |
+|:----------------|:------------------------------------------------------------------------------|
+| View Space      | User can see files and folders in your group.                                 |
+| Modify Space    | User can modify files and folders in your group.                              |
+| Remove Space    | User can delete your group.                                                   |
+| Invite user     | User can invite new users to your group.                                      |
+| Remove user     | User can remove  users from your group.                                       |
+| Invite group    | User can invite new groups to your group.                                     |
+| Remove group    | User can remove  groups from your group.                                      |
+| Invite provider | User can request a support from the provider.                                 |
+| Remove provider | User can remove provider form the list of providers that supports your group. |
+| Set privileges  | User can modify this privileges.                                              |
 
 
 
 
 ### Perform actions on your group
-One the **Manage groups** page, each listed group has a **Action**, which allows you to:
+On the **Manage groups** page, each listed group has a **Action**, which allows you to:
 
 | Action Name            | Description                                           |
 |:-----------------------|:------------------------------------------------------|
