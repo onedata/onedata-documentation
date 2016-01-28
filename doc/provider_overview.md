@@ -3,7 +3,7 @@
 
 Oneprovider is a service that exposes storage resources to Onedata ecosystem. It is typically deployed in a computing center, on the nodes equipped with high speed connection to storage resources. Scalable and re
 
-Oneprovider is a cluster solution composed from three types of services:
+Oneprovider is a cluster solution composed from 3 types of services:
 * Cluster Manager - an administrative services that provides user interface for installing oneprovider services
 * Worker - a services responsible for computation and data transfer
 * Database - a services providing persistent storage for control data
