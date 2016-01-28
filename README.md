@@ -1,39 +1,47 @@
-# ![Onedata](doc/img/heading.png) Documentation
+<p align="left">
+<img src="doc/img/heading.png" width="380">
+</p>
+Onedata is a global data management system, providing easy access to distributed storage resources, supporting wide range of use cases from personal data management to data-intensive scientific computations.
+
+With Onedata, users can access, store, process and publish data using global data storage backed by computing centers and storage providers worldwide.
+
+Onedata focuses on instant, transparent access to distributed data sets, without unnecessary staging and migration, allowing access to the data directly from your local computer or worker node.
+
+If this is your first encounter with Onedata, start with the overview of major concepts of the platform to get familiar with overall architecture and basic aspects of the system such as spaces, clients and providers.
+
+- [Overview](doc/overview.md)
+
+### Quickstart
 
 
-With Onedata scientists can access, store, process and publish data using global data storage backed by computing centers and storage providers worldwide.
+#### For users
+Learn how to access, manage and share your data. Create groups of users with fine grained access rights. Share and collaborate on the gathered data.
 
-Focus on analyzing data, not on moving data to the computing resources, access the results directly from your local computer.
-
-
-### Use existing Onedata installation
-Learn how to access, manage and your data. Create groups of users with fine grained access rights. Share and collaborate on the gathered data.
-
+Read the [quickstart user guide](doc/quickstart.md) or watch our screencasts:
 - [Installation and Use of Onedata Client](doc/tutorial/screencast_oneclient_remote.md)
 {% if book.draft %}
 - [Use Onedata Client on the Shared Storage]()
 {% endif %}
 
-### Become a Provider and connect with Onedata global system
+#### For administrators
 
 Setup your own Onedata Provider, connect your storage resources. Allow your team to use you storage via Onedata. Share your storage resources with outer scientists.
 
+Read the [quickstart admin guide](doc/quickstart.md) or watch our screencasts:
+
 - [Single-node Installation of Onedata Provider on Google Cloud Compute Engine]()
 {% if book.draft %}
-- [Mingle-node Installation of Onedata Provider on Google Cloud Compute Engine]()
+- [Multi-node Installation of Onedata Provider on Google Cloud Compute Engine]()
 {% endif %}
 
-### Documentation
-This site provides detailed documentation about the Onedata data access, how become part of it and how to access its resources.
+### Manuals and tutorials
 
-If you're new to Onedata, [read the Overview](doc/overview.md).
+Tutorials provide step-by-step instructions on how to perform typical data management tasks using Onedata. For a complete list of tutorials, see the [Tutorials page](doc/tutorials.md).
 
-Tutorials provide step-by-step instructions on how to perform tasks with Onedata. For a complete list of tutorials, see the [Tutorials page](doc/tutorials.md).
-
-Solutions provide detailed descriptions of mechanics behind Onedata, with references to published scientific articles that describe them further. For a complete list of solutions, see the Solutions page.
+Solutions section provides description of technology behind Onedata, with references to published scientific articles with more in depth description and evaluation. To learn more how Onedata works, check out the Solutions page.
 
 
-Use the left-hand navigation or the following sections to access the various sets of documentation that cover Onedata features in detail.
+Use the left-hand navigation or the list of links below to access the various sets of documentation that cover Onedata features in detail:
 
 - [HPC data transfer between providers](doc/solutions/rtransfer.md)
 - [Accessing the data]()
