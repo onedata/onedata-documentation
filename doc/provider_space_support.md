@@ -1,6 +1,7 @@
 # Space support
 
-Space is an abstract concept used in onedata for the purpose of data organization. In order to be usefull in terms of storing data, user needs to request a support for his space, from a provider. In order to do that user sends to a provider a token in a form:
+Space is an abstract concept used in onedata for the purpose of data organization. In order to be useful in terms of storing data, user needs to request a storage support for his space from at least 1 provider. In order to do that user sends to the provider a token in a form:
+
 ~~~
 example_token: mxYQpUBQtD-ai5dEQNB_k3qSVGwjxpgjbKMEdtTN
 ~~~
@@ -15,7 +16,7 @@ Administrator logins into onepanel service and in the spaces tab chooses Support
 
 <p align="center"><img src="img/admin/space_support_step2.png"></p>
 
-He enters the token given by a user and and amount of space he wishes to grant to the user.
+He enters the token given by a user and amount of space he wishes to grant to the user.
 
 <p align="center"><img src="img/admin/space_support_step3.png"></p>
 
