@@ -1,11 +1,12 @@
 # Account Management
-You account can be managed by clicking on your login name on the right side of the top pane.
+Your account can be managed by clicking on your login name on the right side of the top pane in the Onedata web interface.
 
 <p align="center">
 <img src="img/manage_account0.png">
 </p>
 
 In account management section you can add new certificates that will be used to authenticate with Onedata services.
+
 <p align="center">
 <img src="img/manage_account.png">
 </p>

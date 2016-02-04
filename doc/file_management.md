@@ -29,9 +29,9 @@ You can control access to your data with a combination of:
 * access lists
 
 
-<img  style="display:block;margin:0 auto;" src="img/permissions.png">
 
 ### POSIX Permissions
+<img  style="display:block;margin:0 auto;" src="img/permissions.png">
 
 
 ### Access Lists
