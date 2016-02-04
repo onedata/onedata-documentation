@@ -24,6 +24,9 @@ You can disable the link to the file you previously share:
 
 
 ## File Permissions
+You can control access to your data with a combination of:
+* classical files permissions,
+* access lists
 
 
 <img  style="display:block;margin:0 auto;" src="img/permissions.png">
