@@ -1,20 +1,22 @@
 
 # Installation and Use of Onedata Client
 
-{% youtube caption="Installation and Use of Onedata Client"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
+The installation is explained step by step in the following screencast:
+
+* {% youtube caption="Installation and Use of Onedata Client"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
 
 
 ## Prerequisites
-- access to a working Onedata Provider with publci ip address
+- access to a working Onedata Provider with public IP address
 - access to a virtual machine with Centos 7
 
 
 ## Screencast Content Overview
-This screencasts presents the installation and usage of onedata linux client.
+This screencast presents the installation and usage of Onedata Linux client.
 
 1. Installation of Onedata Client.
-2. Connecting Onedata Client to user account.
-3. Uploading files with Onedata Client.
+2. Connecting Onedata Client with user account.
+3. Uploading files using Onedata Client.
 
 
 ## Screencast Notes

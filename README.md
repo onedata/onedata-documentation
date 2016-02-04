@@ -23,7 +23,7 @@ Read the [quickstart user guide](doc/quickstart.md) or watch our screencasts:
 
 #### For administrators
 
-Setup your own Onedata Provider, connect your storage resources. Allow your team to use you storage via Onedata. Share your storage resources with outer scientists.
+Setup your own Onedata Provider, connect your storage resources. Allow your team to use you storage via Onedata. Share your storage resources with other scientists.
 
 Read the [quickstart admin guide](doc/quickstart.md) or watch our screencasts:
 
@@ -36,7 +36,7 @@ Read the [quickstart admin guide](doc/quickstart.md) or watch our screencasts:
 
 Tutorials provide step-by-step instructions on how to perform typical data management tasks using Onedata. For a complete list of tutorials, see the [Tutorials page](doc/tutorials.md).
 
-Solutions section provides description of technology behind Onedata, with references to published scientific articles with more in depth description and evaluation. To learn more how Onedata works, check out the Solutions page.
+<!--Solutions section provides description of technology behind Onedata, with references to published scientific articles with more in depth description and evaluation. To learn more how Onedata works, check out the Solutions page.-->
 
 
 Use the left-hand navigation or the list of links below to access the various sets of documentation that cover Onedata features in detail:
