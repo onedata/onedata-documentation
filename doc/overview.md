@@ -12,7 +12,7 @@ Onedata storage is composed of a global network of *Providers* who provision the
 <img src="img/overview_3d_map_with_users.png" width="480">
 </p>
 
-Providers deploy Oneprovider services near physical storage resources, i.e. in computing or data centers.
+Providers deploy Oneprovider services near physical storage resources, i.e. in data or computing centers.
 Providers have full control over which users can use their storage resources and to what extent in terms of data size and transfer limits.
 
 
@@ -24,7 +24,7 @@ For more information about Onedata's  *Provider* service, check out [Oneprovider
 ## Spaces
 All data stored in Onedata is organized into *Spaces*. Spaces can be considered as virtual folders or drives, which can contain an arbitrary subdirectory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one *Provider*, which means that this provider reserved certain storage quota for this particular space. In case, a space is supported by more providers, the total quota is the sum of storage space provision by all providers supporting it.
 
-After registering at [onedata.org](onedata.org), a default *space* is created automatically. Onedata is not a storage provider, and we does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use the *space*, you have to request storage from some provider. 
+After registering at [onedata.org](onedata.org), a default *space* is created automatically. Onedata is not a storage provider, and we does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use the *space*, you have to request storage from some provider.
 
 You can do that by sending to the provider a unique access token, which can be generated at [onedata.org](onedata.org). Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time is depends on your agreement with the Provider. You can request more storage for your *space* from multiple geographical distributed Providers. Onedata will distribute your data across them automatically.
 
@@ -38,14 +38,13 @@ Data in spaces can be managed through a web interface as well as from command-li
 
 For more information about *Spaces* and *Groups* see [Space Managment](space_management.md) and [Group Managment](group_management.md).
 
-For more information about *Access Control*, see [Access Control](access_control.md) documentation pages.
 
 
 ## User interfaces
 
-Onedata gives you three basic ways to interact with Onedata and to access your data.
+Onedata gives you three four ways to interact with Onedata and to access your data.
 
-### Provider management interface
+### User space management interface
 
 <p align="center">
 <img src="img/provider_gui_screen.png" width="780">
@@ -53,18 +52,17 @@ Onedata gives you three basic ways to interact with Onedata and to access your d
 
 The Onedata Provider's Web Interface provides a web-based, graphical user interface that you can use to govern your spaces, control access rights and manage your user account.
 
-### User space management interface
- TODO
-
 ### User command-line interface
 
 If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](oneclient.md) reference for the complete list of available features.
+
+### Oneprovider interface
+ TODO
 
 ### Developer interfaces
 
 Currently Onedata exposes two kinds of API's:
 
-- [REST API](rest.md)
-- [CDMI API](cdmi.md)
+- [REST and CDMI API](cdmi.md)
 
 Both allow users to directly access and manage spaces, groups, authorization rights and data.

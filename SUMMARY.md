@@ -7,7 +7,7 @@
 * [Quickstart](doc/as_a_user.md)
 
 * [User Guide](doc/user_guide.md)
-  * [Space Management](doc/space_managment.md)
+  * [Space Management](doc/space_management.md)
   * [Group Management](doc/group_management.md)
   * [File Management](doc/file_management.md)
   * [Space Collaboration](doc/space_collaboration.md)
