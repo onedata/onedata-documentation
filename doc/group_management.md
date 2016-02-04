@@ -1,9 +1,9 @@
 # Group Management
 
-You can create or join existing groups to easier manage and collaborate on your spaces. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permission to manage it. You can manage your groups from a Manage groups page, accessible with Group button on the top menu.
+You can create or join existing groups to easily manage and collaborate using your spaces. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permission to manage it. You can manage your groups from a **Manage groups** page, accessible with **Group** button on the top menu.
 
-## Create your group
-In order to create your group:
+## Create a new group
+In order to create a new  group:
 
 1. In the Onedata Web Interface click **Groups** button located on the top menu.
 2. On the **Manage groups** page, click **Create new group** button.
@@ -30,10 +30,10 @@ To join a group, you must request from them the token. After receiving the token
 You should be able to see a group on the Manage groups page immediately.
 
 ## Group properties
-On the **Manage grops** page, you can see a detailed information about a group by clicking on it.
+On the **Manage groups** page, you can see a detailed information about a group by clicking on it.
 <img  style="display:block;margin:0 auto;" src="img/group_management_group1_details.png">
 
-All information regarding you group is presented here, including:
+All information regarding your group is presented here, including:
 - a list of members of this group and their permissions
 - a list of spaces that this group has joined
 
@@ -41,15 +41,15 @@ All information regarding you group is presented here, including:
 
 You can control actions and the level of access to your group by setting dedicated permissions. In order to edit permissions:
 
-1. Navigate to **Grpup managment** page.
-2. Click on our **grpup**, to show group detailed view.
+1. Navigate to **Group managment** page.
+2. Click on our **group**, to show group detailed view.
 3. To set a permission click on the **empty box**.
 4. To unset a permission click on the **box with a tick**.
 5. To save or discard changes use **Save** or **Discard** buttons.
 
 <img style="display:block;margin:0 auto;" src="img/group_permissions.png">
 
-A complete a list of available permissions:
+A complete list of available permissions:
 
 | Permission Name | Description                                                                   |
 |:----------------|:------------------------------------------------------------------------------|
@@ -62,7 +62,7 @@ A complete a list of available permissions:
 | Remove group    | User can remove  groups from your group.                                      |
 | Invite provider | User can request a support from the provider.                                 |
 | Remove provider | User can remove provider form the list of providers that supports your group. |
-| Set privileges  | User can modify this privileges.                                              |
+| Set privileges  | User can modify these privileges.                                              |
 
 
 

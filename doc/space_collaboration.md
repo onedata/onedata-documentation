@@ -16,7 +16,7 @@ To share a space with another user:
 After another user joins your space you will be able to see him in the detailed space view.
 
 
-## Join another user space
+## Join another user's space
 To join a space of another user, you must request from them the token. After receiving the token:
 
 1. Navigate to **Manage spaces** page.
