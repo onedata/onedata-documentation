@@ -23,7 +23,7 @@ For more information about Onedata's  *Provider* service, check out [Oneprovider
 ## Spaces
 All data stored in Onedata is organized into *Spaces*. Spaces can be considered as virtual folders or drives, which can contain an arbitrary subdirectory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one *Provider*, which means that this provider reserved certain storage quota for this particular space. In case, a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
 
-After registering at [onedata.org](onedata.org), a so-called default *space* is created automatically. Onedata is not a storage provider, and it does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use the *space*, you have to request storage from some provider. 
+After registering at [onedata.org](onedata.org), a so-called default *space* is created automatically. Onedata is not a storage provider, and it does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use the *space*, you have to request storage from some provider.
 
 You can do that by sending to the provider a unique access token, which can be generated at [onedata.org](onedata.org). Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the Provider. You can request more storage for your *space* from multiple geographically distributed Providers. Onedata will unify access to these storage resources automatically.
 
@@ -41,14 +41,7 @@ For more information about *Spaces* and *Groups* see [Space Managment](space_man
 
 ## User interfaces
 
-Onedata gives you 3 basic ways to interact with Onedata and to access your data.
-
-### Provider management interface
-
-
-
-TODO
-
+Onedata gives you 4 basic ways to interact with Onedata and to access your data.
 
 ### User space management interface
 
@@ -56,11 +49,15 @@ TODO
 <img src="img/provider_gui_screen.png" width="780">
 </p>
 
-The Onedata Provider's Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
+The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
 
 ### User command-line interface
 
 If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](oneclient.md) reference for the complete list of available features.
+
+### Provider management interface
+
+Dedicated web interface for installation and managment of Oneprovider cluster.
 
 ### Developer interfaces
 
