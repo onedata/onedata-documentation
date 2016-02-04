@@ -13,8 +13,7 @@
   * [Space Collaboration](doc/space_collaboration.md)
   * [Account Management](doc/account_management.md)
   * [Oneclient CLI](doc/oneclient.md)
-  * [REST API](doc/rest.md)
-  * [CDMI API](doc/cdmi.md)
+  * [REST and CDMI API](doc/cdmi.md)
 
 * [Administrator Guide](doc/admin_guide.md)
   * [Oneprovider Overview](doc/provider_overview.md)
@@ -23,11 +22,11 @@
 
 * [Tutorials](doc/tutorials.md)
   * [Quickstart: Space Management](doc/tutorial/screencast_space_management.md)
-  * [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md)
+  <!--** [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md)-->
   * [Using Oneclient With Direct I/O ](doc/tutorial/screencast_oneclient_directio.md)
   * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-  * [Provider Installation: Multi Node](doc/tutorial/screencast_oneprovider_multi.md)
-
+  <!--* [Provider Installation: Multi Node](doc/tutorial/screencast_oneprovider_multi.md)
+-->
 * [Solutions](doc/solutions.md)
   * [Authentication methods](solutions/authentication.md)
   * [rTransfer Protocol](solutions/rTransfer.md)
