@@ -28,12 +28,36 @@ You can control access to your data with a combination of:
 * classical files permissions,
 * access lists
 
-
-
 ### POSIX Permissions
+Much like POSIX permissions, onedata allows you to control access to your resources for users, group and others; in terms of read, write and executable permissions.
+In order to edit permissions:
+
+1. Navigate to **Data** tab.
+2. Select a **file or a directory** by clicking on it.
+3. Click on the **lock icon**.
+4. Edit permissions by click on on the appropriate **checkbox**.
+5. Click **OK** in order to save chances.
+
+You can also edit POSIX permissions by entering it in octal form.
+In case of directories you can select a recursive option, to apply permission to the whole subtree.
+
 <img  style="display:block;margin:0 auto;" src="img/permissions.png">
 
 
 ### Access Lists
+You can also setup permissions using access lists to control permissions of individual users and groups.
+In order to edit permissions:
 
+1. Navigate to **Data** tab.
+2. Select a **file or a directory** by clicking on it.
+3. Click on the **lock icon**.
+4. Clikc on the **ACLs radio button**
+5. Edit permissions by click on on the appropriate **checkbox**.
+5. Click **OK** in order to save chances.
+
+*Note, that access lists take precedence over POSIX permissions. If access list is set, POSIX are set to octal value of `000`.*
+
+The order in which permissions take precedence is shown with an arrow
+
+In case of directories you can select a recursive option, to apply permission to the whole subtree.
 <img  style="display:block;margin:0 auto;" src="img/acls.png">
