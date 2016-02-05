@@ -2,7 +2,7 @@
 This document discusses in more detail what the space is, and how it can be managed through the Onedata web interface.
 
 ## Space concept overview
-You can think of a space as a virtual directory, which content is stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all storage providers supporting it.
+You can think of a space as a virtual directory, which contents are stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all storage providers supporting it.
 
 *It is important to note that even if some file in the space is larger than any single provider's quota but smaller that total storage quota left in the space, Onedata can still store this file by splitting it in blocks and storing parts at different storage providers.*
 
@@ -23,7 +23,7 @@ To understand the hierarchy of spaces, lets go through an example:
 - we have 3 spaces
 - in each space there is a single directory and a single file, whose names correspond to the space's name
 
-In first case the `Space1` is designated as the *default space*. Two other spaces were put into folder `spaces` and can be accessed from `Space1`.
+In the first case the `Space1` is designated as the *default space*. Two other spaces were put into folder `spaces` and can be accessed from `Space1`.
 
 <img style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2.png">
 
