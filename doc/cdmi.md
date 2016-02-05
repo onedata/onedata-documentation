@@ -3,12 +3,19 @@
 
 Onedata supports file operations via Cloud Data Management Interface (CDMI), version 1.1.1. For more information about CDMI please visit official CDMI [website](http://www.snia.org/cdmi).
 
-The list of supported operation:
+The mapping between CDMI and Onedata concepts is as follows:
+
+| CDMI concept | Onedata concept|
+|:--------------------------------|:-------|
+| Data object | File, folder|
+| Container | Space |
+
+The list of currently supported operations is presented below:
 
 | Operations                       | Capabilities                                                                            |
 |:---------------------------------|:----------------------------------------------------------------------------------------|
-| Basic object GET PUT DELETE      | cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject            |
-| Basic container GET PUT DELETE   | cdmi_list_children, cdmi_create_container, cdmi_delete_container                        |
+| Basic object GET, PUT, DELETE      | cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject            |
+| Basic container GET, PUT, DELETE   | cdmi_list_children, cdmi_create_container, cdmi_delete_container                        |
 | Metadata (container&dataobject)  | cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_(atime&#124;mtime&#124;ctime) |
 | Access control lists (rwx)       | cdmi_acl                                                                                |
 | Big folders                      | cdmi_list_children_range                                                                |
