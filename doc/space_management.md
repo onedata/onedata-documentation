@@ -2,19 +2,20 @@
 This document discusses in more detail what the space is, and how it can be managed through the Onedata web interface.
 
 ## Space concept overview
+
+<img style="float:right;margin: 00px 30px;max-width:150px" src="img/spaces/1_space_with_files.png">
+
 You can think of a space as a virtual directory, which contents are stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all storage providers supporting it.
 
 *It is important to note that even if some file in the space is larger than any single provider's quota but smaller that total storage quota left in the space, Onedata can still store this file by splitting it in blocks and storing parts at different storage providers.*
 
-
-<img style="float:right;margin: 00px 30px" src="img/spaces/1_space_with_files.png">
-
 You can create as many spaces as necessary, and each of them can have different providers supporting it.
 
 ### Default Space
-After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *default space*.
 
-<img style="float:right;margin: 0px 0px" src="img/spaces/default_space_with_files_and_user.png">
+<img style="float:right;margin: 0px 15px;max-width:295px" src="img/spaces/default_space_with_files_and_user.png">
+
+After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *default space*.
 
 The contents of the default space are presented as a root directory for your spaces. Default space contains a single directory called `spaces`, which allows you to access files in your other spaces. This is especially convenient for command line access, where you can access all your spaces from a single directory.
 
