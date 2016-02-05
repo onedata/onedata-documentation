@@ -5,7 +5,7 @@ With Onedata, users can access, store, process and publish data using global dat
 
 Onedata focuses on instant, transparent access to distributed data sets, without unnecessary staging and migration, allowing access to the data directly from your local computer or worker node.
 
-If this is your first encounter with Onedata, start with the overview of major concepts of the platform to get familiar with overall architecture and basic aspects of the system such as spaces, clients and providers.
+If this is your first encounter with Onedata, start with the overview of major concepts of the platform to get familiar with the overall architecture and basic aspects of the system such as spaces, clients and providers.
 
 - [Overview](doc/overview.md)
 
@@ -13,7 +13,7 @@ If this is your first encounter with Onedata, start with the overview of major c
 
 
 #### For users
-Learn how to access, manage and share your data. Create groups of users with fine grained access rights. Share and collaborate on the gathered data.
+Learn how to access, manage and share your data. Create groups of users with fine grained access rights. Share and collaborate on your data.
 
 Read the [quickstart user guide](doc/as_a_user.md) or watch our screencasts:
 - [Installation and Use of Onedata Client](doc/tutorial/screencast_oneclient_remote.md)
@@ -23,7 +23,7 @@ Read the [quickstart user guide](doc/as_a_user.md) or watch our screencasts:
 
 #### For administrators
 
-Setup your own Onedata Provider, connect your storage resources. Allow your team to use you storage via Onedata. Share your storage resources with other scientists.
+Setup your own Onedata Provider, connect your storage resources. Allow your team to use your storage via Onedata. Share your storage resources with other scientists.
 
 Read the [Oneprovider overview](doc/provider_overview.md) or watch our screencasts:
 
