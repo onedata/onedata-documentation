@@ -1,7 +1,7 @@
 # Space Collaboration
 
 
-You can give other users or groups access to your space by adding them to your space. The level of access a user or a group has depends on which permissions you choose to grant them.
+You can give other users or groups access to your space by adding them to your space. The level of access a user or a group has, depends on which permissions you choose to grant them.
 
 For more details on permissions, see [Space Management](space_management.md) page.
 
