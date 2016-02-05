@@ -20,7 +20,6 @@
    * [Group Management](doc/tutorial/screencast_group_management.md)
    * [Using Oneclient From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
    * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-* [Solutions](doc/solutions.md)
+{% if book.draft %}* [Solutions](doc/solutions.md)
    * [Authentication methods](solutions/authentication.md)
-   * [rTransfer Protocol](solutions/rTransfer.md)
-
+   * [rTransfer Protocol](solutions/rTransfer.md) {% endif %}
