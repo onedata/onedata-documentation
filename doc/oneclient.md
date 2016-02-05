@@ -1,12 +1,12 @@
 # Oneclient
 
-Onedata supplies a command line based client that is able to mount your spaces in your local file system tree. Oneclient is based on [Fuse](https://github.com/libfuse/libfuse) and can be downloaded form [onedata.org](https://onedata.org/download). Please follow installation instructions that can be found there for your particular platform.
+Onedata provides a command-line based client that is able to mount your spaces in your local file system tree. Oneclient is based on [Fuse](https://github.com/libfuse/libfuse) and can be downloaded from [onedata.org](https://onedata.org/download). Please follow installation instructions that can be found there for your particular platform.
 
-*Upon installing ensure that you are a member of a `fuse` group by using the `id` command. If not, use command `gpasswd -a <username> fuse` to add your user to `fuse` group.*
+*After installing ensure that you are a member of a `fuse` group by using the `id` command. If not, use command `gpasswd -a <username> fuse` to add your user to `fuse` group.*
 
 ## Authentication
 
-In order to be able to mount your spaces you need to autenticate with [onedata.org](onedata.org). You can either use a certificate or a authorization token.
+In order to be able to mount your spaces you need to authenticate with [onedata.org](onedata.org). You can either use a certificate or an authorization token.
 
 ~~~
 [onedata@provider ~]$ oneclient -h
