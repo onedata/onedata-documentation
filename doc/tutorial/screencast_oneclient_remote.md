@@ -14,9 +14,9 @@ The installation is explained step by step in the following screencast:
 ## Screencast Content Overview
 This screencast presents the installation and usage of Onedata Linux client.
 
-1. Installation of Onedata Client.
-2. Connecting Onedata Client with user account.
-3. Uploading files using Onedata Client.
+1. Installation of Onedata Client
+2. Connecting Onedata Client with user account
+3. Uploading files using Onedata Client
 
 
 ## Screencast Notes
