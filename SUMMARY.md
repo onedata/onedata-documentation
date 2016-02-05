@@ -1,34 +1,26 @@
 # Summary
 
 * [Onedata Documentation](README.md)
-
 * [Overview](doc/overview.md)
-
 * [Quickstart](doc/as_a_user.md)
-
 * [User Guide](doc/user_guide.md)
-  * [Space Management](doc/space_management.md)
-  * [Group Management](doc/group_management.md)
-  * [File Management](doc/file_management.md)
-  * [Space Collaboration](doc/space_collaboration.md)
-  * [Account Management](doc/account_management.md)
-  * [Oneclient CLI](doc/oneclient.md)
-  * [REST and CDMI API](doc/cdmi.md)
-
+   * [Space Management](doc/space_management.md)
+   * [Group Management](doc/group_management.md)
+   * [File Management](doc/file_management.md)
+   * [Space Collaboration](doc/space_collaboration.md)
+   * [Account Management](doc/account_management.md)
+   * [Oneclient CLI](doc/oneclient.md)
+   * [REST and CDMI API](doc/cdmi.md)
 * [Administrator Guide](doc/admin_guide.md)
-  * [Oneprovider Overview](doc/provider_overview.md)
-  * [Oneprovider Installation](doc/provider_installation.md)
-  * [Space support](doc/provider_space_support.md)
-
+   * [Oneprovider Overview](doc/provider_overview.md)
+   * [Oneprovider Installation](doc/provider_installation.md)
+   * [Space support](doc/provider_space_support.md)
 * [Tutorials](doc/tutorials.md)
-  * [Quickstart: Space Management](doc/tutorial/screencast_space_management.md)
-  {% if book.draft %} * [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md){% endif %}
-  * [Group Management](doc/tutorial/screencast_group_management.md)
-  * [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md)
-  {% if book.draft %}  [Using Oneclient With Direct I/O ](doc/tutorial/screencast_oneclient_directio.md){% endif %}
-  * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-  {% if book.draft %}  [Provider Installation: Multi Node](doc/tutorial/screencast_oneprovider_multi.md)
-
+   * [Quickstart: Space Management](doc/tutorial/screencast_space_management.md)
+   * [Group Management](doc/tutorial/screencast_group_management.md)
+   * [Using Oneclient From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
+   * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
 * [Solutions](doc/solutions.md)
-  * [Authentication methods](solutions/authentication.md)
-  * [rTransfer Protocol](solutions/rTransfer.md){% endif %}
+   * [Authentication methods](solutions/authentication.md)
+   * [rTransfer Protocol](solutions/rTransfer.md)
+
