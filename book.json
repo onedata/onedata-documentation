@@ -1,7 +1,7 @@
 {
     "plugins": ["onedata-theme@0.0.2", "youtube", "image-captions"],
     "variables": {
-       "draft":true,
+       "draft":false,
        "idea":true
     },
 
