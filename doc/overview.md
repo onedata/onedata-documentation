@@ -63,7 +63,6 @@ Dedicated web interface for installation and managment of Oneprovider cluster.
 
 Currently Onedata exposes two kinds of API's:
 
-- [REST API](rest.md)
-- [CDMI API](cdmi.md)
+- [REST and CDMI API](cdmi.md)
 
 Both allow users to directly access and manage spaces, groups, authorization rights and data.

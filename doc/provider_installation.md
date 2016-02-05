@@ -65,15 +65,26 @@ Once installed, it is recommended to register oneprovider with onedata registry,
 
 ### Step 1&2: Connection check and Ports configuration
 
-In order to communicate with onedata, oneprovider needs a public IP address with ports `443` and `8443` opened, or a private address with those ports properly redirected.
+In order to communicate with [onedata.org](onedata.org) worker nodes in the cluster need to have a number of ports publicly available:
+~~~
+tpc: 80 - http web interface port
+tcp: 53 - dns port
+tpc: 443 - https web interface port
+tcp: 5555 - port to communicate with FUSE clients.
+tcp: 8443 - port for provider to provider communication
+tcp: 9443 - onepanel port
+~~~
 
 <p align="center"><img src="img/admin/rstrep1_info.png"></p>
 
 <p align="center"><img src="img/admin/rstep2_ports.png"></p>
+
+Ideally all the nodes should have a dedicated public ip and those ports open to the world. In other case you can configure a `;` separated *Redirection points*, where each entry is a pair of public ip and the port which point to one of the nodes.
+
+For the sake of security it is recommended, that no ports on database and cluster manager nodes were publicly open.
 
 
 ### Step 3: Name configuration
 The last step allows to set a name for the provider by which it will be identified in onedata registry and presented to users.
 
 <p align="center"><img src="img/admin/rstep2_name.png"></p>
-
