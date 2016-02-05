@@ -20,7 +20,7 @@ You can disable the link to the file you previously share:
 1. Hover over the **Data** button.
 2. Click on **Shared Files**.
 3. On the list of files you share find the file you wish to stop sharing.
-4. Click on the **"X" sign*** next to it.
+4. Click on the **"X" sign** next to it.
 
 
 ## File Permissions
