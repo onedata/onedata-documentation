@@ -10,7 +10,6 @@ with accompanying information how much space is requested.
 ## Space support step by step
 In order to grant user a support for his space,  you login into onepanel service and in the spaces tab chooses Support Space button:
 
-
 <p align="center"><img src="img/admin/space_support_step2.png"></p>
 
 He enters the token given by a user and amount of space he wishes to grant to the user.

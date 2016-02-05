@@ -1,4 +1,3 @@
-
 # Quickstart: Space Management
 
 In this screencast you will learn:

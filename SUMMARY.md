@@ -22,11 +22,13 @@
 
 * [Tutorials](doc/tutorials.md)
   * [Quickstart: Space Management](doc/tutorial/screencast_space_management.md)
-  <!--** [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md)-->
-  * [Using Oneclient With Direct I/O ](doc/tutorial/screencast_oneclient_directio.md)
+  {% if book.draft %} * [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md){% endif %}
+  * [Group Management](doc/tutorial/screencast_group_management.md)
+  * [Using Oneclient From Remote Host ](doc/tutorial/screencast_oneclient_remote.md)
+  {% if book.draft %}  [Using Oneclient With Direct I/O ](doc/tutorial/screencast_oneclient_directio.md){% endif %}
   * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-  <!--* [Provider Installation: Multi Node](doc/tutorial/screencast_oneprovider_multi.md)
--->
+  {% if book.draft %}  [Provider Installation: Multi Node](doc/tutorial/screencast_oneprovider_multi.md)
+
 * [Solutions](doc/solutions.md)
   * [Authentication methods](solutions/authentication.md)
-  * [rTransfer Protocol](solutions/rTransfer.md)
+  * [rTransfer Protocol](solutions/rTransfer.md){% endif %}
