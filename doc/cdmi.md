@@ -1,7 +1,7 @@
 
 # CDMI
 
-Onedata supports file operations via Cloud Data Management Interface (CDMI), version 1.1.1. 
+Onedata supports file operations via Cloud Data Management Interface (CDMI), version 1.0.2. 
 CDMI provides a universal, vendor-agnostic interface for discovering capabilities of storage providers, managing Cloud storage and basic data access mechanism. 
 For more information about CDMI please visit official CDMI [website](http://www.snia.org/cdmi).
 
@@ -12,7 +12,7 @@ The mapping between CDMI and Onedata concepts is as follows:
 | Data object | Data objects in Onedata are basic files stored in user's Spaces|
 | Container | Both Space and directories in Onedata are referred to as containers via CDMI |
 | ACL | Onedata supports full CDMI Access Control List mechanism |
-| | |
+
 
 The list of currently supported operations is presented below:
 
@@ -31,20 +31,25 @@ The list of currently supported operations is presented below:
 ## Examples of usage
 
 ### Generation of access token
-In order to use Onedata CDMI interface, a unique access token has to be generated using authentication code which can be obtained from the Onedata Web GUI. Using the authentication code, the access token can be obtained from the command line
+In order to use Onedata CDMI interface, a unique access token has to be generated using authorization code which can be obtained from the Onedata Web GUI. Using the authorization code, the access token can be obtained using Onedata REST API:
 
 ~~~
-export AUTHENTICATION_CODE=<GENERATED_CODE>
-> curl -k -X POST -H 'Content-Type: application/json' -d "{\"code\" : \"$AUTHENTICATION_CODE\", \"client_name\" : \"cdmi_client\"}" https://plgdutka.onedata.org:8443/rest/latest/token
+> export AUTHORIZATION_CODE=<GENERATED_CODE>
+
+> export ONE_HOST=$ONE_ALIAS.onedata.org
+
+> curl -k -X POST -H 'Content-Type: application/json' -d "{\"code\" : \"$AUTHORIZATION_CODE\", \"client_name\" : \"cdmi_client\"}" https://$ONE_HOST:8443/rest/latest/token
 RES: {"accessToken":"<TOKEN>"}
 ~~~
+
+*ONE_HOST environment variable can also point directly to a specific Oneprovider service. The URL can be obtained simply from the web browser when access the Web GUI interface of Onedata.*
 
 Before running the below examples please export the following environment variables:
 ~~~
 export ACCESS_TOKEN=<TOKEN>
 export TOKEN_HEADER="x-auth-token: $ACCESS_TOKEN"
 export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.0.2'
-export ENDPOINT=https://plgdutka.onedata.org:8443/cdmi
+export ENDPOINT=https://$ONE_HOST:8443/cdmi
 ~~~
 
 
@@ -70,7 +75,7 @@ export ENDPOINT=https://plgdutka.onedata.org:8443/cdmi
 ~~~
 
 ### Metadata - example
-##### Setting custom metadata:
+##### Setting custom metadata
 ~~~
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -d '{"metadata" : {"meta1" : "val1", "meta2" : "val2"}}' -X PUT  $ENDPOINT/file.txt
 ~~~
@@ -98,8 +103,7 @@ Identifier may be followed by optional ID prefix hash, to distinguish
 Flag IDENTIFIER_GROUP indicates group name in identifier. Mask may contain any combination of rwx permissions i.e. *READ, WRITE, EXECUTE*.
 
 
-### Access control lists - example
-##### ACL CDMI modification
+#### ACL CDMI modification
 ~~~
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -d '{"metadata" : {"cdmi_acl":[
 {"acetype":"ALLOW","identifier":"Tomasz Lichon", "aceflags":"NO_FLAGS","acemask":"READ, WRITE"}, {"acetype":"ALLOW","identifier":"Lukasz Dutka", "aceflags":"NO_FLAGS","acemask":"READ"}]}}' -X PUT  $ENDPOINT/file.txt\?metadata:cdmi_acl
@@ -138,7 +142,7 @@ When
 ~~~
 
 ### Access by ObjectID
-Every object has unique id, and can be accessed by URI “/cdmi_objectid/<ObjectID>”
+Every object has unique id, and can be accessed by URI “/cdmi_objectid/OBJECT_ID”
 ~~~
 # get objectid
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/dir/\?ObjectID
