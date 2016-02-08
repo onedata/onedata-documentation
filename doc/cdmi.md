@@ -31,10 +31,12 @@ The list of currently supported operations is presented below:
 ## Examples of usage
 
 ### Generation of access token
-In order to use Onedata CDMI interface, a unique access token has to be generated using authorization code which can be obtained from the Onedata Web GUI. Using the authorization code, the access token can be obtained using Onedata REST API:
+In order to use Onedata CDMI interface, a unique access token has to be generated using authorization code which can be obtained from the Onedata Web GUI. Using the authorization code, the access token can be obtained using Onedata REST API. First you will need however to set your Onedata alias name, which can be found in the **Manage account** page in the Web GUI.
 
 ~~~
 > export AUTHORIZATION_CODE=<GENERATED_CODE>
+
+> export ONE_HOST=<YOUR_ALIAS>
 
 > export ONE_HOST=$ONE_ALIAS.onedata.org
 
@@ -46,14 +48,19 @@ RES: {"accessToken":"<TOKEN>"}
 
 Before running the below examples please export the following environment variables:
 ~~~
-export ACCESS_TOKEN=<TOKEN>
-export TOKEN_HEADER="x-auth-token: $ACCESS_TOKEN"
-export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.0.2'
-export ENDPOINT=https://$ONE_HOST:8443/cdmi
+> export ACCESS_TOKEN=<TOKEN>
+
+> export TOKEN_HEADER="x-auth-token: $ACCESS_TOKEN"
+
+> export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.0.2'
+
+> export ENDPOINT=https://$ONE_HOST:8443/cdmi
 ~~~
 
 
-### Basic object GET PUT DELETE - example
+### Dataobject GET PUT DELETE
+
+When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using $ENDPOINT/file.txt will address file *file.txt* in default space and using $ENDPOINT/spaces/TestSpace/file.txt will address file *file.txt* in space *TestSpace*. 
 
 
 ##### CDMI PUT request
@@ -73,6 +80,14 @@ export ENDPOINT=https://$ONE_HOST:8443/cdmi
 ~~~
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -X PUT $ENDPOINT/dir2/
 ~~~
+
+### Container GET PUT DELETE
+
+CDMI create container (directory) 
+~~~
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -X PUT $ENDPOINT/dir2/
+~~~
+
 
 ### Metadata - example
 ##### Setting custom metadata
