@@ -85,23 +85,24 @@ export ENDPOINT=https://plgdutka.onedata.org:8443/cdmi
 Access control lists provide mechanism for granting and prohibiting access to data on space, directory and file levels. Onedata supports the complete ACL functionality of CDMI, which can be also managed through the Web GUI.
 
 
-ACL's are stored as cdmi_acl metadata
-An object with unset ACL, has virtual ACL which contains entries for every space member, that gives him permissions equal to posix file mode
-If we explicitly set ACL, the posix mode is no longer used
+In CDMI, ACL's are stored as cdmi_acl metadata. An object with unset ACL, has virtual ACL which contains entries for every space member, that gives him permissions equal to POSIX file mode. ACL permissions always take precedence over POSIX style permissions.
+
 A single Access Control Entry contains:
-Type – ALLOW | DENY
-Identifier – USERNAME[#HASH] | GROUPNAME[#HASH]
-Flags – NO_FLAGS | IDENTIFIER_GROUP
-Mask – {READ, WRITE, EXECUTE}
-Identifier may be followed by optional id prefix hash, to distinguish equal names
-Flag IDENTIFIER_GROUP indicates group name in identifier. Mask may contain any combination of rwx perms i. e. “READ, WRITE, EXECUTE”
+ * Type – **ALLOW** | **DENY**
+ * Identifier – **USERNAME[#HASH]** | **GROUPNAME[#HASH]**
+ * Flags – **NO_FLAGS** | **IDENTIFIER_GROUP**
+ * Mask – {**READ**, **WRITE**, **EXECUTE**}
+
+Identifier may be followed by optional ID prefix hash, to distinguish 
+
+Flag IDENTIFIER_GROUP indicates group name in identifier. Mask may contain any combination of rwx permissions i.e. *READ, WRITE, EXECUTE*.
 
 
 ### Access control lists - example
-##### ACL cdmi modification
+##### ACL CDMI modification
 ~~~
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -d '{"metadata" : {"cdmi_acl":[
-{"acetype":"ALLOW","identifier":"Tomasz Lichoń", "aceflags":"NO_FLAGS","acemask":"READ, WRITE"}, {"acetype":"ALLOW","identifier":"Lukasz Dutka", "aceflags":"NO_FLAGS","acemask":"READ"}]}}' -X PUT  $ENDPOINT/file.txt\?metadata:cdmi_acl
+{"acetype":"ALLOW","identifier":"Tomasz Lichon", "aceflags":"NO_FLAGS","acemask":"READ, WRITE"}, {"acetype":"ALLOW","identifier":"Lukasz Dutka", "aceflags":"NO_FLAGS","acemask":"READ"}]}}' -X PUT  $ENDPOINT/file.txt\?metadata:cdmi_acl
 ~~~
 
 ### Big folders - example
@@ -111,23 +112,27 @@ List first child of „spaces” container
 ~~~
 
 ### File System Export (FUSE client)
-~~~
-onedata does not support cdmi file system export, but has its own dedicated fuse client, which can be installed and mounted in filesystem
-Installation instruction can be found in our website
 
-###Move and copy - example
-Container copy
+Onedata does not support CDMI file system export, but has its own dedicated FUSE client, which can be installed and mounted in filesystem.
+
+Installation instructions can be found on our [website](https://onedata.org/download).
+
+### Move and copy - example
+Copy directory (CDMI container) *dir* to directory *dir3*
 ~~~
 > curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -d '{"copy" : "/dir/"}' -X PUT $ENDPOINT/dir3/
-
-### Big files - example
-##### CDMI partial upload
 ~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: true' -X PUT -d '{"value" : "MDEy"}' $ENDPOINT/partial\?value:0-2
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: false' -X PUT -d '{"value" : "MzQ1Ng=="}' $ENDPOINT/partial\?value:3-6
+### CDMI partial upload
+
+CDMI since version 1.0.2 provides support for partial uploads, where a subrange of *value* field can be provided as long as byte range that is submitted is specified using URL attribute **?value:START_OFFSET-END_OFFSET**
+~~~
+> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: true' -X PUT -d '{"value": "MDEy"}' $ENDPOINT/partial_test.txt\?value:0-2
+
+> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: false' -X PUT -d '{"value": "MzQ1Ng=="}' $ENDPOINT/partial_test.txt\?value:3-6
 ~~~
 
-##### HTTP range read
+### HTTP range read
+When 
 ~~~
 > curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET $ENDPOINT/partial
 ~~~
