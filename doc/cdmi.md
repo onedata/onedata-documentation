@@ -115,7 +115,7 @@ A single Access Control Entry contains:
 
 Identifier may be followed by optional ID prefix hash, to distinguish 
 
-Flag IDENTIFIER_GROUP indicates group name in identifier. Mask may contain any combination of rwx permissions i.e. *READ, WRITE, EXECUTE*.
+Flag **IDENTIFIER_GROUP** indicates group name in identifier. Mask may contain any combination of *rwx* permissions i.e. **READ**, **WRITE**, **EXECUTE**.
 
 
 #### ACL CDMI modification
@@ -153,7 +153,7 @@ CDMI since version 1.0.2 provides support for partial uploads, where a subrange 
 ### HTTP range read
 
 ~~~
-> curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET $ENDPOINT/partial
+> curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET $ENDPOINT/partial_test.txt
 ~~~
 
 ### Access by ObjectID
