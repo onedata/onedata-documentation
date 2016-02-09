@@ -5,7 +5,7 @@ Onedata supports file operations via Cloud Data Management Interface (CDMI), ver
 CDMI provides a universal, vendor-agnostic interface for discovering capabilities of storage providers, managing Cloud storage and basic data access mechanism. 
 For more information about CDMI please visit official CDMI [website](http://www.snia.org/cdmi).
 
-The mapping between CDMI and Onedata concepts is as follows:
+CDMI uses certain terms such as dataobject or container to refer to various elements of storage, the mapping between main CDMI and Onedata concepts is as follows:
 
 | CDMI concept | Onedata concept|
 |:--------------------------------|:-------|
@@ -60,7 +60,7 @@ Before running the below examples please export the following environment variab
 
 ### Dataobject GET PUT DELETE
 
-When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using $ENDPOINT/file.txt will address file *file.txt* in default space and using $ENDPOINT/spaces/TestSpace/file.txt will address file *file.txt* in space *TestSpace*. 
+When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using *$ENDPOINT/file.txt* will address file *file.txt* in default space and using *$ENDPOINT/spaces/TestSpace/file.txt* will address file *file.txt* in space *TestSpace*. 
 
 
 ##### CDMI PUT request
@@ -127,7 +127,7 @@ Flag IDENTIFIER_GROUP indicates group name in identifier. Mask may contain any c
 ### Big folders - example
 List first child of „spaces” container
 ~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/spaces/\?children:0-0;childrenrange
+> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/spaces/?children:0-0;childrenrange"
 ~~~
 
 ### File System Export (FUSE client)
@@ -139,7 +139,7 @@ Installation instructions can be found on our [website](https://onedata.org/down
 ### Move and copy - example
 Copy directory (CDMI container) *dir* to directory *dir3*
 ~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -d '{"copy" : "/dir/"}' -X PUT $ENDPOINT/dir3/
+> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -d '{"copy" : "/dir/"}' -X PUT $ENDPOINT/dir-copy/
 ~~~
 ### CDMI partial upload
 
@@ -151,7 +151,7 @@ CDMI since version 1.0.2 provides support for partial uploads, where a subrange 
 ~~~
 
 ### HTTP range read
-When 
+
 ~~~
 > curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET $ENDPOINT/partial
 ~~~
