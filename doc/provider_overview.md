@@ -23,7 +23,7 @@ There are two types of data transfer that Oneprovider can engage in:
 * remote data transfer - transfer between 2 providers when data needed by one provider is not available on local storage. This also involves oneprovider access to storage.
 
 While accessing data, depending on the client location data transfer can be either:
-* direct transfer - when client is located in the same computing center and has direct access to storage resources, the client exchanges only control communication with Oneprovider and accesses storage directly bypassing **oneprovider** for actual data transfer,
+* direct transfer - when client is located in the same computing center and has direct access to storage resources, the client exchanges only control communication with Oneprovider and accesses storage directly bypassing Oneprovider for actual data transfer,
 * remote transfer - client is unable to access storage locally and data needs to be transferred via **oneprovider** nodes.
 
 **oneprovider** is responsible for providing access to data for CDMI, S3 and POSIX VFS protocols.
