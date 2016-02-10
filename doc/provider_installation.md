@@ -17,7 +17,7 @@ and on other Linux platforms using automated Bash installation script.
 
 For detailed instructions on how to install Oneprovider package on each of those systems please visit [download section](https://onedata.org/download) on Onedata homepage.
 
-Oneprovider package setups a service called **onepanel**. Onepanel is a cluster installation and administration user interface that detects all other nodes in the local network where **oneprovider** service has been installed and allows for configuration of services on each cluster node.
+Oneprovider package setups a service called Onepanel. Onepanel is a cluster installation and administration user interface that detects all other nodes in the local network where **oneprovider** service has been installed and allows for configuration of services on each cluster node.
 
 Upon successful installation of **oneprovider** package, you need to navigate to `https://<ip>:9443` address. The default credentials for logging into **onepanel** are:
 ~~~
