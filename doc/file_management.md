@@ -26,19 +26,19 @@ You can disable the link to the file you previously shared:
 ## File Permissions
 You can control access to your data with a combination of:
 * classical (POSIX) file permissions
-* access lists
+* access control lists
 
 ### POSIX Permissions
-Onedata allows you to control access to your data in a POSIX fashion for users, group and others; in terms of read, write and executable permissions.
+Onedata allows you to control access to your data in a POSIX fashion for users, group and others in terms of read, write and executable permissions.
 In order to edit permissions:
 
 1. Navigate to **Data** tab.
-2. Select a **file or a directory** by clicking on it.
+2. Select a **file** or a **directory** by clicking on it.
 3. Click on the **lock icon**.
 4. Edit permissions by clicking on the appropriate **checkbox**.
 5. Click **OK** in order to save changes.
 
-You can also edit POSIX permissions by entering it in octal form.
+You can also edit POSIX permissions by entering them in octal form.
 In case of directories you can select a recursive option, to apply permission to the whole subtree.
 
 <img  style="display:block;margin:0 auto;" src="img/permissions.png">
