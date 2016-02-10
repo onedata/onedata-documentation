@@ -25,7 +25,7 @@ All data stored in Onedata is organized into *Spaces*. Spaces can be considered 
 
 After registering at [onedata.org](onedata.org), a so-called default *space* is created automatically. Onedata is not a storage provider, and it does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use this *space*, you have to request storage from some provider.
 
-You can do that by sending to the provider a unique access token, which can be generated at [onedata.org](onedata.org). Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the Provider. You can request more storage for your *space* from multiple geographically distributed Providers. Onedata will unify access to these storage resources automatically.
+You can do that by sending to the provider a unique access token, which can be generated at [onedata.org](onedata.org). Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the Provider. You can request more storage for your *space* from multiple geographically distributed providers. Onedata will unify access to these storage resources automatically.
 
 <p align="center">
 <img src="img/spaces_model1.png" width="380">
@@ -35,7 +35,7 @@ Each user can have any number of *spaces*. *Spaces* can be easily shared with ot
 
 Data in spaces can be managed through a web interface as well as from command-line. Each space can be easily mounted to a local filesystem and accessed directly from a laptop, a cluster node or virtual machine deployed in the cloud.
 
-For more information about *Spaces* and *Groups* see [Space Managment](space_management.md) and [Group Managment](group_management.md).
+For more information about *Spaces* and *Groups* see [Space Management](space_management.md) and [Group Management](group_management.md).
 
 
 
@@ -57,12 +57,12 @@ If you prefer to work from the terminal, Onedata provides the *oneclient* comman
 
 ### Provider management interface
 
-Dedicated web interface for installation and managment of Oneprovider cluster.
+Dedicated web interface for installation and management of Oneprovider cluster.
 
 ### Developer interfaces
 
-Currently Onedata exposes two kinds of API's:
+Currently Onedata exposes a CDMI interface for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data:
 
-- [REST and CDMI API](cdmi.md)
+- [CDMI API](cdmi.md)
 
-Both allow users to directly access and manage spaces, groups, authorization rights and data.
+
