@@ -2,9 +2,9 @@
 
 > A detailed screencast presenting a single node installation of Oneprovider is located in the tutorials section.
 
-**oneprovider** installation consists of 2 parts:
-* installation of **oneprovider** services on the cluster nodes
-* registration of **oneprovider** cluster with Onedata.
+Oneprovider installation consists of 2 parts:
+* installation of Oneprovider services on the cluster nodes
+* registration of Oneprovider cluster with Onedata.
 
 ## Services Installation
 
