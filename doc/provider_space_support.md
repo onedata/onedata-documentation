@@ -1,4 +1,4 @@
-# Space support
+# Space storage support
 
 Space is an abstract concept used in Onedata for the purpose of data organization. In order to be useful in terms of storing data, user needs to request a storage support for his space from at least 1 provider. In order to do that user sends to the provider a token in a form:
 
