@@ -11,7 +11,7 @@ CDMI uses certain terms such as dataobject or container to refer to various elem
 |:--------------------------------|:-------|
 | Data object | Data objects in Onedata are basic files stored in user's Spaces|
 | Container | Both Space and directories in Onedata are referred to as containers via CDMI |
-| ACL | Onedata supports full CDMI Access Control List mechanism |
+| ACL | Onedata currently supports setting permissions for users and groups for read, write and execute access. ACL inheritance is currently unsupported. |
 
 
 The list of currently supported operations is presented below:
