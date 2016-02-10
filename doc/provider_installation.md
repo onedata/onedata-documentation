@@ -41,7 +41,7 @@ You can deploy multiple Cluster Managers for redundancy purposes but only one wi
 
 ### Step 3: Application ports check.
 
-In order to work properly Oneprovider needs a number of ports (443, 53) open on machine. In this step **oneprovider** ensures that all needed ports are open.
+In order to work properly Oneprovider needs a number of ports (443, 53) open on machine. In this step Oneprovider ensures that all needed ports are open.
 
 <p align="center"><img src="img/admin/step3_ports_check.png"></p>
 
