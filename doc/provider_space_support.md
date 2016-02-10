@@ -20,4 +20,4 @@ After clicking ok, administrator can explore a list of spaces that are supported
 
 <p align="center"><img src="img/admin/space_support_step4.png"></p>
 
-Further information about the space itself is available under the *i* information icon.
+Further information about the space itself is available under the **i** information icon.
