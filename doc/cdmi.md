@@ -36,7 +36,7 @@ In order to use Onedata CDMI interface, a unique access token has to be generate
 ~~~
 > export AUTHORIZATION_CODE=<GENERATED_CODE>
 
-> export ONE_HOST=<YOUR_ALIAS>
+> export ONE_ALIAS=<YOUR_ALIAS>
 
 > export ONE_HOST=$ONE_ALIAS.onedata.org
 
