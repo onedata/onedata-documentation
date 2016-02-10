@@ -77,7 +77,7 @@ On the **Manage spaces** page, each listed space has an **Action** button, which
 ### Increase your space quota
 In order to increase your space quota:
 1. Navigate to **Manage spaces** page.
-2. On your space, click the *Actions* button.
+2. On your space, click the **Actions** button.
 3. Select **Request support** from the drop down menu.
 4. Copy the token and send it to the Provider asking for required amount of storage space.
 
