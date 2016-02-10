@@ -8,7 +8,7 @@ Oneprovider installation consists of 2 parts:
 
 ## Services Installation
 
-In order to install **oneprovider** service, you need a (virtual) machine with one of supported operating systems installed. Currently **oneprovider** can be installed using RPM packages on:
+In order to install Oneprovider service, you need a (virtual) machine with one of supported operating systems installed. Currently **oneprovider** can be installed using RPM packages on:
 * Scientific Linux 6.x
 * CentoOS 7.x
 
