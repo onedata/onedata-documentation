@@ -4,7 +4,7 @@
 
 ## Data Sharing
 You can share your files with other users, in a Dropbox-like manner, using links.
-You can also see all the files you are sharing in that manner by navigating to Shared Files view, which is accessible under the Data tab in the top menu.
+You can also see all the files you are sharing in that way by navigating to Shared Files view, which is accessible under the Data tab in the top menu.
 
 ### Sharing a file with a link
 To share a file using a link:
