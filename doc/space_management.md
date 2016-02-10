@@ -28,7 +28,7 @@ In the first case the `Space1` is designated as the *default space*. Other space
 
 <img style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2.png">
 
-Let's change the default space to `Space2`. Now when you access your files, at the root level you will see the content of `Space2`. In order to access the content of `Space1` you will have to navigate to `spaces/Space1`.
+Let's change the default space to `Space2`. Now when you access your files, at the root level you will see the contents of `Space2`. In order to access the content of `Space1` you will have to navigate to `spaces/Space1`.
 
 <img  style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2_changed.png">
 
@@ -59,20 +59,20 @@ For more information about groups, see [Group Management](group_management.md).
 For more information about permissions, see [Access Control](access_control.md).
 
 ### Space management
-On the **Manage spaces** page, each listed space has an **Action**, which allows you to:
+On the **Manage spaces** page, each listed space has an **Action** button, which allows you to:
 
 | Action Name     | Description                                                              |
 |:----------------|:-------------------------------------------------------------------------|
-| Move up         | Move this space up on the list of your spaces.                           |
-| Move down       | Move this space down on the list of your spaces.                         |
-| Set as default  | Set this space to be your default space.                                 |
-| Leave space     | Remove this space from the list of your spaces.                          |
-| Rename          | Rename this space.                                                       |
-| Remove          | Remove this space and all the data it contains.                          |
-| Invite user     | Add a user to this space.                                                |
-| Create group    | Create a group and add it to this space.                                 |
-| Invite group    | Add a group to this space.                                               |
-| Request support | Generate a unique token for this space that can be sent to the provider. |
+| Move up         | Move this space up on the list of your spaces                          |
+| Move down       | Move this space down on the list of your spaces                        |
+| Set as default  | Set this space to be your default space                              |
+| Leave space     | Remove this space from the list of your spaces                         |
+| Rename          | Rename this space                                                  |
+| Remove          | Remove this space and all the data it contains                        |
+| Invite user     | Add a user to this space                                        |
+| Create group    | Create a group and add it to this space                             |
+| Invite group    | Add a group to this space                                     |
+| Request support | Generate a unique token for this space that can be sent to the provider |
 
 ### Increase your space quota
 In order to increase your space quota:
