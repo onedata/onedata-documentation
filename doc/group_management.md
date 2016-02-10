@@ -22,7 +22,7 @@ To invite another user to join your group:
 After another user joins your group you will be able to see him in the detailed group view.
 
 ## Join existing group
-To join a group, you must request from them the token. After receiving the token:
+To join a group, you must request from them a token. After receiving the token:
 
 1. Navigate to **Manage groups** page.
 2. Click the **Join existing group** button.
@@ -53,16 +53,16 @@ A complete list of available permissions:
 
 | Permission Name | Description                                                                   |
 |:----------------|:------------------------------------------------------------------------------|
-| View Space      | User can see files and folders in your group.                                 |
-| Modify Space    | User can modify files and folders in your group.                              |
-| Remove Space    | User can delete your group.                                                   |
-| Invite user     | User can invite new users to your group.                                      |
-| Remove user     | User can remove  users from your group.                                       |
-| Invite group    | User can invite new groups to your group.                                     |
-| Remove group    | User can remove  groups from your group.                                      |
-| Invite provider | User can request a support from the provider.                                 |
-| Remove provider | User can remove provider form the list of providers that supports your group. |
-| Set privileges  | User can modify these privileges.                                              |
+| View Space      | User can see files and folders in your group                               |
+| Modify Space    | User can modify files and folders in your group                             |
+| Remove Space    | User can delete your group                                             |
+| Invite user     | User can invite new users to your group                                   |
+| Remove user     | User can remove  users from your group                                   |
+| Invite group    | User can invite new groups to your group                                |
+| Remove group    | User can remove  groups from your group                                     |
+| Invite provider | User can request a support from the provider                                 |
+| Remove provider | User can remove provider form the list of providers that supports your group |
+| Set privileges  | User can modify these privileges                                              |
 
 
 
