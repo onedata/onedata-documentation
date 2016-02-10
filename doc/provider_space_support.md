@@ -8,7 +8,7 @@ example_token: mxYQpUBQtD-ai5dEQNB_k3qSVGwjxpgjbKMEdtTN
 with accompanying information how much space is requested.
 
 ## Space support step by step
-In order to grant user a support for his space,  you login into **onepanel** service and in the *Spaces* tab choose *Support Space* button:
+In order to grant user a support for his space,  you login into Onepanel service and in the *Spaces* tab choose *Support Space* button:
 
 <p align="center"><img src="img/admin/space_support_step2.png"></p>
 
