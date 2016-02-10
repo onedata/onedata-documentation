@@ -29,7 +29,7 @@ password: password
 
 <p align="center"><img src="img/admin/step1_host_selection.png"></p>
 
-In this step, Onepanel detects all nodes in the network where **oneprovider** package has been installed and onepanel service is running. You can configure on which nodes which **oneprovider** each of the services will be installed.
+In this step, Onepanel detects all nodes in the network where Oneprovider package has been installed and Onepanel service is running. You can configure on which nodes which Oneprovider each of the services will be installed.
 
 
 ### Step 2: Primary Cluster Manager selection
