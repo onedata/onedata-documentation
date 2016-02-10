@@ -2,7 +2,7 @@
 
 In this screencast you will learn:
 - how to login into [onedata.org](onedata.org.)
-- about basic concepts such as space and default Space
+- about basic concepts such as space and default space
 - how to create a space and increase its quota
 - how to change a default space
 
