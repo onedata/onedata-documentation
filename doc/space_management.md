@@ -79,7 +79,7 @@ In order to increase your space quota:
 1. Navigate to **Manage spaces** page.
 2. On your space, click the **Actions** button.
 3. Select **Request support** from the drop down menu.
-4. Copy the token and send it to the Provider asking for required amount of storage space.
+4. Copy the token and send it to your provider asking for required amount of storage space.
 
 The last step can be performed by email or by other means depending on the policies adopted by the provider. After the provider supports your space with more storage you will be able to see it in the detailed space view.
 
@@ -88,6 +88,6 @@ The last step can be performed by email or by other means depending on the polic
 ### Remove your space
 In order to remove your space:
 1. Navigate to **Manage spaces** page.
-2. On your space, click the *Actions* button.
+2. On your space, click the **Actions** button.
 3. Select **Remove** from the drop down menu.
 4. Click **Yes**, acknowledging that you want to remove this space.
