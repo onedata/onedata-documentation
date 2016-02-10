@@ -6,7 +6,7 @@ Oneprovider exposes storage resources to Onedata ecosystem. It is typically depl
 Oneprovider is a cluster solution composed of 3 types of services:
 * Cluster Manager - an administrative service that monitors the health of the cluster, performs load balancing and manages other cluster nodes
 * Worker - a service responsible for managing data transfer
-* Database - a service providing persistent storage for control data
+* Database - a service providing persistent storage for metadata and tranfer control
 
 Each service can be deployed multiple times depending on the performance and reliability requirements. The cluster can be administered from any node, thanks to *onepanel* web application that runs on every node.
 
@@ -14,7 +14,7 @@ Each service can be deployed multiple times depending on the performance and rel
 <img src="img/admin/oneprovider_slide.png">
 </p>
 
-**oneprovider** implements drivers for storages such as NFS, Lustre, Ceph (Onedata v3.0) or S3 (Onedata v3.0).
+Oneprovider implements drivers for storages such as NFS, Lustre, Ceph (Onedata v3.0) or S3 (Onedata v3.0).
 
 In order to function properly, **oneprovider** needs to communicate with [onedata.org](www.onedata.org) that requires a public IP address and specific ports opened to the world.
 
