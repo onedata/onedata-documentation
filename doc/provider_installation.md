@@ -48,7 +48,7 @@ In order to work properly Oneprovider needs a number of ports (443, 53) open on 
 
 ### Step 4: System limits configuration.
 
-Administrators may impose limit on a number of opened files by **oneprovider**, services and processes spawned by them.
+Administrators may impose limit on a number of opened files by Oneprovider, services and processes spawned by them.
 
 <p align="center"><img src="img/admin/step4_system_limists.png"></p>
 
