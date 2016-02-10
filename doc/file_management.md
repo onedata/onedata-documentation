@@ -45,11 +45,11 @@ In case of directories you can select a recursive option, to apply permissions t
 
 
 ### Access Control Lists
-You can also setup permissions using more advanced access lists to control permissions for individual users and groups.
+You can also setup permissions using more advanced access control lists to control permissions for individual users and groups.
 In order to edit permissions:
 
 1. Navigate to **Data** tab.
-2. Select a **file or a directory** by clicking on it.
+2. Select a **file** or a **directory** by clicking on it.
 3. Click on the **lock icon**.
 4. Click on the **ACLs radio button**
 5. Edit permissions by clicking on the appropriate **checkbox**.
