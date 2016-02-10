@@ -72,13 +72,13 @@ On the **Manage groups** page, each listed group has a **Action**, which allows 
 
 | Action Name            | Description                                           |
 |:-----------------------|:------------------------------------------------------|
-| Move up                | Move this group up on the list of your groups.        |
-| Move down              | Move this group down on the list of your groups.      |
-| Leave group            | Remove this group from the list of your groups.       |
-| Rename                 | Rename this group.                                    |
-| Remove                 | Remove this group and leave all spaces it has joined. |
-| Invite user            | Add a user to this group.                             |
-| Create space           | Create a space and allow this group to control it.    |
+| Move up                | Move this group up on the list of your groups        |
+| Move down              | Move this group down on the list of your groups      |
+| Leave group            | Remove this group from the list of your groups      |
+| Rename                 | Rename this group                              |
+| Remove                 | Remove this group and leave all spaces it has joined |
+| Invite user            | Add a user to this group                            |
+| Create space           | Create a space and allow this group to control it    |
 | Join space             | Join existing space                                   |
 | Request space creation | Create a space for this group                         |
 
@@ -86,6 +86,6 @@ On the **Manage groups** page, each listed group has a **Action**, which allows 
 ### Remove your group
 In order to remove your group:
 1. Navigate to **Manage groups** page.
-2. On your group, click the *Actions* button.
+2. On your group, click the **Actions** button.
 3. Pick **Remove** from the drop down menu.
-4. Click **Yes**, acknowledging that you want to remove this group.
+4. Click **Yes**, confirming that you want to remove this group.
