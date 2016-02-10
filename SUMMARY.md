@@ -10,7 +10,7 @@
    * [Space Collaboration](doc/space_collaboration.md)
    * [Account Management](doc/account_management.md)
    * [Oneclient CLI](doc/oneclient.md)
-   * [REST and CDMI API](doc/cdmi.md)
+   * [CDMI API](doc/cdmi.md)
 * [Administrator Guide](doc/admin_guide.md)
    * [Oneprovider Overview](doc/provider_overview.md)
    * [Oneprovider Installation](doc/provider_installation.md)
@@ -20,6 +20,6 @@
    * [Group Management](doc/tutorial/screencast_group_management.md)
    * [Using Oneclient From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
    * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-{% if book.draft %}* [Solutions](doc/solutions.md)
    * [Authentication methods](solutions/authentication.md)
-   * [rTransfer Protocol](solutions/rTransfer.md) {% endif %}
+   * [rTransfer Protocol](solutions/rTransfer.md)
+
