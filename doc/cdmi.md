@@ -18,15 +18,15 @@ The list of currently supported operations is presented below:
 
 | Operations                       | Capabilities                                                                            |
 |:---------------------------------|:----------------------------------------------------------------------------------------|
-| Basic object GET, PUT, DELETE      | cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject            |
-| Basic container GET, PUT, DELETE   | cdmi_list_children, cdmi_create_container, cdmi_delete_container                        |
-| Metadata (container&dataobject)  | cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime |
-| Access control lists (rwx)       | cdmi_acl |
-| Big folders                      | cdmi_list_children_range |
-| File System Export (FUSE client) | -                                                                                       |
-| Move and copy                    | cdmi_move_container, cdmi_move_dataobject,  cdmi_copy_container, cdmi_copy_dataobject                                 |
-| Big files                        | cdmi_read_value_range, cdmi_modify_value_range                                          |
-| Access by ObjectID               | cdmi_object_access_by_ID                                                                |
+| Basic object GET, PUT, DELETE      | *cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject*            |
+| Basic container GET, PUT, DELETE   | *cdmi_list_children, cdmi_create_container, cdmi_delete_container* |
+| Metadata (container&dataobject)  | *cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime* |
+| Access control lists (rwx*)       | *cdmi_acl* |
+| Big folders                      | *cdmi_list_children_range* |
+| File System Export | CDMI filesystem export is not supported. Instead, Onedata provides a custom Fuse client which is more efficient and reliable. |
+| Move and copy                    | *cdmi_move_container, cdmi_move_dataobject,  cdmi_copy_container, cdmi_copy_dataobject*                                 |
+| Big files                        | *cdmi_read_value_range, cdmi_modify_value_range*                                          |
+| Access by ObjectID               | *cdmi_object_access_by_ID*                                                                |
 
 ## Examples of usage
 
@@ -113,7 +113,7 @@ A single Access Control Entry contains:
  * Flags – **NO_FLAGS** | **IDENTIFIER_GROUP**
  * Mask – {**READ**, **WRITE**, **EXECUTE**}
 
-Identifier may be followed by optional ID prefix hash, to distinguish 
+Identifier may be followed by optional ID prefix hash, to distinguish users/groups with the same name.
 
 Flag **IDENTIFIER_GROUP** indicates group name in identifier. Mask may contain any combination of *rwx* permissions i.e. **READ**, **WRITE**, **EXECUTE**.
 
