@@ -11,7 +11,7 @@ In account management section you can add new certificates that will be used to 
 <img src="img/manage_account.png">
 </p>
 
-By clicking on *Authorization preferences* you are taken to a second account management view, where you can change your name and alias, see what services you used to authenticate with Onedata with details supplied by a corresponding service, your email used in Onedata system, and finally you can chose a provider which you want to use in order to access your files.
+By clicking on *Authorization preferences* you are taken to a second account management view, where you can change your name and alias, see what services you used to authenticate with Onedata with details supplied by a corresponding service, your email used in Onedata system, and finally you can choose a provider which you want to use in order to access your files.
 
 <p align="center">
 <img src="img/manage_account1.png">
