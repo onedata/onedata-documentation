@@ -39,7 +39,7 @@ In order to edit permissions:
 5. Click **OK** in order to save changes.
 
 You can also edit POSIX permissions by entering them in octal form.
-In case of directories you can select a recursive option, to apply permission to the whole subtree.
+In case of directories you can select a recursive option, to apply permissions to the whole subtree.
 
 <img  style="display:block;margin:0 auto;" src="img/permissions.png">
 
