@@ -17,7 +17,7 @@ After another user joins your space you will be able to see him in the detailed 
 
 
 ## Join another user's space
-To join a space of another user, you must request from them the token. After receiving the token:
+To join a space of another user, you must request from them a token. After receiving the token:
 
 1. Navigate to **Manage spaces** page.
 2. Click the **Join existing space** button.
