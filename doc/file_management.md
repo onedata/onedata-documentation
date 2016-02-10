@@ -51,7 +51,7 @@ In order to edit permissions:
 1. Navigate to **Data** tab.
 2. Select a **file** or a **directory** by clicking on it.
 3. Click on the **lock icon**.
-4. Click on the **ACLs radio button**
+4. Click on the **ACL's radio button**
 5. Edit permissions by clicking on the appropriate **checkbox**.
 5. Click **OK** in order to save changes.
 
