@@ -16,7 +16,7 @@ Each service can be deployed multiple times depending on the performance and rel
 
 Oneprovider implements drivers for storages such as NFS, Lustre, Ceph (Onedata v3.0) or S3 (Onedata v3.0).
 
-In order to function properly, **oneprovider** needs to communicate with [onedata.org](www.onedata.org) that requires a public IP address and specific ports opened to the world.
+In order to function properly, Oneprovider needs to communicate with [onedata.org](www.onedata.org) that requires a public IP address and specific ports opened to the world.
 
 There are two types of data transfer that **oneprovider** can engage in:
 * control data transfer - originating from clients (ex. FUSE client)
