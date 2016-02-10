@@ -72,7 +72,7 @@ tcp: 53 - dns port
 tcp: 443 - https web interface port
 tcp: 5555 - port to communicate with FUSE clients
 tcp: 8443 - port for provider to provider communication
-tcp: 9443 - onepanel port
+tcp: 9443 - Onepanel port
 ~~~
 
 <p align="center"><img src="img/admin/rstrep1_info.png"></p>
