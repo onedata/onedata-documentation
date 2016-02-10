@@ -55,7 +55,7 @@ Administrators may impose limit on a number of opened files by Oneprovider, serv
 
 ### Step 5: Storage configuration.
 
-Select a path to a mounted storage, which **oneprovider** will use to store user data.
+Select a path to a mounted storage, which Oneprovider will use to store user data.
 
 <p align="center"><img src="img/admin/step5_path_to_storage.png"></p>
 
