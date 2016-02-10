@@ -90,4 +90,4 @@ In order to remove your space:
 1. Navigate to **Manage spaces** page.
 2. On your space, click the **Actions** button.
 3. Select **Remove** from the drop down menu.
-4. Click **Yes**, acknowledging that you want to remove this space.
+4. Click **Yes**, confirming that you want to remove this space.
