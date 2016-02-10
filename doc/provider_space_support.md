@@ -16,7 +16,7 @@ You enter the token given by a user and amount of space granted to the user.
 
 <p align="center"><img src="img/admin/space_support_step3.png"></p>
 
-After clicking ok, administrator can explore a list of spaces that are supported by this **oneprovider** cluster.
+After clicking ok, administrator can explore a list of spaces that are supported by this Oneprovider cluster.
 
 <p align="center"><img src="img/admin/space_support_step4.png"></p>
 
