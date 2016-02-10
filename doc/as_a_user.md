@@ -13,7 +13,7 @@ For more information about managing your account, see [Account management](accou
 At the first login, a **default space** is created for you.
 Like every space, at the beginning it has quota size of 0MB. You have to request storage support with certain limit (e.g. 5GB) from some provider to be able to store any files in this space.
 
-At the bottom of the *Manage account* you can find the storage support request **token**. You need to send this token to one of Onedata providers and ask to support your space.
+At the bottom of the *Manage account* page you can find the storage support request **token**. You need to send this token to one of storage providers who use Onedata and ask to support your space.
 
 After having your space supported by at least 1 provider, press *Click here to check again* link. Click on the button "Go to your files". You will be redirected to Onedata [web interface](user_guide.md), where you can manage your files and [more](user_guide.md).
 
