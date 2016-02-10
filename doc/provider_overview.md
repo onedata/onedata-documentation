@@ -4,9 +4,9 @@
 Oneprovider exposes storage resources to Onedata ecosystem. It is typically deployed in a data or computing center, on the nodes equipped with high speed connections to storage resources.
 
 Oneprovider is a cluster solution composed of 3 types of services:
-* cluster manager - an administrative service that monitors the health of the cluster, performs load balancing and manages other cluster nodes
-* worker - a service responsible for managing data transfer
-* database - a service providing persistent storage for control data
+* Cluster Manager - an administrative service that monitors the health of the cluster, performs load balancing and manages other cluster nodes
+* Worker - a service responsible for managing data transfer
+* Database - a service providing persistent storage for control data
 
 Each service can be deployed multiple times depending on the performance and reliability requirements. The cluster can be administered from any node, thanks to *onepanel* web application that runs on every node.
 
