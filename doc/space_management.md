@@ -17,14 +17,14 @@ You can create as many spaces as necessary, and each of them can have different 
 
 After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *default space*.
 
-The contents of the default space are presented as a root directory for your spaces. Default space contains a single directory called `spaces`, which allows you to access files in your other spaces. This is especially convenient for command line access, where you can access all your spaces from a single directory.
+The contents of the default space are presented as a root directory for your spaces. Default space contains at first only a single directory called `spaces`, which allows you to access files in your other spaces. This is especially convenient for command line access, where you can access all your spaces from a single directory.
 
 ### Working with multiple spaces
-To understand the hierarchy of spaces, lets go through an example:
+To understand the hierarchy of spaces, let's go through an example:
 - we have 3 spaces
 - in each space there is a single directory and a single file, whose names correspond to the space's name
 
-In the first case the `Space1` is designated as the *default space*. Two other spaces were put into folder `spaces` and can be accessed from `Space1`.
+In the first case the `Space1` is designated as the *default space*. Other spaces can be found in the `spaces` folder.
 
 <img style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2.png">
 
