@@ -61,7 +61,7 @@ Select a path to a mounted storage, which Oneprovider will use to store user dat
 
 
 ## Oneprovider Registration
-Once installed, it is recommended to register **oneprovider** with Onedata registry, so users can use onedata.org in order to see your **oneprovider** service and request storage support directly from the web interface.
+Once installed, it is recommended to register Oneprovider with Onedata registry, so users can use onedata.org in order to see your Oneprovider service and request storage support directly from the web interface.
 
 ### Step 1&2: Connection check and Ports configuration
 
