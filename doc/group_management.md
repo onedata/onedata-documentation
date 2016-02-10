@@ -42,8 +42,8 @@ All information regarding your group is presented here, including:
 You can control actions and the level of access to your group by setting dedicated permissions. In order to edit permissions:
 
 1. Navigate to **Group management** page.
-2. Click on our **group**, to show group detailed view.
-3. To set a permission click on the **empty box**.
+2. Click on your **group**, to show detailed view.
+3. To set a permission click on an **empty box** in the relevant column.
 4. To unset a permission click on the **box with a tick**.
 5. To save or discard changes use **Save** or **Discard** buttons.
 
