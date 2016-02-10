@@ -15,7 +15,7 @@ In order to install Oneprovider service, you need a (virtual) machine with one o
 and on other Linux platforms using automated Bash installation script.
 
 
-For detailed instructions on how to install **oneprovider** package on each of those systems please visit [download section](https://onedata.org/download) on Onedata homepage.
+For detailed instructions on how to install Oneprovider package on each of those systems please visit [download section](https://onedata.org/download) on Onedata homepage.
 
 **oneprovider** package setups a service called **onepanel**. Onepanel is a cluster installation and administration user interface that detects all other nodes in the local network where **oneprovider** service has been installed and allows for configuration of services on each cluster node.
 
