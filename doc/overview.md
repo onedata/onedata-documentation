@@ -6,7 +6,7 @@ Before using Onedata, it's helpful to understand what functionality it provides,
 ## Basic concepts
 
 ### Providers
-Onedata storage is composed of a global network of *Providers* who provision their resources to users. Anyone can become a Onedata provider by installing Oneprovider service and registering at [onedata.org](onedata.org). Each user can use several providers simultaneously to manage their data, and Onedata ensures that access to unified user's data sets is instant and transparent.
+Onedata storage is composed of a global network of *Providers* who provision their resources to users. Anyone can become a Onedata provider by installing Oneprovider service and registering at [onedata.org](onedata.org). Each user can use several providers simultaneously to manage their data, and Onedata ensures that access to unified user's data storage space is instant and transparent.
 
 <p align="center">
 <img src="img/overview_3d_map_with_users.png" width="480">
@@ -21,7 +21,7 @@ Providers have full control over which users can use their storage resources and
 For more information about Onedata's  *Provider* service, check out [Oneprovider Overview](provider_overview.md) documentation.
 
 ## Spaces
-All data stored in Onedata is organized into *Spaces*. Spaces can be considered as virtual folders or drives, which can contain an arbitrary subdirectory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one *Provider*, which means that this provider reserved certain storage quota for this particular space. In case, a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
+All data stored in Onedata is organized into *Spaces*. Spaces can be considered as virtual folders or drives, which can contain an arbitrary subdirectory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one *Provider*, which means that this provider reserved certain storage quota for this particular space. In case a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
 
 After registering at [onedata.org](onedata.org), a so-called default *space* is created automatically. Onedata is not a storage provider, and it does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to zero. In order to be able to use this *space*, you have to request storage from some provider.
 
