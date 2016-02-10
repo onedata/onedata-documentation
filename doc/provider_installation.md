@@ -19,7 +19,7 @@ For detailed instructions on how to install Oneprovider package on each of those
 
 Oneprovider package setups a service called Onepanel. Onepanel is a cluster installation and administration user interface that detects all other nodes in the local network where Oneprovider service has been installed and allows for configuration of services on each cluster node.
 
-Upon successful installation of Oneprovider package, you need to navigate to `https://<ip>:9443` address. The default credentials for logging into **onepanel** are:
+Upon successful installation of Oneprovider package, you need to navigate to `https://<ip>:9443` address. The default credentials for logging into Onepanel are:
 ~~~
 login: admin
 password: password
