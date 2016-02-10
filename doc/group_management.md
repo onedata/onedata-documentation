@@ -1,6 +1,6 @@
 # Group Management
 
-You can create or join existing groups to easily manage and collaborate using your spaces. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permission to manage it. You can manage your groups from a **Manage groups** page, accessible with **Group** button on the top menu.
+You can create or join existing groups to easily manage and collaborate using your spaces. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permissions to manage it. You can manage your groups from a **Manage groups** page, accessible with **Group** button on the top menu.
 
 ## Create a new group
 In order to create a new  group:
