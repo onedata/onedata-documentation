@@ -20,7 +20,7 @@ In order to function properly, Oneprovider needs to communicate with [onedata.or
 
 There are two types of data transfer that Oneprovider can engage in:
 * control data transfer - originating from clients (ex. FUSE client)
-* remote data transfer - happens between two providers when data needed by one provider is not available on local storage. This also involves oneprovider access to storage.
+* remote data transfer - transfer between 2 providers when data needed by one provider is not available on local storage. This also involves oneprovider access to storage.
 
 While accessing data, depending on a client location data transfer can be:
 * direct access - when client is located in the same computing center and has direct access to storage resources, the client exchanges only control communication with **oneprovider** and accesses storage directly bypassing **oneprovider** for actual data transfer,
