@@ -18,6 +18,5 @@
 * [Tutorials](doc/tutorials.md)
    * [Quickstart: Space Management](doc/tutorial/screencast_space_management.md)
    * [Group Management](doc/tutorial/screencast_group_management.md)
-   * [Using Oneclient From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
+   * [Using Onedata Client From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
    * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
-
