@@ -53,3 +53,4 @@ gitbook/node_modules/gitbook-plugin-styles-sass
 # docker image artefact
 dockerimage.report.txt
 dockerimage.sha
+build_dir
