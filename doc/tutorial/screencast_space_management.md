@@ -1,4 +1,4 @@
-# Quickstart: Space Management
+# Space Management
 
 In this screencast you will learn:
 - how to login into [onedata.org](onedata.org.)
