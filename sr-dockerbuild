@@ -1,0 +1,291 @@
+#!/usr/bin/env bash
+
+#include the configuration file
+source $(dirname $0)/s-config.sh
+
+# this function takes two parameters:
+# @param exitcode - it's a last operation exit code 0 -succees
+# @param msg - this is optional message to be displayed on error
+exit_on_error(){
+    local exitcode=$1
+    local msg=$2
+
+    if [ $exitcode != 0  ]; then
+        echo "Error" $msg
+        exit $exitcode
+    fi
+}
+
+
+debug() {
+    if [ ! -z $DEBUG_FILE ]; then
+        echo "$@" >> $DEBUG_FILE
+    fi
+}
+
+message(){
+    echo $@
+    debug $@
+}
+
+
+check_if_all_commited(){
+    debug "check_if_all_commited" $@
+
+    local no_of_changed_files=$(git status --porcelain |  wc -l)
+    if [ $no_of_changed_files == 0 ]; then
+        debug "check_if_all_commited: no_of_changed_files=$no_of_changed_files"
+        return 0 # 0 means true
+    else
+        changed_files=$(git status --porcelain )
+        echo "$changed_files" | head -n 20
+        debug "check_if_all_commited: no_of_changed_files=$no_of_changed_files"
+        return 1 # 1 means false
+    fi
+}
+
+
+function print_help(){
+    echo "Usage: sr-dockerbuild [OPTIONS]"
+    echo "       sr-dockerbuild [--help]"
+    echo
+    echo "sr-dockerbuild runs docker compilation process and publish results to a docker registry."
+    echo
+    echo "Options:"
+    echo
+    echo "   -u|--user                                      user name for docker repo [optional]"
+    echo "   -p|--password                                  password for accesing user privte account in docker repo [optional]"
+    echo "   -i|--image                                     override image name set by env DOCKER_IMAGE_NAME  [optional]"
+    echo "   -pu|--push                                     push created image to docker repository  [optional]"
+    echo "   -nocache                                       option -nocache for docker build commnad [optional]"
+    echo "   -r|--remove                                    remove local image after docker creation, make sense to use with --push  [optional]"
+    echo
+    echo "Example:"
+    echo "   ./sr-dockerbuild                               compile docker image locally, no push to remote server"
+    echo
+    echo "Example:"
+    echo "   ./sr-dockerbuild --push                        compile docker image locally, no push to remote server"
+    echo
+
+    exit;
+}
+
+
+
+
+
+# login to docker
+while [[ $# > 0 ]]
+do
+key="$1"
+
+DOCKER_BUILD_NO_CACHE=" "
+
+case $key in
+    -h|--help)
+    print_help;
+    ;;
+    -u|--user)
+    DOCKER_USER="$2"
+    shift # past argument
+    ;;
+    -p|--password)
+    DOCKER_PASSWORD="$2"
+    shift # past argument
+    ;;
+    -i|--image)
+    DOCKER_IMAGE_NAME="$2"
+    shift # past argument
+    ;;
+    -pu|--push)
+    DOCKER_ENABLE_PUSH="1"
+    ;;
+    -nocache)
+    DOCKER_BUILD_NO_CACHE="-nocache"
+    ;;
+    -r|--remove)
+    DOCKER_ENABLE_REMOVE="1"
+    ;;
+    *)
+
+    # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+
+
+if check_if_all_commited; then
+    message "All files are commited in the current branch.";
+else
+    message "Please commit changes before you can generate changelog"
+    exit 1
+fi
+
+
+if [ "$DOCKER_USER" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then
+    echo "Performing docker login -u "$DOCKER_USER"...."
+    docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" -e "bamboo@onedata.org" $DOCKER_REPOSITORY
+    exit_on_error $? "Can't login to the remote repo"
+fi
+
+#name of the current branch
+#CURRNET_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+CURRNET_BRANCH=$(git status | sed -n '/On branch /s///p')
+
+CURRENT_GIT_NAME=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//')
+exit_on_error $? "Cannot obtain git name"
+
+# id of the current commit
+CURRNET_COMMIT=$(git rev-parse HEAD)
+exit_on_error $? "Cannot obtain head commit hash"
+
+
+# name of the current tag if it points onto the current commit
+CURRNET_TAG=$(git tag --points-at $CURRNET_COMMIT)
+
+#list of all commits in the current brach excluding any othre commits not related to the brnach
+LIST_OF_ALL_COMMITS_IN_BRANCH=$(git rev-list --all --not $(git rev-list --all ^$CURRNET_BRANCH))
+
+
+CURRENT_TICKET=""
+TICKET_REGX='.*\/([A-Z]+\-[0-9]+)\-.*'
+if [[ $CURRNET_BRANCH =~ $TICKET_REGX ]]
+then
+    CURRENT_TICKET=${BASH_REMATCH[1]}
+fi
+
+
+if [[ $CURRNET_TAG != "" ]]
+then
+    TAG_LABEL=$CURRNET_TAG
+else
+    TAG_LABEL=""
+fi
+
+
+TAG_KEYS=()
+
+## if we have git tag
+if [[ $TAG_LABEL != "" ]]
+then
+    TAG_KEYS+=(":$TAG_LABEL")
+fi
+
+DOCKER_BUILD_NAME=""
+
+if [[ $CURRNET_BRANCH == "master" ]]
+then
+    DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME"
+else
+    if [[ $CURRNET_BRANCH == "develop" ]]
+    then
+        DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME:develop"
+    else
+        DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME:$CURRENT_TICKET"
+    fi
+fi
+
+
+printf '%s\n' "${TAG_KEYS[@]}"
+
+## run build and tag if needed
+DOCKER_BUILD_COMMAND="docker build $DOCKER_BUILD_NO_CACHE -t $DOCKER_BUILD_NAME ."
+echo $DOCKER_BUILD_COMMAND
+eval $DOCKER_BUILD_COMMAND
+exit_on_error $? "The build commannd failed: $DOCKER_BUILD_COMMAND"
+
+## get the docker image sha
+#DOCKER_BUILD_ID=$(docker inspect --format='{{.Id}}' $DOCKER_BUILD_NAME);
+#exit_on_error $? "Obtaining docker build id failed"
+DOCKER_BUILD_ID="ID-${CURRNET_COMMIT:0:10}"
+
+echo "$DOCKER_BUILD_ID" > dockerimage.sha
+TAG_KEYS+=(":$DOCKER_BUILD_ID")
+echo "$DOCKER_BUILD_NAME" >> dockerimage.sha
+
+## tag with other tags
+for i in "${TAG_KEYS[@]}"
+do
+    :
+    DOCKER_TAG_COMMAND="docker tag -f $DOCKER_BUILD_NAME $DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
+    echo $DOCKER_TAG_COMMAND
+    eval $DOCKER_TAG_COMMAND
+    exit_on_error $? "Tagging failed: $DOCKER_TAG_COMMAND"
+    if [[ ${#i} == 65 ]]
+    then
+        # cut the 64-hex docker id
+        CUT_DOCKER_IMAGE_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
+        echo ${CUT_DOCKER_IMAGE_NAME::${#CUT_DOCKER_IMAGE_NAME}-52} >> dockerimage.sha
+    else
+        echo "$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i" >> dockerimage.sha
+    fi
+done
+
+## push to docker repo
+if [[ "$DOCKER_ENABLE_PUSH" == "1" ]]
+then
+    echo "-------------------"
+    echo "Pushing images to the repository"
+    echo "-------------------"
+    DOCKER_PUSH_COMMAND="docker push $DOCKER_BUILD_NAME"
+    echo $DOCKER_PUSH_COMMAND
+    eval $DOCKER_PUSH_COMMAND
+    exit_on_error $? "Pushing image failed: $DOCKER_PUSH_COMMAND"
+
+    ## push tagged images to docker repo
+    for i in "${TAG_KEYS[@]}"
+    do
+        :
+        DOCKER_PUSH_COMMAND="docker push $DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
+        echo $DOCKER_PUSH_COMMAND
+        eval $DOCKER_PUSH_COMMAND
+        exit_on_error $? "Pushing image failed: $DOCKER_PUSH_COMMAND"
+    done
+fi
+
+## remove image
+if [[ "$DOCKER_ENABLE_REMOVE" == "1" ]]
+then
+    DOCKER_RM_COMMAND="docker rmi $DOCKER_BUILD_NAME"
+    echo $DOCKER_RM_COMMAND
+    eval $DOCKER_RM_COMMAND
+    exit_on_error $? "Removing local image failed: $DOCKER_RM_COMMAND"
+
+    ## remove tagged images from local disk
+    for i in "${TAG_KEYS[@]}"
+    do
+        :
+        DOCKER_RM_COMMAND="docker rmi $DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
+        echo $DOCKER_RM_COMMAND
+        eval $DOCKER_RM_COMMAND
+        exit_on_error $? "Removing local image failed: $DOCKER_RM_COMMAND"
+    done
+fi
+
+
+echo "=========================================================="
+echo "Image tags"
+cat dockerimage.sha
+echo "=========================================================="
+
+
+echo "Report on compilation of $CURRENT_GIT_NAME" > dockerimage.report.txt
+COUNT=0;
+while read p; do
+  if [ "$COUNT" == "0" ]; then
+    echo >> dockerimage.report.txt
+    echo "Compiled project into artefacts:" >> dockerimage.report.txt
+    echo >> dockerimage.report.txt
+  else
+    echo "Artefact $p" >> dockerimage.report.txt
+    echo "  To get image:" >> dockerimage.report.txt
+    echo "     docker pull $p " >> dockerimage.report.txt
+    echo "  To run instruction howto:"  >> dockerimage.report.txt
+    echo "     docker run --rm $p howto" >> dockerimage.report.txt
+    echo ""  >> dockerimage.report.txt
+  fi
+  (( COUNT++ )) ;
+done < dockerimage.sha
+
