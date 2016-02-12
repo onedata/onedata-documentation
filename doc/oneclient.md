@@ -31,7 +31,7 @@ The certificate has to be located in one of the following locations:
 * `$HOME/.globus/*.p12`
 * `$HOME/.globus/*.pem + .key`
 
-. In order to connect it to your account, go to *Manage account* page in Web user interface and click on your login name on the top menu. Next, select add certificate DN and paste the contents of your PEM certificate (without the private key).
+In order to connect it to your account, go to *Manage account* page in Web user interface and click on your login name on the top menu. Next, select add certificate DN and paste the contents of your PEM certificate (without the private key).
 
 Web interface will show a warning that this certificate is not verified yet, verification is done on first login using this certificate.
 
@@ -56,7 +56,7 @@ In order to unmount your spaces, type:
 
 ## Options
 
-To see full set of `oneclient` command line options checkout the man page `man oneclient` or print help information `oneclient -h`.
+To see full set of `oneclient` command line options checkout the man page `man oneclient` or print help information using `oneclient -h`.
 
 ~~~
 > oneclient -h
