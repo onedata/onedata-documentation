@@ -4,7 +4,7 @@
 
 In this screencast you will learn how to install Onedata Provider on Centos 7 using Google Compute Engine.
 
-{% youtube caption="Space Managment"%}https://youtu.be/ITvSf_i4V-w{% endyoutube %}
+{% youtube caption="Single Node Installation of Onedata Provider  "%}https://youtu.be/ITvSf_i4V-w{% endyoutube %}
 
 ## Prerequisites
 - active project on Google Cloud Compute Engine
