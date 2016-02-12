@@ -23,13 +23,13 @@ Then simply paste the token into the command line.
 In case you have a valid X.509 certificate you can use it to mount your spaces without getting the access token.
 
 The certificate has to be located in one of the following locations: 
-* Environment variable X509_USER_PROXY
-* Active Grid proxy certificate in /tmp/x509up_u0
-* Environment variable X509_USER_CERT
-* $HOME/.globus/usercert.pem
-* $HOME/.globus/usercred.p12
-* $HOME/.globus/*.p12
-* $HOME/.globus/*.pem + .key
+* Environment variable **X509_USER_PROXY**
+* Active Grid proxy certificate in `/tmp/x509up_u0`
+* Environment variable **X509_USER_CERT**
+* `$HOME/.globus/usercert.pem`
+* `$HOME/.globus/usercred.p12`
+* `$HOME/.globus/*.p12`
+* `$HOME/.globus/*.pem + .key`
 
 . In order to connect it to your account, go to *Manage account* page in Web user interface and click on your login name on the top menu. Next, select add certificate DN and paste the contents of your PEM certificate (without the private key).
 
