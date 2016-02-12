@@ -2,9 +2,9 @@
 
 
 You can use Onedata and manage your files using:
-* a web interface
-* a command line client (`oneclient`)
-* API-s (REST and CDMI)
+* web interface
+* command line client (`oneclient`)
+* CDMI API
 
 In this section you will find a complete set of information regarding all of those methods:
 * [Space management](space_management.md)
