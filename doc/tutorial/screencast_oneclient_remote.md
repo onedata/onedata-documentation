@@ -1,9 +1,9 @@
 
-# Installation and Use of Onedata Client
+# Using Onedata Client From Remote Host
 
-The installation is explained step by step in the following screencast:
+In this screencast you will learn how to install Onedata Client and how to connect to Onedata from a remote host (eg. your laptop at home).
 
-* {% youtube caption="Installation and Use of Onedata Client"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
+* {% youtube caption="Using Onedata Client From Remote Host"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
 
 
 ## Prerequisites
@@ -31,4 +31,9 @@ sudo yum -y --enablerepo=onedata install oneclient
 ### Mounting user Spaces using authentication token
 ~~~
 oneclient --no-check-certificate  --authentication token <mount_point>
+~~~
+
+### Forcing Onedata Client to connect to particular provider
+~~~
+export PROVIDER_HOSTNAME=<provider_ip_address>
 ~~~
