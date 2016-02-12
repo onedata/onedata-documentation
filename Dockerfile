@@ -1,11 +1,8 @@
-# CEPH VERSION: Infernalis
-# CEPH VERSION DETAIL: 9.2.x
-
-FROM hello-world
+FROM docker.onedata.org/empty-base:1.0.0
 
 
 # put here line about build_dir
-# ADD build_dir /proto
+ADD build_dir /artefact
 
 
 
