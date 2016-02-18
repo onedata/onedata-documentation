@@ -4,6 +4,9 @@
        "draft":false,
        "idea":true
     },
+    "structure": {
+        "readme": "INTRO.md"
+    },
     "styles": {
         "website": "node_modules/gitbook-plugin-onedata-theme/book/onedata.scss"
     },
