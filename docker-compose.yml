@@ -1,5 +1,5 @@
 doc:
-  image: fb63dfda51d4 #docker.onedata.org/onedata-documentation:1.0.1
+  image: docker.onedata.org/onedata-documentation:VFS-1649
   volumes:
     - /usr/share/nginx/html
 nginx:
