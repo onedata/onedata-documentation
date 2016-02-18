@@ -1,0 +1,21 @@
+#!/bin/busybox sh
+
+source=/artefact
+dest=$1
+#busybox id
+#busybox mount
+#busybox echo $USER
+if [ ! -r $source ] ; then
+    /bin/busybox echo "Source does not exist: $source"
+    exit $?
+fi
+
+#busybox ls -l /usr/share/nginx/html
+
+if [ -r $dest ] ; then
+   /bin/busybox rmdir $dest
+fi
+
+parent=$(busybox dirname $dest)
+/bin/busybox mkdir --parent $parent
+/bin/busybox ln -s -T $source $dest
