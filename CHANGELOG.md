@@ -4,6 +4,13 @@
 CHANGELOG
 ---------
 
+### 1.0.1
+
+* Releasing new version 1.0.1
+* moved all gitbook files to root repo directory
+* added docker compose configuration and script that produced a packaged tar
+
+
 ### 1.0.0
 
 
