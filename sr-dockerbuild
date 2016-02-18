@@ -182,11 +182,13 @@ else
     if [[ $CURRNET_BRANCH == "develop" ]]
     then
         DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME:develop"
-    else
+    elif [[ $CURRENT_TICKET != ""  ]]
+    then
         DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME:$CURRENT_TICKET"
+    else
+        DOCKER_BUILD_NAME="$DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME:$CURRNET_COMMIT"
     fi
 fi
-
 
 printf '%s\n' "${TAG_KEYS[@]}"
 
@@ -288,4 +290,5 @@ while read p; do
   fi
   (( COUNT++ )) ;
 done < dockerimage.sha
+
 

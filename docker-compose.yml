@@ -4,7 +4,7 @@ volumes:
 
 services:
  doc:
-   image: docker.onedata.org/onedata-documentation
+   image: docker.onedata.org/onedata-documentation:1.0.1
    volumes:
      - data:/artefact
  nginx:
