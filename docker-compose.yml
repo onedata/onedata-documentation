@@ -1,0 +1,19 @@
+version: '2'
+volumes:
+  data: {}
+
+services:
+ doc:
+   image: docker.onedata.org/onedata-documentation
+   volumes:
+     - data:/artefact
+ nginx:
+   container_name: nginx
+   restart: always
+   image: nginx
+   hostname: docs-onedata.cloud.plgrid.pl
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - data:/usr/share/nginx/html/
+   ports:
+     - 80:80

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tar cvf documentation.onedata.org.tar --exclude .git  --exclude "documentationonedata.org.tar" .
