@@ -6,4 +6,4 @@ In this screencast you will learn:
 - how to create a space and increase its quota
 - how to change the default space
 
-{% youtube caption="Space Managment"%}https://youtu.be/ZaW2j7Cgtvg{% endyoutube %}
+{% youtube caption="Space Management"%}https://youtu.be/ZaW2j7Cgtvg{% endyoutube %}
