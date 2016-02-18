@@ -291,4 +291,6 @@ while read p; do
   (( COUNT++ )) ;
 done < dockerimage.sha
 
-
+COMPOSE_FILE=docker-compose.yml.template
+BASE_COMPOSE_IMAGE="docker.onedata.org/onedata-documentation:"
+sed -re "s/(image: )${BASE_COMPOSE_IMAGE//\//\\/}/\1${DOCKER_BUILD_NAME//\//\\/}/" $COMPOSE_FILE > docker-compose.yml   
