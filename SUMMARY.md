@@ -1,6 +1,6 @@
 # Summary
 
-* [Onedata Documentation](README.md)
+* [Onedata Documentation](INTRO.md)
 * [Overview](doc/overview.md)
 * [Quickstart](doc/as_a_user.md)
 * [User Guide](doc/user_guide.md)
