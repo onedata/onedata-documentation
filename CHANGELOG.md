@@ -4,6 +4,11 @@
 CHANGELOG
 ---------
 
+### 1.1.1
+
+* added "restart: always" to, docker-compose.yml.template so that doc container starts at machine boot
+
+
 ### 1.1.0
 
 * modified docker-compose.yml to automatically fill out docker image sufix based on a docker that is build by sr-dockerbuild
