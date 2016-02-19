@@ -55,3 +55,7 @@ dockerimage.report.txt
 dockerimage.sha
 build_dir
 docker-compose.yml
+
+# osx
+.DS_Store
+._*
