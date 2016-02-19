@@ -3,7 +3,7 @@
 
 In this screencast you will learn how to install Onedata Client and how to connect to Onedata from a remote host (eg. your laptop at home).
 
-* {% youtube caption="Using Onedata Client From Remote Host"%}https://youtu.be/vyq_czO8ayg{% endyoutube %}
+* {% youtube caption="Using Onedata Client From Remote Host"%}https://youtu.be/ZLbtYWxcP28{% endyoutube %}
 
 
 ## Prerequisites
