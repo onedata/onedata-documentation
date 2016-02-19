@@ -1,5 +1,6 @@
 doc:
   image: docker.onedata.org/onedata-documentation:
+  restart: always
   volumes:
     - /usr/share/nginx/html
 nginx:
