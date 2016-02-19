@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+ARTEFACT=documentation.onedata.org.tar
+if [ -f docker-compose.yml ]; then
+    tar cvf $ARTEFACT --exclude .git  --exclude "$ARTEFACT" docker-compose.yml
+else
+    echo "No docker-compose.yaml found in the current directory." 
+fi 
