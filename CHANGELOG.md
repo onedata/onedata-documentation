@@ -4,6 +4,11 @@
 CHANGELOG
 ---------
 
+### 1.1.2
+
+* Fixed old youtube links for tutorial videos
+
+
 ### 1.1.1
 
 * added "restart: always" to, docker-compose.yml.template so that doc container starts at machine boot
