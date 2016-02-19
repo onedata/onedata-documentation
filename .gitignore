@@ -46,11 +46,12 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-gitbook/_book
+_book
 .idea
-gitbook/node_modules/gitbook-plugin-styles-sass
+node_modules/gitbook-plugin-styles-sass
 
 # docker image artefact
 dockerimage.report.txt
 dockerimage.sha
 build_dir
+docker-compose.yml
