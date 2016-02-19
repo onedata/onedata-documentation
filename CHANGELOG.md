@@ -4,6 +4,17 @@
 CHANGELOG
 ---------
 
+### 1.1.0
+
+* modified docker-compose.yml to automatically fill out docker image sufix based on a docker that is build by sr-dockerbuild
+* fixed image url in docker-compose.yml
+* changed Dockerfile and docker-compose.yml so that they work with docker <1.10
+* modified sr-dockerbuild to allow building from revisionsc
+* fixed typo in summary
+* Update doc/tutorial/screencast_space_management.md
+* Update doc/tutorials.md
+
+
 ### 1.0.1
 
 * Releasing new version 1.0.1
