@@ -7,6 +7,9 @@ example_token: mxYQpUBQtD-ai5dEQNB_k3qSVGwjxpgjbKMEdtTN
 ~~~
 with accompanying information how much space is requested.
 
+For more information about *Spaces*, check out the [Overview](overview.md).
+
+
 ## Space support step by step
 In order to grant user a support for his space,  you login into Onepanel service and in the *Spaces* tab choose *Support Space* button:
 
