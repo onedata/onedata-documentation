@@ -24,7 +24,7 @@ This screencast presents the installation and usage of Onedata Linux client.
 
 ### Onedata Client Installation Instructions for Centos 7
 ~~~
-sudo wget -O /etc/yum.repos.d/onedata.repo http://packages.onedata.org/centos/7x/onedata.repo
+sudo wget -O /etc/yum.repos.d/onedata.repo http://packages.onedata.org/yum/centos/7x/onedata.repo 
 sudo yum -y --enablerepo=onedata install oneclient
 ~~~
 
