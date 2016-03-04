@@ -1,8 +1,22 @@
 # Release notes for project 
 
 
+
 CHANGELOG
 ---------
+
+### 1.2.0
+
+
+* Update doc/admin_guide.md
+* Update INTRO.md
+* Fixed color issues on the image, and changed Control Transfer to Metadata under over middle left arrow
+* Update doc/tutorial/screencast_oneprovider_single.md
+* Update doc/tutorial/screencast_oneclient_remote.md
+* Update doc/provider_overview.md
+* Update doc/provider_installation.md
+* Update doc/provider_space_support.md
+
 
 ### 1.1.2
 
