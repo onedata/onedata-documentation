@@ -15,7 +15,7 @@ In this screencast you will learn how to install Onedata Provider on Centos 7 us
 ~~~
 wget http://toolkit.globus.org/ftppub/gt6/installers/repo/globus-toolkit-repo-latest.noarch.rpm
 sudo yum -y install globus-toolkit-repo-latest.noarch.rpm epel-release
-sudo wget -O /etc/yum.repos.d/onedata.repo http://packages.onedata.org/centos/7x/onedata.repo
+sudo wget -O /etc/yum.repos.d/onedata.repo http://packages.onedata.org/yum/centos/7x/onedata.repo 
 sudo yum -y --enablerepo=onedata install oneprovider
 ~~~
 
