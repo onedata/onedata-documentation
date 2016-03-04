@@ -12,9 +12,6 @@ In order to install Oneprovider service, you need a (virtual) machine with one o
 * Scientific Linux 6.x
 * CentoOS 7.x
 
-and on other Linux platforms using automated Bash installation script.
-
-
 For detailed instructions on how to install Oneprovider package on each of those systems please visit [download section](https://onedata.org/download) on Onedata homepage.
 
 Oneprovider package setups a service called Onepanel. Onepanel is a cluster installation and administration user interface that detects all other nodes in the local network where Oneprovider service has been installed and allows for configuration of services on each cluster node.

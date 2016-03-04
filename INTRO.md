@@ -9,8 +9,8 @@ If this is your first encounter with Onedata, start with the overview of major c
 
 - [Overview](doc/overview.md)
 
-### Quickstart
 
+### Screencasts
 
 #### For users
 Learn how to access, manage and share your data. Create groups of users with fine grained access rights. Share and collaborate on your data.
