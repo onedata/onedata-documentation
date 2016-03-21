@@ -5,6 +5,12 @@
 CHANGELOG
 ---------
 
+### 1.3.0
+
+* Update overview.md
+* added screencast page: using oneclient with direct i/o
+
+
 ### 1.2.0
 
 
