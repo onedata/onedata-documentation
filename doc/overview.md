@@ -13,10 +13,10 @@ Onedata storage is composed of a global network of *Providers* who provision the
 </p>
 
 Providers deploy Oneprovider services near physical storage resources, i.e. in computing and data centers or even personal computers.
-Providers have full control over which users can use their storage resources and to what extent in terms of data size and transfer limits.
+Providers have full control over which users can use their storage resources and to what extent in terms of data size.
 
 
-[Onedata.org](onedata.org) portal provides global registry for all Onedata users. It coordinates interactions between Providers, manages information about distribution of user files across Providers, stores metadata of all files managed by Onedata and provides a single logical point of authentication in the system.
+[Onedata.org](onedata.org) portal provides global registry for all Onedata users. It coordinates interactions between Providers, manages information about distribution of user files across Providers and provides a single logical point of authentication in the system.
 
 For more information about Onedata's  *Provider* service, check out [Oneprovider Overview](provider_overview.md) documentation.
 
