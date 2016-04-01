@@ -5,6 +5,12 @@ Before using Onedata, it's helpful to understand what functionality it provides,
 
 ## Basic concepts
 
+### Zones
+Onedata is a distributed system divided into zones that are created by deploying a dedicated Onezone service. The main zone is [onedata.org](onedata.org) that is managed by Onezone service deployed at that address. Each organization can deploy their own Onezone service with customized login page and either connect it to the distributed network of Onezone services or run it as a isolated instance. Onezone is responsible for authentication and authorization of users, makes it possible for users from different zones to communicate with each other and share data. It is also responsible for allowing *Providers* from different zones to interact with each other ie. allowing users from different zones to support their spaces regardless of the zone in which *Provider* is located.
+
+For more information about Onedata's  *Onezone* service, check out [Onezone Overview](onezone_overview.md) documentation.
+
+
 ### Providers
 Onedata storage is composed of a global network of *Providers* who provision their resources to users. Anyone can become a Onedata provider by installing Oneprovider service and registering at [onedata.org](onedata.org). Each user can use several providers simultaneously to manage their data, and Onedata ensures that access to unified user's data storage space is instant and transparent.
 
@@ -15,8 +21,7 @@ Onedata storage is composed of a global network of *Providers* who provision the
 Providers deploy Oneprovider services near physical storage resources, i.e. in computing and data centers or even personal computers.
 Providers have full control over which users can use their storage resources and to what extent in terms of data size.
 
-
-[Onedata.org](onedata.org) portal provides global registry for all Onedata users. It coordinates interactions between Providers, manages information about distribution of user files across Providers and provides a single logical point of authentication in the system.
+Users use *Onezone* portals like [Onedata.org](onedata.org) in order to authenticate with Onedata and access the data located on the providers.
 
 For more information about Onedata's  *Provider* service, check out [Oneprovider Overview](provider_overview.md) documentation.
 
