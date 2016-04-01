@@ -11,29 +11,29 @@ You can think of a space as a virtual directory, which contents are stored in di
 
 You can create as many spaces as necessary, and each of them can have different providers supporting it.
 
-### Default Space
+### Home Space
 
 <img style="float:right;margin: 0px 15px;max-width:295px" src="img/spaces/default_space_with_files_and_user.png">
 
-After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *default space*.
+After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *home space*.
 
-The contents of the default space are presented as a root directory for your spaces. Default space contains at first only a single directory called `spaces`, which allows you to access files in your other spaces. This is especially convenient for command line access, where you can access all your spaces from a single directory.
+The contents of the home space are presented as a root directory for your spaces. Home space contains at first only a single directory called `spaces`, which allows you to access files in your other spaces. This is especially convenient for command line access, where you can access all your spaces from a single directory.
 
 ### Working with multiple spaces
 To understand the hierarchy of spaces, let's go through an example:
 - we have 3 spaces
 - in each space there is a single directory and a single file, whose names correspond to the space's name
 
-In the first case the `Space1` is designated as the *default space*. Other spaces can be found in the `spaces` folder.
+In the first case the `Space1` is designated as the *home space*. Other spaces can be found in the `spaces` folder.
 
 <img style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2.png">
 
-Let's change the default space to `Space2`. Now when you access your files, at the root level you will see the contents of `Space2`. In order to access the content of `Space1` you will have to navigate to `spaces/Space1`.
+Let's change the home space to `Space2`. Now when you access your files, at the root level you will see the contents of `Space2`. In order to access the content of `Space1` you will have to navigate to `spaces/Space1`.
 
 <img  style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2_changed.png">
 
 ## Manage your spaces
-You can manage your spaces from the **Manage spaces** tab in the web user interface. To navigate to **Manage spaces** page, click on the **Spaces**, there you can see the list of all your spaces with one of them denoted as the default space.
+You can manage your spaces from the **Manage spaces** tab in the web user interface. To navigate to **Manage spaces** page, click on the **Spaces**, there you can see the list of all your spaces with one of them denoted as the home space.
 
 ### Create your space
 The first space is created for you automatically during the first login. In order to create more spaces:
@@ -61,17 +61,17 @@ For more information about permissions, see [Access Control](access_control.md).
 ### Space management
 On the **Manage spaces** page, each listed space has an **Action** button, which allows you to:
 
-| Action Name     | Description                                                              |
-|:----------------|:-------------------------------------------------------------------------|
-| Move up         | Move this space up on the list of your spaces                          |
-| Move down       | Move this space down on the list of your spaces                        |
-| Set as default  | Set this space to be your default space                              |
-| Leave space     | Remove this space from the list of your spaces                         |
-| Rename          | Rename this space                                                  |
-| Remove          | Remove this space and all the data it contains                        |
-| Invite user     | Add a user to this space                                        |
-| Create group    | Create a group and add it to this space                             |
-| Invite group    | Add a group to this space                                     |
+| Action Name     | Description                                                             |
+|:----------------|:------------------------------------------------------------------------|
+| Move up         | Move this space up on the list of your spaces                           |
+| Move down       | Move this space down on the list of your spaces                         |
+| Set as home     | Set this space to be your home space                                    |
+| Leave space     | Remove this space from the list of your spaces                          |
+| Rename          | Rename this space                                                       |
+| Remove          | Remove this space and all the data it contains                          |
+| Invite user     | Add a user to this space                                                |
+| Create group    | Create a group and add it to this space                                 |
+| Invite group    | Add a group to this space                                               |
 | Request support | Generate a unique token for this space that can be sent to the provider |
 
 ### Increase your space quota
