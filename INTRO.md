@@ -9,7 +9,6 @@ If this is your first encounter with Onedata, start with the overview of major c
 
 - [Overview](doc/overview.md)
 
-
 ### Screencasts
 
 #### For users
@@ -17,8 +16,8 @@ Learn how to access, manage and share your data. Create groups of users with fin
 
 Read the [quickstart user guide](doc/as_a_user.md) or watch our screencasts:
 - [Installation and Use of Onedata Client](doc/tutorial/screencast_oneclient_remote.md)
-{% if book.draft %}
-- [Use Onedata Client on the Shared Storage]()
+{% if book.todo %}
+- TODO: [Use Onedata Client on the Shared Storage]()
 {% endif %}
 
 #### For administrators
@@ -28,8 +27,8 @@ Setup your own Onedata Provider and connect your storage resources. Allow your t
 Read the [Oneprovider overview](doc/provider_overview.md) or watch our screencasts:
 
 - [Single-node Installation of Onedata Provider on Google Cloud Compute Engine]()
-{% if book.draft %}
-- [Multi-node Installation of Onedata Provider on Google Cloud Compute Engine]()
+{% if book.todo %}
+- TODO: [Multi-node Installation of Onedata Provider on Google Cloud Compute Engine]()
 {% endif %}
 
 ### Manuals and tutorials
@@ -41,9 +40,9 @@ Tutorials provide step-by-step instructions on how to perform typical data manag
 
 Use the left-hand navigation or the list of links below to access the various sets of documentation that cover Onedata features in detail:
 
-{% if book.draft %} - [HPC data transfer between providers](doc/solutions/rtransfer.md)
-- [Accessing the data](){% endif %}
+{% if book.todo %} - [HPC data transfer between providers](doc/solutions/rtransfer.md)
+- TODO: [Accessing the data](){% endif %}
 - [Sharing](doc/file_management.md) and [Collaboration](doc/space_collaboration.md)
-- [Group management](doc/group_management.md) and [Access Control](doc/file_management.md) {% if book.draft %}
-- [Uids and Gids Management]()
-- [Authentication and authorization](doc/solutions/authentication.md){% endif %}
+- [Group management](doc/group_management.md) and [Access Control](doc/file_management.md) {% if book.todo %}
+- TODO: [Uids and Gids Management]()
+- TODO: [Authentication and authorization](doc/solutions/authentication.md){% endif %}
