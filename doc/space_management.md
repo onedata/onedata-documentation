@@ -33,19 +33,19 @@ Let's change the home space to `Space2`. Now when you access your files, at the 
 <img  style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2_changed.png">
 
 ## Manage your spaces
-You can manage your spaces from the **Manage spaces** tab in the web user interface. To navigate to **Manage spaces** page, click on the **Spaces**, there you can see the list of all your spaces with one of them denoted as the home space.
+You can manage your spaces from the **Spaces** tab located in the web user interface. To navigate to **Spaces** page, click on the **Spaces** in left menubar, there you can see the list of all your spaces with one of them denoted as the home space.
 
 ### Create your space
 The first space is created for you automatically during the first login. In order to create more spaces:
 
-1. In the Onedata Web Interface click **Spaces** button located in the top menu.
-2. On the **Manage spaces** page, click **Create new space** button.
+1. In the Onedata Web Interface click **Spaces** button located in the left menubar.
+2. On the **Spaces** page, click **Create** button.
 3. On the bottom of the screen set the name of the new space and confirm with the **OK** button.
 
 New space will appear in the list of spaces designated with a unique ID.
 
 ### Space Properties
-On the **Manage spaces** page, you can see a detailed information about a space by clicking on it.
+On the **Spaces** page, you can see a detailed information about a space by clicking on it.
 
 <img  style="display:block;margin:0 auto;" src="img/spaces/space_details.png">
 
@@ -59,35 +59,35 @@ For more information about groups, see [Group Management](group_management.md).
 For more information about permissions, see [Access Control](access_control.md).
 
 ### Space management
-On the **Manage spaces** page, each listed space has an **Action** button, which allows you to:
+On the **Spaces** page, each listed space has an **Settings** button, which allows you to:
 
-| Action Name     | Description                                                             |
-|:----------------|:------------------------------------------------------------------------|
-| Move up         | Move this space up on the list of your spaces                           |
-| Move down       | Move this space down on the list of your spaces                         |
-| Set as home     | Set this space to be your home space                                    |
-| Leave space     | Remove this space from the list of your spaces                          |
-| Rename          | Rename this space                                                       |
-| Remove          | Remove this space and all the data it contains                          |
-| Invite user     | Add a user to this space                                                |
-| Create group    | Create a group and add it to this space                                 |
-| Invite group    | Add a group to this space                                               |
-| Request support | Generate a unique token for this space that can be sent to the provider |
+| Action Name  | Description                                                             |
+|:-------------|:------------------------------------------------------------------------|
+| Set as home  | Set this space to be your home space                                    |
+| Move up      | Move this space up on the list of your spaces                           |
+| Move down    | Move this space down on the list of your spaces                         |
+| Leave space  | Remove this space from the list of your spaces                          |
+| Rename       | Rename this space                                                       |
+| Remove       | Remove this space and all the data it contains                          |
+| Invite user  | Add a user to this space                                                |
+| Create group | Create a group and add it to this space                                 |
+| Invite group | Add a group to this space                                               |
+| Get support  | Generate a unique token for this space that can be sent to the provider |
 
 ### Increase your space quota
 In order to increase your space quota:
-1. Navigate to **Manage spaces** page.
-2. On your space, click the **Actions** button.
+1. Navigate to **Spaces** page.
+2. On your space, click the **Settings** button.
 3. Select **Request support** from the drop down menu.
 4. Copy the token and send it to your provider asking for required amount of storage space.
 
 The last step can be performed by email or by other means depending on the policies adopted by the provider. After the provider supports your space with more storage you will be able to see it in the detailed space view.
 
-<img  style="display:block;margin:0 auto;" src="img/spaces/space_details.png">
+<img  style="display:block;margin:0 auto;" src="img/spaces/space_details1.png">
 
 ### Remove your space
 In order to remove your space:
-1. Navigate to **Manage spaces** page.
-2. On your space, click the **Actions** button.
+1. Navigate to **Spaces** page.
+2. On your space, click the **Settings** button.
 3. Select **Remove** from the drop down menu.
 4. Click **Yes**, confirming that you want to remove this space.
