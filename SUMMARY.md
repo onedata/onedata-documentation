@@ -3,6 +3,7 @@
 * [+Onedata Documentation](INTRO.md)
 * [+Overview](doc/overview.md)
 * [+Quickstart](doc/as_a_user.md)
+   * [+Onedata 101](doc/quick_start/101.md)
 * [User Guide](doc/user_guide.md)
    * [+Space Management](doc/space_management.md)
    * [+Group Management](doc/group_management.md)
