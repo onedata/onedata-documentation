@@ -1,18 +1,12 @@
 # Account Management
-Your account can be managed by clicking on your login name on the right side of the top pane in the Onedata web interface.
+Your account can be managed by clicking on your login name on the right side of the top pane in the Onedata web interface and choosing *Manage account* option.
 
 <p align="center">
 <img src="img/manage_account0.png">
 </p>
 
-In account management section you can add new certificates that will be used to authenticate with Onedata services.
+On the account management page you can use the **profile** card to edit your personal information and also define the alias for you account.
 
-<p align="center">
-<img src="img/manage_account.png">
-</p>
+The **add account** card shows what services you used to authenticate with Onedata with details supplied by a corresponding services. You can add more accounts to authenticate with Onedata, delete them or inspect them by clicking on the tick next to the account's email.
 
-By clicking on *Authorization preferences* you are taken to a second account management view, where you can change your name and alias, see what services you used to authenticate with Onedata with details supplied by a corresponding service, your email used in Onedata system, and finally you can choose a provider which you want to use in order to access your files.
-
-<p align="center">
-<img src="img/manage_account1.png">
-</p>
+In the **certificates** card you can add new certificatesthat will be used to authenticate with Onedata services.

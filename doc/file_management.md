@@ -9,30 +9,32 @@ You can also see all the files you are sharing in that way by navigating to Shar
 ### Sharing a file with a link
 To share a file using a link:
 
-1. Navigate to **Data** page.
-2. Click on the **file** you wish to share. It should lit up signaling it is selected.
-3. Click on the **Share** icon, which is a 3rd icon from the left.
-4. Copy the generated link and share it with email or chat.
+1. Navigate to **Provider** page.
+2. Navigate to **Data** page, by click on **data link** on the left menubar.
+3. Click on the **file** you wish to share. It should lit up signaling it is selected.
+4. Click on the **Share** icon, which is a 3rd icon from the left.
+5. Copy the generated link and share it with email or chat.
 
 ### Stop sharing a file
 You can disable the link to the file you previously shared:
 
-1. Hover over the **Data** button.
-2. Click on **Shared Files**.
-3. On the list of files you share find the file you wish to stop sharing.
-4. Click on the **"X" sign** next to it.
-
+1. Navigate to **Provider** page.
+2. Navigate to **Data** page, by click on **data link** on the left menubar.
+3. Click on **Links Files**.
+4. On the list of files you share find the file you wish to stop sharing.
+5. Click on the **"X" sign** next to it.
 
 ## File Permissions
 You can control access to your data with a combination of:
-* classical (POSIX) file permissions
+* classical (POSIX) file permissions  
 * access control lists
 
 ### POSIX Permissions
 Onedata allows you to control access to your data in a POSIX fashion for users, group and others in terms of read, write and executable permissions.
 In order to edit permissions:
 
-1. Navigate to **Data** tab.
+1. Navigate to **Provider** page.
+2. Navigate to **Data** page, by click on **data link** on the left menubar.
 2. Select a **file** or a **directory** by clicking on it.
 3. Click on the **lock icon**.
 4. Edit permissions by clicking on the appropriate **checkbox**.
