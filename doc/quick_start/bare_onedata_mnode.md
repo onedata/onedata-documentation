@@ -1,13 +1,8 @@
-[toc] 
-# Onedata Quickstart
+# Bare Onedata Multi-node 
 
 The goal of this tutorial is for you to run a fully working simple Onedata installation on your own machine. We will show you how to deploy and use Onedata components using [Docker](www.docker.com) images we prepared. To simplify the process we use [docker-compose](https://docs.docker.com/compose/) tool.
 
 Here’s a diagram of the various parts in play in this tutorial to help you understand how pieces fit with one another. Use this as a reference as we progress through the tutorial; it should all make sense by the time we get to the end. 
-
-<p align="center">
-<img src="../img/Onedata101.svg">
-</p>
 
 If you haven't done it already, please read the [Overview](overview.md) to get familiar with basic Onedata concepts.
 
@@ -60,29 +55,6 @@ The Onezone part of the docker-compose file looks like this:
     image: docker.onedata.org/onezone:quick_start
     restart: always
     hostname: node.onedata.org
-    environment:
-      ONEPANEL_BATCH_MODE: 'true'
-      ONEZONE_CONFIG: |
-        cluster:
-          domain_name: "onedata.org"
-          nodes:
-            node:
-              hostname: "node"
-          manager:
-            default_node: "node"
-            nodes:
-              - "node"
-          worker:
-            nodes:
-              - "node"
-          database:
-            nodes:
-              - "node"
-          settings:
-            open_files_limit: 65535
-            processes_limit: 65535
-        onezone:
-          name: "example"
 ~~~
 
 
@@ -109,38 +81,6 @@ The Oneprovider part of the docker-compose file looks like this:
       - "/mnt/data:/mnt/data"
     links:
       - onezone:onedata.org
-    environment:
-      ONEPANEL_BATCH_MODE: 'true'
-      ONEPROVIDER_CONFIG: |
-        cluster:
-          domain_name: "localdomain"
-          nodes:
-            node:
-              hostname: "localhost"
-          manager:
-            default_node: "node"
-            nodes:
-              - "node"
-          worker:
-            nodes:
-              - "node"
-          database:
-            nodes:
-              - "node"
-          storage:
-            NFS:
-              type: "POSIX"
-              mount_point: "/mnt/data"
-          settings:
-            open_files_limit: 65535
-            processes_limit: 65535
-        oneprovider:
-          register: true
-          name: "provider"
-          geo_longitude: 19.945
-          geo_latitude: 50.0647
-        onezone:
-          domain_name: "onedata.org"
 ~~~
 
 You can set the geo_longitude and geo_latitude variables to your location so that your porivder is presented nicely on the map in the graphical user interface. 
@@ -166,9 +106,6 @@ The Oneclient part of the docker-compose file looks like this:
       - "/mnt/oneclient:onedata_tutrial1/myspaces"
     links:
       - oneprovider:node.dev.local
-    environment:
-      PROVIDER_HOSTNAME: node.dev.local
-      ONECLIENT_AUTHORIZATION_TOKEN: XXXXXXXXXX
 ~~~
   
 Putting it all together
@@ -209,30 +146,7 @@ services:
     image: docker.onedata.org/onezone:quick_start
     restart: always
     hostname: node.onedata.org
-    environment:
-      ONEPANEL_BATCH_MODE: 'true'
-      ONEZONE_CONFIG: |
-        cluster:
-          domain_name: "onedata.org"
-          nodes:
-            node:
-              hostname: "node"
-          manager:
-            default_node: "node"
-            nodes:
-              - "node"
-          worker:
-            nodes:
-              - "node"
-          database:
-            nodes:
-              - "node"
-          settings:
-            open_files_limit: 65535
-            processes_limit: 65535
-        onezone:
-          name: "example"
-          
+           
   oneprovider:
     image: docker.onedata.org/oneprovider:quick_start
     restart: always
@@ -244,39 +158,8 @@ services:
     networks:
       - oneprovider
       - onedata
-    environment:
-      ONEPANEL_BATCH_MODE: 'true'
-      ONEPROVIDER_CONFIG: |
-        cluster:
-          domain_name: "localdomain"
-          nodes:
-            node:
-              hostname: "localhost"
-          manager:
-            default_node: "node"
-            nodes:
-              - "node"
-          worker:
-            nodes:
-              - "node"
-          database:
-            nodes:
-              - "node"
-          storage:
-            NFS:
-              type: "POSIX"
-              mount_point: "/mnt/data"
-          settings:
-            open_files_limit: 65535
-            processes_limit: 65535
-        oneprovider:
-          register: true
-          name: "provider"
-          geo_longitude: 19.945
-          geo_latitude: 50.0647
-        onezone:
-          domain_name: "onedata.org"
-  oneclient:
+ 
+   oneclient:
     image: docker.onedata.org/oneclient:quick_start
     privileged: true
     volumes:
@@ -285,9 +168,6 @@ services:
       - "/mnt/data:/mnt/data"
     links:
       - oneprovider:node.dev.local
-    environment:
-      PROVIDER_HOSTNAME: node.dev.local
-      ONECLIENT_AUTHORIZATION_TOKEN: $ONECLIENT_AUTHORIZATION_TOKEN
 
 networks:
   onedata:
