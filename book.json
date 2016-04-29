@@ -2,7 +2,21 @@
     "plugins": ["onedata-theme@0.0.2", "youtube@1.1.0", "image-captions@0.3.2", "styles-sass@1.1.0"],
     "variables": {
        "draft":false,
-       "idea":true
+       "idea":true,
+
+       "quickstart": {
+         "docker": {
+           "versions": {
+             "oneclient": "3.0superclient",
+             "oneprovider":"3.0superptovider",
+             "onezone":"3.0superzone"
+           }
+         }
+       },
+       "a": {
+       "ala": "abbbbla"
+       }
+
     },
     "structure": {
         "readme": "INTRO.md"
