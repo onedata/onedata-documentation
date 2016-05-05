@@ -54,6 +54,7 @@ node_modules/gitbook-plugin-styles-sass
 node_modules/gitbook-plugin-toggle-chapters
 node_modules/marked
 node_modules/.bin/marked
+node_modules/gitbook-plugin-toc
 
 # docker image artefact
 dockerimage.report.txt

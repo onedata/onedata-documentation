@@ -4,7 +4,8 @@
       "youtube@1.1.0",
       "image-captions@0.3.2",
       "styles-sass@1.1.0",
-      "toggle-chapters"
+      "toggle-chapters",
+      "toc"
     ],
     "variables": {
        "draft":false,
