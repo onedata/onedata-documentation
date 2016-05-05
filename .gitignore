@@ -48,7 +48,12 @@ crashlytics-build.properties
 
 _book
 .idea
+
+# npm modules and plugins
 node_modules/gitbook-plugin-styles-sass
+node_modules/gitbook-plugin-toggle-chapters
+node_modules/marked
+node_modules/.bin/marked
 
 # docker image artefact
 dockerimage.report.txt
