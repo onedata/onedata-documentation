@@ -1,5 +1,7 @@
 # Oneclient
 
+<!-- toc -->
+
 Onedata provides a command-line based client that is able to mount your spaces in your local file system tree. Oneclient is based on [Fuse](https://github.com/libfuse/libfuse) and can be downloaded from [onedata.org](https://onedata.org/download). Please follow installation instructions that can be found there for your particular platform.
 
 *After installing ensure that you are able to access `fusermount` tool, by running `fusermount -h`. In case you are not allowed to execute `fusermount`, ask your administrator to make you a member of a `fuse` group. If you have administrator rights to your machine, use command `gpasswd -a <username> fuse` to add your account to `fuse` group.*
@@ -22,7 +24,7 @@ Then simply paste the token into the command line.
 #### X.509 Certificate
 In case you have a valid X.509 certificate you can use it to mount your spaces without getting the access token.
 
-The certificate has to be located in one of the following locations: 
+The certificate has to be located in one of the following locations:
 * Environment variable **X509_USER_PROXY**
 * Active Grid proxy certificate in `/tmp/x509up_u0`
 * Environment variable **X509_USER_CERT**
