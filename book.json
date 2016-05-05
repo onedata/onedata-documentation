@@ -1,5 +1,11 @@
 {
-    "plugins": ["onedata-theme@0.0.2", "youtube@1.1.0", "image-captions@0.3.2", "styles-sass@1.1.0"],
+    "plugins": [
+      "onedata-theme@0.0.2",
+      "youtube@1.1.0",
+      "image-captions@0.3.2",
+      "styles-sass@1.1.0",
+      "toggle-chapters"
+    ],
     "variables": {
        "draft":false,
        "idea":true
