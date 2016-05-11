@@ -6,7 +6,9 @@ With Onedata, users can access, store, process and publish data using global dat
 
 Onedata focuses on instant, transparent access to distributed data sets, without unnecessary staging and migration, allowing access to the data directly from your local computer or worker node.
 
+<!--
 > If this is your first encounter with Onedata, start with the overview of major concepts of the platform to get familiar with the overall architecture and basic aspects of the system such as spaces, clients and providers.
+-->
 
 Before you start sing Onedata, it's helpful to understand what functionality it provides, how data is organized and what are the various components of the platform.
 
@@ -25,7 +27,7 @@ The main public zone is [onedata.org](onedata.org) that is managed by *Onezone* 
 
 As *onedata.org* is a main public zone, any provider register with and allow its users to access thei data through *onedata.org*.
 
-For more information about Onedata's  *Onezone* service, check out [*Onezone* Overview](onezone_overview.md) documentation.
+For more information about Onedata's  *Onezone* service, check out [*Onezone* Overview](../administering_onedata/onezone_overview.md) documentation.
 
 ### Providers
 Each Onezone is composed of a global network of providers who provision their resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service and registering at [onedata.org](onedata.org). 
@@ -40,7 +42,7 @@ Providers deploy *Oneprovider* services near physical storage resources, i.e. in
 
 Users use *Onezone* portals like [Onedata.org](onedata.org) in order to authenticate with Onedata and access the data located on the providers.
 
-For more information about Onedata's  provider service, check out [Oneprovider Overview](provider_overview.md) documentation.
+For more information about Onedata's  provider service, check out [Oneprovider Overview](../administering_onedata/provider_overview.md) documentation.
 
 ## Spaces
 All data stored in Onedata is organized into *Spaces*. Spaces can be considered as virtual folders or drives, which can contain an arbitrary subdirectory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one Provider, which means that this provider reserved certain storage quota for this particular space. In case a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
@@ -57,7 +59,7 @@ Each user can have any number of *spaces*. *Spaces* can be easily shared with ot
 
 Data in spaces can be managed through a web interface as well as from command-line. Each space can be easily mounted to a local filesystem and accessed directly from a laptop, a cluster node or virtual machine deployed in the cloud.
 
-For more information about *Spaces* and *Groups* see [Space Management](space_management.md) and [Group Management](group_management.md).
+For more information about *Spaces* and *Groups* see [Space Management](../using_onedata/space_management.md) and [Group Management](../using_onedata/group_management.md).
 
 
 
@@ -75,7 +77,7 @@ The Onedata Web Interface provides a web-based, graphical user interface that yo
 
 ### User command-line interface
 
-If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](oneclient.md) reference for the complete list of available features.
+If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](../using_onedata/oneclient.md) reference for the complete list of available features.
 
 ### Provider management interface
 
@@ -84,5 +86,4 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 ### Developer interfaces
 
 Currently Onedata exposes a CDMI interface for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
-
 
