@@ -56,7 +56,7 @@ All information regarding your space is presented here, including:
 
 For more information about groups, see [Group Management](group_management.md).
 
-For more information about permissions, see [Access Control](access_control.md).
+For more information about permissions, see [Access Control](file_management.md#Access Control Lists).
 
 ### Space management
 On the **Spaces** page, each listed space has an **Settings** button, which allows you to:
