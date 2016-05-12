@@ -10,7 +10,7 @@ Currently the best way to install Onedata is using Docker. We provide a complete
 #### Using Oneclient from Docker
 If you already have an account at [onedata.org](onedata.org) or some other Onedata zone, you can simply mount your spaces to any folder using single docker command:
 ```
-docker run
+docker run ???
 ```
 
 #### Installing Onedata storage provider services
