@@ -24,7 +24,7 @@ password: password
 
 ### Step 1: Hosts selection
 
-<p align="center"><img src="img/admin/step1_host_selection.png"></p>
+<p align="center"><img src="../img/admin/step1_host_selection.png"></p>
 
 In this step, Onepanel detects all nodes in the network where Oneprovider package has been installed and Onepanel service is running. You can configure on which nodes which Oneprovider each of the services will be installed.
 
@@ -33,28 +33,28 @@ In this step, Onepanel detects all nodes in the network where Oneprovider packag
 
 You can deploy multiple Cluster Managers for redundancy purposes but only one will be active at the same time. Here you can choose which one:
 
-<p align="center"><img src="img/admin/step2_primary_cm_selection.png"></p>
+<p align="center"><img src="../img/admin/step2_primary_cm_selection.png"></p>
 
 
 ### Step 3: Application ports check.
 
 In order to work properly Oneprovider needs a number of ports (443, 53) open on machine. In this step Oneprovider ensures that all needed ports are open.
 
-<p align="center"><img src="img/admin/step3_ports_check.png"></p>
+<p align="center"><img src="../img/admin/step3_ports_check.png"></p>
 
 
 ### Step 4: System limits configuration.
 
 Administrators may impose limit on a number of opened files by Oneprovider, services and processes spawned by them.
 
-<p align="center"><img src="img/admin/step4_system_limists.png"></p>
+<p align="center"><img src="../img/admin/step4_system_limists.png"></p>
 
 
 ### Step 5: Storage configuration.
 
 Select a path to a mounted storage, which Oneprovider will use to store user data.
 
-<p align="center"><img src="img/admin/step5_path_to_storage.png"></p>
+<p align="center"><img src="../img/admin/step5_path_to_storage.png"></p>
 
 
 ## Oneprovider Registration
@@ -72,9 +72,9 @@ tcp: 8443 - port for provider to provider communication
 tcp: 9443 - Onepanel port
 ~~~
 
-<p align="center"><img src="img/admin/rstrep1_info.png"></p>
+<p align="center"><img src="../img/admin/rstrep1_info.png"></p>
 
-<p align="center"><img src="img/admin/rstep2_ports.png"></p>
+<p align="center"><img src="../img/admin/rstep2_ports.png"></p>
 
 Ideally all the nodes should have a dedicated public IP address and the above mentioned ports open to the world. In other case you can configure a `;` separated *Redirection points*, where each entry is a pair of public IP and the port which point to one of the nodes.
 
@@ -84,4 +84,4 @@ For the sake of security it is recommended, that no ports on database and cluste
 ### Step 3: Name configuration
 The last step allows to set a name for the provider by which it will be identified in Onedata Registry and presented to users.
 
-<p align="center"><img src="img/admin/rstep2_name.png"></p>
+<p align="center"><img src="../img/admin/rstep2_name.png"></p>

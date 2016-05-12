@@ -20,7 +20,7 @@ password: password
 
 ### Step 1: Hosts selection
 
-<p align="center"><img src="img/admin/oz_step1_host_selection.png"></p>
+<p align="center"><img src="../img/admin/oz_step1_host_selection.png"></p>
 
 In this step, Onepanel detects all nodes in the network where Onezone package has been installed and Onepanel service is running. You can configure on which nodes which Onezone each of the services will be installed.
 
@@ -29,11 +29,11 @@ In this step, Onepanel detects all nodes in the network where Onezone package ha
 
 In order to work properly Onezone needs a number of ports (443, 53) open on machine. In this step Onezone ensures that all needed ports are open.
 
-<p align="center"><img src="img/admin/oz_step3_ports_check.png"></p>
+<p align="center"><img src="../img/admin/oz_step3_ports_check.png"></p>
 
 
 ### Step 3: System limits configuration.
 
 Administrators may impose limit on a number of opened files by Onezone, services and processes spawned by them.
 
-<p align="center"><img src="img/admin/oz_step4_system_limists.png"></p>
+<p align="center"><img src="../img/admin/oz_step4_system_limists.png"></p>
