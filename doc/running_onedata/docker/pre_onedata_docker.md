@@ -1,6 +1,6 @@
 # Installing complete Onedata
  
-In this section you will learn how to deploy a fully functional Onedata installation that can work independely of Onedata.org.
+In this section you will learn how to deploy a fully functional Onedata installation that can work independently of Onedata.org.
 
 <!-- toc -->
 
@@ -10,15 +10,15 @@ Here’s a diagram of the various parts in play in this scenario to help you und
 <img src="../../img/Onedata101.svg">
 </p>
 
-In this scenario we will leverage docker compose configuration files form [Scenario 1](). If you have problem following please refer to [Scenario 1]().
+In this scenario we will leverage docker compose configuration files from [Scenario 1](). If you have problem following please refer to [Scenario 1]().
 
-In [Scenario 1]() you used globale Onezone service accessible under `ondata.org`. Now you need to start with setting your own Onezone service. 
+In [Scenario 1]() you used global Onezone service accessible under `ondata.org`. Now you need to start with setting your own Onezone service. 
 
-To run Onedata locally on your Docker, you need three services:
+To run Onedata locally with your Docker, you need 3 services:
 
-- Onezone, a communication hub of Onedata system
-- Oneprovider, a component that connects storage to Onedata
-- Oneclient, a command line client used to access your files in Onedata
+- Onezone - a communication hub of Onedata system
+- Oneprovider - a component that connects storage to Onedata
+- Oneclient - a command line client used to access your files in Onedata
 
 ##Setting up Onezone
 We will start by deploying a single-node Onezone installtion using a following `docker-compose-onezone.yaml` as a template: 
