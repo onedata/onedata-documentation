@@ -1,13 +1,25 @@
 # Downloading Onedata
 
-You can either build a release from sources, download a pre-built release or use ready-to-go docker images. If you do not plan on developing Onedata itself, we suggest a pre-built release.  1` 
+You can either build a release from sources, download a pre-built release or use ready-to-go docker images. If you do not plan on developing Onedata itself, we suggest a pre-built release. 
 
 
 ## Download and Install Onedata
+### Docker
+Currently the best way to install Onedata is using Docker. We provide a complete set of Docker images covering all Onedata services.
 
+#### Using Oneclient from Docker
+If you already have an account at [onedata.org](onedata.org) or some other Onedata zone, you can simply mount your spaces to any folder using single docker command:
+```
+docker run
+```
+
+#### Installing Onedata storage provider services
+We prepared a [Onedata Admin 101]() tutorial which explains how to quickly setup a complete Onedata installation on a local machine. 
+
+For more advanced tutorials on running Onedata with Docker, see [Running Onedata with Docker]() and [Docker Quickstart Scenarios]() sections. 
+
+### Linux
 The bash script at https://get.onedata.org, which can be run with wget or curl, automatically downloads Onedata packages and installs them on your machine. 
-
-### On Linux
 
 ```
 # wget version
@@ -22,19 +34,19 @@ As of now we only support:
 * Fedora => 23
 
 ### With Docker 
-If your Linux distribution is not supported you may run Onedata in Docker containers. We prepared a [Onedata Admin 101]() tutorial that will allow you to quickly setup a complete Onedata installation in your local machine. 
+If your Linux distribution is not supported you may run Onedata in Docker containers. 
 
-For more advanced tutorials on running Onedata with Docker, see [Running Onedata with Docker]() and [Docker Quickstart Scenarios]() sections. 
+
 
 ## Building from source
 
-Get the Onedata source. If you are simply building a release from source there is no need to set up a full environment as all building happens in a Docker container.
-Building a release is simple.
+Onedata build process is completely contained in a Docker environment. To build complete Onedata platform from sources simply follow these steps:
 
 ```
 git clone https://github.com/onedata/onedata.git
 cd onedata
 make
 ```
-For more details on the release process see the [build/]() directory
+
+
 
