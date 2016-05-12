@@ -1,6 +1,6 @@
 # Summary
 
-* [+Onedata Documentation](INTRO.md)
+* [+Onedata](/)[Documentation](INTRO.md)
 * [Getting Started](doc/getting_started/getting_started.md)
   * [What is Onedata?](doc/getting_started/what_is_onedata.md)
   * [Downloading Onedata](doc/getting_started/downloading_onedata.md)
