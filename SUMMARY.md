@@ -26,7 +26,7 @@
     * [Space Collaboration](doc/using_onedata/space_collaboration.md)
     * [Account Management](doc/using_onedata/account_management.md)
 
-* [Administering Onedata](doc/admin_guide.md)
+* [Administering Onedata](Administering)
    * [Onezone](Onezone)
      * [Onezone Overview](doc/administering_onedata/onezone_overview.md)
      * [+Onezone Installation](doc/administering_onedata/onezone_installation.md)
