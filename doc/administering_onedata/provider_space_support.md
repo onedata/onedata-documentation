@@ -13,14 +13,14 @@ For more information about *Spaces*, check out the [Overview](overview.md).
 ## Space support step by step
 In order to grant user a support for his space,  you login into Onepanel service and in the *Spaces* tab choose *Support Space* button:
 
-<p align="center"><img src="img/admin/space_support_step2.png"></p>
+<p align="center"><img src="../img/admin/space_support_step2.png"></p>
 
 You enter the token given by a user and amount of space granted to the user.
 
-<p align="center"><img src="img/admin/space_support_step3.png"></p>
+<p align="center"><img src="../img/admin/space_support_step3.png"></p>
 
 After clicking ok, administrator can explore a list of spaces that are supported by this Oneprovider cluster.
 
-<p align="center"><img src="img/admin/space_support_step4.png"></p>
+<p align="center"><img src="../img/admin/space_support_step4.png"></p>
 
 Further information about the space itself is available under the **i** information icon.

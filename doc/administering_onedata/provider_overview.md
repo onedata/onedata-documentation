@@ -11,7 +11,7 @@ Oneprovider is a cluster solution composed of 3 types of services:
 Each service can be deployed multiple times depending on the performance and reliability requirements. The cluster can be administered from any node, thanks to *onepanel* web application that runs on every node.
 
 <p align="center">
-<img src="img/admin/oneprovider_slide.png">
+<img src="../img/admin/oneprovider_slide.png">
 </p>
 
 Oneprovider implements drivers for storages such as NFS, Lustre, Ceph (Onedata v3.0) or S3 (Onedata v3.0).
