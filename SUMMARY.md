@@ -35,13 +35,6 @@
      * [Oneprovider Installation](doc/administering_onedata/provider_installation.md)
      * [Space support](doc/administering_onedata/provider_space_support.md)
      * [Attaching Storage](Storage)
-  
-* [Video Tutorials](doc/tutorials.md)
-   * [Space Management](doc/tutorial/screencast_space_management.md)
-   * [Group Management](doc/tutorial/screencast_group_management.md)
-   * [Using Onedata Client From Remote Host](doc/tutorial/screencast_oneclient_remote.md)
-   * [Using Onedata Client with Direct I/O](doc/tutorial/screencast_oneclient_directio.md)
-   * [Provider Installation: Single Node](doc/tutorial/screencast_oneprovider_single.md)
 
 * [Advanced](doc/advanced/advanced.md)
  <!-- * [Macaroons](doc/advanced/macaroons.md)
