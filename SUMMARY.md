@@ -9,13 +9,6 @@
 
 * [User Guide](doc/user_guide.md)
 * [Admin Guide](doc/admin_guide.md)
-
-* [Running Onedata](doc/running_onedata/running_onedata.md)
-  * [Picking the Right Solution](doc/running_onedata/right_solution.md)
-  <!---* [Running Onedata on Linux](doc/running_onedata/run_on_linux.md)-->
-  * [Running Onedata Locally via Docker](doc/running_onedata/run_with_docker.md)
-    * [Oneprovider with Onedata.org](doc/running_onedata/docker/pre_oneprovider_docker.md)
-    * [Complete Onedata Setup](doc/running_onedata/docker/pre_onedata_docker.md)
    
 * [Using Onedata](doc/using_onedata/user_guide.md)
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
@@ -29,7 +22,7 @@
 * [Administering Onedata](Administering)
    * [Onezone](Onezone)
      * [Onezone Overview](doc/administering_onedata/onezone_overview.md)
-     * [+Onezone Installation](doc/administering_onedata/onezone_installation.md)
+     * [Onezone Installation](doc/administering_onedata/onezone_installation.md)
    * [Oneprovider](Oneprovider)
      * [Oneprovider Overview](doc/administering_onedata/provider_overview.md)
      * [Oneprovider Installation](doc/administering_onedata/provider_installation.md)
