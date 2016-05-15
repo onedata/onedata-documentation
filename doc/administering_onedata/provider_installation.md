@@ -1,6 +1,8 @@
 # Oneprovider Installation
 
+<!-- UNCOMMENT WHEN TUTORIALS FOR 3.0 ARE READY
 > A detailed screencast presenting a single node installation of Oneprovider is located in the tutorials section.
+-->
 
 Oneprovider installation consists of 2 parts:
 * installation of Oneprovider services on the cluster nodes

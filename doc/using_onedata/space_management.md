@@ -3,7 +3,7 @@ This document discusses in more detail what the space is, and how it can be mana
 
 ## Space concept overview
 
-<img style="float:right;margin: 00px 30px;max-width:150px" src="img/spaces/1_space_with_files.png">
+<img style="float:right;margin: 00px 30px;max-width:150px" src="../img/spaces/1_space_with_files.png">
 
 You can think of a space as a virtual directory, which contents are stored in distributed storage resources provisioned by storage providers. Each space must have at least one provider supporting it with a non-zero storage space (quota). The effective quota available to a single space is the sum of storage quotas dedicated to this space by all storage providers supporting it.
 
@@ -13,7 +13,7 @@ You can create as many spaces as necessary, and each of them can have different 
 
 ### Home Space
 
-<img style="float:right;margin: 0px 15px;max-width:295px" src="img/spaces/default_space_with_files_and_user.png">
+<img style="float:right;margin: 0px 15px;max-width:295px" src="../img/spaces/default_space_with_files_and_user.png">
 
 After creating account at [onedata.org](onedata.org), a first space is automatically created which is called the *home space*.
 
@@ -26,11 +26,11 @@ To understand the hierarchy of spaces, let's go through an example:
 
 In the first case the `Space1` is designated as the *home space*. Other spaces can be found in the `spaces` folder.
 
-<img style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2.png">
+<img style="display:block;margin:0 auto;" src="../img/spaces/space_managment_default_space2.png">
 
 Let's change the home space to `Space2`. Now when you access your files, at the root level you will see the contents of `Space2`. In order to access the content of `Space1` you will have to navigate to `spaces/Space1`.
 
-<img  style="display:block;margin:0 auto;" src="img/spaces/space_managment_default_space2_changed.png">
+<img  style="display:block;margin:0 auto;" src="../img/spaces/space_managment_default_space2_changed.png">
 
 ## Manage your spaces
 You can manage your spaces from the **Spaces** tab located in the web user interface. To navigate to **Spaces** page, click on the **Spaces** in left menubar, there you can see the list of all your spaces with one of them denoted as the home space.
@@ -47,7 +47,7 @@ New space will appear in the list of spaces designated with a unique ID.
 ### Space Properties
 On the **Spaces** page, you can see a detailed information about a space by clicking on it.
 
-<img  style="display:block;margin:0 auto;" src="img/spaces/space_details.png">
+<img  style="display:block;margin:0 auto;" src="../img/spaces/space_details.png">
 
 All information regarding your space is presented here, including:
 - a list of users who can access your space and their permissions
@@ -83,7 +83,7 @@ In order to increase your space quota:
 
 The last step can be performed by email or by other means depending on the policies adopted by the provider. After the provider supports your space with more storage you will be able to see it in the detailed space view.
 
-<img  style="display:block;margin:0 auto;" src="img/spaces/space_details1.png">
+<img  style="display:block;margin:0 auto;" src="../img/spaces/space_details1.png">
 
 ### Remove your space
 In order to remove your space:
