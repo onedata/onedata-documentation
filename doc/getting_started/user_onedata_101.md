@@ -12,17 +12,23 @@ For more information about managing your account, see [Account management](accou
 -->
 ## Supporting the Home Space
 At the first login, a **home space** is created for you.
-Like every space, at the beginning it has quota size of 0MB. You have to request storage support with certain limit (e.g. 5GB) from some provider to be able to store any files in this space.
+Like every space, at the beginning it has quota size of 0MB. You have to request storage support with certain limit (e.g. 5GB) from some storage provider (or setup your own Oneprovider service) to be able to store any files in this space.
 
-On left at *onezone* page page you can find the *Manage Client Tokens* tab. There you can create new token and copy it to your clipboard. You need to send this token to one of storage providers who use Onedata and ask to support your space.
+In the left panel of *Onezone* page you can find the *Manage Client Tokens* tab. There you can create new storage support request token and copy it to your clipboard. You need to send this token to one of storage providers who use Onedata and ask to support your space.
 
-After having your space supported by at least 1 provider, the provider will apear on the map on *onezone* page. Click on the provider icon on the map. Click on the button "Go to your files". You will be redirected to Oneprovider [web interface](../user_guide.md), where you can manage your files and [more](../user_guide.md).
+After having your space supported by at least 1 provider, the provider will appear on the map on *Onezone* page. Click on the provider icon on the map and click on the button "Go to your files". You will be redirected to [Oneprovider web interface](../user_guide.md), where you can manage your files and [more](../user_guide.md).
 
-## Uploading file
-1. Click the **Upload file** button - which is the forth icon in the top row.
+## Uploading files
+1. Click the **Upload file** button - which is the 4th icon in the top row.
 2. Click the **Select files** and using the system dialog select files you wish to upload. You can select multiple files.
 3. Click the **Start upload** button in order to start the upload.
-4. Observe the *progress bars*. The first one tracks the overall progress of the upload, the second tracks the progress of the file being uploaded.
+4. Observe the *progress bars*. The first one tracks the overall progress of the upload, the second tracks the progress of the file currently being uploaded.
+
+## Accessing files
+Once you have some files in your space, you can access them using the web interface or the Onedata virtual file system through the Oneclient tool.
+
+TODO
+
 
 ## Next steps
 After you are comfortable using basic file operations in your home space, see the [User Guide](../user_guide.md) and learn how to work with multiple spaces and perform some more advanced actions.

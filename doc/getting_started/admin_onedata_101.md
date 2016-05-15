@@ -1,13 +1,15 @@
-# Onedata Admin 101
+# Administrator quick start
 
-For Onedata Admin 101, we will cover installation of full Onedata: onezone, oneprovider and oneclient packages using docker images and docker compose. We have prepared docker compose configuration for each of Onedata services.
+In order to make the process of deployment of Onedata as easy as possible for storage providers, we have prepared a complete Docker environment, based on Docker Compose recipes.
 
-## Get Sources
+This guide introduces a most typical Onedata deployment using a tutorial from our predefined scenarios covering various Onedata setups. More information on these examples can be found at: [](https://github.com/onedata/getting-started)
 
-Clone Onedata getting stared repo: `https://github.com/onedata/getting-started`
+## Get scenarios
+
+Clone Onedata getting-started repository: `https://github.com/onedata/getting-started`
 and navigate to `scenarios/2_0_oneprovider_onezone` directory.
 
-In this scenario all the necessary configuration is injected in to Onedata services during installation (see docker-compose configuration files). The resulting setup will be ready to work just after starting docker containers.
+In this scenario all the necessary configuration is injected in to Onedata services during installation (see docker-compose configuration files for details). The resulting setup will be ready to work immediately after starting docker containers.
 
 ## Setup Onedata
 You will use `run-onedata.sh` for running Onedata docker containers. For more information about the script run `run-onedata.sh --help`.
@@ -15,7 +17,7 @@ You will use `run-onedata.sh` for running Onedata docker containers. For more in
 Onedata services depend on each other, after each run wait for a conformation message that service has succesfully started before continuing. 
 
 ### Onezone
-To run Onezone service open separate termial window and execute:
+To start Onezone service open separate terminal window and execute:
 ```bash=
 ./run_onedata.sh --onezone 
 ```
@@ -28,7 +30,7 @@ To run Oneprovider service open another termial window and execute:
 
 ### Add `onedata.org` to /etc/hosts
 
-In order for Onedata installation to work properly you need to modify you /etc/hosts file so that you web-browser would see onedata services under `onedata.org` domain.
+In order for Onedata installation to work properly on a local machine you need to modify your /etc/hosts file so that you web-browser would see onedata services under `onedata.org` domain.
 
 ```
 # Onedata configuration
@@ -37,7 +39,7 @@ In order for Onedata installation to work properly you need to modify you /etc/h
 <oneprovider_ip>  node1.oneprovider.dev.local
 ```
 
-Use following commands to extract IP addreses of Onezone and Oneprovider services:
+Use following commands to extract IP addresses of Onezone and Oneprovider services:
 ```bash=
 docker inspect 20oneprovideronezone_node1.onezone.dev.local_1 | grep "IPAddress" # for onezone
 docker inspect 20oneprovideronezone_node1.onezone.dev.local_1 | grep "IPAddress" # for oneprovider
@@ -45,12 +47,12 @@ docker inspect 20oneprovideronezone_node1.onezone.dev.local_1 | grep "IPAddress"
 
 ## Use Onedata
 
-Navigate to `https://onedata.org` (assumign you modified your `/etc/hosts` file) and register with your local Onedata installation using one of the authentication method. From this point you hava a fully working Onedata installation. 
+Navigate to `https://onedata.org` (assuming you modified your `/etc/hosts` file) and register with your local Onedata installation using one of the authentication methods. From this point you have a fully working local Onedata installation. 
 
-Additionaly Oneprovider management inferface is aviable at `https://node1.oneprovider.dev.local:9443`.
+Additionally Oneprovider management inferface is avaiable at `https://node1.oneprovider.dev.local:9443`.
 
 Refer to [User Onedata 101](user_onedata_101.md) and [User Guide](../user_guide.md) for more information on using Onedata. 
 
-If you happed to run into problems, please  us on our support chat or write us an email. All the necessary information is available on `https://onedata.org/support`.
+If you happened to run into problems, please contact us on our support chat or write us an email. All the necessary information is available on `https://onedata.org/support`.
 
 

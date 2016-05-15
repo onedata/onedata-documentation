@@ -1,5 +1,5 @@
-# Oneprovider using Onedata.org
-In this section we will guide you how to setup a single-node &#x1F4D7; and a multi-node  &#x1F4D8; Oneprovider installations. To follow this guide you will need a machine with a public ip &#x1F30D; address and a number of [open ports](../../adminstering_onedata/provider_installation.md)
+# Oneprovider deployment in Onedata.org zone
+In this section we will guide you how to setup a single-node &#x1F4D7; and a multi-node  &#x1F4D8; Oneprovider installations, connected to public [onedata.org]() zone. To follow this guide you will need a machine with a public ip &#x1F30D; address and a number of [open ports](../../adminstering_onedata/provider_installation.md)
  <!-- If you need more information about Oneprovider please refer to [oneprovider readme]().-->
 
 <!-- toc -->
@@ -11,9 +11,9 @@ Here’s a diagram of the various parts in play in this scenario to help you und
 </p>
 
 ## Setting up Oneprovider
-Although Oneprovider is a cluster solution we will start by deploying it with one node only.
+Although Oneprovider is a cluster solution we will start by deploying it on single node for now.
 
-To do that we will need a `docker-compose-oneprovider.yaml` to setup Oneprovider. Here is baisc template that we will expand in the later steps:
+To do that we will need a `docker-compose-oneprovider.yaml` to setup Oneprovider. Here is a basic template that we will expand in the later steps:
 
 <pre><code class="yaml">version: '2.0'
 
@@ -25,14 +25,14 @@ services:
 </code></pre>
 
 ### Attaching storage volume
-The main purpose of Oneprovider is to expose your storage resources to Onedata system. To do that using a docker image, you need to specify a volume to a docker-compose file:
+The main purpose of Oneprovider is to expose your storage resources to Onedata system. To do that using a Docker image, you need to specify a volume in a docker-compose file:
 
 ```
 volumes:
       - "onedata_tutrial1/data:/mnt/data"
 ``` 
 
-You are adviced to replace the relative path onedata_tutrial1/data to the absolute path to your data directory. Modified `docker-compose-oneprovider.yaml`  will look like that:
+You are adviced to replace the relative path onedata_tutrial1/data with the absolute path to your data directory. Modified `docker-compose-oneprovider.yaml`  will look like that:
 
 <pre><code class="yaml">version: '2.0'
 
@@ -46,11 +46,11 @@ services:
 </code></pre>
 
 
-> Additionaly we link Oneprovider to Onezone with onezone:onedata.org link option. Lastly we supply Oneprovider configuration in form of environmental variables.
+> Additionaly we link Oneprovider to Onezone with onezone:onedata.org link option. Lastly we supply Oneprovider configuration in the form of environmental variables.
 
 
 ### Configuring Oneprovider
-Oneprovider docker image can be configured and initialized using a [web wizard]() or by supplying it with configuration file. In this scenario we will supply the content of the configuration file using docker environmental variables. The detailed information on the syntax of Oneprovider configuration file can be found [here]().
+Oneprovider Docker image can be configured and initialized using a [web wizard]() or by supplying it with configuration file. In this scenario we will supply the content of the configuration file using docker environmental variables. The detailed information on the syntax of Oneprovider configuration file can be found [here]().
 
 The complete `docker-compose-oneprovider.yaml` for a single-node cluster looks like this:
 <pre><code class="yaml">version: '2.0'
@@ -96,7 +96,7 @@ services:
           domain_name: "onedata.org"
 </code></pre>
 
-You can set the `geo_longitude` and `geo_latitude` variables to your location so that your porivder is presented nicely on a map in Onezone web interface.
+You can set the `geo_longitude` and `geo_latitude` variables to your location so that your provider is presented nicely on a map in Onezone web interface.
 
 
 ### Adding a second Oneprovider node &#x1F4D8;
@@ -187,7 +187,7 @@ services:
  </code></pre>
 
 ### Mount Point Configuration
-To mount your data in your local filesystem you need to create mount point `onedata_tutrial1/myspaces` add it as a docker volume:
+To mount your data in your local filesystem you need to create mount point `onedata_tutorial1/myspaces` add it as a docker volume:
 
 ```
 volumes:
