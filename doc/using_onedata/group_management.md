@@ -31,7 +31,7 @@ You should be able to see a group on the Manage groups page immediately.
 
 ## Group properties
 On the **Groups** page, you can see a detailed information about a group by clicking on it.
-<img  style="display:block;margin:0 auto;" src="img/group_management_group1_details.png">
+<img  style="display:block;margin:0 auto;" src="../img/group_management_group1_details.png">
 
 All information regarding your group is presented here, including:
 - a list of members of this group and their permissions
@@ -47,7 +47,7 @@ You can control actions and the level of access to your group by setting dedicat
 4. To unset a permission click on the **box with a tick**.
 5. To save or discard changes use **Save** or **Discard** buttons.
 
-<img style="display:block;margin:0 auto;" src="img/group_permissions.png">
+<img style="display:block;margin:0 auto;" src="../img/group_permissions.png">
 
 A complete list of available permissions:
 
