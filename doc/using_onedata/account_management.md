@@ -2,7 +2,7 @@
 Your account can be managed by clicking on your login name on the right side of the top pane in the Onedata web interface and choosing *Manage account* option.
 
 <p align="center">
-<img src="img/manage_account0.png">
+<img src="../img/manage_account0.png">
 </p>
 
 On the account management page you can use the **profile** card to edit your personal information and also define the alias for you account.
