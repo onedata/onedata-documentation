@@ -16,11 +16,12 @@ In order to be able to mount your spaces you need to authenticate with [onedata.
 #### Authentication token
 In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following command:
 ~~~
-> oneclient --authentication token MOUNT_POINT
-Authorization Code: PASTE_TOKEN_HERE
+> ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> PROVIDER_HOSTNAME=<DEFAULT_PROVIDER> \ 
+  oneclient --authentication token <MOUNT_POINT>
 ~~~
 Then simply paste the token into the command line.
 
+<!--
 #### X.509 Certificate
 In case you have a valid X.509 certificate you can use it to mount your spaces without getting the access token.
 
@@ -48,6 +49,8 @@ oneclient has been successfully mounted in ./mnt
 ~~~
 
 If this is the first time you are using this certificate to mount your spaces, `oneclient` will present a warning that the certificate is unverified and that this operation has to be confirmed.
+-->
+
 
 For optimal performance, such as direct use of storage IO for local data, ask your administrator to add you to the group identified by GID presented by `oneclient` and remount your spaces.
 
@@ -68,13 +71,13 @@ General options:
   -V [ --version ]        print version
   --config arg            path to user config file
   --authentication arg    authentication type to use for connection with a
-                          Provider. Accepted values are 'token' and
-                          'certificate'.
+                          Provider. Currently only 'token' method is supported.
   -d [ --debug ]          enable debug output (implies -f)
   --debug-gsi             enable GSI debug output
   --groups                list system groups user needs to join for optimal
                           performance and exit
   --no-check-certificate  disable remote certificate validation
+
 FUSE options:
   -o opt,...            mount options
   -f                    foreground operation
