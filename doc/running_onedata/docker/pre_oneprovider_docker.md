@@ -7,7 +7,7 @@ In this section we will guide you how to setup a single-node &#x1F4D7; and a mul
 Here’s a diagram of the various parts in play in this scenario to help you understand how pieces fit with one another. Use this as a reference as we progress through the scenario; it should all make sense by the time we get to the end. 
 
 <p align="center">
-<img src="../../img/Onedata101_provider.svg">
+<img src="../../img/docker_onedata.svg">
 </p>
 
 ## Setting up Oneprovider
