@@ -25,7 +25,7 @@ After registering at [onedata.org](onedata.org), a so-called home *space* is cre
 You can do that by sending to the provider a unique support request token, which can be generated at [onedata.org](onedata.org). Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the Provider. You can request more storage for your *space* from multiple geographically distributed providers. Onedata will unify access to these storage resources automatically.
 
 <p align="center">
-<img src="../img/spaces_model1.png" width="580">
+<img src="../img/spaces_model1.svg" width="580">
 </p>
 
 Each user can have any number of *spaces*. *Spaces* can be easily shared with other users and even exposed to the public. If you want to create a *space* for a community of users, Onedata supports user *groups*, which enable multiple users to access single *space* with respect to specified authorization rules.

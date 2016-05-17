@@ -25,28 +25,28 @@ To run Oneprovider service open another termial window and execute:
 ./run_onedata.sh --oneprovider
 ```
 
-### Add `onedata.org` to /etc/hosts
+### Add `onedata.example.com` to /etc/hosts
 
-In order for Onedata authentication - based on OpenID - to work properly on a local machine you need to modify your /etc/hosts file so that you web-browser would see onedata services under `onedata.org` domain.
+In order for Onedata authentication - based on OpenID - to work properly on a local machine you need to modify your /etc/hosts file so that you web-browser would see onedata services under `onedata.example.com` domain.
 
 ```
 # Onedata configuration
-<onezone_ip>      onedata.org # (required by OpenID)
-<onezone_ip>      node1.onezone.dev.local
-<oneprovider_ip>  node1.oneprovider.dev.local
+<onezone_node_1_ip>      onedata.example.com # (required by OpenID)
+<onezone_node_1_ip>      node1.onezone.onedata.example.com
+<oneprovider_node_1_ip>  node1.oneprovider.onedata.example.com
 ```
 
 Use following commands to extract IP addresses of Onezone and Oneprovider services:
 ```bash=
-docker inspect 20oneprovideronezone_node1.onezone.dev.local_1 | grep "IPAddress" # for onezone
-docker inspect 20oneprovideronezone_node1.onezone.dev.local_1 | grep "IPAddress" # for oneprovider
+docker inspect 20oneprovideronezone_node1.onezone.onedata.example.com_1 | grep "IPAddress" # for onezone
+docker inspect 20oneprovideronezone_node1.oneprovider.onedata.example.com_1 | grep "IPAddress" # for oneprovider
 ```
 
 ## Use Onedata
 
-Navigate to `https://onedata.org` (assuming you modified your `/etc/hosts` file) and register with your local Onedata installation using one of the available authentication methods. From this point you have a fully working local Onedata installation. 
+Navigate to `https://onedata.example.com` (assuming you modified your `/etc/hosts` file) and register with your local Onedata installation using one of the available authentication methods. From this point you have a fully working local Onedata installation. 
 
-Additionally Oneprovider management inferface is avaiable at `https://node1.oneprovider.dev.local:9443`.
+Additionally Oneprovider management inferface is avaiable at `https://node1.onezone.onedata.example.com:9443`.
 
 Refer to [User quickstart](user_onedata_101.md) to quickly start using Onedata.
 
