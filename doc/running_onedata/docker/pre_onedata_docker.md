@@ -7,7 +7,7 @@ This section shows how to deploy a fully functional Onedata installation that ca
 Below is a diagram of the various components comprising a complete example Onedata deployment. 
 
 <p align="center">
-<img src="../../img/Onedata101.svg">
+<img src="../../img/docker_onezone.svg">
 </p>
 
 In this scenario we will leverage docker compose configuration files from [Scenario 1](). If you have problem following please refer to [Scenario 1]().
