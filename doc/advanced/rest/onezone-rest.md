@@ -1,3 +1,3 @@
 {% raw %}
-<div class="x-swagger-reference" x-swagger-reference-html="./onezone-static.html"></div>
+<div class="x-swagger-reference" x-swagger-reference-html="./swagger-static/onezone-static.html"></div>
 {% endraw %}
