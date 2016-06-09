@@ -67,6 +67,6 @@ docker-compose.yml
 ._*
 
 # Generated REST files
-onezone-static.html
-oneprovider-static.html
-onepanel-static.html
+#onezone-static.html
+#oneprovider-static.html
+#onepanel-static.html
