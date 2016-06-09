@@ -1,4 +1,4 @@
 {% raw %}
-<div w3-include-html="./oneprovider-static.html">    
+<div class="x-swagger-reference" x-swagger-reference-html="./oneprovider-static.html">    
 </div>
 {% endraw %}
