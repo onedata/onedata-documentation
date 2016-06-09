@@ -5,7 +5,9 @@
       "image-captions@0.3.2",
       "styles-sass@1.1.0",
       "toggle-chapters",
-      "toc"
+      "toc",
+      "include",
+      "responsive-iframes"
     ],
     "variables": {
        "draft":false,
