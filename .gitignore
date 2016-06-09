@@ -65,3 +65,8 @@ docker-compose.yml
 # osx
 .DS_Store
 ._*
+
+# Generated REST files
+onezone-static.html
+oneprovider-static.html
+onepanel-static.html
