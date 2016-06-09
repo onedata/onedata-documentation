@@ -55,6 +55,8 @@ node_modules/gitbook-plugin-toggle-chapters
 node_modules/marked
 node_modules/.bin/marked
 node_modules/gitbook-plugin-toc
+node_modules/gitbook-plugin-include/
+node_modules/gitbook-plugin-responsive-iframes/
 
 # docker image artefact
 dockerimage.report.txt
