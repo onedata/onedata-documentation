@@ -33,7 +33,6 @@
   * [REST API](doc/advanced/rest.md)
      * [Onezone](doc/advanced/rest/onezone-rest.md)
      * [Oneprovider](doc/advanced/rest/oneprovider-rest.md)
-     * [Onepanel](doc/advanced/rest/onepanel-rest.md)
      * [Examples](doc/advanced/rest/examples.md)
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
