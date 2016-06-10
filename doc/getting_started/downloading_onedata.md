@@ -22,7 +22,7 @@ If you already have an account at [onedata.org](onedata.org) or some other Oneda
 ```
 docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
  -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-beta4 oneclient mount_point
+ onedata/oneclient:3.0.0-beta6 oneclient mount_point
 ```
 
 #### Installing Onedata storage provider services
