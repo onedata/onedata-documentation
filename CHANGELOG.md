@@ -7,6 +7,10 @@ CHANGELOG
 
 ### 3.0.0-beta6
 
+
+
+### 3.0.0-beta6
+
 * Added swagger artefacts to the docker compose template
 * Updated CSS style for REST API
 * Hidden onepanel
