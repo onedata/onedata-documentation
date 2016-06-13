@@ -26,17 +26,17 @@ version: '2.0'
 services:
 
   onezone:
-    image: docker.onedata.org/onezone:3.0.0.beta3
+    image: onedata/onezone:3.0.0-beta6
     restart: always
     hostname: node.onedata.org
                  
   oneprovider:
-    image: docker.onedata.org/oneprovider:3.0.0.beta3
+    image: onedata/oneprovider:3.0.0-beta6
     restart: always
     hostname: localhost.localdomain
     
   oneclient:
-    image: docker.onedata.org/oneclient:3.0.0.beta3
+    image: onedata/oneclient:3.0.0-beta6
 ~~~
 
 To run Onedata locally on your Docker, you need 3 services:
@@ -53,7 +53,7 @@ The Onezone part of the docker-compose file looks like this:
 
 ~~~yaml
   onezone:
-    image: docker.onedata.org/onezone:quick_start
+    image: onedata/onezone:3.0.0-beta6
     restart: always
     hostname: node.onedata.org
     environment:
@@ -98,7 +98,7 @@ The Oneprovider part of the docker-compose file looks like this:
 
 ~~~yaml
   oneprovider:
-    image: docker.onedata.org/oneprovider:quick_start
+    image: onedata/oneprovider:3.0.0-beta6
     restart: always
     hostname: localhost.localdomain
     volumes:
@@ -156,7 +156,7 @@ The Oneclient part of the docker-compose file looks like this:
 
 ~~~yaml
   oneclient:
-    image: docker.onedata.org/oneclient:quick_start
+    image: onedata/oneclient:3.0.0-beta6
     privileged: true
     volumes:
       - "/mnt/oneclient:onedata_tutrial1/myspaces"
@@ -202,7 +202,7 @@ version: '2.0'
 
 services:
   onezone:
-    image: docker.onedata.org/onezone:quick_start
+    image: onedata/onezone:3.0.0-beta6
     restart: always
     hostname: node.onedata.org
     environment:
@@ -230,7 +230,7 @@ services:
           name: "example"
           
   oneprovider:
-    image: docker.onedata.org/oneprovider:quick_start
+    image: onedata/oneprovider:3.0.0-beta6
     restart: always
     hostname: localhost.localdomain
     volumes:
@@ -273,7 +273,7 @@ services:
         onezone:
           domain_name: "onedata.org"
   oneclient:
-    image: docker.onedata.org/oneclient:quick_start
+    image: onedata/oneclient:3.0.0-beta6
     privileged: true
     volumes:
       - "/tmp/oneclient:/root/.local/share/myspaces"
