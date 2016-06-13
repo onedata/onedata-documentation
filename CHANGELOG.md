@@ -5,6 +5,64 @@
 CHANGELOG
 ---------
 
+### 3.0.0-beta6
+
+* Added swagger artefacts to the docker compose template
+* Updated CSS style for REST API
+* Hidden onepanel
+* Changed swagger static files to separate folders
+* Moved swagger static files to subfolder swagger-static
+* Fixed relative links in rest.md
+* added new plugins to ignore list
+* Updated getting started with link to REST
+* Added Onepanel stubs
+* Added REST stubs
+* Updated .gitignore
+* Added basic file structure for REST API files
+* updated images in docker guides
+* updated images in docker guides
+* updated hostnames to beta3 and images in what is onedata
+* Updated oneclient guide
+* Reorganized TOC and proofread
+* updated onezone section
+* updated toc
+* Fixing JS errors on header link; strong logo
+* Removed Video Section with 2.0 Videos
+* Separate links to / and index in summary header
+* Change onedata link target
+* Change onedata link target
+* Add new publish path to docs docker
+* Mege commit
+* First revision of 3.0 documentation
+* Update doc/getting_started/downloading_onedata.md
+* Update doc/getting_started/what_is_onedata.md
+* fixed images on administrative sections
+* VFS-2006: Collapsible TOC for more levels than 1
+* fixed not showing of administrative section
+* doc 3.0 update
+* VFS-1801: Added TOC plugin - see example of usage in this commit
+* VFS-1801: Improvements in TOC collapse, when there are non-content children
+* tmp commit
+* tmp commit
+* VFS-2006: Collapsile TOC using toggle-chapters plugin with own extensions and graphics
+* updated quickstart
+* ignored osx trash files
+* quickstart update
+* added alerts plugin and docker version variables
+* initial quickstart
+* getting started 101
+* updated button names to new GUI
+* added onezone installation guide
+* marged updated sections
+* added onezo
+* added onezone concept
+* changed all default spaces to home spaces
+* removed old screencasts scripts
+* Update overview.md
+* VFS-1561: Fixing font path
+* VFS-1561: Added more font formats for compatibility
+
+
 ### 1.3.0
 
 * Update overview.md
