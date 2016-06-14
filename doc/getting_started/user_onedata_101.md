@@ -34,7 +34,7 @@ Once you have some files in your space, you can access them using the web interf
 The best way to access your spaces by mounting them directly using our virtual filesystem implementation managed by Oneclient tool. Typically all it takes to have your spaces available in your local file system is:
 
 ```
-> oneclient --authentication <ACCESS_TOKEN> ~/Spaces
+> oneclient --authentication token ~/Spaces
 Authorization Code: PASTE_TOKEN_HERE
 ```
 
