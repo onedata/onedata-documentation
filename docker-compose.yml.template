@@ -4,17 +4,15 @@ doc:
   volumes:
     - /usr/share/nginx/html
 onezone-swagger:
-  image: docker.onedata.org/onezone-swagger:3.0.0-beta6
+  image: docker.onedata.org/onezone-swagger:3.0.0-beta6-1
   restart: always
   volumes:
     - /usr/share/nginx/html/doc/swagger/onezone
-    - /usr/share/nginx/html/doc/advanced/rest/swagger-static-onezone
 oneprovider-swagger:
-  image: docker.onedata.org/oneprovider-swagger:3.0.0-beta6
+  image: docker.onedata.org/oneprovider-swagger:3.0.0-beta6-1
   restart: always
   volumes:
     - /usr/share/nginx/html/doc/swagger/onepovider
-    - /usr/share/nginx/html/doc/advanced/rest/swagger-static-oneprovider
 nginx:
   container_name: nginx
   restart: always
