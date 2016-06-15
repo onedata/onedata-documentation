@@ -37,7 +37,7 @@
       <!--- SWAGGER_INCLUDE ONEPROVIDER_DEFINITIONS -->
       * [Operations](doc/advanced/rest/oneprovider/paths.md)
       <!--- SWAGGER_INCLUDE ONEPROVIDER_PATHS -->
-     * [Examples](doc/advanced/rest/examples.md)
+    * [Examples](doc/advanced/rest/examples.md)
       * [Command line](doc/advanced/rest/cli.md)
       * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
