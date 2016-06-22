@@ -9,7 +9,7 @@ and navigate to `scenarios/2_0_oneprovider_onezone` directory.
 In this scenario all the necessary configuration is injected into Onedata services during installation (see *docker-compose* configuration files for details). The resulting setup will be ready to work immediately after starting docker containers.
 
 ## Setup Onedata services
-We will use `run-onedata.sh` for running Onedata docker containers. For more information about the script run `run-onedata.sh --help`.
+We will use `run_onedata.sh` for running Onedata docker containers. For more information about the script run `run_onedata.sh --help`.
 
 Onedata services depend on each other, after each run wait for a conformation message that service has succesfully started before continuing. 
 
