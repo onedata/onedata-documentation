@@ -55,6 +55,8 @@ node_modules/gitbook-plugin-toggle-chapters
 node_modules/marked
 node_modules/.bin/marked
 node_modules/gitbook-plugin-toc
+node_modules/gitbook-plugin-include/
+node_modules/gitbook-plugin-responsive-iframes/
 
 # docker image artefact
 dockerimage.report.txt
@@ -65,3 +67,8 @@ docker-compose.yml
 # osx
 .DS_Store
 ._*
+
+# Generated REST files
+#onezone-static.html
+#oneprovider-static.html
+#onepanel-static.html

@@ -29,7 +29,13 @@
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
 * [Advanced topics](doc/advanced/advanced.md)
-  * [Overview](doc/advanced/overview.md) 
+  * [Overview](doc/advanced/overview.md)
+  * [REST API](doc/advanced/rest.md)
+     * [Onezone](doc/advanced/rest/onezone-rest.md)
+     * [Oneprovider](doc/advanced/rest/oneprovider-rest.md)
+     * [Examples](doc/advanced/rest/examples.md)
+        * [Command line](doc/advanced/rest/cli.md)
+        * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
 
 
