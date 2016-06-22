@@ -43,7 +43,12 @@ make
 
 ### Pre-built Linux packages
 
-*As of now we only support: Fedora => 23*
+We provide packages *Oneprovider* and *Onezone* for:
+- Fedora 23,
+
+and *Oneclient* packages for:
+- Fedora 23,
+- Ubuntu 14.04, 15.04, 16.04.
 
 The bash script at https://get.onedata.org, which can be run with wget or curl, automatically downloads Onedata packages and installs them on your machine. 
 
