@@ -22,7 +22,7 @@ If you already have an account at [onedata.org](onedata.org) or some other Oneda
 ```
 docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
  -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-beta4 oneclient mount_point
+ onedata/oneclient:3.0.0-beta6 oneclient mount_point
 ```
 
 #### Installing Onedata storage provider services
@@ -43,7 +43,12 @@ make
 
 ### Pre-built Linux packages
 
-*As of now we only support: Fedora => 23*
+We provide packages *Oneprovider* and *Onezone* for:
+- Fedora 23,
+
+and *Oneclient* packages for:
+- Fedora 23,
+- Ubuntu 14.04, 15.04, 16.04.
 
 The bash script at https://get.onedata.org, which can be run with wget or curl, automatically downloads Onedata packages and installs them on your machine. 
 
