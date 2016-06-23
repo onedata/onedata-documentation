@@ -2,7 +2,7 @@
   "name": "gitbook-plugin-youtube",
   "description": "Youtube video integration made easy in GitBook",
   "main": "index.js",
-  "version": "3.0.0-beta6",
+  "version": "3.0.0-beta6-1",
   "engines": {
     "gitbook": ">1.x.x"
   },
