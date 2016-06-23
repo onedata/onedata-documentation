@@ -2,14 +2,12 @@
 
 # LUMA - Local User MApping
 
-Luma maps Onedata users to storage specyfic users, in the porcess authorizing them with the storage.
+Luma maps Onedata users to storage specific users, in the process of authorizing them with the storage resources.
 > odpowiada za mapowanie użytkowników onedata do credentiali na danym storage (posix, ceph, s3 - w readme jest konieczne minimum danych dla każdego).
 
 Current implementation supports:
 
 - POSIX
-
-
 - Ceph
 - Amazon S3
 
