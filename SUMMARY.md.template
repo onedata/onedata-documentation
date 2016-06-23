@@ -37,6 +37,11 @@
       <!--- SWAGGER_INCLUDE ONEPROVIDER_DEFINITIONS -->
       * [Operations](doc/advanced/rest/oneprovider/paths.md)
       <!--- SWAGGER_INCLUDE ONEPROVIDER_PATHS -->
+    * [Onepanel](doc/advanced/rest/onepanel/overview.md)
+      * [Definitions](doc/advanced/rest/onepanel/definitions.md)
+      <!--- SWAGGER_INCLUDE ONEPANEL_DEFINITIONS -->
+      * [Operations](doc/advanced/rest/onepanel/paths.md)
+      <!--- SWAGGER_INCLUDE ONEPANEL_PATHS -->
     * [Examples](doc/advanced/rest/examples.md)
       * [Command line](doc/advanced/rest/cli.md)
       * [Python](doc/advanced/rest/python.md)
