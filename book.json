@@ -8,7 +8,7 @@
       "toc@0.0.1",
       "include@0.1.0",
       "responsive-iframes@1.0.2",
-      "styles-sass@file:gibook-plugin-styles-sass"
+      "styles-sass@file:gitbook-plugin-styles-sass"
     ],
     "variables": {
        "draft":false,
