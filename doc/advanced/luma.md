@@ -8,10 +8,9 @@ Luma maps Onedata users to storage specyfic users, in the porcess authorizing th
 Current implementation supports:
 
 - POSIX
-
-
 - Ceph
 - Amazon S3
+- OpenStack SWIFT
 
 ## Luma Usage Guide
 
