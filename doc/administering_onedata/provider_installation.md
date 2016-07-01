@@ -1,12 +1,8 @@
 # Oneprovider Installation
 
-<!-- UNCOMMENT WHEN TUTORIALS FOR 3.0 ARE READY
-> A detailed screencast presenting a single node installation of Oneprovider is located in the tutorials section.
--->
-
-Oneprovider installation consists of 2 parts:
-* installation of Oneprovider services on the cluster nodes
-* registration of Oneprovider cluster with Onedata.
+Oneprovider installation includes:
+* installation of Oneprovider services on the cluster nodes,
+* registration of Oneprovider cluster with Onezone.
 
 ## Services Installation
 
@@ -54,25 +50,17 @@ Administrators may impose limit on a number of opened files by Oneprovider, serv
 
 ### Step 5: Storage configuration.
 
-Select a path to a mounted storage, which Oneprovider will use to store user data.
+Select a path to a mounted storage, which Oneprovider will use to store user data. Detailed information on the supported storage types is discussed [here](./storage_configuration.md).
 
 <p align="center"><img src="../img/admin/step5_path_to_storage.png"></p>
 
 
-## Oneprovider Registration
-Once installed, it is recommended to register Oneprovider with Onedata registry, so users can use onedata.org in order to see your Oneprovider service and request storage support directly from the web interface.
+## Registration with Onezone service
+Once installed, it is recommended to register Oneprovider with Onezone provider registry, so users can use Oneprovider instances within an entire zone transparently.
 
 ### Step 1&2: Connection check and Ports configuration
 
-In order to communicate with [onedata.org](onedata.org) worker nodes in the cluster need to have a number of ports publicly available:
-~~~
-tcp: 80 - http web interface port
-tcp: 53 - dns port
-tcp: 443 - https web interface port
-tcp: 5555 - port to communicate with FUSE clients
-tcp: 8443 - port for provider to provider communication
-tcp: 9443 - Onepanel port
-~~~
+Please make sure that all [required ports](./firewall_setup.md) on Oneprovider and Onezone hosts are accessible to Onedata services and users. For the sake of security it is recommended, that ports on database and cluster manager nodes are not publicly available.
 
 <p align="center"><img src="../img/admin/rstrep1_info.png"></p>
 
@@ -80,10 +68,9 @@ tcp: 9443 - Onepanel port
 
 Ideally all the nodes should have a dedicated public IP address and the above mentioned ports open to the world. In other case you can configure a `;` separated *Redirection points*, where each entry is a pair of public IP and the port which point to one of the nodes.
 
-For the sake of security it is recommended, that no ports on database and cluster manager nodes were publicly open.
-
 
 ### Step 3: Name configuration
-The last step allows to set a name for the provider by which it will be identified in Onedata Registry and presented to users.
+The last step allows to set a name for the provider by which it will be identified in Onezone service and presented to users.
 
 <p align="center"><img src="../img/admin/rstep2_name.png"></p>
+
