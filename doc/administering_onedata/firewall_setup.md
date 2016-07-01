@@ -44,5 +44,5 @@ which should return the list of Oneprovider hosts and ports combinations with th
 ]
 ```
 
-
+These operations require the user to have `list_providers` privilege.
 

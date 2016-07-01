@@ -27,7 +27,6 @@
      * [Oneprovider Setup](doc/administering_onedata/provider_installation.md)
      * [Space Support](doc/administering_onedata/provider_space_support.md)
      * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
-     <!--* [Attaching Storage](Storage)-->
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
 * [Advanced topics](doc/advanced/advanced.md)
