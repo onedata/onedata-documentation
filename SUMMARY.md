@@ -18,13 +18,15 @@
 
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
+   * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
    * [Onezone](Onezone)
      * [Onezone Overview](doc/administering_onedata/onezone_overview.md)
      * [Onezone Setup](doc/administering_onedata/onezone_installation.md)
    * [Oneprovider](Oneprovider)
      * [Oneprovider Overview](doc/administering_onedata/provider_overview.md)
      * [Oneprovider Setup](doc/administering_onedata/provider_installation.md)
-     * [Space support](doc/administering_onedata/provider_space_support.md)
+     * [Space Support](doc/administering_onedata/provider_space_support.md)
+     * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
      <!--* [Attaching Storage](Storage)-->
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
