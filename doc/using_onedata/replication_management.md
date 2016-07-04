@@ -67,6 +67,12 @@ curl -X POST -H "macaroon: $(ACCESS_TOKEN)"  \
 'https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
 ```
 
+This operation returns a transfer ID which can be used to monitor and cancel the transfer:
+```json
+{ 
+    "transferId": "UGHLKJ8758ASD99879ASDASD987897aDASD"
+}
+```
 Please note, that this operation is asynchronous as it can take a long time depending on the size of the data to move. If the path parameter specifies a folder, entire folder is replicated to requested provider.
 
 The default API for replica management is compatible with [CDMI]() convention of using complete file and directory paths directly in the request URL's. Additionaly, we provide REST operations which take directly file and folder ID's instead of paths and can be used in the same way as the above operations, i.e.:
@@ -80,6 +86,26 @@ curl -X POST -H "macaroon: $(ACCESS_TOKEN)"  \
 ```
 
 
-### Transfer control
+### Transfer control and monitoring
 
+The `/transfer/` operations provide basic transfer management functionality based on the ID of transfer returned by `/replicas/{path} [POST]` operation. 
+
+In order to get information about a specific transfer, simply query the following resource:
+
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
+```
+
+or you can request all active transfers for given user:
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/transfers
+```
+
+Each transfer can be cancelled using `DELETE` method:
+```bash
+curl -X DELETE -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
+```
 
