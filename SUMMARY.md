@@ -39,6 +39,7 @@
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
+  * [Local User MApping](doc/advanced/luma.md)
 
 
  <!-- * [Macaroons](doc/advanced/macaroons.md)
