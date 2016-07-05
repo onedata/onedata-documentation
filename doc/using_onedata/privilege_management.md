@@ -37,7 +37,7 @@ These privileges can be changed using the REST API, depending on whether they ar
 * List user 'ABC123' permissions to space 'QWE789':
 ```bash
 curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEPROVIDER_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123
+https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 which should return something similar to:
 ```bash
@@ -47,13 +47,13 @@ which should return something similar to:
 ```bash
 curl -X PUT -H "macaroon: $(ACCESS_TOKEN)" \
 -d '["space_view_data"]' \
-https://$(ONEPROVIDER_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123
+https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 * Allow group 'IOP567' to change privileges of space 'QWE789':
 ```bash
 curl -X PUT -H "macaroon: $(ACCESS_TOKEN)" \
 -d '["space_set_privileges"]' \
-https://$(ONEPROVIDER_HOST):8443/api/v3/onezone/spaces/QWE789/groups/IOP567
+https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
 ```
 
 Please note that modifying space privileges requires providing complete set of privileges. For instance in the last example if the group IOP567 already has other privileges than `space_set_privileges` they will be removed and only `space_set_privileges` will be valid.
@@ -69,28 +69,74 @@ In order to understand group privilege management functionality, it is necessary
 
 The following privileges can be assigned to groups:
 
-
 Below are presented examples of using the API for group privilege management. Reference of these operations is available [here]().
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| group_change_data | |
-| group_invite_user | |
-| group_remove_user | |
-| group_join_space | |
-| group_create_space | |
-| group_set_privileges | |
-| group_remove | |
-| group_leave_space | |
-| group_view_data | |
-| group_create_space_token | |
-| group_join_group | |
-| group_invite_group | |
-| group_remove_group | |
+| group_change_data | Allow modifying group information |
+| group_invite_user | Allow inviting other users to the group |
+| group_remove_user | Allow removing users from the group |
+| group_join_space | Allow group to join other spaces |
+| group_create_space | Allow group user to create spaces |
+| group_set_privileges | Allow group user to change group privileges |
+| group_remove | Allow group user to remove the group |
+| group_leave_space | Allow group user to remove the group from a specific space |
+| group_view_data | Allow group user to view group data |
+| group_create_space_token | Allow group user to create space support tokens |
+| group_join_group | Allow group user to join this group with other groups |
+| group_invite_group | Allow group user to invite other groups to join this group |
+| group_remove_group | Allow group user to remove groups which have joined this group |
+
+Example group privilege REST API calls are presented below:
+* List group 'IOP567' permissions to space 'QWE789':
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
+```
+
+* List subgroup 'GDP678' permissions in group 'IOP567':
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/nested/GDP678/privileges
+```
+
+* List user 'ABC123' permissions in group 'IOP567':
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/users/ABC123/privileges
+```
+
+* List effective user 'ABC123' permissions in group 'IOP567':
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/effective_users/ABC123/privileges
+```
 
 
 ### Onezone privileges
 
-Finally, in order to gain access to specific parts of the Onezone service itself, it is possible to assign certain permissions to users as well as groups, although these permissions typically should be limited to administrators.
+Finally, in order to gain access to specific parts of the Onezone service itself, it is possible to assign certain permissions to users as well as groups, although these permissions typically should be limited to administrators for monitoring and accounting services.
+
+| Privilege    | Description     |
+|--------------|-----------------|
+| view_privileges | Allow the user to view privileges |
+| set_privileges | Allow the user to modify the privileges |
+| list_spaces | Allow the user to list all spaces in the zone |
+| list_providers | Allow the user to list all providers registered in the zone |
+| list_providers_of_space | Allow the user to see all providers supporting specific space|
+
+Each of these privileges can be assigned to an individual user or a group of users. Example operations are presented below:
+
+* List user 'ABC123' permissions to Onezone service:
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/privileges/users/ABC123
+```
+
+* List group 'IOP567' permissions to Onezone service:
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/privileges/groups/IOP567
+```
 
 
