@@ -6,7 +6,7 @@
       "image-captions@0.4.1",
       "toggle-chapters@0.0.3",
       "toc@0.0.1",
-      "include@0.1.0",
+      "include",
       "responsive-iframes@1.0.2",
       "styles-sass@file:gitbook-plugin-styles-sass"
     ],
