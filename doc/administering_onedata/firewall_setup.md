@@ -24,13 +24,15 @@ Below is a detailed list of ports which need to be opened and their designation:
 Onezone service provides 2 REST operations for testing whether all the ports in a given deployment are properly opened, and can be used as follows.
 
 First query returns the actual IP of the host from which query was initiated, can be used to check if any NAT translation takes place between the host and Onezone service:
-```
-curl https://$(ONEZONE_HOST):8443/api/v3/onezone/test/check_my_ip
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/test/check_my_ip
 ```
 
 The second test checks whether all ports of all Oneprovider instances registered in the Onezone are are properly opened:
-```
-curl https://$(ONEZONE_HOST):8443/api/v3/onezone/test/check_my_ports
+```bash
+curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
+https://$(ONEZONE_HOST):8443/api/v3/onezone/test/check_my_ports
 ```
 which should return the list of Oneprovider hosts and ports combinations with their status, e.g.:
 ```
