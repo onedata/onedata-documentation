@@ -11,7 +11,6 @@ Web interface provides visual information on the current replication of each fil
 
 <img  style="display:block;margin:0 auto;" src="../img/replication.png">
 
-
 ## REST interface
 
 For full control over transfer and replication users can directly invoke REST API of Oneprovider service.
@@ -82,7 +81,7 @@ curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
 https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
 
 curl -X POST -H "macaroon: $(ACCESS_TOKEN)"  \
-'https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
+https://$(ONEPROVIDER_HOST):8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
 ```
 
 

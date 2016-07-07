@@ -54,14 +54,14 @@ The bash script at https://get.onedata.org, which can be run with wget or curl, 
 
 ```
 # wget version
-wget --no-check-certificate -q -O - https://get.onedata.org/oneclient.sh | bash    # for oneclient
-wget --no-check-certificate -q -O - https://get.onedata.org/oneprovider.sh | bash  # for oneprovider
-wget  --no-check-certificate -q -O - https://get.onedata.org/onezone.sh | bash      # for onezone
+wget -q -O - http://get.onedata.org/oneclient.sh | bash    # for oneclient
+wget -q -O - http://get.onedata.org/oneprovider.sh | bash  # for oneprovider
+wget -q -O - http://get.onedata.org/onezone.sh | bash      # for onezone
 
 # curl version
-curl --insecure -sS  https://get.onedata.org/oneclient.sh | bash       # for oneclient
-curl --insecure -sS  https://get.onedata.org/oneprovider.sh | bash     # for oneprovider
-curl --insecure -sS  https://get.onedata.org/onezone.sh | bash         # for onezone
+curl -sS  http://get.onedata.org/oneclient.sh | bash       # for oneclient
+curl -sS  http://get.onedata.org/oneprovider.sh | bash     # for oneprovider
+curl -sS  http://get.onedata.org/onezone.sh | bash         # for onezone
 ```
 
 

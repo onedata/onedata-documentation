@@ -1,5 +1,4 @@
 
-
 # LUMA - Local User MApping
 
 Luma is a Onedata service that allows custom mapping between local user accounts or credential on storage resources (e.g. POSIX user ID/group ID, LDAP DN, Ceph username, etc.) to Onedata user accounts.
@@ -10,7 +9,7 @@ Current implementation supports the following storage backends:
 - POSIX
 - Ceph
 - Amazon S3
-- OpenStack SWIFT
+<!-- - OpenStack SWIFT -->
 
 
 New storage types are added by means of plugin system of generators. A generator is responsible for:
