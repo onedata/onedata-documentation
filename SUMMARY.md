@@ -42,7 +42,7 @@
       <!--- SWAGGER_INCLUDE_END ONEZONE_DEFINITIONS -->
       * [Paths](doc/advanced/rest/onezone/paths.md)
       <!--- SWAGGER_INCLUDE_START ONEZONE_PATHS -->
-      <!--- SWAGGER_INCLUDE_END ONEZONE_DEFINITIONS -->
+      <!--- SWAGGER_INCLUDE_END ONEZONE_PATHS -->
     * [Oneprovider](doc/advanced/rest/oneprovider/overview.md)
       * [Definitions](doc/advanced/rest/oneprovider/definitions.md)
       <!--- SWAGGER_INCLUDE_START ONEPROVIDER_DEFINITIONS -->
