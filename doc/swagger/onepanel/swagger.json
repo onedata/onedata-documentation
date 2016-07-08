@@ -1,0 +1,1448 @@
+{
+  "swagger": "2.0",
+  "basePath": "/api/v3/onepanel",
+  "info": {
+    "version": "3.0.0-beta7",
+    "title": "Onepanel",
+    "description": "This is the RESTful API definition of Onepanel component of Onedata data management system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the Onezone and Oneprovider services and their distribution on the local resources. \n\nOnezone and Oneprovider services is composed of 3 types of processes: managers, databases and workers. \n\nEach of these processes can be added on specified host in the local site using this API. \n\nThe overall configuration can be controlled by updating 'onezone/configuration' and\n'oneprovider/configuration' resources.\n All paths listed below are relative to the base Onedata REST API which is `/api/v3/`, so complete URL for a request to Onepanel service is:\n \n ```\n http://HOSTNAME:PORT/api/v3/onepanel/...\n ```\n\n ## Authentication\n In order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\n Currently this is supported through access token which can be generate using the Onedata user interface. \n The token must be added to the request header:\n ```\n macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\n\n ## API structure\n This API allows the management of 2 Onedata services, Onezone and Oneprovider, in terms of their distribution in the local site.\n The API allows management of all these components as well as monitoring their current status.\n\n Each of these services is composed of the following components:\n   * **Worker processes** - `oz_worker` for Onezone and `op_worker` for Oneprovider, these are available under `/cluster/workers` paths,\n   * **Databases instances** - each Onedata service stores it's metadata in a Couchbase backend which can be distributed on any number of nodes, these are available under `/cluster/databases` paths\n   * **Cluster manager** - this is a process which controls other deployed processes in one site, these are availables under these are available under `/cluster/managers` paths\n",
+    "contact": {
+      "name": "Onedata support",
+      "url": "https://onedata.org/support",
+      "email": "info@onedata.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "Get user details",
+        "description": "Returns the basic information about a user.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onedata_user",
+        "x-onedata-resource": "user",
+        "operationId": "get_user",
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/x-yaml"
+        ],
+        "responses": {
+          "200": {
+            "description": "User details returned successfully.",
+            "schema": {
+              "$ref": "#/definitions/UserDetailsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Onepanel service is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add user",
+        "description": "Creates new Onepanel user account.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onedata_user",
+        "x-onedata-resource": "user",
+        "operationId": "add_user",
+        "tags": [
+          "Onepanel"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "User created successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Onepanel service is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userDetails",
+            "in": "body",
+            "description": "New user account details.",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            },
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "Modify user settings",
+        "description": "Modifies user account details. Currently only password modification is allowed.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onedata_user",
+        "x-onedata-resource": "user",
+        "operationId": "modify_user",
+        "tags": [
+          "Onepanel"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "User details updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Onepanel service is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userDetails",
+            "in": "body",
+            "description": "New user account details.",
+            "schema": {
+              "$ref": "#/definitions/UserDetails"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cluster/databases": {
+      "get": {
+        "operationId": "get_cluster_databases",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_couchbase",
+        "x-onedata-resource": "couchbase",
+        "tags": [
+          "Onepanel"
+        ],
+        "summary": "Get database nodes",
+        "description": "Returns the list of hostnames where Oneprovider databases instances are deployed (not necessarily currently running).",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of Oneprovider database nodes in this deployment.",
+            "schema": {
+              "$ref": "#/definitions/ServicesStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "cluster_databases_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_couchbase",
+        "x-onedata-resource": "couchbase",
+        "summary": "Start/stop database nodes",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops all Oneprovider database nodes in the local deployment.\n",
+        "responses": {
+          "204": {
+            "description": "Databases state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the database instances. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false,
+            "default": true
+          }
+        ]
+      }
+    },
+    "/cluster/databases/{host}": {
+      "get": {
+        "operationId": "get_cluster_database",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_couchbase",
+        "x-onedata-resource": "couchbase",
+        "description": "Returns the status of specific database instance.",
+        "summary": "Get database status",
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The status of a specific Oneprovider database node.",
+            "schema": {
+              "$ref": "#/definitions/ServiceStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "There is no Oneprovider database instance on this node.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name from which the information about the specific Oneprovider database instance should be returned.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "cluster_database_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_couchbase",
+        "x-onedata-resource": "couchbase",
+        "summary": "Start/stop database node.",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops entire Oneprovider deployment in the local site.\n",
+        "responses": {
+          "204": {
+            "description": "Database state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name where database is running.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          },
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the database instance. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/cluster/managers": {
+      "get": {
+        "operationId": "get_cluster_managers",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_manager",
+        "x-onedata-resource": "cluster_manager",
+        "tags": [
+          "Onepanel"
+        ],
+        "summary": "Get manager nodes",
+        "description": "Returns the list of hostnames where Oneprovider cluster manager instances are deployed (not necessarily currently running).",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of Oneprovider cluster manager nodes in this deployment.",
+            "schema": {
+              "$ref": "#/definitions/ServicesStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "cluster_managers_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_manager",
+        "x-onedata-resource": "cluster_manager",
+        "summary": "Start/stop manager nodes",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops all Oneprovider cluster manager nodes in the local deployment.\n",
+        "responses": {
+          "204": {
+            "description": "Cluster manager nodes state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the cluster manager instances. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false,
+            "default": true
+          }
+        ]
+      }
+    },
+    "/cluster/managers/{host}": {
+      "get": {
+        "operationId": "get_cluster_manager",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_manager",
+        "x-onedata-resource": "cluster_manager",
+        "description": "Returns the status of specific cluster manager instance.",
+        "summary": "Get manager status",
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The status of a specific Oneprovider cluster manager node.",
+            "schema": {
+              "$ref": "#/definitions/ServiceStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "There is no Oneprovider cluster manager instance on this node.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name from which the information about the specific Oneprovider cluster manager instance should be returned.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "cluster_manager_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_manager",
+        "x-onedata-resource": "cluster_manager",
+        "summary": "Start/stop manager node.",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops a specific Oneprovider cluster manager instance in the local site.\n",
+        "responses": {
+          "204": {
+            "description": "Cluster manager state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name where cluster manager is running.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          },
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the cluster manager instance. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/cluster/workers": {
+      "get": {
+        "operationId": "get_cluster_workers",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "op_worker",
+        "tags": [
+          "Onepanel"
+        ],
+        "summary": "Get worker nodes",
+        "description": "Returns the list of hostnames where Oneprovider worker instances are deployed (not necessarily currently running).",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of Oneprovider worker nodes in this deployment.",
+            "schema": {
+              "$ref": "#/definitions/ServicesStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "cluster_workers_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "op_worker",
+        "summary": "Start/stop worker nodes",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops all Oneprovider worker nodes in the local deployment.\n",
+        "responses": {
+          "204": {
+            "description": "Worker nodes state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the worker instances. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false,
+            "default": true
+          }
+        ]
+      }
+    },
+    "/cluster/workers/{host}": {
+      "get": {
+        "operationId": "get_cluster_worker",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "worker",
+        "description": "Returns the status of specific worker instance.",
+        "summary": "Get worker status",
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The status of a specific Oneprovider worker node.",
+            "schema": {
+              "$ref": "#/definitions/ServiceStatus"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "There is no Oneprovider database instance on this node.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name from which the information about the specific Oneprovider worker instance should be returned.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "cluster_worker_start_stop",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "worker",
+        "summary": "Start/stop worker node",
+        "tags": [
+          "Onepanel"
+        ],
+        "description": "Starts or stops specific Oneprovider worker in the local site.\n",
+        "responses": {
+          "204": {
+            "description": "Worker state changed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host",
+            "description": "The host name where the worker is running.\n",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "maxItems": 1,
+            "minItems": 1
+          },
+          {
+            "name": "started",
+            "in": "query",
+            "description": "This flag changes the intended state of the worker instance. \n\nIf the state is changed, the service will be stopped or started in order to match the requested state. \n",
+            "type": "boolean",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/configuration": {
+      "get": {
+        "operationId": "get_configuration",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "oneprovider_or_onezone",
+        "tags": [
+          "Onepanel"
+        ],
+        "summary": "Get deployment configuration",
+        "description": "Returns the configuration of the Onedata deployment managed by Onepanel. Depending on wether this Onepanel\ninstance manages Onezone or Onepanel service, specific configuration will be returned.\n",
+        "produces": [
+          "application/json",
+          "application/x-yaml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Onedata service deployment configuration.",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider service configuration is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "modify_configuration",
+        "summary": "Update configuration",
+        "description": "Updates the current configuration of Onedata service deployment. Depending on the type of service\nmanaged by the Onepanel, it accepts either Onezone or Oneprovider configuration description.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_cluster_worker",
+        "x-onedata-resource": "oneprovider_or_onezone",
+        "tags": [
+          "Onepanel"
+        ],
+        "consumes": [
+          "application/x-yaml"
+        ],
+        "responses": {
+          "204": {
+            "description": "Onedata service configuration updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Onepanel service is not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "configuration",
+            "in": "body",
+            "description": "New deployment configuration.",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            },
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "description": "Generic error model for REST requests.",
+      "properties": {
+        "error": {
+          "description": "Identifier representing internal error code.",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Detailed error message.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "error",
+        "error_description"
+      ],
+      "example": {
+        "error": "invalid_token",
+        "error_description": "Provided token could not be validated."
+      }
+    },
+    "UserDetails": {
+      "type": "object",
+      "description": "Contains user details necessary when creating a new account.",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "User name."
+        },
+        "password": {
+          "type": "string",
+          "description": "User password."
+        },
+        "userRole": {
+          "type": "string",
+          "x-erlang-datatype": "atom",
+          "description": "User role - currently only 'admin' and 'regular' are supported.",
+          "enum": [
+            "admin",
+            "regular"
+          ],
+          "default": "regular"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "userRole"
+      ],
+      "example": {
+        "username": "onedatauser",
+        "password": "P@@$$W0RD",
+        "userRole": "admin"
+      }
+    },
+    "UserDetailsUpdate": {
+      "type": "object",
+      "description": "Contains details necessary when modifying user account.",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "User password."
+        }
+      },
+      "required": [
+        "password"
+      ],
+      "example": {
+        "password": "P@@$$W0RD"
+      }
+    },
+    "UserDetailsResponse": {
+      "type": "object",
+      "description": "Contains existing user details.",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "User name."
+        },
+        "userRole": {
+          "type": "string",
+          "x-onedata-datatype": "atom",
+          "description": "User role - currently only 'admin' and 'regular' are supported.",
+          "enum": [
+            "admin",
+            "regular"
+          ],
+          "default": "regular"
+        }
+      },
+      "required": [
+        "username",
+        "userRole"
+      ],
+      "example": {
+        "username": "onedatauser",
+        "userRole": "admin"
+      }
+    },
+    "Database": {
+      "type": "object",
+      "description": "Describes a the properties of a Database instance.",
+      "properties": {
+        "memoryQuota": {
+          "type": "integer",
+          "description": "The maximum size of RAM memory to be used by the database instance in MB."
+        }
+      },
+      "example": {
+        "memoryQuota": 1024
+      }
+    },
+    "Configuration": {
+      "type": "object",
+      "description": "Describes a the properties of a Database instance.",
+      "properties": {
+        "cluster": {
+          "$ref": "#/definitions/Cluster"
+        }
+      }
+    },
+    "OneproviderConfiguration": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Configuration"
+        },
+        {
+          "properties": {
+            "oneprovider": {
+              "$ref": "#/definitions/Provider"
+            },
+            "onezone": {
+              "type": "object",
+              "properties": {
+                "domain_name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "OnezoneConfiguration": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Configuration"
+        },
+        {
+          "properties": {
+            "onezone": {
+              "type": "object",
+              "properties": {
+                "domainName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Cluster": {
+      "type": "object",
+      "description": "Generic type for Onedata service cluster definition.",
+      "discriminator": "type",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of Onedata service",
+          "enum": [
+            "onezone",
+            "oneprovider"
+          ]
+        },
+        "domainName": {
+          "type": "string",
+          "description": "Domain name of the service."
+        },
+        "nodes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "hostname": {
+                "type": "string",
+                "description": "Node hostname"
+              }
+            }
+          }
+        },
+        "managers": {
+          "type": "object",
+          "properties": {
+            "mainNode": {
+              "type": "string",
+              "description": "The Id of the main cluster manager node."
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "workers": {
+          "type": "object",
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "databases": {
+          "type": "object",
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "OnezoneCluster": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Cluster"
+        }
+      ]
+    },
+    "OneproviderCluster": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Cluster"
+        },
+        {
+          "properties": {
+            "storages": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/Storage"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Provider": {
+      "type": "object",
+      "description": "Describes the properties of a Worker process instance.",
+      "properties": {
+        "register": {
+          "type": "boolean",
+          "description": "Whether the provider should be automatically registered."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name under which the provider should be registered in the zone."
+        },
+        "redirectionPoint": {
+          "type": "string",
+          "description": "Redirection point."
+        },
+        "geoLongitude": {
+          "type": "number",
+          "description": "Geographical longitude of the storage provider."
+        },
+        "geoLatitude": {
+          "type": "number",
+          "description": "Geographical latitude of the storage provider."
+        }
+      },
+      "example": {
+        "register": true,
+        "name": "Provider1",
+        "redirectionPoint": "https://192.168.11.23:8443/",
+        "geoLongitude": -24.3776025,
+        "geoLatitude": -128.3519364
+      }
+    },
+    "Storage": {
+      "type": "object",
+      "description": "Describes the properties of a storage resource.",
+      "discriminator": "type",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of storage resource",
+          "enum": [
+            "POSIX",
+            "S3",
+            "CEPH"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "POSIX": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Storage"
+        },
+        {
+          "x-discriminator-value": "POSIX"
+        },
+        {
+          "properties": {
+            "mountPoint": {
+              "type": "string",
+              "description": "The absolute path of the mountpoint where the storage is mounted on the Oneprovider nodes."
+            }
+          }
+        },
+        {
+          "required": [
+            "mountPoint"
+          ]
+        }
+      ],
+      "example": {
+        "type": "POSIX",
+        "mountPoint": "/mnt/nas/volume1"
+      }
+    },
+    "S3": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Storage"
+        },
+        {
+          "x-discriminator-value": "S3"
+        },
+        {
+          "properties": {
+            "S3Hostname": {
+              "type": "string",
+              "description": "The hostname where the S3 interface is available on."
+            },
+            "IAMHostname": {
+              "type": "string",
+              "description": "The IAM hostname for the S3 storage."
+            },
+            "bucketName": {
+              "type": "string",
+              "description": "The name of the bucket with the storage."
+            },
+            "accessKey": {
+              "type": "string",
+              "description": "The access key to the S3 storage."
+            },
+            "secretKey": {
+              "type": "string",
+              "description": "The secret key to the S3 storage."
+            }
+          }
+        },
+        {
+          "required": [
+            "s3Hostname",
+            "IAMHostname",
+            "bucketName",
+            "accessKey",
+            "secretKey"
+          ]
+        }
+      ],
+      "example": {
+        "type": "S3",
+        "S3Hostname": "s3.example.com",
+        "IAMHostname": "iam.example.com",
+        "bucketName": "bucket1.iam.example.com",
+        "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
+        "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK"
+      }
+    },
+    "CEPH": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Storage"
+        },
+        {
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "The username for authentication to Ceph."
+            },
+            "key": {
+              "type": "string",
+              "description": "The key to access the Ceph resource."
+            },
+            "monitorHostname": {
+              "type": "string",
+              "description": "Monitor host name."
+            },
+            "clusterName": {
+              "type": "string",
+              "description": "Cluster name."
+            }
+          }
+        },
+        {
+          "required": [
+            "name",
+            "username",
+            "key",
+            "monitorHostname",
+            "clusterName"
+          ]
+        }
+      ],
+      "example": {
+        "type": "CEPH",
+        "username": "user1",
+        "key": "LKJASHD6876ASDBJHV65765ASD",
+        "monitorHostname": "test.example.com",
+        "clusterName": "CephCluster1"
+      }
+    },
+    "ServiceStatus": {
+      "type": "object",
+      "description": "Provides status information on requested service.",
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "The type of service.\n* oz_worker - an instance of Onezone worker process\n* op_worker - an instance of Oneprovider worker process\n* cluster_manager - an instance of ClusterManager process\n* couchbase - an instance of Couchbase metadata database\n",
+          "enum": [
+            "op_worker",
+            "oz_worker",
+            "cluster_manager",
+            "couchbase"
+          ]
+        },
+        "result": {
+          "type": "string",
+          "description": "The service status.",
+          "enum": [
+            "ok",
+            "error"
+          ]
+        }
+      },
+      "example": {
+        "service": "op_worker",
+        "result": "ok"
+      }
+    },
+    "ServicesStatus": {
+      "type": "object",
+      "description": "Provides status information about multiple services.",
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "The type of service.\n* oz_worker - an instance of Onezone worker process\n* op_worker - an instance of Oneprovider worker process\n* cluster_manager - an instance of ClusterManager process\n* couchbase - an instance of Couchbase metadata database\n",
+          "enum": [
+            "op_worker",
+            "oz_worker",
+            "cluster_manager",
+            "couchbase"
+          ]
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "type": "string",
+                "description": "The host where the service instance is deployed."
+              },
+              "result": {
+                "type": "string",
+                "description": "The status of the service instance on this host.",
+                "enum": [
+                  "ok",
+                  "error"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "example": {
+        "service": "op_worker",
+        "results": [
+          {
+            "host": "h1.example.com",
+            "result": "ok"
+          },
+          {
+            "host": "h2.example.com",
+            "result": "error"
+          },
+          {
+            "host": "h3.example.com",
+            "result": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Onepanel",
+      "description": "Onepanel API methods"
+    }
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "macaroon",
+      "in": "header"
+    }
+  }
+}
