@@ -21,6 +21,7 @@
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
    * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
+   * [Creating Local Users](doc/administering_onedata/creating_user_accounts.md)
    * [Onezone](Onezone)
      * [Onezone Overview](doc/administering_onedata/onezone_overview.md)
      * [Onezone Setup](doc/administering_onedata/onezone_installation.md)
@@ -38,26 +39,20 @@
   * [REST API](doc/advanced/rest/README.md)
     * [Onezone](doc/advanced/rest/onezone/overview.md)
       * [Definitions](doc/advanced/rest/onezone/definitions.md)
-      <!--- SWAGGER_INCLUDE_START ONEZONE_DEFINITIONS -->
-      <!--- SWAGGER_INCLUDE_END ONEZONE_DEFINITIONS -->
+{% include "doc/advanced/rest/onezone/DEFINITIONS_TOC.md" %}
       * [Paths](doc/advanced/rest/onezone/paths.md)
-      <!--- SWAGGER_INCLUDE_START ONEZONE_PATHS -->
-      <!--- SWAGGER_INCLUDE_END ONEZONE_PATHS -->
+{% include "doc/advanced/rest/onezone/PATHS_TOC.md" %}
     * [Oneprovider](doc/advanced/rest/oneprovider/overview.md)
       * [Definitions](doc/advanced/rest/oneprovider/definitions.md)
-      <!--- SWAGGER_INCLUDE_START ONEPROVIDER_DEFINITIONS -->
-      <!--- SWAGGER_INCLUDE_END ONEPROVIDER_DEFINITIONS -->
+{% include "doc/advanced/rest/oneprovider/DEFINITIONS_TOC.md" %}
       * [Operations](doc/advanced/rest/oneprovider/paths.md)
-      <!--- SWAGGER_INCLUDE_START ONEPROVIDER_PATHS -->
-      <!--- SWAGGER_INCLUDE_END ONEPROVIDER_PATHS -->
+{% include "doc/advanced/rest/oneprovider/PATHS_TOC.md" %}
     * [Onepanel](doc/advanced/rest/onepanel/overview.md)
       * [Definitions](doc/advanced/rest/onepanel/definitions.md)
-      <!--- SWAGGER_INCLUDE_START ONEPANEL_DEFINITIONS -->
-      <!--- SWAGGER_INCLUDE_END ONEPANEL_DEFINITIONS -->
+{% include "doc/advanced/rest/onepanel/DEFINITIONS_TOC.md" %}
       * [Operations](doc/advanced/rest/onepanel/paths.md)
-      <!--- SWAGGER_INCLUDE_START ONEPANEL_PATHS -->
-      <!--- SWAGGER_INCLUDE_END ONEPANEL_PATHS -->     
-     * [Examples](doc/advanced/rest/examples.md)
+{% include "doc/advanced/rest/onepanel/PATHS_TOC.md" %}
+    * [Examples](doc/advanced/rest/examples.md)
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
