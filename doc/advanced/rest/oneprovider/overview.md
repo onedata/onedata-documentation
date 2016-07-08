@@ -72,7 +72,7 @@ database files, with resolution determined by the `step` query parameter.
 
 
 ### Version information
-*Version* : 3.0.0-beta6
+*Version* : 3.0.0-beta7
 
 
 ### Contact information

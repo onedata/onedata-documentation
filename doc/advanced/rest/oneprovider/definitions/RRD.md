@@ -28,9 +28,9 @@ RRD database export.
     "start" : 1465466700,
     "end" : 1465553100,
     "step" : 300,
-    "legend" : [ "storage_quota", "storage_used", "storage_free" ]
+    "legend" : [ "space s1; metric block_access; user u1; oneprovider ID p1; block_access_read[iops/s]", "space s1; metric block_access; user u1; oneprovider ID p1; block_access_write[iops/s]" ]
   },
-  "data" : [ [ 5.6435528434, 2.6435528434, 4.6435528434 ], [ 5.6435528434, 2.6435528434, 4.6435528434 ], [ 5.6435528434, 2.6435528434, 4.6435528434 ] ]
+  "data" : [ [ null, null ], [ 5.6435528434, 2.6435528434 ], [ 5.6435528434, 2.6435528434 ], [ 5.6435528434, 2.6435528434 ], [ null, null ], [ 0, 0 ] ]
 }
 ```
 

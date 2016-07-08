@@ -25,6 +25,7 @@ Metrics and change events monitoring related operations
 |---|---|---|
 |[/changes/metadata/{sid}](operations/get_space_changes.md)|GET|Subscribe to file events|
 |[/metrics/space/{sid}](operations/get_space_metrics.md)|GET|Get space metrics|
+|[/metrics/space/{sid}/user/{uid}](operations/get_space_user_metrics.md)|GET|Get space user metrics|
 
 
 <a name="replication_resource"></a>
