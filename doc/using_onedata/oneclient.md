@@ -16,8 +16,9 @@ In order to be able to mount your spaces you need to authenticate with [onedata.
 #### Authentication token
 In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following command:
 ~~~
-> ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> PROVIDER_HOSTNAME=<DEFAULT_PROVIDER> \ 
-  oneclient --authentication token <MOUNT_POINT>
+> ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> 
+> PROVIDER_HOSTNAME=<DEFAULT_PROVIDER>
+> oneclient --authentication token <MOUNT_POINT>
 ~~~
 Then simply paste the token into the command line.
 
