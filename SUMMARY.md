@@ -34,8 +34,8 @@
    * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
-* [Advanced topics](doc/advanced/advanced.md)
-  * [Overview](doc/advanced/overview.md)
+* [Advanced topics](doc/advanced/README.md)
+  * [Overview](doc/advanced/README.md)
   * [REST API](doc/advanced/rest/README.md)
     * [Onezone](doc/advanced/rest/onezone/overview.md)
       * [Definitions](doc/advanced/rest/onezone/definitions.md)
