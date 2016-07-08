@@ -15,7 +15,7 @@ The user can be adding by invoking a `POST` request to the Onepanel `/user` REST
 
 ```bash
 curl -X POST -H "macaroon: $(ACCESS_TOKEN)" -H "Content-Type: application/json" \
--d '{"username":"$USERNAME", "password":"$PASSWORD", "userRole":"regular"}'
+-d '{"username":"$USERNAME", "password":"$PASSWORD", "userRole":"regular"}' \
 https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
 ```
 

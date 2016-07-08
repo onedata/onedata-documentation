@@ -87,5 +87,5 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 
 ### Developer interfaces
 
-Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](../advanced/cdmi.md) and RESTful [interface](../advanced/rest.md) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
+Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](../advanced/cdmi.md) and RESTful [interface](../advanced/rest/README.md) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
 

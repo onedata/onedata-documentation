@@ -7,7 +7,7 @@ example_token: mxYQpUBQtD-ai5dEQNB_k3qSVGwjxpgjbKMEdtTN
 ~~~
 with accompanying information how much space is requested.
 
-For more information about *Spaces*, check out the [Overview](overview.md).
+For more information about *Spaces*, check out the [What is Onedata](../getting_started/what_is_onedata.md) section.
 
 
 ## Space support step by step
