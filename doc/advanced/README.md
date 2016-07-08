@@ -5,3 +5,4 @@ This section presents various advanced topics related to interfaces available fo
 Currently the main interface for integration with Onedata data management functionality is possible through the following interfaces:
 * [REST](rest.md)
 * [CDMI](cdmi.md)
+* [Local User Mapping](luma.md)
