@@ -36,8 +36,8 @@ The following space privileges are available:
 These privileges can be changed using the REST API, depending on whether they are assigned to an invdividual user or a group of users. Below are some examples:
 * List user 'ABC123' permissions to space 'QWE789':
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 which should return something similar to:
 ```bash
@@ -45,15 +45,15 @@ which should return something similar to:
 ```
 * Limit user 'ABC123' to only browse contents of space 'QWE789':
 ```bash
-curl -X PUT -H "macaroon: $(ACCESS_TOKEN)" \
+curl -X PUT -H "macaroon: $ACCESS_TOKEN" \
 -d '["space_view_data"]' \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
+https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 * Allow group 'IOP567' to change privileges of space 'QWE789':
 ```bash
-curl -X PUT -H "macaroon: $(ACCESS_TOKEN)" \
+curl -X PUT -H "macaroon: $ACCESS_TOKEN" \
 -d '["space_set_privileges"]' \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
+https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
 ```
 
 Please note that modifying space privileges requires providing complete set of privileges. For instance in the last example if the group IOP567 already has other privileges than `space_set_privileges` they will be removed and only `space_set_privileges` will be valid.
@@ -90,26 +90,26 @@ Below are presented examples of using the API for group privilege management. Re
 Example group privilege REST API calls are presented below:
 * List group 'IOP567' permissions to space 'QWE789':
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
 ```
 
 * List subgroup 'GDP678' permissions in group 'IOP567':
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/nested/GDP678/privileges
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/groups/IOP567/nested/GDP678/privileges
 ```
 
 * List user 'ABC123' permissions in group 'IOP567':
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/users/ABC123/privileges
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/groups/IOP567/users/ABC123/privileges
 ```
 
 * List effective user 'ABC123' permissions in group 'IOP567':
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/groups/IOP567/effective_users/ABC123/privileges
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/groups/IOP567/effective_users/ABC123/privileges
 ```
 
 
@@ -129,14 +129,14 @@ Each of these privileges can be assigned to an individual user or a group of use
 
 * List user 'ABC123' permissions to Onezone service:
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/privileges/users/ABC123
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/privileges/users/ABC123
 ```
 
 * List group 'IOP567' permissions to Onezone service:
 ```bash
-curl -X GET -H "macaroon: $(ACCESS_TOKEN)" \
-https://$(ONEZONE_HOST):8443/api/v3/onezone/privileges/groups/IOP567
+curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEZONE_HOST:8443/api/v3/onezone/privileges/groups/IOP567
 ```
 
 
