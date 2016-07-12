@@ -31,6 +31,7 @@
      * [Space Support](doc/administering_onedata/provider_space_support.md)
      * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
    * [Load Balancing Setup](doc/administering_onedata/loadbalancing.md)
+   * [OpenID Configuration](doc/administering_onedata/openid_configuration.md)
    * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
