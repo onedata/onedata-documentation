@@ -9,7 +9,7 @@ On the low level, all files are divided into equal size blocks which can be inde
 
 Web interface provides visual information on the current replication of each file among the storage providers supporting the user space in which this file is located. Sample replication visualization is presented in the image below:
 
-<img  style="display:block;margin:0 auto;" src="../img/replication.png">
+<img  style="display:block;margin:0 auto;" src="../img/replication_example.png">
 
 ## REST interface
 

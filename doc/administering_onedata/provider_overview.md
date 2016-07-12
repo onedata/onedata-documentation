@@ -1,6 +1,5 @@
 # Oneprovider Overview
 
-
 Oneprovider exposes storage resources to Onedata ecosystem. It is typically deployed in a data or computing center, on the nodes equipped with high speed connections to storage resources.
 
 Oneprovider is a cluster solution composed of 3 types of services:
