@@ -15,7 +15,7 @@ The user can be added by invoking a `POST` request to the Onepanel `/user` REST 
 * _userRole_ - currently only 2 roles are supported: **admin** and **regular**
 
 ```bash
-curl -X POST -H "macaroon: $(ACCESS_TOKEN)" -H "Content-Type: application/json" \
+curl -X POST -H "macaroon: $ACCESS_TOKEN" -H "Content-Type: application/json" \
 -d '{"username": "$USERNAME", "password": "$PASSWORD", "userRole": "regular"}' \
 https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
 ```
@@ -23,12 +23,20 @@ https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
 In order to modify the user details the same operation should be invoked with `PUT` HTTP method.
 
 ```bash
-curl -X PUT -H "macaroon: $(ACCESS_TOKEN)" -H "Content-Type: application/json" \
+curl -X PUT -H "macaroon: $ACCESS_TOKEN" -H "Content-Type: application/json" \
 -d '{"username":"$USERNAME", "password":"$PASSWORD", "userRole":"regular"}' \
 https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
 ```
 
 In order for these users to login to Onezone, basic authentication module has to be enabled in the Onezone config as described [here](./openid_configuration.md).
+
+### Removing users
+In order to remove an existing user account, simply execute `DELETE` method on the user path and provide user name, i.e.:
+
+```bash
+curl -X DELETE -H "macaroon: $ACCESS_TOKEN" \
+https://$ONEPANEL_HOST:8443/api/v3/onepanel/user/$USERNAME
+```
 
 
 
