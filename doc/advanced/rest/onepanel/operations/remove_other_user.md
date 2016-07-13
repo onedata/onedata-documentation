@@ -1,27 +1,27 @@
 
-<a name="remove_user"></a>
-#### Remove current user
+<a name="remove_other_user"></a>
+#### Remove user
 ```
-DELETE /user
+DELETE /user/{uid}
 ```
 
 
 ##### Description
-Removes current user account.
+Removes user account specified by user name `uid`.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userDetails**  <br>*required*|New user account details.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
+|**Path**|**uid**  <br>*required*|User account name.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|User details updated successfully.|No Content|
+|**204**|User account removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|Onepanel service is not available.|[Error](../definitions/Error.md#error)|
@@ -38,18 +38,7 @@ Removes current user account.
 ###### Request path
 ```
 json :
-"/user"
-```
-
-
-###### Request body
-```
-json :
-{
-  "username" : "r",
-  "password" : "P@@$$W0RD",
-  "userRole" : "admin"
-}
+"/user/string"
 ```
 
 

@@ -26,8 +26,8 @@ Onepanel API methods
 |[/user](operations/add_user.md)|POST|Add user|
 |[/user](operations/get_user.md)|GET|Get user details|
 |[/user](operations/modify_user.md)|PUT|Modify user settings|
-|[/user](operations/remove_user.md)|DELETE|Remove user|
-|[/user/{uid}](operations/remove_user.md)|DELETE|Remove user|
+|[/user](operations/remove_user.md)|DELETE|Remove current user|
+|[/user/{uid}](operations/remove_other_user.md)|DELETE|Remove user|
 
 
 
