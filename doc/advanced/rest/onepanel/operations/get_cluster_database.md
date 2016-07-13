@@ -7,7 +7,7 @@ GET /cluster/databases/{host}
 
 
 ##### Description
-Returns the status of specific database instance.
+Returns the status of a specific database instance.
 
 
 ##### Parameters

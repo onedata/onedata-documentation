@@ -20,13 +20,9 @@ The overall configuration can be controlled by updating 'onezone/configuration' 
  ```
 
  ## Authentication
- In order to be able to use this API the REST client must be able to authenticate with the Onezone service.
+ Onepanel supports only HTTP basic authentication, i.e. using `username` and `password` which were set when creating users.
 
- Currently this is supported through access token which can be generate using the Onedata user interface. 
- The token must be added to the request header:
- ```
- macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
- ```
+ 
 
  ## API structure
  This API allows the management of 2 Onedata services, Onezone and Oneprovider, in terms of their distribution in the local site.
