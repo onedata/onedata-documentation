@@ -1,5 +1,3 @@
-
-
 /* colors */
 $onedata-red: #F14549;
 $heading-line: #9F9F9F;
@@ -20,6 +18,25 @@ $summary-fg: #364149;
     font-weight: normal;
     font-style: normal;
 }
+
+// makes "a" elements in nested menu padding by neting level
+@mixin a-padding($level) {
+  $selector: "";
+  @for $i from 1 through $level {
+    $selector: $selector + "ul.articles li.chapter ";
+  }
+  #{$selector} {
+    a {
+      padding-left: 20px * $level;
+    }
+
+    &:not(.no-children)::before {
+      left: 20px * $level - 4px;
+    }
+  }
+
+}
+
 
 // Put element on right and float text on the left
 .right-side {
@@ -62,9 +79,9 @@ h1 img[alt='Onedata']
     .page-wrapper .page-inner section.normal .swagger {
       font-size: 14px;
       //text-width: 95%;
-      //outline: 0;      
+      //outline: 0;
     }
-    .page-wrapper .page-inner section.normal .swagger td, th { 
+    .page-wrapper .page-inner section.normal .swagger td, th {
       vertical-align: middle;
     }
 
@@ -132,7 +149,9 @@ h1 img[alt='Onedata']
         }
 
         img {
-          height: 0.76em;
+          position: relative;
+          top: -1px;
+          height: 0.78em;
         }
       }
 
@@ -147,11 +166,16 @@ h1 img[alt='Onedata']
         margin-left: 12px;
       }
 
+      // nested menu items padding (arrows and links), leaving padding of li
+      @for $i from 1 through 10 {
+        @include a-padding($i);
+      }
+
       &:not(.no-children) {
         &:before {
           position: absolute;
           // pull down
-          top: 20px;
+          top: 19px;
           // apply some padding
           left: 10px;
           content: "";
@@ -161,6 +185,7 @@ h1 img[alt='Onedata']
           transform: rotate(0deg);
         }
 
+        // a triangle
         &.active {
           &:before {
             transform: rotate(90deg);
@@ -207,10 +232,6 @@ h1 img[alt='Onedata']
 
       li ul {
         padding-left: 0px;
-
-        li {
-          padding-left: 25px;
-        }
       }
 
       // remove divider on end
@@ -230,7 +251,7 @@ h1 img[alt='Onedata']
     /* Shrink sub-chapters to 90% of chapters */
     ul.articles li.chapter
     {
-      font-size: 90%;
+      font-size: 98%;
     }
   }
 }
