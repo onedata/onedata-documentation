@@ -123,10 +123,9 @@ This section is specific to the storage providers supporting the [INDIGO-DataClo
 
 ## Complete example
 
-The complete auth.conf file is presented below: 
+The complete auth.conf file is presented below. It is specified directly in [Erlang](https://www.erlang.org/). For new deployments edit this file, remove all unsupported entries and replace all `APP_ID and `APP_SECRET` occurences with your actual OpenID tokens.
 
 ```Erlang
-%% EXAMPLE auth.config - remove unnecessary entries and update the credentials %% with actual values.
 
 %% List of supported auth providers and their config.
 [
@@ -200,8 +199,8 @@ The complete auth.conf file is presented below:
 
     {indigo, [
         {auth_module, auth_indigo},
-        {app_id, <<"...">>},
-        {app_secret, <<"...">>},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
         % Provider specific config
         % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
