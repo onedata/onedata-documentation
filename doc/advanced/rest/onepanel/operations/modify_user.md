@@ -7,14 +7,14 @@ PUT /user
 
 
 ##### Description
-Modifies user account details. Currently only password modification is allowed.
+Modifies current user account details. Currently only password modification is allowed.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userDetails**  <br>*required*|New user account details.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
+|**Body**|**userDetails**  <br>*required*|New user account details.|[UserDetailsUpdate](../definitions/UserDetailsUpdate.md#userdetailsupdate)|--|
 
 
 ##### Responses
@@ -46,9 +46,7 @@ json :
 ```
 json :
 {
-  "username" : "onedatauser",
-  "password" : "P@@$$W0RD",
-  "userRole" : "admin"
+  "password" : "P@@$$W0RD"
 }
 ```
 

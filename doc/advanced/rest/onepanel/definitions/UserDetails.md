@@ -13,7 +13,7 @@ Contains user details necessary when creating a new account.
 **Example**
 ```
 {
-  "username" : "onedatauser",
+  "username" : "r",
   "password" : "P@@$$W0RD",
   "userRole" : "admin"
 }
