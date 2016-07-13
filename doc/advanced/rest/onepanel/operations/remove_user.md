@@ -1,29 +1,36 @@
 
-<a name="get_user"></a>
-#### Get user details
+<a name="remove_user"></a>
+#### Remove user
 ```
-GET /user
+DELETE /user/{uid}
 ```
 
 
 ##### Description
-Returns the basic information about the current user.
+Removes user account specified by user name `uid`.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**uid**  <br>*required*|User account name.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User details returned successfully.|[UserDetailsResponse](../definitions/UserDetailsResponse.md#userdetailsresponse)|
+|**204**|User account removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|Onepanel service is not available.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
-* `application/x-yaml`
+* `application/json`
 
 
 ##### Example HTTP request
@@ -31,21 +38,11 @@ Returns the basic information about the current user.
 ###### Request path
 ```
 json :
-"/user"
+"/user/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "username" : "onedatauser",
-  "userRole" : "admin"
-}
-```
-
 
 ###### Response 400
 ```

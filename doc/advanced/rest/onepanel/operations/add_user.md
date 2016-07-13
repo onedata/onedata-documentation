@@ -46,7 +46,7 @@ json :
 ```
 json :
 {
-  "username" : "onedatauser",
+  "username" : "r",
   "password" : "P@@$$W0RD",
   "userRole" : "admin"
 }
