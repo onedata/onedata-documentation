@@ -19,13 +19,13 @@ The sections below describe how to attach each of these storage types to a Oneda
       manager:
         default_node: "n1"
         nodes:
-          * "n1"
+          - "n1"
       worker:
         nodes:
-          * "n1"
+          - "n1"
       database:
         nodes:
-          * "n1"
+          - "n1"
       storage:
         NFS:
           type: "POSIX"

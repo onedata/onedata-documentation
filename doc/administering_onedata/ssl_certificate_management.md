@@ -50,7 +50,7 @@ All keys and certificates must be in PEM format. Whenever certificates for given
 
 | Onezone and Oneprovider certificates |
 |:-----------------|
-| `/var/lib/op_panel/certs/server.cert` and `/var/lib/oz_panel/certs/server.cert` |
+| `/var/lib/op_panel/certs/server.crt` and `/var/lib/oz_panel/certs/server.crt` |
 | Keys used by Oneprovider and Onezone service respectively. |
 
 
