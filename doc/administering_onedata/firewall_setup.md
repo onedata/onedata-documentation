@@ -6,8 +6,8 @@ Below is a detailed list of ports which need to be opened and their designation:
 
 | Port      |  Description |
 |-----------|--------------|
-| 53/TCP    |  DNS    |
-| 53/UDP    |  DNS    |
+| 53/TCP    |  DNS (Optional - used for load-balancing)   |
+| 53/UDP    |  DNS (Optional - used for load-balancing)   |
 | 80/TCP    | HTTP    |
 | 443/TCP   | HTTPS   |
 | 5555/TCP  | Communication between Oneclient command line tool and Oneprovider service (TCP) |
