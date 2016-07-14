@@ -305,3 +305,16 @@ figure {
   }
 
 }
+
+$version-string-height: 24px;
+.book-summary {
+  .version-string {
+    position: absolute;
+    bottom: 0;
+    height: $version-string-height;
+    padding: 4px;
+  }
+  .version-string ~ .summary {
+    bottom: $version-string-height !important;
+  }
+}
