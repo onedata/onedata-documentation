@@ -1,3 +1,5 @@
+window.ONEDATA_DOC_VERSION = null;
+
 (function($) {
   $.fn.changeElementType = function(newType) {
     var attrs = {};
@@ -94,6 +96,14 @@ require(["gitbook"], function(gitbook) {
               $(this).attr('href', href);
               $(this).changeElementType('a');
             });
+
+            /// Add doc version string if provided
+            if (window.ONEDATA_DOC_VERSION) {
+              var summary = $('.summary');
+              summary.before('<div class="version-string"><strong>Version:</strong> ' +
+                window.ONEDATA_DOC_VERSION + '</div>');
+            }
+
 
         }
       );
