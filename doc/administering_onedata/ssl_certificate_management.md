@@ -55,7 +55,13 @@ All keys and certificates must be in PEM format. Whenever certificates for given
 
 
 ## Docker deployment
-When deploying Onedata services using Docker, it is important to remember that the certificates should be stored on the machine where the Dockers are deployed in a folder `/volumes/persistency`.
+When deploying Onedata services using Docker, SSL certificates for Onedata services must be stored on the host machine where they will be accessible, relative to folder `/volumes/persistency` inside containers, i.e. a file that on a native system would be under path:
+
+* `/etc/oz_worker/certs/gui_key.pem`
+
+under Docker container must be available under:
+
+* `/volumes/persistency/etc/oz_worker/certs/gui_key.pem`
 
 Below is an example Docker compose file for Onezone service, which assumes that on the host machine, the following files are present at these locations:
 
