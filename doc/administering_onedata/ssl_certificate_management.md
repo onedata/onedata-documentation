@@ -68,7 +68,7 @@ Below is an example Docker compose file for Onezone service, which assumes that 
 * `/opt/onedata/onezone/auth.config` - Authentication configuration
 * `/opt/onedata/onezone/ssl/etc/oz_worker/certs/gui_key.pem` - HTTP server private key
 * `/opt/onedata/onezone/ssl/etc/oz_worker/certs/gui_cert.pem` - HTTP server public certificate
-* `/opt/onedata/onezone/ssl/etc/oz_worker/certs/gui_cert.pem` - CA certificate of the authority that signed the `gui_cert.pem`
+* `/opt/onedata/onezone/ssl/etc/oz_worker/certs/gui_cacert.pem` - CA certificate of the authority that signed the `gui_cert.pem`
 
 ```yaml
 version: '2.0'
