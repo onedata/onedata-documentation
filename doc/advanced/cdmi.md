@@ -132,7 +132,7 @@ List first child of „spaces” container
 
 ### File System Export (FUSE client)
 
-Onedata does not support CDMI file system export, but has its own dedicated FUSE client, which can be installed and mounted in filesystem.
+Onedata does not support CDMI file system export, but has its own dedicated FUSE client, which can be installed and mounted in local filesystem.
 
 Installation instructions can be found on our [website](https://onedata.org/download).
 

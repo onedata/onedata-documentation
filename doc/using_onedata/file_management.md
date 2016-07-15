@@ -1,7 +1,7 @@
 
 # File Management
 
-
+<!--
 ## Data Sharing
 You can share your files with other users, in a Dropbox-like manner, using links.
 You can also see all the files you are sharing in that way by navigating to Shared Files view, which is accessible under the Data tab in the top menu.
@@ -23,6 +23,7 @@ You can disable the link to the file you previously shared:
 3. Click on **Links Files**.
 4. On the list of files you share find the file you wish to stop sharing.
 5. Click on the **"X" sign** next to it.
+-->
 
 ## File Permissions
 You can control access to your data with a combination of:

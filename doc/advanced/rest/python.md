@@ -16,7 +16,7 @@ After it's loaded simply go to `Generate client` menu and selected the language 
 
 Install [Swagger Codegen](https://github.com/swagger-api/swagger-codegen) tool and run (to generate Python client):
 ```bash
-echo '{"packageName": "Onezone", "packageVersion": "3.0.0-beta6"}' > config-python.json
+echo '{"packageName": "Onezone", "packageVersion": "3.0.0-beta7"}' > config-python.json
 swagger-codegen generate -i ./swagger.json -l python -o python --config config-python.json
 ```
 
