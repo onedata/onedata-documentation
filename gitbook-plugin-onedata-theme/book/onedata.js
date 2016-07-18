@@ -1,5 +1,19 @@
 window.ONEDATA_DOC_VERSION = null;
 
+var escapeEntityMap = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': '&quot;',
+  "'": '&#39;',
+  "/": '&#x2F;'
+};
+function escapeHtml(string) {
+  return String(string).replace(/[&<>"'\/]/g, function (s) {
+    return escapeEntityMap[s];
+  });
+}
+
 (function($) {
   $.fn.changeElementType = function(newType) {
     var attrs = {};
@@ -99,8 +113,20 @@ require(["gitbook"], function(gitbook) {
 
             /// Add doc version string if provided
             if (window.ONEDATA_DOC_VERSION) {
+              var resultVersion = '';
+              window.ONEDATA_DOC_VERSION.split('\n').forEach(function(s) {
+                var m = s.match(/^\s*(\w+\:)\s*(.*)\s*$/);
+                if (m) {
+                  resultVersion += "<strong>" + m[1] + "</strong> " + escapeHtml(m[2]) + "<br>";
+                } else if (!s.match(/\s*/)) {
+                  resultVersion += s + "<br>";
+                }
+              });
+
+              window.ONEDATA_DOC_VERSION = resultVersion;
+
               var summary = $('.summary');
-              summary.before('<div class="version-string"><strong>Version:</strong> ' +
+              summary.before('<div class="version-string">' +
                 window.ONEDATA_DOC_VERSION + '</div>');
             }
 
