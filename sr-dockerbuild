@@ -307,6 +307,7 @@ IFS='' read -r -d '' VERSION_MSG <<-EOF
       time: $PREETY_TIME
       commit: $PREETY_COMMIT
       branch: $CURRNET_BRANCH
+      docker: $DOCKER_BUILD_NAME or $DOCKER_BUILD_ID
 EOF
 
 echo "$VERSION_MSG" > "$TMP_HERE_DOC_FILE"
