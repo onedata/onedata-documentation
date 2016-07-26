@@ -8,7 +8,8 @@
       "toc@0.0.1",
       "include",
       "responsive-iframes@1.0.2",
-      "styles-sass@file:gitbook-plugin-styles-sass"
+      "styles-sass@file:gitbook-plugin-styles-sass",
+      "ga"
     ],
     "variables": {
        "draft":false,
@@ -37,6 +38,9 @@
     "pluginsConfig": {
       "image-captions": {
           "caption": ""
+      },
+	  "ga": {
+            "token": "UA-63301911-1"
       }
     }
 }
