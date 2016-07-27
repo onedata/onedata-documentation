@@ -23,7 +23,7 @@ and registers in the zone.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check<br>operation status.|No Content|
+|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|No Content|
