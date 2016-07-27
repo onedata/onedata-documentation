@@ -23,9 +23,9 @@ Starts or stops cluster worker service on all hosts in the local deployment.
 |---|---|---|
 |**204**|Databases service state changed successfully.|No Content|
 |**400**|An error has occurred while changing cluster worker service status.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|Cluster worker service has not been deployed.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**404**|Cluster worker service has not been deployed.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Example HTTP request
@@ -55,36 +55,6 @@ json :
   "hosts" : {
     "string" : "[error](#error)"
   }
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 404
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
 }
 ```
 

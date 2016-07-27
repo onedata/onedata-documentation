@@ -23,8 +23,8 @@ Returns the details of the selected storage.
 |---|---|---|
 |**200**|The details of a selected storage|[ClusterStorages](../definitions/ClusterStorages.md#clusterstorages)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Produces
@@ -53,26 +53,6 @@ json :
 
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {

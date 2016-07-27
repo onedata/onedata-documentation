@@ -17,9 +17,9 @@ deployed.
 |---|---|---|
 |**200**|The status of cluster manager service on each host where it has been<br>deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|Cluster manager service has not been deployed.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**404**|Cluster manager service has not been deployed.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Produces
@@ -50,36 +50,6 @@ json :
 
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 404
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {
