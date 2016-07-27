@@ -9,6 +9,8 @@ GET /spaces/{id}/groups/token
 ##### Description
 Creates a token allowing to add a group to a specific space.
 
+This operation requires `space_invite_group` privilege.
+
 
 ##### Parameters
 

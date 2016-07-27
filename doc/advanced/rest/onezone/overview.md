@@ -30,6 +30,37 @@ if a given user belongs to the group directly or indirectly by belonging to a su
 separate API calls are provided for getting information about group users (direct group members) and 
 effective users (indirect group members).
 
+## Permissions
+
+REST API operations from the permissions perspective in Onezone service can be divided into 2 groups,
+depending on the actor making the request:
+ * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which
+ must include valid client access token, and authorization is made based on the privileges assigned
+ to the user in the system. Each operation in this API that is available to end users, has a list of
+ required privileges, except for the operations which are related to user account management, i.e.
+ each user can perform any operation on his account,
+ * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,
+ it must authenticate using the peer certificate which was assigned to this provider when registering
+ in the Onezone service. In such case the `macaroon` header is not necessary.
+
+Some special operations are completely open and require no authentication:
+ * `POST /user/authorize` - authorizes user with authentication token through
+ Onezone web interface.This interface is called only by providers, 
+ * `POST /provider` - registers a Oneprovider in Onezone service 
+ (however a valid CSR in the body is required),
+ * `POST /provider/test/check_my_ports` - checks if all given ports 
+ are reachable from Onezone,
+ * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).
+
+The provider specific operations include:
+ * `ANY /provider` - all provider specific endpoints (except for the public access ones above),
+ * `POST /spaces` - create new space,
+ * `GET /space/{id}` - get specific space details,
+ * `GET /spaces/{id}/users` - list space users.
+ 
+All other operations can be invoked by a user assuming he has valid privileges in the system,
+each operation description lists required permissions, if any.
+
 ## API structure
 Most operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to
 most appropriate HTTP methods.
@@ -57,7 +88,7 @@ enabling them to view and configure certain aspects of the system.
 
 
 ### Version information
-*Version* : 3.0.0-beta7
+*Version* : 3.0.0-beta8
 
 
 ### Contact information

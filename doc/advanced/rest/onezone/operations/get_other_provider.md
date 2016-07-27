@@ -7,7 +7,13 @@ GET /provider/{pid}
 
 
 ##### Description
-Returns the information about a another Oneprovider service, which is  connected to the current provider. If called by other provider doesn't require any special privileges. When called by a regular user, requires 'list_providers' privilege.
+Returns the information about a another Oneprovider service, which is connected to the current provider.
+
+If called by other provider doesn't require any special privileges. 
+
+When called by a regular user, requires 'list_providers' privilege.
+
+This operation requires `list_providers` privilege.
 
 
 ##### Parameters

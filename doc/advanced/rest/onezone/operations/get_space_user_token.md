@@ -9,6 +9,8 @@ GET /spaces/{id}/users/token
 ##### Description
 Creates a token allowing new user to join a space.
 
+This operation requires `space_invite_user` privilege.
+
 
 ##### Parameters
 

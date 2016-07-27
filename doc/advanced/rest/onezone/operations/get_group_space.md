@@ -9,6 +9,8 @@ GET /groups/{id}/spaces/{sid}
 ##### Description
 Returns information about a specific space to which the group belongs.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

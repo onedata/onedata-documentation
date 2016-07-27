@@ -7,7 +7,10 @@ POST /user/groups
 
 
 ##### Description
-Creates a new group for the current user.  The user automatically becomes a member of this group.
+Creates a new group for the current user. 
+The user automatically becomes a member of this group.
+
+This operation can be invoked on behalf of current user only.
 
 
 ##### Parameters
@@ -21,7 +24,7 @@ Creates a new group for the current user.  The user automatically becomes a memb
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created group in the form /user/groups/{gid} is  returned in the response `location` header.|No Content|
+|**201**|ID of the created group in the form /user/groups/{gid} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

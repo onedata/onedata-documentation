@@ -7,7 +7,10 @@ GET /spaces/{id}/providers/token
 
 
 ##### Description
-Creates a token which can be submitted to a selected provider in order to  add storage support for the space.
+Creates a token which can be submitted to a selected provider in order to 
+add storage support for the space.
+
+This operation requires `space_add_provider` privilege.
 
 
 ##### Parameters

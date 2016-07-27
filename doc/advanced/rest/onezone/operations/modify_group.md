@@ -9,6 +9,8 @@ PATCH /groups/{id}
 ##### Description
 Updates the details about a group.
 
+This operation requires `group_change_data` privilege.
+
 
 ##### Parameters
 

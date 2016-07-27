@@ -9,6 +9,8 @@ GET /user
 ##### Description
 Returns details about currently authenticated user.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Responses
 

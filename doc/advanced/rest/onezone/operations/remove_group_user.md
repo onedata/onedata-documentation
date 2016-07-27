@@ -1,5 +1,5 @@
 
-<a name="add_group_user"></a>
+<a name="remove_group_user"></a>
 #### Remove user from group
 ```
 DELETE /groups/{id}/users/{uid}
@@ -7,7 +7,10 @@ DELETE /groups/{id}/users/{uid}
 
 
 ##### Description
-Removes the user {uid} from a group {id} (the user will no longer have access  to spaces accessible to the group).
+Removes the user {uid} from a group {id} (the user will no longer have access 
+to spaces accessible to the group).
+
+This operation requires `group_remove_user` privilege.
 
 
 ##### Parameters

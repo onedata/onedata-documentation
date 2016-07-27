@@ -7,7 +7,11 @@ POST /provider
 
 
 ##### Description
-Registers a Oneprovider in Onezone service.  Requires a CSR and returns signed certificate that will must used by the Oneprovider  for authorization (SSL Peer Certificate).
+Registers a Oneprovider in Onezone service. 
+Requires a a valid CSR in the bodyand returns signed 
+certificate that will must used by the Oneprovider for authorization (SSL Peer Certificate).
+
+This operation has public access.
 
 
 ##### Parameters

@@ -9,6 +9,8 @@ GET /user/spaces/token
 ##### Description
 Creates an invitation token which allows other users to join the space.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Responses
 

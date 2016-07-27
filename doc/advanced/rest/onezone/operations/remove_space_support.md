@@ -9,6 +9,8 @@ DELETE /provider/spaces/{sid}
 ##### Description
 Removes support for space from the Oneprovider that performed the request.
 
+This operation requires peer certificate authentication.
+
 
 ##### Parameters
 

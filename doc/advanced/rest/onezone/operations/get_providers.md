@@ -7,7 +7,9 @@ GET /providers
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service. Requires 'list_providers' Onezone privilege.
+Returns the list of providers registered in the Onezone service.
+
+This operation requires `list_providers` privilege.
 
 
 ##### Responses

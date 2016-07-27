@@ -7,7 +7,9 @@ POST /provider/test/check_my_ports
 
 
 ##### Description
-Checks if all given ports are reachable from Onezone.  Ports is a list on form [URL:port, URL:port, ...],  for example [https://provider1.com:80, https://provider1.com:443]
+Checks if all given ports are reachable from Onezone. 
+
+This operation has public access.
 
 
 ##### Parameters

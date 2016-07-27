@@ -9,7 +9,10 @@ POST /spaces
 ##### Description
 When called by a regular user, creates a new space and creates the current user its owner.
 
-When called by a provider, creates a new spaces and automatically adds support for, based on the token provided in the request body.
+When called by a provider, creates a new spaces and automatically adds support for it, 
+based on the token provided in the request body.
+
+This operation does not require any specific privileges.
 
 
 ##### Parameters
@@ -31,7 +34,7 @@ When called by a provider, creates a new spaces and automatically adds support f
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

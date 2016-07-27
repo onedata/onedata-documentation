@@ -9,6 +9,8 @@ DELETE /user/spaces/{sid}
 ##### Description
 Removes the users ownership or membership in a specific space.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

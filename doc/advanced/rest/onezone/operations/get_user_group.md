@@ -9,6 +9,8 @@ GET /user/groups/{gid}
 ##### Description
 Returns information about a specific group to which the user belongs.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

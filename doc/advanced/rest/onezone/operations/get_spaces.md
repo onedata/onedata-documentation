@@ -7,7 +7,9 @@ GET /spaces
 
 
 ##### Description
-Returns the list of all spaces managed by the Onezone service. Requires 'list_spaces' Onezone privilege.
+Returns the list of all spaces managed by the Onezone service.
+
+This operation requires `list_spaces` privilege.
 
 
 ##### Responses

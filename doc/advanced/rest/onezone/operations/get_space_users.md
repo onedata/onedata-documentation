@@ -9,6 +9,8 @@ GET /spaces/{id}/users
 ##### Description
 Returns the list of users belonging to a specific space.
 
+This operation requires `space_view_data` privilege.
+
 
 ##### Parameters
 

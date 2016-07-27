@@ -9,6 +9,8 @@ POST /provider/spaces
 ##### Description
 Creates a new space on behalf of the Oneprovider that performed the request.
 
+This operation requires peer certificate authentication.
+
 
 ##### Parameters
 
@@ -21,7 +23,7 @@ Creates a new space on behalf of the Oneprovider that performed the request.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

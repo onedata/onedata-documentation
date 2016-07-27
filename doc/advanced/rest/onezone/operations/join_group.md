@@ -9,6 +9,8 @@ POST /user/groups/join
 ##### Description
 Join existing group using inivitation token.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 
@@ -21,7 +23,7 @@ Join existing group using inivitation token.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the joined group in the form /user/groups/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the joined group in the form /user/groups/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

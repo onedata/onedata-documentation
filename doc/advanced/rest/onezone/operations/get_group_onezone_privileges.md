@@ -9,6 +9,8 @@ GET /privileges/group/{id}
 ##### Description
 Returns the list of group privileges for Onezone.
 
+This operation requires `view_privileges` privilege.
+
 
 ##### Parameters
 
