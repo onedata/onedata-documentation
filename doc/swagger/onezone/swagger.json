@@ -2,9 +2,9 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onezone",
   "info": {
-    "version": "3.0.0-beta7",
+    "version": "3.0.0-beta8",
     "title": "Onezone",
-    "description": "This is the RESTful API definition of Onezone component of Onedata data management system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups and providers.\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nCurrently this is supported through access token which can be generate using the Onedata user interface. \nThe token must be added to the request header:\n ```\n macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible. In particular, some operations depend on whether a particular request is initiated by a regular\nuser or by another storage provider within a zone.\n\nIn case of Oneprovider API calls, the provider identification and authorization are based on\nthe SSL Peer Certificate that has been signed by this Onezone service during registration.\n\n## Effective users and effective groups\nOnedata supports creation of arbitrary nested group tree structures. In order to allow identification\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and \neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n\n### Space management\nThe space management operations of this API provide means for accessing information about spaces \nand their management.\n\n### Group management\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n### User management\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n### Provider management\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n### Privileges management\nOnezone allows any user to have selected administration privileges for the Onezone service itself,\nenabling them to view and configure certain aspects of the system.\n",
+    "description": "This is the RESTful API definition of Onezone component of Onedata data management system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups and providers.\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nCurrently this is supported through access token which can be generate using the Onedata user interface. \nThe token must be added to the request header:\n ```\n macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible. In particular, some operations depend on whether a particular request is initiated by a regular\nuser or by another storage provider within a zone.\n\nIn case of Oneprovider API calls, the provider identification and authorization are based on\nthe SSL Peer Certificate that has been signed by this Onezone service during registration.\n\n## Effective users and effective groups\nOnedata supports creation of arbitrary nested group tree structures. In order to allow identification\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and \neffective users (indirect group members).\n\n## Permissions\n\nREST API operations from the permissions perspective in Onezone service can be divided into 2 groups,\ndepending on the actor making the request:\n * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which\n must include valid client access token, and authorization is made based on the privileges assigned\n to the user in the system. Each operation in this API that is available to end users, has a list of\n required privileges, except for the operations which are related to user account management, i.e.\n each user can perform any operation on his account,\n * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,\n it must authenticate using the peer certificate which was assigned to this provider when registering\n in the Onezone service. In such case the `macaroon` header is not necessary.\n\nSome special operations are completely open and require no authentication:\n * `POST /user/authorize` - authorizes user with authentication token through\n Onezone web interface.This interface is called only by providers, \n * `POST /provider` - registers a Oneprovider in Onezone service \n (however a valid CSR in the body is required),\n * `POST /provider/test/check_my_ports` - checks if all given ports \n are reachable from Onezone,\n * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).\n\nThe provider specific operations include:\n * `ANY /provider` - all provider specific endpoints (except for the public access ones above),\n * `POST /spaces` - create new space,\n * `GET /space/{id}` - get specific space details,\n * `GET /spaces/{id}/users` - list space users.\n \nAll other operations can be invoked by a user assuming he has valid privileges in the system,\neach operation description lists required permissions, if any.\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n\n### Space management\nThe space management operations of this API provide means for accessing information about spaces \nand their management.\n\n### Group management\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n### User management\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n### Provider management\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n### Privileges management\nOnezone allows any user to have selected administration privileges for the Onezone service itself,\nenabling them to view and configure certain aspects of the system.\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -27,7 +27,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:list_spaces",
         "summary": "List all spaces",
-        "description": "Returns the list of all spaces managed by the Onezone service. Requires 'list_spaces' Onezone privilege. \n",
+        "description": "Returns the list of all spaces managed by the Onezone service.\n\nThis operation requires `list_spaces` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -83,13 +83,19 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:create",
         "summary": "Create new space",
-        "description": "When called by a regular user, creates a new space and creates the current user its owner.\n\nWhen called by a provider, creates a new spaces and automatically adds support for, based on the token provided in the request body.\n",
+        "description": "When called by a regular user, creates a new space and creates the current user its owner.\n\nWhen called by a provider, creates a new spaces and automatically adds support for it, \nbased on the token provided in the request body.\n\nThis operation does not require any specific privileges.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -155,7 +161,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get space details",
-        "description": "Returns the details about a specific space. If called by user who is not member of the space, requires 'list_spaces' privilege.\n",
+        "description": "Returns the details about a specific space.\n\nIf called by user who is not member of the space, requires 'list_spaces' privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -343,7 +349,7 @@
         "x-onedata-resource": "users",
         "x-onedata-method": "space_logic:get_users",
         "summary": "Get space users",
-        "description": "Returns the list of users belonging to a specific space.",
+        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -410,7 +416,7 @@
         "x-onedata-resource": "uinvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invite token",
-        "description": "Creates a token allowing new user to join a space.",
+        "description": "Creates a token allowing new user to join a space.\n\nThis operation requires `space_invite_user` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -474,7 +480,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "space_logic:get_user",
         "summary": "Get space user details",
-        "description": "Returns the public information about a specific user in a space.",
+        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -543,7 +549,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "space_logic:remove_user",
         "summary": "Remove user from space",
-        "description": "Removes user from specific space.",
+        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` privilege.\n",
         "consumes": [
           "application/json"
         ],
@@ -611,7 +617,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:get_privileges",
         "summary": "Get user privileges to space",
-        "description": "Returns privileges of a user belonging to the space.",
+        "description": "Returns privileges of a user belonging to the space.\n\nThis operation requires `space_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -680,7 +686,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:set_privileges",
         "summary": "Set user privileges to space",
-        "description": "Adds specific privileges for a user in a space.",
+        "description": "Adds specific privileges for a user in a space.\n\nThis operation requires `space_set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -821,7 +827,7 @@
         "x-onedata-resource": "ginvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invite token for group",
-        "description": "Creates a token allowing to add a group to a specific space.",
+        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -885,7 +891,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "space_logic:get_group",
         "summary": "Get group details",
-        "description": "Returns details about a specific group in a space.",
+        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -954,7 +960,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "space_logic:remove_group",
         "summary": "Remove subgroup",
-        "description": "Removes a specific nested group.",
+        "description": "Removes a specific nested group.\n\nThis operation requires `space_remove_group` privilege.\n",
         "responses": {
           "200": {
             "description": "A space has been removed from group."
@@ -1019,7 +1025,7 @@
         "x-onedata-resource": "gpriv",
         "x-onedata-method": "space_logic:get_privileges",
         "summary": "Get group privileges to space",
-        "description": "Returns privileges for a group to a specific space.",
+        "description": "Returns privileges for a group to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -1088,7 +1094,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:set_privileges",
         "summary": "Set group privileges to space",
-        "description": "Sets new privileges for a group to a specific space.",
+        "description": "Sets new privileges for a group to a specific space.\n\nThis operation requires `space_set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."
@@ -1161,7 +1167,7 @@
         "x-onedata-resource": "providers",
         "x-onedata-method": "space_logic:get_providers",
         "summary": "Get space providers",
-        "description": "Returns the list of providers supporting specific space. This method is allowed for effective space members or users with 'list_providers_of_space' privilege.\n",
+        "description": "Returns the list of providers supporting specific space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -1228,7 +1234,7 @@
         "x-onedata-resource": "pinvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space support token",
-        "description": "Creates a token which can be submitted to a selected provider in order to  add storage support for the space.\n",
+        "description": "Creates a token which can be submitted to a selected provider in order to \nadd storage support for the space.\n\nThis operation requires `space_add_provider` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -1292,7 +1298,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "space_logic:get_provider",
         "summary": "Get space provider details",
-        "description": "Returns details about a specific provider supporting the space.",
+        "description": "Returns details about a specific provider supporting the space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -1361,7 +1367,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "space_logic:remove_provider",
         "summary": "Remove space support",
-        "description": "Removes support from provider for a specific space.",
+        "description": "Removes support from provider for a specific space.\n\nThis operation requires `space_remove_provider` privilege.\n",
         "responses": {
           "200": {
             "description": "A space is no longer supported by this provider."
@@ -1425,7 +1431,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_data",
         "summary": "Get user details",
-        "description": "Returns details about currently authenticated user.",
+        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -1471,7 +1477,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:modify",
         "summary": "Modify user",
-        "description": "Modifies user account details based on information provided in the request body.",
+        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
@@ -1585,7 +1591,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "auth_logic:authenticate_user",
         "summary": "Authenticate user",
-        "description": "Authorizes user with authentication token through Onezone web interface. This interface is called only by providers.\n",
+        "description": "Authorizes user with authentication token through Onezone web interface.\n\nThis operation has public access.\n",
         "consumes": [
           "application/json"
         ],
@@ -1650,7 +1656,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_spaces",
         "summary": "Get list of spaces",
-        "description": "Returns the list of users' spaces.",
+        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -1715,13 +1721,19 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:create",
         "summary": "Create a new space",
-        "description": "Creates a new space as current user. The user automaticaly becomes  the spaces' member.\n",
+        "description": "Creates a new space as current user. The user automaticaly becomes \nthe spaces' member.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the created space in the form /user/spaces/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the created space in the form /user/spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -1777,7 +1789,7 @@
         "x-onedata-module": "spaces",
         "x-onedata-method": "user_logic:get_default_space",
         "summary": "Get default space",
-        "description": "Returns the ID of the default users space.",
+        "description": "Returns the ID of the default users space.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -1829,7 +1841,7 @@
         "x-onedata-module": "spaces",
         "x-onedata-method": "user_logic:set_default_space",
         "summary": "Set default space",
-        "description": "Sets default space for current user.",
+        "description": "Sets default space for current user.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
@@ -1894,13 +1906,19 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:join",
         "summary": "Join space",
-        "description": "Join existing space using inivitation token.",
+        "description": "Join existing space using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the joined space in the form /user/spaces/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the joined space in the form /user/spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -1956,7 +1974,7 @@
         "x-onedata-module": "token",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invitation token",
-        "description": "Creates an invitation token which allows other users to join the space.",
+        "description": "Creates an invitation token which allows other users to join the space.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2010,7 +2028,7 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get space details",
-        "description": "Returns the details of a specific space.",
+        "description": "Returns the details of a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2071,7 +2089,7 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:remove_user",
         "summary": "Leave space",
-        "description": "Removes the users ownership or membership in a specific space.",
+        "description": "Removes the users ownership or membership in a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2131,7 +2149,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_groups",
         "summary": "Get user groups",
-        "description": "Returns the list of user's groups.",
+        "description": "Returns the list of user's groups.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2186,13 +2204,19 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:create",
         "summary": "Create new group",
-        "description": "Creates a new group for the current user.  The user automatically becomes a member of this group.\n",
+        "description": "Creates a new group for the current user. \nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the created group in the form /user/groups/{gid} is  returned in the response `location` header. \n"
+            "description": "ID of the created group in the form /user/groups/{gid} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created group.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -2248,13 +2272,19 @@
         "x-onedata-module": "user",
         "x-onedata-method": "group_logic:join",
         "summary": "Join group",
-        "description": "Join existing group using inivitation token.",
+        "description": "Join existing group using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the joined group in the form /user/groups/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the joined group in the form /user/groups/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined group.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -2310,7 +2340,7 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:get_data",
         "summary": "Get group details",
-        "description": "Returns information about a specific group to which the user belongs.",
+        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2371,7 +2401,7 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:remove_user",
         "summary": "Leave group",
-        "description": "Removes the current user from a specific group.",
+        "description": "Removes the current user from a specific group.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2432,7 +2462,7 @@
         "x-onedata-resource": "utoken",
         "x-onedata-method": "token_logic:create",
         "summary": "Create user authorization token",
-        "description": "Creates a user authorization token that can be used in `oneclient` command line or via REST API.",
+        "description": "Creates a user authorization token that can be used in `oneclient` command line or via REST API.\n\nThis operation can be invoked on behalf of current user only.\n",
         "produces": [
           "application/json"
         ],
@@ -2487,13 +2517,19 @@
         "x-onedata-resource": "groups",
         "x-onedata-method": "group_logic:create",
         "summary": "Create new group",
-        "description": "Creates a new group.",
+        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the group created in the form /groups/{id} is  returned in the response `location` header.\n"
+            "description": "ID of the group created in the form /groups/{id} is  returned in the response `Location` header.\n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created group.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -2550,7 +2586,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:get_data",
         "summary": "Get group details",
-        "description": "Returns the information about a specific group.",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -2612,7 +2648,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:modify",
         "summary": "Modify group details",
-        "description": "Updates the details about a group.",
+        "description": "Updates the details about a group.\n\nThis operation requires `group_change_data` privilege.\n",
         "consumes": [
           "application/json"
         ],
@@ -2680,7 +2716,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:remove_group",
         "summary": "Remove group",
-        "description": "Removes a specific group.",
+        "description": "Removes a specific group.\n\nThis operation requires `group_remove` privilege.\n",
         "responses": {
           "202": {
             "description": "The group will be removed."
@@ -2738,7 +2774,7 @@
         "x-onedata-resource": "effective_users",
         "x-onedata-method": "group_logic:get_effective_users",
         "summary": "Get effective group users",
-        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\n",
+        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -2804,8 +2840,8 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "effective_user",
         "x-onedata-method": "group_logic:get_effective_user",
-        "description": "Get group user details",
-        "summary": "Returns public information about a specific group user.",
+        "summary": "Get group user details",
+        "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -2876,7 +2912,7 @@
         "x-onedata-resource": "eupriv",
         "x-onedata-method": "group_logic:get_effective_privileges",
         "summary": "Get user group privileges",
-        "description": "Returns the user privileges in a group.",
+        "description": "Returns the user privileges in a group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -2947,7 +2983,7 @@
         "x-onedata-resource": "users",
         "x-onedata-method": "group_logic:get_users",
         "summary": "Get group users",
-        "description": "Returns the list of users belonging to a specific group.",
+        "description": "Returns the list of users belonging to a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3014,7 +3050,7 @@
         "x-onedata-resource": "uinvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create user invite token for group",
-        "description": "Creates a token allowing new user to join the group.",
+        "description": "Creates a token allowing new user to join the group.\n\nThis operation requires `group_invite_user` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3078,7 +3114,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "group_logic:get_user",
         "summary": "Get group user details",
-        "description": "Returns the public information about a user {uid} in group {id}.",
+        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3138,16 +3174,16 @@
         ]
       },
       "delete": {
-        "operationId": "add_group_user",
+        "operationId": "remove_group_user",
         "tags": [
           "Group"
         ],
         "x-onedata-service": "onezone",
         "x-onedata-module": "group",
-        "x-onedata-resource": "group",
+        "x-onedata-resource": "user",
         "x-onedata-method": "group_logic:remove_user",
         "summary": "Remove user from group",
-        "description": "Removes the user {uid} from a group {id} (the user will no longer have access  to spaces accessible to the group).\n",
+        "description": "Removes the user {uid} from a group {id} (the user will no longer have access \nto spaces accessible to the group).\n\nThis operation requires `group_remove_user` privilege.\n",
         "consumes": [
           "application/json"
         ],
@@ -3215,7 +3251,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "group_logic:get_privileges",
         "summary": "Get user's group privileges",
-        "description": "Returns the list of user privileges in a specific group.",
+        "description": "Returns the list of user privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3284,7 +3320,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "group_logic:set_privileges",
         "summary": "Set user's group privileges",
-        "description": "Sets privileges for a user {uid} in a group {id}.",
+        "description": "Sets privileges for a user {uid} in a group {id}.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -3357,7 +3393,7 @@
         "x-onedata-resource": "parent_groups",
         "x-onedata-method": "group_logic:get_parent_groups",
         "summary": "Get parent groups",
-        "description": "Returns the parent groups of a specific group.",
+        "description": "Returns the parent groups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3424,7 +3460,7 @@
         "x-onedata-resource": "parent_group",
         "x-onedata-method": "group_logic:get_parent_group",
         "summary": "Get parent group details",
-        "description": "Returns details about a specific parent group.",
+        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3495,7 +3531,7 @@
         "x-onedata-resource": "nested_groups",
         "x-onedata-method": "group_logic:get_nested_groups",
         "summary": "Get subgroups",
-        "description": "Returns the list of subgroups of a specific group.",
+        "description": "Returns the list of subgroups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3562,7 +3598,7 @@
         "x-onedata-resource": "ninvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create subgroup invitation token",
-        "description": "Creates a token that can be used to add a group as subgroup of group with {id}.",
+        "description": "Creates a token that can be used to add a group as subgroup of group with {id}.\n\nThis operation requires `group_invite_group` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3626,10 +3662,16 @@
         "x-onedata-resource": "njoin",
         "x-onedata-method": "group_logic:join_group",
         "summary": "Add subgroup",
-        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\n",
+        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n",
         "responses": {
           "201": {
-            "description": "ID of the joined group in the form /groups/{id} is  returned in the response `location` header.\n"
+            "description": "ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.\n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined group.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -3692,7 +3734,7 @@
         "x-onedata-resource": "nested_group",
         "x-onedata-method": "group_logic:get_nested_group",
         "summary": "Get subgroup details",
-        "description": "Returns information about a specific nested group.",
+        "description": "Returns information about a specific nested group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3761,7 +3803,7 @@
         "x-onedata-resource": "nested_group",
         "x-onedata-method": "group_logic:remove_nested_group",
         "summary": "Remove subgroup.",
-        "description": "Removes a specific subgroup with {nid} from parent group with {id}.",
+        "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n",
         "responses": {
           "202": {
             "description": "A subgroup will be removed."
@@ -3826,7 +3868,7 @@
         "x-onedata-resource": "npriv",
         "x-onedata-method": "group_logic:get_nested_group_privileges",
         "summary": "Get subgroup privileges",
-        "description": "Returns the list of nested group privileges in a specific group.",
+        "description": "Returns the list of nested group privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -3895,7 +3937,7 @@
         "x-onedata-resource": "npriv",
         "x-onedata-method": "group_logic:set_nested_group_privileges",
         "summary": "Set subgroup privileges.",
-        "description": "Sets privileges for a specific subgroup in a group.",
+        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -3969,7 +4011,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "group_logic:get_spaces",
         "summary": "Get group's spaces",
-        "description": "Returns the list of spaces to which the group has access.",
+        "description": "Returns the list of spaces to which the group has access.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -4034,13 +4076,19 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:create",
         "summary": "Creates new space for group",
-        "description": "Creates a new space on behalf of a specific group.",
+        "description": "Creates a new space on behalf of a specific group.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `location` header.    \n"
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header.   \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -4089,13 +4137,19 @@
         "x-onedata-resource": "sjoin",
         "x-onedata-method": "space_logic:join",
         "summary": "Join space by group",
-        "description": "Joins the group to an existing space based on provided space invitation token.",
+        "description": "Joins the group to an existing space based on provided space invitation token.\n\nThis operation requires `group_join_space` privilege.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the joined space in the form /spaces/{id} is  returned in the response `location` header.    \n"
+            "description": "ID of the joined space in the form /spaces/{id} is  returned in the response `Location` header.  \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -4158,7 +4212,7 @@
         "x-onedata-resource": "screate",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space creation token for group",
-        "description": "Creates a token that can be given to selected provider,  where it can be used to create a new space for the group and automatically support it.\n",
+        "description": "Creates a token that can be given to selected provider, \nwhere it can be used to create a new space for the group and automatically support it.\n\nThis operation requires `group_create_space_token` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -4222,7 +4276,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get group's space details",
-        "description": "Returns information about a specific space to which the group belongs.",
+        "description": "Returns information about a specific space to which the group belongs.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -4291,7 +4345,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:remove_group",
         "summary": "Remove space from group",
-        "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).",
+        "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).\n\nThis operation requires `group_leave_space` privilege.\n",
         "responses": {
           "202": {
             "description": "A groupwill be removed from the space."
@@ -4356,7 +4410,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get provider details",
-        "description": "Returns information about the Oneprovider that performed the request  (based on provided Peer Certificate authorization).\n",
+        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n",
         "produces": [
           "application/json"
         ],
@@ -4409,7 +4463,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:create",
         "summary": "Register provider",
-        "description": "Registers a Oneprovider in Onezone service.  Requires a CSR and returns signed certificate that will must used by the Oneprovider  for authorization (SSL Peer Certificate).\n",
+        "description": "Registers a Oneprovider in Onezone service. \nRequires a a valid CSR in the bodyand returns signed \ncertificate that will must used by the Oneprovider for authorization (SSL Peer Certificate).\n\nThis operation has public access.\n",
         "consumes": [
           "application/json"
         ],
@@ -4613,7 +4667,7 @@
         "x-onedata-resource": "nprovider",
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get provider details",
-        "description": "Returns the information about a another Oneprovider service, which is  connected to the current provider. If called by other provider doesn't require any special privileges. When called by a regular user, requires 'list_providers' privilege.\n",
+        "description": "Returns the information about a another Oneprovider service, which is connected to the current provider.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -4677,7 +4731,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "provider_logic:get_spaces",
         "summary": "Get spaces at provider",
-        "description": "Returns the list of spaces managed by the Oneprovider that performed the request.\n",
+        "description": "Returns the list of spaces managed by the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
         "produces": [
           "application/json"
         ],
@@ -4733,13 +4787,19 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:create",
         "summary": "Create new space by provider",
-        "description": "Creates a new space on behalf of the Oneprovider that performed the request.\n",
+        "description": "Creates a new space on behalf of the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -4796,13 +4856,19 @@
         "x-onedata-resource": "ssupport",
         "x-onedata-method": "space_logic:support",
         "summary": "Add space storage support",
-        "description": "Adds support for specific space on behalf of the Oneprovider that performed the  request. Space support token is required.\n",
+        "description": "Adds support for specific space on behalf of the Oneprovider that performed the \nrequest. Space support token is required.\n\nThis operation requires peer certificate authentication.\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "201": {
-            "description": "ID of the supported space in the form /spaces/{id} is  returned in the response `location` header. \n"
+            "description": "ID of the supported space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the supported space.",
+                "type": "string"
+              }
+            }
           },
           "400": {
             "description": "Invalid request.",
@@ -4856,7 +4922,7 @@
         "x-onedata-module": "provider",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get space details by provider",
-        "description": "Returns information about a specific space supported by the Oneprovider that  performed the request.\n",
+        "description": "Returns information about a specific space supported by the Oneprovider that \nperformed the request.\n\nThis operation requires peer certificate authentication.\n",
         "produces": [
           "application/json"
         ],
@@ -4917,7 +4983,7 @@
         "x-onedata-module": "provider",
         "x-onedata-method": "space_logic:remove_provider",
         "summary": "Remove space support",
-        "description": "Removes support for space from the Oneprovider that performed the request.",
+        "description": "Removes support for space from the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
         "produces": [
           "application/json"
         ],
@@ -4978,7 +5044,7 @@
         "x-onedata-resource": "ip",
         "x-onedata-method": "cowboy_req:peer",
         "summary": "Show client IP address",
-        "description": "Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).\n",
+        "description": "Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).\n\nThis operation has public access.\n",
         "produces": [
           "application/json"
         ],
@@ -5033,7 +5099,7 @@
         "x-onedata-resource": "ip",
         "x-onedata-method": "provider_logic:test_connection",
         "summary": "Check ports availability",
-        "description": "Checks if all given ports are reachable from Onezone.  Ports is a list on form [URL:port, URL:port, ...],  for example [https://provider1.com:80, https://provider1.com:443] \n",
+        "description": "Checks if all given ports are reachable from Onezone. \n\nThis operation has public access.\n",
         "produces": [
           "application/json"
         ],
@@ -5121,7 +5187,7 @@
         "x-onedata-resource": "providers",
         "x-onedata-method": "provider_logic:get_providers",
         "summary": "Get providers",
-        "description": "Returns the list of providers registered in the Onezone service. Requires 'list_providers' Onezone privilege. \n",
+        "description": "Returns the list of providers registered in the Onezone service.\n\nThis operation requires `list_providers` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -5179,7 +5245,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:get_user_privileges",
         "summary": "Get user's Onezone privileges",
-        "description": "Returns the list of user privileges for Onezone.",
+        "description": "Returns the list of user privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -5241,7 +5307,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:set_privileges",
         "summary": "Set user's Onezone privileges",
-        "description": "Sets privileges for a user {id} for Onezone.",
+        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -5305,7 +5371,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:remoev_privileges",
         "summary": "Remove user's Onezone privileges",
-        "description": "Removes all privileges for a user {id} to Onezone.",
+        "description": "Removes all privileges for a user {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -5363,7 +5429,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:get_group_privileges",
         "summary": "Get group's Onezone privileges",
-        "description": "Returns the list of group privileges for Onezone.",
+        "description": "Returns the list of group privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
         "produces": [
           "application/json"
         ],
@@ -5425,7 +5491,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:set_privileges",
         "summary": "Set group's Onezone privileges",
-        "description": "Sets privileges for a user {id} for Onezone.",
+        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."
@@ -5489,7 +5555,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:remove_privileges",
         "summary": "Remove group's Onezone privileges",
-        "description": "Removes all privileges for a group {id} to Onezone.",
+        "description": "Removes all privileges for a group {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."

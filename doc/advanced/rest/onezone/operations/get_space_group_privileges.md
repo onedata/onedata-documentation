@@ -9,6 +9,8 @@ GET /spaces/{id}/groups/{gid}/privileges
 ##### Description
 Returns privileges for a group to a specific space.
 
+This operation requires `space_view_data` privilege.
+
 
 ##### Parameters
 

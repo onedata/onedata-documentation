@@ -9,6 +9,8 @@ DELETE /spaces/{id}/providers/{pid}
 ##### Description
 Removes support from provider for a specific space.
 
+This operation requires `space_remove_provider` privilege.
+
 
 ##### Parameters
 

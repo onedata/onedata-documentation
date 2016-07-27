@@ -9,6 +9,8 @@ DELETE /privileges/users/{id}
 ##### Description
 Removes all privileges for a user {id} to Onezone.
 
+This operation requires `set_privileges` privilege.
+
 
 ##### Parameters
 

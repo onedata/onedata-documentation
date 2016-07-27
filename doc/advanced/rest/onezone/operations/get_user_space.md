@@ -9,6 +9,8 @@ GET /user/spaces/{sid}
 ##### Description
 Returns the details of a specific space.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

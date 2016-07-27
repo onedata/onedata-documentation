@@ -9,6 +9,8 @@ DELETE /groups/{id}/spaces/{sid}
 ##### Description
 Removes the group {id} from space {sid} (the group will no longer have access to space).
 
+This operation requires `group_leave_space` privilege.
+
 
 ##### Parameters
 

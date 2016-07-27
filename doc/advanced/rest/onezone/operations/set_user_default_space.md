@@ -9,6 +9,8 @@ PUT /user/spaces/default
 ##### Description
 Sets default space for current user.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

@@ -9,6 +9,8 @@ POST /groups/{id}/spaces/join
 ##### Description
 Joins the group to an existing space based on provided space invitation token.
 
+This operation requires `group_join_space` privilege.
+
 
 ##### Parameters
 
@@ -22,7 +24,7 @@ Joins the group to an existing space based on provided space invitation token.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the joined space in the form /spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the joined space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

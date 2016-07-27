@@ -9,6 +9,8 @@ GET /user/groups
 ##### Description
 Returns the list of user's groups.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Responses
 

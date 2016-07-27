@@ -9,6 +9,8 @@ DELETE /user/groups/{gid}
 ##### Description
 Removes the current user from a specific group.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

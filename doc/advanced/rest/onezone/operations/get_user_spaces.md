@@ -9,6 +9,8 @@ GET /user/spaces
 ##### Description
 Returns the list of users' spaces.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Responses
 

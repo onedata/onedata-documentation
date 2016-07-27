@@ -14,7 +14,7 @@ Group related operations
 |[/groups/{id}](operations/remove_group.md)|DELETE|Remove group|
 |[/groups/{id}](operations/modify_group.md)|PATCH|Modify group details|
 |[/groups/{id}/effective_users](operations/get_group_effective_users.md)|GET|Get effective group users|
-|[/groups/{id}/effective_users/{uid}](operations/get_groups_effective_user.md)|GET|Returns public information about a specific group user.|
+|[/groups/{id}/effective_users/{uid}](operations/get_groups_effective_user.md)|GET|Get group user details|
 |[/groups/{id}/effective_users/{uid}/privileges](operations/get_groups_user_privileges.md)|GET|Get user group privileges|
 |[/groups/{id}/nested](operations/get_nested_groups.md)|GET|Get subgroups|
 |[/groups/{id}/nested/join](operations/join_nested_group.md)|POST|Add subgroup|
@@ -34,7 +34,7 @@ Group related operations
 |[/groups/{id}/users](operations/get_group_users.md)|GET|Get group users|
 |[/groups/{id}/users/token](operations/create_user_group_invite_token.md)|GET|Create user invite token for group|
 |[/groups/{id}/users/{uid}](operations/get_group_user.md)|GET|Get group user details|
-|[/groups/{id}/users/{uid}](operations/add_group_user.md)|DELETE|Remove user from group|
+|[/groups/{id}/users/{uid}](operations/remove_group_user.md)|DELETE|Remove user from group|
 |[/groups/{id}/users/{uid}/privileges](operations/get_group_user_privileges.md)|GET|Get user's group privileges|
 |[/groups/{id}/users/{uid}/privileges](operations/set_user_group_privileges.md)|PUT|Set user's group privileges|
 

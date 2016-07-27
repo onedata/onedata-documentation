@@ -9,6 +9,8 @@ GET /groups/{id}/users/{uid}
 ##### Description
 Returns the public information about a user {uid} in group {id}.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

@@ -9,6 +9,8 @@ PUT /groups/{id}/users/{uid}/privileges
 ##### Description
 Sets privileges for a user {uid} in a group {id}.
 
+This operation requires `group_set_privileges` privilege.
+
 
 ##### Parameters
 

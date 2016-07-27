@@ -9,6 +9,8 @@ GET /groups/{id}/nested/{nid}
 ##### Description
 Returns information about a specific nested group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

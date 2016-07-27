@@ -9,6 +9,8 @@ PUT /groups/{id}/nested/{nid}/privileges
 ##### Description
 Sets privileges for a specific subgroup in a group.
 
+This operation requires `group_set_privileges` privilege.
+
 
 ##### Parameters
 

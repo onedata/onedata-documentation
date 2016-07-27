@@ -8,6 +8,7 @@ POST /groups/{id}/nested/join
 
 ##### Description
 Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).
+This operation requires `group_join_group` privilege.
 
 
 ##### Parameters
@@ -22,7 +23,7 @@ Adds given group as a subgroup of a specific group based on provided token.  The
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the joined group in the form /groups/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

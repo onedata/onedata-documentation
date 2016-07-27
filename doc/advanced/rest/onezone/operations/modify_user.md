@@ -9,6 +9,8 @@ PATCH /user
 ##### Description
 Modifies user account details based on information provided in the request body.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Parameters
 

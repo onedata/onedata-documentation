@@ -9,6 +9,8 @@ DELETE /spaces/{id}/groups/{gid}
 ##### Description
 Removes a specific nested group.
 
+This operation requires `space_remove_group` privilege.
+
 
 ##### Parameters
 

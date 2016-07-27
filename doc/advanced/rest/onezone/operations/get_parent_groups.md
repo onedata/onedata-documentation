@@ -9,6 +9,8 @@ GET /groups/{id}/parent
 ##### Description
 Returns the parent groups of a specific group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

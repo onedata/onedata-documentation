@@ -9,6 +9,8 @@ GET /user/spaces/default
 ##### Description
 Returns the ID of the default users space.
 
+This operation can be invoked on behalf of current user only.
+
 
 ##### Responses
 

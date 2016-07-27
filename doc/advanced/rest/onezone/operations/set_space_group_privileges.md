@@ -9,6 +9,8 @@ PUT /spaces/{id}/groups/{gid}/privileges
 ##### Description
 Sets new privileges for a group to a specific space.
 
+This operation requires `space_set_privileges` privilege.
+
 
 ##### Parameters
 

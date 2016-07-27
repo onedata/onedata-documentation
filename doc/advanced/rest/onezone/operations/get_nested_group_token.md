@@ -9,6 +9,8 @@ GET /groups/{id}/nested/token
 ##### Description
 Creates a token that can be used to add a group as subgroup of group with {id}.
 
+This operation requires `group_invite_group` privilege.
+
 
 ##### Parameters
 

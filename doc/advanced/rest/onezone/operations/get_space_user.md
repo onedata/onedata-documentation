@@ -9,6 +9,8 @@ GET /spaces/{id}/users/{uid}
 ##### Description
 Returns the public information about a specific user in a space.
 
+This operation requires `space_view_data` privilege.
+
 
 ##### Parameters
 

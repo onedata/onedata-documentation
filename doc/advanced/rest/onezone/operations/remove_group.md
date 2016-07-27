@@ -9,6 +9,8 @@ DELETE /groups/{id}
 ##### Description
 Removes a specific group.
 
+This operation requires `group_remove` privilege.
+
 
 ##### Parameters
 

@@ -7,7 +7,9 @@ GET /spaces/{id}/providers
 
 
 ##### Description
-Returns the list of providers supporting specific space. This method is allowed for effective space members or users with 'list_providers_of_space' privilege.
+Returns the list of providers supporting specific space.
+
+This operation requires `list_providers_of_space` privilege.
 
 
 ##### Parameters

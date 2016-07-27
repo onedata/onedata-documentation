@@ -9,6 +9,8 @@ DELETE /groups/{id}/nested/{nid}
 ##### Description
 Removes a specific subgroup with {nid} from parent group with {id}.
 
+This operation requires `group_remove_group` privilege.
+
 
 ##### Parameters
 
