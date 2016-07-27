@@ -35,7 +35,7 @@ The overall configuration can be controlled by updating 'onezone/configuration' 
 
 
 ### Version information
-*Version* : 3.0.0-beta7
+*Version* : 3.0.0-RC1
 
 
 ### Contact information
@@ -54,7 +54,9 @@ The overall configuration can be controlled by updating 'onezone/configuration' 
 
 ### Tags
 
-* Onepanel : Onepanel API methods
+* Onepanel : Common Onepanel resources and operations
+* Oneprovider : Resources and operations for managing Oneprovider deployment
+* Onezone : Resources and operations for managing Onezone deployment
 
 
 
