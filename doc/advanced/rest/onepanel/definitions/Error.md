@@ -1,19 +1,19 @@
 
 <a name="error"></a>
 ### Error
-Generic error model for REST requests.
+The generic error model for REST requests.
 
 
 |Name|Description|Schema|
 |---|---|---|
-|**error**  <br>*required*|Identifier representing internal error code.|string|
-|**error_description**  <br>*required*|Detailed error message.|string|
+|**description**  <br>*required*|The detailed error description.|string|
+|**error**  <br>*required*|The name of an error type.|string|
 
 **Example**
 ```
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Authentication Error",
+  "description" : "Invalid username or password."
 }
 ```
 

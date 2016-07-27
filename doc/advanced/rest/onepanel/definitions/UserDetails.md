@@ -1,20 +1,18 @@
 
 <a name="userdetails"></a>
 ### UserDetails
-Contains user details necessary when creating a new account.
+The user configuration details.
 
 
 |Name|Description|Schema|
 |---|---|---|
-|**password**  <br>*required*|User password.|string|
-|**userRole**  <br>*required*|User role - currently only 'admin' and 'regular' are supported.  <br>**Default** : `"regular"`|enum (admin, regular)|
-|**username**  <br>*required*|User name.|string|
+|**userId**  <br>*required*|The user ID.|string|
+|**userRole**  <br>*required*|The user role, one of 'admin' or 'regular'.|enum (admin, regular)|
 
 **Example**
 ```
 {
-  "username" : "r",
-  "password" : "P@@$$W0RD",
+  "userId" : "i3h2bp4TjPVuOyvXulbW",
   "userRole" : "admin"
 }
 ```

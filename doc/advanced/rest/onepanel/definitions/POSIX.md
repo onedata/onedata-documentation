@@ -7,8 +7,8 @@
 
 |Name|Description|Schema|
 |---|---|---|
-|**mountPoint**  <br>*optional*|The absolute path of the mountpoint where the storage is mounted on the Oneprovider nodes.|string|
-|**type**  <br>*required*|Type of storage resource|enum (POSIX, S3, CEPH)|
+|**mountPoint**  <br>*required*|The absolute path to the directory where the POSIX storage is mounted<br>on the cluster nodes.|string|
+|**type**  <br>*required*|The type of a storage.|enum (POSIX, S3, CEPH)|
 
 
 
