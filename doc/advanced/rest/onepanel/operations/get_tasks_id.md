@@ -24,9 +24,9 @@ configuration.
 |---|---|---|
 |**200**|The task result.|[TaskStatus](../definitions/TaskStatus.md#taskstatus)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|The task has not been found.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**404**|The task has not been found.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Produces
@@ -62,36 +62,6 @@ json :
 
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 404
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {
