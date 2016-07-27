@@ -4,24 +4,33 @@
 
 |Type|Description|
 |---|---|
-|[CEPH](definitions/CEPH.md)||
-|[Cluster](definitions/Cluster.md)|Generic type for Onedata service cluster definition.|
-|[Configuration](definitions/Configuration.md)|Describes a the properties of a Database instance.|
-|[Database](definitions/Database.md)|Describes a the properties of a Database instance.|
-|[Error](definitions/Error.md)|Generic error model for REST requests.|
-|[OneproviderCluster](definitions/OneproviderCluster.md)||
-|[OneproviderConfiguration](definitions/OneproviderConfiguration.md)||
-|[OnezoneCluster](definitions/OnezoneCluster.md)||
-|[OnezoneConfiguration](definitions/OnezoneConfiguration.md)||
+|[Ceph](definitions/Ceph.md)||
+|[ClusterDatabases](definitions/ClusterDatabases.md)|The cluster database service configuration.|
+|[ClusterManagers](definitions/ClusterManagers.md)|The cluster manager service configuration.|
+|[ClusterStorages](definitions/ClusterStorages.md)|The cluster storage configuration.|
+|[ClusterStoragesList](definitions/ClusterStoragesList.md)|The list of supported storage types.|
+|[ClusterWorkers](definitions/ClusterWorkers.md)|The cluster worker service configuration.|
+|[Error](definitions/Error.md)|The generic error model for REST requests.|
+|[ManagerHosts](definitions/ManagerHosts.md)|The cluster manager service hosts configuration.|
 |[POSIX](definitions/POSIX.md)||
-|[Provider](definitions/Provider.md)|Describes the properties of a Worker process instance.|
+|[ProviderClusterConfiguration](definitions/ProviderClusterConfiguration.md)|The provider cluster configuration.|
+|[ProviderConfiguration](definitions/ProviderConfiguration.md)|The provider deployment configuration.|
+|[ProviderDetails](definitions/ProviderDetails.md)|The provider configuration details.|
+|[ProviderModifyRequest](definitions/ProviderModifyRequest.md)|The provider configuration details that can be modified.|
+|[ProviderRegisterRequest](definitions/ProviderRegisterRequest.md)|The provider configuration details required for registration process.|
 |[S3](definitions/S3.md)||
-|[ServiceStatus](definitions/ServiceStatus.md)|Provides status information on requested service.|
-|[ServicesStatus](definitions/ServicesStatus.md)|Provides status information about multiple services.|
-|[Storage](definitions/Storage.md)|Describes the properties of a storage resource.|
-|[UserDetails](definitions/UserDetails.md)|Contains user details necessary when creating a new account.|
-|[UserDetailsResponse](definitions/UserDetailsResponse.md)|Contains existing user details.|
-|[UserDetailsUpdate](definitions/UserDetailsUpdate.md)|Contains details necessary when modifying user account.|
+|[ServiceError](definitions/ServiceError.md)|The service error model for REST requests.|
+|[ServiceHosts](definitions/ServiceHosts.md)|The service hosts configuration.|
+|[ServiceStatus](definitions/ServiceStatus.md)|The generic model for service status.|
+|[ServiceStatusHost](definitions/ServiceStatusHost.md)|The service status.|
+|[SpaceDetails](definitions/SpaceDetails.md)|The space details.|
+|[SpaceSupportRequest](definitions/SpaceSupportRequest.md)|The configuration details required to create or support a space by a provider.|
+|[TaskStatus](definitions/TaskStatus.md)|The result of a scheduled operation, e.g. database service configuration.|
+|[UserCreateRequest](definitions/UserCreateRequest.md)|The user configuration details required for creation process.|
+|[UserDetails](definitions/UserDetails.md)|The user configuration details.|
+|[UserModifyRequest](definitions/UserModifyRequest.md)|The user configuration details that can be modified.|
+|[ZoneClusterConfiguration](definitions/ZoneClusterConfiguration.md)|The zone cluster configuration.|
+|[ZoneConfiguration](definitions/ZoneConfiguration.md)|The zone deployment configuration.|
 
 
 
