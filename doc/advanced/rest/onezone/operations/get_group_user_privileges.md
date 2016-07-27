@@ -9,6 +9,8 @@ GET /groups/{id}/users/{uid}/privileges
 ##### Description
 Returns the list of user privileges in a specific group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

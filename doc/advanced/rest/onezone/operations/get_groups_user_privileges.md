@@ -9,6 +9,8 @@ GET /groups/{id}/effective_users/{uid}/privileges
 ##### Description
 Returns the user privileges in a group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

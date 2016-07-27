@@ -9,6 +9,8 @@ GET /groups/{id}/nested/{nid}/privileges
 ##### Description
 Returns the list of nested group privileges in a specific group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

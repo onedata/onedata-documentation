@@ -7,7 +7,10 @@ POST /provider/spaces/support
 
 
 ##### Description
-Adds support for specific space on behalf of the Oneprovider that performed the  request. Space support token is required.
+Adds support for specific space on behalf of the Oneprovider that performed the 
+request. Space support token is required.
+
+This operation requires peer certificate authentication.
 
 
 ##### Parameters
@@ -21,7 +24,7 @@ Adds support for specific space on behalf of the Oneprovider that performed the 
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the supported space in the form /spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the supported space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the supported space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

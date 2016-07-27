@@ -9,6 +9,8 @@ POST /groups
 ##### Description
 Creates a new group.
 
+This operation does require any specific privileges.
+
 
 ##### Parameters
 
@@ -21,7 +23,7 @@ Creates a new group.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the group created in the form /groups/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the group created in the form /groups/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

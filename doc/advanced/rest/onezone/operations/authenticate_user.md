@@ -7,7 +7,9 @@ POST /user/authorize
 
 
 ##### Description
-Authorizes user with authentication token through Onezone web interface. This interface is called only by providers.
+Authorizes user with authentication token through Onezone web interface.
+
+This operation has public access.
 
 
 ##### Parameters

@@ -7,7 +7,10 @@ GET /provider/spaces/{sid}
 
 
 ##### Description
-Returns information about a specific space supported by the Oneprovider that  performed the request.
+Returns information about a specific space supported by the Oneprovider that 
+performed the request.
+
+This operation requires peer certificate authentication.
 
 
 ##### Parameters

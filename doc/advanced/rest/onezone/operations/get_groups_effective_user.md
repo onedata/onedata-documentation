@@ -1,13 +1,15 @@
 
 <a name="get_groups_effective_user"></a>
-#### Returns public information about a specific group user.
+#### Get group user details
 ```
 GET /groups/{id}/effective_users/{uid}
 ```
 
 
 ##### Description
-Get group user details
+Returns public information about a specific group user.
+
+This operation requires `group_view_data` privilege.
 
 
 ##### Parameters

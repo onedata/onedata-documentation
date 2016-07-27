@@ -9,6 +9,8 @@ GET /groups/{id}/users
 ##### Description
 Returns the list of users belonging to a specific group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

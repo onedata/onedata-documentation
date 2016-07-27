@@ -9,6 +9,8 @@ GET /groups/{id}/nested
 ##### Description
 Returns the list of subgroups of a specific group.
 
+This operation requires `group_view_data` privilege.
+
 
 ##### Parameters
 

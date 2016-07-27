@@ -9,6 +9,8 @@ GET /spaces/{id}/users/{uid}/privileges
 ##### Description
 Returns privileges of a user belonging to the space.
 
+This operation requires `space_view_data` privilege.
+
 
 ##### Parameters
 

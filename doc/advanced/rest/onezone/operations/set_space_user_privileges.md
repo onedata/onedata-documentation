@@ -9,6 +9,8 @@ PUT /spaces/{id}/users/{uid}/privileges
 ##### Description
 Adds specific privileges for a user in a space.
 
+This operation requires `space_set_privileges` privilege.
+
 
 ##### Parameters
 

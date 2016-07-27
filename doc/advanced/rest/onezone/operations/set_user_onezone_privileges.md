@@ -9,6 +9,8 @@ PUT /privileges/users/{id}
 ##### Description
 Sets privileges for a user {id} for Onezone.
 
+This operation requires `set_privileges` privilege.
+
 
 ##### Parameters
 

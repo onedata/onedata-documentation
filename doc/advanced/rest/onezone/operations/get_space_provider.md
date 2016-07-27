@@ -9,6 +9,8 @@ GET /spaces/{id}/providers/{pid}
 ##### Description
 Returns details about a specific provider supporting the space.
 
+This operation requires `list_providers_of_space` privilege.
+
 
 ##### Parameters
 

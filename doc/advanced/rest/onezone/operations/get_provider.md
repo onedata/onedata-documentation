@@ -7,7 +7,10 @@ GET /provider
 
 
 ##### Description
-Returns information about the Oneprovider that performed the request  (based on provided Peer Certificate authorization).
+Returns information about the Oneprovider that performed the request 
+(based on provided Peer Certificate authentication).
+
+This operation requires peer certificate authentication.
 
 
 ##### Responses

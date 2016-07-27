@@ -9,6 +9,8 @@ GET /groups/{id}/users/token
 ##### Description
 Creates a token allowing new user to join the group.
 
+This operation requires `group_invite_user` privilege.
+
 
 ##### Parameters
 

@@ -7,7 +7,10 @@ POST /user/spaces
 
 
 ##### Description
-Creates a new space as current user. The user automaticaly becomes  the spaces' member.
+Creates a new space as current user. The user automaticaly becomes 
+the spaces' member.
+
+This operation can be invoked on behalf of current user only.
 
 
 ##### Parameters
@@ -21,7 +24,7 @@ Creates a new space as current user. The user automaticaly becomes  the spaces' 
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created space in the form /user/spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the created space in the form /user/spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

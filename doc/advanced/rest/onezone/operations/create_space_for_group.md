@@ -9,6 +9,8 @@ POST /groups/{id}/spaces
 ##### Description
 Creates a new space on behalf of a specific group.
 
+This operation requires `group_set_privileges` privilege.
+
 
 ##### Parameters
 
@@ -21,7 +23,7 @@ Creates a new space on behalf of a specific group.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `location` header.|No Content|
+|**201**|ID of the created space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found..|[Error](../definitions/Error.md#error)|

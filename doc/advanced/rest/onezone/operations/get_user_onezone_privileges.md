@@ -9,6 +9,8 @@ GET /privileges/users/{id}
 ##### Description
 Returns the list of user privileges for Onezone.
 
+This operation requires `view_privileges` privilege.
+
 
 ##### Parameters
 

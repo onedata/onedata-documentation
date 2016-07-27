@@ -7,7 +7,10 @@ GET /groups/{id}/spaces/token
 
 
 ##### Description
-Creates a token that can be given to selected provider,  where it can be used to create a new space for the group and automatically support it.
+Creates a token that can be given to selected provider, 
+where it can be used to create a new space for the group and automatically support it.
+
+This operation requires `group_create_space_token` privilege.
 
 
 ##### Parameters
