@@ -28,8 +28,8 @@ there are no admin users.
 |---|---|---|
 |**204**|Cluster has been successfully initialized or extended.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Consumes
@@ -58,26 +58,6 @@ json :
 ##### Example HTTP response
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {

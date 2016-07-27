@@ -30,7 +30,7 @@ Resources and operations for managing Oneprovider deployment
 |[/provider](operations/put_provider.md)|PUT|Register provider|
 |[/provider](operations/delete_provider.md)|DELETE|Unregister provider|
 |[/provider](operations/patch_provider.md)|PATCH|Modify provider details|
-|[/provider/configuration](operations/put_provider_configuration.md)|PUT|Create provider deployment|
+|[/provider/configuration](operations/put_provider_configuration.md)|PUT|Configure provider deployment|
 |[/provider/databases](operations/get_provider_databases.md)|GET|Get provider databases status|
 |[/provider/databases](operations/put_provider_databases.md)|PUT|Deploy provider databases|
 |[/provider/databases](operations/patch_provider_databases.md)|PATCH|Start/stop provider databases|

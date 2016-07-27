@@ -24,9 +24,9 @@ Modifies the Onepanel user password.
 |---|---|---|
 |**204**|The user password has been successfully changed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|The user has not been found.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**404**|The user has not been found.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Consumes
@@ -55,36 +55,6 @@ json :
 ##### Example HTTP response
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 404
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {

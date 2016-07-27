@@ -24,9 +24,9 @@ Starts or stops cluster manager service on selected hosts in the local deploymen
 |---|---|---|
 |**204**|Databases service state changed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|Cluster manager service has not been deployed on selected host.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|No Content|
+|**404**|Cluster manager service has not been deployed on selected host.|No Content|
+|**500**|Internal server error.|No Content|
 
 
 ##### Example HTTP request
@@ -50,36 +50,6 @@ json :
 ##### Example HTTP response
 
 ###### Response 400
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 403
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 404
-```
-json :
-{
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
-}
-```
-
-
-###### Response 500
 ```
 json :
 {

@@ -12,7 +12,7 @@
           * [Register provider](doc/advanced/rest/onepanel/operations/put_provider.md)
           * [Unregister provider](doc/advanced/rest/onepanel/operations/delete_provider.md)
           * [Modify provider details](doc/advanced/rest/onepanel/operations/patch_provider.md)
-          * [Create provider deployment](doc/advanced/rest/onepanel/operations/put_provider_configuration.md)
+          * [Configure provider deployment](doc/advanced/rest/onepanel/operations/put_provider_configuration.md)
           * [Get provider databases status](doc/advanced/rest/onepanel/operations/get_provider_databases.md)
           * [Deploy provider databases](doc/advanced/rest/onepanel/operations/put_provider_databases.md)
           * [Start/stop provider databases](doc/advanced/rest/onepanel/operations/patch_provider_databases.md)
