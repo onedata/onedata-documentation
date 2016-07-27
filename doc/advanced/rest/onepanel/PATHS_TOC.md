@@ -1,4 +1,4 @@
-        * [Onepanel](doc/advanced/rest/onepanel/operations/get_hosts.md)
+        * [Onepanel]()
           * [Get cluster/discovered hosts](doc/advanced/rest/onepanel/operations/get_hosts.md)
           * [Create or join cluster](doc/advanced/rest/onepanel/operations/put_hosts.md)
           * [Remove cluster node](doc/advanced/rest/onepanel/operations/delete_host.md)
