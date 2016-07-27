@@ -13,7 +13,8 @@
 |[GroupInviteToken](definitions/GroupInviteToken.md)|Group invitation token for user.|
 |[GroupPrivileges](definitions/GroupPrivileges.md)|The list of group privileges.|
 |[OnezonePrivileges](definitions/OnezonePrivileges.md)|The list of Onezone privileges.|
-|[Provider](definitions/Provider.md)|Provider properties.|
+|[ProviderDetails](definitions/ProviderDetails.md)|Provider properties.|
+|[ProviderRegistrationRequest](definitions/ProviderRegistrationRequest.md)|Provider reqistration request.|
 |[Space](definitions/Space.md)|User space parameters.|
 |[SpaceInviteToken](definitions/SpaceInviteToken.md)|Space invitation token for user.|
 |[SpacePrivileges](definitions/SpacePrivileges.md)|The list of space privileges.|

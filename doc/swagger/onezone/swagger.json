@@ -1306,7 +1306,7 @@
           "200": {
             "description": "Details about a specific provider supporting a space.",
             "schema": {
-              "$ref": "#/definitions/Provider"
+              "$ref": "#/definitions/ProviderDetails"
             }
           },
           "400": {
@@ -2585,6 +2585,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:get_data",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group details",
         "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -2647,6 +2650,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:modify",
+        "x-onedata-permissions": [
+          "group_change_data"
+        ],
         "summary": "Modify group details",
         "description": "Updates the details about a group.\n\nThis operation requires `group_change_data` privilege.\n",
         "consumes": [
@@ -2715,6 +2721,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:remove_group",
+        "x-onedata-permissions": [
+          "group_remove"
+        ],
         "summary": "Remove group",
         "description": "Removes a specific group.\n\nThis operation requires `group_remove` privilege.\n",
         "responses": {
@@ -2773,6 +2782,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "effective_users",
         "x-onedata-method": "group_logic:get_effective_users",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get effective group users",
         "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -2840,6 +2852,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "effective_user",
         "x-onedata-method": "group_logic:get_effective_user",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group user details",
         "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -2911,6 +2926,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "eupriv",
         "x-onedata-method": "group_logic:get_effective_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get user group privileges",
         "description": "Returns the user privileges in a group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -2982,6 +3000,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "users",
         "x-onedata-method": "group_logic:get_users",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group users",
         "description": "Returns the list of users belonging to a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3049,6 +3070,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "uinvite",
         "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_invite_user"
+        ],
         "summary": "Create user invite token for group",
         "description": "Creates a token allowing new user to join the group.\n\nThis operation requires `group_invite_user` privilege.\n",
         "produces": [
@@ -3113,6 +3137,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "user",
         "x-onedata-method": "group_logic:get_user",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group user details",
         "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3182,6 +3209,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "user",
         "x-onedata-method": "group_logic:remove_user",
+        "x-onedata-permissions": [
+          "group_remove_user"
+        ],
         "summary": "Remove user from group",
         "description": "Removes the user {uid} from a group {id} (the user will no longer have access \nto spaces accessible to the group).\n\nThis operation requires `group_remove_user` privilege.\n",
         "consumes": [
@@ -3250,6 +3280,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "upriv",
         "x-onedata-method": "group_logic:get_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get user's group privileges",
         "description": "Returns the list of user privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3319,6 +3352,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "upriv",
         "x-onedata-method": "group_logic:set_privileges",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
         "summary": "Set user's group privileges",
         "description": "Sets privileges for a user {uid} in a group {id}.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "responses": {
@@ -3392,6 +3428,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "parent_groups",
         "x-onedata-method": "group_logic:get_parent_groups",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get parent groups",
         "description": "Returns the parent groups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3459,6 +3498,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "parent_group",
         "x-onedata-method": "group_logic:get_parent_group",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get parent group details",
         "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3530,6 +3572,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "nested_groups",
         "x-onedata-method": "group_logic:get_nested_groups",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get subgroups",
         "description": "Returns the list of subgroups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3597,6 +3642,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "ninvite",
         "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_invite_group"
+        ],
         "summary": "Create subgroup invitation token",
         "description": "Creates a token that can be used to add a group as subgroup of group with {id}.\n\nThis operation requires `group_invite_group` privilege.\n",
         "produces": [
@@ -3661,6 +3709,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "njoin",
         "x-onedata-method": "group_logic:join_group",
+        "x-onedata-permissions": [
+          "group_join_group"
+        ],
         "summary": "Add subgroup",
         "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n",
         "responses": {
@@ -3733,6 +3784,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "nested_group",
         "x-onedata-method": "group_logic:get_nested_group",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get subgroup details",
         "description": "Returns information about a specific nested group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3802,6 +3856,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "nested_group",
         "x-onedata-method": "group_logic:remove_nested_group",
+        "x-onedata-permissions": [
+          "group_remove_group"
+        ],
         "summary": "Remove subgroup.",
         "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n",
         "responses": {
@@ -3867,6 +3924,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "npriv",
         "x-onedata-method": "group_logic:get_nested_group_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get subgroup privileges",
         "description": "Returns the list of nested group privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -3936,6 +3996,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "npriv",
         "x-onedata-method": "group_logic:set_nested_group_privileges",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
         "summary": "Set subgroup privileges.",
         "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "responses": {
@@ -4010,6 +4073,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "spaces",
         "x-onedata-method": "group_logic:get_spaces",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group's spaces",
         "description": "Returns the list of spaces to which the group has access.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -4075,6 +4141,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:create",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
         "summary": "Creates new space for group",
         "description": "Creates a new space on behalf of a specific group.\n\nThis operation requires `group_set_privileges` privilege.\n",
         "produces": [
@@ -4136,6 +4205,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "sjoin",
         "x-onedata-method": "space_logic:join",
+        "x-onedata-permissions": [
+          "group_join_space"
+        ],
         "summary": "Join space by group",
         "description": "Joins the group to an existing space based on provided space invitation token.\n\nThis operation requires `group_join_space` privilege.\n",
         "consumes": [
@@ -4211,6 +4283,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "screate",
         "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_create_space_token"
+        ],
         "summary": "Create space creation token for group",
         "description": "Creates a token that can be given to selected provider, \nwhere it can be used to create a new space for the group and automatically support it.\n\nThis operation requires `group_create_space_token` privilege.\n",
         "produces": [
@@ -4275,6 +4350,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:get_data",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
         "summary": "Get group's space details",
         "description": "Returns information about a specific space to which the group belongs.\n\nThis operation requires `group_view_data` privilege.\n",
         "produces": [
@@ -4344,6 +4422,9 @@
         "x-onedata-module": "group",
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:remove_group",
+        "x-onedata-permissions": [
+          "group_leave_space"
+        ],
         "summary": "Remove space from group",
         "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).\n\nThis operation requires `group_leave_space` privilege.\n",
         "responses": {
@@ -4418,7 +4499,7 @@
           "200": {
             "description": "Returns the information about Oneprovider.",
             "schema": {
-              "$ref": "#/definitions/Provider"
+              "$ref": "#/definitions/ProviderDetails"
             }
           },
           "400": {
@@ -4463,7 +4544,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:create",
         "summary": "Register provider",
-        "description": "Registers a Oneprovider in Onezone service. \nRequires a a valid CSR in the bodyand returns signed \ncertificate that will must used by the Oneprovider for authorization (SSL Peer Certificate).\n\nThis operation has public access.\n",
+        "description": "Registers a Oneprovider in Onezone service. \n\nRequires a valid CSR in the bodyand returns signed \ncertificate that will must used by the Oneprovider for authorization (SSL Peer Certificate).\n\nThis operation has public access.\n",
         "consumes": [
           "application/json"
         ],
@@ -4519,9 +4600,9 @@
           {
             "name": "data",
             "in": "body",
-            "description": "Provider properties.",
+            "description": "Provider reqistration request including CSR.",
             "schema": {
-              "$ref": "#/definitions/Provider"
+              "$ref": "#/definitions/ProviderRegistrationRequest"
             },
             "required": true
           }
@@ -4580,9 +4661,9 @@
           {
             "name": "data",
             "in": "body",
-            "description": "User data.",
+            "description": "Provider data.",
             "schema": {
-              "$ref": "#/definitions/Provider"
+              "$ref": "#/definitions/ProviderDetails"
             },
             "required": true
           }
@@ -4675,7 +4756,7 @@
           "200": {
             "description": "Information about a provider.",
             "schema": {
-              "$ref": "#/definitions/Provider"
+              "$ref": "#/definitions/ProviderDetails"
             }
           },
           "400": {
@@ -5676,7 +5757,55 @@
         ]
       }
     },
-    "Provider": {
+    "ProviderRegistrationRequest": {
+      "type": "object",
+      "description": "Provider reqistration request.",
+      "properties": {
+        "urls": {
+          "type": "array",
+          "description": "The list of urls where the provider can be reached.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirectionPoint": {
+          "type": "string",
+          "description": "The redirection URL for the provider."
+        },
+        "csr": {
+          "type": "string",
+          "description": "Certificate Signature Request to generate new certificate for the provider."
+        },
+        "latitude": {
+          "type": "number",
+          "x-erlang-type": "float",
+          "description": "The geographical latitude of the provider data center location."
+        },
+        "longitude": {
+          "type": "number",
+          "x-erlang-type": "float",
+          "description": "The geographical longitude of the provider data center location."
+        }
+      },
+      "required": [
+        "urls",
+        "redirectionPoint",
+        "csr",
+        "latitude",
+        "longitude"
+      ],
+      "example": {
+        "urls": [
+          "http://beta.onedata.org/provider1",
+          "http://beta.onedata.org/provider2"
+        ],
+        "redirectionPoint": "http://beta.onedata.org/provider2",
+        "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIIByjCCATMCAQAwgYkxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\nMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKEwpHb29nbGUgSW5jMR8w\nHQYDVQQLExZJbmZvcm1hdGlvbiBUZWNobm9sb2d5MRcwFQYDVQQDEw53d3cuZ29v\nZ2xlLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEApZtYJCHJ4VpVXHfV\nIlstQTlO4qC03hjX+ZkPyvdYd1Q4+qbAeTwXmCUKYHThVRd5aXSqlPzyIBwieMZr\nWFlRQddZ1IzXAlVRDWwAo60KecqeAXnnUK+5fXoTI/UgWshre8tJ+x/TMHaQKR/J\ncIWPhqaQhsJuzZbvAdGA80BLxdMCAwEAAaAAMA0GCSqGSIb3DQEBBQUAA4GBAIhl\n4PvFq+e7ipARgI5ZM+GZx6mpCz44DTo0JkwfRDf+BtrsaC0q68eTf2XhYOsq4fkH\nQ0uA0aVog3f5iJxCa3Hp5gxbJQ6zV6kJ0TEsuaaOhEko9sdpCoPOnRBm2i/XRD2D\n6iNh8f8z0ShGsFqjDgFHyF3o+lUyj+UC6H1QW7bn\n-----END CERTIFICATE REQUEST-----\n",
+        "latitude": 50.0647,
+        "longitude": 19.945
+      }
+    },
+    "ProviderDetails": {
       "type": "object",
       "description": "Provider properties.",
       "properties": {
@@ -5695,27 +5824,22 @@
           "type": "string",
           "description": "The redirection URL for the provider."
         },
-        "csr": {
-          "type": "string",
-          "description": "Certificate Signature Request - optional parameter used when registering a new provider."
-        },
         "latitude": {
           "type": "number",
           "description": "The geographical latitude of the provider data center location."
         },
         "longitude": {
           "type": "number",
-          "description": "The geographical latitude of the provider data center location."
+          "description": "The geographical longitude of the provider data center location."
         }
       },
       "example": {
-        "id": "LASDASJDBH89869ASD79869asd",
+        "providerId": "LASDASJDBH89869ASD79869asd",
         "urls": [
           "http://beta.onedata.org/provider1",
           "http://beta.onedata.org/provider2"
         ],
         "redirectionPoint": "http://beta.onedata.org/provider2",
-        "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIIByjCCATMCAQAwgYkxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\nMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKEwpHb29nbGUgSW5jMR8w\nHQYDVQQLExZJbmZvcm1hdGlvbiBUZWNobm9sb2d5MRcwFQYDVQQDEw53d3cuZ29v\nZ2xlLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEApZtYJCHJ4VpVXHfV\nIlstQTlO4qC03hjX+ZkPyvdYd1Q4+qbAeTwXmCUKYHThVRd5aXSqlPzyIBwieMZr\nWFlRQddZ1IzXAlVRDWwAo60KecqeAXnnUK+5fXoTI/UgWshre8tJ+x/TMHaQKR/J\ncIWPhqaQhsJuzZbvAdGA80BLxdMCAwEAAaAAMA0GCSqGSIb3DQEBBQUAA4GBAIhl\n4PvFq+e7ipARgI5ZM+GZx6mpCz44DTo0JkwfRDf+BtrsaC0q68eTf2XhYOsq4fkH\nQ0uA0aVog3f5iJxCa3Hp5gxbJQ6zV6kJ0TEsuaaOhEko9sdpCoPOnRBm2i/XRD2D\n6iNh8f8z0ShGsFqjDgFHyF3o+lUyj+UC6H1QW7bn\n-----END CERTIFICATE REQUEST-----\n",
         "latitude": 50.0647,
         "longitude": 19.945
       }
