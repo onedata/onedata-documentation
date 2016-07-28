@@ -9,7 +9,7 @@ This API allows control and configuration of local Onedata deployment, in partic
 
 Onezone and Oneprovider components are composed of 3 types of services: **managers**, **databases** and **workers**. 
 
-Using this API each of these processes can be deployed, started and stopped on 
+Using this API each of these components can be deployed, configured, started and stopped on 
 a specified host in the local site, in the context of either Onezone or Oneprovider service. 
 
 The Onepanel API is structured to reflect that it can either be used to control Onezone
@@ -18,7 +18,7 @@ instance. In order to make the API calls explicit, Onezone or Oneprovider specif
 requests have different paths, i.e.:
   * Onezone specific operations start with `/api/v3/onepanel/zone/...`
   * Oneprovider specific operations start with `/api/v3/onepanel/provider/...`
-  * Common operations paths include `/api/v3/onepanel/users`, ``/api/v3/onepanel/hosts` and ``/api/v3/onepanel/tasks`
+  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`
 
 The overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and
 `/api/v3/onepanel/provider/configuration` resources.
@@ -40,13 +40,13 @@ Onepanel users can have 2 roles:
 The first user account which is created in Onepanel is always an `admin` account.
 
 ## API structure
-This API allows the management of 2 Onedata services, Onezone and Oneprovider, in terms of their distribution on the local site.
+This API allows the management of 2 Onedata components, Onezone and Oneprovider, in terms of their distribution on the local site.
 The API allows management of all these components as well as monitoring of their current status.
 
-Each of these services is composed of the following components:
-  * **Worker processes** - these are available under `/zone/workers` and `/provider/workers` paths,
-  * **Databases instances** - each Onedata service stores it's metadata in a Couchbase backend which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths
-  * **Cluster manager** - this is a process which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths
+Each of these components is composed of the following services:
+  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,
+  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,
+  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.
 
 Below are some example requests to Onepanel using cURL:
   
