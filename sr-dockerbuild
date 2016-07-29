@@ -312,7 +312,7 @@ EOF
 
 echo "$VERSION_MSG" > "$TMP_HERE_DOC_FILE"
 echo  "$VERSION_MSG"
-sed -re "s/(image: )${BASE_COMPOSE_IMAGE//\//\\/}/\1${DOCKER_BUILD_NAME//\//\\/}/" $COMPOSE_FILE > docker-compose.yml   
+sed -re "s/(image: )${BASE_COMPOSE_IMAGE//\//\\/}/\1$DOCKER_REPOSITORY\/$DOCKER_IMAGE_NAME:$DOCKER_BUILD_ID/" $COMPOSE_FILE > docker-compose.yml   
 sed -i -re '/ONEDATA_DOC_VERSION:/ {
 s/(.*)/\1 | /
 r /tmp/arbitrary_temp_file
