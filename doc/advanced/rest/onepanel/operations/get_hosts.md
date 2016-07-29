@@ -10,6 +10,7 @@ GET /hosts
 Returns the list of administrative cluster hosts. It is also possible to
 return the list of hosts that have been discovered using multicast 
 advertisment.
+
 In order to retrive discovered hosts set the `discovered` query string to
 `true`. This request can be executed unauthorized as long as there are
 no admin users.

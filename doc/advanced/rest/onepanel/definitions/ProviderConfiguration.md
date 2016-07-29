@@ -28,5 +28,45 @@ The provider deployment configuration.
 |---|---|---|
 |**domainName**  <br>*required*|The domain name of a zone where provider will be registered.|string|
 
+**Example**
+```
+{
+  "cluster" : {
+    "domainName" : "oneprovider.onedata.example.com",
+    "nodes" : {
+      "node1" : {
+        "hostname" : "node1"
+      }
+    },
+    "manager" : {
+      "defaultNode" : "node1",
+      "nodes" : [ "node1" ]
+    },
+    "worker" : {
+      "nodes" : [ "node1" ]
+    },
+    "database" : {
+      "nodes" : [ "node1" ]
+    },
+    "storage" : {
+      "NFS" : {
+        "type" : "POSIX",
+        "mountPoint" : "/volumes/storage"
+      }
+    }
+  },
+  "oneprovider" : {
+    "register" : true,
+    "name" : "example",
+    "redirectionPoint" : "https://node1.oneprovider.onedata.example.com",
+    "geoLongitude" : -24.3776025,
+    "geoLatitude" : -128.3519364
+  },
+  "onezone" : {
+    "domainName" : "node1.onezone.onedata.example.com"
+  }
+}
+```
+
 
 
