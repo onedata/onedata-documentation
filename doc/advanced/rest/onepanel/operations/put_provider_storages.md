@@ -14,7 +14,7 @@ Adds a storage to the provider deployment.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**clusterStoragesList**  <br>*required*|The list of configuration details of storages to be added to the provider<br>deployment.|[ClusterStoragesList](../definitions/ClusterStoragesList.md#clusterstorageslist)|--|
+|**Body**|**clusterStoragesList**  <br>*required*|The list of configuration details of storages to be added to the provider deployment.|[ClusterStoragesList](../definitions/ClusterStoragesList.md#clusterstorageslist)|--|
 
 
 ##### Responses

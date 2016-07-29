@@ -14,7 +14,7 @@ Returns status of cluster manager service on a selected host.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**host**  <br>*required*|The name of a host for which cluster manager service status should be returned.|string|--|
+|**Path**|**host**  <br>*required*|The name of a host for which cluster manager service status  should be returned.|string|--|
 
 
 ##### Responses
