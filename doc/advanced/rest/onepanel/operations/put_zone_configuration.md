@@ -22,7 +22,7 @@ and cluster worker.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
+|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried  to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|No Content|
@@ -47,22 +47,26 @@ json :
 json :
 {
   "cluster" : {
-    "domainName" : "string",
+    "domainName" : "onezone.onedata.example.com",
     "nodes" : {
-      "string" : "object"
+      "node1" : {
+        "hostname" : "node1"
+      }
     },
-    "databases" : {
-      "nodes" : [ "string" ]
+    "manager" : {
+      "defaultNode" : "node1",
+      "nodes" : [ "node1" ]
     },
-    "managers" : {
-      "mainNode" : "string",
-      "nodes" : [ "string" ]
+    "worker" : {
+      "nodes" : [ "node1" ]
     },
-    "workers" : {
-      "nodes" : [ "string" ]
+    "database" : {
+      "nodes" : [ "node1" ]
     }
   },
-  "onezone" : "object"
+  "onezone" : {
+    "name" : "example"
+  }
 }
 ```
 
