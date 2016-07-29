@@ -5,6 +5,9 @@
 ## Overview
 This is the RESTful API definition of Onezone component of Onedata data management system [http://www.onedata.org].
 
+> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate
+> client libraries - [swagger.json](../../../swagger/onezone/swagger.json).
+
 This API allows control and configuration of local Onezone service deployment, in particular management
 of users, spaces, groups and providers.
 
@@ -35,7 +38,7 @@ Some special operations are completely open and require no authentication:
  * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).
 
 The provider specific operations include:
- * `ANY /provider` - all provider specific endpoints (except for the public access ones above),
+ * `ALL /provider` - all provider specific endpoints (except for the public access ones above),
  * `POST /spaces` - create new space,
  * `GET /space/{id}` - get specific space details,
  * `GET /spaces/{id}/users` - list space users.
@@ -53,30 +56,43 @@ effective users (indirect group members).
 Most operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to
 most appropriate HTTP methods.
 
-
-### Space management
+**Space management**
 The space management operations of this API provide means for accessing information about spaces 
 and their management.
 
-### Group management
+**Group management**
 The group management operations allow for creation of user groups, assigning their authorization rights,
 adding and removing users from groups.
 
-### User management
+**User management**
 The user management methods enable for creation of users, managing their authorization
 credentials as well as space and group membership.
 
-### Provider management
+**Provider management**
 Provider specific calls enable for getting global information about the spaces managed by the provider,
 and some administrative operations which can be used for monitoring or accounting.
 
-### Privileges management
+**Privileges management**
 Onezone allows any user to have selected administration privileges for the Onezone service itself,
 enabling them to view and configure certain aspects of the system.
 
+## Examples
+
+**Generate new authentication token**
+```bash
+curl -k -u bkryza:PaSSwoRd -X GET \
+https://beta.onedata.org:8443/api/v3/onezone/user/client_token
+```
+
+**Get user details**
+```bash
+curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
+-H 'macaroon:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'
+```
+
 
 ### Version information
-*Version* : 3.0.0-beta8
+*Version* : 3.0.0-RC1
 
 
 ### Contact information
