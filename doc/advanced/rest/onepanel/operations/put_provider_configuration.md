@@ -7,7 +7,9 @@ PUT /provider/configuration
 
 
 ##### Description
-Configures and starts provider services, such as database, cluster manager and cluster worker. Depending on the configuration, sets up provider storage and registers in the zone.
+Configures and starts provider services, such as database, cluster manager
+and cluster worker. Depending on the configuration, sets up provider storage
+and registers in the zone.
 
 
 ##### Parameters
