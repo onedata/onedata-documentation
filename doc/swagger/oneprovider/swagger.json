@@ -1,0 +1,1579 @@
+{
+  "swagger": "2.0",
+  "basePath": "/api/v3/oneprovider",
+  "info": {
+    "version": "3.0.0-beta7",
+    "title": "Oneprovider",
+    "description": "This is the RESTful API definition of Oneprovider component of Onedata data management system [http://www.onedata.org].\n\nThis API provides methods for file management using REST protocol.\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n ```\n https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n ```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface. \nThe token must be added to the request header like this:\n ```\n macaroon: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n ```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` provides basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation. \n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/) \ndatabase files, with resolution determined by the `step` query parameter.\n",
+    "contact": {
+      "name": "Onedata support",
+      "url": "https://onedata.org/support",
+      "email": "info@onedata.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/spaces": {
+      "get": {
+        "operationId": "get_all_spaces",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "files",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_all_spaces",
+        "tags": [
+          "Data"
+        ],
+        "summary": "Get all spaces",
+        "description": "Returns the list of all user spaces.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all user spaces - containining their names and ID's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Space name."
+                  },
+                  "spaceId": {
+                    "type": "string",
+                    "description": "Space ID."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/spaces/{sid}": {
+      "get": {
+        "operationId": "get_space",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space",
+        "tags": [
+          "Data"
+        ],
+        "summary": "Get basic space information",
+        "description": "Returns the basic information about space with given ID.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space information.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/files/{path}": {
+      "get": {
+        "operationId": "list_files",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "files",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "list_files",
+        "tags": [
+          "Data"
+        ],
+        "summary": "List files and folders",
+        "description": "Returns the list of folders and files directly under specified path. If the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of files and folders under specified path.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Id of the file or folder."
+                  },
+                  "path": {
+                    "type": "string",
+                    "description": "Path to the file or folder."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Invalid path - file or directory not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Directory path (e.g. '/My Private Space/testfiles')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Allows to specify maximum number of files that should be returned. If there are more files, they can be retrieved using `offset` query parameter. \n",
+            "type": "integer",
+            "required": false,
+            "maximum": 1000,
+            "minimum": 1
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Index of the partial result, can be used to get subset of the result,  when the number of files and folders under given path exceeds 1000.\n",
+            "type": "integer",
+            "required": false,
+            "minimum": 0
+          }
+        ]
+      }
+    },
+    "/attributes/{path}": {
+      "get": {
+        "operationId": "get_file_attributes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "attributes",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_attributes",
+        "summary": "Get file attributes",
+        "tags": [
+          "Data"
+        ],
+        "description": "This method returns selected file attributes.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag \nin the request query to `true`.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the requested file attributes.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileAttribute"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Type of attribute to query for.",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "mode"
+            ]
+          },
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Whether we want to access extended attributes or regular.\n",
+            "type": "boolean",
+            "required": false
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_file_attribute",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "attributes",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "set_file_attribute",
+        "summary": "Set file attribute",
+        "tags": [
+          "Data"
+        ],
+        "description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by sending:\n  ```\n  { name: \"mode\", value: \"0777\"}\n  ```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes are \naccessed by setting `extended` flag in the request query to `true`.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "File attributes where update successfuly."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "attribute",
+            "in": "body",
+            "description": "Attribute name and value.",
+            "schema": {
+              "$ref": "#/definitions/FileAttribute"
+            }
+          },
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Whether this is an extended or regular attribute. Default is false.\n",
+            "type": "boolean",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/replicas/{path}": {
+      "get": {
+        "operationId": "get_file_replicas",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "file_distribution",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_distribution",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get replicas by path",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of file blocks stored at each provider.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileDistribution"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "operationId": "replicate_file",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "replicate_file",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Replicate file or folder by path",
+        "description": "Replicates a file to a specified provider. This operation is asynchronous as it can  take a long time depending on the size of the data to move. \nIf the `path` parameter specifies a folder, entire folder is replicated to  requested provider.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer ID."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "callback",
+            "in": "body",
+            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Callback"
+            }
+          }
+        ]
+      }
+    },
+    "/replicas-id/{fid}": {
+      "get": {
+        "operationId": "get_file_replicas_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "file_distribution",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_distribution",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get replicas by ID",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of file blocks stored at each provider.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileDistribution"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fid",
+            "in": "path",
+            "description": "The ID of the file",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "operationId": "replicate_file_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "replicate_file",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Replicate file or folder by ID",
+        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can  take a long time depending on the size of the data to move. \nIf the `path` parameter specifies a folder, entire folder is replicated to  requested provider.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer ID."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fid",
+            "in": "path",
+            "description": "ID of the file.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "callback",
+            "in": "body",
+            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Callback"
+            }
+          }
+        ]
+      }
+    },
+    "/transfers": {
+      "get": {
+        "operationId": "get_all_transfers",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_all_transfers",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get all transfers",
+        "description": "Returns the list of all transfer IDs.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of transfer IDs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Allows to limit the returned transfers only to transfers with specific status.\n",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "scheduled",
+                "active",
+                "completed",
+                "cancelled",
+                "failed"
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Allows to limit the number of returned transfers only to the last N transfers.\n",
+            "type": "integer"
+          }
+        ]
+      }
+    },
+    "/transfers/{tid}": {
+      "get": {
+        "operationId": "get_transfer_status",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "transfer",
+        "x-onedata-method": "get_transfer_status",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get transfer status",
+        "description": "Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of transfer statuses.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileTransferStatus"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Transfer with provided ID was not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tid",
+            "in": "path",
+            "description": "Transfer ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "cancel_transfer",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "transfer",
+        "x-onedata-method": "cancel_transfer",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Cancel specific transfer",
+        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "The transfer has been canceled."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Transfer with provided ID was not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tid",
+            "in": "path",
+            "description": "Transfer ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/metrics/space/{sid}": {
+      "get": {
+        "operationId": "get_space_metrics",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metrics",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_metrics",
+        "summary": "Get space metrics",
+        "tags": [
+          "Monitoring"
+        ],
+        "description": "Returns space related metrics of specified type.",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The monitoring data retrieved in the form of RRD record exported to JSON or XML.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metrics"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "ID of a specific space for which the monitoring metrics should be retrieved",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metric",
+            "in": "query",
+            "description": "The type of metrics to retrieve.",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "storage_quota",
+              "storage_used",
+              "data_access",
+              "block_access",
+              "connected_users"
+            ]
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "The resolution of the monitoring data to return - default is 5m [5 minutes].",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "5m",
+              "1h",
+              "1d",
+              "1m"
+            ]
+          }
+        ]
+      }
+    },
+    "/metrics/space/{sid}/user/{uid}": {
+      "get": {
+        "operationId": "get_space_user_metrics",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metrics",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_user_metrics",
+        "summary": "Get space user metrics",
+        "tags": [
+          "Monitoring"
+        ],
+        "description": "Returns space related metrics of specified type for specific user.",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The monitoring data retrieved in the form of RRD record exported to JSON or XML.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metrics"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "ID of a specific space for which the monitoring metrics should be retrieved.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "ID of a specific user within a space for which the monitoring metrics should be limited to.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metric",
+            "in": "query",
+            "description": "The type of metrics to retrieve.",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "storage_used",
+              "data_access",
+              "block_access"
+            ]
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "The resolution of the monitoring data to return - default is 5m [5 minutes].",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "5m",
+              "1h",
+              "1d",
+              "1m"
+            ]
+          }
+        ]
+      }
+    },
+    "/changes/metadata/{sid}": {
+      "get": {
+        "operationId": "get_space_changes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "events",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_changes",
+        "tags": [
+          "Monitoring"
+        ],
+        "summary": "Subscribe to file events",
+        "description": "This method subscribes through HTTP streaming on events of specific type for a given space. Until the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription to events has been successful.",
+            "schema": {
+              "$ref": "#/definitions/FileMetadataChange"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "description": "Optional timeout in milliseconds, which allows to automatically break connection  when no event occured in specified time. By default the timeout is unlimited.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "last_seq",
+            "in": "query",
+            "description": "Last known file metadata sequence number\n",
+            "type": "integer",
+            "required": false
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "description": "Generic error model for REST requests.",
+      "properties": {
+        "error": {
+          "description": "Identifier representing internal error code.",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Detailed error message.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "error": "invalid_token",
+        "error_description": "Provided token could not be validated."
+      }
+    },
+    "FileDistribution": {
+      "type": "array",
+      "description": "Describes distribution of a single file among different storage providers. For each provider, this data type provides a list of byte ranges  (specified as a list of pairs [offset, size]), which describe which blocks of a given file are stored at which provider.\n",
+      "items": {
+        "type": "object",
+        "properties": {
+          "providerId": {
+            "type": "string",
+            "description": "ID of the provider"
+          },
+          "blocks": {
+            "type": "array",
+            "description": "The list of blocks in byte ranges stored at that provider.",
+            "items": {
+              "type": "array",
+              "description": "File block specified as a pair [offset, size].",
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2
+            }
+          }
+        }
+      },
+      "example": [
+        {
+          "providerId": "UMa3Dg7iliXbAYsQ10f7L0ZZFJlNKDYYY62LQy9HW4k",
+          "blocks": [
+            [
+              0,
+              4
+            ],
+            [
+              10,
+              20
+            ]
+          ]
+        },
+        {
+          "providerId": "34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS",
+          "blocks": [
+            [
+              1024,
+              2048
+            ],
+            [
+              4096,
+              1048576
+            ]
+          ]
+        }
+      ]
+    },
+    "FileAttribute": {
+      "type": "object",
+      "description": "File attribute.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the attribute (e.g. 'mode')"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the file attribute. Can be"
+        }
+      },
+      "example": {
+        "name": "mode",
+        "value": "0444"
+      }
+    },
+    "FileTransferStatus": {
+      "type": "object",
+      "description": "File transfer status.",
+      "properties": {
+        "fileId": {
+          "type": "string",
+          "description": "Id of the file or directory being transferred."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the file or folder in the virtual file system."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the transfer.",
+          "enum": [
+            "scheduled",
+            "active",
+            "completed",
+            "cancelled",
+            "failed"
+          ]
+        },
+        "targetProviderId": {
+          "type": "string",
+          "description": "The ID of the target provider to which the replication was requested."
+        },
+        "progress": {
+          "type": "integer",
+          "description": "The progress of the transfer in %."
+        }
+      },
+      "example": {
+        "path": "/My Space 1/Folder2/file3.txt",
+        "status": "scheduled",
+        "targetProviderId": "GUID-AS786ASD-ASDASD-7ASDd7"
+      }
+    },
+    "Callback": {
+      "type": "object",
+      "description": "Callback definition.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL which should be called, when requested action completed."
+        }
+      },
+      "example": {
+        "url": "http://monitoring.example.com:8080/notifications"
+      }
+    },
+    "FileMetadata": {
+      "type": "object",
+      "description": "File or directory metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "File or directory path."
+        },
+        "type": {
+          "type": "string",
+          "description": "Determines whether this a regular file or a folder.",
+          "enum": [
+            "reg",
+            "dir",
+            "lnk"
+          ]
+        },
+        "mode": {
+          "type": "integer",
+          "description": "POSIX file permissions in decimal format"
+        },
+        "mtime": {
+          "type": "integer",
+          "description": "Last modification timestamp."
+        },
+        "atime": {
+          "type": "integer",
+          "description": "Last access timestamp."
+        },
+        "ctime": {
+          "type": "integer",
+          "description": "Creation timestamp."
+        },
+        "uid": {
+          "type": "string",
+          "description": "ID of the owner of this file"
+        },
+        "size": {
+          "type": "integer",
+          "description": "Size of the file in bytes."
+        },
+        "version": {
+          "type": "integer",
+          "description": "Version of the current file snaphost."
+        },
+        "is_scope": {
+          "type": "boolean",
+          "description": "True only when this is a space folder."
+        },
+        "scope": {
+          "type": "string",
+          "description": "ID of the space in which this file is contained."
+        },
+        "xattrs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileAttribute"
+          }
+        }
+      },
+      "example": {
+        "type": "reg",
+        "mode": 511,
+        "atime": 1464958683054,
+        "mtime": 1464958683051,
+        "ctime": 1464958681054,
+        "uid": "ASD87678-ASDcIAW-41324-ASCASD",
+        "size": 1024,
+        "version": 1,
+        "is_scope": false,
+        "scope": "ASDNDH-5876ASD-8698ASD-ASD",
+        "xattrs": [
+          {
+            "name": "mime_type",
+            "value": "application/text"
+          },
+          {
+            "name": "dc.language",
+            "value": "en"
+          },
+          {
+            "name": "dc.identifier",
+            "value": "doi:10.1002/0470123"
+          }
+        ]
+      }
+    },
+    "FileMetadataChange": {
+      "type": "object",
+      "description": "File metadata record",
+      "properties": {
+        "seq": {
+          "type": "string",
+          "description": "Sequence number (version) of the metadata document."
+        },
+        "file_id": {
+          "type": "string",
+          "description": "Unique ID of the file."
+        },
+        "file_path": {
+          "type": "string",
+          "description": "Absolute path to the file (starting with the Space name)."
+        },
+        "deleted": {
+          "type": "boolean",
+          "description": "If true, it means the file has been already deleted."
+        },
+        "changes": {
+          "type": "array",
+          "description": "The list of changes representing current status of the file metadata. If only 1 change is in the list, then it represents the current metadata state. If more than 1 change is present, it means there is a conflict which needs to be resolved.\n",
+          "items": {
+            "$ref": "#/definitions/FileMetadata"
+          }
+        }
+      },
+      "example": {
+        "seq": 123,
+        "file_id": "QWED3D-ASDcIAW-41324-ASCASD",
+        "file_path": "/Space1/folder2/file1.txt",
+        "name": "file1.txt",
+        "deleted": false,
+        "changes": [
+          {
+            "type": "reg",
+            "mode": 511,
+            "atime": 1464958683054,
+            "mtime": 1464958683051,
+            "ctime": 1464958681054,
+            "uid": "ASD87678-ASDcIAW-41324-ASCASD",
+            "size": 1024,
+            "version": 1,
+            "is_scope": false,
+            "scope": "ASDNDH-5876ASD-8698ASD-ASD",
+            "xattrs": [
+              {
+                "name": "mime_type",
+                "value": "application/text"
+              },
+              {
+                "name": "dc.language",
+                "value": "en"
+              },
+              {
+                "name": "dc.identifier",
+                "value": "doi:10.1002/0470123"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Space": {
+      "type": "object",
+      "description": "Basic information about space.",
+      "properties": {
+        "spaceId": {
+          "type": "string",
+          "description": "ID of the space."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the space."
+        },
+        "providers": {
+          "type": "array",
+          "description": "The list of providers who support this space.",
+          "items": {
+            "$ref": "#/definitions/Provider"
+          }
+        }
+      },
+      "example": {
+        "spaceId": "KJHJASD-798756876-ASDBKASD-6876",
+        "name": "My Space 1",
+        "providers": [
+          {
+            "providerId": "OIUOASD-798756876-ASDBKASD-6876",
+            "providerName": "MyPrivateCloud"
+          },
+          {
+            "providerId": "LJKHSDA-798756876-ASDBKASD-6876",
+            "providerName": "PublicCloud1"
+          }
+        ]
+      }
+    },
+    "Provider": {
+      "type": "object",
+      "description": "Provider instance definitions.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The ID of the provider supporting the space."
+        },
+        "providerName": {
+          "type": "string",
+          "description": "The name of the provider"
+        }
+      },
+      "example": {
+        "providerId": "ASDASD-876786-LKJHASD-070-ASDAS",
+        "providerName": "MyFavouriteCloudProvider"
+      }
+    },
+    "Metrics": {
+      "type": "object",
+      "description": "Export of monitoring metrics for specific provider.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The ID of the provider."
+        },
+        "rrd": {
+          "description": "RRD database export.",
+          "$ref": "#/definitions/RRD"
+        }
+      },
+      "example": {
+        "providerId": "ASDASD-876786-LKJHASD-070-ASDAS",
+        "rrd": {
+          "about": "RRDtool graph JSON output",
+          "meta": {
+            "start": 1465466700,
+            "end": 1465553100,
+            "step": 300,
+            "legend": [
+              "storage_free"
+            ]
+          },
+          "data": [
+            [
+              5.6435528434
+            ],
+            [
+              2.6435528434
+            ],
+            [
+              4.6435528434
+            ]
+          ]
+        }
+      }
+    },
+    "RRD": {
+      "type": "object",
+      "description": "RRD database export.",
+      "properties": {
+        "about": {
+          "type": "string",
+          "description": "Name of the RRD database"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "number",
+              "description": "Start timestamp of the metrics."
+            },
+            "end": {
+              "type": "number",
+              "description": "End timestamp of the metrics."
+            },
+            "step": {
+              "type": "number",
+              "description": "Step of the metrics."
+            },
+            "legend": {
+              "type": "array",
+              "description": "Names of the columns in the exported array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "example": {
+        "about": "RRDtool graph JSON output",
+        "meta": {
+          "start": 1465466700,
+          "end": 1465553100,
+          "step": 300,
+          "legend": [
+            "space s1; metric block_access; user u1; oneprovider ID p1; block_access_read[iops/s]",
+            "space s1; metric block_access; user u1; oneprovider ID p1; block_access_write[iops/s]"
+          ]
+        },
+        "data": [
+          [
+            null,
+            null
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            null,
+            null
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Data",
+      "description": "Space and file related operations"
+    },
+    {
+      "name": "Replication",
+      "description": "Replication, file distribution and transfer control operations"
+    },
+    {
+      "name": "Monitoring",
+      "description": "Metrics and change events monitoring related operations"
+    }
+  ]
+}

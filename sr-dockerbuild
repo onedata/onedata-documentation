@@ -291,6 +291,30 @@ while read p; do
   (( COUNT++ )) ;
 done < dockerimage.sha
 
+
+
 COMPOSE_FILE=docker-compose.yml.template
 BASE_COMPOSE_IMAGE="docker.onedata.org/onedata-documentation:"
+PREETY_COMMIT=${CURRNET_COMMIT:0:6}
+COMMIT_AUTOR=$(git log --pretty=format:"%an <%aE>" HEAD^..HEAD)
+PREETY_TIME=$(date '+%T.%D.%Z')
+
+
+TMP_HERE_DOC_FILE="/tmp/arbitrary_temp_file" #$(mktemp)
+# the same indentation as in docker-compose.yml file 
+IFS='' read -r -d '' VERSION_MSG <<-EOF
+      author: $COMMIT_AUTOR
+      time: $PREETY_TIME
+      commit: $PREETY_COMMIT
+      branch: $CURRNET_BRANCH
+      docker: $DOCKER_BUILD_NAME or $DOCKER_BUILD_ID
+EOF
+
+echo "$VERSION_MSG" > "$TMP_HERE_DOC_FILE"
+echo  "$VERSION_MSG"
 sed -re "s/(image: )${BASE_COMPOSE_IMAGE//\//\\/}/\1${DOCKER_BUILD_NAME//\//\\/}/" $COMPOSE_FILE > docker-compose.yml   
+sed -i -re '/ONEDATA_DOC_VERSION:/ {
+s/(.*)/\1 | /
+r /tmp/arbitrary_temp_file
+}' docker-compose.yml
+rm $TMP_HERE_DOC_FILE
