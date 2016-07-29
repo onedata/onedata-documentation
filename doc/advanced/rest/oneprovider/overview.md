@@ -15,7 +15,7 @@ query for 'mode' file attributes would be:
  ```
 Please note that currently the default port for Oneprovider instances is `8443`.
 
-In addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi/cdmi.html) protocol, 
+In addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, 
 and some of data management operations are currently only possible via CDMI.
 
 
