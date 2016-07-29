@@ -1,8 +1,33 @@
 {
-    "plugins": ["onedata-theme@0.0.2", "youtube@1.1.0", "image-captions@0.3.2", "styles-sass@1.1.0"],
+    "gitbook": "~2.6",
+    "plugins": [
+      "onedata-theme@file:gitbook-plugin-onedata-theme",
+      "youtube@file:gitbook-plugin-youtube",
+      "image-captions@0.4.1",
+      "toggle-chapters@0.0.3",
+      "toc@0.0.1",
+      "include",
+      "responsive-iframes@1.0.2",
+      "styles-sass@file:gitbook-plugin-styles-sass",
+      "ga"
+    ],
     "variables": {
        "draft":false,
-       "idea":true
+       "idea":true,
+
+       "quickstart": {
+         "docker": {
+           "versions": {
+             "oneclient": "3.0superclient",
+             "oneprovider":"3.0superptovider",
+             "onezone":"3.0superzone"
+           }
+         }
+       },
+       "a": {
+       "ala": "abbbbla"
+       }
+
     },
     "structure": {
         "readme": "INTRO.md"
@@ -13,6 +38,9 @@
     "pluginsConfig": {
       "image-captions": {
           "caption": ""
+      },
+	  "ga": {
+            "token": "UA-63301911-1"
       }
     }
 }

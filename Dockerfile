@@ -1,9 +1,10 @@
-FROM docker.onedata.org/empty-base:1.0.0
+FROM busybox
 
 ADD _book/ /artefact
+WORKDIR /artefact
 ADD pub-artefact /
-ADD busybox-x86_64 /bin/busybox
+ADD set_doc_version.sh /usr/bin
 RUN ["/bin/busybox","sh","/pub-artefact","/usr/share/nginx/html"]]
+RUN ["/bin/busybox","sh","/pub-artefact","/var/www/html/docs"]]
 
-#Otherwise docer-compose up fails randomly, seems to work with docker 1.10+
-CMD ["/bin/busybox","tail","-f","/dev/null"]
+CMD ["sh", "-c", "./set_doc_version.sh gitbook/plugins/gitbook-plugin-onedata-theme/onedata.js"]

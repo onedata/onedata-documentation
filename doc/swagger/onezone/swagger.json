@@ -1,0 +1,6168 @@
+{
+  "swagger": "2.0",
+  "basePath": "/api/v3/onezone",
+  "info": {
+    "version": "3.0.0-beta8",
+    "title": "Onezone",
+    "description": "This is the RESTful API definition of Onezone component of Onedata data management system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups and providers.\n\n## Authentication and permissions\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nREST API operations from the permissions perspective in Onezone service can be divided into 2 groups,\ndepending on the actor making the request:\n * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which\n must include valid client access token, and authorization is made based on the privileges assigned\n to the user in the system. Each operation in this API that is available to end users, has a list of\n required privileges, except for the operations which are related to user account management, i.e.\n each user can perform any operation on his account, the `macaroon` header example:\n ```\n   macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\n * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,\n it must authenticate using the peer certificate which was assigned to this provider when registering\n in the Onezone service. In such case the `macaroon` header is not necessary.\n\nSome special operations are completely open and require no authentication:\n * `POST /user/authorize` - authorizes user with authentication token through\n Onezone web interface.This interface is called only by providers, \n * `POST /provider` - registers a Oneprovider in Onezone service \n (however a valid CSR in the body is required),\n * `POST /provider/test/check_my_ports` - checks if all given ports \n are reachable from Onezone,\n * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).\n\nThe provider specific operations include:\n * `ANY /provider` - all provider specific endpoints (except for the public access ones above),\n * `POST /spaces` - create new space,\n * `GET /space/{id}` - get specific space details,\n * `GET /spaces/{id}/users` - list space users.\n \nAll other operations can be invoked by a user assuming he has valid privileges in the system,\neach operation description lists required permissions, if any.\n\n## Effective users and effective groups\nOnedata supports creation of arbitrary nested group tree structures. In order to allow identification\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and \neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n\n### Space management\nThe space management operations of this API provide means for accessing information about spaces \nand their management.\n\n### Group management\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n### User management\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n### Provider management\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n### Privileges management\nOnezone allows any user to have selected administration privileges for the Onezone service itself,\nenabling them to view and configure certain aspects of the system.\n",
+    "contact": {
+      "name": "Onedata support",
+      "url": "https://onedata.org/support",
+      "email": "info@onedata.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/spaces": {
+      "get": {
+        "operationId": "get_spaces",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "space",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "space_logic:list_spaces",
+        "summary": "List all spaces",
+        "description": "Returns the list of all spaces managed by the Onezone service.\n\nThis operation requires `list_spaces` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of spaces Id's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "space_logic:create",
+        "summary": "Create new space",
+        "description": "When called by a regular user, creates a new space and creates the current user its owner.\n\nWhen called by a provider, creates a new spaces and automatically adds support for it, \nbased on the token provided in the request body.\n\nThis operation does not require any specific privileges.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Space name.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the space"
+                },
+                "token": {
+                  "type": "string",
+                  "description": "Space creation token (only for providers)."
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/spaces/{id}": {
+      "get": {
+        "operationId": "get_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "space_logic:get_data",
+        "summary": "Get space details",
+        "description": "Returns the details about a specific space.\n\nIf called by user who is not member of the space, requires 'list_spaces' privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a space.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "space_logic:modify",
+        "summary": "Modify space details",
+        "description": "Updates the details about a space.",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Space has been updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Space parameters",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            },
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "space_logic:remove_space",
+        "summary": "Remove space",
+        "description": "Removes a specific space.",
+        "responses": {
+          "200": {
+            "description": "The space has been removed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/users": {
+      "get": {
+        "operationId": "get_space_users",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "space_logic:get_users",
+        "summary": "Get space users",
+        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all user ID's that belong to a specific space",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/users/token": {
+      "get": {
+        "operationId": "get_space_user_token",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "uinvite",
+        "x-onedata-method": "token_logic:create",
+        "summary": "Create space invite token",
+        "description": "Creates a token allowing new user to join a space.\n\nThis operation requires `space_invite_user` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific group.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/users/{uid}": {
+      "get": {
+        "operationId": "get_space_user",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "user",
+        "x-onedata-method": "space_logic:get_user",
+        "summary": "Get space user details",
+        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a space user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_space_user",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "user",
+        "x-onedata-method": "space_logic:remove_user",
+        "summary": "Remove user from space",
+        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The group privileges have been set successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/users/{uid}/privileges": {
+      "get": {
+        "operationId": "get_space_user_privileges",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "space_logic:get_privileges",
+        "summary": "Get user privileges to space",
+        "description": "Returns privileges of a user belonging to the space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of user privileges in a space.",
+            "schema": {
+              "$ref": "#/definitions/SpacePrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_space_user_privileges",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "space_logic:set_privileges",
+        "summary": "Set user privileges to space",
+        "description": "Adds specific privileges for a user in a space.\n\nThis operation requires `space_set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The user privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User privileges.",
+            "schema": {
+              "$ref": "#/definitions/SpacePrivileges"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/groups": {
+      "get": {
+        "operationId": "get_space_groups",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "groups",
+        "x-onedata-method": "space_logic:get_groups",
+        "summary": "Get space groups",
+        "description": "Returns the list of groups belonging to a specific space.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all group ID's that belong to a specific space",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/groups/token": {
+      "get": {
+        "operationId": "get_space_group_token",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "ginvite",
+        "x-onedata-method": "token_logic:create",
+        "summary": "Create space invite token for group",
+        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific group.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/groups/{gid}": {
+      "get": {
+        "operationId": "get_space_group",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "group",
+        "x-onedata-method": "space_logic:get_group",
+        "summary": "Get group details",
+        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of a specific group in a space.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete_space_group",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "group",
+        "x-onedata-method": "space_logic:remove_group",
+        "summary": "Remove subgroup",
+        "description": "Removes a specific nested group.\n\nThis operation requires `space_remove_group` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "A space has been removed from group."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/groups/{gid}/privileges": {
+      "get": {
+        "operationId": "get_space_group_privileges",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "gpriv",
+        "x-onedata-method": "space_logic:get_privileges",
+        "summary": "Get group privileges to space",
+        "description": "Returns privileges for a group to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of group privileges in a space.",
+            "schema": {
+              "$ref": "#/definitions/SpacePrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_space_group_privileges",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "space_logic:set_privileges",
+        "summary": "Set group privileges to space",
+        "description": "Sets new privileges for a group to a specific space.\n\nThis operation requires `space_set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The group privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Space privileges.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            }
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/providers": {
+      "get": {
+        "operationId": "get_space_providers",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "providers",
+        "x-onedata-method": "space_logic:get_providers",
+        "summary": "Get space providers",
+        "description": "Returns the list of providers supporting specific space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all provider ID's that support a specific space.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/providers/token": {
+      "get": {
+        "operationId": "get_space_provider_token",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "pinvite",
+        "x-onedata-method": "token_logic:create",
+        "summary": "Create space support token",
+        "description": "Creates a token which can be submitted to a selected provider in order to \nadd storage support for the space.\n\nThis operation requires `space_add_provider` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for getting space storage support from a provider.",
+            "schema": {
+              "$ref": "#/definitions/SpaceSupportToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/spaces/{id}/providers/{pid}": {
+      "get": {
+        "operationId": "get_space_provider",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "space_logic:get_provider",
+        "summary": "Get space provider details",
+        "description": "Returns details about a specific provider supporting the space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a specific provider supporting a space.",
+            "schema": {
+              "$ref": "#/definitions/ProviderDetails"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Provider ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_provider_supporting_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "space_logic:remove_provider",
+        "summary": "Remove space support",
+        "description": "Removes support from provider for a specific space.\n\nThis operation requires `space_remove_provider` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "A space is no longer supported by this provider."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Provider ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "operationId": "get_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "user_logic:get_data",
+        "summary": "Get user details",
+        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found..",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "modify_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "user_logic:modify",
+        "summary": "Modify user",
+        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "User information updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User data.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "user_logic:remove",
+        "summary": "Remove user",
+        "description": "Removes the account of currently authenticated user.",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User removed successfully.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/authorize": {
+      "post": {
+        "operationId": "authenticate_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "auth_logic:authenticate_user",
+        "summary": "Authenticate user",
+        "description": "Authorizes user with authentication token through Onezone web interface.\n\nThis operation has public access.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User authorized successfully - the body contains a discharge macaroon.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User authentication token.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationToken"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/spaces": {
+      "get": {
+        "operationId": "get_user_spaces",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "user_logic:get_spaces",
+        "summary": "Get list of spaces",
+        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of user spaces, including information which space is default.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "spaces": {
+                  "description": "The list of all user spaces ID's.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "default": {
+                  "description": "The ID of the default user space.",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_user_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "space",
+        "x-onedata-method": "space_logic:create",
+        "summary": "Create a new space",
+        "description": "Creates a new space as current user. The user automaticaly becomes \nthe spaces' member.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the created space in the form /user/spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "space",
+            "in": "body",
+            "description": "New space parameters.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/spaces/default": {
+      "get": {
+        "operationId": "get_user_default_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-method": "user_logic:get_default_space",
+        "summary": "Get default space",
+        "description": "Returns the ID of the default users space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Id of the default user space or 'undefined' in case no space is selected as default.",
+            "schema": {
+              "$ref": "#/definitions/DefaultSpace"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "set_user_default_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-method": "user_logic:set_default_space",
+        "summary": "Set default space",
+        "description": "Sets default space for current user.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Space created successfully.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "defaultspace",
+            "in": "body",
+            "description": "Default Space ID.",
+            "schema": {
+              "$ref": "#/definitions/DefaultSpace"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/spaces/join": {
+      "post": {
+        "operationId": "join_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "space",
+        "x-onedata-method": "space_logic:join",
+        "summary": "Join space",
+        "description": "Join existing space using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the joined space in the form /user/spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "spaceinvitetoken",
+            "in": "body",
+            "description": "Token for joining a space.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/spaces/token": {
+      "get": {
+        "operationId": "get_user_space_token",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "token",
+        "x-onedata-method": "token_logic:create",
+        "summary": "Create space invitation token",
+        "description": "Creates an invitation token which allows other users to join the space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space invitation token.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/spaces/{sid}": {
+      "get": {
+        "operationId": "get_user_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "space",
+        "x-onedata-method": "space_logic:get_data",
+        "summary": "Get space details",
+        "description": "Returns the details of a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the details of a specific space.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete_user_space",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "space",
+        "x-onedata-method": "space_logic:remove_user",
+        "summary": "Leave space",
+        "description": "Removes the users ownership or membership in a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space was deleted successfuly."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space Id.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/groups": {
+      "get": {
+        "operationId": "get_user_groups",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "user_logic:get_groups",
+        "summary": "Get user groups",
+        "description": "Returns the list of user's groups.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of groups.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Group"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_group_for_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-method": "group_logic:create",
+        "summary": "Create new group",
+        "description": "Creates a new group for the current user. \nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the created group in the form /user/groups/{gid} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created group.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "body",
+            "description": "New group parameters.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/groups/join": {
+      "post": {
+        "operationId": "join_group",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-method": "group_logic:join",
+        "summary": "Join group",
+        "description": "Join existing group using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the joined group in the form /user/groups/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined group.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupinvitetoken",
+            "in": "body",
+            "description": "Token for joining a group.",
+            "schema": {
+              "$ref": "#/definitions/GroupInviteToken"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/groups/{gid}": {
+      "get": {
+        "operationId": "get_user_group",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-method": "group_logic:get_data",
+        "summary": "Get group details",
+        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about a specific group.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "leave_group",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-method": "group_logic:remove_user",
+        "summary": "Leave group",
+        "description": "Removes the current user from a specific group.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The user left the group successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "gid",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/client_token": {
+      "get": {
+        "operationId": "get_client_token",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-resource": "utoken",
+        "x-onedata-method": "token_logic:create",
+        "summary": "Create user authorization token",
+        "description": "Creates a user authorization token that can be used in `oneclient` command line or via REST API.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific group.",
+            "schema": {
+              "$ref": "#/definitions/ClientToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "post": {
+        "operationId": "create_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "groups",
+        "x-onedata-method": "group_logic:create",
+        "summary": "Create new group",
+        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the group created in the form /groups/{id} is  returned in the response `Location` header.\n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created group.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Group properties.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}": {
+      "get": {
+        "operationId": "get_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "group",
+        "x-onedata-method": "group_logic:get_data",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group details",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a group.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "group",
+        "x-onedata-method": "group_logic:modify",
+        "x-onedata-permissions": [
+          "group_change_data"
+        ],
+        "summary": "Modify group details",
+        "description": "Updates the details about a group.\n\nThis operation requires `group_change_data` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Group details modified."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Group parameters",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            },
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "group",
+        "x-onedata-method": "group_logic:remove_group",
+        "x-onedata-permissions": [
+          "group_remove"
+        ],
+        "summary": "Remove group",
+        "description": "Removes a specific group.\n\nThis operation requires `group_remove` privilege.\n",
+        "responses": {
+          "202": {
+            "description": "The group will be removed."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/effective_users": {
+      "get": {
+        "operationId": "get_group_effective_users",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "effective_users",
+        "x-onedata-method": "group_logic:get_effective_users",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get effective group users",
+        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of effective user ID's that belong to a specific group",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/effective_users/{uid}": {
+      "get": {
+        "operationId": "get_groups_effective_user",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "effective_user",
+        "x-onedata-method": "group_logic:get_effective_user",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group user details",
+        "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about a group user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/effective_users/{uid}/privileges": {
+      "get": {
+        "operationId": "get_groups_user_privileges",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "eupriv",
+        "x-onedata-method": "group_logic:get_effective_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get user group privileges",
+        "description": "Returns the user privileges in a group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about a group user.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/users": {
+      "get": {
+        "operationId": "get_group_users",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "group_logic:get_users",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group users",
+        "description": "Returns the list of users belonging to a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all user ID's that belong to a specific group",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/users/token": {
+      "get": {
+        "operationId": "create_user_group_invite_token",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "uinvite",
+        "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_invite_user"
+        ],
+        "summary": "Create user invite token for group",
+        "description": "Creates a token allowing new user to join the group.\n\nThis operation requires `group_invite_user` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific group.",
+            "schema": {
+              "$ref": "#/definitions/GroupInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/users/{uid}": {
+      "get": {
+        "operationId": "get_group_user",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "user",
+        "x-onedata-method": "group_logic:get_user",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group user details",
+        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a group user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_group_user",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "user",
+        "x-onedata-method": "group_logic:remove_user",
+        "x-onedata-permissions": [
+          "group_remove_user"
+        ],
+        "summary": "Remove user from group",
+        "description": "Removes the user {uid} from a group {id} (the user will no longer have access \nto spaces accessible to the group).\n\nThis operation requires `group_remove_user` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "The user will be removed from the group."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/users/{uid}/privileges": {
+      "get": {
+        "operationId": "get_group_user_privileges",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "group_logic:get_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get user's group privileges",
+        "description": "Returns the list of user privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of user privileges in a group.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_user_group_privileges",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "group_logic:set_privileges",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
+        "summary": "Set user's group privileges",
+        "description": "Sets privileges for a user {uid} in a group {id}.\n\nThis operation requires `group_set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The user privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User privileges.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            }
+          }
+        ]
+      }
+    },
+    "/groups/{id}/parent": {
+      "get": {
+        "operationId": "get_parent_groups",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "parent_groups",
+        "x-onedata-method": "group_logic:get_parent_groups",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get parent groups",
+        "description": "Returns the parent groups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of parent group ID's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/parent/{pid}": {
+      "get": {
+        "operationId": "get_parent_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "parent_group",
+        "x-onedata-method": "group_logic:get_parent_group",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get parent group details",
+        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a specific parent group.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Parent group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/nested": {
+      "get": {
+        "operationId": "get_nested_groups",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "nested_groups",
+        "x-onedata-method": "group_logic:get_nested_groups",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get subgroups",
+        "description": "Returns the list of subgroups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of subgroup ID's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/nested/token": {
+      "get": {
+        "operationId": "get_nested_group_token",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "ninvite",
+        "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_invite_group"
+        ],
+        "summary": "Create subgroup invitation token",
+        "description": "Creates a token that can be used to add a group as subgroup of group with {id}.\n\nThis operation requires `group_invite_group` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific group.",
+            "schema": {
+              "$ref": "#/definitions/GroupInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/nested/join": {
+      "post": {
+        "operationId": "join_nested_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "njoin",
+        "x-onedata-method": "group_logic:join_group",
+        "x-onedata-permissions": [
+          "group_join_group"
+        ],
+        "summary": "Add subgroup",
+        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n",
+        "responses": {
+          "201": {
+            "description": "ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.\n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined group.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Group join token.",
+            "schema": {
+              "$ref": "#/definitions/GroupInviteToken"
+            }
+          }
+        ]
+      }
+    },
+    "/groups/{id}/nested/{nid}": {
+      "get": {
+        "operationId": "get_nested_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "nested_group",
+        "x-onedata-method": "group_logic:get_nested_group",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get subgroup details",
+        "description": "Returns information about a specific nested group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a specific nested group.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "nid",
+            "in": "path",
+            "description": "Subgroup ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete_nested_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "nested_group",
+        "x-onedata-method": "group_logic:remove_nested_group",
+        "x-onedata-permissions": [
+          "group_remove_group"
+        ],
+        "summary": "Remove subgroup.",
+        "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n",
+        "responses": {
+          "202": {
+            "description": "A subgroup will be removed."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "nid",
+            "in": "path",
+            "description": "Nested group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/nested/{nid}/privileges": {
+      "get": {
+        "operationId": "get_nested_group_privileges",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "npriv",
+        "x-onedata-method": "group_logic:get_nested_group_privileges",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get subgroup privileges",
+        "description": "Returns the list of nested group privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of nested group privileges in a group.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "nid",
+            "in": "path",
+            "description": "Nested group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_group_nested_privileges",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "npriv",
+        "x-onedata-method": "group_logic:set_nested_group_privileges",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
+        "summary": "Set subgroup privileges.",
+        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The user privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "nid",
+            "in": "path",
+            "description": "Subgroup ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Nested group privileges.",
+            "schema": {
+              "$ref": "#/definitions/GroupPrivileges"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/spaces": {
+      "get": {
+        "operationId": "get_group_spaces",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "group_logic:get_spaces",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group's spaces",
+        "description": "Returns the list of spaces to which the group has access.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of space ID's for which the group has access.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create_space_for_group",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "space_logic:create",
+        "x-onedata-permissions": [
+          "group_set_privileges"
+        ],
+        "summary": "Creates new space for group",
+        "description": "Creates a new space on behalf of a specific group.\n\nThis operation requires `group_set_privileges` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header.   \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found..",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/spaces/join": {
+      "post": {
+        "operationId": "group_join_space",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "sjoin",
+        "x-onedata-method": "space_logic:join",
+        "x-onedata-permissions": [
+          "group_join_space"
+        ],
+        "summary": "Join space by group",
+        "description": "Joins the group to an existing space based on provided space invitation token.\n\nThis operation requires `group_join_space` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the joined space in the form /spaces/{id} is  returned in the response `Location` header.  \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the joined space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Space join token.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          }
+        ]
+      }
+    },
+    "/groups/{id}/spaces/token": {
+      "get": {
+        "operationId": "create_group_spaces_token",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "screate",
+        "x-onedata-method": "token_logic:create",
+        "x-onedata-permissions": [
+          "group_create_space_token"
+        ],
+        "summary": "Create space creation token for group",
+        "description": "Creates a token that can be given to selected provider, \nwhere it can be used to create a new space for the group and automatically support it.\n\nThis operation requires `group_create_space_token` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for joining a specific space.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/groups/{id}/spaces/{sid}": {
+      "get": {
+        "operationId": "get_group_space",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "space_logic:get_data",
+        "x-onedata-permissions": [
+          "group_view_data"
+        ],
+        "summary": "Get group's space details",
+        "description": "Returns information about a specific space to which the group belongs.\n\nThis operation requires `group_view_data` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a specific space in a group.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_group_from_space",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "space_logic:remove_group",
+        "x-onedata-permissions": [
+          "group_leave_space"
+        ],
+        "summary": "Remove space from group",
+        "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).\n\nThis operation requires `group_leave_space` privilege.\n",
+        "responses": {
+          "202": {
+            "description": "A groupwill be removed from the space."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/provider": {
+      "get": {
+        "operationId": "get_provider",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "provider_logic:get_data",
+        "summary": "Get provider details",
+        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about Oneprovider.",
+            "schema": {
+              "$ref": "#/definitions/ProviderDetails"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "register_provider",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "provider_logic:create",
+        "summary": "Register provider",
+        "description": "Registers a Oneprovider in Onezone service. \n\nRequires a valid CSR in the bodyand returns signed \ncertificate that will must used by the Oneprovider for authorization (SSL Peer Certificate).\n\nThis operation has public access.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Provider registered successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "The ID of the registered provider",
+                  "type": "string"
+                },
+                "cert": {
+                  "description": "The signed certificate to be used when connecting to Onezone services.",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Provider reqistration request including CSR.",
+            "schema": {
+              "$ref": "#/definitions/ProviderRegistrationRequest"
+            },
+            "required": true
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_provider",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "provider_logic:modify",
+        "summary": "Modify provider details",
+        "description": "Updates information about Oneprovider.",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Provider details updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Provider data.",
+            "schema": {
+              "$ref": "#/definitions/ProviderDetails"
+            },
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete_provider",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "provider",
+        "x-onedata-method": "provider_logic:remove",
+        "summary": "Unregisters provider",
+        "description": "Unregisters a Oneprovider from the nezone service.",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "Provider will be unregistered."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Provider ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "providerId": {
+                  "type": "string",
+                  "description": "The ID of the provider to unregister."
+                }
+              }
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/provider/{pid}": {
+      "get": {
+        "operationId": "get_other_provider",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "nprovider",
+        "x-onedata-method": "provider_logic:get_data",
+        "summary": "Get provider details",
+        "description": "Returns the information about a another Oneprovider service, which is connected to the current provider.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a provider.",
+            "schema": {
+              "$ref": "#/definitions/ProviderDetails"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Provider ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/provider/spaces": {
+      "get": {
+        "operationId": "get_supported_spaces",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "provider_logic:get_spaces",
+        "summary": "Get spaces at provider",
+        "description": "Returns the list of spaces managed by the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of space ID's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create_provider_space",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "space_logic:create",
+        "summary": "Create new space by provider",
+        "description": "Creates a new space on behalf of the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the created space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the created space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "New space parameters.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/provider/spaces/support": {
+      "post": {
+        "operationId": "provider_space_support",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "ssupport",
+        "x-onedata-method": "space_logic:support",
+        "summary": "Add space storage support",
+        "description": "Adds support for specific space on behalf of the Oneprovider that performed the \nrequest. Space support token is required.\n\nThis operation requires peer certificate authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "ID of the supported space in the form /spaces/{id} is  returned in the response `Location` header. \n",
+            "headers": {
+              "Location": {
+                "description": "ID of the supported space.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SpaceSupportToken"
+            }
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{sid}": {
+      "get": {
+        "operationId": "get_supported_space",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-method": "space_logic:get_data",
+        "summary": "Get space details by provider",
+        "description": "Returns information about a specific space supported by the Oneprovider that \nperformed the request.\n\nThis operation requires peer certificate authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about a specific space.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_space_support",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-method": "space_logic:remove_provider",
+        "summary": "Remove space support",
+        "description": "Removes support for space from the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space support has ended."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/provider/test/check_my_ip": {
+      "get": {
+        "operationId": "check_my_ip",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "ip",
+        "x-onedata-method": "cowboy_req:peer",
+        "summary": "Show client IP address",
+        "description": "Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).\n\nThis operation has public access.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The IP of the requesting peer.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/provider/test/check_my_ports": {
+      "post": {
+        "operationId": "check_my_ports",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "ip",
+        "x-onedata-method": "provider_logic:test_connection",
+        "summary": "Check ports availability",
+        "description": "Checks if all given ports are reachable from Onezone. \n\nThis operation has public access.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of ports (with URLs) and their status.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "example": [
+                [
+                  "https://provider1.com:80",
+                  "ok"
+                ],
+                [
+                  "https://provider1.com:443",
+                  "error"
+                ]
+              ]
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ports",
+            "in": "body",
+            "description": "List of ports to check.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "https://provider1.com:80",
+                "https://provider1.com:443"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/providers": {
+      "get": {
+        "operationId": "get_providers",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "provider",
+        "x-onedata-resource": "providers",
+        "x-onedata-method": "provider_logic:get_providers",
+        "summary": "Get providers",
+        "description": "Returns the list of providers registered in the Onezone service.\n\nThis operation requires `list_providers` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of providers Id's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/privileges/users/{id}": {
+      "get": {
+        "operationId": "get_user_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "privileges",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:get_user_privileges",
+        "summary": "Get user's Onezone privileges",
+        "description": "Returns the list of user privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of user privileges in Onezone.",
+            "schema": {
+              "$ref": "#/definitions/OnezonePrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_user_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "onezone",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:set_privileges",
+        "summary": "Set user's Onezone privileges",
+        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The user privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User Onezone privileges.",
+            "schema": {
+              "$ref": "#/definitions/OnezonePrivileges"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_user_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "onezone",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:remoev_privileges",
+        "summary": "Remove user's Onezone privileges",
+        "description": "Removes all privileges for a user {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The user privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/privileges/group/{id}": {
+      "get": {
+        "operationId": "get_group_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "privileges",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:get_group_privileges",
+        "summary": "Get group's Onezone privileges",
+        "description": "Returns the list of group privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of group privileges in Onezone.",
+            "schema": {
+              "$ref": "#/definitions/OnezonePrivileges"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_group_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "onezone",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:set_privileges",
+        "summary": "Set group's Onezone privileges",
+        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The group privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "User Onezone privileges.",
+            "schema": {
+              "$ref": "#/definitions/OnezonePrivileges"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_group_onezone_privileges",
+        "tags": [
+          "Privileges"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "onezone",
+        "x-onedata-resource": "upriv",
+        "x-onedata-method": "onezone_logic:remove_privileges",
+        "summary": "Remove group's Onezone privileges",
+        "description": "Removes all privileges for a group {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "responses": {
+          "200": {
+            "description": "The group privileges have been added."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID.",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "description": "Generic error model for REST requests.",
+      "properties": {
+        "error": {
+          "description": "Identifier representing internal error code.",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Detailed error message.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "error": "invalid_token",
+        "error_description": "Provided token could not be validated."
+      }
+    },
+    "User": {
+      "type": "object",
+      "description": "Describes a user account.",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "The user friendly name of storage resource."
+        },
+        "connectedAccounts": {
+          "type": "array",
+          "description": "The list of accounts connected to this user.",
+          "items": {
+            "$ref": "#/definitions/ConnectedAccount"
+          }
+        },
+        "alias": {
+          "type": "string",
+          "description": "User alias"
+        },
+        "emailList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "userId",
+        "name"
+      ],
+      "example": {
+        "userId": "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+        "name": "Rudolf Lingens",
+        "connectedAccounts": [
+          {
+            "accountId": "ASD879ASD-7SADASFSsa0831",
+            "providerId": "7YASBFLJ-123ASD870-ASDASD"
+          },
+          {
+            "accountId": "QWESsD-7SADASFSsa0831",
+            "providerId": "7QWEJ-123ASD870-ASDASD"
+          }
+        ],
+        "alias": "John Doe",
+        "emailList": [
+          "rudolf.linges@example.com",
+          "john.doe@example.com"
+        ]
+      }
+    },
+    "ProviderRegistrationRequest": {
+      "type": "object",
+      "description": "Provider reqistration request.",
+      "properties": {
+        "urls": {
+          "type": "array",
+          "description": "The list of urls where the provider can be reached.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirectionPoint": {
+          "type": "string",
+          "description": "The redirection URL for the provider."
+        },
+        "csr": {
+          "type": "string",
+          "description": "Certificate Signature Request to generate new certificate for the provider."
+        },
+        "latitude": {
+          "type": "number",
+          "x-erlang-type": "float",
+          "description": "The geographical latitude of the provider data center location."
+        },
+        "longitude": {
+          "type": "number",
+          "x-erlang-type": "float",
+          "description": "The geographical longitude of the provider data center location."
+        }
+      },
+      "required": [
+        "urls",
+        "redirectionPoint",
+        "csr",
+        "latitude",
+        "longitude"
+      ],
+      "example": {
+        "urls": [
+          "http://beta.onedata.org/provider1",
+          "http://beta.onedata.org/provider2"
+        ],
+        "redirectionPoint": "http://beta.onedata.org/provider2",
+        "csr": "-----BEGIN CERTIFICATE REQUEST-----\nMIIByjCCATMCAQAwgYkxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\nMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKEwpHb29nbGUgSW5jMR8w\nHQYDVQQLExZJbmZvcm1hdGlvbiBUZWNobm9sb2d5MRcwFQYDVQQDEw53d3cuZ29v\nZ2xlLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEApZtYJCHJ4VpVXHfV\nIlstQTlO4qC03hjX+ZkPyvdYd1Q4+qbAeTwXmCUKYHThVRd5aXSqlPzyIBwieMZr\nWFlRQddZ1IzXAlVRDWwAo60KecqeAXnnUK+5fXoTI/UgWshre8tJ+x/TMHaQKR/J\ncIWPhqaQhsJuzZbvAdGA80BLxdMCAwEAAaAAMA0GCSqGSIb3DQEBBQUAA4GBAIhl\n4PvFq+e7ipARgI5ZM+GZx6mpCz44DTo0JkwfRDf+BtrsaC0q68eTf2XhYOsq4fkH\nQ0uA0aVog3f5iJxCa3Hp5gxbJQ6zV6kJ0TEsuaaOhEko9sdpCoPOnRBm2i/XRD2D\n6iNh8f8z0ShGsFqjDgFHyF3o+lUyj+UC6H1QW7bn\n-----END CERTIFICATE REQUEST-----\n",
+        "latitude": 50.0647,
+        "longitude": 19.945
+      }
+    },
+    "ProviderDetails": {
+      "type": "object",
+      "description": "Provider properties.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The provider ID."
+        },
+        "urls": {
+          "type": "array",
+          "description": "The list of urls where the provider can be reached.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirectionPoint": {
+          "type": "string",
+          "description": "The redirection URL for the provider."
+        },
+        "latitude": {
+          "type": "number",
+          "description": "The geographical latitude of the provider data center location."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "The geographical longitude of the provider data center location."
+        }
+      },
+      "example": {
+        "providerId": "LASDASJDBH89869ASD79869asd",
+        "urls": [
+          "http://beta.onedata.org/provider1",
+          "http://beta.onedata.org/provider2"
+        ],
+        "redirectionPoint": "http://beta.onedata.org/provider2",
+        "latitude": 50.0647,
+        "longitude": 19.945
+      }
+    },
+    "AuthenticationToken": {
+      "type": "object",
+      "description": "Authentication token.",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "The authentication token for Onezone service."
+        }
+      },
+      "required": [
+        "identifier"
+      ],
+      "example": {
+        "identifier": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+      }
+    },
+    "Space": {
+      "type": "object",
+      "description": "User space parameters.",
+      "properties": {
+        "spaceId": {
+          "type": "string",
+          "description": "Unique ID of the space."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the space."
+        },
+        "token": {
+          "type": "string",
+          "description": "Provider token."
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size of requested space support."
+        }
+      },
+      "required": [
+        "name",
+        "token",
+        "size"
+      ],
+      "example": {
+        "name": "My Private space",
+        "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
+        "size": 150
+      }
+    },
+    "SpaceSupportToken": {
+      "type": "object",
+      "description": "Space support token for provider.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The token for supporting a space."
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "example": {
+        "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+      }
+    },
+    "ClientToken": {
+      "type": "object",
+      "description": "Client token for authorization from command line or via REST.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The client token."
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "example": {
+        "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+      }
+    },
+    "DefaultSpace": {
+      "type": "object",
+      "description": "Default space Id.",
+      "properties": {
+        "spaceId": {
+          "type": "string",
+          "description": "The ID of the default user space."
+        }
+      },
+      "required": [
+        "spaceId"
+      ],
+      "example": {
+        "spaceId": "7YASBFLJ-123ASD870-ASDASD"
+      }
+    },
+    "SpaceInviteToken": {
+      "type": "object",
+      "description": "Space invitation token for user.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The token for joining a space."
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "example": {
+        "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+      }
+    },
+    "Group": {
+      "type": "object",
+      "description": "Group details.",
+      "properties": {
+        "groupId": {
+          "type": "string",
+          "description": "Unique group Id."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the space."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the group.",
+          "enum": [
+            "organization",
+            "unit",
+            "team",
+            "role"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "example": {
+        "name": "Test group",
+        "type": "role"
+      }
+    },
+    "GroupInviteToken": {
+      "type": "object",
+      "description": "Group invitation token for user.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The token for joining a group."
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "example": {
+        "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+      }
+    },
+    "ConnectedAccount": {
+      "type": "object",
+      "description": "Default space Id.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "Account Id."
+        },
+        "providerId": {
+          "type": "string",
+          "description": "Provider Id."
+        }
+      },
+      "example": {
+        "accountId": "ASD879ASD-7SADASFSsa0831",
+        "providerId": "7YASBFLJ-123ASD870-ASDASD"
+      }
+    },
+    "SpacePrivileges": {
+      "type": "object",
+      "description": "The list of space privileges.",
+      "properties": {
+        "privileges": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "space_invite_user",
+              "space_remove_user",
+              "space_invite_group",
+              "space_remove_group",
+              "space_set_privileges",
+              "space_remove",
+              "space_add_provider",
+              "space_remove_provider",
+              "space_change_data",
+              "space_view_data"
+            ]
+          }
+        }
+      },
+      "example": {
+        "privileges": [
+          "space_invite_user",
+          "space_remove_user",
+          "space_invite_group",
+          "space_remove_group",
+          "space_set_privileges",
+          "space_remove",
+          "space_add_provider",
+          "space_remove_provider",
+          "space_change_data",
+          "space_view_data"
+        ]
+      }
+    },
+    "GroupPrivileges": {
+      "type": "object",
+      "description": "The list of group privileges.",
+      "properties": {
+        "privileges": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "group_change_data",
+              "group_invite_user",
+              "group_remove_user",
+              "group_join_space",
+              "group_create_space",
+              "group_set_privileges",
+              "group_remove",
+              "group_leave_space",
+              "group_view_data",
+              "group_create_space_token",
+              "group_join_group",
+              "group_invite_group",
+              "group_remove_group"
+            ]
+          }
+        }
+      },
+      "example": {
+        "privileges": [
+          "group_change_data",
+          "group_invite_user",
+          "group_remove_user",
+          "group_join_space",
+          "group_create_space",
+          "group_set_privileges",
+          "group_remove",
+          "group_leave_space",
+          "group_view_data",
+          "group_create_space_token",
+          "group_join_group",
+          "group_invite_group",
+          "group_remove_group"
+        ]
+      }
+    },
+    "OnezonePrivileges": {
+      "type": "object",
+      "description": "The list of Onezone privileges.",
+      "properties": {
+        "privileges": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "view_privileges",
+              "set_privileges",
+              "list_spaces",
+              "list_providers",
+              "list_providers_of_space"
+            ]
+          }
+        }
+      },
+      "example": {
+        "privileges": [
+          "view_privileges",
+          "set_privileges",
+          "list_spaces",
+          "list_providers",
+          "list_providers_of_space"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Space",
+      "description": "Space related operations"
+    },
+    {
+      "name": "Group",
+      "description": "Group related operations"
+    },
+    {
+      "name": "User",
+      "description": "User related operations"
+    },
+    {
+      "name": "Provider",
+      "description": "Provider related operations"
+    },
+    {
+      "name": "Privileges",
+      "description": "Operations on Onezone privileges"
+    }
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "macaroon",
+      "in": "header"
+    },
+    "basic": {
+      "type": "basic"
+    }
+  }
+}
