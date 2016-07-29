@@ -7,9 +7,7 @@ PUT /provider/configuration
 
 
 ##### Description
-Configures and starts provider services, such as database, cluster manager
-and cluster worker. Depending on the configuration, sets up provider storage
-and registers in the zone.
+Configures and starts provider services, such as database, cluster manager and cluster worker. Depending on the configuration, sets up provider storage and registers in the zone.
 
 
 ##### Parameters
@@ -48,26 +46,39 @@ json :
 json :
 {
   "cluster" : {
-    "domainName" : "string",
+    "domainName" : "oneprovider.onedata.example.com",
     "nodes" : {
-      "string" : "object"
+      "node1" : {
+        "hostname" : "node1"
+      }
     },
-    "databases" : {
-      "nodes" : [ "string" ]
+    "manager" : {
+      "defaultNode" : "node1",
+      "nodes" : [ "node1" ]
     },
-    "managers" : {
-      "mainNode" : "string",
-      "nodes" : [ "string" ]
+    "worker" : {
+      "nodes" : [ "node1" ]
     },
-    "workers" : {
-      "nodes" : [ "string" ]
+    "database" : {
+      "nodes" : [ "node1" ]
     },
-    "storages" : {
-      "string" : "[clusterstorages](#clusterstorages)"
+    "storage" : {
+      "NFS" : {
+        "type" : "POSIX",
+        "mountPoint" : "/volumes/storage"
+      }
     }
   },
-  "oneprovider" : "object",
-  "onezone" : "object"
+  "oneprovider" : {
+    "register" : true,
+    "name" : "example",
+    "redirectionPoint" : "https://node1.oneprovider.onedata.example.com",
+    "geoLongitude" : -24.3776025,
+    "geoLatitude" : -128.3519364
+  },
+  "onezone" : {
+    "domainName" : "node1.onezone.onedata.example.com"
+  }
 }
 ```
 
