@@ -7,15 +7,14 @@ GET /provider/managers
 
 
 ##### Description
-Returns status of cluster manager service on each host where it has been
-deployed.
+Returns status of cluster manager service on each host where it has been deployed.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster manager service on each host where it has been<br>deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**200**|The status of cluster manager service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster manager service has not been deployed.|No Content|
