@@ -15,6 +15,22 @@ Returns space related metrics of specified type.
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used"
+
+{
+  "providerId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
+  "rrd": {
+      "about": "RRDtool graph JSON output",
+      "data": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],
+      "meta": {
+          "start": 1465466700,
+          "end": 1465553100,
+          "legend": [
+              "storage_used"
+          ],
+          "step": 300
+      }
+    }
+}
 ```
 
 
