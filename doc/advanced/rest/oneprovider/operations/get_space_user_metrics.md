@@ -9,6 +9,14 @@ GET /metrics/space/{sid}/user/{uid}
 ##### Description
 Returns space related metrics of specified type for specific user.
 
+***Example cURL requests***
+
+**Get user storage block access metrics with 1 hour resolution**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/metrics/space/ASDKAJSHD/user/IYHNASHCASD?MySpace1?metric=block_access&step=1h"
+```
+
 
 ##### Parameters
 

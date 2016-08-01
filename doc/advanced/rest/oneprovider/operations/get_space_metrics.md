@@ -9,6 +9,14 @@ GET /metrics/space/{sid}
 ##### Description
 Returns space related metrics of specified type.
 
+***Example cURL requests***
+
+**Get storage space used metrics**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used"
+```
+
 
 ##### Parameters
 

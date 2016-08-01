@@ -12,7 +12,7 @@ Provider instance definitions.
 **Example**
 ```
 {
-  "providerId" : "ASDASD-876786-LKJHASD-070-ASDAS",
+  "providerId" : "c40a3a39-0bbc-41cd-878f-5591f8c55014",
   "providerName" : "MyFavouriteCloudProvider"
 }
 ```

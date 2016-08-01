@@ -9,6 +9,25 @@ GET /replicas/{path}
 ##### Description
 Returns file distribution information about a specific file replicated at this provider.
 
+***Example cURL requests***
+
+**Get file distribution map by path**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/replicas/MySpace1/MyFile1.txt"
+
+[
+  {
+    "blocks": [ [ 0, 4 ], [ 10, 20 ] ],
+    "providerId": "784dae9d-34a3-4aef-ab4b-2c6c60b74e27"
+  },
+  {
+    "blocks": [ [ 5, 9 ] ],
+    "providerId": "b296ab05-3d62-4755-be46-c57ced411ff1"
+  }
+]
+```
+
 
 ##### Parameters
 

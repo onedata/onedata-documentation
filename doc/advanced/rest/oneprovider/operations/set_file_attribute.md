@@ -18,13 +18,29 @@ where the POSIX mode is specified in octal notation.
 For extended attributes any string value can be send. The exteded attributes are 
 accessed by setting `extended` flag in the request query to `true`.
 
+***Example cURL requests***
+
+**Set file POSIX mode**
+```bash
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
+-d '{ "name": "mode", "value": "0777" }'
+"https://$HOST:8443/attributes/MySpace1/File2.txt"
+```
+
+**Set extended file attribute**
+```bash
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
+-d '{ "name": "license", "value": "CC-0" }' \
+"https://$HOST:8443/attributes/MySpace1/File2.txt?extended=true"
+```
+
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
-|**Query**|**extended**  <br>*optional*|Whether this is an extended or regular attribute. Default is false.|boolean|--|
+|**Query**|**extended**  <br>*optional*|Whether this is an extended or regular attribute. Default is false.|boolean|`"false"`|
 |**Body**|**attribute**  <br>*optional*|Attribute name and value.|[FileAttribute](../definitions/FileAttribute.md#fileattribute)|--|
 
 
