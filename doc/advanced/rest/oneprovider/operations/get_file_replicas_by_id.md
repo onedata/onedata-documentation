@@ -19,7 +19,7 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 [
   {
     "blocks": [ [ 0, 4 ], [ 10, 20 ] ],
-    "providerId": "57ecb305-a097-4243-bd03-a995e78ab206
+    "providerId": "57ecb305-a097-4243-bd03-a995e78ab206"
   },
   {
     "blocks": [ [ 5, 9 ] ],
