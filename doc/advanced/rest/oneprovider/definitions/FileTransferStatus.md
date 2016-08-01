@@ -17,7 +17,7 @@ File transfer status.
 {
   "path" : "/My Space 1/Folder2/file3.txt",
   "status" : "scheduled",
-  "targetProviderId" : "GUID-AS786ASD-ASDASD-7ASDd7"
+  "targetProviderId" : "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8"
 }
 ```
 

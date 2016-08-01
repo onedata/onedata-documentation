@@ -9,6 +9,28 @@ GET /metrics/space/{sid}/user/{uid}
 ##### Description
 Returns space related metrics of specified type for specific user.
 
+***Example cURL requests***
+
+**Get user storage block access metrics with 1 hour resolution**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/api/v3/oneprovider/metrics/space/fe14b4cc-bce0-4220-8394-a911d11a0a53/user/8fd85f71-3290-411d-ae3e-a65d48b5229c?metric=block_access&step=1h"
+
+{
+  "providerId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
+  "rrd": {
+      "about": "RRDtool graph JSON output",
+      "data": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],
+      "meta": {
+          "start": 1465466700,
+          "end": 1465553100,
+          "legend": ["space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]"],
+          "step": 3600
+      }
+    }
+}
+```
+
 
 ##### Parameters
 

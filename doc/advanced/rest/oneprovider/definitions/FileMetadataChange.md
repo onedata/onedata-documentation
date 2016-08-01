@@ -16,7 +16,7 @@ File metadata record
 ```
 {
   "seq" : 123,
-  "file_id" : "QWED3D-ASDcIAW-41324-ASCASD",
+  "file_id" : "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
   "file_path" : "/Space1/folder2/file1.txt",
   "name" : "file1.txt",
   "deleted" : false,
@@ -26,11 +26,11 @@ File metadata record
     "atime" : 1464958683054,
     "mtime" : 1464958683051,
     "ctime" : 1464958681054,
-    "uid" : "ASD87678-ASDcIAW-41324-ASCASD",
+    "uid" : "f986246a-4d95-46ae-b3b9-e00172767e88",
     "size" : 1024,
     "version" : 1,
     "is_scope" : false,
-    "scope" : "ASDNDH-5876ASD-8698ASD-ASD",
+    "scope" : "a0274289-6f8a-482f-86f8-4a518760749c",
     "xattrs" : [ {
       "name" : "mime_type",
       "value" : "application/text"
