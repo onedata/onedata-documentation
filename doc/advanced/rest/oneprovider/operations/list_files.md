@@ -16,7 +16,7 @@ If the path points to a file, the result array will consist only of the single i
 **Get files in space subfolder**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/files/MySpace1/MyFolder2"
+"https://$HOST:8443/api/v3/oneprovider/files/MySpace1/MyFolder2"
 
 [
   { 

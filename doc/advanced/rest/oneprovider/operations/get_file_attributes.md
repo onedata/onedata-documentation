@@ -19,7 +19,7 @@ in the request query to `true`.
 **Get file POSIX mode**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/attributes/MySpace1/File2.txt?attribute=mode"
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode"
 
 [
   { 
@@ -32,7 +32,7 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 **Get extended file attributes**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
-"https://$HOST:8443/attributes/MySpace1/File2.txt?extended=true&attribute=license"
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license"
 
 [
   { 

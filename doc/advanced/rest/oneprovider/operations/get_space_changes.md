@@ -13,10 +13,10 @@ Until the connection is kept alive, the events will be streamed to subscribers a
 
 ***Example cURL requests***
 
-**Listen to change events**
+**Listen to space change events**
 ```bash
 curl --tlsv1.2 -N -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/changes/metadata/MySpace1/File2.txt"
+"https://$HOST:8443/api/v3/oneprovider/changes/metadata/MySpace1"
 ```
 
 

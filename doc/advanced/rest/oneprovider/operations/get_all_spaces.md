@@ -13,7 +13,8 @@ Returns the list of all user spaces.
 
 **List all user spaces**
 ```bash
-curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" "https://$HOST:8443/spaces"
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/api/v3/oneprovider/spaces"
 
 [
   {

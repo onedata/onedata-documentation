@@ -23,15 +23,15 @@ accessed by setting `extended` flag in the request query to `true`.
 **Set file POSIX mode**
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
--d '{ "name": "mode", "value": "0777" }'
-"https://$HOST:8443/attributes/MySpace1/File2.txt"
+-H 'Content-type: application/json' -d '{ "name": "mode", "value": "0777" }'
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt"
 ```
 
 **Set extended file attribute**
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
--d '{ "name": "license", "value": "CC-0" }' \
-"https://$HOST:8443/attributes/MySpace1/File2.txt?extended=true"
+-H 'Content-type: application/json' -d '{ "name": "license", "value": "CC-0" }' \
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
 
