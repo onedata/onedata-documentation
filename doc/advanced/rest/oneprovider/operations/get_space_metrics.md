@@ -14,7 +14,7 @@ Returns space related metrics of specified type.
 **Get storage space used metrics**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used"
+"https://$HOST:8443/api/v3/oneprovider/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used"
 
 {
   "providerId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
@@ -24,9 +24,7 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
       "meta": {
           "start": 1465466700,
           "end": 1465553100,
-          "legend": [
-              "storage_used"
-          ],
+          "legend": ["space f4f1799f-4954-4d7a-bc31-630998883296; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]"],
           "step": 300
       }
     }

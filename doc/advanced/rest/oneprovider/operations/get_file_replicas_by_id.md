@@ -14,7 +14,7 @@ Returns file distribution information about a specific file replicated at this p
 **Get file distribution map by ID**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77"
+"https://$HOST:8443/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77"
 
 [
   {
