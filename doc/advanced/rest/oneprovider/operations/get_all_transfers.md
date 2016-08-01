@@ -14,7 +14,7 @@ Returns the list of all transfer IDs.
 **List at most 3 active transfers**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/transfers?status=active&limit=3"
+"https://$HOST:8443/api/v3/oneprovider/transfers?status=active&limit=3"
 
 [
   "3b6a31fb-ca87-4ea6-8526-fbf5a0773d69",

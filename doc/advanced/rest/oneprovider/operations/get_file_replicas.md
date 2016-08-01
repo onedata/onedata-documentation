@@ -14,7 +14,7 @@ Returns file distribution information about a specific file replicated at this p
 **Get file distribution map by path**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/replicas/MySpace1/MyFile1.txt"
+"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt"
 
 [
   {
