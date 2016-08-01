@@ -9,6 +9,25 @@ GET /replicas-id/{fid}
 ##### Description
 Returns file distribution information about a specific file replicated at this provider.
 
+***Example cURL requests***
+
+**Get file distribution map by ID**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77"
+
+[
+  {
+    "blocks": [ [ 0, 4 ], [ 10, 20 ] ],
+    "providerId": "57ecb305-a097-4243-bd03-a995e78ab206"
+  },
+  {
+    "blocks": [ [ 5, 9 ] ],
+    "providerId": "7dedd2c7-dc58-4e62-925e-94663faa70fc"
+  }
+]
+```
+
 
 ##### Parameters
 

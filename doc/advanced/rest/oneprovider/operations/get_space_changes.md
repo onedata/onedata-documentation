@@ -7,7 +7,17 @@ GET /changes/metadata/{sid}
 
 
 ##### Description
-This method subscribes through HTTP streaming on events of specific type for a given space. Until the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.
+This method subscribes through HTTP streaming on events of specific type for a given space.
+
+Until the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.
+
+***Example cURL requests***
+
+**Listen to space change events**
+```bash
+curl --tlsv1.2 -N -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/api/v3/oneprovider/changes/metadata/MySpace1"
+```
 
 
 ##### Parameters
@@ -61,7 +71,7 @@ json :
 json :
 {
   "seq" : 123,
-  "file_id" : "QWED3D-ASDcIAW-41324-ASCASD",
+  "file_id" : "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
   "file_path" : "/Space1/folder2/file1.txt",
   "name" : "file1.txt",
   "deleted" : false,
@@ -71,11 +81,11 @@ json :
     "atime" : 1464958683054,
     "mtime" : 1464958683051,
     "ctime" : 1464958681054,
-    "uid" : "ASD87678-ASDcIAW-41324-ASCASD",
+    "uid" : "f986246a-4d95-46ae-b3b9-e00172767e88",
     "size" : 1024,
     "version" : 1,
     "is_scope" : false,
-    "scope" : "ASDNDH-5876ASD-8698ASD-ASD",
+    "scope" : "a0274289-6f8a-482f-86f8-4a518760749c",
     "xattrs" : [ {
       "name" : "mime_type",
       "value" : "application/text"
