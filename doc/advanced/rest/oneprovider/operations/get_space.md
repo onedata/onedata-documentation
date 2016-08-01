@@ -14,7 +14,7 @@ Returns the basic information about space with given ID.
 **Get information about a specific space**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7
+"https://$HOST:8443/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7"
 
 {
     "name": "My Space 1",

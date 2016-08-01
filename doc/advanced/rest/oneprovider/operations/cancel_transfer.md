@@ -14,7 +14,7 @@ Cancels a scheduled or active transfer. Returns 400 in case the transfer is alre
 **Cancel specific transfer**
 ```bash
 curl --tlsv1.2 -X DELETE -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69
+"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69"
 ```
 
 

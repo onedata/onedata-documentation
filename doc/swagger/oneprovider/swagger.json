@@ -89,7 +89,7 @@
           "Data"
         ],
         "summary": "Get basic space information",
-        "description": "Returns the basic information about space with given ID.\n\n***Example cURL requests***\n\n**Get information about a specific space**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\n\n{\n    \"name\": \"My Space 1\",\n    \"providers\": [\n        {\n            \"providerId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n            \"providerName\": \"MyPrivateCloud\"\n        },\n        {\n            \"providerId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n            \"providerName\": \"PublicCloud1\"\n        }\n    ],\n    \"spaceId\": \"8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n}\n```\n",
+        "description": "Returns the basic information about space with given ID.\n\n***Example cURL requests***\n\n**Get information about a specific space**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n\n{\n    \"name\": \"My Space 1\",\n    \"providers\": [\n        {\n            \"providerId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n            \"providerName\": \"MyPrivateCloud\"\n        },\n        {\n            \"providerId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n            \"providerName\": \"PublicCloud1\"\n        }\n    ],\n    \"spaceId\": \"8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -147,7 +147,7 @@
           "Data"
         ],
         "summary": "List files and folders",
-        "description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.\n\n***Example cURL requests***\n\n**Get files in space subfolder**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/files/MySpace1/MyFolder2\"\n\n[\n  { \n    \"id\": \"c4798eb2-dbd2-486f-ae94-0e6fa0a5071d\", \n    path: \"/MySpace1/MyFolder2/File1.txt\"\n  },\n  { \n    \"id\": \"620e1642-4f2d-45f2-b4eb-37f8a958b46f\", \n    path: \"/MySpace1/MyFolder2/Folder3\"\n  },\n  { \n    \"id\": \"55ac4ed3-a723-47ab-a892-638578b9cad7\", \n    path: \"/MySpace1/MyFolder2/File3.txt\"\n  }\n]\n```\n",
+        "description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.\n\n***Example cURL requests***\n\n**Get files in space subfolder**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/files/MySpace1/MyFolder2\"\n\n[\n  { \n    \"id\": \"c4798eb2-dbd2-486f-ae94-0e6fa0a5071d\", \n    \"path\": \"/MySpace1/MyFolder2/File1.txt\"\n  },\n  { \n    \"id\": \"620e1642-4f2d-45f2-b4eb-37f8a958b46f\", \n    \"path\": \"/MySpace1/MyFolder2/Folder3\"\n  },\n  { \n    \"id\": \"55ac4ed3-a723-47ab-a892-638578b9cad7\", \n    \"path\": \"/MySpace1/MyFolder2/File3.txt\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -521,7 +521,7 @@
           "Replication"
         ],
         "summary": "Get replicas by ID",
-        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by ID**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by ID**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -580,7 +580,7 @@
           "Replication"
         ],
         "summary": "Replicate file or folder by ID",
-        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n",
+        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by ID to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by ID to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-d \"http://example.com/transfer_complete\" \\\n\"https://$HOST:8443/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -660,7 +660,7 @@
           "Replication"
         ],
         "summary": "Get all transfers",
-        "description": "Returns the list of all transfer IDs.\n\n***Example cURL requests***\n\n**List at most 3 active transfers**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers?status=active&limit=3\n\n[\n  \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n  \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n  \"da426f74-5770-42a1-b799-354a3c4c154b\"\n]\n```\n",
+        "description": "Returns the list of all transfer IDs.\n\n***Example cURL requests***\n\n**List at most 3 active transfers**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers?status=active&limit=3\"\n\n[\n  \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n  \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n  \"da426f74-5770-42a1-b799-354a3c4c154b\"\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -737,7 +737,7 @@
           "Replication"
         ],
         "summary": "Get transfer status",
-        "description": "Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\n\n{\n  \"path\": \"/My Space 1/Folder2/file3.txt\",\n  \"status\": \"scheduled\",\n  \"targetProviderId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\"\n}\n```\n",
+        "description": "Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n\n{\n  \"path\": \"/My Space 1/Folder2/file3.txt\",\n  \"status\": \"scheduled\",\n  \"targetProviderId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -796,7 +796,7 @@
           "Replication"
         ],
         "summary": "Cancel specific transfer",
-        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\n```\n",
+        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n```\n",
         "produces": [
           "application/json"
         ],

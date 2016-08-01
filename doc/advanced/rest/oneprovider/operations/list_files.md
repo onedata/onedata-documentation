@@ -21,15 +21,15 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 [
   { 
     "id": "c4798eb2-dbd2-486f-ae94-0e6fa0a5071d", 
-    path: "/MySpace1/MyFolder2/File1.txt"
+    "path": "/MySpace1/MyFolder2/File1.txt"
   },
   { 
     "id": "620e1642-4f2d-45f2-b4eb-37f8a958b46f", 
-    path: "/MySpace1/MyFolder2/Folder3"
+    "path": "/MySpace1/MyFolder2/Folder3"
   },
   { 
     "id": "55ac4ed3-a723-47ab-a892-638578b9cad7", 
-    path: "/MySpace1/MyFolder2/File3.txt"
+    "path": "/MySpace1/MyFolder2/File3.txt"
   }
 ]
 ```
