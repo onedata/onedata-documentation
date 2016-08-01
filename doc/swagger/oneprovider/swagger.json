@@ -27,7 +27,7 @@
           "Data"
         ],
         "summary": "Get all spaces",
-        "description": "Returns the list of all user spaces.\n\n***Example cURL requests***\n\n**List all user spaces**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST:8443/spaces\"\n\n[\n  {\n    \"name\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n    \"spaceId\": \"Space1\"\n  },\n  {\n    \"name\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n    \"spaceId\": \"Space2\"\n  }\n]\n```\n",
+        "description": "Returns the list of all user spaces.\n\n***Example cURL requests***\n\n**List all user spaces**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST:8443/spaces\"\n\n[\n  {\n    \"spaceId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n    \"name\": \"Space1\"\n  },\n  {\n    \"spaceId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n    \"name\": \"Space2\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -851,7 +851,7 @@
         "tags": [
           "Monitoring"
         ],
-        "description": "Returns space related metrics of specified type.\n\n***Example cURL requests***\n\n**Get storage space used metrics**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used\"\n```\n",
+        "description": "Returns space related metrics of specified type.\n\n***Example cURL requests***\n\n**Get storage space used metrics**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\n              \"storage_used\"\n          ],\n          \"step\": 300\n      }\n    }\n}\n```\n",
         "produces": [
           "application/json",
           "application/xml"
