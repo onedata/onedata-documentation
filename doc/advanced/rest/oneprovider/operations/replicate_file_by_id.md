@@ -7,8 +7,9 @@ POST /replicas-id/{fid}
 
 
 ##### Description
-Replicates a file with ID to a specified provider. This operation is asynchronous as it can  take a long time depending on the size of the data to move. 
-If the `path` parameter specifies a folder, entire folder is replicated to  requested provider.
+Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. 
+
+If the `path` parameter specifies a folder, entire folder is replicated to requested provider.
 
 
 ##### Parameters

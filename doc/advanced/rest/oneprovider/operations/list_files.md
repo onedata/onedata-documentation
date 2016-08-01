@@ -7,7 +7,32 @@ GET /files/{path}
 
 
 ##### Description
-Returns the list of folders and files directly under specified path. If the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.
+Returns the list of folders and files directly under specified path.
+
+If the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.
+
+***Example cURL requests***
+
+**Get files in space subfolder**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/files/MySpace1/MyFolder2"
+
+[
+  { 
+    "id": "c4798eb2-dbd2-486f-ae94-0e6fa0a5071d", 
+    path: "/MySpace1/MyFolder2/File1.txt"
+  },
+  { 
+    "id": "620e1642-4f2d-45f2-b4eb-37f8a958b46f", 
+    path: "/MySpace1/MyFolder2/Folder3"
+  },
+  { 
+    "id": "55ac4ed3-a723-47ab-a892-638578b9cad7", 
+    path: "/MySpace1/MyFolder2/File3.txt"
+  }
+]
+```
 
 
 ##### Parameters
