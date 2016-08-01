@@ -9,6 +9,24 @@ GET /spaces
 ##### Description
 Returns the list of all user spaces.
 
+***Example cURL requests***
+
+**List all user spaces**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" "https://$HOST:8443/spaces"
+
+[
+  {
+    "name": "51306215-674a-47b7-afd1-54fa45bcaff7",
+    "spaceId": "Space1"
+  },
+  {
+    "name": "0a568302-0f5e-454d-a6bc-7da7e1bfb985",
+    "spaceId": "Space2"
+  }
+]
+```
+
 
 ##### Responses
 
