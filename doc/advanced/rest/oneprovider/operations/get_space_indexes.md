@@ -1,34 +1,46 @@
 
-<a name="get_file_attributes"></a>
-#### Get file attributes
+<a name="get_space_indexes"></a>
+#### Get index list for space
 ```
-GET /attributes/{path}
+GET /index
 ```
 
 
 ##### Description
-This method returns selected file attributes.
+This method returns the list of user defined index functions.
 
-By default the method returns regular file attributes.
+The result can be limited to specific space using query parameter `space_id`.    
 
-The exteded attributes are accessed by setting `extended` flag 
-in the request query to `true`.
+
+***Example cURL requests***
+
+**Get list of indexes for space**
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
+https://$HOST:8443/api/v1/oneprovider/index?space_id=2e462492-a4d7-46b9-8641-abfdf50f06af
+
+[
+  {
+    "spaceId": "2e462492-a4d7-46b9-8641-abfdf50f06af",
+    "name": "My index",
+    "indexId": "fdecdf35-5e18-4a9b-a01a-1702acd4d274"
+  }
+]
+```
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
-|**Query**|**attribute**  <br>*optional*|Type of attribute to query for.|enum (mode)|--|
-|**Query**|**extended**  <br>*optional*|Whether we want to access extended attributes or regular.|boolean|--|
+|**Query**|**space_id**  <br>*optional*|Id of the space to query.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the requested file attributes.|< [FileAttribute](../definitions/FileAttribute.md#fileattribute) > array|
+|**200**|Index list returned successfully.|< [Index](../definitions/Index.md#index) > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|File not found.|[Error](../definitions/Error.md#error)|
@@ -38,6 +50,7 @@ in the request query to `true`.
 ##### Produces
 
 * `application/json`
+* `application/rdf+xml`
 
 
 ##### Example HTTP request
@@ -45,7 +58,7 @@ in the request query to `true`.
 ###### Request path
 ```
 json :
-"/attributes/string"
+"/index"
 ```
 
 
@@ -53,8 +66,7 @@ json :
 ```
 json :
 {
-  "attribute" : "string",
-  "extended" : true
+  "space_id" : "string"
 }
 ```
 

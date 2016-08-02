@@ -1,34 +1,40 @@
 
-<a name="get_file_attributes"></a>
-#### Get file attributes
+<a name="update_space_index"></a>
+#### Update index
 ```
-GET /attributes/{path}
+PUT /index/{iid}
 ```
 
 
 ##### Description
-This method returns selected file attributes.
+This method replaces an existing index code with request body content.  
 
-By default the method returns regular file attributes.
+The indexes are defined as JavaScript functions which are executed 
+on the database backend.
 
-The exteded attributes are accessed by setting `extended` flag 
-in the request query to `true`.
+***Example cURL requests***
+
+**Get list of indexes for space**
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
+-H "Content-type: text/javascript" \
+-d "@./my_improved_index1.js" \
+https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
+```
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
-|**Query**|**attribute**  <br>*optional*|Type of attribute to query for.|enum (mode)|--|
-|**Query**|**extended**  <br>*optional*|Whether we want to access extended attributes or regular.|boolean|--|
+|**Path**|**iid**  <br>*required*|Id of the index to update.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the requested file attributes.|< [FileAttribute](../definitions/FileAttribute.md#fileattribute) > array|
+|**204**|Index updated successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|File not found.|[Error](../definitions/Error.md#error)|
@@ -38,6 +44,7 @@ in the request query to `true`.
 ##### Produces
 
 * `application/json`
+* `application/rdf+xml`
 
 
 ##### Example HTTP request
@@ -45,28 +52,11 @@ in the request query to `true`.
 ###### Request path
 ```
 json :
-"/attributes/string"
-```
-
-
-###### Request query
-```
-json :
-{
-  "attribute" : "string",
-  "extended" : true
-}
+"/index/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"array"
-```
-
 
 ###### Response 400
 ```
