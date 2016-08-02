@@ -1,34 +1,44 @@
 
-<a name="get_file_attributes"></a>
-#### Get file attributes
+<a name="query_space_indexes"></a>
+#### Query index
 ```
-GET /attributes/{path}
+GET /query-index/{iid}
 ```
 
 
 ##### Description
-This method returns selected file attributes.
+This method returns the list of files which match the query on a predefined index.
 
-By default the method returns regular file attributes.
+Currently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.   
 
-The exteded attributes are accessed by setting `extended` flag 
-in the request query to `true`.
+
+***Example cURL requests***
+
+**Get list of files matching index with `value1` for `key1` attribute**
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
+https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key1=value1
+
+[
+  "2013f807-a25e-4a55-92bb-113ab46efd12",
+  "5a019a9a-cfe5-4281-8a28-8435c4716524",
+  "8081e12c-df3a-46b8-b27b-8627f146af4f"
+]
+```
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
-|**Query**|**attribute**  <br>*optional*|Type of attribute to query for.|enum (mode)|--|
-|**Query**|**extended**  <br>*optional*|Whether we want to access extended attributes or regular.|boolean|--|
+|**Path**|**iid**  <br>*required*|Id of the index to query.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the requested file attributes.|< [FileAttribute](../definitions/FileAttribute.md#fileattribute) > array|
+|**200**|Index list returned successfully.|< string > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|File not found.|[Error](../definitions/Error.md#error)|
@@ -45,17 +55,7 @@ in the request query to `true`.
 ###### Request path
 ```
 json :
-"/attributes/string"
-```
-
-
-###### Request query
-```
-json :
-{
-  "attribute" : "string",
-  "extended" : true
-}
+"/query-index/string"
 ```
 
 

@@ -7,30 +7,8 @@ POST /replicas-id/{fid}
 
 
 ##### Description
-Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. 
-
-If the `path` parameter specifies a folder, entire folder is replicated to requested provider.
-
-***Example cURL requests***
-
-**Replicate file by ID to any provider**
-```bash
-curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b"
-
-
-{ "transferId": "4f674576-4c63-443b-b3d5-2f74a40724a0" }
-```
-
-**Replicate file by ID to specific storage provider with URL callback**
-```bash
-curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
--H 'Content-type: application/json' -d '{ "url": "http://example.com/transfer_complete" }' \
-"https://$HOST:8443/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb"
-
-
-{ "transferId": "b3c85b99-44db-4277-8c66-2ccd50888565" }
-```
+Replicates a file with ID to a specified provider. This operation is asynchronous as it can  take a long time depending on the size of the data to move. 
+If the `path` parameter specifies a folder, entire folder is replicated to  requested provider.
 
 
 ##### Parameters
