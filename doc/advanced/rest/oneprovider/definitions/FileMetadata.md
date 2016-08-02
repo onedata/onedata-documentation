@@ -27,11 +27,11 @@ File or directory metadata.
   "atime" : 1464958683054,
   "mtime" : 1464958683051,
   "ctime" : 1464958681054,
-  "uid" : "ASD87678-ASDcIAW-41324-ASCASD",
+  "uid" : "16cc75ea-7fc4-4cd1-9cc8-12fa31595c50",
   "size" : 1024,
   "version" : 1,
   "is_scope" : false,
-  "scope" : "ASDNDH-5876ASD-8698ASD-ASD",
+  "scope" : "4db2db29-7b96-4eda-954b-8bc43b0e1d5e",
   "xattrs" : [ {
     "name" : "mime_type",
     "value" : "application/text"

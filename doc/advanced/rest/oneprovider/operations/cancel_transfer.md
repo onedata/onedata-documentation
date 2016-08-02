@@ -9,14 +9,6 @@ DELETE /transfers/{tid}
 ##### Description
 Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.
 
-***Example cURL requests***
-
-**Cancel specific transfer**
-```bash
-curl --tlsv1.2 -X DELETE -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69"
-```
-
 
 ##### Parameters
 

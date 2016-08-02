@@ -9,20 +9,6 @@ GET /transfers
 ##### Description
 Returns the list of all transfer IDs.
 
-***Example cURL requests***
-
-**List at most 3 active transfers**
-```bash
-curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/api/v3/oneprovider/transfers?status=active&limit=3"
-
-[
-  "3b6a31fb-ca87-4ea6-8526-fbf5a0773d69",
-  "29fa94de-33ad-4347-9cbe-3d8faa9422dd",
-  "da426f74-5770-42a1-b799-354a3c4c154b"
-]
-```
-
 
 ##### Parameters
 

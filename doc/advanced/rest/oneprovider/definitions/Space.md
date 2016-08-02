@@ -13,13 +13,13 @@ Basic information about space.
 **Example**
 ```
 {
-  "spaceId" : "cda5d1bd-ca13-40ef-95e6-51fc1cc3b322",
+  "spaceId" : "KJHJASD-798756876-ASDBKASD-6876",
   "name" : "My Space 1",
   "providers" : [ {
-    "providerId" : "c40a3a39-0bbc-41cd-878f-5591f8c55014",
+    "providerId" : "OIUOASD-798756876-ASDBKASD-6876",
     "providerName" : "MyPrivateCloud"
   }, {
-    "providerId" : "27d58af6-82ef-4bdd-a596-c4ff080fbde6",
+    "providerId" : "LJKHSDA-798756876-ASDBKASD-6876",
     "providerName" : "PublicCloud1"
   } ]
 }
