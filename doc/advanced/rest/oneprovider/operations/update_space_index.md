@@ -41,12 +41,6 @@ https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
-
-* `application/json`
-* `application/rdf+xml`
-
-
 ##### Example HTTP request
 
 ###### Request path
