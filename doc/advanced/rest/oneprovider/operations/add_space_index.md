@@ -30,7 +30,7 @@ https://$HOST:8443/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47c
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Query**|**name**  <br>*optional*|The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provider an auto generated name will be assigned.|string|--|
+|**Query**|**name**  <br>*optional*|The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provided, an auto generated name will be assigned.|string|--|
 |**Query**|**space_id**  <br>*required*|File or folder path or space id.|string|--|
 
 

@@ -789,7 +789,7 @@
           {
             "name": "name",
             "in": "query",
-            "description": "The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provider an auto generated name will be assigned.\n",
+            "description": "The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provided, an auto generated name will be assigned.\n",
             "type": "string",
             "required": false
           }
@@ -865,10 +865,6 @@
           "Data"
         ],
         "description": "This method replaces an existing index code with request body content.  \n\nThe indexes are defined as JavaScript functions which are executed \non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: text/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
-        "produces": [
-          "application/json",
-          "application/rdf+xml"
-        ],
         "responses": {
           "204": {
             "description": "Index updated successfully."
@@ -920,7 +916,7 @@
         "tags": [
           "Data"
         ],
-        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.   \n\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key1` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key1=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n",
+        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.   \n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key1` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key1=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n**Get a 100 files from index skipping first 200**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?skip=200&limit=100\n\n[\n  \"30518c78-6def-40e0-9a85-c90e7efe7ffc\",\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"1af64b02-1bbd-48ad-a9ef-25e9af593391\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\",\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates located in Europe**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?bbox=81.008797,39.869301,27.636311,-31.266001\n\n[\n  \"5145c581-af6f-4add-b3c0-d6e0253e8862\",\n  \"6c2e5abd-0495-4fec-95b7-f8601e244b45\",\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -966,6 +962,97 @@
             "description": "Id of the index to query.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "description": "Return the documents in descending by key order.",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Return only documents that match the specified key.  Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "keys",
+            "in": "query",
+            "description": "Return only documents that match each of keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.\n",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of the returned documents to the specified number.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip this number of records before starting to return the results.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "startkey",
+            "in": "query",
+            "description": "Return records with a value equal to or greater than the specified key.  Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "startkey_docid",
+            "in": "query",
+            "description": "Return records starting with the specified document ID.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey",
+            "in": "query",
+            "description": "Stop returning records when the specified key is reached.  Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey_docid",
+            "in": "query",
+            "description": "Stop returning records when the specified document ID is reached.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inclusive_end",
+            "in": "query",
+            "description": "Specifies whether the specified end key is included in the result.  ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "stale",
+            "in": "query",
+            "description": "Allow records from a stale view to be used.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)\n",
+            "type": "string",
+            "required": false
           }
         ]
       }
