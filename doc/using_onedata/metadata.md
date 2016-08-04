@@ -5,7 +5,7 @@ Onedata comes with extensive support for metadata management, which can be used 
 ## Metadata types in Onedata
 Metadata in Onedata are organized into 3 levels:
 
-* **Filesystem attributes** - basic metadata related to file system operation such as file size, creation and modification timestamps, POSIX access rights, etc.,
+* **Filesystem attributes** - basic metadata related to file system operations such as file size, creation and modification timestamps, POSIX access rights, etc.,
 * **Extended attributes** - these attributes enable assigning custom key-value pairs with resources in Onedata. These attributes can include for instance information about owner and creators of the file, Access Control Lists, license, etc.,
 * **User metadata** - this level provides most flexibility and Onedata itself does not assume any schema related with these metadata. For each resource, user can assign a separate document in one of supported formats (currently JSON and RDF).
 
@@ -17,9 +17,8 @@ On a Unix operating system, the extended attributes can be accessed and manipula
 
 This section describes typical filesystem metadata attributes. The list of attributes at this level is closed (i.e. users cannot add new attributes) and most of them are read-only, which means their values cannot be directly modified (`cdmi_` attributes). Other attributes (currently only `posix_mode`) can be modified by the user using the REST API.
 
-|--------------------|------------------|------------------------|
-| Attribute          | Description |  
-|--------------------|------------------------|
+| Attribute          | Sample value | Description |  
+| -------------------- | ------------------- | ---------- |
 | **cdmi_ctime** | 1470304148 | Unix creation timestamp |
 | **cdmi_mtime** | 1470304148 | Unix last modification timestamp |
 | **cdmi_atime** | 1470304148 | Unix last access timestamp |
@@ -28,7 +27,6 @@ This section describes typical filesystem metadata attributes. The list of attri
 | **cdmi_owner** | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9 | ID of the file owner |
 | **cdmi_acl** |  | Fine grained access control list for resource |
 | **posix_mode**  | 0777 | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
-|--------------------|-------------------------|------------------------|
 
 
 ## Extended attributes
@@ -39,9 +37,9 @@ One restriction is that all keys, beginning with `x-onedata-` prefix, should be 
 All the attributes prefixed with `x-onedata-` are optional, however when publishing a data set certain of these keys will be required, depending on the selected registration service (e.g. DataCite, OpenAIRE, etc.).
 
 Table below contains current Onedata extended attributes and their purpose:
-|--------------------|--------------------|------------------------|
+
 | Extended attribute  | Sample value | Description |
-|--------------------|------------------------|
+| -------------------- | ------------------------ |
 | **x-onedata-doi**  | 10.572/test.txt | [DOI](https://www.doi.org/) identifier |
 | **x-onedata-pid**  | 10916/Hello_World | EPIC [PID](http://www.pidconsortium.eu/) identifier |
 | **x-onedata-license**  | CC-0 | License associated with the file, folder or space |
@@ -56,7 +54,7 @@ Table below contains current Onedata extended attributes and their purpose:
 | **x-onedata-bbox-north** | 10.12341 | Soth-most coordinate of the geospatial bounding box|
 | **x-onedata-geo-point** |  -10.123,10.123 | Geospatial coordinate related to the resource |
 | **x-onedata-woeid** |    502075 | Where On Earth IDentifier of the geospatial location |
-|--------------------|-------------------------|------------------------|
+
 
 ### Setting extended attributes
 
