@@ -49,6 +49,8 @@
           * [Show client IP address](doc/advanced/rest/onezone/operations/check_my_ip.md)
           * [Unregisters provider](doc/advanced/rest/onezone/operations/delete_provider.md)
         * [Space]()
+          * [Add space group](doc/advanced/rest/onezone/operations/add_space_group.md)
+          * [Add space user](doc/advanced/rest/onezone/operations/add_space_user.md)
           * [Create new space](doc/advanced/rest/onezone/operations/create_space.md)
           * [Create space invite token](doc/advanced/rest/onezone/operations/get_space_user_token.md)
           * [Create space invite token for group](doc/advanced/rest/onezone/operations/get_space_group_token.md)
