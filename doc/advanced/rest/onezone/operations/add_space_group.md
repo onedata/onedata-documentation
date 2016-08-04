@@ -1,15 +1,15 @@
 
-<a name="get_space_user"></a>
-#### Get space user details
+<a name="add_space_group"></a>
+#### Add space group
 ```
-GET /spaces/{id}/users/{uid}
+PUT /spaces/{id}/groups
 ```
 
 
 ##### Description
-Returns the public information about a specific user in a space.
+Allows to add a group to any space. 
 
-This operation requires `space_view_data` privilege.
+This operation requires `add_member_to_space` privilege.
 
 
 ##### Parameters
@@ -17,14 +17,21 @@ This operation requires `space_view_data` privilege.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Path**|**uid**  <br>*required*|User ID.|string|--|
+|**Body**|**groupId**  <br>*required*||[groupId](#add_space_group-groupid)|--|
+
+<a name="add_space_group-groupid"></a>
+**groupId**
+
+|Name|Description|Schema|
+|---|---|---|
+|**groupId**  <br>*optional*|ID of the group to add to space.|string|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a space user.|No Content|
+|**204**|The group was added to the space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -32,7 +39,7 @@ This operation requires `space_view_data` privilege.
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -42,7 +49,16 @@ This operation requires `space_view_data` privilege.
 ###### Request path
 ```
 json :
-"/spaces/string/users/string"
+"/spaces/string/groups"
+```
+
+
+###### Request body
+```
+json :
+{
+  "groupId" : "string"
+}
 ```
 
 

@@ -1,15 +1,15 @@
 
-<a name="get_space_user"></a>
-#### Get space user details
+<a name="add_space_user"></a>
+#### Add space user
 ```
-GET /spaces/{id}/users/{uid}
+PUT /spaces/{id}/users
 ```
 
 
 ##### Description
-Returns the public information about a specific user in a space.
+Allows to add a user to any space. 
 
-This operation requires `space_view_data` privilege.
+This operation requires `add_member_to_space` privilege.
 
 
 ##### Parameters
@@ -17,14 +17,21 @@ This operation requires `space_view_data` privilege.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Path**|**uid**  <br>*required*|User ID.|string|--|
+|**Body**|**userId**  <br>*required*||[userId](#add_space_user-userid)|--|
+
+<a name="add_space_user-userid"></a>
+**userId**
+
+|Name|Description|Schema|
+|---|---|---|
+|**userId**  <br>*optional*|ID of the user to add to space.|string|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a space user.|No Content|
+|**204**|The user was added to the space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -32,7 +39,7 @@ This operation requires `space_view_data` privilege.
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -42,7 +49,16 @@ This operation requires `space_view_data` privilege.
 ###### Request path
 ```
 json :
-"/spaces/string/users/string"
+"/spaces/string/users"
+```
+
+
+###### Request body
+```
+json :
+{
+  "userId" : "string"
+}
 ```
 
 
