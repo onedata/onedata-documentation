@@ -7,9 +7,10 @@ GET /user/client_token
 
 
 ##### Description
-Creates a user authorization token that can be used in `oneclient` command line or via REST API.
+Creates a user access token that can be used in `oneclient` command 
+line tool or via REST API.
 
-This operation can be invoked on behalf of current user only.
+This operation can be invoked on behalf of currently authenticated user only.
 
 
 ##### Responses
