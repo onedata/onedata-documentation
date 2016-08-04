@@ -81,8 +81,7 @@ curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 
 **List all extended attributes using REST API**
 ```bash
-curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
--H 'Content-type: application/json' -d '{ "name": "x-onedata-creators", "value": "[{\"firstName\": \"John\", \"lastName\": \"Doe\"}, {\"firstName\": \"Jane\", \"lastName\": \"Doe\"}]}'
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
