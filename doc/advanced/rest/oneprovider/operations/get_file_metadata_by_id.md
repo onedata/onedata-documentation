@@ -47,6 +47,7 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd96
 |**Path**|**id**  <br>*required*|File or folder path or space ID|string|--|
 |**Query**|**filter**  <br>*optional*|The filter to apply to the metadata document before returning.|string|--|
 |**Query**|**filter_type**  <br>*optional*|The type of filter to apply to the metadata document.|string|--|
+|**Query**|**inherited**  <br>*optional*|When set to true, this operation will merge the metadata documents from  parent folders as well as entire space into a single JSON or RDF document.|boolean|--|
 |**Query**|**metadata_type**  <br>*optional*|Type of metadata backend (if not specified in `Accept` header)|enum (JSON, RDF)|--|
 
 
@@ -82,6 +83,7 @@ json :
 {
   "filter" : "string",
   "filter_type" : "string",
+  "inherited" : true,
   "metadata_type" : "string"
 }
 ```

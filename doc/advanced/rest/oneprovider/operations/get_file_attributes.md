@@ -14,6 +14,34 @@ By default the method returns regular file attributes.
 The exteded attributes are accessed by setting `extended` flag 
 in the request query to `true`.
 
+***Example cURL requests***
+
+**Get file POSIX mode**
+```bash
+curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode"
+
+[
+  { 
+    "name": "mode",
+    "value": "0777" 
+  }
+]
+```
+
+**Get extended file attributes**
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license"
+
+[
+  { 
+    "name": "license",
+    "value": "CC-0" 
+  }
+]
+```
+
 
 ##### Parameters
 
@@ -22,6 +50,7 @@ in the request query to `true`.
 |**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
 |**Query**|**attribute**  <br>*optional*|Type of attribute to query for.|enum (mode)|--|
 |**Query**|**extended**  <br>*optional*|Whether we want to access extended attributes or regular.|boolean|--|
+|**Query**|**inherited**  <br>*optional*|When set to true, this operation will return all non-masking attributes from parent folders as well as entire space attributes. When the same attribute is set on multiple levels, the lowest level attribute value will be returned (e.g. attribute set on file will have precedence over attribute set on folder).|boolean|--|
 
 
 ##### Responses
@@ -54,7 +83,8 @@ json :
 json :
 {
   "attribute" : "string",
-  "extended" : true
+  "extended" : true,
+  "inherited" : true
 }
 ```
 

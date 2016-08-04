@@ -45,6 +45,7 @@ https://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=ke
 |**Path**|**path**  <br>*required*|File or folder path or space name (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
 |**Query**|**filter**  <br>*optional*|The filter to apply to the metadata document before returning.|string|--|
 |**Query**|**filter_type**  <br>*optional*|The type of filter to apply to the metadata document.|string|--|
+|**Query**|**inherited**  <br>*optional*|When set to true, this operation will merge the metadata documents from  parent folders as well as entire space into a single JSON or RDF document.|boolean|--|
 |**Query**|**metadata_type**  <br>*optional*|Type of metadata backend (if not specified in `Accept` header)|enum (JSON, RDF)|--|
 
 
@@ -80,6 +81,7 @@ json :
 {
   "filter" : "string",
   "filter_type" : "string",
+  "inherited" : true,
   "metadata_type" : "string"
 }
 ```
