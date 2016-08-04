@@ -11,7 +11,7 @@ Metadata in Onedata are organized into 3 levels:
 
 The filesystem and extended level attributes are accessible directly via POSIX and CDMI protocols. 
 
-On a Unix operating system, the extended attributes can be accessed and manipulated for instance using the `xattr` command line tool ().
+On a Unix operating system, the extended attributes can be accessed and manipulated for instance using the `xattr` command line tool (https://en.wikipedia.org/wiki/Extended_file_attributes).
 
 ## Filesystem attributes
 
@@ -79,5 +79,19 @@ curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
+**List all extended attributes using REST API**
+```bash
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
+-H 'Content-type: application/json' -d '{ "name": "x-onedata-creators", "value": "[{\"firstName\": \"John\", \"lastName\": \"Doe\"}, {\"firstName\": \"Jane\", \"lastName\": \"Doe\"}]}'
+"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
+```
 
+
+## User metadata
+
+In addition to filesystem level and extended attributes, Onedata supports arbitrary metadata documents to be assigned to each resource, which are stored in separate metadata backends supported. Currently supported backends include:
+* JSON
+* RDF
+
+In each of these backends, user can store any properly formatted JSON or RDF documents which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md).
 
