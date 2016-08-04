@@ -12,7 +12,7 @@ Export of monitoring metrics for specific provider.
 **Example**
 ```
 {
-  "providerId" : "ASDASD-876786-LKJHASD-070-ASDAS",
+  "providerId" : "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
   "rrd" : {
     "about" : "RRDtool graph JSON output",
     "meta" : {
