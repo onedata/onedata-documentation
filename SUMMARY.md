@@ -14,6 +14,7 @@
    * [File Management](doc/using_onedata/file_management.md)
    * [Replication and Transfer Management](doc/using_onedata/replication_management.md)
    * [Space Collaboration](doc/using_onedata/space_collaboration.md)
+   * [Metadata](doc/using_onedata/metadata.md)
    * [Account Management](doc/using_onedata/account_management.md)
    * [Privilege Management](doc/using_onedata/privilege_management.md)
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
