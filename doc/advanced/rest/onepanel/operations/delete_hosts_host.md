@@ -1,5 +1,5 @@
 
-<a name="delete_host"></a>
+<a name="delete_hosts_host"></a>
 #### Remove cluster node
 ```
 DELETE /hosts/{host}

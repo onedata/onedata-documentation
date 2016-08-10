@@ -14,6 +14,7 @@
    * [File Management](doc/using_onedata/file_management.md)
    * [Replication and Transfer Management](doc/using_onedata/replication_management.md)
    * [Space Collaboration](doc/using_onedata/space_collaboration.md)
+   * [Metadata](doc/using_onedata/metadata.md)
    * [Account Management](doc/using_onedata/account_management.md)
    * [Privilege Management](doc/using_onedata/privilege_management.md)
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
@@ -35,6 +36,7 @@
      * [Creating Local Users](doc/administering_onedata/creating_user_accounts.md)
    * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
    * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
+   * [Local User MApping](doc/administering_onedata/luma.md)
    * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
 
 * [Advanced topics](doc/advanced/README.md)
@@ -55,11 +57,15 @@
 {% include "doc/advanced/rest/onepanel/DEFINITIONS_TOC.md" %}
       * [Operations](doc/advanced/rest/onepanel/paths.md)
 {% include "doc/advanced/rest/onepanel/PATHS_TOC.md" %}
+    * [LUMA](doc/advanced/rest/luma/overview.md)
+      * [Definitions](doc/advanced/rest/luma/definitions.md)
+{% include "doc/advanced/rest/luma/DEFINITIONS_TOC.md" %}
+      * [Paths](doc/advanced/rest/luma/paths.md)
+{% include "doc/advanced/rest/luma/PATHS_TOC.md" %}
     * [Examples](doc/advanced/rest/examples.md)
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
-  * [Local User MApping](doc/advanced/luma.md)
 
 
  <!-- * [Macaroons](doc/advanced/macaroons.md)

@@ -124,6 +124,8 @@ Finally, in order to gain access to specific parts of the Onezone service itself
 | list_spaces | Allow the user to list all spaces in the zone |
 | list_providers | Allow the user to list all providers registered in the zone |
 | list_providers_of_space | Allow the user to see all providers supporting specific space|
+| add_member_to_space | Allows to add any user or group to any space (typically for zone administrators) |
+| remove_member_from_space | Allows to remove any user or group from any space (typically for zone administrators) |
 
 Each of these privileges can be assigned to an individual user or a group of users. Example operations are presented below:
 
