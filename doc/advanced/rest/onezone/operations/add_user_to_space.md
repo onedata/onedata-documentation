@@ -1,6 +1,6 @@
 
-<a name="add_space_user"></a>
-#### Add space user
+<a name="add_user_to_space"></a>
+#### Add user to space
 ```
 PUT /spaces/{id}/users
 ```
@@ -9,7 +9,8 @@ PUT /spaces/{id}/users
 ##### Description
 Allows to add a user to any space. 
 
-This operation requires `add_member_to_space` privilege.
+This operation can be invoked by system administrators only
+and requires `add_member_to_space` privilege.
 
 
 ##### Parameters
@@ -17,9 +18,9 @@ This operation requires `add_member_to_space` privilege.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**userId**  <br>*required*||[userId](#add_space_user-userid)|--|
+|**Body**|**userId**  <br>*required*||[userId](#add_user_to_space-userid)|--|
 
-<a name="add_space_user-userid"></a>
+<a name="add_user_to_space-userid"></a>
 **userId**
 
 |Name|Description|Schema|

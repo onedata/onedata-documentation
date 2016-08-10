@@ -1,27 +1,17 @@
 
 <a name="delete_provider"></a>
-#### Unregisters provider
+#### Unregister provider
 ```
 DELETE /provider
 ```
 
 
 ##### Description
-Unregisters a Oneprovider from the nezone service.
+Allows Oneprovider service to unregister from Onezone.
 
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Body**|**data**  <br>*required*|Provider ID.|[data](#delete_provider-data)|--|
-
-<a name="delete_provider-data"></a>
-**data**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providerId**  <br>*optional*|The ID of the provider to unregister.|string|
+This operation allows a Oneprovider to unregister from a certain Onezone, i.e. it can only be invoked
+by Oneprovider which wants to unregister. It does't require any parameters, as the provider and is
+identified by the peer certificate used for this connection.
 
 
 ##### Responses
@@ -47,15 +37,6 @@ Unregisters a Oneprovider from the nezone service.
 ```
 json :
 "/provider"
-```
-
-
-###### Request body
-```
-json :
-{
-  "providerId" : "string"
-}
 ```
 
 
