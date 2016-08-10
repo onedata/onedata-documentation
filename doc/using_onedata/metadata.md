@@ -11,8 +11,6 @@ Metadata in Onedata are organized into 3 levels:
 
 The filesystem and extended level attributes are accessible directly via POSIX and CDMI protocols. 
 
-On a Unix operating system, the extended attributes can be accessed and manipulated for instance using the `xattr` command line tool (https://en.wikipedia.org/wiki/Extended_file_attributes).
-
 ## Filesystem attributes
 
 This section describes typical filesystem metadata attributes. The list of attributes at this level is closed (i.e. users cannot add new attributes) and most of them are read-only, which means their values cannot be directly modified (`cdmi_` attributes). Other attributes (currently only `posix_mode`) can be modified by the user using the REST API.
