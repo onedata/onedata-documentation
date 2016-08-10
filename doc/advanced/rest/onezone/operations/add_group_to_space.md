@@ -1,6 +1,6 @@
 
-<a name="add_space_group"></a>
-#### Add space group
+<a name="add_group_to_space"></a>
+#### Add group to space
 ```
 PUT /spaces/{id}/groups
 ```
@@ -9,7 +9,8 @@ PUT /spaces/{id}/groups
 ##### Description
 Allows to add a group to any space. 
 
-This operation requires `add_member_to_space` privilege.
+This operation can be invoked by system administrators only
+and requires `add_member_to_space` privilege.
 
 
 ##### Parameters
@@ -17,9 +18,9 @@ This operation requires `add_member_to_space` privilege.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**groupId**  <br>*required*||[groupId](#add_space_group-groupid)|--|
+|**Body**|**groupId**  <br>*required*||[groupId](#add_group_to_space-groupid)|--|
 
-<a name="add_space_group-groupid"></a>
+<a name="add_group_to_space-groupid"></a>
 **groupId**
 
 |Name|Description|Schema|
