@@ -75,7 +75,7 @@ version: '2.0'
 
 services:
   node1.onezone.onedata.example.com:
-    image: onedata/onezone:3.0.0-beta8
+    image: onedata/onezone:3.0.0-RC1
     hostname: node1.onezone.onedata.example.com
     volumes:
         - "/opt/onedata/onezone/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config"
