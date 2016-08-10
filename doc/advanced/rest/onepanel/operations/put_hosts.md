@@ -20,6 +20,14 @@ there are no admin users.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Query**|**clusterHost**  <br>*optional*|Hostname of an existing cluster node.|string|--|
+|**Body**|**cookie**  <br>*optional*||[cookie](#put_hosts-cookie)|--|
+
+<a name="put_hosts-cookie"></a>
+**cookie**
+
+|Name|Description|Schema|
+|---|---|---|
+|**cookie**  <br>*optional*|The cluster cookie.|string|
 
 
 ##### Responses
@@ -51,6 +59,15 @@ json :
 json :
 {
   "clusterHost" : "string"
+}
+```
+
+
+###### Request body
+```
+json :
+{
+  "cookie" : "string"
 }
 ```
 

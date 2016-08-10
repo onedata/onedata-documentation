@@ -50,6 +50,7 @@ curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 |**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
 |**Query**|**attribute**  <br>*optional*|Type of attribute to query for.|enum (mode)|--|
 |**Query**|**extended**  <br>*optional*|Whether we want to access extended attributes or regular.|boolean|--|
+|**Query**|**inherited**  <br>*optional*|When set to true, this operation will return all non-masking attributes from parent folders as well as entire space attributes. When the same attribute is set on multiple levels, the lowest level attribute value will be returned (e.g. attribute set on file will have precedence over attribute set on folder).|boolean|--|
 
 
 ##### Responses
@@ -82,7 +83,8 @@ json :
 json :
 {
   "attribute" : "string",
-  "extended" : true
+  "extended" : true,
+  "inherited" : true
 }
 ```
 

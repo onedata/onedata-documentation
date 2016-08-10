@@ -3,7 +3,7 @@
 
 <a name="overview"></a>
 ## Overview
-This is the RESTful API definition of **Onepanel** component of Onedata data management system [http://www.onedata.org].
+This is the RESTful API definition of **Onepanel** component of Onedata data management system (onedata.org)[http://www.onedata.org].
 
 > This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate
 > client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).
@@ -74,7 +74,7 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 
 
 ### Version information
-*Version* : 3.0.0-RC1
+*Version* : 3.0.0-RC2
 
 
 ### Contact information

@@ -9,9 +9,10 @@ Common Onepanel resources and operations
 
 |Path|Method|Description|
 |---|---|---|
+|[/cookie](operations/get_cookie.md)|GET|Get cluster cookie|
 |[/hosts](operations/get_hosts.md)|GET|Get cluster/discovered hosts|
 |[/hosts](operations/put_hosts.md)|PUT|Create or join cluster|
-|[/hosts/{host}](operations/delete_host.md)|DELETE|Remove cluster node|
+|[/hosts/{host}](operations/delete_hosts_host.md)|DELETE|Remove cluster node|
 |[/tasks/{id}](operations/get_tasks_id.md)|GET|Get task result|
 |[/users](operations/post_users.md)|POST|Create user|
 |[/users/{username}](operations/get_users_username.md)|GET|Get user details|

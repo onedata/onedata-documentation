@@ -92,7 +92,7 @@ curl -v --tlsv1.2 -H "macaroon: $TOKEN" -X GET \
 
 
 ### Version information
-*Version* : 3.0.0-RC1
+*Version* : 3.0.0-RC2
 
 
 ### Contact information

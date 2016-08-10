@@ -92,7 +92,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-RC1
+*Version* : 3.0.0-RC2
 
 
 ### Contact information
