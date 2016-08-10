@@ -2,9 +2,9 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "3.0.0-RC1",
+    "version": "3.0.0-RC2",
     "title": "Onepanel",
-    "description": "This is the RESTful API definition of **Onepanel** component of Onedata data management system [http://www.onedata.org].\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, started and stopped on \na specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. \n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, \nso complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone**\nor **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel \ninstance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific\nrequests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples \nBelow are some example requests to Onepanel using cURL:\n  \n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages \n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers \n```\n",
+    "description": "This is the RESTful API definition of **Onepanel** component of Onedata data management system (onedata.org)[http://www.onedata.org].\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, started and stopped on \na specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. \n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, \nso complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone**\nor **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel \ninstance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific\nrequests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples \nBelow are some example requests to Onepanel using cURL:\n  \n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages \n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers \n```\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -199,6 +199,36 @@
         ]
       }
     },
+    "/cookie": {
+      "get": {
+        "operationId": "get_cookie",
+        "summary": "Get cluster cookie",
+        "description": "Returns cookie of a cluster this host belongs to. The cookie is a character sequence that is common for all the cluster nodes.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel",
+        "x-onedata-resource": "cookie",
+        "tags": [
+          "Onepanel"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The cookie of a cluster this host belongs to.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
     "/hosts": {
       "get": {
         "operationId": "get_hosts",
@@ -287,13 +317,28 @@
             "description": "Hostname of an existing cluster node.",
             "type": "string",
             "required": false
+          },
+          {
+            "name": "cookie",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "The cookie is a character sequence that is common for all the cluster nodes. If this parameter is not provided, in case of a cluster initialization request, it will be generated, and in case of a cluster extension request the current cookie value will be used. However, if the cluster cookie and the cookie of the host that is about to join the cluster doesn't match there will be a connection error.\n",
+              "properties": {
+                "cookie": {
+                  "type": "string",
+                  "x-onedata-datatype": "atom",
+                  "description": "The cluster cookie."
+                }
+              }
+            }
           }
         ]
       }
     },
     "/hosts/{host}": {
       "delete": {
-        "operationId": "delete_host",
+        "operationId": "delete_hosts_host",
         "summary": "Remove cluster node",
         "description": "Removes a node from the administrative cluster.",
         "x-onedata-version": 3,
@@ -2424,7 +2469,8 @@
       "x-onedata-subclasses": [
         "posix",
         "s3",
-        "ceph"
+        "ceph",
+        "swift"
       ],
       "properties": {
         "type": {
@@ -2434,7 +2480,8 @@
           "enum": [
             "POSIX",
             "S3",
-            "CEPH"
+            "Ceph",
+            "Swift"
           ]
         }
       },
@@ -2452,6 +2499,7 @@
       }
     },
     "POSIX": {
+      "description": "The POSIX storage configuration.",
       "allOf": [
         {
           "$ref": "#/definitions/ClusterStorages"
@@ -2459,7 +2507,6 @@
         {
           "type": "object",
           "x-discriminator-value": "POSIX",
-          "description": "The POSIX storage configuration.",
           "properties": {
             "mountPoint": {
               "type": "string",
@@ -2477,6 +2524,7 @@
       }
     },
     "S3": {
+      "description": "The Simple Storage Service configuration.",
       "allOf": [
         {
           "$ref": "#/definitions/ClusterStorages"
@@ -2484,7 +2532,6 @@
         {
           "type": "object",
           "x-discriminator-value": "S3",
-          "description": "The Simple Storage Service configuration.",
           "properties": {
             "s3Hostname": {
               "type": "string",
@@ -2526,13 +2573,13 @@
       }
     },
     "Ceph": {
+      "description": "The Ceph storage configuration.",
       "allOf": [
         {
           "$ref": "#/definitions/ClusterStorages"
         },
         {
           "type": "object",
-          "description": "The Ceph storage configuration.",
           "x-discriminator-value": "CEPH",
           "properties": {
             "username": {
@@ -2572,6 +2619,55 @@
         "monitorHostname": "test.example.com",
         "clusterName": "CephCluster1",
         "poolName": "data"
+      }
+    },
+    "Swift": {
+      "description": "The OpenStack Swift configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterStorages"
+        },
+        {
+          "type": "object",
+          "x-discriminator-value": "SWIFT",
+          "properties": {
+            "authUrl": {
+              "type": "string",
+              "description": "The URL to OpenStack Keystone identity service."
+            },
+            "tenantName": {
+              "type": "string",
+              "description": "The name of the tenant to which the user belongs."
+            },
+            "containerName": {
+              "type": "string",
+              "description": "The name of the Swift storage container."
+            },
+            "username": {
+              "type": "string",
+              "description": "The Keystone authentication username."
+            },
+            "password": {
+              "type": "string",
+              "description": "The Keystone authentication password."
+            }
+          },
+          "required": [
+            "authUrl",
+            "tenantName",
+            "containerName",
+            "username",
+            "password"
+          ]
+        }
+      ],
+      "example": {
+        "type": "SWIFT",
+        "authUrl": "http://keystone2.example.com",
+        "tenantName": "Project1",
+        "containerName": "Container1",
+        "username": "user",
+        "password": "p@$$w0rd"
       }
     },
     "ZoneConfiguration": {
