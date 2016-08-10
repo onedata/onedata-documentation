@@ -4822,7 +4822,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:remove",
         "summary": "Unregister provider",
-        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a certain Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider and is\nidentified by the peer certificate used for this connection.\n",
+        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n",
         "consumes": [
           "application/json"
         ],
