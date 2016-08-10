@@ -74,7 +74,7 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 
 
 ### Version information
-*Version* : 3.0.0-RC1
+*Version* : 3.0.0-RC2
 
 
 ### Contact information
