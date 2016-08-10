@@ -9,7 +9,8 @@ DELETE /spaces/{id}/users/{uid}
 ##### Description
 Removes user from specific space.
 
-This operation requires `space_remove_user` privilege.
+This operation requires `space_remove_user` or 
+`remove_member_from_space` privilege.
 
 
 ##### Parameters

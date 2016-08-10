@@ -19,6 +19,7 @@
         * [ServiceStatusHost](doc/advanced/rest/onepanel/definitions/ServiceStatusHost.md)
         * [SpaceDetails](doc/advanced/rest/onepanel/definitions/SpaceDetails.md)
         * [SpaceSupportRequest](doc/advanced/rest/onepanel/definitions/SpaceSupportRequest.md)
+        * [Swift](doc/advanced/rest/onepanel/definitions/Swift.md)
         * [TaskStatus](doc/advanced/rest/onepanel/definitions/TaskStatus.md)
         * [UserCreateRequest](doc/advanced/rest/onepanel/definitions/UserCreateRequest.md)
         * [UserDetails](doc/advanced/rest/onepanel/definitions/UserDetails.md)

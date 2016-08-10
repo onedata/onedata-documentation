@@ -75,11 +75,11 @@ version: '2.0'
 
 services:
   node1.onezone.onedata.example.com:
-    image: onedata/onezone:3.0.0-beta8
+    image: onedata/onezone:3.0.0-RC2
     hostname: node1.onezone.onedata.example.com
     volumes:
-        - /opt/onedata/onezone/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config"
-        - /opt/onedata/onezone/ssl:/volumes/persistency"
+        - "/opt/onedata/onezone/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config"
+        - "/opt/onedata/onezone/ssl:/volumes/persistency"
         - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
       - "53:53"

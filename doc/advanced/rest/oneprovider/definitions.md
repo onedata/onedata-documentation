@@ -11,6 +11,7 @@
 |[FileMetadata](definitions/FileMetadata.md)|File or directory metadata.|
 |[FileMetadataChange](definitions/FileMetadataChange.md)|File metadata record|
 |[FileTransferStatus](definitions/FileTransferStatus.md)|File transfer status.|
+|[Index](definitions/Index.md)|The basic index information.|
 |[Metrics](definitions/Metrics.md)|Export of monitoring metrics for specific provider.|
 |[Provider](definitions/Provider.md)|Provider instance definitions.|
 |[RRD](definitions/RRD.md)|RRD database export.|

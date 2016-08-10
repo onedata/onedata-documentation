@@ -24,7 +24,7 @@ This operation requires `space_view_data` privilege.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a space user.|[User](../definitions/User.md#user)|
+|**200**|Information about a space user.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -47,25 +47,6 @@ json :
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
-  "name" : "Rudolf Lingens",
-  "connectedAccounts" : [ {
-    "accountId" : "ASD879ASD-7SADASFSsa0831",
-    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
-  }, {
-    "accountId" : "QWESsD-7SADASFSsa0831",
-    "providerId" : "7QWEJ-123ASD870-ASDASD"
-  } ],
-  "alias" : "John Doe",
-  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
-}
-```
-
 
 ###### Response 400
 ```

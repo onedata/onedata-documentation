@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onezone",
   "info": {
-    "version": "3.0.0-RC1",
+    "version": "3.0.0-RC2",
     "title": "Onezone",
     "description": "This is the RESTful API definition of Onezone component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onezone/swagger.json).\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups and providers.\n\n## Authentication and permissions\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nREST API operations from the permissions perspective in Onezone service can be divided into 2 groups,\ndepending on the actor making the request:\n * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which\n must include valid client access token, and authorization is made based on the privileges assigned\n to the user in the system. Each operation in this API that is available to end users, has a list of\n required privileges, except for the operations which are related to user account management, i.e.\n each user can perform any operation on his account, the `macaroon` header example:\n ```\n   macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\n * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,\n it must authenticate using the peer certificate which was assigned to this provider when registering\n in the Onezone service. In such case the `macaroon` header is not necessary.\n\nSome special operations are completely open and require no authentication:\n * `POST /user/authorize` - authorizes user with authentication token through\n Onezone web interface.This interface is called only by providers, \n * `POST /provider` - registers a Oneprovider in Onezone service \n (however a valid CSR in the body is required),\n * `POST /provider/test/check_my_ports` - checks if all given ports \n are reachable from Onezone,\n * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).\n\nThe provider specific operations include:\n * `ALL /provider` - all provider specific endpoints (except for the public access ones above),\n * `POST /spaces` - create new space,\n * `GET /space/{id}` - get specific space details,\n * `GET /spaces/{id}/users` - list space users.\n \nAll other operations can be invoked by a user assuming he has valid privileges in the system,\neach operation description lists required permissions, if any.\n\n## Effective users and effective groups\nOnedata supports creation of arbitrary nested group tree structures. In order to allow identification\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and \neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n**Space management**\nThe space management operations of this API provide means for accessing information about spaces \nand their management.\n\n**Group management**\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n**User management**\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n**Provider management**\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n**Privileges management**\nOnezone allows any user to have selected administration privileges for the Onezone service itself,\nenabling them to view and configure certain aspects of the system.\n\n## Examples\n\n**Generate new authentication token**\n```bash\ncurl -k -u bkryza:PaSSwoRd -X GET \\\nhttps://beta.onedata.org:8443/api/v3/onezone/user/client_token\n```\n\n**Get user details**\n```bash\ncurl -k https://beta.onedata.org:8443/api/v3/onezone/user \\\n-H 'macaroon:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'\n```\n",
     "contact": {
@@ -403,6 +403,79 @@
             "required": true
           }
         ]
+      },
+      "put": {
+        "operationId": "add_user_to_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "space_logic:add_user",
+        "summary": "Add user to space",
+        "description": "Allows to add a user to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "The user was added to the space."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "description": "ID of the user to add to space."
+                }
+              }
+            },
+            "required": true
+          }
+        ]
       }
     },
     "/spaces/{id}/users/token": {
@@ -486,10 +559,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Information about a space user.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
+            "description": "Information about a space user."
           },
           "400": {
             "description": "Invalid request.",
@@ -549,7 +619,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "space_logic:remove_user",
         "summary": "Remove user from space",
-        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` privilege.\n",
+        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or \n`remove_member_from_space` privilege.\n",
         "consumes": [
           "application/json"
         ],
@@ -814,6 +884,79 @@
             "required": true
           }
         ]
+      },
+      "put": {
+        "operationId": "add_group_to_space",
+        "tags": [
+          "Space"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "groups",
+        "x-onedata-method": "space_logic:add_group",
+        "summary": "Add group to space",
+        "description": "Allows to add a group to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "The group was added to the space."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "groupId",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "groupId": {
+                  "type": "string",
+                  "description": "ID of the group to add to space."
+                }
+              }
+            },
+            "required": true
+          }
+        ]
       }
     },
     "/spaces/{id}/groups/token": {
@@ -960,7 +1103,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "space_logic:remove_group",
         "summary": "Remove subgroup",
-        "description": "Removes a specific nested group.\n\nThis operation requires `space_remove_group` privilege.\n",
+        "description": "Removes a specific nested group.\n\nThis operation requires `space_remove_group` privilege or \n`remove_member_from_space` privilege.\n",
         "responses": {
           "200": {
             "description": "A space has been removed from group."
@@ -2462,7 +2605,7 @@
         "x-onedata-resource": "utoken",
         "x-onedata-method": "token_logic:create",
         "summary": "Create user authorization token",
-        "description": "Creates a user authorization token that can be used in `oneclient` command line or via REST API.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Creates a user access token that can be used in `oneclient` command \nline tool or via REST API.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n",
         "produces": [
           "application/json"
         ],
@@ -4678,8 +4821,8 @@
         "x-onedata-module": "provider",
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:remove",
-        "summary": "Unregisters provider",
-        "description": "Unregisters a Oneprovider from the nezone service.",
+        "summary": "Unregister provider",
+        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n",
         "consumes": [
           "application/json"
         ],
@@ -4717,24 +4860,7 @@
               "$ref": "#/definitions/Error"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "data",
-            "in": "body",
-            "description": "Provider ID.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "providerId": {
-                  "type": "string",
-                  "description": "The ID of the provider to unregister."
-                }
-              }
-            },
-            "required": true
-          }
-        ]
+        }
       }
     },
     "/provider/{pid}": {
