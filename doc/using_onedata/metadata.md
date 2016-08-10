@@ -7,7 +7,7 @@ Metadata in Onedata are organized into 3 levels:
 
 * **Filesystem attributes** - basic metadata related to file system operations such as file size, creation and modification timestamps, POSIX access rights, etc.,
 * **Extended attributes** - these attributes enable assigning custom key-value pairs with resources in Onedata. These attributes can include for instance information about owner and creators of the file, Access Control Lists, license, etc.,
-* **User metadata** - this level provides most flexibility and Onedata itself does not assume any schema related with these metadata. For each resource, user can assign a separate document in one of supported formats (currently JSON and RDF).
+* **User metadata** - this level provides most flexibility and Onedata itself does not assume any schema related with these metadata. For each resource, user can assign a separate document in one of supported metadata formats (currently JSON and RDF).
 
 The filesystem and extended level attributes are accessible directly via POSIX and CDMI protocols. 
 
@@ -32,43 +32,14 @@ This section describes typical filesystem metadata attributes. The list of attri
 ## Extended attributes
 
 In a general case, extended attributes are platform agnostic and users can choose whatever keys and values to be assigned for these level attributes.
-One restriction is that all keys, beginning with `x-onedata-` prefix, should be avoided as they are used by Onedata platform for special purposes, in particular for presentation in Graphical User Interface and Open Data publishing and management.
 
-All the attributes prefixed with `x-onedata-` are optional, however when publishing a data set certain of these keys will be required, depending on the selected registration service (e.g. DataCite, OpenAIRE, etc.).
 
-Table below contains current Onedata extended attributes and their purpose:
-
-| Extended attribute  | Sample value | Description |
-| -------------------- | ------------------------ |
-| **x-onedata-doi**  | 10.572/test.txt | [DOI](https://www.doi.org/) identifier |
-| **x-onedata-pid**  | 10916/Hello_World | EPIC [PID](http://www.pidconsortium.eu/) identifier |
-| **x-onedata-license**  | CC-0 | License associated with the file, folder or space |
-| **x-onedata-title**  | Image of Balaenoptera Acutorostrata  | User assigned title of resource |
-| **x-onedata-subtitle**  | Minke Whale | User assigned subtitle of resource |
-| **x-onedata-mimetype**  | application/xml+rdf | Mime-type of file |
-| **x-onedata-version**  | 3.1.1 | User defined version of the resource |
-| **x-onedata-creators**  | [{"firstName": "John", "lastName": "Doe", }]| JSON formatted list of creators which should be attributed with the resource |
-| **x-onedata-bbox-east**  | 10.12341 | East-most coordinate of the geospatial bounding box|
-| **x-onedata-bbox-west** | 10.12341 | West-most coordinate of the geospatial bounding box|
-| **x-onedata-bbox-south** | 10.12341 | Soth-most coordinate of the geospatial bounding box|
-| **x-onedata-bbox-north** | 10.12341 | Soth-most coordinate of the geospatial bounding box|
-| **x-onedata-geo-point** |  -10.123,10.123 | Geospatial coordinate related to the resource |
-| **x-onedata-woeid** |    502075 | Where On Earth IDentifier of the geospatial location |
+One restriction is that all keys, beginning with `onedata_` prefix, should be avoided as they are used by Onedata platform for special purposes, in particular for presentation in Graphical User Interface and Open Data publishing and management.
 
 
 ### Setting extended attributes
 
 Extended attributes can be modified either from the Graphical User Interface, from the command line as well as via the REST API. Below are some examples:
-
-**Set file mimetype from command line**
-```bash
-xattr -w x-onedata-mimetype "application/json" ./my_file.txt
-```
-
-**Remove WOEID from command line**
-```bash
-xattr -d x-onedata-mimetype "application/json" ./my_file.txt
-```
 
 **Set file creators list using REST API**
 ```bash
@@ -90,5 +61,5 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 * JSON
 * RDF
 
-In each of these backends, user can store any properly formatted JSON or RDF documents which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md).
+In each of these backends, user can store any properly formatted metadaate documents, which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md) or in the future in the Graphical User Interface.
 
