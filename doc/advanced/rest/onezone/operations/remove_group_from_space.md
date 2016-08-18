@@ -11,6 +11,14 @@ Removes the group {id} from space {sid} (the group will no longer have access to
 
 This operation requires `group_leave_space` privilege.
 
+***Example cURL requests***
+
+**Remove space from group**
+```bash
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE
+```
+
 
 ##### Parameters
 

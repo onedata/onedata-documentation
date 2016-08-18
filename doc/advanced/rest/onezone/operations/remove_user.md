@@ -9,6 +9,14 @@ DELETE /user
 ##### Description
 Removes the account of currently authenticated user.
 
+***Example cURL requests***
+
+**Remove user account**
+```bash
+curl -k -u username:password -X DELETE  \
+https://$HOST:8443/api/v3/onezone/user
+```
+
 
 ##### Responses
 
@@ -20,11 +28,6 @@ Removes the account of currently authenticated user.
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-
-##### Consumes
-
-* `application/json`
 
 
 ##### Example HTTP request

@@ -12,6 +12,15 @@ Returns the public information about a specific user in a space.
 This operation requires `space_view_data` privilege.
 
 
+***Example cURL requests***
+
+**Get space user data**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
+```
+
+
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|

@@ -12,6 +12,16 @@ add storage support for the space.
 
 This operation requires `space_add_provider` privilege.
 
+***Example cURL requests***
+
+**Get space support token**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/providers/token
+
+{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIHZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl"}
+```
+
 
 ##### Parameters
 

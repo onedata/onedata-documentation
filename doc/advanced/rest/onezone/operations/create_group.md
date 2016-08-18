@@ -11,6 +11,15 @@ Creates a new group.
 
 This operation does require any specific privileges.
 
+***Example cURL requests***
+
+**Create new group of type `role`**
+```bash
+ curl -k -u username:password  -H "Content-type: application/json" \
+ -X POST -d '{ "name":"new_group" , "type":"role" }' \
+ https://$HOST:8443/api/v3/onezone/groups/
+```
+
 
 ##### Parameters
 

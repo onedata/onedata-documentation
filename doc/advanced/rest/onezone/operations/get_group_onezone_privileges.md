@@ -11,6 +11,18 @@ Returns the list of group privileges for Onezone.
 
 This operation requires `view_privileges` privilege.
 
+***Example cURL requests***
+
+**Get groups privileges to Onezone service**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+
+{
+  "privileges": []
+}
+```
+
 
 ##### Parameters
 

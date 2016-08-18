@@ -11,6 +11,20 @@ Returns the public information about a user {uid} in group {id}.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Generate user group invite token**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
+
+{
+  "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
+  "login":"username",
+  "name":"admin"
+}
+```
+
 
 ##### Parameters
 

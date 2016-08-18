@@ -11,6 +11,14 @@ Removes a specific subgroup with {nid} from parent group with {id}.
 
 This operation requires `group_remove_group` privilege.
 
+***Example cURL requests***
+
+**Remove subgroup**
+```bash
+curl -k  -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/groups/KoiO-QKqmYZRjPVdtR30FrdIEA1JF9f3TznAr9BDjA4/nested/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50
+```
+
 
 ##### Parameters
 

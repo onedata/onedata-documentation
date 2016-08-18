@@ -11,6 +11,22 @@ Returns the list of user privileges in a specific group.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Get group users**
+```bash
+curl -k -u username:password -X GET 
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges
+
+{
+  "privileges": [
+    "group_change_data",
+    "group_create_space",
+    "group_create_space_token",
+    "group_invite_group"]
+}
+```
+
 
 ##### Parameters
 

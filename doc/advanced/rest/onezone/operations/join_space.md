@@ -11,6 +11,15 @@ Join existing space using inivitation token.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Join existing space**
+```bash
+curl -k -u admin:password  -H "Content-type: application/json" -X PUT \
+-d '{ "token" : "MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go" }'  \
+https://$HOST:8443/api/v3/onezone/user/spaces/default
+```
+
 
 ##### Parameters
 
