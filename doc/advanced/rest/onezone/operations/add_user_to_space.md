@@ -12,6 +12,15 @@ Allows to add a user to any space.
 This operation can be invoked by system administrators only
 and requires `add_member_to_space` privilege.
 
+***Example cURL requests***
+
+**Add user to space**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" \
+-X PUT -d '{ "userId" : "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0" }' \
+https://$HOST:8443/api/v3/onezone//spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users
+```
+
 
 ##### Parameters
 

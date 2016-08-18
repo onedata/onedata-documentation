@@ -2,14 +2,23 @@
 <a name="set_user_onezone_privileges"></a>
 #### Set user's Onezone privileges
 ```
-PUT /privileges/users/{id}
+PATCH /privileges/users/{id}
 ```
 
 
 ##### Description
-Sets privileges for a user {id} for Onezone.
+Modifies privileges for a user {id} for Onezone.
 
 This operation requires `set_privileges` privilege.
+
+***Example cURL requests***
+
+**Modifies users privileges to Onezone service**
+```bash
+curl -k -u username:password  -H "Content-type: application/json"  -X PUT \
+-d '{"privileges":["list_spaces"]}' \
+https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+```
 
 
 ##### Parameters

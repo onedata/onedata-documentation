@@ -9,6 +9,20 @@ GET /spaces/{id}/groups
 ##### Description
 Returns the list of groups belonging to a specific space.
 
+***Example cURL requests***
+
+**Get space groups**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups
+
+{
+  "groups": [
+    "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM",
+    "e3piG9yg9877lagR7aHayk73te9gAMXxQvjBycwvnaow"]
+}
+```
+
 
 ##### Parameters
 

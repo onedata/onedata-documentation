@@ -11,6 +11,15 @@ Modifies user account details based on information provided in the request body.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Change user name**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" -X PATCH  \
+-d '{"name": "new_name"}' \
+https://$HOST:8443/api/v3/onezone/user
+```
+
 
 ##### Parameters
 

@@ -11,6 +11,20 @@ Returns information about a specific nested group.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Get subgroup details**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+
+{
+  "groupId": "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM",
+  "name": "new_group1",
+  "type": "role"
+}
+```
+
 
 ##### Parameters
 

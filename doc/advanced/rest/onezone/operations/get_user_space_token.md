@@ -11,6 +11,16 @@ Creates an invitation token which allows other users to join the space.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Generate space join token**
+```bash
+curl -i -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/spaces/token
+
+{"token":"MDAxNmxvY2F00aW95SnhyNGo00VDR6dI3f02le6PM01IX8go"}
+```
+
 
 ##### Responses
 

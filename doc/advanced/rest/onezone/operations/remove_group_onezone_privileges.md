@@ -11,6 +11,14 @@ Removes all privileges for a group {id} to Onezone.
 
 This operation requires `set_privileges` privilege.
 
+***Example cURL requests***
+
+**Remove all groups privileges to Onezone service**
+```bash
+curl -i -k -u username:password  -X DELETE  \
+https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2
+```
+
 
 ##### Parameters
 

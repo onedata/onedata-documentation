@@ -11,6 +11,18 @@ Returns the list of nested group privileges in a specific group.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Get subgroup privileges in a group**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges    
+
+{
+  "privileges": ["group_view_data"]
+}
+```
+
 
 ##### Parameters
 

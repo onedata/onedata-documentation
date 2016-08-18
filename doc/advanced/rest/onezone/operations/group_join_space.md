@@ -11,6 +11,15 @@ Joins the group to an existing space based on provided space invitation token.
 
 This operation requires `group_join_space` privilege.
 
+***Example cURL requests***
+
+**Join group's space**
+```bash
+curl -k -u admin:password -H "Content-type: application/json" \
+-d '{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVuJ3l02U1JXzstRdK00ZHbso02rRcG8bJLAo"}' \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/join
+```
+
 
 ##### Parameters
 

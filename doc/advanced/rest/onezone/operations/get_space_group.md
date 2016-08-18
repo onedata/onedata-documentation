@@ -11,6 +11,20 @@ Returns details about a specific group in a space.
 
 This operation requires `space_view_data` privilege.
 
+***Example cURL requests***
+
+**Get space group details**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+
+{
+  "groupId": "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM",
+  "name": "new_groupX",
+  "type": "role"
+}
+```
+
 
 ##### Parameters
 

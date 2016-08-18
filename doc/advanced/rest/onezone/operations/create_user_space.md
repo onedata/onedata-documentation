@@ -1,6 +1,6 @@
 
 <a name="create_user_space"></a>
-#### Create a new space
+#### Create new user space
 ```
 POST /user/spaces
 ```
@@ -11,6 +11,15 @@ Creates a new space as current user. The user automaticaly becomes
 the spaces' member.
 
 This operation can be invoked on behalf of current user only.
+
+***Example cURL requests***
+
+**Create new user space**
+```bash
+curl -k -u admin:password  -H "Content-type: application/json" -X POST \
+-d '{ "name" : "test_space" , "token" : "JKAxNWxUgPCAxNDk2MTQwMTQ0v38YI0Z2",  "size" : "150" }'  
+https://$HOST:8443/api/v3/onezone/user/spaces
+```
 
 
 ##### Parameters

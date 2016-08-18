@@ -11,6 +11,17 @@ Creates a token allowing to add a group to a specific space.
 
 This operation requires `space_invite_group` privilege.
 
+***Example cURL requests***
+
+**Create space invitation token for group**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups/token
+
+
+{"token":"MDAxNmxvY0cGUgKWsjcpnrLE00RtOd2F00cGUgKWsjcpnrLE00RtOdhmnQycSICwMsugo"}
+```
+
 
 ##### Parameters
 

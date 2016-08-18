@@ -11,6 +11,16 @@ Creates a token allowing new user to join the group.
 
 This operation requires `group_invite_user` privilege.
 
+***Example cURL requests***
+
+**Generate user group invite token**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/token
+
+{"token":"MDAxNmxvY2F00aW9uIHJlZlFTUbnZpdGVthHo8xmai4RqqBO2MZM00mrYGgo"}
+```
+
 
 ##### Parameters
 

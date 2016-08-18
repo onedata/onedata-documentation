@@ -11,6 +11,15 @@ Adds specific privileges for a user in a space.
 
 This operation requires `space_set_privileges` privilege.
 
+***Example cURL requests***
+
+**Set user privileges to space**
+```bash
+curl -i -k -u admin:password -X PUT \
+-d '{"privileges":["space_add_provider","space_change_data"]}' \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges
+```
+
 
 ##### Parameters
 

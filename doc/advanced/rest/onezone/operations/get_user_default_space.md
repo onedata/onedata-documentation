@@ -11,6 +11,18 @@ Returns the ID of the default users space.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Get user default space**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/spaces/default
+
+{
+  "spaceId": "undefined"
+}
+```
+
 
 ##### Responses
 
