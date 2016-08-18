@@ -27,7 +27,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:list_spaces",
         "summary": "List all spaces",
-        "description": "Returns the list of all spaces managed by the Onezone service.\n\nThis operation requires `list_spaces` privilege.\n",
+        "description": "Returns the list of all spaces managed by the Onezone service.\n\nThis operation requires `list_spaces` privilege.\n\n***Example cURL requests***\n\n**List all spaces**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces\n\n{\n  \"spaces\": [\"S0Y9FSe9TFJFFzzLtBEs8\",\"IkHBv8CoAFmbFU4fj26\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -83,7 +83,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "space_logic:create",
         "summary": "Create new space",
-        "description": "When called by a regular user, creates a new space and creates the current user its owner.\n\nWhen called by a provider, creates a new spaces and automatically adds support for it, \nbased on the token provided in the request body.\n\nThis operation does not require any specific privileges.\n",
+        "description": "When called by a regular user, creates a new space and creates the current user its owner.\n\nWhen called by a provider, creates a new space and automatically adds support for it, \nbased on the token provided in the request body.\n\nThis operation does not require any specific privileges.\n\n***Example cURL requests***\n\n**Create new space**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_space\" }' \\\nhttps://$HOST:8443/api/v3/onezone/spaces\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -161,7 +161,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get space details",
-        "description": "Returns the details about a specific space.\n\nIf called by user who is not member of the space, requires 'list_spaces' privilege.\n",
+        "description": "Returns the details about a specific space.\n\nIf called by user who is not member of the space, requires 'list_spaces' privilege.\n\n***Example cURL requests***\n\n**Get space details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\n\n{\n  \"spaceId\": \"803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\",\n  \"name\": \"new_space1\",\n  \"canonicalName\": \"new_space1\",\n  \"providersSupports\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -223,7 +223,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:modify",
         "summary": "Modify space details",
-        "description": "Updates the details about a space.",
+        "description": "Updates the details about a space.\n\n***Example cURL requests***\n\n**Change space name**\n```bash\ncurl -k -u username:password -H \"Content-type: application/json\" \\\n-X PATCH -d '{\"name\": \"new_space12\"}' \\\nhttps://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -291,7 +291,7 @@
         "x-onedata-resource": "space",
         "x-onedata-method": "space_logic:remove_space",
         "summary": "Remove space",
-        "description": "Removes a specific space.",
+        "description": "Removes a specific space.\n\n***Example cURL requests***\n\n**Remove space**\n```bash\ncurl -k -u admin:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\n```\n",
         "responses": {
           "200": {
             "description": "The space has been removed successfully."
@@ -349,7 +349,7 @@
         "x-onedata-resource": "users",
         "x-onedata-method": "space_logic:get_users",
         "summary": "Get space users",
-        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view_data` privilege.\n\n***Example cURL requests***\n\n**Get space provider details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users\n\n{\n  \"users\": [\"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -414,7 +414,7 @@
         "x-onedata-resource": "users",
         "x-onedata-method": "space_logic:add_user",
         "summary": "Add user to space",
-        "description": "Allows to add a user to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n",
+        "description": "Allows to add a user to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" \\\n-X PUT -d '{ \"userId\" : \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\" }' \\\nhttps://$HOST:8443/api/v3/onezone//spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -489,7 +489,7 @@
         "x-onedata-resource": "uinvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invite token",
-        "description": "Creates a token allowing new user to join a space.\n\nThis operation requires `space_invite_user` privilege.\n",
+        "description": "Creates a token allowing new user to join a space.\n\nThis operation requires `space_invite_user` privilege.\n\n***Example cURL requests***\n\n**Create space invite token**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/token\n\n{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIG00zcEJ2UDVuOHhkQUNhdk9hbTlyNnIwNldPSzVhc\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -553,7 +553,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "space_logic:get_user",
         "summary": "Get space user details",
-        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view_data` privilege.\n\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n```\n",
         "produces": [
           "application/json"
         ],
@@ -619,7 +619,7 @@
         "x-onedata-resource": "user",
         "x-onedata-method": "space_logic:remove_user",
         "summary": "Remove user from space",
-        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or \n`remove_member_from_space` privilege.\n",
+        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or \n`remove_member_from_space` privilege.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -k  -u admin:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/spaces/p-mts_OBjwXss-E9kBxzp-ux12KNW2CBSaXlkDowDEk/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -687,7 +687,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:get_privileges",
         "summary": "Get user privileges to space",
-        "description": "Returns privileges of a user belonging to the space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "description": "Returns privileges of a user belonging to the space.\n\nThis operation requires `space_view_data` privilege.\n\n***Example cURL requests***\n\n**Get user privileges to space**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges\n\n{\n  \"privileges\": [\n    \"space_add_provider\",\n    \"space_change_data\",\n    \"space_invite_group\"\n    ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -756,7 +756,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:set_privileges",
         "summary": "Set user privileges to space",
-        "description": "Adds specific privileges for a user in a space.\n\nThis operation requires `space_set_privileges` privilege.\n",
+        "description": "Adds specific privileges for a user in a space.\n\nThis operation requires `space_set_privileges` privilege.\n\n***Example cURL requests***\n\n**Set user privileges to space**\n```bash\ncurl -i -k -u admin:password -X PUT \\\n-d '{\"privileges\":[\"space_add_provider\",\"space_change_data\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges\n```\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -830,7 +830,7 @@
         "x-onedata-resource": "groups",
         "x-onedata-method": "space_logic:get_groups",
         "summary": "Get space groups",
-        "description": "Returns the list of groups belonging to a specific space.",
+        "description": "Returns the list of groups belonging to a specific space.\n\n***Example cURL requests***\n\n**Get space groups**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups\n\n{\n  \"groups\": [\n    \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n    \"e3piG9yg9877lagR7aHayk73te9gAMXxQvjBycwvnaow\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -895,7 +895,7 @@
         "x-onedata-resource": "groups",
         "x-onedata-method": "space_logic:add_group",
         "summary": "Add group to space",
-        "description": "Allows to add a group to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n",
+        "description": "Allows to add a group to any space. \n\nThis operation can be invoked by system administrators only\nand requires `add_member_to_space` privilege.\n\n***Example cURL requests***\n\n**Add group to space**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\"\\\n -X PUT -d '{\"groupId\" : \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\"}' \\\n https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -970,7 +970,7 @@
         "x-onedata-resource": "ginvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invite token for group",
-        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n",
+        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n\n***Example cURL requests***\n\n**Create space invitation token for group**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups/token\n\n\n{\"token\":\"MDAxNmxvY0cGUgKWsjcpnrLE00RtOd2F00cGUgKWsjcpnrLE00RtOdhmnQycSICwMsugo\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1034,7 +1034,7 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "space_logic:get_group",
         "summary": "Get group details",
-        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view_data` privilege.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_groupX\",\n  \"type\": \"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1102,8 +1102,8 @@
         "x-onedata-module": "spaces",
         "x-onedata-resource": "group",
         "x-onedata-method": "space_logic:remove_group",
-        "summary": "Remove subgroup",
-        "description": "Removes a specific nested group.\n\nThis operation requires `space_remove_group` privilege or \n`remove_member_from_space` privilege.\n",
+        "summary": "Remove group from space",
+        "description": "Removes a specific group from space.\n\nThis operation requires `space_remove_group` privilege or \n`remove_member_from_space` privilege.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8\n```\n",
         "responses": {
           "200": {
             "description": "A space has been removed from group."
@@ -1168,7 +1168,7 @@
         "x-onedata-resource": "gpriv",
         "x-onedata-method": "space_logic:get_privileges",
         "summary": "Get group privileges to space",
-        "description": "Returns privileges for a group to a specific space.\n\nThis operation requires `space_view_data` privilege.\n",
+        "description": "Returns privileges for a group to a specific space.\n\nThis operation requires `space_view_data` privilege.\n\n***Example cURL requests***\n\n**Get space group privileges**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges\n\n{\n  \"privileges\": [\"space_view_data\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1237,7 +1237,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "space_logic:set_privileges",
         "summary": "Set group privileges to space",
-        "description": "Sets new privileges for a group to a specific space.\n\nThis operation requires `space_set_privileges` privilege.\n",
+        "description": "Sets new privileges for a group to a specific space.\n\nThis operation requires `space_set_privileges` privilege.\n\n***Example cURL requests***\n\n**Set space group privileges**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" \\\n-X PUT -d '{\"privileges\": [\"space_change_data\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges\n```\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."
@@ -1310,7 +1310,7 @@
         "x-onedata-resource": "providers",
         "x-onedata-method": "space_logic:get_providers",
         "summary": "Get space providers",
-        "description": "Returns the list of providers supporting specific space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
+        "description": "Returns the list of providers supporting specific space.\n\nThis operation requires `list_providers_of_space` privilege.\n\n***Example cURL requests***\n\n**Get space support token**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/providers\n\n{\n  \"providers\": [\"MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1377,7 +1377,7 @@
         "x-onedata-resource": "pinvite",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space support token",
-        "description": "Creates a token which can be submitted to a selected provider in order to \nadd storage support for the space.\n\nThis operation requires `space_add_provider` privilege.\n",
+        "description": "Creates a token which can be submitted to a selected provider in order to \nadd storage support for the space.\n\nThis operation requires `space_add_provider` privilege.\n\n***Example cURL requests***\n\n**Get space support token**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/providers/token\n\n{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIHZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1441,7 +1441,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "space_logic:get_provider",
         "summary": "Get space provider details",
-        "description": "Returns details about a specific provider supporting the space.\n\nThis operation requires `list_providers_of_space` privilege.\n",
+        "description": "Returns details about a specific provider supporting the space.\n\nThis operation requires `list_providers_of_space` privilege.\n\n***Example cURL requests***\n\n**Get space provider details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8/providers/H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\n\n{\n  \"clientName\": \"example\",\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\",\n  \"urls\": [\"195.216.97.151\"],\n  \"redirectionPoint\": \"https://195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\":19.909444\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1510,7 +1510,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "space_logic:remove_provider",
         "summary": "Remove space support",
-        "description": "Removes support from provider for a specific space.\n\nThis operation requires `space_remove_provider` privilege.\n",
+        "description": "Removes support from provider for a specific space.\n\nThis operation requires `space_remove_provider` privilege.\n\n***Example cURL requests***\n\n**Remove space support**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8/providers/H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\n```\n",
         "responses": {
           "200": {
             "description": "A space is no longer supported by this provider."
@@ -1574,7 +1574,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_data",
         "summary": "Get user details",
-        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\",\n  \"connectedAccounts\": [],\n  \"alias\": \"\",\n  \"emailList\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1620,7 +1620,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:modify",
         "summary": "Modify user",
-        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Change user name**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"name\": \"new_name\"}' \\\nhttps://$HOST:8443/api/v3/onezone/user\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1680,10 +1680,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:remove",
         "summary": "Remove user",
-        "description": "Removes the account of currently authenticated user.",
-        "consumes": [
-          "application/json"
-        ],
+        "description": "Removes the account of currently authenticated user.\n\n***Example cURL requests***\n\n**Remove user account**\n```bash\ncurl -k -u username:password -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/user\n```\n",
         "responses": {
           "200": {
             "description": "User removed successfully.",
@@ -1798,8 +1795,8 @@
         "x-onedata-service": "onezone",
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_spaces",
-        "summary": "Get list of spaces",
-        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "summary": "Get user spaces",
+        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user spaces**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces\n\n{\n  \"spaces\": [\"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"],\n  \"default\": \"undefined\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1863,8 +1860,8 @@
         "x-onedata-service": "onezone",
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:create",
-        "summary": "Create a new space",
-        "description": "Creates a new space as current user. The user automaticaly becomes \nthe spaces' member.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "summary": "Create new user space",
+        "description": "Creates a new space as current user. The user automaticaly becomes \nthe spaces' member.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Create new user space**\n```bash\ncurl -k -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"name\" : \"test_space\" , \"token\" : \"JKAxNWxUgPCAxNDk2MTQwMTQ0v38YI0Z2\",  \"size\" : \"150\" }'  \nhttps://$HOST:8443/api/v3/onezone/user/spaces\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1932,7 +1929,7 @@
         "x-onedata-module": "spaces",
         "x-onedata-method": "user_logic:get_default_space",
         "summary": "Get default space",
-        "description": "Returns the ID of the default users space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Returns the ID of the default users space.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user default space**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/default\n\n{\n  \"spaceId\": \"undefined\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1984,7 +1981,7 @@
         "x-onedata-module": "spaces",
         "x-onedata-method": "user_logic:set_default_space",
         "summary": "Set default space",
-        "description": "Sets default space for current user.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Sets default space for current user.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Set user default space**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{ \"spaceId\" : \"S0Y9FSeSrVTXCTmCpgqfH4-_Dw3Uc9TFJFFzzLtBEs8\" }' \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/default\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2049,7 +2046,7 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:join",
         "summary": "Join space",
-        "description": "Join existing space using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Join existing space using inivitation token.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Join existing space**\n```bash\ncurl -k -u admin:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/default\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2117,7 +2114,7 @@
         "x-onedata-module": "token",
         "x-onedata-method": "token_logic:create",
         "summary": "Create space invitation token",
-        "description": "Creates an invitation token which allows other users to join the space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Creates an invitation token which allows other users to join the space.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Generate space join token**\n```bash\ncurl -i -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/token\n\n{\"token\":\"MDAxNmxvY2F00aW95SnhyNGo00VDR6dI3f02le6PM01IX8go\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2171,7 +2168,7 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:get_data",
         "summary": "Get space details",
-        "description": "Returns the details of a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Returns the details of a specific space.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Generate space join token**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/IkHB1CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p00Y8\n\n{\n\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2232,7 +2229,7 @@
         "x-onedata-module": "space",
         "x-onedata-method": "space_logic:remove_user",
         "summary": "Leave space",
-        "description": "Removes the users ownership or membership in a specific space.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Removes the users ownership or membership in a specific space.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Delete user space**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/user/spaces/PMPs42mROSS7Rg7z7BwU9JYpSof4SvIW5v14uQY8X08\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2292,7 +2289,7 @@
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_groups",
         "summary": "Get user groups",
-        "description": "Returns the list of user's groups.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Returns the list of user's groups.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user groups**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/groups\n\n{\n  \"groups\": [\"admins\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2347,7 +2344,7 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:create",
         "summary": "Create new group",
-        "description": "Creates a new group for the current user. \nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Creates a new group for the current user. \nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"admin\" }' \\\nhttps://$HOST:8443/api/v3/onezone/user/groups\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2483,7 +2480,7 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:get_data",
         "summary": "Get group details",
-        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user groups**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/groups/admins\n\n{\n  \"groupId\": \"admins\",\n  \"name\": \"admins\",\n  \"type\": \"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2544,7 +2541,7 @@
         "x-onedata-module": "group",
         "x-onedata-method": "group_logic:remove_user",
         "summary": "Leave group",
-        "description": "Removes the current user from a specific group.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Removes the current user from a specific group.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Leave group**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/user/groups/qScCV0Tt3NiTLYbx_DGzJFnQxDYQNqNxk6o5YANWRo8\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2605,7 +2602,7 @@
         "x-onedata-resource": "utoken",
         "x-onedata-method": "token_logic:create",
         "summary": "Create user authorization token",
-        "description": "Creates a user access token that can be used in `oneclient` command \nline tool or via REST API.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n",
+        "description": "Creates a user access token that can be used in `oneclient` command \nline tool or via REST API.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_token\n\n{\n  \"token\": \"LKHKJASDkkajsdnKJASDkjasDJASDjkasACJNS2KJNAS\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2660,7 +2657,7 @@
         "x-onedata-resource": "groups",
         "x-onedata-method": "group_logic:create",
         "summary": "Create new group",
-        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n",
+        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n\n***Example cURL requests***\n\n**Create new group of type `role`**\n```bash\n curl -k -u username:password  -H \"Content-type: application/json\" \\\n -X POST -d '{ \"name\":\"new_group\" , \"type\":\"role\" }' \\\n https://$HOST:8443/api/v3/onezone/groups/\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2732,7 +2729,7 @@
           "group_view_data"
         ],
         "summary": "Get group details",
-        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2797,7 +2794,7 @@
           "group_change_data"
         ],
         "summary": "Modify group details",
-        "description": "Updates the details about a group.\n\nThis operation requires `group_change_data` privilege.\n",
+        "description": "Updates the details about a group.\n\nThis operation requires `group_change_data` privilege.\n\n***Example cURL requests***\n\n**Modify group name**\n```bash\ncurl -i -k -u admin:password  -H \"Content-type: application/json\" \\\n-X PATCH -d '{\"name\": \"new_group_name\"}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEqsj4q253sptVqF8   \n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2868,7 +2865,7 @@
           "group_remove"
         ],
         "summary": "Remove group",
-        "description": "Removes a specific group.\n\nThis operation requires `group_remove` privilege.\n",
+        "description": "Removes a specific group.\n\nThis operation requires `group_remove` privilege.\n\n***Example cURL requests***\n\n**Remove group**\n```bash\ncurl -k -u admin:password -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/user/groups/LT88rteQ4KMSYXMWO0Oibiqn7X5nUD51NTsCqgDN8e4\n```\n",
         "responses": {
           "202": {
             "description": "The group will be removed."
@@ -2929,7 +2926,7 @@
           "group_view_data"
         ],
         "summary": "Get effective group users",
-        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n***Example cURL requests***\n**Get effective group users** ```bash curl -k -u username:password -X GET \\ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_users\n\n{\n  \"users\":  [\"lb0NvUXIVguzjQ3dBOXAyd1c11fWKB5dKJDQ6YvB7a0\"]\n} ```\n",
         "produces": [
           "application/json"
         ],
@@ -2999,7 +2996,7 @@
           "group_view_data"
         ],
         "summary": "Get group user details",
-        "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5d2JDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"administrator\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3073,7 +3070,7 @@
           "group_view_data"
         ],
         "summary": "Get user group privileges",
-        "description": "Returns the user privileges in a group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the user privileges in a group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -i -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges\n\n{\"privileges\": [\n  \"group_change_data\",\n  \"group_create_space\",\n  \"group_create_space_token\",\n  \"group_invite_group\",\n  \"group_invite_user\",\n  \"group_join_group\",\n  \"group_join_space\",\n  \"group_leave_space\",\n  \"group_remove\",\n  \"group_remove_group\",\n  \"group_remove_user\",\n  \"group_set_privileges\",\n  \"group_view_data\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3147,7 +3144,7 @@
           "group_view_data"
         ],
         "summary": "Get group users",
-        "description": "Returns the list of users belonging to a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of users belonging to a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group users**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users\n\n{\n  \"users\": [\"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3217,7 +3214,7 @@
           "group_invite_user"
         ],
         "summary": "Create user invite token for group",
-        "description": "Creates a token allowing new user to join the group.\n\nThis operation requires `group_invite_user` privilege.\n",
+        "description": "Creates a token allowing new user to join the group.\n\nThis operation requires `group_invite_user` privilege.\n\n***Example cURL requests***\n\n**Generate user group invite token**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/token\n\n{\"token\":\"MDAxNmxvY2F00aW9uIHJlZlFTUbnZpdGVthHo8xmai4RqqBO2MZM00mrYGgo\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3284,7 +3281,7 @@
           "group_view_data"
         ],
         "summary": "Get group user details",
-        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Generate user group invite token**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\":\"username\",\n  \"name\":\"admin\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3356,7 +3353,7 @@
           "group_remove_user"
         ],
         "summary": "Remove user from group",
-        "description": "Removes the user {uid} from a group {id} (the user will no longer have access \nto spaces accessible to the group).\n\nThis operation requires `group_remove_user` privilege.\n",
+        "description": "Removes the user {uid} from a group {id} (the user will no longer have access \nto spaces accessible to the group).\n\nThis operation requires `group_remove_user` privilege.\n\n***Example cURL requests***\n\n**Remove user from group**\n```bash\ncurl -k  -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/groups/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -3427,7 +3424,7 @@
           "group_view_data"
         ],
         "summary": "Get user's group privileges",
-        "description": "Returns the list of user privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of user privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group users**\n```bash\ncurl -k -u username:password -X GET \nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges\n\n{\n  \"privileges\": [\n    \"group_change_data\",\n    \"group_create_space\",\n    \"group_create_space_token\",\n    \"group_invite_group\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3575,7 +3572,7 @@
           "group_view_data"
         ],
         "summary": "Get parent groups",
-        "description": "Returns the parent groups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the parent groups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get parent groups**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/parent\n\n{\n  \"parent_groups\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3645,7 +3642,7 @@
           "group_view_data"
         ],
         "summary": "Get parent group details",
-        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get parent group details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parent/9OqgExw00RwaU2MXT51\n\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3719,7 +3716,7 @@
           "group_view_data"
         ],
         "summary": "Get subgroups",
-        "description": "Returns the list of subgroups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of subgroups of a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get subgroups**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested\n\n{\n  \"nested_groups\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3789,7 +3786,7 @@
           "group_invite_group"
         ],
         "summary": "Create subgroup invitation token",
-        "description": "Creates a token that can be used to add a group as subgroup of group with {id}.\n\nThis operation requires `group_invite_group` privilege.\n",
+        "description": "Creates a token that can be used to add a group as subgroup of group with {id}.\n\nThis operation requires `group_invite_group` privilege.\n\n***Example cURL requests***\n\n**Create invitation token for subgroup**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVq\n\n{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDdrenY00SXM5dEFGYVRNQXFlMUlPSXVGMFBoSkFKWHFieWRUc2l5TUUxX2sKMDAyZGNpZCB00b2tlblR5cGUgPSBncm91cF9pbnZpdGVfZ3JvdXBfdG9rZW4KMDAyZnNpZ25hdHVyZSCJAtwScxZNktP9EIS00vlM5ZB7QsXhjtRtjKWZfwEfs6wo\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3856,7 +3853,7 @@
           "group_join_group"
         ],
         "summary": "Add subgroup",
-        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n",
+        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n***Example cURL requests***\n**Add subgroup** ```bash curl -k  -u admin:password -H \"Content-type: application/json\" -X POST \\ -d  '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\"}'  \\ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o ```\n",
         "responses": {
           "201": {
             "description": "ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.\n",
@@ -3931,7 +3928,7 @@
           "group_view_data"
         ],
         "summary": "Get subgroup details",
-        "description": "Returns information about a specific nested group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns information about a specific nested group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get subgroup details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_group1\",\n  \"type\": \"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4003,7 +4000,7 @@
           "group_remove_group"
         ],
         "summary": "Remove subgroup.",
-        "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n",
+        "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n\n***Example cURL requests***\n\n**Remove subgroup**\n```bash\ncurl -k  -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/groups/KoiO-QKqmYZRjPVdtR30FrdIEA1JF9f3TznAr9BDjA4/nested/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50\n```\n",
         "responses": {
           "202": {
             "description": "A subgroup will be removed."
@@ -4071,7 +4068,7 @@
           "group_view_data"
         ],
         "summary": "Get subgroup privileges",
-        "description": "Returns the list of nested group privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of nested group privileges in a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get subgroup privileges in a group**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges    \n\n{\n  \"privileges\": [\"group_view_data\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4143,7 +4140,7 @@
           "group_set_privileges"
         ],
         "summary": "Set subgroup privileges.",
-        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n",
+        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n\n***Example cURL requests***\n\n**Get subgroup privileges in a group**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{\"privileges\": [\"group_view_data\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges\n```\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -4220,7 +4217,7 @@
           "group_view_data"
         ],
         "summary": "Get group's spaces",
-        "description": "Returns the list of spaces to which the group has access.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns the list of spaces to which the group has access.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group spaces**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4288,7 +4285,7 @@
           "group_set_privileges"
         ],
         "summary": "Creates new space for group",
-        "description": "Creates a new space on behalf of a specific group.\n\nThis operation requires `group_set_privileges` privilege.\n",
+        "description": "Creates a new space for of a specific group.\n\nThis operation requires `group_create_space` privilege.\n\n***Example cURL requests***\n\n**Create new space for group**\n```bash\ncurl -k -u admin:password  -H \"Content-type: application/json\" \\\n-X POST -d '{\"name\": \"new_space\"}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4334,6 +4331,22 @@
             "description": "Group ID.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "spaceName",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the new space."
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
           }
         ]
       }
@@ -4352,7 +4365,7 @@
           "group_join_space"
         ],
         "summary": "Join space by group",
-        "description": "Joins the group to an existing space based on provided space invitation token.\n\nThis operation requires `group_join_space` privilege.\n",
+        "description": "Joins the group to an existing space based on provided space invitation token.\n\nThis operation requires `group_join_space` privilege.\n\n***Example cURL requests***\n\n**Join group's space**\n```bash\ncurl -k -u admin:password -H \"Content-type: application/json\" \\\n-d '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVuJ3l02U1JXzstRdK00ZHbso02rRcG8bJLAo\"}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4430,7 +4443,7 @@
           "group_create_space_token"
         ],
         "summary": "Create space creation token for group",
-        "description": "Creates a token that can be given to selected provider, \nwhere it can be used to create a new space for the group and automatically support it.\n\nThis operation requires `group_create_space_token` privilege.\n",
+        "description": "Creates a token that can be given to selected provider, \nwhere it can be used to create a new space for the group and automatically support it.\n\nThis operation requires `group_create_space_token` privilege.\n\n***Example cURL requests***\n\n**Generate group space creation token**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/token\n\n{\"token\":\"MDAxNmxvY2F0VhdGVfdG9rZW4KMDAyZnNpZ25hdHVyZSAdVCkpV2L9A00S9Ky01TtJF1Lsne3EBUU9UAW1xOi8Iolwo\"}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4497,7 +4510,7 @@
           "group_view_data"
         ],
         "summary": "Get group's space details",
-        "description": "Returns information about a specific space to which the group belongs.\n\nThis operation requires `group_view_data` privilege.\n",
+        "description": "Returns information about a specific space to which the group belongs.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group's space details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE\n\n{\n  \"spaceId\": \"HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE\",\n  \"name\": \"a\",\n  \"canonicalName\": \"a\",\n  \"providersSupports\": []\n}    \n```\n",
         "produces": [
           "application/json"
         ],
@@ -4569,7 +4582,7 @@
           "group_leave_space"
         ],
         "summary": "Remove space from group",
-        "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).\n\nThis operation requires `group_leave_space` privilege.\n",
+        "description": "Removes the group {id} from space {sid} (the group will no longer have access to space).\n\nThis operation requires `group_leave_space` privilege.\n\n***Example cURL requests***\n\n**Remove space from group**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE\n```\n",
         "responses": {
           "202": {
             "description": "A groupwill be removed from the space."
@@ -5452,7 +5465,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:get_user_privileges",
         "summary": "Get user's Onezone privileges",
-        "description": "Returns the list of user privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
+        "description": "Returns the list of user privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n\n***Example cURL requests***\n\n**Get users privileges to Onezone service**\n```bash\ncurl -k -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w\n\n{\n  \"privileges\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5504,7 +5517,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "operationId": "set_user_onezone_privileges",
         "tags": [
           "Privileges"
@@ -5514,7 +5527,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:set_privileges",
         "summary": "Set user's Onezone privileges",
-        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "description": "Modifies privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n\n***Example cURL requests***\n\n**Modifies users privileges to Onezone service**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\"  -X PUT \\\n-d '{\"privileges\":[\"list_spaces\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w\n```\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -5578,7 +5591,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:remoev_privileges",
         "summary": "Remove user's Onezone privileges",
-        "description": "Removes all privileges for a user {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "description": "Removes all privileges for a user {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n\n***Example cURL requests***\n\n**Delete all user privileges to Onezone service**\n```bash\ncurl -k -u username:password  -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w\n```\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -5636,7 +5649,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:get_group_privileges",
         "summary": "Get group's Onezone privileges",
-        "description": "Returns the list of group privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n",
+        "description": "Returns the list of group privileges for Onezone.\n\nThis operation requires `view_privileges` privilege.\n\n***Example cURL requests***\n\n**Get groups privileges to Onezone service**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"privileges\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5688,7 +5701,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "operationId": "set_group_onezone_privileges",
         "tags": [
           "Privileges"
@@ -5698,7 +5711,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:set_privileges",
         "summary": "Set group's Onezone privileges",
-        "description": "Sets privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "description": "Modifies privileges for a user {id} for Onezone.\n\nThis operation requires `set_privileges` privilege.\n\n***Example cURL requests***\n\n**Set groups privileges to Onezone service**\n```bash\ncurl -k -H \"Content-type: application/json\"  -X PUT \\\n-d '{\"privileges\": [\"list_spaces\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n```\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."
@@ -5762,7 +5775,7 @@
         "x-onedata-resource": "upriv",
         "x-onedata-method": "onezone_logic:remove_privileges",
         "summary": "Remove group's Onezone privileges",
-        "description": "Removes all privileges for a group {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n",
+        "description": "Removes all privileges for a group {id} to Onezone.\n\nThis operation requires `set_privileges` privilege.\n\n***Example cURL requests***\n\n**Remove all groups privileges to Onezone service**\n```bash\ncurl -i -k -u username:password  -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2\n```\n",
         "responses": {
           "200": {
             "description": "The group privileges have been added."

@@ -11,6 +11,14 @@ Removes all privileges for a user {id} to Onezone.
 
 This operation requires `set_privileges` privilege.
 
+***Example cURL requests***
+
+**Delete all user privileges to Onezone service**
+```bash
+curl -k -u username:password  -X DELETE  \
+https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+```
+
 
 ##### Parameters
 

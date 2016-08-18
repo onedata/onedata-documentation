@@ -11,6 +11,18 @@ Returns privileges for a group to a specific space.
 
 This operation requires `space_view_data` privilege.
 
+***Example cURL requests***
+
+**Get space group privileges**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+
+{
+  "privileges": ["space_view_data"]
+}
+```
+
 
 ##### Parameters
 

@@ -11,6 +11,14 @@ Removes the current user from a specific group.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Leave group**
+```bash
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/user/groups/qScCV0Tt3NiTLYbx_DGzJFnQxDYQNqNxk6o5YANWRo8
+```
+
 
 ##### Parameters
 

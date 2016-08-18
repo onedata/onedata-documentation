@@ -11,6 +11,18 @@ Returns the list of user's groups.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Get user groups**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/groups
+
+{
+  "groups": ["admins"]
+}
+```
+
 
 ##### Responses
 

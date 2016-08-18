@@ -11,6 +11,18 @@ Returns the list of users belonging to a specific group.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Get group users**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users
+
+{
+  "users": ["lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0"]
+}
+```
+
 
 ##### Parameters
 

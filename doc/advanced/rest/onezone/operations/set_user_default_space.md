@@ -11,6 +11,15 @@ Sets default space for current user.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Set user default space**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" -X PUT \
+-d '{ "spaceId" : "S0Y9FSeSrVTXCTmCpgqfH4-_Dw3Uc9TFJFFzzLtBEs8" }' \
+https://$HOST:8443/api/v3/onezone/user/spaces/default
+```
+
 
 ##### Parameters
 

@@ -12,6 +12,15 @@ The user automatically becomes a member of this group.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Create new group**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" \
+-X POST -d '{ "name" : "test_group" , "type" : "admin" }' \
+https://$HOST:8443/api/v3/onezone/user/groups
+```
+
 
 ##### Parameters
 

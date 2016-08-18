@@ -11,6 +11,18 @@ Returns the list of subgroups of a specific group.
 
 This operation requires `group_view_data` privilege.
 
+***Example cURL requests***
+
+**Get subgroups**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested
+
+{
+  "nested_groups": []
+}
+```
+
 
 ##### Parameters
 

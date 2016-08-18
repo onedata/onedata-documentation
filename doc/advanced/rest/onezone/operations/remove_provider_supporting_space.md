@@ -11,6 +11,14 @@ Removes support from provider for a specific space.
 
 This operation requires `space_remove_provider` privilege.
 
+***Example cURL requests***
+
+**Remove space support**
+```bash
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8/providers/H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk
+```
+
 
 ##### Parameters
 

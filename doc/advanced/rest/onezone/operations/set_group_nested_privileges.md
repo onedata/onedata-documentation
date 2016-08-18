@@ -11,6 +11,15 @@ Sets privileges for a specific subgroup in a group.
 
 This operation requires `group_set_privileges` privilege.
 
+***Example cURL requests***
+
+**Get subgroup privileges in a group**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" -X PUT \
+-d '{"privileges": ["group_view_data"]}' \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+```
+
 
 ##### Parameters
 
