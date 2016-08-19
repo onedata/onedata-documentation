@@ -7,7 +7,17 @@ PATCH /provider
 
 
 ##### Description
-Updates information about Oneprovider.
+Updates information about the Oneprovider identified by the
+peer certificate used for the request.
+
+***Example cURL requests***
+
+**Update provider geo location**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X PATCH \
+-d '{"latitude":50.068968,"longitude":20.909444}'  \
+https://$HOST:8443/api/v3/onezone/provider
+```
 
 
 ##### Parameters

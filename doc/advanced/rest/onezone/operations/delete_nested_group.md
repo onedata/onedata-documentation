@@ -1,6 +1,6 @@
 
 <a name="delete_nested_group"></a>
-#### Remove subgroup.
+#### Remove subgroup
 ```
 DELETE /groups/{id}/nested/{nid}
 ```

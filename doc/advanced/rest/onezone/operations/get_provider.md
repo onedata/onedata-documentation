@@ -12,6 +12,23 @@ Returns information about the Oneprovider that performed the request
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Get information about provider**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem \
+https://$HOST:8443/api/v3/onezone/provider
+
+{
+  "clientName": "example",
+  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
+  "urls": ["195.216.97.151"],
+  "redirectionPoint": "https://195.216.97.151",
+  "latitude": 50.068968,
+  "longitude": 19.909444
+}
+```
+
 
 ##### Responses
 

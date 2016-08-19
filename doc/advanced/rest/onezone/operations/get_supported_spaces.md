@@ -11,6 +11,18 @@ Returns the list of spaces managed by the Oneprovider that performed the request
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Get spaces supported by provider**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+https://$HOST:8443/api/v3/onezone/provider/spaces
+
+{
+  "spaces":["ASDKJHKLAJSDHKjhAsdkjh68asdASDlk"]
+}
+```
+
 
 ##### Responses
 

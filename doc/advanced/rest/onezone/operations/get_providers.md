@@ -11,6 +11,18 @@ Returns the list of providers registered in the Onezone service.
 
 This operation requires `list_providers` privilege.
 
+***Example cURL requests***
+
+**Get list of providers**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+https://$HOST:8443/api/v3/onezone/providers
+
+{
+  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
+}
+```
+
 
 ##### Responses
 

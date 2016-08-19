@@ -7,10 +7,22 @@ POST /groups/{id}/nested/join
 
 
 ##### Description
-Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).
+Adds given group as a subgroup of a specific group based on provided token. 
+
+The parent group to which the group will be added is identified from the token 
+(the token is issued in the context of a group).
+
 This operation requires `group_join_group` privilege.
+
 ***Example cURL requests***
-**Add subgroup** ```bash curl -k  -u admin:password -H "Content-type: application/json" -X POST \ -d  '{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW"}'  \ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o ```
+
+**Add subgroup**
+
+```bash
+curl -k  -u admin:password -H "Content-type: application/json" -X POST \
+-d  '{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW"}'  \
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o
+```
 
 
 ##### Parameters
