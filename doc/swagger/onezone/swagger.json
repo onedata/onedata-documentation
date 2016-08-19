@@ -2926,7 +2926,7 @@
           "group_view_data"
         ],
         "summary": "Get effective group users",
-        "description": "Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.\nThis operation requires `group_view_data` privilege.\n***Example cURL requests***\n**Get effective group users** ```bash curl -k -u username:password -X GET \\ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_users\n\n{\n  \"users\":  [\"lb0NvUXIVguzjQ3dBOXAyd1c11fWKB5dKJDQ6YvB7a0\"]\n} ```\n",
+        "description": "Returns the list of effective group users, which includes both who directly belong to the group,\nas well as users who belong to the group indirectly through its parent groups.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get effective group users**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_users\n\n\n{\n  \"users\":  [\"lb0NvUXIVguzjQ3dBOXAyd1c11fWKB5dKJDQ6YvB7a0\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2995,8 +2995,8 @@
         "x-onedata-permissions": [
           "group_view_data"
         ],
-        "summary": "Get group user details",
-        "description": "Returns public information about a specific group user.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5d2JDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"administrator\"\n}\n```\n",
+        "summary": "Get group effective user details",
+        "description": "Returns public information about a specific effective group user.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5d2JDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"username\",\n  \"name\": \"user1\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3642,7 +3642,7 @@
           "group_view_data"
         ],
         "summary": "Get parent group details",
-        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get parent group details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parent/9OqgExw00RwaU2MXT51\n\n```\n",
+        "description": "Returns details about a specific parent group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get parent group details**\n```bash\ncurl -k -u admin:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parent/9OqgExw00RwaU2MXT51\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3853,7 +3853,7 @@
           "group_join_group"
         ],
         "summary": "Add subgroup",
-        "description": "Adds given group as a subgroup of a specific group based on provided token.  The parent group to which the group will be added is identified from the token  (the token is issued in the context of a group).\nThis operation requires `group_join_group` privilege.\n***Example cURL requests***\n**Add subgroup** ```bash curl -k  -u admin:password -H \"Content-type: application/json\" -X POST \\ -d  '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\"}'  \\ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o ```\n",
+        "description": "Adds given group as a subgroup of a specific group based on provided token. \n\nThe parent group to which the group will be added is identified from the token \n(the token is issued in the context of a group).\n\nThis operation requires `group_join_group` privilege.\n\n***Example cURL requests***\n\n**Add subgroup**\n\n```bash\ncurl -k  -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d  '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\"}'  \\\nhttps://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o\n```\n",
         "responses": {
           "201": {
             "description": "ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.\n",
@@ -3999,7 +3999,7 @@
         "x-onedata-permissions": [
           "group_remove_group"
         ],
-        "summary": "Remove subgroup.",
+        "summary": "Remove subgroup",
         "description": "Removes a specific subgroup with {nid} from parent group with {id}.\n\nThis operation requires `group_remove_group` privilege.\n\n***Example cURL requests***\n\n**Remove subgroup**\n```bash\ncurl -k  -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/onezone/groups/KoiO-QKqmYZRjPVdtR30FrdIEA1JF9f3TznAr9BDjA4/nested/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50\n```\n",
         "responses": {
           "202": {
@@ -4139,8 +4139,8 @@
         "x-onedata-permissions": [
           "group_set_privileges"
         ],
-        "summary": "Set subgroup privileges.",
-        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n\n***Example cURL requests***\n\n**Get subgroup privileges in a group**\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{\"privileges\": [\"group_view_data\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges\n```\n",
+        "summary": "Set subgroup privileges",
+        "description": "Sets privileges for a specific subgroup in a group.\n\nThis operation requires `group_set_privileges` privilege.\n\n***Example cURL requests***\n\n**Get subgroup privileges in a group**\n\n```bash\ncurl -k -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{\"privileges\": [\"group_view_data\"]}' \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges\n```\n",
         "responses": {
           "200": {
             "description": "The user privileges have been added."
@@ -4647,7 +4647,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get provider details",
-        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n",
+        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get information about provider**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem \\\nhttps://$HOST:8443/api/v3/onezone/provider\n\n{\n  \"clientName\": \"example\",\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\",\n  \"urls\": [\"195.216.97.151\"],\n  \"redirectionPoint\": \"https://195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\": 19.909444\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4774,7 +4774,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:modify",
         "summary": "Modify provider details",
-        "description": "Updates information about Oneprovider.",
+        "description": "Updates information about the Oneprovider identified by the\npeer certificate used for the request.\n\n***Example cURL requests***\n\n**Update provider geo location**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X PATCH \\\n-d '{\"latitude\":50.068968,\"longitude\":20.909444}'  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4835,7 +4835,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:remove",
         "summary": "Unregister provider",
-        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n",
+        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n\n***Example cURL requests***\n\n**Update provider geo location**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4887,7 +4887,7 @@
         "x-onedata-resource": "nprovider",
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get provider details",
-        "description": "Returns the information about a another Oneprovider service, which is connected to the current provider.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n",
+        "description": "Returns the information about another Oneprovider service, which is connected to the onezone.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/provider/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4951,7 +4951,7 @@
         "x-onedata-resource": "spaces",
         "x-onedata-method": "provider_logic:get_spaces",
         "summary": "Get spaces at provider",
-        "description": "Returns the list of spaces managed by the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n",
+        "description": "Returns the list of spaces managed by the Oneprovider that performed the request.\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get spaces supported by provider**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/provider/spaces\n\n{\n  \"spaces\":[\"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5264,7 +5264,7 @@
         "x-onedata-resource": "ip",
         "x-onedata-method": "cowboy_req:peer",
         "summary": "Show client IP address",
-        "description": "Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).\n\nThis operation has public access.\n",
+        "description": "Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl --tlsv1.2 -X GET https://beta.onedata.org:8443/api/v3/onezone/provider/test/check_my_ip\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5319,7 +5319,7 @@
         "x-onedata-resource": "ip",
         "x-onedata-method": "provider_logic:test_connection",
         "summary": "Check ports availability",
-        "description": "Checks if all given ports are reachable from Onezone. \n\nThis operation has public access.\n",
+        "description": "Checks if all given ports are reachable from Onezone. \n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider ports**\n```bash\ncurl -i --tlsv1.2 -X POST -H 'Content-type: application/json' \\\n-d '[ 80 ]' https://$HOST:8443/api/v3/onezone/provider/test/check_my_ports\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5407,7 +5407,7 @@
         "x-onedata-resource": "providers",
         "x-onedata-method": "provider_logic:get_providers",
         "summary": "Get providers",
-        "description": "Returns the list of providers registered in the Onezone service.\n\nThis operation requires `list_providers` privilege.\n",
+        "description": "Returns the list of providers registered in the Onezone service.\n\nThis operation requires `list_providers` privilege.\n\n***Example cURL requests***\n\n**Get list of providers**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers\n\n{\n  \"providers\": [\"WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],

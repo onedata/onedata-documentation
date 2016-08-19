@@ -14,15 +14,15 @@ Group related operations
 |[/groups/{id}](operations/remove_group.md)|DELETE|Remove group|
 |[/groups/{id}](operations/modify_group.md)|PATCH|Modify group details|
 |[/groups/{id}/effective_users](operations/get_group_effective_users.md)|GET|Get effective group users|
-|[/groups/{id}/effective_users/{uid}](operations/get_groups_effective_user.md)|GET|Get group user details|
+|[/groups/{id}/effective_users/{uid}](operations/get_groups_effective_user.md)|GET|Get group effective user details|
 |[/groups/{id}/effective_users/{uid}/privileges](operations/get_groups_user_privileges.md)|GET|Get user group privileges|
 |[/groups/{id}/nested](operations/get_nested_groups.md)|GET|Get subgroups|
 |[/groups/{id}/nested/join](operations/join_nested_group.md)|POST|Add subgroup|
 |[/groups/{id}/nested/token](operations/get_nested_group_token.md)|GET|Create subgroup invitation token|
 |[/groups/{id}/nested/{nid}](operations/get_nested_group.md)|GET|Get subgroup details|
-|[/groups/{id}/nested/{nid}](operations/delete_nested_group.md)|DELETE|Remove subgroup.|
+|[/groups/{id}/nested/{nid}](operations/delete_nested_group.md)|DELETE|Remove subgroup|
 |[/groups/{id}/nested/{nid}/privileges](operations/get_nested_group_privileges.md)|GET|Get subgroup privileges|
-|[/groups/{id}/nested/{nid}/privileges](operations/set_group_nested_privileges.md)|PUT|Set subgroup privileges.|
+|[/groups/{id}/nested/{nid}/privileges](operations/set_group_nested_privileges.md)|PUT|Set subgroup privileges|
 |[/groups/{id}/parent](operations/get_parent_groups.md)|GET|Get parent groups|
 |[/groups/{id}/parent/{pid}](operations/get_parent_group.md)|GET|Get parent group details|
 |[/groups/{id}/spaces](operations/create_space_for_group.md)|POST|Creates new space for group|

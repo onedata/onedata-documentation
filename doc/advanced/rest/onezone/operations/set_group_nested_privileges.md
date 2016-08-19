@@ -1,6 +1,6 @@
 
 <a name="set_group_nested_privileges"></a>
-#### Set subgroup privileges.
+#### Set subgroup privileges
 ```
 PUT /groups/{id}/nested/{nid}/privileges
 ```
@@ -14,6 +14,7 @@ This operation requires `group_set_privileges` privilege.
 ***Example cURL requests***
 
 **Get subgroup privileges in a group**
+
 ```bash
 curl -k -u username:password  -H "Content-type: application/json" -X PUT \
 -d '{"privileges": ["group_view_data"]}' \

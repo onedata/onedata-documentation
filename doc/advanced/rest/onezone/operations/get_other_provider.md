@@ -7,13 +7,21 @@ GET /provider/{pid}
 
 
 ##### Description
-Returns the information about a another Oneprovider service, which is connected to the current provider.
+Returns the information about another Oneprovider service, which is connected to the onezone.
 
 If called by other provider doesn't require any special privileges. 
 
 When called by a regular user, requires 'list_providers' privilege.
 
 This operation requires `list_providers` privilege.
+
+***Example cURL requests***
+
+**Get specific provider details**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+https://$HOST:8443/api/v3/onezone/provider/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc
+```
 
 
 ##### Parameters
