@@ -296,7 +296,7 @@ done < dockerimage.sha
 COMPOSE_FILE=docker-compose.yml.template
 BASE_COMPOSE_IMAGE="docker.onedata.org/onedata-documentation:"
 PREETY_COMMIT=${CURRNET_COMMIT:0:6}
-COMMIT_AUTOR=$(git log --pretty=format:"%an <%aE>" HEAD^..HEAD)
+COMMIT_AUTOR=$(git log --pretty=format:"%an <%aE>" -1)
 PREETY_TIME=$(date '+%T.%D.%Z')
 
 
