@@ -45,7 +45,7 @@
     * [Onezone](doc/advanced/rest/onezone/overview.md)
       * [Definitions](doc/advanced/rest/onezone/definitions.md)
 {% include "doc/advanced/rest/onezone/DEFINITIONS_TOC.md" %}
-      * [Paths](doc/advanced/rest/onezone/paths.md)
+      * [Operations](doc/advanced/rest/onezone/paths.md)
 {% include "doc/advanced/rest/onezone/PATHS_TOC.md" %}
     * [Oneprovider](doc/advanced/rest/oneprovider/overview.md)
       * [Definitions](doc/advanced/rest/oneprovider/definitions.md)
@@ -60,7 +60,7 @@
     * [LUMA](doc/advanced/rest/luma/overview.md)
       * [Definitions](doc/advanced/rest/luma/definitions.md)
 {% include "doc/advanced/rest/luma/DEFINITIONS_TOC.md" %}
-      * [Paths](doc/advanced/rest/luma/paths.md)
+      * [Operations](doc/advanced/rest/luma/paths.md)
 {% include "doc/advanced/rest/luma/PATHS_TOC.md" %}
     * [Examples](doc/advanced/rest/examples.md)
         * [Command line](doc/advanced/rest/cli.md)
