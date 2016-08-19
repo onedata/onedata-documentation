@@ -17,7 +17,6 @@ This operation requires `group_view_data` privilege.
 ```bash
 curl -k -u admin:password -X GET \
 https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parent/9OqgExw00RwaU2MXT51
-
 ```
 
 

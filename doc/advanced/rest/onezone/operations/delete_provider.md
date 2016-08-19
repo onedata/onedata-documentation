@@ -13,6 +13,14 @@ This operation allows a Oneprovider to unregister from a this Onezone, i.e. it c
 by Oneprovider which wants to unregister. It does't require any parameters, as the provider is
 identified by the peer certificate used for this connection.
 
+***Example cURL requests***
+
+**Update provider geo location**
+```bash
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \
+https://$HOST:8443/api/v3/onezone/provider
+```
+
 
 ##### Responses
 
