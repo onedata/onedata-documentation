@@ -35,6 +35,17 @@ https://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 -H "Accept: application/json" \
 https://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3
+```    
+
+**Set specific JSON value in metadata document using key path**
+In this example the contents of the PUT body will be assigned the 
+value of "key3" in the metadata document.
+
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
+-H "Content-type: application/json" \
+-d '{"new_key": "new_value"}'
+https://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3
 ```
 
 
