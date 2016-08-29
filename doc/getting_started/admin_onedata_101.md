@@ -20,7 +20,7 @@ To start Onezone service open separate terminal window and execute:
 ```
 
 ### Oneprovider
-To run Oneprovider service open another termial window and execute:
+To run Oneprovider service open another terminal window and execute:
 ```bash=
 ./run_onedata.sh --oneprovider
 ```

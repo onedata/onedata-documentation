@@ -4,7 +4,20 @@ All Onedata components require certain X.509 certificates to be installed in spe
 
 The following sections detail certificates required by each Onedata service.
 
-All keys and certificates must be in PEM format. Whenever certificates for given service change, the service must be restarted.
+All keys and certificates must be in PEM format. Please note, that if a PEM file contains multiple certificates for a trust chain, they must be in proper order, e.g. 
+```
+-----BEGIN CERTIFICATE----- 
+<domain certificate>
+-----END CERTIFICATE----- 
+-----BEGIN CERTIFICATE----- 
+<intermediate certificate>
+-----END CERTIFICATE----- 
+-----BEGIN CERTIFICATE----- 
+<root CA certificate> 
+-----END CERTIFICATE-----
+```
+
+Whenever certificates for given service change, the service must be restarted.
 
 
 ## Onezone
@@ -75,7 +88,7 @@ version: '2.0'
 
 services:
   node1.onezone.onedata.example.com:
-    image: onedata/onezone:3.0.0-RC2
+    image: onedata/onezone:3.0.0-rc4
     hostname: node1.onezone.onedata.example.com
     volumes:
         - "/opt/onedata/onezone/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config"
