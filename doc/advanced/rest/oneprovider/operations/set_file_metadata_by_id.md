@@ -41,6 +41,8 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/1e65d5f4-c49d-495a-a2b6-50acd0
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|File or folder path or space name (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
+|**Query**|**filter**  <br>*optional*|The filter allowing to set specific metadata document key.|string|--|
+|**Query**|**filter_type**  <br>*optional*|The type of filter to apply to the metadata document.|string|--|
 |**Query**|**metadata_type**  <br>*optional*|Type of metadata backend (if not specified in `Accept` header)|enum (JSON, RDF)|--|
 
 
@@ -74,6 +76,8 @@ json :
 ```
 json :
 {
+  "filter" : "string",
+  "filter_type" : "string",
   "metadata_type" : "string"
 }
 ```
