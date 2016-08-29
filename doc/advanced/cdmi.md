@@ -1,7 +1,7 @@
 
 # CDMI
 
-Onedata supports file operations via Cloud Data Management Interface (CDMI), version 1.0.2.
+Onedata supports file operations via Cloud Data Management Interface (CDMI), version 1.1.1.
 CDMI provides a universal, vendor-agnostic interface for discovering capabilities of storage providers, managing Cloud storage and basic data access mechanism.
 For more information about CDMI please visit official CDMI [website](http://www.snia.org/cdmi).
 
@@ -10,7 +10,7 @@ CDMI uses certain terms such as dataobject or container to refer to various elem
 | CDMI concept | Onedata concept                                                                                                                                |
 |:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
 | Data object  | Data objects in Onedata are basic files stored in user's Spaces                                                                                |
-| Container    | Both Space and directories in Onedata are referred to as containers via CDMI                                                                   |
+| Container    | Both spaces and folders in Onedata are referred to as containers in CDMI                                                                   |
 | ACL          | Onedata currently supports setting permissions for users and groups for read, write and execute access. ACL inheritance is also not supported. |
 
 
@@ -31,141 +31,277 @@ The list of currently supported operations is presented below:
 ## Examples of usage
 
 ### Generation of access token
-In order to use Onedata CDMI interface, a unique access token has to be generated using authorization code which can be obtained from the Onedata Web GUI. Using the authorization code, the access token can be obtained using Onedata REST API. First you will need however to set your Onedata alias name, which can be found in the **Manage account** page in the Web GUI.
+In order to use Onedata CDMI, an active Onedata access token must be provided. The access token can be generated either in the Web GUI, in the **Access Tokens** menu:
 
-~~~
-> export AUTHORIZATION_CODE=<GENERATED_CODE>
+![Access Tokens](../img/access_token_creation.png)
 
-> export ONE_ALIAS=<YOUR_ALIAS>
+or using Onedata REST API (if basic authentication is available for the user account):
 
-> export ONE_HOST=$ONE_ALIAS.onedata.org
+```bash
+export ONEZONE_HOST=<ONEZONE IP ADDRESS>
 
-> curl -k -X POST -H 'Content-Type: application/json' -d "{\"code\" : \"$AUTHORIZATION_CODE\", \"client_name\" : \"cdmi_client\"}" https://$ONE_HOST:8443/rest/latest/token
-RES: {"accessToken":"<TOKEN>"}
-~~~
-
-*ONE_HOST environment variable can also point directly to a specific Oneprovider service. The URL can be obtained simply from the web browser when access the Web GUI interface of Onedata.*
-
-Before running the below examples please export the following environment variables:
-~~~
-> export ACCESS_TOKEN=<TOKEN>
-
-> export TOKEN_HEADER="x-auth-token: $ACCESS_TOKEN"
-
-> export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.0.2'
-
-> export ENDPOINT=https://$ONE_HOST:8443/cdmi
-~~~
+curl -k -X GET -u username:password "https://$ONEZONE_HOST:8443/api/v3/onezone/user/client_token"
 
 
-### Dataobject GET PUT DELETE
+{"token": "MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgam9LZGVIMFpldVdhVzY00ZmF6bkFkU009jZk5JejJvSzBaRU5tNlptWTJlYwowMDFhY2lkIHRpbWUgPCAxNTA00MDExODMwCjAwMmZzaWduYXR1cmUgtHHSpfXzfWZUI42uHPXf6b87asof1clOAqBe4prCIXkK"}
+```
+
+For the sake of examples, we assume that the following additional environment variables are exported (where `ACCESS_TOKEN` is the value obtained in the previous step). Please note, that CDMI should be called directly on Oneprovider service instances and not Onezone service, which are usually on different hosts:
+
+```bash
+export ACCESS_TOKEN="MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgam9LZGVIMFpldVdhVzY00ZmF6bkFkU009jZk5JejJvSzBaRU5tNlptWTJlYwowMDFhY2lkIHRpbWUgPCAxNTA00MDExODMwCjAwMmZzaWduYXR1cmUgtHHSpfXzfWZUI42uHPXf6b87asof1clOAqBe4prCIXkK"
+
+export TOKEN_HEADER="X-Auth-Token: $ACCESS_TOKEN"
+
+export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.1.1'
+
+export ONEPROVIDER_HOST=<ONEPROVIDER IP ADDRESS>
+
+export ENDPOINT=https://$ONEPROVIDER_HOST:8443/cdmi
+```
+
+
+### Dataobject GET, PUT, DELETE
 
 When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using *$ENDPOINT/file.txt* will address file *file.txt* in home space and using *$ENDPOINT/spaces/TestSpace/file.txt* will address file *file.txt* in space *TestSpace*. 
 
 
 ##### CDMI PUT request
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -X PUT -d '{"value":"file content"}' $ENDPOINT/file.txt
-~~~
+Create new file `test.txt` in space `test` with content `Test content`:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  \
+-X PUT -d '{"value": "Test content"}' "$ENDPOINT/test/test.txt"
+
+
+{
+    "objectType":"application/cdmi-object",
+    "objectID":"000000000055D4E4836803640004677569646D00000016726D75766662565765386857595139592D594E736C676D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "objectName":"test.txt",
+    "parentURI":"/test/",
+    "parentID":"00000000008E4440836803640004677569646D0000004F673267435A4141466333426859325674414141414B304E5A4C5452795230564D5531396D4F46644C4C574672546A4266623231565957526A6232737A626E52555132633063576875654846795755306D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "capabilitiesURI":"cdmi_capabilities/dataobject/",
+    "completionStatus":"Complete",
+    "metadata":{
+        "cdmi_size":"12",
+        "cdmi_ctime":"2016-08-29T14:17:39Z",
+        "cdmi_atime":"2016-08-29T14:17:38Z",
+        "cdmi_mtime":"2016-08-29T14:17:39Z",
+        "cdmi_owner":"1965822"
+    },
+    "mimetype":"application/octet-stream"
+}
+```
 
 
 
 ##### CDMI GET encoding, mimetype and filename
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/file.txt?valuetransferencoding;mimetype;objectName"
-~~~
+Get selected `test.txt` attributes:
+
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER \
+-X GET "$ENDPOINT/test/test.txt?valuetransferencoding;mimetype;objectName"
+
+
+{
+    "valuetransferencoding":"utf-8",
+    "mimetype":"application/octet-stream",
+    "objectName":"test.txt"
+}
+```
 
 
 ##### CDMI PUT request
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -X PUT $ENDPOINT/dir2/
-~~~
+Create new directory `dirtest` in `test` space (the trailing slash is required):
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER \
+-H 'Content-Type: application/cdmi-container' -X PUT "$ENDPOINT/test/dirtest/"
 
-### Container GET PUT DELETE
 
-CDMI create container (directory)
-~~~
-curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -X PUT $ENDPOINT/dir2/
-~~~
+{
+    "objectType":"application/cdmi-container",
+    "objectID":"000000000055276D836803640004677569646D00000016424C4D75757A4266454D74535233646D38395A3369516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "objectName":"dirtest/",
+    "parentURI":"/test/",
+    "parentID":"00000000008E4440836803640004677569646D0000004F673267435A4141466333426859325674414141414B304E5A4C5452795230564D5531396D4F46644C4C574672546A4266623231565957526A6232737A626E52555132633063576875654846795755306D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "capabilitiesURI":"cdmi_capabilities/container/",
+    "completionStatus":"Complete",
+    "metadata":{
+        "cdmi_size":"0",
+        "cdmi_ctime":"2016-08-29T14:26:49Z",
+        "cdmi_atime":"2016-08-29T14:26:49Z",
+        "cdmi_mtime":"2016-08-29T14:26:49Z",
+        "cdmi_owner":"1965822"
+    },
+    "childrenrange":"",
+    "children":[]
+}
+```
+
+### Container DELETE
+
+CDMI delete container (directory):
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER \
+-H 'Content-Type: application/cdmi-container' -X DELETE "$ENDPOINT/Space1/dir2/"
+```
 
 
 ### Metadata - example
+
 ##### Setting custom metadata
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -d '{"metadata" : {"meta1" : "val1", "meta2" : "val2"}}' -X PUT  $ENDPOINT/file.txt
-~~~
+
+Add `meta1` and `meta2` metadata propertie sto `test.txt`:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' \
+-d '{"metadata" : {"meta1" : "val1", "meta2" : "val2"}}' \
+-X PUT "$ENDPOINT/test/test.txt"
+```
 
 ##### Getting previously inserted metadata by prefix
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/file.txt?metadata:meta"
-~~~
+Get the value of `meta1` attribute for `test.txt` file:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/test/test.txt?metadata:meta1"
+
+
+{
+    "metadata": {
+        "meta1":"val1"
+    }
+}
+```
 
 ### ACL management
 
 Access control lists provide mechanism for granting and prohibiting access to data on space, directory and file levels. Onedata supports the complete ACL functionality of CDMI, which can be also managed through the Web GUI.
 
-
 In CDMI, ACL's are stored as cdmi_acl metadata. An object with unset ACL, has virtual ACL which contains entries for every space member, that gives him permissions equal to POSIX file mode. ACL permissions always take precedence over POSIX style permissions.
 
 A single Access Control Entry contains:
  * Type – **ALLOW** | **DENY**
- * Identifier – **USERNAME[#HASH]** | **GROUPNAME[#HASH]**
+ * Identifier – **[USERNAME#]IDENTIFIER**
  * Flags – **NO_FLAGS** | **IDENTIFIER_GROUP**
- * Mask – {**READ**, **WRITE**, **EXECUTE**}
+ * Mask – **READ_OBJECT** | **LIST_CONTAINER** | **WRITE_OBJECT** | **ADD_OBJECT** | **ADD_SUBCONTAINER** | **READ_METADATA** | **WRITE_METADATA** | **EXECUTE** | **TRAVERSE_CONTAINER** | **DELETE_OBJECT** | **DELETE_SUBCONTAINER** | **READ_ATTRIBUTES** | **WRITE_ATTRIBUTES** | **WRITE_RETENTION** | **DELETE** | **READ_ACL** | **WRITE_ACL** | **WRITE_OWNER**
 
 Identifier may be followed by optional ID prefix hash, to distinguish users/groups with the same name.
 
-Flag **IDENTIFIER_GROUP** indicates group name in identifier. Mask may contain any combination of *rwx* permissions i.e. **READ**, **WRITE**, **EXECUTE**.
+Flag **IDENTIFIER_GROUP** indicates group name in identifier. 
 
 
 #### ACL CDMI modification
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -d '{"metadata" : {"cdmi_acl":[
-{"acetype":"ALLOW","identifier":"Tomasz Lichon", "aceflags":"NO_FLAGS","acemask":"READ, WRITE"}, {"acetype":"ALLOW","identifier":"Lukasz Dutka", "aceflags":"NO_FLAGS","acemask":"READ"}]}}' -X PUT  $ENDPOINT/file.txt\?metadata:cdmi_acl
-~~~
+Create an Access Control Entry (ACE) list for file `test.txt`, specifying that:
+* User `John Johnson` can read and write the file
 
-### Big folders - example
-List first child of „spaces” container
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/spaces/?children:0-0;childrenrange"
-~~~
+First create a file `acl.json` with the following content:
+```json
+{
+  "metadata":{  
+      "cdmi_acl":[  
+         {  
+            "acetype":"0x00",
+            "identifier":"#6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSgR8cnt7A",
+            "aceflags":"0x01",
+            "acemask": "0x03"
+         }
+      ]
+   }
+}
+```
 
-### File System Export (FUSE client)
+and then set the `cdmi_acl` property of the `test.txt` dataobject:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' \
+-d @acl.json -X PUT "$ENDPOINT/test/test.txt?metadata:cdmi_acl"
+```
 
-Onedata does not support CDMI file system export, but has its own dedicated FUSE client, which can be installed and mounted in local filesystem.
+### CDMI children objects
 
-Installation instructions can be found on our [website](https://onedata.org/download).
+List children of `dirtest` directory in space `test`:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER \
+-X GET "$ENDPOINT/test/dirtest/?children:0-2;childrenrange"
 
+
+{
+    "children":[
+        "test1.txt",
+        "test2.txt",
+        "test3.txt"
+    ],
+    "childrenrange":"0-2"
+}
+```
+
+
+<!--
 ### Move and copy - example
-Copy directory (CDMI container) *dir* to directory *dir3*
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' -d '{"copy" : "/dir/"}' -X PUT $ENDPOINT/dir-copy/
-~~~
+Copy directory (CDMI container) `dirtest` to directory `dirtest2`:
+
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' \
+-d '{"copy" : "/dirtest/"}' -X PUT $ENDPOINT/dirtest2/
+```
+-->
+
 ### CDMI partial upload
 
-CDMI since version 1.0.2 provides support for partial uploads, where a subrange of *value* field can be provided as long as byte range that is submitted is specified using URL attribute **?value:START_OFFSET-END_OFFSET**
-~~~
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: true' -X PUT -d '{"value": "MDEy"}' $ENDPOINT/partial_test.txt\?value:0-2
+CDMI since version 1.0.2 provides support for partial uploads, where a subrange of *value* field can be provided as a long as byte range that is submitted is specified using URL attribute `?value:START_OFFSET-END_OFFSET`.
 
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object'  -H 'X-CDMI-Partial: false' -X PUT -d '{"value": "MzQ1Ng=="}' $ENDPOINT/partial_test.txt\?value:3-6
-~~~
+The value must be provided in Base64 (as it can be a binary dataobject).
+
+Change first 4 bytes of `test.txt` file to "ABCD":
+```bash
+echo -n ABCD | base64
+
+QUJDRA==
+```
+
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' \
+-H 'X-CDMI-Partial: true' -X PUT -d '{"value": "QUJDRA=="}' \
+"$ENDPOINT/test/test.txt?value:0-3"
+```
 
 ### HTTP range read
+Get the first 4 bytes from the file directly using HTTP range read:
+```bash
+curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET "$ENDPOINT/test/test.txt"
 
-~~~
-> curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET $ENDPOINT/partial_test.txt
-~~~
+ABCD
+```
 
 ### Access by ObjectID
-Every object has unique id, and can be accessed by URI “/cdmi_objectid/OBJECT_ID”
-~~~
-# get objectid
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/dir/\?ObjectID
-RES:{"objectID":"<ID>"}
+Every object has unique id, and can be accessed by URI `/cdmi_objectid/OBJECT_ID`.
 
-# perform post request
-> curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' -X PUT -d '{"value":"val"}' $ENDPOINT/cdmi_objectid/<ID>/new_file
-~~~
+Get CDMI ID of `dirtest` folder:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/test/dirtest/?objectID
 
-<!-- ### Authorization via certificates
-Generate .pem encoded public key from your certificate -->
+
+{"objectID":"000000000055B7D1836803640004677569646D000000165F7647654E5A50676438555061434575484567712D516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D"}
+```
+
+Add new file to the `dirtest` folder using ID:
+```bash
+curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' \
+-X PUT -d '{"value": "val"}' "$ENDPOINT/cdmi_objectid/000000000055B7D1836803640004677569646D000000165F7647654E5A50676438555061434575484567712D516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D/test10.txt"
+
+
+{
+    "objectType":"application/cdmi-object",
+    "objectID":"0000000000557F7B836803640004677569646D00000016666B5373794258327952616A6E3067744443495274516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "objectName":"test10.txt",
+    "parentURI":"/test/dirtest/",
+    "parentID":"000000000055B7D1836803640004677569646D000000165F7647654E5A50676438555061434575484567712D516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D",
+    "capabilitiesURI":"cdmi_capabilities/dataobject/",
+    "completionStatus":"Complete",
+    "metadata":{
+        "cdmi_size":"3",
+        "cdmi_ctime":"2016-08-29T15:45:04Z",
+        "cdmi_atime":"2016-08-29T15:45:03Z",
+        "cdmi_mtime":"2016-08-29T15:45:04Z",
+        "cdmi_owner":"1965822"
+    },
+    "mimetype":"application/octet-stream"
+}
+```
+
