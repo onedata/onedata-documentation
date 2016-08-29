@@ -1,13 +1,13 @@
 
 <a name="put_provider_managers"></a>
-#### Deploy provider managers
+#### Deploy provider cluster managers
 ```
-PUT /provider/managers
+POST /provider/managers
 ```
 
 
 ##### Description
-Deploys a cluster manager service cluster on provided hosts.
+Deploys a cluster manager service on provided hosts.
 
 
 ##### Parameters
@@ -21,10 +21,11 @@ Deploys a cluster manager service cluster on provided hosts.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check  operation status.|No Content|
+|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Consumes
@@ -57,8 +58,23 @@ json :
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
+}
+```
+
+
+###### Response 500
+```
+json :
+{
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 
