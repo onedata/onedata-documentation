@@ -2,29 +2,30 @@
 <a name="put_zone_databases"></a>
 #### Deploy zone databases
 ```
-PUT /zone/databases
+POST /zone/databases
 ```
 
 
 ##### Description
-Deploys a database service cluster on provided hosts.
+Deploys a database service on provided hosts.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**serviceHosts**  <br>*required*||[ServiceHosts](../definitions/ServiceHosts.md#servicehosts)|--|
+|**Body**|**serviceHosts**  <br>*required*||[ServiceDatabases](../definitions/ServiceDatabases.md#servicedatabases)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check  operation status.|No Content|
+|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Consumes
@@ -56,8 +57,23 @@ json :
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
+}
+```
+
+
+###### Response 500
+```
+json :
+{
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 

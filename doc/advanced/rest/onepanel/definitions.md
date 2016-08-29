@@ -13,12 +13,15 @@
 |[Error](definitions/Error.md)|The generic error model for REST requests.|
 |[ManagerHosts](definitions/ManagerHosts.md)|The cluster manager service hosts configuration.|
 |[POSIX](definitions/POSIX.md)|The POSIX storage configuration.|
+|[PanelConfiguration](definitions/PanelConfiguration.md)|The panel configuration.|
 |[ProviderClusterConfiguration](definitions/ProviderClusterConfiguration.md)|The provider cluster configuration.|
 |[ProviderConfiguration](definitions/ProviderConfiguration.md)|The provider deployment configuration.|
 |[ProviderDetails](definitions/ProviderDetails.md)|The provider configuration details.|
 |[ProviderModifyRequest](definitions/ProviderModifyRequest.md)|The provider configuration details that can be modified.|
 |[ProviderRegisterRequest](definitions/ProviderRegisterRequest.md)|The provider configuration details required for registration process.|
+|[ProviderSpaces](definitions/ProviderSpaces.md)|The provider spaces details.|
 |[S3](definitions/S3.md)|The Simple Storage Service configuration.|
+|[ServiceDatabases](definitions/ServiceDatabases.md)|The service hosts configuration.|
 |[ServiceError](definitions/ServiceError.md)|The service error model for REST requests.|
 |[ServiceHosts](definitions/ServiceHosts.md)|The service hosts configuration.|
 |[ServiceStatus](definitions/ServiceStatus.md)|The generic model for service status.|

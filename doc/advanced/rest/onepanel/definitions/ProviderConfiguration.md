@@ -7,6 +7,7 @@ The provider deployment configuration.
 |Name|Description|Schema|
 |---|---|---|
 |**cluster**  <br>*required*||[ProviderClusterConfiguration](ProviderClusterConfiguration.md#providerclusterconfiguration)|
+|**onepanel**  <br>*optional*||[PanelConfiguration](PanelConfiguration.md#panelconfiguration)|
 |**oneprovider**  <br>*optional*|The provider custom configuration.|[oneprovider](#providerconfiguration-oneprovider)|
 |**onezone**  <br>*optional*|The zone custom configuration.|[onezone](#providerconfiguration-onezone)|
 

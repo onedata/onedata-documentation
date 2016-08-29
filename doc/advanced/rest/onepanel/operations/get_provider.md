@@ -15,9 +15,9 @@ Returns the basic configuration information of the provider.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|The provider configuration details.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -50,12 +50,12 @@ json :
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

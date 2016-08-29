@@ -6,7 +6,7 @@ The generic model for service status.
 
 |Name|Description|Schema|
 |---|---|---|
-|**services**  <br>*required*|The collection of services with associated status information.|< string, < string, [ServiceStatusHost](ServiceStatusHost.md#servicestatushost) > map > map|
+|**hosts**  <br>*optional*|The collection of hosts with associated service status, for each host<br>where given service has been deployed.|< string, [ServiceStatusHost](ServiceStatusHost.md#servicestatushost) > map|
 
 
 

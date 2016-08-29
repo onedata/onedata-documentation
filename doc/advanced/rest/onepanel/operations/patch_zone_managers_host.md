@@ -1,13 +1,13 @@
 
 <a name="patch_zone_managers_host"></a>
-#### Start/stop zone manager
+#### Start/stop zone cluster manager
 ```
 PATCH /zone/managers/{host}
 ```
 
 
 ##### Description
-Starts or stops cluster manager service on selected hosts in the local deployment.
+Starts or stops cluster manager service on the selected hosts in the local deployment.
 
 
 ##### Parameters
@@ -22,11 +22,11 @@ Starts or stops cluster manager service on selected hosts in the local deploymen
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Databases service state changed successfully.|No Content|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**204**|Cluster manager service state changed successfully.|No Content|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Cluster manager service has not been deployed on selected host.|No Content|
-|**500**|Internal server error.|No Content|
+|**404**|Cluster manager service has not been deployed on the selected host.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Example HTTP request
@@ -49,12 +49,17 @@ json :
 
 ##### Example HTTP response
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 

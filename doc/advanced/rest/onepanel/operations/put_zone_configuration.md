@@ -1,14 +1,16 @@
 
 <a name="put_zone_configuration"></a>
-#### Create zone deployment
+#### Configure zone deployment
 ```
-PUT /zone/configuration
+POST /zone/configuration
 ```
 
 
 ##### Description
 Configures and starts zone services, such as database, cluster manager
 and cluster worker.
+
+This request can be executed unauthorized as long as there are no admin users.
 
 
 ##### Parameters
@@ -22,10 +24,10 @@ and cluster worker.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried  to check operation status.|No Content|
+|**201**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Consumes
@@ -77,8 +79,18 @@ json :
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
+}
+```
+
+
+###### Response 500
+```
+json :
+{
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

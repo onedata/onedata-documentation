@@ -12,8 +12,8 @@ The generic error model for REST requests.
 **Example**
 ```
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

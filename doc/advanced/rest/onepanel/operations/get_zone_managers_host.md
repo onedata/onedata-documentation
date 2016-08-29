@@ -1,13 +1,13 @@
 
 <a name="get_zone_managers_host"></a>
-#### Get zone manager status
+#### Get zone cluster manager status
 ```
 GET /zone/managers/{host}
 ```
 
 
 ##### Description
-Returns status of cluster manager service on selected host.
+Returns status of cluster manager service on the selected host.
 
 
 ##### Parameters
@@ -21,11 +21,11 @@ Returns status of cluster manager service on selected host.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster manager service on selected host.|[ServiceStatusHost](../definitions/ServiceStatusHost.md#servicestatushost)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**200**|The status of cluster manager service on the selected host.|[ServiceStatusHost](../definitions/ServiceStatusHost.md#servicestatushost)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Cluster manager service has not been deployed on selected host.|No Content|
-|**500**|Internal server error.|No Content|
+|**404**|Cluster manager service has not been deployed on the selected host.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Produces
@@ -53,12 +53,17 @@ json :
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 
