@@ -88,8 +88,8 @@ Space related operations
 |[/spaces/{id}](operations/get_space.md)|GET|Get space details|
 |[/spaces/{id}](operations/remove_space.md)|DELETE|Remove space|
 |[/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
+|[/spaces/{id}/groups](operations/add_group_to_space.md)|POST|Add group to space|
 |[/spaces/{id}/groups](operations/get_space_groups.md)|GET|Get space groups|
-|[/spaces/{id}/groups](operations/add_group_to_space.md)|PUT|Add group to space|
 |[/spaces/{id}/groups/token](operations/get_space_group_token.md)|GET|Create space invite token for group|
 |[/spaces/{id}/groups/{gid}](operations/get_space_group.md)|GET|Get group details|
 |[/spaces/{id}/groups/{gid}](operations/delete_space_group.md)|DELETE|Remove group from space|
@@ -99,8 +99,8 @@ Space related operations
 |[/spaces/{id}/providers/token](operations/get_space_provider_token.md)|GET|Create space support token|
 |[/spaces/{id}/providers/{pid}](operations/get_space_provider.md)|GET|Get space provider details|
 |[/spaces/{id}/providers/{pid}](operations/remove_provider_supporting_space.md)|DELETE|Remove space support|
+|[/spaces/{id}/users](operations/add_user_to_space.md)|POST|Add user to space|
 |[/spaces/{id}/users](operations/get_space_users.md)|GET|Get space users|
-|[/spaces/{id}/users](operations/add_user_to_space.md)|PUT|Add user to space|
 |[/spaces/{id}/users/token](operations/get_space_user_token.md)|GET|Create space invite token|
 |[/spaces/{id}/users/{uid}](operations/get_space_user.md)|GET|Get space user details|
 |[/spaces/{id}/users/{uid}](operations/remove_space_user.md)|DELETE|Remove user from space|

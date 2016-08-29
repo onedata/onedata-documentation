@@ -80,7 +80,7 @@ enabling them to view and configure certain aspects of the system.
 
 **Generate new authentication token**
 ```bash
-curl -k -u bkryza:PaSSwoRd -X GET \
+curl -k -u user:PaSSwoRd -X GET \
 https://beta.onedata.org:8443/api/v3/onezone/user/client_token
 ```
 
@@ -92,7 +92,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-RC2
+*Version* : 3.0.0-rc4
 
 
 ### Contact information
