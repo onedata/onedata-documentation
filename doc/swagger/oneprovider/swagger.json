@@ -389,7 +389,7 @@
         "tags": [
           "Data"
         ],
-        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n",
+        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -530,6 +530,20 @@
               "JSON",
               "RDF"
             ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
           }
         ]
       }
@@ -545,7 +559,7 @@
         "tags": [
           "Data"
         ],
-        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n",
+        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -686,6 +700,20 @@
               "JSON",
               "RDF"
             ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
           }
         ]
       }
@@ -1064,10 +1092,14 @@
           {
             "name": "stale",
             "in": "query",
-            "description": "Allow records from a stale view to be used.\n",
-            "type": "boolean",
+            "description": "Allow records from a stale view to be used. Allowed values are `ok` and `update_after`.\n",
+            "type": "string",
             "required": false,
-            "default": false
+            "default": "ok",
+            "enum": [
+              "ok",
+              "update_after"
+            ]
           },
           {
             "name": "bbox",
