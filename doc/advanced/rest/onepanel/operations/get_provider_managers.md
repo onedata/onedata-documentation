@@ -1,6 +1,6 @@
 
 <a name="get_provider_managers"></a>
-#### Get provider managers
+#### Get provider cluster managers status
 ```
 GET /provider/managers
 ```
@@ -15,10 +15,10 @@ Returns status of cluster manager service on each host where it has been deploye
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|The status of cluster manager service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster manager service has not been deployed.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Produces
@@ -41,19 +41,24 @@ json :
 ```
 json :
 {
-  "services" : {
-    "string" : "object"
+  "hosts" : {
+    "string" : "[servicestatushost](#servicestatushost)"
   }
 }
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 

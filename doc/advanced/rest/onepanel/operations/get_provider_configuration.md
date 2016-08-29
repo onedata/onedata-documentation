@@ -1,37 +1,26 @@
 
-<a name="put_provider_configuration"></a>
-#### Configure provider deployment
+<a name="get_provider_configuration"></a>
+#### Get provider cluster configuration
 ```
-POST /provider/configuration
+GET /provider/configuration
 ```
 
 
 ##### Description
-Configures and starts provider services, such as database, cluster manager
-and cluster worker. Depending on the configuration, sets up provider storage
-and registers in the zone.
-
-This request can be executed unauthorized as long as there are no admin users.
-
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Body**|**providerConfiguration**  <br>*required*||[ProviderConfiguration](../definitions/ProviderConfiguration.md#providerconfiguration)|--|
+Returns the provider cluster configuration.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**200**|The provider cluster configuration.|[ProviderConfiguration](../definitions/ProviderConfiguration.md#providerconfiguration)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Consumes
+##### Produces
 
 * `application/json`
 
@@ -45,7 +34,9 @@ json :
 ```
 
 
-###### Request body
+##### Example HTTP response
+
+###### Response 200
 ```
 json :
 {
@@ -83,18 +74,6 @@ json :
   "onezone" : {
     "domainName" : "node1.onezone.onedata.example.com"
   }
-}
-```
-
-
-##### Example HTTP response
-
-###### Response 400
-```
-json :
-{
-  "error" : "Invalid Request",
-  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

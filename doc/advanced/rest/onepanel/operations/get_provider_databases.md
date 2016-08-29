@@ -15,10 +15,10 @@ Returns status of database service on each host where it has been deployed.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|The status of database service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Database service has not been deployed.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Produces
@@ -41,19 +41,24 @@ json :
 ```
 json :
 {
-  "services" : {
-    "string" : "object"
+  "hosts" : {
+    "string" : "[servicestatushost](#servicestatushost)"
   }
 }
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 

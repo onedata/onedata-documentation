@@ -1,6 +1,6 @@
 
 <a name="patch_provider_workers"></a>
-#### Start/stop cluster worker service
+#### Start/stop provider cluster workers
 ```
 PATCH /provider/workers
 ```
@@ -21,11 +21,11 @@ Starts or stops cluster worker service on all hosts in the local deployment.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Databases service state changed successfully.|No Content|
-|**400**|An error has occurred while changing cluster worker service status.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
+|**204**|Cluster worker service state changed successfully.|No Content|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster worker service has not been deployed.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Example HTTP request
@@ -48,10 +48,14 @@ json :
 
 ##### Example HTTP response
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
   "hosts" : {
     "string" : "[error](#error)"
   }
