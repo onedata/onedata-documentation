@@ -211,7 +211,7 @@ echo "$DOCKER_BUILD_NAME" >> dockerimage.sha
 for i in "${TAG_KEYS[@]}"
 do
     :
-    DOCKER_TAG_COMMAND="docker tag -f $DOCKER_BUILD_NAME $DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
+    DOCKER_TAG_COMMAND="docker tag $DOCKER_BUILD_NAME $DOCKER_REPOSITORY/$DOCKER_IMAGE_NAME$i"
     echo $DOCKER_TAG_COMMAND
     eval $DOCKER_TAG_COMMAND
     exit_on_error $? "Tagging failed: $DOCKER_TAG_COMMAND"
