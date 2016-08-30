@@ -24,7 +24,7 @@ The list of currently supported operations is presented below:
 | Access control lists (rwx*)      | *cdmi_acl*                                                                                                                    |
 | Big folders                      | *cdmi_list_children_range*                                                                                                    |
 | File System Export               | CDMI filesystem export is not supported. Instead, Onedata provides a custom Fuse client which is more efficient and reliable. |
-| Move and copy                    | *cdmi_move_container, cdmi_move_dataobject,  cdmi_copy_container, cdmi_copy_dataobject*                                       |
+| Move and copy                    | CDMI move and copy are currently not supported.                                       |
 | Big files                        | *cdmi_read_value_range, cdmi_modify_value_range*                                                                              |
 | Access by ObjectID               | *cdmi_object_access_by_ID*                                                                                                    |
 
@@ -182,7 +182,21 @@ A single Access Control Entry contains:
  * Flags – **NO_FLAGS** | **IDENTIFIER_GROUP**
  * Mask – **READ_OBJECT** | **LIST_CONTAINER** | **WRITE_OBJECT** | **ADD_OBJECT** | **ADD_SUBCONTAINER** | **READ_METADATA** | **WRITE_METADATA** | **EXECUTE** | **TRAVERSE_CONTAINER** | **DELETE_OBJECT** | **DELETE_SUBCONTAINER** | **READ_ATTRIBUTES** | **WRITE_ATTRIBUTES** | **WRITE_RETENTION** | **DELETE** | **READ_ACL** | **WRITE_ACL** | **WRITE_OWNER**
 
-Identifier may be followed by optional ID prefix hash, to distinguish users/groups with the same name.
+Identifier must contain the full Onedata user ID. Optionally the **USERNAME** can be provided before the `#`, but this is only for informational purposes.
+
+Onedata user ID can be easily extracted using Onezone REST API:
+```bash
+curl -k -S -X GET -H "macaroon: ${ACCESS_TOKEN}" https://$ONEZONE_HOST:8443/api/v3/onezone/user
+
+{
+    "userId":"6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
+    "login":"admin",
+    "name":"admin",
+    "connectedAccounts":[],
+    "alias":"johnd",
+    "emailList":[]
+}
+```
 
 Flag **IDENTIFIER_GROUP** indicates group name in identifier. 
 
@@ -198,7 +212,7 @@ First create a file `acl.json` with the following content:
       "cdmi_acl":[  
          {  
             "acetype":"0x00",
-            "identifier":"#6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSgR8cnt7A",
+            "identifier":"#6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
             "aceflags":"0x01",
             "acemask": "0x03"
          }
