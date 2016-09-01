@@ -66,6 +66,8 @@
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
+* [Tutorials]()
+  * [Command Line Access Tutorial](doc/tutorials/command_line_access.md)
 
 
  <!-- * [Macaroons](doc/advanced/macaroons.md)
