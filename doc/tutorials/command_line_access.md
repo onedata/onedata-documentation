@@ -182,7 +182,7 @@ export PROVIDER_HOSTNAME=195.216.97.151
 export ONEPROVIDER_HOST=$PROVIDER_HOSTNAME:8443
 export ONECLIENT_ACCESS_TOKEN=$ONEDATA_TOKEN
 
-mkdir ~/mnt
+mkdir ~/mnt`
 mkdir ~/mnt/onedata
 oneclient --authentication token --no_check_certificate ~/mnt/onedata
 ls -la ~/mnt/onedata
@@ -300,7 +300,7 @@ curl -Ssk https://www.w3.org/2000/10/rdf-tests/Miscellaneous/animals.rdf \
 and then retrieved:
 ```bash
 curl -Ssk -X GET -H "X-Auth-Token: $ONEDATA_TOKEN" -H 'Accept: application/rdf+xml' \
-"https://$ONEPROVIDER_HOST/api/v3/oneprovider/metadata/Personal%20files/file1.txt"
+"https://$ONEPROVIDER_HOST/api/v3/oneprovider/metadata/Personal%20files/file1.txt" | xmllint --format -
 
 <?xmls version="1.0"?>
 
