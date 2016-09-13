@@ -14,6 +14,7 @@ color=
 longest_line=0
 sort_column=2
 review_file=REVIEW
+qurated_file=QURATED
 
 #
 # print usage message
@@ -269,7 +270,7 @@ if test "${#paths}" -eq 0; then
   IFS=$(echo -en "\n\b")
  
   if [[ -e "$review_file" ]]; then
-    paths=("$(grep -v '^$' < REVIEW)")
+    paths=($(grep -v -e '^$' -e "^#" <"$qurated_file"))
   else
     paths=($(git ls-files "$ls_files_opt"))
   fi
@@ -296,6 +297,7 @@ export log_args
 export longest_line
 export ls_files_opt
 
+export qurated_file
 export review_file
 export -f main_file_contributor
 export sort_column
