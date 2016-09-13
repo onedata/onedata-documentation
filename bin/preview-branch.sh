@@ -56,6 +56,7 @@ fi
 bin/build.sh
 
 CURRNET_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+CURRNET_BRANCH="${CURRNET_BRANCH#*/}"
 IMAGE="onedata/onedata-documentation:${CURRNET_BRANCH}-latest"
 COMMIT_AUTOR=$(git log --pretty=format:"%an <%aE>" -1)
 CURRNET_COMMIT=$(git rev-parse HEAD)
@@ -69,5 +70,5 @@ fi
 
 stack_name="onedata-documentation-${tag}"
 
-DOCKERCLOUD_NAMESPACE=$DOCKERCLOUD_NAMESPACE  ${_docker_cloud} stack ls | grep "$stack_name" | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} ${_docker_cloud} stack terminate --sync {} 
-DOCKERCLOUD_NAMESPACE=$DOCKERCLOUD_NAMESPACE  TAG=$tag IMAGE="$IMAGE" CURRNET_BRANCH="$CURRNET_BRANCH" COMMIT_AUTOR="$COMMIT_AUTOR" PREETY_COMMIT="$PREETY_COMMIT"  PREETY_TIME="$PREETY_TIME" ${_docker_cloud} up -n "$stack_name" --sync 
+DOCKERCLOUD_NAMESPACE=$DOCKERCLOUD_NAMESPACE ${_docker_cloud} stack ls | grep "$stack_name" | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} ${_docker_cloud} stack terminate --sync {}
+DOCKERCLOUD_NAMESPACE=$DOCKERCLOUD_NAMESPACE TAG=$tag IMAGE="$IMAGE" CURRNET_BRANCH="$CURRNET_BRANCH" COMMIT_AUTOR="$COMMIT_AUTOR" PREETY_COMMIT="$PREETY_COMMIT"  PREETY_TIME="$PREETY_TIME" ${_docker_cloud} up -n "$stack_name" --sync
