@@ -1,44 +1,57 @@
-INTRO.md
 README.md
+
 SUMMARY.md
+INTRO.md
+
+
+# Getting Started
+doc/getting_started/what_is_onedata.md
+doc/getting_started/downloading_onedata.md
+doc/getting_started/user_onedata_101.md
+doc/getting_started/admin_onedata_101.md
+
 
 # User Guide
 doc/user_guide.md
+
+## Web interface
+doc/using_onedata/space_management.md
+doc/using_onedata/group_management.md
 doc/using_onedata/account_management.md
 doc/using_onedata/file_management.md
-doc/using_onedata/group_management.md
-doc/using_onedata/metadata.md
-doc/using_onedata/oneclient.md
-doc/using_onedata/privilege_management.md
 doc/using_onedata/replication_management.md
+doc/using_onedata/metadata.md
+doc/using_onedata/privilege_management.md
 doc/using_onedata/space_collaboration.md
-doc/using_onedata/space_management.md
+	
+## Oneclient
+doc/using_onedata/oneclient.md
 
 
 # Admin Guide
 doc/admin_guide.md
 
-## Onnepanel 
+## Onepanel 
 doc/administering_onedata/onepanel_overview.md
+doc/administering_onedata/creating_user_accounts.md
 
 ## Onezone
 doc/administering_onedata/onezone_overview.md
 doc/administering_onedata/onezone_installation.md
+doc/administering_onedata/openid_configuration.md
 
 ## Oneprovider
 doc/administering_onedata/provider_overview.md
 doc/administering_onedata/provider_installation.md
 doc/administering_onedata/provider_space_support.md
 doc/administering_onedata/storage_configuration.md
+doc/administering_onedata/loadbalancing.md
 
-## 
-doc/administering_onedata/creating_user_accounts.md
-doc/administering_onedata/openid_configuration.md
+## Others 
 doc/administering_onedata/ssl_certificate_management.md
 doc/administering_onedata/firewall_setup.md
-doc/administering_onedata/loadbalancing.md
 doc/administering_onedata/luma.md
-
+doc/running_onedata/docker/pre_onedata_docker.md
 
 
 # Advanced
@@ -59,10 +72,7 @@ doc/advanced/rest/onepanel/
 doc/advanced/rest/oneprovider/
 doc/advanced/rest/onezone/
 
-doc/getting_started/admin_onedata_101.md
-doc/getting_started/downloading_onedata.md
-doc/getting_started/user_onedata_101.md
-doc/getting_started/what_is_onedata.md
 
-doc/running_onedata/docker/pre_onedata_docker.md
+
+
 
