@@ -1,13 +1,11 @@
-# Summary
-
-* [+Onedata Documentation](INTRO.md)
+* [Onedata Documentation](INTRO.md)
 * [Getting Started]()
   * [What is Onedata?](doc/getting_started/what_is_onedata.md)
   * [Downloading Onedata](doc/getting_started/downloading_onedata.md)
   * [User Quickstart](doc/getting_started/user_onedata_101.md)
   * [Admin Quickstart](doc/getting_started/admin_onedata_101.md)
    
-* [Onedata for users](doc/using_onedata/user_guide.md)
+* [Onedata for users]()
    * [Overview](doc/user_guide.md)
    * [Space Management](doc/using_onedata/space_management.md)
    * [Group Management](doc/using_onedata/group_management.md)
@@ -66,8 +64,3 @@
         * [Command line](doc/advanced/rest/cli.md)
         * [Python](doc/advanced/rest/python.md)
   * [CDMI API](doc/advanced/cdmi.md)
-
-
- <!-- * [Macaroons](doc/advanced/macaroons.md)
-  * [CEPH Helper](doc/advanced/ceph.d)
-  * [Amazon S3 Helper](doc/advanced/amazons3.md)-->
