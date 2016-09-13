@@ -7,12 +7,14 @@ export -f git_extra_mktemp
 
 tmp=$(git_extra_mktemp)
 above=0
+
 # if the output won't be printed to tty, disable the color
 test -t 1 && to_tty=true
 color=
 longest_line=0
 sort_column=2
 review_file=REVIEW
+
 #
 # print usage message
 #
@@ -33,7 +35,7 @@ file_needs_review() {
 }
 
 #
-#
+# get main file or directory contributor using git blame
 #
 main_file_contributor() {
   if [[ $(file "$1") = *text* ]]; then
@@ -65,20 +67,14 @@ dates() {
 }
 
 #
-#
+# gets the tag that was created just before the last commit on this file
 #
 last_tag() {
-  # $( echo  -e "2016-09-08\ttag: 3.0.0-rc5,\ttag: 3.0.0-rc3, origin/release/3.0.0-rc5\tMichal Wrzeszcz")
-  #git --no-pager  log --date-order --reverse --since "$1" --pretty=format:'%ad%x09%D%x09%an' --tags --date=short | grep "tag:" | head -1
-  # "$( printf "%s\t%s\t%s" '2016-09-08'  'tag: 3.0.0-rc5, tag: 3.0.0-rc3, origin/release/3.0.0-rc5' 'Michal Wrzeszcz' )"
   save_ifs=$IFS
   IFS=$'\t' read -r -a last_commit_with_tags <<< "$(git --no-pager  log --date-order --before "$1" --pretty=format:'%ad%x09%D' --tags --date=short | grep "tag:" | head -1)"
   IFS=$save_ifs
-  #1>&2 echo "${last_commit_with_tags[1]}"
-  #echo "${last_commit_wiht_tags[1]}" 
-  read -a last_tags <<< $(echo "${last_commit_with_tags[1]}" | tr ',' '\n' | grep 'tag: ' )
-  #1>&2 echo "${last_tags[@]}"
-  without_date="${last_tags[@]}" # remove 
+  read -r -a last_tags <<< "$(echo "${last_commit_with_tags[1]}" | tr ',' '\n' | grep 'tag: ' )"
+  without_date="${last_tags[*]}"
   echo "${without_date:5}" # remove 'tag: '
 }
 
@@ -91,7 +87,6 @@ tputq() {
 #
 # hide cursor
 #
-
 hide_cursor() {
   tputq civis 
 }
@@ -99,7 +94,6 @@ hide_cursor() {
 #
 # show cursor, and remove temporary file
 #
-
 show_cursor_and_cleanup() {
   tputq cvvis
   tputq sgr0
@@ -110,7 +104,6 @@ show_cursor_and_cleanup() {
 #
 # get active days for the given <commit>
 #
-
 active_days() {
   echo "$1" | sort -r | uniq | wc -l
 }
@@ -118,7 +111,6 @@ active_days() {
 #
 # set 'color' based on the given <num>
 #
-
 color_for() {
   if [ "$to_tty" = true ]; then
     if   [ $1 -gt 200 ]; then color="$(tputq setaf 1)$(tputq bold)"
@@ -139,57 +131,56 @@ color_for() {
 #
 # compute the effort of the given <path ...>
 #
-
 effort() {
     path=$1
     local commit_dates
     local color reset_color commits len dot f_dot i msg active
     reset_color=""
     test "$to_tty" = true && reset_color="$(tputq sgr0)"
-    commit_dates=`dates "$path"`
+    commit_dates=$(dates "$path")
     [ $? -gt 0 ] && exit 255
 
     # Ensure it's not just an empty line
-    if [ -z "`head -c 1 <<<$(echo $commit_dates)`" ]
+    if [ -z "$(head -c 1 <<<$(echo $commit_dates))" ]
     then
       exit 0
     fi
 
-    commits=`wc -l <<<"$(echo "$commit_dates")"`
+    commits=$(wc -l <<<"$(echo "$commit_dates")")
     color='90'
-    newest_commit=`head -1 <<<"$(echo "$commit_dates")"`
+    newest_commit=$(head -1 <<<"$(echo "$commit_dates")")
     # ignore <= --above
     test $commits -le $above && exit 0
 
     # commits
-    color_for $(( $commits - $above ))
+    color_for $(( commits - above ))
     len=${#path}
     dot="."
     f_dot="$path"
-    i=0 ; while test $i -lt $(($longest_line-$len)) ; do
+    i=0 ; while test $i -lt $(( longest_line - len )) ; do
       f_dot=$f_dot$dot
-      i=$(($i+1))
+      i=$((i+1))
     done
 
-    msg=$(printf "  ${color}%s %-9d" "$f_dot" $commits)
+    msg=$(printf "  ${color}%s %-9d" "$f_dot" "$commits")
 
     # active days
-    active=`active_days "$commit_dates"`
+    active=$(active_days "$commit_dates")
     #a=$(gdate -d "today - $newest_commit")
-    color_for $(( $active - $above ))
-    msg="$msg $(printf "${color} %-9d${reset_color}\n" $active)"
+    color_for $(( active - above ))
+    msg="$msg $(printf "${color} %-9d${reset_color}\n" "$active")"
 
     # days since active
-    days_since_active=$( days_passed $newest_commit)
-    color_for $days_since_active
-    msg="$msg $(printf "${color} %-10d${reset_color}\n" $days_since_active)"
+    days_since_active=$( days_passed "${newest_commit#[[:space:]]}" )
+    color_for "$days_since_active"
+    msg="$msg $(printf "${color} %-10d${reset_color}\n" "$days_since_active")"
 
     # most active contributor to this file
     contributor="$(main_file_contributor "$path")"
     msg="$msg $(printf "%-30s" "$contributor")"
 
     # last_tag_for_commit
-    last_tag_for_commit=$( last_tag $newest_commit )
+    last_tag_for_commit=$( last_tag "$newest_commit" )
     [[ $last_tag_for_commit = '' ]] && last_tag_for_commit="     "
     msg="$msg $(printf "${color} %-10s${reset_color}\n" "${last_tag_for_commit[@]}")"
 
@@ -222,7 +213,7 @@ sort_effort() {
   clear
   echo " "
   heading
-  < $tmp sort -rn -k $sort_column
+  < "$tmp" sort -rn -k $sort_column
 }
 
 declare -a paths=()
@@ -275,23 +266,21 @@ export args_to_git_log
 
 if test "${#paths}" -eq 0; then
   save_ifs=$IFS
-  IFS=`echo -en "\n\b"`
+  IFS=$(echo -en "\n\b")
  
-  #paths=(`git ls-files $ls_files_opt`)
   if [[ -e "$review_file" ]]; then
-    paths=($(cat REVIEW | grep -v '^$'))
+    paths=("$(grep -v '^$' < REVIEW)")
   else
-    paths=(`git ls-files $ls_files_opt`)
+    paths=($(git ls-files "$ls_files_opt"))
   fi
   IFS=$save_ifs
   unset save_ifs
 fi
 
-# get logest line
+# get longest line
 longest_line=$(printf '%s\n' "${paths[@]}" | awk '{ if (length() > max) { max = length()} } END {print max}')
 
 # hide cursor
-
 hide_cursor
 trap show_cursor_and_cleanup INT
 
@@ -323,12 +312,12 @@ if [ $? -eq 0 ] ; then
 fi
 
 heading
-# send paths to effort
 
-printf "%s\0" "${paths[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee $tmp
+# send paths to effort
+printf "%s\0" "${paths[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee "$tmp"
 
 # if more than one path, sort and print
-test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
+test "$(wc -l "$tmp" | awk '{print $1}')" -gt 1 && sort_effort
 echo
 
 show_cursor_and_cleanup
