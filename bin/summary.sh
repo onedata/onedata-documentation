@@ -28,9 +28,19 @@ usage() {
 #
 file_needs_review() {
   if grep "^$1[[:space:]]*$" "$review_file" 1>/dev/null ; then
-    needs_review="YES"
+    review_start_time="$(git log --diff-filter=A --follow --format=%at -1 -- $review_file)"
+    file_last_commit_time="$(git log  -1 --format=%ct  -- $1)"
+    is_file_modified_locally="$(git status --porcelain $1)"
+    if [[ $is_file_modified_locally != "" ]]; then
+      needs_review="local"
+    elif (( (file_last_commit_time - review_start_time) > 0)); then
+      needs_review="committed"
+    else
+      needs_review="yes"
+    fi
+
   else
-    needs_review="NO"
+    needs_review="no"
   fi
   echo "$needs_review"
 }
@@ -114,7 +124,11 @@ active_days() {
 #
 color_for() {
   if [ "$to_tty" = true ]; then
-    if   [ $1 -gt 200 ]; then color="$(tputq setaf 1)$(tputq bold)"
+    if [[ $1 = "yes" ]]; then color="$(tputq setaf 1)"  # red
+    elif [[ $1 = "no" ]]; then color="$(tputq setaf 2)"  # green
+    elif [[ $1 = "committed" ]]; then color="$(tputq setaf 5)"  # purplish
+    elif [[ $1 = "local" ]]; then color="$(tputq setaf 3)"  # yellow
+    elif   [ $1 -gt 200 ]; then color="$(tputq setaf 1)$(tputq bold)"
     elif [ $1 -gt 150 ]; then color="$(tputq setaf 1)"  # red
     elif [ $1 -gt 125 ]; then color="$(tputq setaf 2)$(tputq bold)"
     elif [ $1 -gt 100 ]; then color="$(tputq setaf 2)"  # green
@@ -189,7 +203,7 @@ effort() {
     if [[ -e "$review_file" ]]; then
       # needs review?
       needs_review=$( file_needs_review "$path" )
-      color_for 0
+      color_for "$needs_review"
       [[ $needs_review = "YES" ]] && color="$(tputq setaf 1)$(tputq bold)"
       msg="$msg $(printf "${color} %s${reset_color}\n" "${needs_review}")"
     fi
