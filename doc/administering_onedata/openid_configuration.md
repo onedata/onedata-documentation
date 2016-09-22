@@ -7,6 +7,13 @@ When configuring Onedata, it is necessary to decide which identity providers sho
 ## Supported authentication sources
 Below is the list of supported OpenID providers. Most such services, require registration of each application (such as Onezone services). Sections below describe how to this for each supported service.
 
+For OpenID services, the login validation endpoint for any Onezone instance has to configured in the OpenID providers setup. The URL is:
+
+```
+https://ONEZONE_HOST/validate_login
+```
+
+
 ### Basic auth
 In order to support HTTP basic authentication, it is necessary to add the following section to the `auth.config` file:
 

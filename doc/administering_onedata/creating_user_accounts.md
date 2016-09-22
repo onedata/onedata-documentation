@@ -20,7 +20,7 @@ The user can be added by invoking a `POST` request to the Onepanel `/user` REST 
 ```bash
 curl -X POST -u $ADMIN_USERNAME:$ADMIN_PASSWORD -H "Content-Type: application/json" \
 -d '{"username": "$USERNAME", "password": "$PASSWORD", "userRole": "regular"}' \
-https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
+https://$(ONEPANEL_HOST):9443/api/v3/onepanel/users
 ```
 
 In order to modify the user details (currently only password can be changed) the same operation should be invoked with `PUT` HTTP method.
@@ -28,7 +28,7 @@ In order to modify the user details (currently only password can be changed) the
 ```bash
 curl -X PUT -u $ADMIN_USERNAME:$ADMIN_PASSWORD -H "Content-Type: application/json" \
 -d '{"password": "$PASSWORD"}' \
-https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
+https://$(ONEPANEL_HOST):9443/api/v3/onepanel/users
 ```
 
 In order for these users to login to Onezone, basic authentication module has to be enabled in the Onezone config as described [here](./openid_configuration.md).
@@ -38,13 +38,13 @@ In order to remove an existing user account, simply execute `DELETE` method on t
 
 ```bash
 curl -X DELETE -u $ADMIN_USERNAME:$ADMIN_PASSWORD \
-https://$ONEPANEL_HOST:8443/api/v3/onepanel/user/$USERNAME
+https://$ONEPANEL_HOST:9443/api/v3/onepanel/users/$USERNAME
 ```
 
 It is also possible to remove the current user account by invoking:
 ```bash
 curl -X DELETE -u $USERNAME:$PASSWORD \
-https://$ONEPANEL_HOST:8443/api/v3/onepanel/user
+https://$ONEPANEL_HOST:9443/api/v3/onepanel/users
 ```
 
 without specifying the username in the path.

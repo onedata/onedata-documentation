@@ -16,13 +16,13 @@ Onedata services depend on each other, after each run wait for a conformation me
 ### Onezone
 To start Onezone service open separate terminal window and execute:
 ```bash=
-./run_onedata.sh --onezone 
+./run_onedata.sh --zone 
 ```
 
 ### Oneprovider
 To run Oneprovider service open another terminal window and execute:
 ```bash=
-./run_onedata.sh --oneprovider
+./run_onedata.sh --provider --provider-fqdn $ONEPROVIDER_IP --zone-fqdn $ONEZONE_IP
 ```
 
 ### Add `onedata.example.com` to /etc/hosts

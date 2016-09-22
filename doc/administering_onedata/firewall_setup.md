@@ -1,4 +1,4 @@
-# Onedata Firewall setup
+# Onedata firewall setup
 
 Due to the fact that Onedata consists of several services which need to communicate between different sites, several ports need to be opened to the outside of the local network.
 

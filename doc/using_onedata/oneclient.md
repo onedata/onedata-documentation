@@ -8,17 +8,18 @@ Onedata provides a command-line based client that is able to mount your spaces i
 
 ## Authentication
 
-
 In order to be able to mount your spaces you need to authenticate with [onedata.org](onedata.org). You can either use a certificate based authentication or an authentication token.
 
 *NOTE: If you are connecting to a provider service which does not have a globally trusted certificate, you will have to use `--no-check-certificate` on every `oneclient` invocation.*
 
 #### Authentication token
-In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following command:
+In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following commands:
 ~~~
-> ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> 
-> PROVIDER_HOSTNAME=<DEFAULT_PROVIDER>
-> oneclient --authentication token <MOUNT_POINT>
+  export ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> 
+
+  export PROVIDER_HOSTNAME=<DEFAULT_PROVIDER>
+
+  oneclient --authentication token <MOUNT_POINT>
 ~~~
 Then simply paste the token into the command line.
 
@@ -77,10 +78,25 @@ General options:
   --debug-gsi             enable GSI debug output
   --groups                list system groups user needs to join for optimal
                           performance and exit
-  --no-check-certificate  disable remote certificate validation
+  --no_check_certificate  disable remote certificate validation
 
 FUSE options:
   -o opt,...            mount options
   -f                    foreground operation
   -s                    disable multi-threaded operation
 ~~~
+
+
+## Using Oneclient from Docker
+If you already have an account at [onedata.org](onedata.org) or some other Onedata zone, you can simply mount your spaces to any folder using single docker command:
+
+```
+docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
+ -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
+ onedata/oneclient:3.0.0-rc6
+```
+
+This will start a Docker container with mounted spaces in `/mnt/oneclient` folder (inside container). They can be accessed from another terminal, for instance using:
+```
+docker exec -it <docker_container_name> ls /mnt/oneclient
+```
