@@ -1,12 +1,24 @@
 # Account Management
-Your account can be managed by clicking on your login name on the right side of the top pane in the Onedata web interface and choosing *Manage account* option.
+
+Basic account management functionality is available via the Onezone interface.
+
+## Changing password
+If your Onezone service supports basic HTTP authentication, you can change your in `Authentication Settings` menu:
 
 <p align="center">
-<img src="../img/manage_account0.png">
+<img src="../img/changepassword.png">
 </p>
 
-On the account management page you can use the **profile** card to edit your personal information and also define the alias for you account.
+## Connecting additional accounts
+When your Onezone service supports multiple OpenID Identity Providers, it is possible to connect multiple external accounts to a single Onedata account allowing you to login using for instance Google, Facebook and GitHub accounts to the same Onedata account.
 
-The **add account** card shows what services you used to authenticate with Onedata with details supplied by a corresponding services. You can add more accounts to authenticate with Onedata, delete them or inspect them by clicking on the tick next to the account's email.
+<p align="center">
+<img src="../img/connectaccount.png">
+</p>
 
-In the **certificates** card you can add new certificatesthat will be used to authenticate with Onedata services.
+## Setting user alias
+In order to ease the use and discovery of Onedata service and to enable identification for collaboration with other users, it is preferred to set some user alias after the first login. 
+
+This alias can be used to provide a unique domain name for user, to access Oneprovider service, composed of the alias and followed by the Onezone domain name, for instance `user1.onedata.org`.
+
+
