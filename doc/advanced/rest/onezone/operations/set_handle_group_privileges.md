@@ -1,49 +1,48 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="set_handle_group_privileges"></a>
+#### Set handle groups privileges
 ```
-GET /providers
+PUT /handles/{hndl}/groups/{gid}/privileges
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Sets group privileges for accessing a handle instance.
 
-This operation requires `list_providers` privilege.
+This operation requires `modify_handle` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Set handle group privileges**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X PUT  -H "Content-type: application/json" \
+-d '{"privileges": ["handle_view_data"]}' \
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/hlkASHDLAKSHDLKJHJjLHSADHLKJhlk/privileges
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**gid**  <br>*required*|The ID of the group of a handle.|string|--|
+|**Path**|**hndl**  <br>*required*|The Onedata ID of the handle.|string|--|
+|**Body**|**privileges**  <br>*required*|The list of group privileges to a specific handle.|[HandlePrivileges](../definitions/HandlePrivileges.md#handleprivileges)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**204**|Group privileges updated successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
-<a name="get_providers-response-200"></a>
-**Response 200**
 
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -53,18 +52,20 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handles/string/groups/string/privileges"
+```
+
+
+###### Request body
+```
+json :
+{
+  "privileges" : [ "unregister_handle", "handle_change_data", "handle_view_data" ]
+}
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

@@ -1,46 +1,51 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="get_handle"></a>
+#### Get handle
 ```
-GET /providers
+GET /handles/{hndl}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Returns the properties of a specific handle.
 
-This operation requires `list_providers` privilege.
+This operation requires `view_handle` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Get handle**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 {
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
+  "handleId": "SADHLKJhlkASHDLAKSHDLKJHJjLH",
+  "handleType": "DOI",
+  "handleServiceId": "ASKDGHKAJSHDukjhasdlkjalksjd76876asdkb",
+  "handle": "10.572/ABCD-asdakjsdak87587asdk-1234/8",
+  "resourceId": "dlkjalkADKDGHKAJSHDukjhassjd76876asdkb",
+  "metadata": "..."
 }
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**hndl**  <br>*required*|The handle ID (internal Onedata GUID) of the identifier.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|The properties of a specific handle.|[Handle](../definitions/Handle.md#handle)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -53,7 +58,7 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handles/string"
 ```
 
 
@@ -62,7 +67,13 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "handleId" : "2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88",
+  "handleType" : "DOI",
+  "handle" : "10.572/test-handle-G9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEh/123",
+  "resourceId" : "RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC",
+  "handleServiceId" : "JKAxNWxvY2F0aW9uImSEFSSGdrbHFCa1pWST2OTQ4cz"
+}
 ```
 
 

@@ -1,46 +1,48 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="get_share"></a>
+#### Get share details
 ```
-GET /providers
+GET /shares/{id}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
-
-This operation requires `list_providers` privilege.
+Returns the details about a specific share.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Get space details**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/shares/bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3
 
 {
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
+  "shareId": "bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3",
+  "name": "MyShare",
+  "public_url": "http://onedata.org/shares/bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3",
+  "root_file_id": "",
+  "parent_space": "UIsgAxi5I803ZirkUfdiWDd4W3bI4QaPBog_0kCdUdd"
 }
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*|Share ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|Information about a share.|[Share](../definitions/Share.md#share)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -53,7 +55,7 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/shares/string"
 ```
 
 
@@ -62,7 +64,13 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "shareId" : null,
+  "name" : "MyNewShare",
+  "publicUrl" : "https://onedata.org/shares/ASDLKJH8asdkjasd89898asd89asdlbKJSBDikjab89-asdmASD",
+  "rootFileId" : "ASDkjlkkasdjoiwnafldnacbaasd8879a8sdkjb",
+  "parentSpace" : "LKJH8asdkjasd89898asd89asdlbKJSBD79a8sdk"
+}
 ```
 
 

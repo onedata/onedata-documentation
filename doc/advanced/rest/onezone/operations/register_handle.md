@@ -1,49 +1,48 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="register_handle"></a>
+#### Register handle
 ```
-GET /providers
+POST /handles
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Allows to register a new handle identifier, using a specific handle service.
 
-This operation requires `list_providers` privilege.
+The handle service must be registered in Onedata separately.
+
+This operation requires `register_handle` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Register handle**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X POST -H "Content-type: application/json" \
+-d '{"handleServiceId": "AFSASDARAWD32aasfASSD", "resourceType": "Share", "resourceId": "LKJGLSAKDGASGD34234JKAHSD", "metadata": "..." }' \
+https://$HOST:8443/api/v3/handles
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Body**|**handleRegistrationRequest**  <br>*required*||[HandleRegistrationRequest](../definitions/HandleRegistrationRequest.md#handleregistrationrequest)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**204**|Request successful.  <br>**Headers** :   <br>`Location` (string) : The endpoint of the new handle resource including the generated GUID.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
-<a name="get_providers-response-200"></a>
-**Response 200**
 
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -53,18 +52,22 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handles"
+```
+
+
+###### Request body
+```
+json :
+{
+  "handleServiceId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "resourceType" : "Share",
+  "resourceId" : "LKJAHSDA796IASDKBjkhaksjdk568787asdhjbasd"
+}
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

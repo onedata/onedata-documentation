@@ -1,49 +1,43 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="add_handle_service"></a>
+#### Add handle service
 ```
-GET /providers
+POST /handle_services
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
-
-This operation requires `list_providers` privilege.
+Allows to register a new handle service.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Add handle services**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X POST  -H "Content-type: application/json" \
+-d '{ ... }' https://$HOST:8443/api/v3/handle_services
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Body**|**handleService**  <br>*required*||[HandleService](../definitions/HandleService.md#handleservice)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**204**|Request successful.  <br>**Headers** :   <br>`Location` (string) : The endpoint of the new handle service resource including the generated GUID.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
-<a name="get_providers-response-200"></a>
-**Response 200**
 
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -53,18 +47,33 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services"
+```
+
+
+###### Request body
+```
+json :
+{
+  "name" : "MyCommunity Handle service",
+  "proxyEndpoint" : "https://localhost:17000/handle_proxy",
+  "serviceProperties" : {
+    "type" : "DOI",
+    "host" : "https://mds.test.datacite.org",
+    "doiEndpoint" : "/doi",
+    "metadataEndpoint" : "/metadata",
+    "mediaEndpoint" : "/media",
+    "prefix" : 10.5072,
+    "username" : "alice",
+    "password" : "pa$$word",
+    "identifierTemplate" : "{{space.name}}-{{space.guid}}",
+    "allowTemplateOverride" : false
+  }
+}
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

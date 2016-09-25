@@ -1,46 +1,59 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="get_handle_service"></a>
+#### Get handle service
 ```
-GET /providers
+GET /handle_services/{id}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Returns the properties of a specific handle service.
 
-This operation requires `list_providers` privilege.
+This operation requires `view_handle_service` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Get handle services**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 {
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
+    "name": "MyCommunity Handle service",
+    "proxyEndpoint": "https://localhost:17000/handle_proxy",
+    "serviceProperties": {
+        "allowTemplateOverride": false,
+        "doiEndpoint": "/doi",
+        "host": "https://mds.test.datacite.org",
+        "identifierTemplate": "{{space.name}}-{{space.guid}}",
+        "mediaEndpoint": "/media",
+        "metadataEndpoint": "/metadata",
+        "password": "pa$$word",
+        "prefix": 10.5072,
+        "type": "DOI",
+        "username": "alice"
+    }
 }
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*||string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|The list of identifiers of registered handle services.|< string > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -53,7 +66,7 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services/string"
 ```
 
 
@@ -62,7 +75,7 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+"array"
 ```
 
 

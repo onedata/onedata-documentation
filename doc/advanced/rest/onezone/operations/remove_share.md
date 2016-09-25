@@ -1,51 +1,40 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="remove_share"></a>
+#### Remove share
 ```
-GET /providers
+DELETE /shares/{id}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
-
-This operation requires `list_providers` privilege.
+Removes a specific share.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Remove space**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u admin:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/shares/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*|Share ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|The share has been removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -53,18 +42,11 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/shares/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

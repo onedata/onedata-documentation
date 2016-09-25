@@ -1,51 +1,42 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="delete_handle_service"></a>
+#### Unregister handle service
 ```
-GET /providers
+DELETE /handle_services/{id}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Allows to unregister a registeed handle service.
 
-This operation requires `list_providers` privilege.
+This operation requires `delete_handle_services` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Unregister handle service**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*||string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**202**|Unregistration was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -53,18 +44,11 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

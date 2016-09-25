@@ -1,49 +1,47 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="modify_handle_service"></a>
+#### Modify handle service
 ```
-GET /providers
+PATCH /handle_services/{id}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Allows to update a registeed handle service.
 
-This operation requires `list_providers` privilege.
+This operation requires `modify_handle_services` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Modify handle service password**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X PATCH  -H "Content-type: application/json" \
+-d '{"password": "new_password"}' \
+https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*||string|--|
+|**Body**|**handleService**  <br>*required*||[HandleServiceUpdate](../definitions/HandleServiceUpdate.md#handleserviceupdate)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**204**|Update was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
-<a name="get_providers-response-200"></a>
-**Response 200**
 
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -53,18 +51,20 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services/string"
+```
+
+
+###### Request body
+```
+json :
+{
+  "proxyEndpoint" : "https://newendpointdomain.com:17000/handle_proxy"
+}
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

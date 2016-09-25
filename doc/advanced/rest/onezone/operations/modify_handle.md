@@ -1,49 +1,48 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="modify_handle"></a>
+#### Modify handle
 ```
-GET /providers
+PATCH /handles/{hndl}
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Allows to update a registeed handle, for instance change the Onedata resource
+to which it points to.
 
-This operation requires `list_providers` privilege.
+This operation requires `modify_handle` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Modify handle resource**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
-
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+curl -k -u username:password -X PATCH  -H "Content-type: application/json" \
+-d '{"resourceId": "jalkADKDGHKAJSdlkHDukjhassjd76876asdkb"}' \
+https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**hndl**  <br>*required*||string|--|
+|**Body**|**handle**  <br>*required*||[Handle](../definitions/Handle.md#handle)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**204**|Update was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
-<a name="get_providers-response-200"></a>
-**Response 200**
 
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
-
-
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -53,18 +52,24 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handles/string"
+```
+
+
+###### Request body
+```
+json :
+{
+  "handleId" : "2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88",
+  "handleType" : "DOI",
+  "handle" : "10.572/test-handle-G9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEh/123",
+  "resourceId" : "RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC",
+  "handleServiceId" : "JKAxNWxvY2F0aW9uImSEFSSGdrbHFCa1pWST2OTQ4cz"
+}
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"object"
-```
-
 
 ###### Response 400
 ```

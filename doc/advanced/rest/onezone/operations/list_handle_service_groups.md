@@ -1,46 +1,47 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="list_handle_service_groups"></a>
+#### Get handle service groups
 ```
-GET /providers
+GET /handle_services/{id}/groups
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
+Returns all groups with access to a handle service instance
 
-This operation requires `list_providers` privilege.
+This operation requires `view_handle_service` privilege.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Get handle service groups**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups
 
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+[
+  "LKJhlkASHDLAKSHDLKJHJjL",
+  "LAKSHDLKJHJjLLKJhlkASHD"
+]
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*|The ID of the handle service.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|The list of identifiers of groups with access to specific handle service.|< string > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -53,7 +54,7 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services/string/groups"
 ```
 
 
@@ -62,7 +63,7 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+"array"
 ```
 
 

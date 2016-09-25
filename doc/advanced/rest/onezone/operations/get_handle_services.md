@@ -1,26 +1,24 @@
 
-<a name="get_providers"></a>
-#### Get providers
+<a name="get_handle_services"></a>
+#### Get handle services
 ```
-GET /providers
+GET /handle_services
 ```
 
 
 ##### Description
-Returns the list of providers registered in the Onezone service.
-
-This operation requires `list_providers` privilege.
+Returns the list of registered handle services.
 
 ***Example cURL requests***
 
-**Get list of providers**
+**Get handle services**
 ```bash
-curl -Ssk -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers
+curl -k -u username:password -X GET https://$HOST:8443/api/v3/handle_services
 
-{
-  "providers": ["WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"]
-}
+[
+  "SADHLKJhlkASHDLAKSHDLKJHJjLH", 
+  "LAKSHDLKJHJjLHSADHLKJhlkASHD"
+]
 ```
 
 
@@ -28,19 +26,12 @@ https://$HOST:8443/api/v3/onezone/providers
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
+|**200**|The list of identifiers of registered handle services.|< string > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_providers-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -53,7 +44,7 @@ https://$HOST:8443/api/v3/onezone/providers
 ###### Request path
 ```
 json :
-"/providers"
+"/handle_services"
 ```
 
 
@@ -62,7 +53,7 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+"array"
 ```
 
 

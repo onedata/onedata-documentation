@@ -1,31 +1,40 @@
 
-<a name="set_user_group_privileges"></a>
-#### Set user's group privileges
+<a name="set_handle_service_group_privileges"></a>
+#### Set handle service groups privileges
 ```
-PUT /groups/{id}/users/{uid}/privileges
+PUT /handle_services/{id}/groups/{gid}/privileges
 ```
 
 
 ##### Description
-Sets privileges for a user {uid} in a group {id}.
+Sets group privileges for accessing a handle service instance.
 
-This operation requires `group_set_privileges` privilege.
+This operation requires `modify_handle_service` privilege.
+
+***Example cURL requests***
+
+**Set handle service group privileges**
+```bash
+curl -k -u username:password -X PUT  -H "Content-type: application/json" \
+-d '{"privileges": ["register_handle"]}' \
+https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/hlkASHDLAKSHDLKJHJjLHSADHLKJhlk/privileges
+```
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**uid**  <br>*required*|User ID.|string|--|
-|**Body**|**data**  <br>*required*|User privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
+|**Path**|**gid**  <br>*required*|The ID of the group of a handle service.|string|--|
+|**Path**|**id**  <br>*required*|The ID of the handle service.|string|--|
+|**Body**|**privileges**  <br>*required*|The list of group privileges to specific handle service.|[HandleServicePrivileges](../definitions/HandleServicePrivileges.md#handleserviceprivileges)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been added.|No Content|
+|**204**|Group privileges updated successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -33,12 +42,17 @@ This operation requires `group_set_privileges` privilege.
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
+##### Consumes
+
+* `application/json`
+
+
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
-"/groups/string/users/string/privileges"
+"/handle_services/string/groups/string/privileges"
 ```
 
 
@@ -46,7 +60,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
+  "privileges" : [ "register_handle", "handle_service_remove", "handle_service_change_data", "handle_service_view_data", "handle_service_add_user", "handle_service_remove_user", "handle_service_add_group", "handle_service_remove_group" ]
 }
 ```
 
