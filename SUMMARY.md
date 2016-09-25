@@ -17,6 +17,8 @@
    * [Replication and Transfer Management](doc/using_onedata/replication_management.md)
    * [Metadata](doc/using_onedata/metadata.md)
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
+   * [Shares](doc/using_onedata/shares.md)
+   * [Handle Services](doc/using_onedata/handle_services.md)
 
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
@@ -36,7 +38,7 @@
    * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
    * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
    * [Local User MApping](doc/administering_onedata/luma.md)
-   * [Deploying using Docker](doc/running_onedata/docker/pre_onedata_docker.md)
+   * [Deploying using Docker](doc/administering_onedata/docker_deployment.md)
 
 * [Advanced topics](doc/advanced/README.md)
   * [Overview](doc/advanced/README.md)

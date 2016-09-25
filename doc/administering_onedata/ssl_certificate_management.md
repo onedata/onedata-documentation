@@ -1,5 +1,7 @@
 # SSL certificate management
 
+<!-- toc -->
+
 All Onedata components require certain X.509 certificates to be installed in specific folders in order to properly handle TLS connections with clients.
 
 The following sections detail certificates required by each Onedata service.

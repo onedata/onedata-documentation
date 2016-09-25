@@ -1,5 +1,7 @@
 # OpenID Configuration
 
+<!-- toc -->
+
 OpenID is the main authentication method used in Onedata. It allows users to reuse their accounts from other websites such as social networks or infrastructure portals.
 
 When configuring Onedata, it is necessary to decide which identity providers should be trusted by the Onezone service. This can be achieved by editing the `/var/lib/oz_worker/auth.config` file on Onezone node. Example file is presented below. All unnecessary login methods can be removed and all tokens must be replaced with actual application tokens and secrets for each service:

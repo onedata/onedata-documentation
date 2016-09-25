@@ -1,5 +1,7 @@
 # Storage Configuration
 
+<!-- toc -->
+
 Onedata supports several storage backends which can be used by storage providers to support users spaces. 
 
 The currently supported storage backends include:

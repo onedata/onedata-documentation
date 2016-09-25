@@ -2,8 +2,6 @@
  
 This section shows how to deploy a fully functional Onedata installation that can work independently of Onedata.org using Docker Compose.
 
-<!-- toc -->
-
 Below is a diagram of the various components comprising a complete example Onedata deployment. 
 
 <p align="center">

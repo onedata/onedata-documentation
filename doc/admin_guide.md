@@ -1,6 +1,6 @@
 # Administrator Guide
 
-This section describes **Onezone** and **Oneprovider** components and their installation process. 
+This section describes **Onezone** and **Oneprovider** components and how to configure and use them.
 
 In order to create custom deployments read carefully the following sections.
 

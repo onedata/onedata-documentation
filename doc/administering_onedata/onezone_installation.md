@@ -1,10 +1,6 @@
 # Onezone setup
 
-<!--
-> A detailed screencast presenting a single node installation of Onezone is located in the tutorials section.
-
-## Services installation
--->
+<!-- toc -->
 
 In order to install Onezone service, you need a (virtual) machine with one of supported operating systems installed. Currently Onezone can be installed using RPM packages on:
 * Scientific Linux 6.x
