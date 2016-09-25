@@ -1,6 +1,6 @@
 
 <a name="get_file_metadata_by_id"></a>
-#### Get metadata
+#### Get file metadata by ID
 ```
 GET /metadata-id/{id}
 ```

@@ -1,6 +1,6 @@
 
 <a name="set_file_metadata"></a>
-#### Set metadata
+#### Set file metadata
 ```
 PUT /metadata/{path}
 ```

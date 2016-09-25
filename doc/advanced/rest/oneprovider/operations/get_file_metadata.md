@@ -1,6 +1,6 @@
 
 <a name="get_file_metadata"></a>
-#### Get metadata
+#### Get file metadata
 ```
 GET /metadata/{path}
 ```

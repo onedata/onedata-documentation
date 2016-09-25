@@ -1,6 +1,6 @@
 
 <a name="set_file_metadata_by_id"></a>
-#### Set metadata
+#### Set file metadata by ID
 ```
 PUT /metadata-id/{id}
 ```
