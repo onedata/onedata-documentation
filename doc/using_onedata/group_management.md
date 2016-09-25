@@ -1,5 +1,7 @@
 # Group Management
 
+<!-- toc -->
+
 You can create or join existing groups to easily manage and collaborate using your data. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permissions to manage it. You can manage your groups from a **Manage groups** page, accessible using **Group** button on the top menu.
 
 ## Create a new group

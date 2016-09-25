@@ -1,5 +1,7 @@
 # Metadata
 
+<!-- toc -->
+
 Onedata comes with extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, folders, spaces and users.
 
 ## Metadata types in Onedata

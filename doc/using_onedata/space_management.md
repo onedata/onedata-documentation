@@ -1,4 +1,7 @@
 # Space Management
+
+<!-- toc -->
+
 This document discusses in more detail what the space is, and how it can be managed through the Onedata web interface.
 
 ## Space concept overview

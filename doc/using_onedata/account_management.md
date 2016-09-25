@@ -1,5 +1,7 @@
 # Account Management
 
+<!-- toc -->
+
 Basic account management functionality is available via the Onezone interface.
 
 ## Changing password
@@ -17,8 +19,9 @@ When your Onezone service supports multiple OpenID Identity Providers, it is pos
 </p>
 
 ## Setting user alias
-In order to ease the use and discovery of Onedata service and to enable identification for collaboration with other users, it is preferred to set some user alias after the first login. 
+In order to ease the use and discovery of Onedata service and to enable identification for collaboration with other users, it is preferred to set a user alias after the first login. 
 
-This alias can be used to provide a unique domain name for user, to access Oneprovider service, composed of the alias and followed by the Onezone domain name, for instance `user1.onedata.org`.
+This alias can be used to make it easier to find you by other users for collaboration (e.g. inviting to join spaces or groups).
+
 
 
