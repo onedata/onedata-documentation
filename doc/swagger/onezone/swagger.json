@@ -5173,7 +5173,7 @@
         "x-onedata-resource": "provider",
         "x-onedata-method": "provider_logic:remove",
         "summary": "Unregister provider",
-        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n\n***Example cURL requests***\n\n**Update provider geo location**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
+        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked\nby Oneprovider which wants to unregister. It does't require any parameters, as the provider is\nidentified by the peer certificate used for this connection.\n\n***Example cURL requests***\n\n**Unregister provider from Onezone**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
