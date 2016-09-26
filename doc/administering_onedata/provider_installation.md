@@ -1,4 +1,4 @@
-# Oneprovider Installation
+# Oneprovider setup
 
 <!-- toc -->
 

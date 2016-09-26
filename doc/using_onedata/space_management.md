@@ -49,7 +49,7 @@ You can manage your spaces from the **Data space management** tab located in the
 To navigate to **Spaces** page, click on the **Spaces** in the left menubar, there you can see the list of all your spaces with one of them denoted as the home space.
 
 ### Create new space
-<img style="float:right;margin: 0px 15px;max-width:250px" src="../img/spacestabhome.png">
+<img style="float:right;margin: 0px 15px;max-width:300px" src="../img/spacestabhome.png">
 The first space is created for you automatically during the first login. In order to create more spaces:
 
 1. In the Onezone Web Interface unfold **Data space management** tab located on the left menubar.

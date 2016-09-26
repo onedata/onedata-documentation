@@ -73,7 +73,11 @@ A complete list of available permissions:
 
 
 ### Perform actions on your group
-On the **Groups** page, each listed group has a **Settings**, which allows you to:
+On the **Groups** page, each listed group has a **Settings** menu.
+
+<img  style="display:block;margin:0 auto; max-width:300px;" src="../img/groupmenu.png">
+
+It allows you to:
 
 | Action Name            | Description                                          |
 |:-----------------------|:-----------------------------------------------------|

@@ -15,7 +15,7 @@ If your Onezone service supports basic HTTP authentication, you can change your 
 When your Onezone service supports multiple OpenID Identity Providers, it is possible to connect multiple external accounts to a single Onedata account allowing you to login using for instance Google, Facebook and GitHub accounts to the same Onedata account.
 
 <p align="center">
-<img src="../img/connectaccount.png">
+<img style="max-width: 300px;" src="../img/connectaccount.png">
 </p>
 
 ## Setting user alias

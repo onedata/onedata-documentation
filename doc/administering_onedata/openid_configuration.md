@@ -122,11 +122,24 @@ This section is specific to the storage providers supporting the [INDIGO-DataClo
 ```Erlang
     {indigo, [
         {auth_module, auth_indigo},
-        {app_id, <<"...">>},
-        {app_secret, <<"...">>},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
         % Provider specific config
         % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
+    ]}
+```
+
+### EGI OIDC
+This section is specific to EGI OpenID Connect [authentication service](https://aai.egi.eu/oidc).
+
+```Erlang
+    {egi, [
+        {auth_module, auth_egi},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        % Provider specific config
+        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>}
     ]}
 ```
 
@@ -213,6 +226,14 @@ The complete auth.conf file is presented below. It is specified directly in [Erl
         % Provider specific config
         % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
+    ]},
+
+    {egi, [
+        {auth_module, auth_egi},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        % Provider specific config
+        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>}
     ]}
 ].
 ```
