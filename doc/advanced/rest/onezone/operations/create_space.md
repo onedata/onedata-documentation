@@ -9,10 +9,19 @@ POST /spaces
 ##### Description
 When called by a regular user, creates a new space and creates the current user its owner.
 
-When called by a provider, creates a new spaces and automatically adds support for it, 
+When called by a provider, creates a new space and automatically adds support for it, 
 based on the token provided in the request body.
 
 This operation does not require any specific privileges.
+
+***Example cURL requests***
+
+**Create new space**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" \
+-X POST -d '{ "name" : "new_space" }' \
+https://$HOST:8443/api/v3/onezone/spaces
+```
 
 
 ##### Parameters

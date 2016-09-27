@@ -9,6 +9,14 @@ DELETE /spaces/{id}
 ##### Description
 Removes a specific space.
 
+***Example cURL requests***
+
+**Remove space**
+```bash
+curl -k -u admin:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
+```
+
 
 ##### Parameters
 

@@ -1,6 +1,6 @@
 
 <a name="get_user_spaces"></a>
-#### Get list of spaces
+#### Get user spaces
 ```
 GET /user/spaces
 ```
@@ -10,6 +10,19 @@ GET /user/spaces
 Returns the list of users' spaces.
 
 This operation can be invoked on behalf of current user only.
+
+***Example cURL requests***
+
+**Get user spaces**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/spaces
+
+{
+  "spaces": ["IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8"],
+  "default": "undefined"
+}
+```
 
 
 ##### Responses

@@ -1,6 +1,8 @@
 # Managing User Accounts
 
-While for most cases, user should create their Onedata accounts using OpenID Connect services using their social or institute logins, it is also possible to create user accounts allowing them to login using HTTP basic authentication, i.e. `username` and `password`.
+<!-- toc -->
+
+While for most cases, users should create their Onedata accounts using OpenID Connect services using their social or community logins, it is also possible to create user accounts manually, allowing users to login using HTTP basic authentication, i.e. with `username` and `password`.
 
 This functionality can be achieved by creating manually user accounts using Onepanel service [REST interface](../advanced/rest/onepanel/overview.md).
 
@@ -17,18 +19,27 @@ The user can be added by invoking a `POST` request to the Onepanel `/user` REST 
 * _password_ - user password
 * _userRole_ - currently only 2 roles are supported: **admin** and **regular**
 
+The following examples assume that the following environment variables had been exported:
+* `ONEZONE_HOST` - The IP or FQDN of the Onezone service 
+* `ADMIN_USERNAME` - Onezone service administrator username
+* `ADMIN_PASSWORD` - Onezone service administrator password
+* `USERNAME` - The new user username
+* `PASSWORD` - The new user password
+
+Now, a new user can created using the following command line request:
+
 ```bash
-curl -X POST -u $ADMIN_USERNAME:$ADMIN_PASSWORD -H "Content-Type: application/json" \
+curl -X POST -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \
 -d '{"username": "$USERNAME", "password": "$PASSWORD", "userRole": "regular"}' \
-https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
 ```
 
 In order to modify the user details (currently only password can be changed) the same operation should be invoked with `PUT` HTTP method.
 
 ```bash
-curl -X PUT -u $ADMIN_USERNAME:$ADMIN_PASSWORD -H "Content-Type: application/json" \
+curl -X PUT -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \
 -d '{"password": "$PASSWORD"}' \
-https://$(ONEPANEL_HOST):8443/api/v3/onepanel/user
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
 ```
 
 In order for these users to login to Onezone, basic authentication module has to be enabled in the Onezone config as described [here](./openid_configuration.md).
@@ -37,14 +48,14 @@ In order for these users to login to Onezone, basic authentication module has to
 In order to remove an existing user account, simply execute `DELETE` method on the user path and provide user name, i.e.:
 
 ```bash
-curl -X DELETE -u $ADMIN_USERNAME:$ADMIN_PASSWORD \
-https://$ONEPANEL_HOST:8443/api/v3/onepanel/user/$USERNAME
+curl -X DELETE -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} \
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/${USERNAME}
 ```
 
 It is also possible to remove the current user account by invoking:
 ```bash
-curl -X DELETE -u $USERNAME:$PASSWORD \
-https://$ONEPANEL_HOST:8443/api/v3/onepanel/user
+curl -X DELETE -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} \
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
 ```
 
 without specifying the username in the path.

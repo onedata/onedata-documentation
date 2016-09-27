@@ -22,9 +22,10 @@ Returns the details of the selected storage.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|The details of a selected storage|[ClusterStorages](../definitions/ClusterStorages.md#clusterstorages)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**404**|Storage does not exist.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -52,12 +53,12 @@ json :
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

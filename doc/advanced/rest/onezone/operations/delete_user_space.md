@@ -11,6 +11,14 @@ Removes the users ownership or membership in a specific space.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Delete user space**
+```bash
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/user/spaces/PMPs42mROSS7Rg7z7BwU9JYpSof4SvIW5v14uQY8X08
+```
+
 
 ##### Parameters
 

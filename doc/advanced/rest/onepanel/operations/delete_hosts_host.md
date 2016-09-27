@@ -7,7 +7,7 @@ DELETE /hosts/{host}
 
 
 ##### Description
-Removes a node from the administrative cluster.
+Removes a node from the administrative cluster. This operation removes all user and configuration data from the host. It also removes the host from each service cluster it belonged to.
 
 
 ##### Parameters
@@ -22,10 +22,9 @@ Removes a node from the administrative cluster.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**204**|Node has been successfully removed from the cluster.|No Content|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
 |**404**|Host not found.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Consumes
@@ -44,12 +43,12 @@ json :
 
 ##### Example HTTP response
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

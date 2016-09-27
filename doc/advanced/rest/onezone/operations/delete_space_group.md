@@ -1,16 +1,24 @@
 
 <a name="delete_space_group"></a>
-#### Remove subgroup
+#### Remove group from space
 ```
 DELETE /spaces/{id}/groups/{gid}
 ```
 
 
 ##### Description
-Removes a specific nested group.
+Removes a specific group from space.
 
 This operation requires `space_remove_group` privilege or 
 `remove_member_from_space` privilege.
+
+***Example cURL requests***
+
+**Get space group details**
+```bash
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF9UNE/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8
+```
 
 
 ##### Parameters

@@ -11,6 +11,18 @@ Returns the list of user privileges for Onezone.
 
 This operation requires `view_privileges` privilege.
 
+***Example cURL requests***
+
+**Get users privileges to Onezone service**
+```bash
+curl -k -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+
+{
+  "privileges": []
+}
+```
+
 
 ##### Parameters
 

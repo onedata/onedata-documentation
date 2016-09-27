@@ -1,11 +1,20 @@
 # OpenID Configuration
 
+<!-- toc -->
+
 OpenID is the main authentication method used in Onedata. It allows users to reuse their accounts from other websites such as social networks or infrastructure portals.
 
 When configuring Onedata, it is necessary to decide which identity providers should be trusted by the Onezone service. This can be achieved by editing the `/var/lib/oz_worker/auth.config` file on Onezone node. Example file is presented below. All unnecessary login methods can be removed and all tokens must be replaced with actual application tokens and secrets for each service:
 
 ## Supported authentication sources
 Below is the list of supported OpenID providers. Most such services, require registration of each application (such as Onezone services). Sections below describe how to this for each supported service.
+
+For OpenID services, the login validation endpoint for any Onezone instance has to configured in the OpenID providers setup. The URL is:
+
+```
+https://ONEZONE_HOST/validate_login
+```
+
 
 ### Basic auth
 In order to support HTTP basic authentication, it is necessary to add the following section to the `auth.config` file:
@@ -113,11 +122,24 @@ This section is specific to the storage providers supporting the [INDIGO-DataClo
 ```Erlang
     {indigo, [
         {auth_module, auth_indigo},
-        {app_id, <<"...">>},
-        {app_secret, <<"...">>},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
         % Provider specific config
         % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
+    ]}
+```
+
+### EGI OIDC
+This section is specific to EGI OpenID Connect [authentication service](https://aai.egi.eu/oidc).
+
+```Erlang
+    {egi, [
+        {auth_module, auth_egi},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        % Provider specific config
+        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>}
     ]}
 ```
 
@@ -204,6 +226,14 @@ The complete auth.conf file is presented below. It is specified directly in [Erl
         % Provider specific config
         % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
+    ]},
+
+    {egi, [
+        {auth_module, auth_egi},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        % Provider specific config
+        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>}
     ]}
 ].
 ```

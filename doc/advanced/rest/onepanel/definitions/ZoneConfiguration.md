@@ -7,6 +7,7 @@ The zone deployment configuration.
 |Name|Description|Schema|
 |---|---|---|
 |**cluster**  <br>*required*||[ZoneClusterConfiguration](ZoneClusterConfiguration.md#zoneclusterconfiguration)|
+|**onepanel**  <br>*optional*||[PanelConfiguration](PanelConfiguration.md#panelconfiguration)|
 |**onezone**  <br>*optional*|The zone custom configuration.|[onezone](#zoneconfiguration-onezone)|
 
 <a name="zoneconfiguration-onezone"></a>

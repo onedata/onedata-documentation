@@ -53,6 +53,11 @@ For convenience, `/space/` methods provider means for getting basic information 
 spaces directly from the Oneprovider service. For more comprehensive operations
 on spaces please use the Onezone API.
 
+#### Metadata
+Oneprovider exposes an advanced metadata management mechanism allowing to attach
+arbitrary JSON or RDF documents to any files or folders (under `/metata` path)
+as well as create indexes (`/index`) and query them based on the metadata (`/query-index`).
+
 ### Replication
 
 #### Replica management
@@ -80,19 +85,21 @@ database files, with resolution determined by the `step` query parameter.
 
 **Create replica of file at specific storage provider**
 ```bash
-curl -v --tlsv1.2 -H "macaroon: $TOKEN" -X POST \
+curl -v --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X POST \
  "https://$PROVIDER:8443/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF"
 ```
 
 **Get space storage qouta metric**
 ```bash
-curl -v --tlsv1.2 -H "macaroon: $TOKEN" -X GET \
+curl -v --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
  "https://$PROVIDER:8443/metrics/space/MySpace1?metric=storage_qouta"
 ```
 
+More detailed examples are available in the documentation of each operation.
+
 
 ### Version information
-*Version* : 3.0.0-RC2
+*Version* : 3.0.0-rc7
 
 
 ### Contact information

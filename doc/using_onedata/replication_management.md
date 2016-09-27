@@ -1,5 +1,7 @@
 # Replication and Transfer Management
 
+<!-- toc -->
+
 Onedata provides advanced functionality in terms of replica and transfer management in order to support most demanding use cases such as high performance scientific applications.
 
 On the low level, all files are divided into equal size blocks which can be independently replicated between storage resources. The API's for replication and transfer management give detailed information on which blocks are replicated at which sites, which allows for custom control and optimization at the application level.

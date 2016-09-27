@@ -1,13 +1,13 @@
 
 <a name="get_zone_databases_host"></a>
-#### Get zone database
+#### Get zone database status
 ```
 GET /zone/databases/{host}
 ```
 
 
 ##### Description
-Returns status of database service on selected host.
+Returns status of database service on the selected host.
 
 
 ##### Parameters
@@ -21,11 +21,11 @@ Returns status of database service on selected host.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of database service on selected host.|[ServiceStatusHost](../definitions/ServiceStatusHost.md#servicestatushost)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**200**|The status of database service on the selected host.|[ServiceStatusHost](../definitions/ServiceStatusHost.md#servicestatushost)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Database service has not been deployed on selected host.|No Content|
-|**500**|Internal server error.|No Content|
+|**404**|Database service has not been deployed on the selected host.|No Content|
+|**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
 ##### Produces
@@ -53,12 +53,17 @@ json :
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "string",
+  "description" : "string",
+  "module" : "string",
+  "function" : "string",
+  "hosts" : {
+    "string" : "[error](#error)"
+  }
 }
 ```
 

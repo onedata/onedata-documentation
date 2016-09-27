@@ -7,17 +7,17 @@ GET /provider/spaces
 
 
 ##### Description
-Returns the list of spaces supported by a provider.
+Returns the collection of spaces supported by a provider.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of IDs of spaces supported by a provider.|< string > array|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -39,16 +39,18 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+{
+  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
+}
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

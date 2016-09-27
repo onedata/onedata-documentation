@@ -7,9 +7,18 @@ POST /groups/{id}/spaces
 
 
 ##### Description
-Creates a new space on behalf of a specific group.
+Creates a new space for of a specific group.
 
-This operation requires `group_set_privileges` privilege.
+This operation requires `group_create_space` privilege.
+
+***Example cURL requests***
+
+**Create new space for group**
+```bash
+curl -k -u admin:password  -H "Content-type: application/json" \
+-X POST -d '{"name": "new_space"}' \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces
+```
 
 
 ##### Parameters
@@ -17,6 +26,14 @@ This operation requires `group_set_privileges` privilege.
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Body**|**spaceName**  <br>*optional*||[spaceName](#create_space_for_group-spacename)|--|
+
+<a name="create_space_for_group-spacename"></a>
+**spaceName**
+
+|Name|Description|Schema|
+|---|---|---|
+|**name**  <br>*required*|Name of the new space.|string|
 
 
 ##### Responses
@@ -41,6 +58,15 @@ This operation requires `group_set_privileges` privilege.
 ```
 json :
 "/groups/string/spaces"
+```
+
+
+###### Request body
+```
+json :
+{
+  "name" : "string"
+}
 ```
 
 

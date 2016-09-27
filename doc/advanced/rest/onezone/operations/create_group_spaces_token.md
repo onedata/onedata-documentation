@@ -12,6 +12,16 @@ where it can be used to create a new space for the group and automatically suppo
 
 This operation requires `group_create_space_token` privilege.
 
+***Example cURL requests***
+
+**Generate group space creation token**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/spaces/token
+
+{"token":"MDAxNmxvY2F0VhdGVfdG9rZW4KMDAyZnNpZ25hdHVyZSAdVCkpV2L9A00S9Ky01TtJF1Lsne3EBUU9UAW1xOi8Iolwo"}
+```
+
 
 ##### Parameters
 

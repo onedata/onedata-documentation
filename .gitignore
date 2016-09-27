@@ -65,7 +65,8 @@ docker-compose.yml
 .DS_Store
 ._*
 
-
+# Sublime
+*.sublime-workspace
 
 # Generated REST files
 #onezone-static.html

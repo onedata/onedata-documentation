@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "3.0.0-RC2",
+    "version": "3.0.0-rc7",
     "title": "Onepanel",
     "description": "This is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, started and stopped on \na specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. \n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, \nso complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone**\nor **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel \ninstance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific\nrequests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples \nBelow are some example requests to Onepanel using cURL:\n  \n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages \n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers \n```\n",
     "contact": {
@@ -45,7 +45,10 @@
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -81,20 +84,20 @@
               "$ref": "#/definitions/UserDetails"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "The user has not been found."
+            "description": "The user does not exist."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -130,14 +133,20 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "The user has not been found."
+            "description": "The user does not exist."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -172,11 +181,8 @@
           "204": {
             "description": "The user account has been successfully removed."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -185,7 +191,10 @@
             "description": "User account not found."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -220,11 +229,17 @@
               "type": "string"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
@@ -255,17 +270,14 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -279,10 +291,10 @@
           }
         ]
       },
-      "put": {
-        "operationId": "put_hosts",
+      "post": {
+        "operationId": "post_hosts",
         "summary": "Create or join cluster",
-        "description": "Initializes administrative cluster or if `clusterHost` parameter has been\nprovided in the query string adds this host to an existing cluster.\n\nIn case of cluster initialization this request removes all user and\nconfiguration data. This request can be executed unauthorized as long as\nthere are no admin users.\n",
+        "description": "Initializes administrative cluster or if `clusterHost` parameter has been\nprovided in the query string adds this host to an existing cluster.\n\nIn both cases the host handling this request has to be newly started or\nremoved from previous cluster. It cannot contain any configuration data.\n\nThis request can be executed unauthorized as long as there are no admin users.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
@@ -297,17 +309,14 @@
           "204": {
             "description": "Cluster has been successfully initialized or extended."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -340,7 +349,7 @@
       "delete": {
         "operationId": "delete_hosts_host",
         "summary": "Remove cluster node",
-        "description": "Removes a node from the administrative cluster.",
+        "description": "Removes a node from the administrative cluster. This operation removes all user and configuration data from the host. It also removes the host from each service cluster it belonged to.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "host",
@@ -354,12 +363,6 @@
           "204": {
             "description": "Node has been successfully removed from the cluster."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
           "403": {
             "description": "Forbidden request."
           },
@@ -367,7 +370,10 @@
             "description": "Host not found."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -389,6 +395,7 @@
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "task",
+        "x-onedata-noauth": true,
         "tags": [
           "Onepanel"
         ],
@@ -402,20 +409,20 @@
               "$ref": "#/definitions/TaskStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "The task has not been found."
+            "description": "The task does not exist."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -450,21 +457,21 @@
               "$ref": "#/definitions/ProviderDetails"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider",
         "summary": "Register provider",
         "description": "Registers provider in the zone.",
@@ -487,11 +494,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -522,17 +535,17 @@
           "204": {
             "description": "Provider details has been successfully modified."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -560,29 +573,65 @@
           "204": {
             "description": "Provider has been successfully unregistered."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
     },
     "/provider/configuration": {
-      "put": {
-        "operationId": "put_provider_configuration",
-        "summary": "Configure provider deployment",
-        "description": "Configures and starts provider services, such as database, cluster manager\nand cluster worker. Depending on the configuration, sets up provider storage\nand registers in the zone.\n",
+      "get": {
+        "operationId": "get_provider_configuration",
+        "summary": "Get provider cluster configuration",
+        "description": "Returns the provider cluster configuration.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oneprovider",
+        "x-onedata-noauth": true,
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The provider cluster configuration.",
+            "schema": {
+              "$ref": "#/definitions/ProviderConfiguration"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "put_provider_configuration",
+        "summary": "Configure provider deployment",
+        "description": "Configures and starts provider services, such as database, cluster manager\nand cluster worker. Depending on the configuration, sets up provider storage\nand registers in the zone.\n\nThis request can be executed unauthorized as long as there are no admin users.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_service",
+        "x-onedata-resource": "service_oneprovider",
+        "x-onedata-noauth": true,
         "tags": [
           "Oneprovider"
         ],
@@ -590,7 +639,7 @@
           "application/json"
         ],
         "responses": {
-          "204": {
+          "201": {
             "description": "Deployment process successfully started.",
             "headers": {
               "Location": {
@@ -609,7 +658,10 @@
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -628,7 +680,7 @@
       "get": {
         "operationId": "get_provider_spaces",
         "summary": "Get provider spaces",
-        "description": "Returns the list of spaces supported by a provider.",
+        "description": "Returns the collection of spaces supported by a provider.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "spaces",
@@ -640,29 +692,26 @@
         ],
         "responses": {
           "200": {
-            "description": "The list of IDs of spaces supported by a provider.",
+            "description": "The provider spaces details.",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/ProviderSpaces"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider_spaces",
         "summary": "Create or support space",
         "description": "Supports an existing space or creates a new space and automatically supports it.\n",
@@ -691,11 +740,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -731,17 +786,20 @@
               "$ref": "#/definitions/SpaceDetails"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
+          "404": {
+            "description": "Space does not exist or is not supported by the provider."
+          },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -771,17 +829,20 @@
           "204": {
             "description": "The space support has been successfully revoked."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
+          "404": {
+            "description": "Space does not exist or is not supported by the provider."
+          },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -819,21 +880,21 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider_storages",
         "summary": "Configure storage",
         "description": "Adds a storage to the provider deployment.",
@@ -856,11 +917,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -897,17 +964,20 @@
               "$ref": "#/definitions/ClusterStorages"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
+          "404": {
+            "description": "Storage does not exist."
+          },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -942,11 +1012,8 @@
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -955,14 +1022,17 @@
             "description": "Database service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider_databases",
         "summary": "Deploy provider databases",
-        "description": "Deploys a database cluster service on provided hosts.",
+        "description": "Deploys a database service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -988,11 +1058,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1000,7 +1076,7 @@
             "name": "serviceHosts",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/ServiceHosts"
+              "$ref": "#/definitions/ServiceDatabases"
             },
             "required": true
           }
@@ -1018,13 +1094,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Database service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing database service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1033,7 +1106,10 @@
             "description": "Database service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1052,7 +1128,7 @@
       "get": {
         "operationId": "get_provider_databases_host",
         "summary": "Get provider database status",
-        "description": "Returns status of database service on selected host.",
+        "description": "Returns status of database service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -1064,25 +1140,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of database service on selected host.",
+            "description": "The status of database service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Database service has not been deployed on selected host."
+            "description": "Database service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1098,7 +1174,7 @@
       "patch": {
         "operationId": "patch_provider_databases_host",
         "summary": "Start/stop provider database",
-        "description": "Starts or stops database service on selected hosts in the local deployment.\n",
+        "description": "Starts or stops database service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -1107,22 +1183,22 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Database service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Database service has not been deployed on selected host."
+            "description": "Database service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1147,7 +1223,7 @@
     "/provider/managers": {
       "get": {
         "operationId": "get_provider_managers",
-        "summary": "Get provider managers",
+        "summary": "Get provider cluster managers status",
         "description": "Returns status of cluster manager service on each host where it has been deployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -1165,11 +1241,8 @@
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1178,14 +1251,17 @@
             "description": "Cluster manager service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider_managers",
-        "summary": "Deploy provider managers",
-        "description": "Deploys a cluster manager service cluster on provided hosts.\n",
+        "summary": "Deploy provider cluster managers",
+        "description": "Deploys a cluster manager service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1201,7 +1277,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1211,11 +1287,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1231,7 +1313,7 @@
       },
       "patch": {
         "operationId": "patch_provider_managers",
-        "summary": "Start/stop provider managers",
+        "summary": "Start/stop provider cluster managers",
         "description": "Starts or stops cluster manager service on all hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -1241,13 +1323,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster manager service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing cluster manager service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1256,14 +1335,17 @@
             "description": "Cluster manager service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service. The service will be\nstarted or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1274,8 +1356,8 @@
     "/provider/managers/{host}": {
       "get": {
         "operationId": "get_provider_managers_host",
-        "summary": "Get provider manager status",
-        "description": "Returns status of cluster manager service on a selected host.",
+        "summary": "Get provider cluster manager status",
+        "description": "Returns status of cluster manager service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1287,31 +1369,31 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster manager service on selected host.",
+            "description": "The status of cluster manager service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster manager service has not been deployed on selected host."
+            "description": "Cluster manager service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster manager service status  should be returned.\n",
+            "description": "The name of a host for which cluster manager service status should be returned.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -1320,8 +1402,8 @@
       },
       "patch": {
         "operationId": "patch_provider_managers_host",
-        "summary": "Start/stop provider manager",
-        "description": "Starts or stops cluster manager service on selected hosts in the  local deployment.\n",
+        "summary": "Start/stop provider cluster manager",
+        "description": "Starts or stops cluster manager service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1330,28 +1412,28 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster manager service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster manager service has not been deployed on selected host.\n"
+            "description": "Cluster manager service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster manager service  status should be changed.\n",
+            "description": "The name of a host for which cluster manager service status should be changed.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -1359,7 +1441,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service.  The service will be started or stopped in order to match the  requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1370,8 +1452,8 @@
     "/provider/workers": {
       "get": {
         "operationId": "get_provider_workers",
-        "summary": "Get provider workers",
-        "description": "Returns status of cluster worker service on each host where it has been\ndeployed.\n",
+        "summary": "Get provider cluster workers status",
+        "description": "Returns status of cluster worker service on each host where it has been deployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_op_worker",
@@ -1383,16 +1465,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on each host where it has been\ndeployed.\n",
+            "description": "The status of cluster worker service on each host where it has been deployed.\n",
             "schema": {
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1401,13 +1480,16 @@
             "description": "Cluster worker service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_provider_workers",
-        "summary": "Deploy provider workers",
+        "summary": "Deploy provider cluster workers",
         "description": "Deploys a cluster worker service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -1424,7 +1506,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to  check operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1434,11 +1516,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1454,7 +1542,7 @@
       },
       "patch": {
         "operationId": "patch_provider_workers",
-        "summary": "Start/stop cluster worker service",
+        "summary": "Start/stop provider cluster workers",
         "description": "Starts or stops cluster worker service on all hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -1464,13 +1552,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster worker service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing cluster worker service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1479,7 +1564,10 @@
             "description": "Cluster worker service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1497,8 +1585,8 @@
     "/provider/workers/{host}": {
       "get": {
         "operationId": "get_provider_workers_host",
-        "summary": "Get cluster worker status",
-        "description": "Returns status of cluster worker service on selected host.",
+        "summary": "Get provider cluster worker status",
+        "description": "Returns status of cluster worker service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_op_worker",
@@ -1510,25 +1598,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on selected host.",
+            "description": "The status of cluster worker service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster worker service has not been deployed on selected host."
+            "description": "Cluster worker service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1543,8 +1631,8 @@
       },
       "patch": {
         "operationId": "patch_provider_workers_host",
-        "summary": "Start/stop provider workers",
-        "description": "Starts or stops cluster worker service on selected hosts in the local deployment.\n",
+        "summary": "Start/stop provider cluster worker",
+        "description": "Starts or stops cluster worker service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_op_worker",
@@ -1553,22 +1641,22 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster worker service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster worker service has not been deployed on selected host."
+            "description": "Cluster worker service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1591,13 +1679,49 @@
       }
     },
     "/zone/configuration": {
-      "put": {
-        "operationId": "put_zone_configuration",
-        "summary": "Create zone deployment",
-        "description": "Configures and starts zone services, such as database, cluster manager\nand cluster worker.\n",
+      "get": {
+        "operationId": "get_zone_configuration",
+        "summary": "Get zone cluster configuration",
+        "description": "Returns the zone cluster configuration.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_onezone",
+        "x-onedata-noauth": true,
+        "tags": [
+          "Onezone"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The zone cluster configuration.",
+            "schema": {
+              "$ref": "#/definitions/ZoneConfiguration"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "put_zone_configuration",
+        "summary": "Configure zone deployment",
+        "description": "Configures and starts zone services, such as database, cluster manager\nand cluster worker.\n\nThis request can be executed unauthorized as long as there are no admin users.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_service",
+        "x-onedata-resource": "service_onezone",
+        "x-onedata-noauth": true,
         "tags": [
           "Onezone"
         ],
@@ -1605,12 +1729,12 @@
           "application/json"
         ],
         "responses": {
-          "204": {
+          "201": {
             "description": "Deployment process successfully started.",
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried  to check operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1624,7 +1748,10 @@
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "parameters": [
@@ -1660,11 +1787,8 @@
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1673,14 +1797,17 @@
             "description": "Database service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_zone_databases",
         "summary": "Deploy zone databases",
-        "description": "Deploys a database service cluster on provided hosts.",
+        "description": "Deploys a database service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -1696,7 +1823,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1706,11 +1833,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1718,7 +1851,7 @@
             "name": "serviceHosts",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/ServiceHosts"
+              "$ref": "#/definitions/ServiceDatabases"
             },
             "required": true
           }
@@ -1736,13 +1869,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Database service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing database service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1751,7 +1881,10 @@
             "description": "Database service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1769,8 +1902,8 @@
     "/zone/databases/{host}": {
       "get": {
         "operationId": "get_zone_databases_host",
-        "summary": "Get zone database",
-        "description": "Returns status of database service on selected host.",
+        "summary": "Get zone database status",
+        "description": "Returns status of database service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -1782,25 +1915,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of database service on selected host.",
+            "description": "The status of database service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Database service has not been deployed on selected host."
+            "description": "Database service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1816,7 +1949,7 @@
       "patch": {
         "operationId": "patch_zone_databases_host",
         "summary": "Start/stop zone database",
-        "description": "Starts or stops database service on selected hosts in the local deployment.\n",
+        "description": "Starts or stops database service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -1825,22 +1958,22 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Database service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Database service has not been deployed on selected host."
+            "description": "Database service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1865,8 +1998,8 @@
     "/zone/managers": {
       "get": {
         "operationId": "get_zone_managers",
-        "summary": "Get zone managers status",
-        "description": "Returns status of cluster manager service on each host where it has been\ndeployed.\n",
+        "summary": "Get zone cluster managers status",
+        "description": "Returns status of cluster manager service on each host where it has been deployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1883,11 +2016,8 @@
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1896,14 +2026,17 @@
             "description": "Cluster manager service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_zone_managers",
-        "summary": "Deploy zone managers",
-        "description": "Deploys a cluster manager service cluster on provided hosts.",
+        "summary": "Deploy zone cluster managers",
+        "description": "Deploys a cluster manager service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1919,7 +2052,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to  check operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1929,11 +2062,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -1949,7 +2088,7 @@
       },
       "patch": {
         "operationId": "patch_zone_managers",
-        "summary": "Start/stop zone managers",
+        "summary": "Start/stop zone cluster managers",
         "description": "Starts or stops cluster manager service on all hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -1959,13 +2098,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster manager service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing cluster manager service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -1974,14 +2110,17 @@
             "description": "Cluster manager service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1992,8 +2131,8 @@
     "/zone/managers/{host}": {
       "get": {
         "operationId": "get_zone_managers_host",
-        "summary": "Get zone manager status",
-        "description": "Returns status of cluster manager service on selected host.",
+        "summary": "Get zone cluster manager status",
+        "description": "Returns status of cluster manager service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -2005,25 +2144,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster manager service on selected host.",
+            "description": "The status of cluster manager service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster manager service has not been deployed on selected host."
+            "description": "Cluster manager service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2038,8 +2177,8 @@
       },
       "patch": {
         "operationId": "patch_zone_managers_host",
-        "summary": "Start/stop zone manager",
-        "description": "Starts or stops cluster manager service on selected hosts in the local deployment.\n",
+        "summary": "Start/stop zone cluster manager",
+        "description": "Starts or stops cluster manager service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -2048,22 +2187,22 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster manager service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster manager service has not been deployed on selected host."
+            "description": "Cluster manager service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2088,8 +2227,8 @@
     "/zone/workers": {
       "get": {
         "operationId": "get_zone_workers",
-        "summary": "Get zone workers",
-        "description": "Returns status of cluster worker service on each host where it has been\ndeployed.\n",
+        "summary": "Get zone cluster workers status",
+        "description": "Returns status of cluster worker service on each host where it has been deployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oz_worker",
@@ -2101,16 +2240,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on each host where it has been\ndeployed.\n",
+            "description": "The status of cluster worker service on each host where it has been deployed.\n",
             "schema": {
               "$ref": "#/definitions/ServiceStatus"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -2119,14 +2255,17 @@
             "description": "Cluster worker service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         }
       },
-      "put": {
+      "post": {
         "operationId": "put_zone_workers",
-        "summary": "Deploy zone workers",
-        "description": "Deploys a cluster worker service cluster on provided hosts.",
+        "summary": "Deploy zone cluster workers",
+        "description": "Deploys a cluster worker service on provided hosts.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oz_worker",
@@ -2152,11 +2291,17 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "Unauthorized request."
+          },
           "403": {
             "description": "Forbidden request."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2172,7 +2317,7 @@
       },
       "patch": {
         "operationId": "patch_zone_workers",
-        "summary": "Start/stop zone workers",
+        "summary": "Start/stop zone cluster workers",
         "description": "Starts or stops cluster worker service on all hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
@@ -2182,13 +2327,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster worker service state changed successfully."
           },
-          "400": {
-            "description": "An error has occurred while changing cluster worker service status.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
@@ -2197,7 +2339,10 @@
             "description": "Cluster worker service has not been deployed."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2215,8 +2360,8 @@
     "/zone/workers/{host}": {
       "get": {
         "operationId": "get_zone_workers_host",
-        "summary": "Get zone worker status",
-        "description": "Returns status of cluster worker service on selected host.",
+        "summary": "Get zone cluster worker status",
+        "description": "Returns status of cluster worker service on the selected host.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oz_worker",
@@ -2228,25 +2373,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on selected host.",
+            "description": "The status of cluster worker service on the selected host.",
             "schema": {
               "$ref": "#/definitions/ServiceStatusHost"
             }
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster worker service has not been deployed on selected host."
+            "description": "Cluster worker service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2261,8 +2406,8 @@
       },
       "patch": {
         "operationId": "patch_zone_workers_host",
-        "summary": "Start/stop zone worker",
-        "description": "Starts or stops cluster worker service on selected hosts in the local deployment.\n",
+        "summary": "Start/stop zone cluster worker",
+        "description": "Starts or stops cluster worker service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oz_worker",
@@ -2271,22 +2416,22 @@
         ],
         "responses": {
           "204": {
-            "description": "Databases service state changed successfully."
+            "description": "Cluster worker service state changed successfully."
           },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized request."
           },
           "403": {
             "description": "Forbidden request."
           },
           "404": {
-            "description": "Cluster worker service has not been deployed on selected host."
+            "description": "Cluster worker service has not been deployed on the selected host."
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           }
         },
         "parameters": [
@@ -2328,8 +2473,8 @@
         "description"
       ],
       "example": {
-        "error": "Authentication Error",
-        "description": "Invalid username or password."
+        "error": "Invalid Request",
+        "description": "User role must be one of 'admin' or 'regular'."
       }
     },
     "UserDetails": {
@@ -2408,6 +2553,41 @@
         "password": "P@@$$W0RD"
       }
     },
+    "PanelConfiguration": {
+      "type": "object",
+      "description": "The panel configuration.",
+      "properties": {
+        "users": {
+          "type": "object",
+          "description": "The collection of user names associated with users properties.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "password": {
+                "type": "string",
+                "description": "The user password."
+              },
+              "userRole": {
+                "type": "string",
+                "x-onedata-datatype": "atom",
+                "description": "The user role, one of 'admin' or 'regular'.",
+                "enum": [
+                  "admin",
+                  "regular"
+                ]
+              }
+            },
+            "required": [
+              "password",
+              "userRole"
+            ]
+          }
+        }
+      },
+      "required": [
+        "users"
+      ]
+    },
     "ClusterWorkers": {
       "type": "object",
       "description": "The cluster worker service configuration.",
@@ -2455,6 +2635,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "serverQuota": {
+          "type": "integer",
+          "description": "The server quota is the RAM memory in bytes that is allocated to the server when Couchbase Server is first installed. This sets the limit of RAM allocated by Couchbase for caching data for all buckets and is configured on a per-node basis.\n"
+        },
+        "bucketQuota": {
+          "type": "integer",
+          "description": "The bucket quota is the amount of RAM memory in bytes allocated to an individual bucket for caching data.\n"
         }
       },
       "required": [
@@ -2690,6 +2878,9 @@
               "type": "string"
             }
           }
+        },
+        "onepanel": {
+          "$ref": "#/definitions/PanelConfiguration"
         }
       },
       "required": [
@@ -2729,6 +2920,10 @@
       "type": "object",
       "description": "The zone cluster configuration.",
       "properties": {
+        "autoDeploy": {
+          "type": "boolean",
+          "description": "Defines whether administrative cluster should be created from the list of provided cluster nodes.\n"
+        },
         "domainName": {
           "type": "string",
           "description": "The name of a domain common for all services in the cluster. Together with a node hostname constitute a node fully qualified domain name.\n"
@@ -2819,6 +3014,9 @@
           "required": [
             "domainName"
           ]
+        },
+        "onepanel": {
+          "$ref": "#/definitions/PanelConfiguration"
         }
       },
       "required": [
@@ -2871,6 +3069,10 @@
       "type": "object",
       "description": "The provider cluster configuration.",
       "properties": {
+        "autoDeploy": {
+          "type": "boolean",
+          "description": "Defines whether administrative cluster should be created from the list of provided cluster nodes.\n"
+        },
         "domainName": {
           "type": "string",
           "description": "The name of a domain common for all services in the cluster. Together with a node hostname constitutes a fully qualified domain name (FDQN) of the node.\n"
@@ -2969,6 +3171,28 @@
         "geoLatitude": -128.3519364
       }
     },
+    "ProviderSpaces": {
+      "type": "object",
+      "description": "The provider spaces details.",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "description": "The list of IDs of spaces supported by a provider.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ids"
+      ],
+      "example": {
+        "ids": [
+          "x7It3cpgNgLZ8RwOrOoW",
+          "Q1boCClpCS5mUNhM7YCy"
+        ]
+      }
+    },
     "ProviderRegisterRequest": {
       "type": "object",
       "description": "The provider configuration details required for registration process.",
@@ -3042,15 +3266,11 @@
       "type": "object",
       "description": "The generic model for service status.",
       "properties": {
-        "services": {
+        "hosts": {
           "type": "object",
-          "description": "The collection of services with associated status information.",
+          "description": "The collection of hosts with associated service status, for each host\nwhere given service has been deployed.\n",
           "additionalProperties": {
-            "type": "object",
-            "description": "The collection of hosts with associated service status, for each host\nwhere given service has been deployed.\n",
-            "additionalProperties": {
-              "$ref": "#/definitions/ServiceStatusHost"
-            }
+            "$ref": "#/definitions/ServiceStatusHost"
           }
         }
       },
@@ -3080,6 +3300,22 @@
       "type": "object",
       "description": "The service error model for REST requests.",
       "properties": {
+        "error": {
+          "description": "The name of an error type.",
+          "type": "string"
+        },
+        "description": {
+          "description": "The detailed error description.",
+          "type": "string"
+        },
+        "module": {
+          "description": "The name of a module containing function that returned error.",
+          "type": "string"
+        },
+        "function": {
+          "description": "The name of a function that returned error.",
+          "type": "string"
+        },
         "hosts": {
           "type": "object",
           "description": "The collection of hosts with associated error description.",
@@ -3090,7 +3326,8 @@
         }
       },
       "required": [
-        "hosts"
+        "error",
+        "description"
       ]
     },
     "ServiceHosts": {
@@ -3103,6 +3340,37 @@
           "items": {
             "type": "string"
           }
+        }
+      },
+      "required": [
+        "hosts"
+      ],
+      "example": {
+        "hosts": [
+          "node1.example.com",
+          "node2.example.com",
+          "node3.example.com"
+        ]
+      }
+    },
+    "ServiceDatabases": {
+      "type": "object",
+      "description": "The service hosts configuration.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "description": "The list of hosts where service should be deployed.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serverQuota": {
+          "type": "integer",
+          "description": "The server quota is the RAM memory in bytes that is allocated to the server when Couchbase Server is first installed. This sets the limit of RAM allocated by Couchbase for caching data for all buckets and is configured on a per-node basis.\n"
+        },
+        "bucketQuota": {
+          "type": "integer",
+          "description": "The bucket quota is the amount of RAM memory in bytes allocated to an individual bucket for caching data.\n"
         }
       },
       "required": [
@@ -3160,14 +3428,30 @@
         },
         "steps": {
           "type": "array",
-          "description": "The list of operation steps that have been executed so far.",
+          "description": "The list of operation steps that have been executed successfully.",
           "items": {
             "type": "string"
           }
         },
+        "error": {
+          "description": "The name of an error type.",
+          "type": "string"
+        },
+        "description": {
+          "description": "The detailed error description.",
+          "type": "string"
+        },
+        "module": {
+          "description": "The name of a module containing function that returned error.",
+          "type": "string"
+        },
+        "function": {
+          "description": "The name of a function that returned error.",
+          "type": "string"
+        },
         "hosts": {
           "type": "object",
-          "description": "The collection of hosts with associated error description. This property is set only when an error occurred during operation execution, i.e. the value of property 'status' is set to 'error'.\n",
+          "description": "The collection of hosts with associated error description.",
           "additionalProperties": {
             "description": "The description of an error that has occured on a service host.",
             "$ref": "#/definitions/Error"
@@ -3182,14 +3466,6 @@
         "status": "running",
         "steps": [
           "configuring"
-        ],
-        "hosts": [
-          {
-            "host1": {
-              "error": "Operation Error",
-              "description": "Storage name is not available."
-            }
-          }
         ]
       }
     },
@@ -3197,7 +3473,7 @@
       "type": "object",
       "description": "The space details.",
       "properties": {
-        "spaceId": {
+        "id": {
           "type": "string",
           "description": "The ID of the space."
         },

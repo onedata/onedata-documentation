@@ -11,6 +11,18 @@ Returns the list of providers supporting specific space.
 
 This operation requires `list_providers_of_space` privilege.
 
+***Example cURL requests***
+
+**Get space support token**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/providers
+
+{
+  "providers": ["MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl"]
+}
+```
+
 
 ##### Parameters
 

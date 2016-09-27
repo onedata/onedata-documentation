@@ -11,6 +11,15 @@ Updates the details about a group.
 
 This operation requires `group_change_data` privilege.
 
+***Example cURL requests***
+
+**Modify group name**
+```bash
+curl -i -k -u admin:password  -H "Content-type: application/json" \
+-X PATCH -d '{"name": "new_group_name"}' \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEqsj4q253sptVqF8   
+```
+
 
 ##### Parameters
 

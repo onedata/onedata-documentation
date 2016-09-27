@@ -1,19 +1,18 @@
-# TODO
-- [ ] acl na poziomei spaca i na poziomje plków
 
-# Notes:
--  jesli wymaga to wpodzailania wiecej niz 1 usera to trzaskamy rysunek
+* 3.0.0-rc7
+[] Add diagrams to [Space Collaboration]() sections showing users and groups joining, sharing spaces
+[x] Update `Connect new account` screenshot
+[] Update [Onezone setup]() page
+[] Update [Oneprovider setup]() page
+[x] Add Swift to [Storage Configuration]() page
+[x] Add EGI OpenID setup information
+[x] Update "Deploying using Docker" with up to date description
+[] Add Onedata deployment using packages section
+[] Add Shares section screenshots
+[] Add OAI-PMH section
+[] Create dictionary
+[] Check status of 'Home' space creation
 
-
-uzupelnic onelcient
-
-
-Account management:
-- drugi paragraf: “In account management section you can add new certificates that will be used to authenticate with Onedata services.” — czy to jest wszystko co sie da tam zrobic?
-
-
-Space concept overview:
-- rysunek w tej sekcji nie bardzo pasuje do czegokolwiek - nie mamy jakiegos ktory by lepiej pokazywal czym jest space tak ogolnie? - NIE
-
-Quickstart:
-- Supporting the default space - przerobic more na punkty tak jak - nie bardzo to gra
+* 3.0.0-rc6
+[x] Add Handle service management overview
+[x] Add Shares section

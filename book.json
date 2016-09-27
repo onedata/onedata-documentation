@@ -12,22 +12,6 @@
       "ga"
     ],
     "variables": {
-       "draft":false,
-       "idea":true,
-
-       "quickstart": {
-         "docker": {
-           "versions": {
-             "oneclient": "3.0superclient",
-             "oneprovider":"3.0superptovider",
-             "onezone":"3.0superzone"
-           }
-         }
-       },
-       "a": {
-       "ala": "abbbbla"
-       }
-
     },
     "structure": {
         "readme": "INTRO.md"

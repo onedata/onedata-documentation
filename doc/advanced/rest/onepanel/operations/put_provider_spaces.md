@@ -2,7 +2,7 @@
 <a name="put_provider_spaces"></a>
 #### Create or support space
 ```
-PUT /provider/spaces
+POST /provider/spaces
 ```
 
 
@@ -23,8 +23,9 @@ Supports an existing space or creates a new space and automatically supports it.
 |---|---|---|
 |**204**|The spaces has been successfully creates/supported.  <br>**Headers** :   <br>`Location` (string) : The path to the created/supported space resource.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**500**|Internal server error.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -58,8 +59,18 @@ json :
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
+}
+```
+
+
+###### Response 500
+```
+json :
+{
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

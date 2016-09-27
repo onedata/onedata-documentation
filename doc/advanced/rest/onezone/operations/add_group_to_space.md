@@ -2,7 +2,7 @@
 <a name="add_group_to_space"></a>
 #### Add group to space
 ```
-PUT /spaces/{id}/groups
+POST /spaces/{id}/groups
 ```
 
 
@@ -11,6 +11,15 @@ Allows to add a group to any space.
 
 This operation can be invoked by system administrators only
 and requires `add_member_to_space` privilege.
+
+***Example cURL requests***
+
+**Add group to space**
+```bash
+curl -k -u username:password  -H "Content-type: application/json"\
+ -X POST -d '{"groupId" : "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM"}' \
+ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups
+```
 
 
 ##### Parameters
