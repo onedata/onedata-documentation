@@ -11,6 +11,15 @@ Sets new privileges for a group to a specific space.
 
 This operation requires `space_set_privileges` privilege.
 
+***Example cURL requests***
+
+**Set space group privileges**
+```bash
+curl -k -u username:password  -H "Content-type: application/json" \
+-X PUT -d '{"privileges": ["space_change_data"]}' \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+```
+
 
 ##### Parameters
 

@@ -7,8 +7,23 @@ GET /groups/{id}/effective_users
 
 
 ##### Description
-Returns the list of effective group users, which includes both who directly belong to the group, as well as users who belong to the group indirectly through its parent groups.
+Returns the list of effective group users, which includes both who directly belong to the group,
+as well as users who belong to the group indirectly through its parent groups.
+
 This operation requires `group_view_data` privilege.
+
+***Example cURL requests***
+
+**Get effective group users**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_users
+
+
+{
+  "users":  ["lb0NvUXIVguzjQ3dBOXAyd1c11fWKB5dKJDQ6YvB7a0"]
+}
+```
 
 
 ##### Parameters

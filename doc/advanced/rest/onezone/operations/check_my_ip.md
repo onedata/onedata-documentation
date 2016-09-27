@@ -11,6 +11,13 @@ Returns the IP of the request peer. Will return the external IP (as seen by the 
 
 This operation has public access.
 
+***Example cURL requests***
+
+**Check provider IP**
+```bash
+curl --tlsv1.2 -X GET https://beta.onedata.org:8443/api/v3/onezone/provider/test/check_my_ip
+```
+
 
 ##### Responses
 

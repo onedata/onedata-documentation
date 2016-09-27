@@ -4,9 +4,6 @@ With Onedata, users can access, store, process and publish data using global dat
 
 Onedata focuses on instant, transparent access to distributed data sets, without unnecessary staging and migration, allowing access to the data directly from your local computer or worker node.
 
-<!--
-> If this is your first encounter with Onedata, start with the overview of major concepts of the platform to get familiar with the overall architecture and basic aspects of the system such as spaces, clients and providers.
--->
 
 Before you start using Onedata, it's helpful to understand what functionality it provides, how data is organized and what are the various components of the platform.
 

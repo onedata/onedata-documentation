@@ -11,6 +11,14 @@ Removes a specific group.
 
 This operation requires `group_remove` privilege.
 
+***Example cURL requests***
+
+**Remove group**
+```bash
+curl -k -u admin:password -X DELETE  \
+https://$HOST:8443/api/v3/onezone/user/groups/LT88rteQ4KMSYXMWO0Oibiqn7X5nUD51NTsCqgDN8e4
+```
+
 
 ##### Parameters
 

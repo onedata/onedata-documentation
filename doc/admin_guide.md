@@ -1,6 +1,6 @@
 # Administrator Guide
 
-This section describes **Onezone** and **Oneprovider** components and their installation process. 
+This section describes **Onezone** and **Oneprovider** components and how to configure and use them.
 
 In order to create custom deployments read carefully the following sections.
 
@@ -15,12 +15,9 @@ Deployment and management of Onedata storage providers:
 * [Local storage user mapping](administering_onedata/luma.md)
 
 In order to setup a complete Onedata deployment using Docker Compose, we have prepared a set of Docker images for all necessary Onedata components. Using these images is described in detail in this section:
-* [Deploying using Docker](running_onedata/docker/pre_onedata_docker.md)
+* [Deploying using Docker](administering_onedata/docker_deployment.md)
 * [SSL certificate management](administering_onedata/ssl_certificate_management.md)
 
 To quickly create a sample deployment on a single or few local machines checkout a set of predefined Docker Compose deployment scenarios at [github.com/onedata/getting-started](https://github.com/onedata/getting-started).
-
-
-
 
 In case of any problems feel fre to contact us on Onedata support chat: [onedata.org/support](https://onedata.org/support).

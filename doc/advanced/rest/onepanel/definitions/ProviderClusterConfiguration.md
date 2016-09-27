@@ -6,6 +6,7 @@ The provider cluster configuration.
 
 |Name|Description|Schema|
 |---|---|---|
+|**autoDeploy**  <br>*optional*|Defines whether administrative cluster should be created from the list of provided cluster nodes.|boolean|
 |**databases**  <br>*required*||[ClusterDatabases](ClusterDatabases.md#clusterdatabases)|
 |**domainName**  <br>*required*|The name of a domain common for all services in the cluster. Together with a node hostname constitutes a fully qualified domain name (FDQN) of the node.|string|
 |**managers**  <br>*required*||[ClusterManagers](ClusterManagers.md#clustermanagers)|

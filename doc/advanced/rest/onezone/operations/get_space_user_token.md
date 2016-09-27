@@ -11,6 +11,16 @@ Creates a token allowing new user to join a space.
 
 This operation requires `space_invite_user` privilege.
 
+***Example cURL requests***
+
+**Create space invite token**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/token
+
+{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIG00zcEJ2UDVuOHhkQUNhdk9hbTlyNnIwNldPSzVhc"}
+```
+
 
 ##### Parameters
 

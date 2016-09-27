@@ -11,6 +11,22 @@ Returns details about currently authenticated user.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Get user details**
+```bash
+curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user
+
+{
+  "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
+  "login": "admin",
+  "name": "admin",
+  "connectedAccounts": [],
+  "alias": "",
+  "emailList": []
+}
+```
+
 
 ##### Responses
 

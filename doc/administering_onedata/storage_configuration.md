@@ -1,12 +1,14 @@
 # Storage Configuration
 
+<!-- toc -->
+
 Onedata supports several storage backends which can be used by storage providers to support users spaces. 
 
 The currently supported storage backends include:
 * **POSIX** - any POSIX based storage, typically attached over high-throughput local network, such as Lustre,
 * **S3** - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage,
 * **Ceph** - storage backend allowing to support user spaces on storage resources managed by [Ceph](http://ceph.com/ceph-storage/) object storage,
-<!-- * **SWIFT** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol. -->
+* **SWIFT** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol. 
 
 The sections below describe how to attach each of these storage types to a Onedata deployment on a local site. Storage can be attached using Oneprovider REST API, by updating the configuration. Example YAML configuration with multiple storage backends is presented below:
 
@@ -28,10 +30,10 @@ The sections below describe how to attach each of these storage types to a Oneda
           - "n1"
       storage:
         NFS:
-          type: "POSIX"
+          type: POSIX
           mount_point: "/volumes/storage"
         my_s3_storage:
-          type: "S3"
+          type: S3
           S3Hostname: s3.example.com
           IAMHostname: iam.example.com
           bucketName: bucket1.iam.example.com
@@ -43,14 +45,21 @@ The sections below describe how to attach each of these storage types to a Oneda
           key: LKJASHD6876ASDBJHV65765ASD
           monitorHostname: test.example.com
           clusterName: CephCluster1
+        swift:
+          type: Swift
+          authUrl: https://keystone.example.com
+          tenantName: Tenant1
+          containerName: Container1
+          username: alice
+          password: secret
     oneprovider:
       register: true
-      name: "example"
+      name: Provider1
       redirection_point: "https://node1.oneprovider.onedata.example.com"
       geo_latitude: 50.068968
       geo_longitude: 19.909444
     onezone:
-      domain_name: "onedata.example.com"
+      domain_name: onedata.example.com
 ```
 
 
@@ -95,5 +104,21 @@ Ceph required attributes are:
 | clusterName | **string** | The name of the Ceph cluster |
 
 More information about these attributes can be found in the official Ceph [documentation](http://docs.ceph.com/docs/hammer/rados/configuration/ceph-conf/).
+
+
+## OpenStack Swift
+
+Swift required attributes are:
+
+|  Attribute | Type | Description |
+|------------|------|-------------|
+| type       | **string** | Must be equal to Swift |
+| authUrl       | **string** | The URL to OpenStack Keystone identity service |
+| tenantName | **string** | The name of the tenant to which the user belongs |
+| containerName | **string** | The name of the Swift storage container |
+| username | **string** | The Keystone authentication username |
+| password | **string** | The Keystone authentication password |
+
+More information about these attributes can be found in the official OpenStack Swift [documentation](http://docs.openstack.org/developer/swift/).
 
 

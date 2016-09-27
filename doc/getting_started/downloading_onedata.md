@@ -14,32 +14,12 @@ Onedata components can be built from sources, download a pre-built release or us
 ## Download and install Onedata
 
 ### Docker
-Currently the best way to install Onedata components is using Docker. We provide a complete set of Docker images covering all Onedata services.
+Currently the best way to install Onedata services is using Docker. We provide a complete set of [Docker images](https://hub.docker.com/u/onedata/) covering all Onedata services.
 
-#### Using Oneclient from Docker
-If you already have an account at [onedata.org](onedata.org) or some other Onedata zone, you can simply mount your spaces to any folder using single docker command:
-
-```
-docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
- -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-RC2 oneclient mount_point
-```
-
-#### Installing Onedata storage provider services
 We prepared an [Administrator quickstart](admin_onedata_101.md) tutorial, which explains how to quickly setup a complete Onedata installation on a local machine. 
 
-For more advanced tutorials on running Onedata with Docker, see [Running Onedata with Docker]() and [Docker Quickstart Scenarios]() sections. 
+For more advanced tutorials on running Onedata with Docker, see our [Getting Started](https://github.com/onedata/getting-started) repository on GitHub, which contains sample configuration files for various deployment types.
 
-
-### Building from source
-
-Onedata build process is completely contained in a Docker environment. To build complete Onedata platform from sources simply follow these steps:
-
-```
-git clone https://github.com/onedata/onedata.git
-cd onedata
-make
-```
 
 ### Pre-built Linux packages
 
@@ -62,6 +42,16 @@ wget -q -O - http://get.onedata.org/onezone.sh | bash      # for onezone
 curl -sS  http://get.onedata.org/oneclient.sh | bash       # for oneclient
 curl -sS  http://get.onedata.org/oneprovider.sh | bash     # for oneprovider
 curl -sS  http://get.onedata.org/onezone.sh | bash         # for onezone
+```
+
+### Building from source
+
+Onedata build process is completely contained in a Docker environment. To build complete Onedata platform from sources simply follow these steps:
+
+```
+git clone https://github.com/onedata/onedata.git
+cd onedata
+make
 ```
 
 

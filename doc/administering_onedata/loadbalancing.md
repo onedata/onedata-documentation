@@ -1,9 +1,11 @@
 # Load balancing
 
+<!-- toc -->
+
 Onedata implements a very scalable load balancing solution based on DNS protocol, which can be leveraged in order to scale Onedata services within a local site or federation of sites.
 
 ## Algorithm
-Onedata uses a Two-Level Load Balancing (TLLB) scheme, whose goal is to supporting adaptation to various kinds of load issues, including:
+Onedata uses a Two-Level Load Balancing (TLLB) scheme, whose goal is to support adaptation to various kinds of load issues, including:
 * peak loads
 * unbalanced use of resources
 * node failures

@@ -16,10 +16,10 @@ Space and file related operations
 |[/index](operations/get_space_indexes.md)|GET|Get index list for space|
 |[/index/{iid}](operations/get_space_index.md)|GET|Get index|
 |[/index/{iid}](operations/update_space_index.md)|PUT|Update index|
-|[/metadata-id/{id}](operations/get_file_metadata_by_id.md)|GET|Get metadata|
-|[/metadata-id/{id}](operations/set_file_metadata_by_id.md)|PUT|Set metadata|
-|[/metadata/{path}](operations/get_file_metadata.md)|GET|Get metadata|
-|[/metadata/{path}](operations/set_file_metadata.md)|PUT|Set metadata|
+|[/metadata-id/{id}](operations/get_file_metadata_by_id.md)|GET|Get file metadata by ID|
+|[/metadata-id/{id}](operations/set_file_metadata_by_id.md)|PUT|Set file metadata by ID|
+|[/metadata/{path}](operations/get_file_metadata.md)|GET|Get file metadata|
+|[/metadata/{path}](operations/set_file_metadata.md)|PUT|Set file metadata|
 |[/query-index/{iid}](operations/query_space_indexes.md)|GET|Query index|
 |[/spaces](operations/get_all_spaces.md)|GET|Get all spaces|
 |[/spaces/{sid}](operations/get_space.md)|GET|Get basic space information|

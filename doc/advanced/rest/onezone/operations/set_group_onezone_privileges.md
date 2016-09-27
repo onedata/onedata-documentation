@@ -2,14 +2,23 @@
 <a name="set_group_onezone_privileges"></a>
 #### Set group's Onezone privileges
 ```
-PUT /privileges/group/{id}
+PATCH /privileges/group/{id}
 ```
 
 
 ##### Description
-Sets privileges for a user {id} for Onezone.
+Modifies privileges for a user {id} for Onezone.
 
 This operation requires `set_privileges` privilege.
+
+***Example cURL requests***
+
+**Set groups privileges to Onezone service**
+```bash
+curl -k -H "Content-type: application/json"  -X PUT \
+-d '{"privileges": ["list_spaces"]}' \
+https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+```
 
 
 ##### Parameters

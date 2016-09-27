@@ -22,10 +22,10 @@ Returns the configuration information of the Onepanel user.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|The configuration information of the user.|[UserDetails](../definitions/UserDetails.md#userdetails)|
-|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|The user has not been found.|No Content|
-|**500**|Internal server error.|No Content|
+|**404**|The user does not exist.|No Content|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -54,12 +54,12 @@ json :
 ```
 
 
-###### Response 400
+###### Response 500
 ```
 json :
 {
-  "error" : "Authentication Error",
-  "description" : "Invalid username or password."
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 

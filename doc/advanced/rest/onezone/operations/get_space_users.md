@@ -11,6 +11,18 @@ Returns the list of users belonging to a specific space.
 
 This operation requires `space_view_data` privilege.
 
+***Example cURL requests***
+
+**Get space provider details**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users
+
+{
+  "users": ["lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0"]
+}
+```
+
 
 ##### Parameters
 

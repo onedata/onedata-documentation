@@ -1,6 +1,6 @@
 
 <a name="get_file_metadata_by_id"></a>
-#### Get metadata
+#### Get file metadata by ID
 ```
 GET /metadata-id/{id}
 ```
@@ -36,6 +36,17 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 -H "Accept: application/json" \
+https://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3
+```    
+
+**Set specific JSON value in metadata document using key path**
+In this example the contents of the PUT body will be assigned the 
+value of "key3" in the metadata document.
+
+```bash
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
+-H "Content-type: application/json" \
+-d '{"new_key": "new_value"}'
 https://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3
 ```
 

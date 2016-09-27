@@ -1,23 +1,26 @@
 # Space Collaboration
 
+<!-- toc -->
 
 You can give other users or groups access to your space by adding them to your space. The level of access a user or a group has, depends on which permissions you choose to grant them.
 
 For more details on permissions, see [Space Management](space_management.md) page.
+
+<img  style="display:block;margin:0 auto;" src="../img/spaces/space_details.png">
 
 ## Invite another user to your space
 To share a space with another user:
 
 1. Navigate to **Spaces** page.
 2. On your space, click the **Settings** button.
-3. Pick **Invite User** from the drop down menu.
-4. Copy the token and send it to the user you wish to share your space with.
+3. Select **Invite user** from the drop down menu.
+4. Copy the displayed token and send it to the user you wish to share your space with.
 
-After another user joins your space you will be able to see him in the detailed space view.
+After another user joins your space you will be able to see him in the detailed space view and manage his/her rights.
 
 
 ## Join another user's space
-To join a space of another user, you must request from them a token. After receiving the token:
+To join a space of another user, you must request a token from them. After receiving the token:
 
 1. Navigate to **Spaces** page.
 2. Click the **Join** button.

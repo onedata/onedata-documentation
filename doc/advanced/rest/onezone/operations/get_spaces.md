@@ -11,6 +11,18 @@ Returns the list of all spaces managed by the Onezone service.
 
 This operation requires `list_spaces` privilege.
 
+***Example cURL requests***
+
+**List all spaces**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces
+
+{
+  "spaces": ["S0Y9FSe9TFJFFzzLtBEs8","IkHBv8CoAFmbFU4fj26"]
+}
+```
+
 
 ##### Responses
 

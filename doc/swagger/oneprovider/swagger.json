@@ -2,9 +2,9 @@
   "swagger": "2.0",
   "basePath": "/api/v3/oneprovider",
   "info": {
-    "version": "3.0.0-RC2",
+    "version": "3.0.0-rc7",
     "title": "Oneprovider",
-    "description": "This is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n ```\n https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n ```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, \nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface. \nThe token must be added to the request header like this:\n ```\n macaroon: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n ```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation. \n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/) \ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"macaroon: $TOKEN\" -X POST \\\n \"https://$PROVIDER:8443/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"macaroon: $TOKEN\" -X GET \\\n \"https://$PROVIDER:8443/metrics/space/MySpace1?metric=storage_qouta\"\n```\n",
+    "description": "This is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n ```\n https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n ```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, \nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface. \nThe token must be added to the request header like this:\n ```\n macaroon: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n ```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation. \n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/) \ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n \"https://$PROVIDER:8443/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n \"https://$PROVIDER:8443/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -385,11 +385,11 @@
         "x-onedata-module": "metadata",
         "x-onedata-resource": "file",
         "x-onedata-method": "get_file_metadata",
-        "summary": "Get metadata",
+        "summary": "Get file metadata",
         "tags": [
           "Data"
         ],
-        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n",
+        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -474,7 +474,7 @@
         "x-onedata-module": "metadata",
         "x-onedata-resource": "file",
         "x-onedata-method": "set_file_metadata",
-        "summary": "Set metadata",
+        "summary": "Set file metadata",
         "tags": [
           "Data"
         ],
@@ -530,6 +530,20 @@
               "JSON",
               "RDF"
             ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
           }
         ]
       }
@@ -541,11 +555,11 @@
         "x-onedata-module": "metadata",
         "x-onedata-resource": "file",
         "x-onedata-method": "get_file_metadata_by_id",
-        "summary": "Get metadata",
+        "summary": "Get file metadata by ID",
         "tags": [
           "Data"
         ],
-        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n",
+        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -630,7 +644,7 @@
         "x-onedata-module": "metadata",
         "x-onedata-resource": "file",
         "x-onedata-method": "set_file_metadata_by_id",
-        "summary": "Set metadata",
+        "summary": "Set file metadata by ID",
         "tags": [
           "Data"
         ],
@@ -686,6 +700,20 @@
               "JSON",
               "RDF"
             ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
           }
         ]
       }
@@ -1003,7 +1031,7 @@
           {
             "name": "keys",
             "in": "query",
-            "description": "Return only documents that match each of keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.\n",
+            "description": "Return only documents that match any of the keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.\n",
             "type": "array",
             "items": {
               "type": "string"
@@ -1064,10 +1092,15 @@
           {
             "name": "stale",
             "in": "query",
-            "description": "Allow records from a stale view to be used.\n",
-            "type": "boolean",
+            "description": "Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.\n",
+            "type": "string",
             "required": false,
-            "default": false
+            "default": "update_after",
+            "enum": [
+              "ok",
+              "update_after",
+              "false"
+            ]
           },
           {
             "name": "bbox",

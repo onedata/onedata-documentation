@@ -12,6 +12,14 @@ to spaces accessible to the group).
 
 This operation requires `group_remove_user` privilege.
 
+***Example cURL requests***
+
+**Remove user from group**
+```bash
+curl -k  -u username:password -X DELETE \
+https://$HOST:8443/api/v3/onezone/groups/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+```
+
 
 ##### Parameters
 

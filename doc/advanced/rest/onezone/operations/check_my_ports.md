@@ -11,6 +11,14 @@ Checks if all given ports are reachable from Onezone.
 
 This operation has public access.
 
+***Example cURL requests***
+
+**Check provider ports**
+```bash
+curl -i --tlsv1.2 -X POST -H 'Content-type: application/json' \
+-d '[ 80 ]' https://$HOST:8443/api/v3/onezone/provider/test/check_my_ports
+```
+
 
 ##### Parameters
 

@@ -11,17 +11,36 @@ Returns the list of user's groups.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Get user groups**
+```bash
+curl -k -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/groups
+
+{
+  "groups": ["admins"]
+}
+```
+
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of groups.|< [Group](../definitions/Group.md#group) > array|
+|**200**|The list of groups.|[Response 200](#get_user_groups-response-200)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+<a name="get_user_groups-response-200"></a>
+**Response 200**
+
+|Name|Description|Schema|
+|---|---|---|
+|**groups**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -43,7 +62,7 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+"object"
 ```
 
 

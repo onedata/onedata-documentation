@@ -11,6 +11,16 @@ Creates a token that can be used to add a group as subgroup of group with {id}.
 
 This operation requires `group_invite_group` privilege.
 
+***Example cURL requests***
+
+**Create invitation token for subgroup**
+```bash
+curl -k -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVq
+
+{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDdrenY00SXM5dEFGYVRNQXFlMUlPSXVGMFBoSkFKWHFieWRUc2l5TUUxX2sKMDAyZGNpZCB00b2tlblR5cGUgPSBncm91cF9pbnZpdGVfZ3JvdXBfdG9rZW4KMDAyZnNpZ25hdHVyZSCJAtwScxZNktP9EIS00vlM5ZB7QsXhjtRtjKWZfwEfs6wo"}
+```
+
 
 ##### Parameters
 
