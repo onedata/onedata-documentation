@@ -23,7 +23,7 @@ where `datacite.json` in the current folder contains the following content:
 ```json
 {
     "name": "MyCommunity Handle service",
-    "proxyEndpoint": "https://localhost:17000/handle_proxy",
+    "proxyEndpoint": "localhost:17000/handle_proxy",
     "serviceProperties": {
         "allowTemplateOverride": false,
         "doiEndpoint": "/doi",
@@ -32,7 +32,7 @@ where `datacite.json` in the current folder contains the following content:
         "mediaEndpoint": "/media",
         "metadataEndpoint": "/metadata",
         "password": "PASSWORD",
-        "prefix": 10.5072,
+        "prefix": "10.5072",
         "type": "DOI",
         "username": "USERNAME"
     }
@@ -45,7 +45,7 @@ The identifier of the Handle service will be returned in the `Location:` header 
 ### Adding users to Handle service
 In order to allow other users in the community to register their shares using Handle service.
 
-In order to add user to specific Handle service invoke the following request:
+In order to add a user to specific Handle service invoke the following request:
 ```bash
 curl -k -u username:password -X PUT \
 https://$ONEZONE_HOST:8443/api/v3/handle_services/${HANDLE_SERVICE_ID}/users/#{USER_ID}

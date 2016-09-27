@@ -9,13 +9,20 @@ Onedata provides a feature which allows any file or folder to be seamlessly shar
 ## Creating a share
 In order to create shares, simply select the appropriate file or folder and press the **Share** icon in the top menu of Onedata data browser.
 
-<img  style="display:block;margin:0 auto;" src="../img/createshare.png">
+<img  style="display:block;margin:0 auto;" src="../img/create_share_name.png">
 
-## Setting share permissions
+## Editing share metadata
 
-<img  style="display:block;margin:0 auto;" src="../img/sharepermissions.png">
+In addition to metadata that is defined for each file in a shared dataset, entire data set's metadata can also be edited in the **Shares** view:
+
+<img  style="display:block;margin:0 auto;" src="../img/sharemetadata.png">
+
 
 ## Removing shares
+
+In order to remove a share, simply select **Remove** option in the share menu:
+
+<img  style="display:block;margin:0 auto;" src="../img/shareremove.png">
 
 ## Open access shares
 In order to support Open Data access community use cases, Onedata provides means for publishing shares as Open Data collections. Such collections can have assigned Open Access identifiers such as [DOI](http://www.doi.org/) or [PID](http://www.pidconsortium.eu/).
@@ -27,10 +34,10 @@ Handle service can be registered in Onezone by users who have access rights to s
 
 Open access shares which have valid metadata will be exposed by the [OAI-PMH](https://www.openarchives.org/pmh/) Data Provider interface and can be used by content aggregators for indexing open access data sets.
 
-#### Web user interface
+<!-- #### Web user interface
 
 <img  style="display:block;margin:0 auto;" src="../img/handleregistration.png">
-
+ -->
 #### REST API
 Handles for shares can be also generated using the  REST API using the following command line:
 

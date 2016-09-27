@@ -61,5 +61,7 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 * JSON
 * RDF
 
+<img  style="display:block;margin:0 auto;" src="../img/edit_metadata_json.png">
+
 In each of these backends, user can store any properly formatted metadaate documents, which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md) or in the future in the Graphical User Interface.
 

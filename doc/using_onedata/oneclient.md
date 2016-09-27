@@ -10,7 +10,7 @@ Onedata provides a command-line based client that is able to mount your spaces i
 
 In order to be able to mount your spaces you need to authenticate with [onedata.org](onedata.org). You can either use a certificate based authentication or an authentication token.
 
-*NOTE: If you are connecting to a provider service which does not have a globally trusted certificate, you will have to use `--no-check-certificate` on every `oneclient` invocation.*
+*NOTE: If you are connecting to a provider service which does not have a globally trusted certificate, you will have to use `--no_check_certificate` on every `oneclient` invocation.*
 
 #### Authentication token
 In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following commands:
