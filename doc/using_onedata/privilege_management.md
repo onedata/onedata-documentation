@@ -1,5 +1,7 @@
 # Onedata privileges
 
+<!-- toc -->
+
 Onedata implements an extensive privilege management system, which enables fine grained control over all security aspects related to data access and sharing.
 
 The privileges in Onedata can be divided into the following categories:

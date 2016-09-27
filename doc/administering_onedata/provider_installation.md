@@ -1,4 +1,6 @@
-# Oneprovider Installation
+# Oneprovider setup
+
+<!-- toc -->
 
 Oneprovider installation includes:
 * installation of Oneprovider services on the cluster nodes,

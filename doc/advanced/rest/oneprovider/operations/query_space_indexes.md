@@ -66,10 +66,10 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 |**Query**|**endkey_docid**  <br>*optional*|Stop returning records when the specified document ID is reached.|string|--|
 |**Query**|**inclusive_end**  <br>*optional*|Specifies whether the specified end key is included in the result.  ***Note:*** Do not use `inclusive_end` with `key` or `keys`.|boolean|`"false"`|
 |**Query**|**key**  <br>*optional*|Return only documents that match the specified key.  Key must be specified as a JSON value.|string|--|
-|**Query**|**keys**  <br>*optional*|Return only documents that match each of keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.|< string > array(multi)|--|
+|**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.|< string > array(multi)|--|
 |**Query**|**limit**  <br>*optional*|Limit the number of the returned documents to the specified number.|integer|--|
 |**Query**|**skip**  <br>*optional*|Skip this number of records before starting to return the results.|integer|--|
-|**Query**|**stale**  <br>*optional*|Allow records from a stale view to be used. Allowed values are `ok` and `update_after`.|enum (ok, update_after)|`"ok"`|
+|**Query**|**stale**  <br>*optional*|Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.|enum (ok, update_after, false)|`"update_after"`|
 |**Query**|**startkey**  <br>*optional*|Return records with a value equal to or greater than the specified key.  Key must be specified as a JSON value.|string|--|
 |**Query**|**startkey_docid**  <br>*optional*|Return records starting with the specified document ID.|string|--|
 

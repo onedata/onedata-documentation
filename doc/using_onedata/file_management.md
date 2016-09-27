@@ -1,6 +1,8 @@
 
 # File Management
 
+<!-- toc -->
+
 <!--
 ## Data Sharing
 You can share your files with other users, in a Dropbox-like manner, using links.
@@ -25,6 +27,25 @@ You can disable the link to the file you previously shared:
 5. Click on the **"X" sign** next to it.
 -->
 
+## Managing files
+
+### Web interface
+All files in Onedata are organized in spaces. The Web User interface allows for uploading new files as well as opening existing files.
+
+In order to upload a file simply open the folder in which the file should be placed and drag the file into the browser window:
+
+<img  style="display:block;margin:0 auto;" src="../img/draganddrop.png">
+
+Opening or downloading a file simply requires double clicking on the file in the file window. 
+
+*Make sure that the popups for this browser window are not blocked, and unblock them if necessary.*
+
+### Direct access via POSIX
+Files can also be accessed directly via POSIX protocol, using **Oneclient** tool. Details on how to use are described [here](./oneclient.md).
+
+### CDMI (Cloud Data Management Interface)
+For more advanced use cases, files can be managed using [CDMI](http://www.snia.org/cdmi) protocol, as described in details [here](../advanced/cdmi.md).
+
 ## File Permissions
 You can control access to your data with a combination of:
 * classical (POSIX) file permissions  
@@ -34,34 +55,31 @@ You can control access to your data with a combination of:
 Onedata allows you to control access to your data in a POSIX fashion for users, group and others in terms of read, write and executable permissions.
 In order to edit permissions:
 
-1. Navigate to **Provider** page.
-2. Navigate to **Data** page, by click on **data link** on the left menubar.
-2. Select a **file** or a **directory** by clicking on it.
-3. Click on the **lock icon**.
-4. Edit permissions by clicking on the appropriate **checkbox**.
-5. Click **OK** in order to save changes.
-
-You can also edit POSIX permissions by entering them in octal form.
-In case of directories you can select a recursive option, to apply permissions to the whole subtree.
+1. Navigate to **Oneprovider** page
+2. Navigate to data management page, by click on **Data** on the left menubar
+2. Select a **file** or a **directory** by clicking on it
+3. Click on the **lock icon**
+4. Select **POSIX** type of permissions radio button at the top
+5. Enter privileges in octal form (e.g. 770)
+5. Click **OK** in order to save changes
 
 <img  style="display:block;margin:0 auto;" src="../img/permissions.png">
 
 
 ### Access Control Lists
-You can also setup permissions using more advanced access control lists to control permissions for individual users and groups.
-In order to edit permissions:
+You can also setup permissions using more advanced Access Control Lists option to control permissions for individual users and groups.
 
-1. Navigate to **Data** tab.
-2. Select a **file** or a **directory** by clicking on it.
-3. Click on the **lock icon**.
-4. Click on the **ACL's radio button**
-5. Edit permissions by clicking on the appropriate **checkbox**.
-5. Click **OK** in order to save changes.
+In order to edit ACL's:
+
+1. Navigate to **Data** tab
+2. Select a **file** or a **directory** by clicking on it
+3. Click on the **lock icon**
+4. Click on the **ACL** radio button
+5. Edit permissions by clicking on the appropriate **checkbox**
+5. Click **OK** in order to save changes
 
 *Note, that access lists take precedence over POSIX permissions. If access list is set, POSIX are set to octal value of `000`.*
 
 The order in which permissions take precedence is indicated with an arrow.
-
-In case of directories you can select a recursive option, to apply permissions to the whole subtree.
 
 <img  style="display:block;margin:0 auto;" src="../img/acls.png">

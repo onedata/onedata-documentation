@@ -1,5 +1,7 @@
 # Metadata
 
+<!-- toc -->
+
 Onedata comes with extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, folders, spaces and users.
 
 ## Metadata types in Onedata
@@ -58,6 +60,8 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 In addition to filesystem level and extended attributes, Onedata supports arbitrary metadata documents to be assigned to each resource, which are stored in separate metadata backends supported. Currently supported backends include:
 * JSON
 * RDF
+
+<img  style="display:block;margin:0 auto;" src="../img/edit_metadata_json.png">
 
 In each of these backends, user can store any properly formatted metadaate documents, which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md) or in the future in the Graphical User Interface.
 

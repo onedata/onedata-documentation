@@ -1,5 +1,7 @@
 # LUMA - Local User MApping
 
+<!-- toc -->
+
 Onedata service that allows custom mapping between local user accounts or credential on storage resources (e.g. POSIX user ID/group ID, LDAP DN, Ceph username, etc.) to Onedata user accounts.
 
 In order to support LUMA, storage provider has deploy default LUMA service or implement a simple REST service compliant with [LUMA API](), which handles custom user mapping.

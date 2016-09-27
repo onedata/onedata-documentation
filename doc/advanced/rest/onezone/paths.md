@@ -39,6 +39,45 @@ Group related operations
 |[/groups/{id}/users/{uid}/privileges](operations/set_user_group_privileges.md)|PUT|Set user's group privileges|
 
 
+<a name="handle_resource"></a>
+### Handle
+Operations for managing Handle system service and identifier generation.
+
+
+|Path|Method|Description|
+|---|---|---|
+|[/handle_services](operations/add_handle_service.md)|POST|Add handle service|
+|[/handle_services](operations/get_handle_services.md)|GET|Get handle services|
+|[/handle_services/{id}](operations/get_handle_service.md)|GET|Get handle service|
+|[/handle_services/{id}](operations/delete_handle_service.md)|DELETE|Unregister handle service|
+|[/handle_services/{id}](operations/modify_handle_service.md)|PATCH|Modify handle service|
+|[/handle_services/{id}/groups](operations/list_handle_service_groups.md)|GET|Get handle service groups|
+|[/handle_services/{id}/groups/{gid}](operations/add_handle_service_group.md)|PUT|Add handle service group|
+|[/handle_services/{id}/groups/{gid}](operations/remove_handle_service_group.md)|DELETE|Add handle service group|
+|[/handle_services/{id}/groups/{gid}/privileges](operations/get_handle_service_group_privileges.md)|GET|Get handle service group privileges|
+|[/handle_services/{id}/groups/{gid}/privileges](operations/set_handle_service_group_privileges.md)|PUT|Set handle service groups privileges|
+|[/handle_services/{id}/users](operations/list_handle_service_users.md)|GET|Get handle service users|
+|[/handle_services/{id}/users/{uid}](operations/add_handle_service_user.md)|PUT|Add handle service user|
+|[/handle_services/{id}/users/{uid}](operations/remove_handle_service_user.md)|DELETE|Remove handle service user|
+|[/handle_services/{id}/users/{uid}/privileges](operations/get_handle_service_user_privileges.md)|GET|Get handle service user privileges|
+|[/handle_services/{id}/users/{uid}/privileges](operations/set_handle_service_user_privileges.md)|PUT|Set handle service user privileges|
+|[/handles](operations/register_handle.md)|POST|Register handle|
+|[/handles](operations/get_handles.md)|GET|Get handles|
+|[/handles/{hndl}](operations/get_handle.md)|GET|Get handle|
+|[/handles/{hndl}](operations/delete_handle.md)|DELETE|Unregister handle|
+|[/handles/{hndl}](operations/modify_handle.md)|PATCH|Modify handle|
+|[/handles/{hndl}/groups](operations/list_handle_groups.md)|GET|Get handle groups|
+|[/handles/{hndl}/groups/{gid}](operations/add_handle_group.md)|PUT|Add handle group|
+|[/handles/{hndl}/groups/{gid}](operations/remove_handle_group.md)|DELETE|Add handle group|
+|[/handles/{hndl}/groups/{gid}/privileges](operations/get_handle_group_privileges.md)|GET|Get handle group privileges|
+|[/handles/{hndl}/groups/{gid}/privileges](operations/set_handle_group_privileges.md)|PUT|Set handle groups privileges|
+|[/handles/{hndl}/users](operations/list_handle_users.md)|GET|Get handle users|
+|[/handles/{hndl}/users/{uid}](operations/add_handle_user.md)|PUT|Add handle user|
+|[/handles/{hndl}/users/{uid}](operations/remove_handle_user.md)|DELETE|Remove handle user|
+|[/handles/{hndl}/users/{uid}/privileges](operations/get_handle_user_privileges.md)|GET|Get handle user privileges|
+|[/handles/{hndl}/users/{uid}/privileges](operations/set_handle_user_privileges.md)|PUT|Set handle user privileges|
+
+
 <a name="privileges_resource"></a>
 ### Privileges
 Operations on Onezone privileges
@@ -83,6 +122,9 @@ Space related operations
 
 |Path|Method|Description|
 |---|---|---|
+|[/shares/{id}](operations/get_share.md)|GET|Get share details|
+|[/shares/{id}](operations/remove_share.md)|DELETE|Remove share|
+|[/shares/{id}](operations/modify_share.md)|PATCH|Modify share details|
 |[/spaces](operations/create_space.md)|POST|Create new space|
 |[/spaces](operations/get_spaces.md)|GET|List all spaces|
 |[/spaces/{id}](operations/get_space.md)|GET|Get space details|
@@ -99,6 +141,8 @@ Space related operations
 |[/spaces/{id}/providers/token](operations/get_space_provider_token.md)|GET|Create space support token|
 |[/spaces/{id}/providers/{pid}](operations/get_space_provider.md)|GET|Get space provider details|
 |[/spaces/{id}/providers/{pid}](operations/remove_provider_supporting_space.md)|DELETE|Remove space support|
+|[/spaces/{id}/shares](operations/get_space_shares.md)|GET|Get space shares|
+|[/spaces/{id}/shares/{sid}](operations/create_share.md)|PUT|Create new share|
 |[/spaces/{id}/users](operations/add_user_to_space.md)|POST|Add user to space|
 |[/spaces/{id}/users](operations/get_space_users.md)|GET|Get space users|
 |[/spaces/{id}/users/token](operations/get_space_user_token.md)|GET|Create space invite token|

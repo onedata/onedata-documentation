@@ -18,7 +18,7 @@ This operation requires `group_set_privileges` privilege.
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
 |**Path**|**uid**  <br>*required*|User ID.|string|--|
-|**Body**|**data**  <br>*optional*|User privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
+|**Body**|**data**  <br>*required*|User privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
 
 
 ##### Responses

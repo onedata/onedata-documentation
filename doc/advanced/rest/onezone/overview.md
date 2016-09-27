@@ -76,6 +76,14 @@ and some administrative operations which can be used for monitoring or accountin
 Onezone allows any user to have selected administration privileges for the Onezone service itself,
 enabling them to view and configure certain aspects of the system.
 
+**Handle API**
+Onezone provides extensive support for integration with Handle system registration
+services, including support for DOI and PID identifier assignment services. The API
+provides methods for adding new Handle services to the system, managing which users
+can use which registration services and complete API for registering identifiers to
+users data sets which are made public.
+
+
 ## Examples
 
 **Generate new authentication token**
@@ -92,7 +100,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-rc4
+*Version* : 3.0.0-rc7
 
 
 ### Contact information
@@ -116,6 +124,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 * User : User related operations
 * Provider : Provider related operations
 * Privileges : Operations on Onezone privileges
+* Handle : Operations for managing Handle system service and identifier generation.
 
 
 

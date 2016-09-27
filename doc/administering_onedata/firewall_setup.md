@@ -1,4 +1,4 @@
-# Onedata Firewall setup
+# Onedata firewall setup
 
 Due to the fact that Onedata consists of several services which need to communicate between different sites, several ports need to be opened to the outside of the local network.
 
@@ -20,7 +20,7 @@ Below is a detailed list of ports which need to be opened and their designation:
 | 8877/TCP  | RTransfer protocol gateway |
 | 9443/TCP  | Onepanel web interface |
 
-
+<!--
 Onezone service provides 2 REST operations for testing whether all the ports in a given deployment are properly opened, and can be used as follows.
 
 First query returns the actual IP of the host from which query was initiated, can be used to check if any NAT translation takes place between the host and Onezone service:
@@ -47,4 +47,4 @@ which should return the list of Oneprovider hosts and ports combinations with th
 ```
 
 These operations require the user to have `list_providers` privilege.
-
+-->

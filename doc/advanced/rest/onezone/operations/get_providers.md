@@ -15,7 +15,7 @@ This operation requires `list_providers` privilege.
 
 **Get list of providers**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+curl -Ssk -u username:password -X GET  \
 https://$HOST:8443/api/v3/onezone/providers
 
 {
@@ -28,12 +28,19 @@ https://$HOST:8443/api/v3/onezone/providers
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of providers Id's.|< string > array|
+|**200**|List of providers Id's.|[Response 200](#get_providers-response-200)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+<a name="get_providers-response-200"></a>
+**Response 200**
+
+|Name|Description|Schema|
+|---|---|---|
+|**providers**  <br>*required*||< string > array|
 
 
 ##### Produces
@@ -55,7 +62,7 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+"object"
 ```
 
 
