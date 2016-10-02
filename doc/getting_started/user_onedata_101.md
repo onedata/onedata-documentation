@@ -9,7 +9,7 @@ This step-by-step guide shows how to create a Onedata account, support your **ho
 
 
 ## Supporting your first space
-At the first login, you need to create your first space. Like every space, at the beginning it has quota size of 0MB. You have to request storage support for certain storage space (e.g. 5GB) from some storage provider (or setup your own *Oneprovider* service) to be able to store any files in this space.
+At the first login, you need to create your first space. Like every new space, at the beginning it has quota size of 0MB. You have to request storage support for certain storage space (e.g. 5GB) from some storage provider (or setup your own *Oneprovider* service) to be able to store any files in this space.
 
 In the left panel of *Onezone* page you can find the *Data space management* menu. There you can create new storage support request token, by clicking on existing space. Press `Get support`  and copy the displayed token to your clipboard. 
 
@@ -66,4 +66,4 @@ oneclient --authentication token ~/Onedata
 For more information see [Oneclient manual](../using_onedata/oneclient.md).
 
 ## Next steps
-After you are comfortable using basic file operations in your home space, see the [User Guide](../user_guide.md) and learn how to work with multiple spaces and perform other more advanced actions.
+After you are comfortable using basic file operations in your space, see the [User Guide](../user_guide.md) and learn how to work with multiple spaces and perform other more advanced actions.
