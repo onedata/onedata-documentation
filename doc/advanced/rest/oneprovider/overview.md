@@ -99,7 +99,7 @@ More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 3.0.0-rc7
+*Version* : 3.0.0-rc9
 
 
 ### Contact information
