@@ -63,9 +63,10 @@ CURRNET_COMMIT=$(git rev-parse HEAD)
 PREETY_COMMIT=${CURRNET_COMMIT:0:6}
 PREETY_TIME=$(date '+%T.%D.%Z')
 
-docker build -t "$IMAGE" . 
+echo docker build -t "$IMAGE" . 
 if ! docker push "$IMAGE"; then
 	docker login
+    docker push "$IMAGE"
 fi
 
 stack_name="onedata-documentation-${tag}"
