@@ -23,8 +23,9 @@ The list of currently supported operations is presented below:
 | Metadata (container&dataobject)  | *cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime*                                     |
 | Access control lists (rwx*)      | *cdmi_acl*                                                                                                                    |
 | Big folders                      | *cdmi_list_children_range*                                                                                                    |
+| Move and copy                    | *cdmi_move_dataobject_by_ID*, *cdmi_copy_dataobject_by_ID*|
 | File System Export               | CDMI filesystem export is not supported. Instead, Onedata provides a custom Fuse client which is more efficient and reliable. |
-| Move and copy                    | CDMI move and copy are currently not supported.                                       |
+
 | Big files                        | *cdmi_read_value_range, cdmi_modify_value_range*                                                                              |
 | Access by ObjectID               | *cdmi_object_access_by_ID*                                                                                                    |
 
@@ -91,7 +92,6 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-
     "mimetype":"application/octet-stream"
 }
 ```
-
 
 
 ##### CDMI GET encoding, mimetype and filename
@@ -172,7 +172,7 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET "$ENDPOINT/test/test.txt?met
 
 ### ACL management
 
-Access control lists provide mechanism for granting and prohibiting access to data on space, directory and file levels. Onedata supports the complete ACL functionality of CDMI, which can be also managed through the Web GUI.
+Access control lists provide mechanism for granting and prohibiting access to data on a space, directory and file levels. Onedata supports the complete ACL functionality of CDMI, which can be also managed through the Web GUI.
 
 In CDMI, ACL's are stored as cdmi_acl metadata. An object with unset ACL, has virtual ACL which contains entries for every space member, that gives him permissions equal to POSIX file mode. ACL permissions always take precedence over POSIX style permissions.
 
@@ -227,6 +227,8 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-
 -d @acl.json -X PUT "$ENDPOINT/test/test.txt?metadata:cdmi_acl"
 ```
 
+The `acemask` field can also be specified using mask string expressions, as specified by CDMI specification.
+
 ### CDMI children objects
 
 List children of `dirtest` directory in space `test`:
@@ -246,7 +248,6 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER \
 ```
 
 
-<!--
 ### Move and copy - example
 Copy directory (CDMI container) `dirtest` to directory `dirtest2`:
 
@@ -254,7 +255,7 @@ Copy directory (CDMI container) `dirtest` to directory `dirtest2`:
 curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-container' \
 -d '{"copy" : "/dirtest/"}' -X PUT $ENDPOINT/dirtest2/
 ```
--->
+
 
 ### CDMI partial upload
 
