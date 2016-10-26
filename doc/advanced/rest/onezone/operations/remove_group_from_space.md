@@ -1,6 +1,6 @@
 
 <a name="remove_group_from_space"></a>
-#### Remove space from group
+#### Remove group from space
 ```
 DELETE /groups/{id}/spaces/{sid}
 ```
@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|A groupwill be removed from the space.|No Content|
+|**202**|A group will be removed from the space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

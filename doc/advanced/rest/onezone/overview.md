@@ -72,10 +72,6 @@ credentials as well as space and group membership.
 Provider specific calls enable for getting global information about the spaces managed by the provider,
 and some administrative operations which can be used for monitoring or accounting.
 
-**Privileges management**
-Onezone allows any user to have selected administration privileges for the Onezone service itself,
-enabling them to view and configure certain aspects of the system.
-
 **Handle API**
 Onezone provides extensive support for integration with Handle system registration
 services, including support for DOI and PID identifier assignment services. The API
@@ -100,7 +96,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-rc9
+*Version* : 3.0.0-rc10
 
 
 ### Contact information
@@ -123,7 +119,6 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 * Group : Group related operations
 * User : User related operations
 * Provider : Provider related operations
-* Privileges : Operations on Onezone privileges
 * Handle : Operations for managing Handle system service and identifier generation.
 
 

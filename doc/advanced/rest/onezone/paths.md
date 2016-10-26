@@ -22,20 +22,23 @@ Group related operations
 |[/groups/{id}/nested/{nid}](operations/get_nested_group.md)|GET|Get subgroup details|
 |[/groups/{id}/nested/{nid}](operations/delete_nested_group.md)|DELETE|Remove subgroup|
 |[/groups/{id}/nested/{nid}/privileges](operations/get_nested_group_privileges.md)|GET|Get subgroup privileges|
-|[/groups/{id}/nested/{nid}/privileges](operations/set_group_nested_privileges.md)|PUT|Set subgroup privileges|
+|[/groups/{id}/nested/{nid}/privileges](operations/set_nested_group_privileges.md)|PUT|Set subgroup privileges|
 |[/groups/{id}/parent](operations/get_parent_groups.md)|GET|Get parent groups|
 |[/groups/{id}/parent/{pid}](operations/get_parent_group.md)|GET|Get parent group details|
+|[/groups/{id}/privileges](operations/get_group_onezone_privileges.md)|GET|Get group's Onezone privileges|
+|[/groups/{id}/privileges](operations/remove_group_onezone_privileges.md)|DELETE|Remove group's Onezone privileges|
+|[/groups/{id}/privileges](operations/set_group_onezone_privileges.md)|PATCH|Set group's Onezone privileges|
 |[/groups/{id}/spaces](operations/create_space_for_group.md)|POST|Creates new space for group|
 |[/groups/{id}/spaces](operations/get_group_spaces.md)|GET|Get group's spaces|
 |[/groups/{id}/spaces/join](operations/group_join_space.md)|POST|Join space by group|
 |[/groups/{id}/spaces/token](operations/create_group_spaces_token.md)|GET|Create space creation token for group|
 |[/groups/{id}/spaces/{sid}](operations/get_group_space.md)|GET|Get group's space details|
-|[/groups/{id}/spaces/{sid}](operations/remove_group_from_space.md)|DELETE|Remove space from group|
+|[/groups/{id}/spaces/{sid}](operations/remove_group_from_space.md)|DELETE|Remove group from space|
 |[/groups/{id}/users](operations/get_group_users.md)|GET|Get group users|
 |[/groups/{id}/users/token](operations/create_user_group_invite_token.md)|GET|Create user invite token for group|
 |[/groups/{id}/users/{uid}](operations/get_group_user.md)|GET|Get group user details|
 |[/groups/{id}/users/{uid}](operations/remove_group_user.md)|DELETE|Remove user from group|
-|[/groups/{id}/users/{uid}/privileges](operations/get_group_user_privileges.md)|GET|Get user's group privileges|
+|[/groups/{id}/users/{uid}/privileges](operations/get_user_group_privileges.md)|GET|Get user's group privileges|
 |[/groups/{id}/users/{uid}/privileges](operations/set_user_group_privileges.md)|PUT|Set user's group privileges|
 
 
@@ -49,7 +52,7 @@ Operations for managing Handle system service and identifier generation.
 |[/handle_services](operations/add_handle_service.md)|POST|Add handle service|
 |[/handle_services](operations/get_handle_services.md)|GET|Get handle services|
 |[/handle_services/{id}](operations/get_handle_service.md)|GET|Get handle service|
-|[/handle_services/{id}](operations/delete_handle_service.md)|DELETE|Unregister handle service|
+|[/handle_services/{id}](operations/remove_handle_service.md)|DELETE|Unregister handle service|
 |[/handle_services/{id}](operations/modify_handle_service.md)|PATCH|Modify handle service|
 |[/handle_services/{id}/groups](operations/list_handle_service_groups.md)|GET|Get handle service groups|
 |[/handle_services/{id}/groups/{gid}](operations/add_handle_service_group.md)|PUT|Add handle service group|
@@ -78,21 +81,6 @@ Operations for managing Handle system service and identifier generation.
 |[/handles/{hndl}/users/{uid}/privileges](operations/set_handle_user_privileges.md)|PUT|Set handle user privileges|
 
 
-<a name="privileges_resource"></a>
-### Privileges
-Operations on Onezone privileges
-
-
-|Path|Method|Description|
-|---|---|---|
-|[/privileges/group/{id}](operations/get_group_onezone_privileges.md)|GET|Get group's Onezone privileges|
-|[/privileges/group/{id}](operations/remove_group_onezone_privileges.md)|DELETE|Remove group's Onezone privileges|
-|[/privileges/group/{id}](operations/set_group_onezone_privileges.md)|PATCH|Set group's Onezone privileges|
-|[/privileges/users/{id}](operations/get_user_onezone_privileges.md)|GET|Get user's Onezone privileges|
-|[/privileges/users/{id}](operations/remove_user_onezone_privileges.md)|DELETE|Remove user's Onezone privileges|
-|[/privileges/users/{id}](operations/set_user_onezone_privileges.md)|PATCH|Set user's Onezone privileges|
-
-
 <a name="provider_resource"></a>
 ### Provider
 Provider related operations
@@ -101,8 +89,8 @@ Provider related operations
 |Path|Method|Description|
 |---|---|---|
 |[/provider](operations/register_provider.md)|POST|Register provider|
-|[/provider](operations/get_provider.md)|GET|Get provider details|
-|[/provider](operations/delete_provider.md)|DELETE|Unregister provider|
+|[/provider](operations/get_provider_details.md)|GET|Get provider details|
+|[/provider](operations/unregister_provider.md)|DELETE|Unregister provider|
 |[/provider](operations/modify_provider.md)|PATCH|Modify provider details|
 |[/provider/spaces](operations/create_provider_space.md)|POST|Create new space by provider|
 |[/provider/spaces](operations/get_supported_spaces.md)|GET|Get spaces at provider|
@@ -111,8 +99,8 @@ Provider related operations
 |[/provider/spaces/{sid}](operations/remove_space_support.md)|DELETE|Remove space support|
 |[/provider/test/check_my_ip](operations/check_my_ip.md)|GET|Show client IP address|
 |[/provider/test/check_my_ports](operations/check_my_ports.md)|POST|Check ports availability|
-|[/provider/{pid}](operations/get_other_provider.md)|GET|Get provider details|
 |[/providers](operations/get_providers.md)|GET|Get providers|
+|[/providers/{pid}](operations/get_other_provider.md)|GET|Get other provider details|
 
 
 <a name="space_resource"></a>
@@ -177,6 +165,9 @@ User related operations
 |[/user/spaces/token](operations/get_user_space_token.md)|GET|Create space invitation token|
 |[/user/spaces/{sid}](operations/get_user_space.md)|GET|Get space details|
 |[/user/spaces/{sid}](operations/delete_user_space.md)|DELETE|Leave space|
+|[/users/{id}/privileges](operations/get_user_onezone_privileges.md)|GET|Get user's Onezone privileges|
+|[/users/{id}/privileges](operations/remove_user_onezone_privileges.md)|DELETE|Remove user's Onezone privileges|
+|[/users/{id}/privileges](operations/set_user_onezone_privileges.md)|PATCH|Set user's Onezone privileges|
 
 
 

@@ -1,5 +1,5 @@
 
-<a name="get_provider"></a>
+<a name="get_provider_details"></a>
 #### Get provider details
 ```
 GET /provider

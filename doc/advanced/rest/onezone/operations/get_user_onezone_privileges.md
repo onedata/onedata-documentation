@@ -2,7 +2,7 @@
 <a name="get_user_onezone_privileges"></a>
 #### Get user's Onezone privileges
 ```
-GET /privileges/users/{id}
+GET /users/{id}/privileges
 ```
 
 
@@ -16,7 +16,7 @@ This operation requires `view_privileges` privilege.
 **Get users privileges to Onezone service**
 ```bash
 curl -k -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+https://$HOST:8443/api/v3/onezone/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w/privileges
 
 {
   "privileges": []
@@ -53,7 +53,7 @@ https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdH
 ###### Request path
 ```
 json :
-"/privileges/users/string"
+"/users/string/privileges"
 ```
 
 

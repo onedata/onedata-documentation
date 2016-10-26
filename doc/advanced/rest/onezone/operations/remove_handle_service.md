@@ -1,24 +1,22 @@
 
-<a name="set_group_nested_privileges"></a>
-#### Set subgroup privileges
+<a name="remove_handle_service"></a>
+#### Unregister handle service
 ```
-PUT /groups/{id}/nested/{nid}/privileges
+DELETE /handle_services/{id}
 ```
 
 
 ##### Description
-Sets privileges for a specific subgroup in a group.
+Allows to unregister a registeed handle service.
 
-This operation requires `group_set_privileges` privilege.
+This operation requires `delete_handle_services` privilege.
 
 ***Example cURL requests***
 
-**Get subgroup privileges in a group**
-
+**Unregister handle service**
 ```bash
-curl -k -u username:password  -H "Content-type: application/json" -X PUT \
--d '{"privileges": ["group_view_data"]}' \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
 
 
@@ -26,16 +24,14 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**nid**  <br>*required*|Subgroup ID.|string|--|
-|**Body**|**data**  <br>*required*|Nested group privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
+|**Path**|**id**  <br>*required*||string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been added.|No Content|
+|**202**|Unregistration was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -48,16 +44,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string/nested/string/privileges"
-```
-
-
-###### Request body
-```
-json :
-{
-  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
-}
+"/handle_services/string"
 ```
 
 
