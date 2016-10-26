@@ -11,7 +11,7 @@ This method allows to set a value of a regular and extended file attributes.
 
 For regular file attributes, currently only POSIX mode can be changed by sending:
   ```
-  { name: "mode", value: "0777"}
+  { "mode", "0777" }
   ```
 where the POSIX mode is specified in octal notation.
 
@@ -41,7 +41,7 @@ curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 |---|---|---|---|---|
 |**Path**|**path**  <br>*required*|File path (e.g. '/My Private Space/testfiles/file1.txt')|string|--|
 |**Query**|**extended**  <br>*optional*|Whether this is an extended or regular attribute. Default is false.|boolean|`"false"`|
-|**Body**|**attribute**  <br>*optional*|Attribute name and value.|[FileAttribute](../definitions/FileAttribute.md#fileattribute)|--|
+|**Body**|**attribute**  <br>*optional*|Attribute name and value.|< string, string > map|--|
 
 
 ##### Responses
@@ -81,10 +81,7 @@ json :
 ###### Request body
 ```
 json :
-{
-  "name" : "mode",
-  "value" : "0444"
-}
+{ }
 ```
 
 

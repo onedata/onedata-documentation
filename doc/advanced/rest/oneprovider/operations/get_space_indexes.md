@@ -9,8 +9,7 @@ GET /index
 ##### Description
 This method returns the list of user defined index functions.
 
-The result can be limited to specific space using query parameter `space_id`.    
-
+The result can be limited to specific space using query parameter `space_id`.
 
 ***Example cURL requests***
 

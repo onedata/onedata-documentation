@@ -20,7 +20,7 @@ The operation returns the created index ID in the response `Location` header.
 **Set JSON metadata for file**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X POST \
--H "Content-type: application/json" \
+-H "Content-type: text/javascript" \
 -d "@./my_index_1.js"
 https://$HOST:8443/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47cd969280a2&name=MyIndex1
 ```
@@ -32,6 +32,7 @@ https://$HOST:8443/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47c
 |---|---|---|---|---|
 |**Query**|**name**  <br>*optional*|The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provided, an auto generated name will be assigned.|string|--|
 |**Query**|**space_id**  <br>*required*|File or folder path or space id.|string|--|
+|**Body**|**body**  <br>*required*|The index function.|string|--|
 
 
 ##### Responses
@@ -66,6 +67,13 @@ json :
   "name" : "string",
   "space_id" : "string"
 }
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 
