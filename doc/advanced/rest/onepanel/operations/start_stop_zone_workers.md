@@ -1,29 +1,31 @@
 
-<a name="get_zone_workers"></a>
-#### Get zone cluster workers status
+<a name="start_stop_zone_workers"></a>
+#### Start/stop zone cluster workers
 ```
-GET /zone/workers
+PATCH /zone/workers
 ```
 
 
 ##### Description
-Returns status of cluster worker service on each host where it has been deployed.
+Starts or stops cluster worker service on all hosts in the local deployment.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Query**|**started**  <br>*optional*|Defines the intended state of the cluster worker service. The service  will be started or stopped in order to match the requested state.|boolean|`"true"`|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster worker service on each host where it has been  deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**204**|Cluster worker service state changed successfully.|No Content|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster worker service has not been deployed.|No Content|
 |**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -35,18 +37,16 @@ json :
 ```
 
 
-##### Example HTTP response
-
-###### Response 200
+###### Request query
 ```
 json :
 {
-  "hosts" : {
-    "string" : "[servicestatushost](#servicestatushost)"
-  }
+  "started" : true
 }
 ```
 
+
+##### Example HTTP response
 
 ###### Response 500
 ```

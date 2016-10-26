@@ -1,22 +1,30 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="get_task_status"></a>
+#### Get background task result
 ```
-GET /provider/spaces
+GET /tasks/{id}
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Returns result of an asynchronous operation, e.g. database service configuration.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*|The requested task Id.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**200**|The requested task status.|[TaskStatus](../definitions/TaskStatus.md#taskstatus)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
+|**404**|The task does not exist.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
@@ -30,7 +38,7 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/tasks/string"
 ```
 
 
@@ -40,7 +48,8 @@ json :
 ```
 json :
 {
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
+  "status" : "running",
+  "steps" : [ "configuring" ]
 }
 ```
 

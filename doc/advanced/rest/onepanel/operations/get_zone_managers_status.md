@@ -1,5 +1,5 @@
 
-<a name="get_zone_managers"></a>
+<a name="get_zone_managers_status"></a>
 #### Get zone cluster managers status
 ```
 GET /zone/managers

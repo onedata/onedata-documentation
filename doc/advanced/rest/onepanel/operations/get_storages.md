@@ -1,20 +1,20 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="get_storages"></a>
+#### Get storages
 ```
-GET /provider/spaces
+GET /provider/storages
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Returns the list of provider storage resources and their details.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**200**|The list of provider storage and their details.|< [ClusterStorages](../definitions/ClusterStorages.md#clusterstorages) > array|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
@@ -30,7 +30,7 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/provider/storages"
 ```
 
 
@@ -39,9 +39,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
-}
+"array"
 ```
 
 

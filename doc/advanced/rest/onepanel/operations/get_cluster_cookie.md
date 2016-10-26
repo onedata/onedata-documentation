@@ -1,20 +1,20 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="get_cluster_cookie"></a>
+#### Get cluster cookie
 ```
-GET /provider/spaces
+GET /cookie
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Returns cookie of a cluster this host belongs to. The cookie is a character sequence that is common for all the cluster nodes. The cookies are used for authentication between distributed Erlang Onedata processes.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**200**|The cookie of a cluster this host belongs to.|string|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
@@ -30,7 +30,7 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/cookie"
 ```
 
 
@@ -39,9 +39,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
-}
+"string"
 ```
 
 

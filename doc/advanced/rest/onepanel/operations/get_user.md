@@ -1,22 +1,30 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="get_user"></a>
+#### Get Onepanel user details
 ```
-GET /provider/spaces
+GET /users/{username}
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Returns the configuration information of the Onepanel user.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**username**  <br>*required*|The name of the user whose details should be returned.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**200**|The configuration information of the user.|[UserDetails](../definitions/UserDetails.md#userdetails)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
+|**404**|The user does not exist.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
@@ -30,7 +38,7 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/users/string"
 ```
 
 
@@ -40,7 +48,8 @@ json :
 ```
 json :
 {
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
+  "userId" : "i3h2bp4TjPVuOyvXulbW",
+  "userRole" : "admin"
 }
 ```
 

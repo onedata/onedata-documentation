@@ -1,28 +1,23 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="remove_provider"></a>
+#### Unregister provider
 ```
-GET /provider/spaces
+DELETE /provider
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Unregisters provider from the zone.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**204**|Provider has been successfully unregistered.|No Content|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -30,20 +25,11 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/provider"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
-}
-```
-
 
 ###### Response 500
 ```

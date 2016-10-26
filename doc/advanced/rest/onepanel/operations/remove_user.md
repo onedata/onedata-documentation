@@ -1,28 +1,31 @@
 
-<a name="get_provider_spaces"></a>
-#### Get provider spaces
+<a name="remove_user"></a>
+#### Remove Onepanel user
 ```
-GET /provider/spaces
+DELETE /users/{username}
 ```
 
 
 ##### Description
-Returns the list of spaces supported by the provider.
+Removes the Onepanel user account.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**username**  <br>*required*|The name of the user to be removed.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**204**|The user account has been successfully removed.|No Content|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
+|**404**|User account not found.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -30,20 +33,11 @@ Returns the list of spaces supported by the provider.
 ###### Request path
 ```
 json :
-"/provider/spaces"
+"/users/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
-}
-```
-
 
 ###### Response 500
 ```

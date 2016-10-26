@@ -1,23 +1,23 @@
 
-<a name="get_zone_managers"></a>
-#### Get zone cluster managers status
+<a name="get_provider_databases_status"></a>
+#### Get provider databases status
 ```
-GET /zone/managers
+GET /provider/databases
 ```
 
 
 ##### Description
-Returns status of cluster manager service on each host where it has been  eployed.
+Returns status of database service on each host where it has been deployed.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster manager service on each host where it has been  deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**200**|The status of database service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Cluster manager service has not been deployed.|No Content|
+|**404**|Database service has not been deployed.|No Content|
 |**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
@@ -31,7 +31,7 @@ Returns status of cluster manager service on each host where it has been  eploye
 ###### Request path
 ```
 json :
-"/zone/managers"
+"/provider/databases"
 ```
 
 

@@ -1,23 +1,30 @@
 
-<a name="get_zone_managers"></a>
-#### Get zone cluster managers status
+<a name="get_zone_database_status"></a>
+#### Get zone database status
 ```
-GET /zone/managers
+GET /zone/databases/{host}
 ```
 
 
 ##### Description
-Returns status of cluster manager service on each host where it has been  eployed.
+Returns status of database service on the selected host.
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**host**  <br>*required*|The name of a host for which database service status should be returned.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster manager service on each host where it has been  deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**200**|The status of database service on the selected host.|[ServiceStatusHost](../definitions/ServiceStatusHost.md#servicestatushost)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Cluster manager service has not been deployed.|No Content|
+|**404**|Database service has not been deployed on the selected host.|No Content|
 |**500**|Internal server error.|[ServiceError](../definitions/ServiceError.md#serviceerror)|
 
 
@@ -31,7 +38,7 @@ Returns status of cluster manager service on each host where it has been  eploye
 ###### Request path
 ```
 json :
-"/zone/managers"
+"/zone/databases/string"
 ```
 
 
@@ -41,9 +48,7 @@ json :
 ```
 json :
 {
-  "hosts" : {
-    "string" : "[servicestatushost](#servicestatushost)"
-  }
+  "status" : "string"
 }
 ```
 
