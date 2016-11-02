@@ -2107,7 +2107,7 @@
         "x-onedata-service": "onezone",
         "x-onedata-module": "user",
         "x-onedata-method": "user_logic:get_data",
-        "summary": "Get user details",
+        "summary": "Get current user details",
         "x-bash-codegen-description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n",
         "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\",\n  \"connectedAccounts\": [],\n  \"alias\": \"\",\n  \"emailList\": []\n}\n```\n",
         "produces": [
@@ -7130,7 +7130,7 @@
         "x-onedata-method": "provider_logic:get_space",
         "summary": "Get space supported by provider",
         "x-bash-codegen-description": "Returns the details of space supported by a specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n",
-        "description": "Returns the details of space supported by a specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n\n***Example cURL requests***\n\n**List spaces supported by provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"spaceId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\": \"new_space1\",\n  \"canonicalName\": \"new_space1\",\n  \"providersSupports\": []\n}\n```\n",
+        "description": "Returns the details of space supported by a specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n\n***Example cURL requests***\n\n**Get space supported by provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"spaceId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\": \"new_space1\",\n  \"canonicalName\": \"new_space1\",\n  \"providersSupports\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -7287,7 +7287,7 @@
         "x-onedata-method": "provider_logic:get_user",
         "summary": "Get user of provider",
         "x-bash-codegen-description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n",
-        "description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**List user of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"userId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"login\":\"username\",\n  \"name\":\"admin\"\n}\n```\n",
+        "description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**Get user of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"userId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"login\":\"username\",\n  \"name\":\"admin\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -7442,9 +7442,9 @@
         "x-onedata-module": "providers",
         "x-onedata-resource": "users",
         "x-onedata-method": "provider_logic:get_user",
-        "summary": "Get user of provider",
-        "x-bash-codegen-description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n",
-        "description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**List user of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"groupId\":\"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
+        "summary": "Get group of provider",
+        "x-bash-codegen-description": "Returns the details of a group of a specific provider.\n\nThis operation requires `list_groups_of_provider` privilege.\n",
+        "description": "Returns the details of a group of a specific provider.\n\nThis operation requires `list_groups_of_provider` privilege.\n\n***Example cURL requests***\n\n**Get group of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"groupId\":\"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -8431,7 +8431,7 @@
         "x-onedata-permissions": [
           "modify_handle_service"
         ],
-        "summary": "Add handle service group",
+        "summary": "Remove handle service group",
         "x-bash-codegen-description": "Allows to remove a group from access to a handle service.\n\nThis operation requires `modify_handle_service` privilege.\n",
         "description": "Allows to remove a group from access to a handle service.\n\nThis operation requires `modify_handle_service` privilege.\n\n***Example cURL requests***\n\n**Remove handle service group**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/DLAKSHDLKJHJjLHADHLKJh\n```\n",
         "responses": {
@@ -9578,7 +9578,7 @@
         "x-onedata-permissions": [
           "modify_handle"
         ],
-        "summary": "Add handle group",
+        "summary": "Remove handle group",
         "x-bash-codegen-description": "Allows to remove a group from access to a handle.\n\nThis operation requires `modify_handle` privilege.\n",
         "description": "Allows to remove a group from access to a handle.\n\nThis operation requires `modify_handle` privilege.\n\n***Example cURL requests***\n\n**Remove handle service group**\n```bash\ncurl -k -u username:password -X DELETE \\\nhttps://$HOST:8443/api/v3/handles/AKSHDLKJHJjLHSADHLKJhlkASHDL/groups/JHJjLHADHLKJhDLAKSHDLK\n```\n",
         "responses": {

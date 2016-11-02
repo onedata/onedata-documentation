@@ -13,7 +13,7 @@ This operation requires `list_spaces_of_provider` privilege.
 
 ***Example cURL requests***
 
-**List spaces supported by provider**
+**Get space supported by provider**
 ```bash
 curl -ksS -u username:password -X GET  \
 https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
