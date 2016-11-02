@@ -22,7 +22,7 @@ depending on the actor making the request:
  required privileges, except for the operations which are related to user account management, i.e.
  each user can perform any operation on his account, the `macaroon` header example:
  ```
-   macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
+   X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
  ```
  * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,
  it must authenticate using the peer certificate which was assigned to this provider when registering
