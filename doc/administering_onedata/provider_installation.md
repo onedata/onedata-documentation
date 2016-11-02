@@ -58,7 +58,7 @@ Select a path to a mounted storage, which Oneprovider will use to store user dat
 
 
 ## Registration with Onezone service
-Once installed, it is recommended to register Oneprovider with Onezone provider registry, so users can use Oneprovider instances within an entire zone transparently.
+Once installed, Oneprovider has to be registered with some Onezone instance, which allows users to login to the service and generated access tokens.
 
 ### Step 1&2: Connection check and Ports configuration
 

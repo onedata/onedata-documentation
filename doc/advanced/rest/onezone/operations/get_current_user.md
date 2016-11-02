@@ -1,0 +1,117 @@
+
+<a name="get_current_user"></a>
+#### Get current user details
+```
+GET /user
+```
+
+
+##### Description
+Returns details about currently authenticated user.
+
+This operation can be invoked on behalf of current user only.
+
+***Example cURL requests***
+
+**Get user details**
+```bash
+curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user
+
+{
+  "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
+  "login": "admin",
+  "name": "admin",
+  "connectedAccounts": [],
+  "alias": "",
+  "emailList": []
+}
+```
+
+
+##### Responses
+
+|HTTP Code|Description|Schema|
+|---|---|---|
+|**200**|Returns the information about user.|[User](../definitions/User.md#user)|
+|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
+|**404**|Resource not found..|[Error](../definitions/Error.md#error)|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
+
+
+##### Produces
+
+* `application/json`
+
+
+##### Example HTTP request
+
+###### Request path
+```
+json :
+"/user"
+```
+
+
+##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "name" : "Rudolf Lingens",
+  "connectedAccounts" : [ {
+    "accountId" : "ASD879ASD-7SADASFSsa0831",
+    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
+  }, {
+    "accountId" : "QWESsD-7SADASFSsa0831",
+    "providerId" : "7QWEJ-123ASD870-ASDASD"
+  } ],
+  "alias" : "John Doe",
+  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
+}
+```
+
+
+###### Response 400
+```
+json :
+{
+  "error" : "invalid_token",
+  "error_description" : "Provided token could not be validated."
+}
+```
+
+
+###### Response 403
+```
+json :
+{
+  "error" : "invalid_token",
+  "error_description" : "Provided token could not be validated."
+}
+```
+
+
+###### Response 404
+```
+json :
+{
+  "error" : "invalid_token",
+  "error_description" : "Provided token could not be validated."
+}
+```
+
+
+###### Response 500
+```
+json :
+{
+  "error" : "invalid_token",
+  "error_description" : "Provided token could not be validated."
+}
+```
+
+
+

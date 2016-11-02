@@ -2,7 +2,7 @@
 <a name="remove_group_onezone_privileges"></a>
 #### Remove group's Onezone privileges
 ```
-DELETE /privileges/group/{id}
+DELETE /groups/{id}/privileges
 ```
 
 
@@ -16,7 +16,7 @@ This operation requires `set_privileges` privilege.
 **Remove all groups privileges to Onezone service**
 ```bash
 curl -i -k -u username:password  -X DELETE  \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2/privileges
 ```
 
 
@@ -44,7 +44,7 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/groups/string/privileges"
 ```
 
 

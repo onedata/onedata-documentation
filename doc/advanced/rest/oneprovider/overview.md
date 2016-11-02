@@ -10,9 +10,9 @@ This is the RESTful API definition of Oneprovider component of Onedata data mana
 
 All paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example
 query for 'mode' file attributes would be:
- ```
- https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode
- ```
+```
+https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode
+```
 Please note that currently the default port for Oneprovider instances is `8443`.
 
 In addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, 
@@ -24,9 +24,9 @@ In order to be able to use this API the REST client must be able to authenticate
 
 Currently this is supported through authentication token which can be generate using the Onedata user interface. 
 The token must be added to the request header like this:
- ```
- macaroon: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...
- ```
+```
+X-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...
+```
 
 In addition please take into account, that depending on your account authorization rights, not all operations
 may be possible.
@@ -86,20 +86,20 @@ database files, with resolution determined by the `step` query parameter.
 **Create replica of file at specific storage provider**
 ```bash
 curl -v --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X POST \
- "https://$PROVIDER:8443/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF"
+"https://$PROVIDER:8443/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF"
 ```
 
 **Get space storage qouta metric**
 ```bash
 curl -v --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
- "https://$PROVIDER:8443/metrics/space/MySpace1?metric=storage_qouta"
+"https://$PROVIDER:8443/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta"
 ```
 
 More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 3.0.0-rc9
+*Version* : 3.0.0-rc10
 
 
 ### Contact information

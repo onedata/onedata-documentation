@@ -8,7 +8,7 @@ The following sections detail certificates required by each Onedata service.
 
 Whenever certificates for given service change, the service must be restarted.
 
-The certificates should be accessible to the Onepanel administration service before deploying particular Onedata service, i.e.: Onezone or Oneprovider. Depending on the type of services which is being installed, Onepanel will for certificates under the following paths:
+The certificates should be accessible to the Onepanel administration service before deploying particular Onedata service, i.e.: Onezone or Oneprovider. Depending on the type of services which is being installed, Onepanel will look for certificates under the following paths:
 * Onezone - `/etc/oz_panel/certs`
 * Oneprovider - `/etc/op_panel/certs`
 

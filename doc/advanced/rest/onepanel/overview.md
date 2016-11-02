@@ -5,8 +5,7 @@
 ## Overview
 This is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).
 
-> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate
-> client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).
+> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).
 
 This API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. 
 
@@ -17,11 +16,9 @@ Each of these components is composed of the following services:
 
 **Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. 
 
-Using this API each of these components can be deployed, configured, started and stopped on 
-a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. 
+Using this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. 
 
-All paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, 
-so complete URL for a request to Onepanel service is:
+All paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:
 
 ```
 http://HOSTNAME:PORT/api/v3/onepanel/...
@@ -37,20 +34,16 @@ Onepanel users can have 2 roles:
 The first user account which is created in Onepanel is always an `admin` account.
 
 ## API structure
-The Onepanel API is structured to reflect that it can either be used to control **Onezone**
-or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel 
-instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific
-requests have different paths, i.e.:
+The Onepanel API is structured to reflect that it can either be used to control **Onezone** or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific requests have different paths, i.e.:
   * Onezone specific operations start with `/api/v3/onepanel/zone/`
   * Oneprovider specific operations start with `/api/v3/onepanel/provider/`
   * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`
 
-The overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and
-`/api/v3/onepanel/provider/configuration` resources.
+The overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.
 
 ## Examples 
 Below are some example requests to Onepanel using cURL:
-  
+
 **Create new user**
 ```bash
 curl -X POST -k -vvv -H "content-type: application/json" \
@@ -74,7 +67,7 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 
 
 ### Version information
-*Version* : 3.0.0-rc9
+*Version* : 3.0.0-rc10
 
 
 ### Contact information

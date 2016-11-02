@@ -2,7 +2,7 @@
 <a name="set_group_onezone_privileges"></a>
 #### Set group's Onezone privileges
 ```
-PATCH /privileges/group/{id}
+PATCH /groups/{id}/privileges
 ```
 
 
@@ -17,7 +17,7 @@ This operation requires `set_privileges` privilege.
 ```bash
 curl -k -H "Content-type: application/json"  -X PUT \
 -d '{"privileges": ["list_spaces"]}' \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 ```
 
 
@@ -46,7 +46,7 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/groups/string/privileges"
 ```
 
 

@@ -60,7 +60,7 @@ curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
 |**transferId**  <br>*optional*|Transfer ID.|string|
 
 
-##### Produces
+##### Consumes
 
 * `application/json`
 

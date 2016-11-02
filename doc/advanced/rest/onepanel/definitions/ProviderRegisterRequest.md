@@ -1,16 +1,16 @@
 
 <a name="providerregisterrequest"></a>
 ### ProviderRegisterRequest
-The provider configuration details required for registration process.
+The storage provider configuration details required for registration process.
 
 
 |Name|Description|Schema|
 |---|---|---|
-|**geoLatitude**  <br>*optional*|The geographical latitude of the provider.|number(float)|
-|**geoLongitude**  <br>*optional*|The geographical longitude of the provider.|number(float)|
+|**geoLatitude**  <br>*optional*|The geographical latitude of the storage provider.|number(float)|
+|**geoLongitude**  <br>*optional*|The geographical longitude of the storage provider.|number(float)|
 |**name**  <br>*required*|The name under which the provider should be registered in a zone.|string|
-|**onezoneDomainName**  <br>*optional*|The domain name of a zone where provider will be registered.|string|
-|**redirectionPoint**  <br>*required*|The address used for user redirection from a zone to the provider.|string|
+|**onezoneDomainName**  <br>*optional*|The domain name of a zone where this storage provider will be registered.|string|
+|**redirectionPoint**  <br>*required*|The address used for user redirection from a zone to the storage provider.|string|
 
 **Example**
 ```
