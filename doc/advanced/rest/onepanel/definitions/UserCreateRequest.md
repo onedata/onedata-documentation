@@ -1,7 +1,7 @@
 
 <a name="usercreaterequest"></a>
 ### UserCreateRequest
-The user configuration details required for creation process.
+The new user account details.
 
 
 |Name|Description|Schema|

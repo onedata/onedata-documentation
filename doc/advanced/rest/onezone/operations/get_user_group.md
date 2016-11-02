@@ -16,10 +16,10 @@ This operation can be invoked on behalf of current user only.
 **Get user groups**
 ```bash
 curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/user/groups/admins
+https://$HOST:8443/api/v3/onezone/user/groups/LKJGHASDJHAJKLSHDLJKASD
 
 {
-  "groupId": "admins",
+  "groupId": "LKJGHASDJHAJKLSHDLJKASD",
   "name": "admins",
   "type": "role"
 }

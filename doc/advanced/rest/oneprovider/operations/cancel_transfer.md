@@ -36,11 +36,6 @@ curl --tlsv1.2 -X DELETE -H "X-Auth-Token: $TOKEN" \
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
-
-* `application/json`
-
-
 ##### Example HTTP request
 
 ###### Request path

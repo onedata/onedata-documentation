@@ -9,14 +9,14 @@ GET /groups/{id}
 ##### Description
 Returns the information about a specific group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view_data` or `list_groups` privilege.
 
 ***Example cURL requests***
 
 **Get group details**
 ```bash
 curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/user/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
 
 {
   "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",

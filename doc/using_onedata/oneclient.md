@@ -62,7 +62,7 @@ If you already have an account at [onedata.org](onedata.org) or some other Oneda
 ```
 docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
  -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-rc9
+ onedata/oneclient:3.0.0-rc10
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient` folder (inside container). They can be accessed from another terminal, for instance using:

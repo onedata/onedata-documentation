@@ -7,7 +7,8 @@ GET /provider/spaces
 
 
 ##### Description
-Returns the list of spaces managed by the Oneprovider that performed the request.
+Returns the list of spaces managed by the Oneprovider that performed the 
+request.
 
 This operation requires peer certificate authentication.
 

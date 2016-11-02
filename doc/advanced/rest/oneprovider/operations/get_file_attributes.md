@@ -7,7 +7,7 @@ GET /attributes/{path}
 
 
 ##### Description
-This method returns selected file attributes.
+This method returns selected file attributes as a JSON object.
 
 By default the method returns regular file attributes.
 
@@ -21,12 +21,9 @@ in the request query to `true`.
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode"
 
-[
-  { 
-    "name": "mode",
-    "value": "0777" 
-  }
-]
+{ 
+  "mode": "0777" 
+}
 ```
 
 **Get extended file attributes**
@@ -34,12 +31,9 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license"
 
-[
-  { 
-    "name": "license",
-    "value": "CC-0" 
-  }
-]
+{ 
+  "license": "CC-0"
+}
 ```
 
 
@@ -57,7 +51,7 @@ curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the requested file attributes.|< [FileAttribute](../definitions/FileAttribute.md#fileattribute) > array|
+|**200**|Returns the requested file attributes.|< string, string > map|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|File not found.|[Error](../definitions/Error.md#error)|
@@ -94,7 +88,7 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+"object"
 ```
 
 

@@ -18,10 +18,10 @@ These queries are possible on indexes which emit values conforming to the [GeoJS
 
 ***Example cURL requests***
 
-**Get list of files matching index with `value1` for `key1` attribute**
+**Get list of files matching index with `value1` for `key` attribute**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
-https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key1=value1
+https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key=value1
 
 [
   "2013f807-a25e-4a55-92bb-113ab46efd12",
@@ -66,7 +66,7 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 |**Query**|**endkey_docid**  <br>*optional*|Stop returning records when the specified document ID is reached.|string|--|
 |**Query**|**inclusive_end**  <br>*optional*|Specifies whether the specified end key is included in the result.  ***Note:*** Do not use `inclusive_end` with `key` or `keys`.|boolean|`"false"`|
 |**Query**|**key**  <br>*optional*|Return only documents that match the specified key.  Key must be specified as a JSON value.|string|--|
-|**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array.  Key must be specified as a JSON value.  Sorting is not applied when using this option.|< string > array(multi)|--|
+|**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array.  Keys must be specified as a JSON array, escaped properly.  Sorting is not applied when using this option.|string|--|
 |**Query**|**limit**  <br>*optional*|Limit the number of the returned documents to the specified number.|integer|--|
 |**Query**|**skip**  <br>*optional*|Skip this number of records before starting to return the results.|integer|--|
 |**Query**|**stale**  <br>*optional*|Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.|enum (ok, update_after, false)|`"update_after"`|
