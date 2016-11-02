@@ -1,48 +1,41 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="list_groups"></a>
+#### List all groups
 ```
-GET /groups/{id}
+GET /groups
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns the list of all groups in the system.
 
-This operation requires `group_view_data` or `list_groups` privilege.
+Requires `list_groups` privilege.
 
 ***Example cURL requests***
 
-**Get group details**
+**List all groups in the system**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
-
-{
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
-}
+ curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/groups
 ```
-
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|The list of group ID's created within the Onezone service.|[Response 200](#list_groups-response-200)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+<a name="list_groups-response-200"></a>
+**Response 200**
+
+|Name|Description|Schema|
+|---|---|---|
+|**groups**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -55,7 +48,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/groups"
 ```
 
 
@@ -64,10 +57,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "name" : "Test group",
-  "type" : "role"
-}
+"object"
 ```
 
 

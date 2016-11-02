@@ -1,27 +1,27 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="get_provider_user"></a>
+#### Get user of provider
 ```
-GET /groups/{id}
+GET /providers/{pid}/users/{uid}
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns the details of a user of a specific provider.
 
-This operation requires `group_view_data` or `list_groups` privilege.
+This operation requires `list_users_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Get group details**
+**List user of a provider**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
 
 {
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
+  "userId": "KJHAGSDJKHGASJKHDGAKJHSDGKHJASD",
+  "login":"username",
+  "name":"admin"
 }
 ```
 
@@ -30,14 +30,15 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|The user ID.|[User](../definitions/User.md#user)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,7 +56,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/providers/string/users/string"
 ```
 
 
@@ -65,8 +66,17 @@ json :
 ```
 json :
 {
-  "name" : "Test group",
-  "type" : "role"
+  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "name" : "Rudolf Lingens",
+  "connectedAccounts" : [ {
+    "accountId" : "ASD879ASD-7SADASFSsa0831",
+    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
+  }, {
+    "accountId" : "QWESsD-7SADASFSsa0831",
+    "providerId" : "7QWEJ-123ASD870-ASDASD"
+  } ],
+  "alias" : "John Doe",
+  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
 }
 ```
 

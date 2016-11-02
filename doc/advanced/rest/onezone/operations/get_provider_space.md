@@ -1,27 +1,28 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="get_provider_space"></a>
+#### Get space supported by provider
 ```
-GET /groups/{id}
+GET /providers/{pid}/spaces/{sid}
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns the details of space supported by a specific provider.
 
-This operation requires `group_view_data` or `list_groups` privilege.
+This operation requires `list_spaces_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Get group details**
+**List spaces supported by provider**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
 
 {
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
+  "spaceId": "KJHAGSDJKHGASJKHDGAKJHSDGKHJASD",
+  "name": "new_space1",
+  "canonicalName": "new_space1",
+  "providersSupports": []
 }
 ```
 
@@ -30,14 +31,15 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
+|**Path**|**sid**  <br>*required*|Space ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|The space details.|[Space](../definitions/Space.md#space)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,7 +57,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/providers/string/spaces/string"
 ```
 
 
@@ -65,8 +67,9 @@ json :
 ```
 json :
 {
-  "name" : "Test group",
-  "type" : "role"
+  "name" : "My Private space",
+  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
+  "size" : 150
 }
 ```
 

@@ -37,9 +37,14 @@
           "200": {
             "description": "List of spaces Id's.",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
+              "type": "object",
+              "properties": {
+                "spaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
               }
             }
           },
@@ -2095,7 +2100,7 @@
     },
     "/user": {
       "get": {
-        "operationId": "get_user",
+        "operationId": "get_current_user",
         "tags": [
           "User"
         ],
@@ -3306,6 +3311,151 @@
         ]
       }
     },
+    "/users": {
+      "get": {
+        "operationId": "list_users",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "user_logic:list",
+        "summary": "List all users",
+        "x-bash-codegen-description": "Returns the list of all users in the system.\n\nRequires `list_users` privilege.\n",
+        "description": "Returns the list of all users in the system.\n\nRequires `list_users` privilege.\n\n***Example cURL requests***\n\n**List all users in the system**\n```bash\n curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/users\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of user ID's registered within the Onezone service.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli listUsers"
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "get_user",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "user",
+        "x-onedata-resource": "user",
+        "x-onedata-method": "user_logic:get_data",
+        "x-onedata-permissions": [
+          "user_view_data",
+          "list_users"
+        ],
+        "summary": "Get user details",
+        "x-bash-codegen-description": "Returns the information about a specific user.\n\nThis operation requires `list_users` privilege.\n",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `list_users` privilege.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\",\n  \"connectedAccounts\": [],\n  \"alias\": \"\",\n  \"emailList\": []\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about a user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli getUser id=lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0"
+          }
+        ]
+      }
+    },
     "/users/{id}/privileges": {
       "get": {
         "operationId": "get_user_onezone_privileges",
@@ -3512,6 +3662,74 @@
       }
     },
     "/groups": {
+      "get": {
+        "operationId": "list_groups",
+        "tags": [
+          "Group"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "group",
+        "x-onedata-resource": "groups",
+        "x-onedata-method": "group_logic:create",
+        "summary": "List all groups",
+        "x-bash-codegen-description": "Returns the list of all groups in the system.\n\nRequires `list_groups` privilege.\n",
+        "description": "Returns the list of all groups in the system.\n\nRequires `list_groups` privilege.\n\n***Example cURL requests***\n\n**List all groups in the system**\n```bash\n curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/groups\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of group ID's created within the Onezone service.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "groups": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli listGroups"
+          }
+        ]
+      },
       "post": {
         "operationId": "create_group",
         "tags": [
@@ -3598,11 +3816,12 @@
         "x-onedata-resource": "group",
         "x-onedata-method": "group_logic:get_data",
         "x-onedata-permissions": [
-          "group_view_data"
+          "group_view_data",
+          "list_groups"
         ],
         "summary": "Get group details",
-        "x-bash-codegen-description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n",
-        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` privilege.\n\n***Example cURL requests***\n\n**Get group details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/user/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` or `list_groups` privilege.\n",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `group_view_data` or `list_groups` privilege.\n\n***Example cURL requests***\n\n**Get group details**\n```bash\ncurl -k -u username:password -X GET \\\nhttps://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -6816,6 +7035,477 @@
           {
             "lang": "Shell",
             "source": "onezone-rest-cli getOtherProvider pid=WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/spaces": {
+      "get": {
+        "operationId": "list_provider_spaces",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "provider_logic:get_spaces",
+        "summary": "Get spaces supported by provider",
+        "x-bash-codegen-description": "Returns the list of spaces supported by specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n",
+        "description": "Returns the list of spaces supported by specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n\n***Example cURL requests***\n\n**List spaces supported by provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces\n\n{\n  \"spaces\": [\n    \"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\", \n    \"JKLAHSDLKHASJKLDH76786ASDHBKJHMa\"\n  ]\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of space ID's.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "spaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli listProviderSpaces"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/spaces/{sid}": {
+      "get": {
+        "operationId": "get_provider_space",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "spaces",
+        "x-onedata-method": "provider_logic:get_space",
+        "summary": "Get space supported by provider",
+        "x-bash-codegen-description": "Returns the details of space supported by a specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n",
+        "description": "Returns the details of space supported by a specific provider.\n\nThis operation requires `list_spaces_of_provider` privilege.\n\n***Example cURL requests***\n\n**List spaces supported by provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"spaceId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\": \"new_space1\",\n  \"canonicalName\": \"new_space1\",\n  \"providersSupports\": []\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space details.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "sid",
+            "description": "Space ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli getProviderSpace pid=ASDJKHASDASD5465asdvASDasd sid=KJHAGSDJKHGASJKHDGAKJHSDGKHJASD"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/users": {
+      "get": {
+        "operationId": "list_provider_users",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "provider_logic:get_users",
+        "summary": "Get users of provider",
+        "x-bash-codegen-description": "Returns the list of users of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n",
+        "description": "Returns the list of users of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**List users of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users\n\n{\n  \"users\": [\n    \"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\", \n    \"JKLAHSDLKHASJKLDH76786ASDHBKJHMa\"\n  ]\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of user ID's.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli listProviderUsers"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/users/{uid}": {
+      "get": {
+        "operationId": "get_provider_user",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "provider_logic:get_user",
+        "summary": "Get user of provider",
+        "x-bash-codegen-description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n",
+        "description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**List user of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"userId\": \"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"login\":\"username\",\n  \"name\":\"admin\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The user ID.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "description": "User ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli getProviderUser pid=ASDJKHASDASD5465asdvASDasd uid=KJHAGSDJKHGASJKHDGAKJHSDGKHJASD"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/groups": {
+      "get": {
+        "operationId": "list_provider_groups",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "groups",
+        "x-onedata-method": "provider_logic:get_groups",
+        "summary": "Get groups of provider",
+        "x-bash-codegen-description": "Returns the list of groups of a specific provider.\n\nThis operation requires `list_groups_of_provider` privilege.\n",
+        "description": "Returns the list of groups of a specific provider.\n\nThis operation requires `list_groups_of_provider` privilege.\n\n***Example cURL requests***\n\n**List groups of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups\n\n{\n  \"groups\": [\n    \"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\", \n    \"JKLAHSDLKHASJKLDH76786ASDHBKJHMa\"\n  ]\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of group ID's.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "groups": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli listProviderGroups"
+          }
+        ]
+      }
+    },
+    "/providers/{pid}/groups/{gid}": {
+      "get": {
+        "operationId": "get_provider_group",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-service": "onezone",
+        "x-onedata-module": "providers",
+        "x-onedata-resource": "users",
+        "x-onedata-method": "provider_logic:get_user",
+        "summary": "Get user of provider",
+        "x-bash-codegen-description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n",
+        "description": "Returns the details of a user of a specific provider.\n\nThis operation requires `list_users_of_provider` privilege.\n\n***Example cURL requests***\n\n**List user of a provider**\n```bash\ncurl -ksS -u username:password -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"groupId\":\"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The group ID.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pid",
+            "description": "Provider ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "gid",
+            "description": "Group ID.",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli getProviderGroup pid=ASDJKHASDASD5465asdvASDasd gid=KJHAGSDJKHGASJKHDGAKJHSDGKHJASD"
           }
         ]
       }

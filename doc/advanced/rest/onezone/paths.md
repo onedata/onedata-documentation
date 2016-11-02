@@ -10,6 +10,7 @@ Group related operations
 |Path|Method|Description|
 |---|---|---|
 |[/groups](operations/create_group.md)|POST|Create new group|
+|[/groups](operations/list_groups.md)|GET|List all groups|
 |[/groups/{id}](operations/get_group.md)|GET|Get group details|
 |[/groups/{id}](operations/remove_group.md)|DELETE|Remove group|
 |[/groups/{id}](operations/modify_group.md)|PATCH|Modify group details|
@@ -101,6 +102,12 @@ Provider related operations
 |[/provider/test/check_my_ports](operations/check_my_ports.md)|POST|Check ports availability|
 |[/providers](operations/get_providers.md)|GET|Get providers|
 |[/providers/{pid}](operations/get_other_provider.md)|GET|Get other provider details|
+|[/providers/{pid}/groups](operations/list_provider_groups.md)|GET|Get groups of provider|
+|[/providers/{pid}/groups/{gid}](operations/get_provider_group.md)|GET|Get user of provider|
+|[/providers/{pid}/spaces](operations/list_provider_spaces.md)|GET|Get spaces supported by provider|
+|[/providers/{pid}/spaces/{sid}](operations/get_provider_space.md)|GET|Get space supported by provider|
+|[/providers/{pid}/users](operations/list_provider_users.md)|GET|Get users of provider|
+|[/providers/{pid}/users/{uid}](operations/get_provider_user.md)|GET|Get user of provider|
 
 
 <a name="space_resource"></a>
@@ -147,7 +154,7 @@ User related operations
 
 |Path|Method|Description|
 |---|---|---|
-|[/user](operations/get_user.md)|GET|Get user details|
+|[/user](operations/get_current_user.md)|GET|Get user details|
 |[/user](operations/remove_user.md)|DELETE|Remove user|
 |[/user](operations/modify_user.md)|PATCH|Modify user|
 |[/user/authorize](operations/authenticate_user.md)|POST|Authenticate user|
@@ -165,6 +172,8 @@ User related operations
 |[/user/spaces/token](operations/get_user_space_token.md)|GET|Create space invitation token|
 |[/user/spaces/{sid}](operations/get_user_space.md)|GET|Get space details|
 |[/user/spaces/{sid}](operations/delete_user_space.md)|DELETE|Leave space|
+|[/users](operations/list_users.md)|GET|List all users|
+|[/users/{id}](operations/get_user.md)|GET|Get user details|
 |[/users/{id}/privileges](operations/get_user_onezone_privileges.md)|GET|Get user's Onezone privileges|
 |[/users/{id}/privileges](operations/remove_user_onezone_privileges.md)|DELETE|Remove user's Onezone privileges|
 |[/users/{id}/privileges](operations/set_user_onezone_privileges.md)|PATCH|Set user's Onezone privileges|

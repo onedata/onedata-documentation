@@ -1,22 +1,21 @@
 
-<a name="get_user"></a>
+<a name="get_current_user"></a>
 #### Get user details
 ```
-GET /users/{id}
+GET /user
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns details about currently authenticated user.
 
-This operation requires `list_users` privilege.
+This operation can be invoked on behalf of current user only.
 
 ***Example cURL requests***
 
 **Get user details**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
+curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/user
 
 {
   "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
@@ -29,23 +28,15 @@ https://$HOST:8443/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB
 ```
 
 
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Path**|**id**  <br>*required*|User ID.|string|--|
-
-
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a user.|[User](../definitions/User.md#user)|
+|**200**|Returns the information about user.|[User](../definitions/User.md#user)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
-|**401**|Authentication error.|[Error](../definitions/Error.md#error)|
-|**403**|Authorization error.|[Error](../definitions/Error.md#error)|
-|**404**|Resource not found.|[Error](../definitions/Error.md#error)|
-|**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+|**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
+|**404**|Resource not found..|[Error](../definitions/Error.md#error)|
+|**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Produces
@@ -58,7 +49,7 @@ https://$HOST:8443/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB
 ###### Request path
 ```
 json :
-"/users/string"
+"/user"
 ```
 
 
@@ -84,16 +75,6 @@ json :
 
 
 ###### Response 400
-```
-json :
-{
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
-}
-```
-
-
-###### Response 401
 ```
 json :
 {
