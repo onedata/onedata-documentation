@@ -18,16 +18,15 @@ The list of currently supported operations is presented below:
 
 | Operations                       | Capabilities                                                                                                                  |
 |:---------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
-| Basic object GET, PUT, DELETE    | *cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject*                                                |
-| Basic container GET, PUT, DELETE | *cdmi_list_children, cdmi_create_container, cdmi_delete_container*                                                            |
-| Metadata (container&dataobject)  | *cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime*                                     |
-| Access control lists (rwx*)      | *cdmi_acl*                                                                                                                    |
-| Big folders                      | *cdmi_list_children_range*                                                                                                    |
+| Basic object GET, PUT, DELETE    | *cdmi_dataobjects, cdmi_read_value, cdmi_modify_value, cdmi_delete_dataobject*|
+| Basic container GET, PUT, DELETE | *cdmi_list_children, cdmi_create_container, cdmi_delete_container*|
+| Metadata (container&dataobject)  | *cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime* |
+| Access control lists (rwx*)      | *cdmi_acl*    |
+| Big folders                      | *cdmi_list_children_range* |
 | Move and copy                    | *cdmi_move_dataobject_by_ID*, *cdmi_copy_dataobject_by_ID*|
 | File System Export               | CDMI filesystem export is not supported. Instead, Onedata provides a custom Fuse client which is more efficient and reliable. |
-
-| Big files                        | *cdmi_read_value_range, cdmi_modify_value_range*                                                                              |
-| Access by ObjectID               | *cdmi_object_access_by_ID*                                                                                                    |
+| Big files                        | *cdmi_read_value_range, cdmi_modify_value_range* |
+| Access by ObjectID               | *cdmi_object_access_by_ID* |
 
 ## Examples of usage
 

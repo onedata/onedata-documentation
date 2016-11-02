@@ -123,11 +123,16 @@ Finally, in order to gain access to specific parts of the Onezone service itself
 |--------------|-----------------|
 | view_privileges | Allow the user to view privileges |
 | set_privileges | Allow the user to modify the privileges |
-| list_spaces | Allow the user to list all spaces in the zone |
 | list_providers | Allow the user to list all providers registered in the zone |
 | list_providers_of_space | Allow the user to see all providers supporting specific space|
 | add_member_to_space | Allows to add any user or group to any space (typically for zone administrators) |
 | remove_member_from_space | Allows to remove any user or group from any space (typically for zone administrators) |
+| list_users | List all users in the Onezone instance and get their details |
+| list_groups | List all groups in the Onezone instance and get their details |
+| list_spaces | List all spaces in the Onezone instance and get their details | 
+| list_users_of_provider | List users of a specific provider |
+| list_groups_of_provider | List groups of a specific provider |
+| list_spaces_of_provider | List spaces supported by a specific provider |
 
 Each of these privileges can be assigned to an individual user or a group of users. Example operations are presented below:
 
