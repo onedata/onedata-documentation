@@ -7,7 +7,7 @@ GET /provider/spaces
 
 
 ##### Description
-Returns the collection of spaces supported by a provider.
+Returns the list of spaces supported by the provider.
 
 
 ##### Responses

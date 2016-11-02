@@ -19,14 +19,17 @@ This section describes typical filesystem metadata attributes. The list of attri
 
 | Attribute          | Sample value | Description |  
 | -------------------- | ------------------- | ---------- |
-| **cdmi_ctime** | 1470304148 | Unix creation timestamp |
-| **cdmi_mtime** | 1470304148 | Unix last modification timestamp |
-| **cdmi_atime** | 1470304148 | Unix last access timestamp |
-| **cdmi_atime** | 1470304148 | Unix last access timestamp |
-| **cdmi_size** | 1024 | File size in bytes |
-| **cdmi_owner** | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9 | ID of the file owner |
-| **cdmi_acl** |  | Fine grained access control list for resource |
-| **posix_mode**  | 0777 | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
+| **size** | 1024 | File size in bytes |
+| **mode**  | 0666 | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
+| **ctime** | 1470304148 | Unix creation timestamp |
+| **mtime** | 1470304148 | Unix last modification timestamp |
+| **atime** | 1470304148 | Unix last access timestamp |
+| **storage_group_id** | 1470304148 | Gid of the storage group owner of this file (the same Gid is displayed via `oneclient`) |
+| **storage_user_id** | 1470304148 | Uid of the storage owner of this file |
+| **name** | file.txt | The name of the object (Space, folder or file) |
+| **owner_id** | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9 | ID of the file owner |
+| **shares** | ["b3-a87f-76a588c9b279c0ed35-f32e-4db", ...]| Array of share Id's associated with this file or folder |
+| **type** | 'reg' | Specifies whether the reource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
 
 
 ## Extended attributes

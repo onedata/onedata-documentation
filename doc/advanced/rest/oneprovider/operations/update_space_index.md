@@ -28,6 +28,7 @@ https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**iid**  <br>*required*|Id of the index to update.|string|--|
+|**Body**|**body**  <br>*required*|The index function.|string|--|
 
 
 ##### Responses
@@ -41,12 +42,24 @@ https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
+##### Consumes
+
+* `text/javascript`
+
+
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
 "/index/string"
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 

@@ -44,6 +44,7 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/1e65d5f4-c49d-495a-a2b6-50acd0
 |**Query**|**filter**  <br>*optional*|The filter allowing to set specific metadata document key.|string|--|
 |**Query**|**filter_type**  <br>*optional*|The type of filter to apply to the metadata document.|string|--|
 |**Query**|**metadata_type**  <br>*optional*|Type of metadata backend (if not specified in `Accept` header)|enum (JSON, RDF)|--|
+|**Body**|**body**  <br>*required*|The metadata document in one of accepted formats.|string|--|
 
 
 ##### Responses
@@ -80,6 +81,13 @@ json :
   "filter_type" : "string",
   "metadata_type" : "string"
 }
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 
