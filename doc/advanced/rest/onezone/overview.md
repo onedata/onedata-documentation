@@ -16,17 +16,17 @@ In order to be able to use this API the REST client must be able to authenticate
 
 REST API operations from the permissions perspective in Onezone service can be divided into 2 groups,
 depending on the actor making the request:
- * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which
+ * **User requests** - regular end user requests are authenticated based on the `X-Auth-Token` header, which
  must include valid client access token, and authorization is made based on the privileges assigned
  to the user in the system. Each operation in this API that is available to end users, has a list of
  required privileges, except for the operations which are related to user account management, i.e.
- each user can perform any operation on his account, the `macaroon` header example:
+ each user can perform any operation on his account, the `X-Auth-Token` header example:
  ```
    X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
  ```
  * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,
  it must authenticate using the peer certificate which was assigned to this provider when registering
- in the Onezone service. In such case the `macaroon` header is not necessary.
+ in the Onezone service. In such case the `X-Auth-Token` header is not necessary.
 
 Some special operations are completely open and require no authentication:
  * `POST /user/authorize` - authorizes user with authentication token through
@@ -91,7 +91,7 @@ https://beta.onedata.org:8443/api/v3/onezone/user/client_token
 **Get user details**
 ```bash
 curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
--H 'macaroon:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'
+-H 'X-Auth-Token:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'
 ```
 
 
