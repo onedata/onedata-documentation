@@ -57,7 +57,7 @@ Operations for managing Handle system service and identifier generation.
 |[/handle_services/{id}](operations/modify_handle_service.md)|PATCH|Modify handle service|
 |[/handle_services/{id}/groups](operations/list_handle_service_groups.md)|GET|Get handle service groups|
 |[/handle_services/{id}/groups/{gid}](operations/add_handle_service_group.md)|PUT|Add handle service group|
-|[/handle_services/{id}/groups/{gid}](operations/remove_handle_service_group.md)|DELETE|Add handle service group|
+|[/handle_services/{id}/groups/{gid}](operations/remove_handle_service_group.md)|DELETE|Remove handle service group|
 |[/handle_services/{id}/groups/{gid}/privileges](operations/get_handle_service_group_privileges.md)|GET|Get handle service group privileges|
 |[/handle_services/{id}/groups/{gid}/privileges](operations/set_handle_service_group_privileges.md)|PUT|Set handle service groups privileges|
 |[/handle_services/{id}/users](operations/list_handle_service_users.md)|GET|Get handle service users|
@@ -72,7 +72,7 @@ Operations for managing Handle system service and identifier generation.
 |[/handles/{hndl}](operations/modify_handle.md)|PATCH|Modify handle|
 |[/handles/{hndl}/groups](operations/list_handle_groups.md)|GET|Get handle groups|
 |[/handles/{hndl}/groups/{gid}](operations/add_handle_group.md)|PUT|Add handle group|
-|[/handles/{hndl}/groups/{gid}](operations/remove_handle_group.md)|DELETE|Add handle group|
+|[/handles/{hndl}/groups/{gid}](operations/remove_handle_group.md)|DELETE|Remove handle group|
 |[/handles/{hndl}/groups/{gid}/privileges](operations/get_handle_group_privileges.md)|GET|Get handle group privileges|
 |[/handles/{hndl}/groups/{gid}/privileges](operations/set_handle_group_privileges.md)|PUT|Set handle groups privileges|
 |[/handles/{hndl}/users](operations/list_handle_users.md)|GET|Get handle users|
@@ -103,7 +103,7 @@ Provider related operations
 |[/providers](operations/get_providers.md)|GET|Get providers|
 |[/providers/{pid}](operations/get_other_provider.md)|GET|Get other provider details|
 |[/providers/{pid}/groups](operations/list_provider_groups.md)|GET|Get groups of provider|
-|[/providers/{pid}/groups/{gid}](operations/get_provider_group.md)|GET|Get user of provider|
+|[/providers/{pid}/groups/{gid}](operations/get_provider_group.md)|GET|Get group of provider|
 |[/providers/{pid}/spaces](operations/list_provider_spaces.md)|GET|Get spaces supported by provider|
 |[/providers/{pid}/spaces/{sid}](operations/get_provider_space.md)|GET|Get space supported by provider|
 |[/providers/{pid}/users](operations/list_provider_users.md)|GET|Get users of provider|
@@ -154,7 +154,7 @@ User related operations
 
 |Path|Method|Description|
 |---|---|---|
-|[/user](operations/get_current_user.md)|GET|Get user details|
+|[/user](operations/get_current_user.md)|GET|Get current user details|
 |[/user](operations/remove_user.md)|DELETE|Remove user|
 |[/user](operations/modify_user.md)|PATCH|Modify user|
 |[/user/authorize](operations/authenticate_user.md)|POST|Authenticate user|

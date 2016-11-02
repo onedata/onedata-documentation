@@ -1,6 +1,6 @@
 
 <a name="get_current_user"></a>
-#### Get user details
+#### Get current user details
 ```
 GET /user
 ```

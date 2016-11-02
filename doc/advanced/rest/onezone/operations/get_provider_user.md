@@ -13,7 +13,7 @@ This operation requires `list_users_of_provider` privilege.
 
 ***Example cURL requests***
 
-**List user of a provider**
+**Get user of a provider**
 ```bash
 curl -ksS -u username:password -X GET  \
 https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
