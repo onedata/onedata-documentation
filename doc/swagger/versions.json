@@ -1,0 +1,33 @@
+{
+  "default": "3.0.0-rc10",
+  "order": [
+    "3.0.0-rc9", 
+    "3.0.0-rc10"
+  ],
+  "versions": {
+    "3.0.0-rc10": {
+      "changelog": ""
+    },
+    "3.0.0-rc9": {
+      "changelog": ""
+    }
+  },
+  "components": [
+    {
+      "name": "Onezone",
+      "description": "Onezone API allows to control all aspects of a Onedata zone, including user, group, space and provider management."
+    },
+    {
+      "name": "Oneprovider",
+      "description": "Oneprovider API allows to access data and control data transfers and provides extensive metadata functionality."
+    },
+    {
+      "name": "Onepanel",
+      "description": "Onepanel API provides administration interface for managing Onezone and Oneprovider instances, it is available on each host where either of these service is running."
+    },
+    {
+      "name": "LUMA",
+      "description": "LUMA API allows mapping of local user names on storage resources to global users ID's in Onedata"
+    }
+  ]
+}

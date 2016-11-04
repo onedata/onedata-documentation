@@ -5,10 +5,20 @@ Onedata provides comprehensive REST API for all of it's main components:
 * [Oneprovider](oneprovider/overview.md)
 * [Onepanel](onepanel/overview.md)
 
-The API's are defined using [Open API](https://openapis.org/) specification standard, based on [Swagger](http://swagger.io/). Each Onedata service has a separate Swagger REST specification in JSON:
-* [Onezone swagger.json](../../swagger/onezone/swagger.json)
-* [Oneprovider swagger.json](../../swagger/oneprovider/swagger.json)
-* [Onepanel swagger.json](../../swagger/onepanel/swagger.json)
+The API's are defined using [Open API](https://openapis.org/) specification standard, based on [Swagger](http://swagger.io/). Each Onedata service has a separate Swagger REST specification in JSON. Below you can download Swagger JSON specification for each of Onedata services in specific versions:
+
+* Onezone 
+    * [3.0.0-rc10](../../swagger/3.0.0-rc10/onezone/swagger.json) 
+    * [3.0.0-rc9](../../swagger/3.0.0-rc9/onezone/swagger.json)  
+* Oneprovider 
+    * [3.0.0-rc10](../../swagger/3.0.0-rc10/oneprovider/swagger.json) 
+    * [3.0.0-rc9](../../swagger/3.0.0-rc9/oneprovider/swagger.json)  
+* Onepanel
+    * [3.0.0-rc10](../../swagger/3.0.0-rc10/onepanel/swagger.json) 
+    * [3.0.0-rc9](../../swagger/3.0.0-rc9/onepanel/swagger.json)  
+* LUMA 
+    * [3.0.0-rc10](../../swagger/3.0.0-rc10/luma/swagger.json) 
+    * [3.0.0-rc9](../../swagger/3.0.0-rc9/luma/swagger.json)  
 
 Some examples of typical use cases that can be achieved using this API
 is presented [here](examples.md).
