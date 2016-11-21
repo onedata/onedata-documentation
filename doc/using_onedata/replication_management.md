@@ -23,7 +23,7 @@ The `/replicas/` methods allow retrieving of information about file replica dist
 
 Information about replicas of a specific file can be retrieved using the following query:
 ```bash
-curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat
 ```
 
@@ -64,7 +64,7 @@ The result is a JSON list of objects, where each contains the id of one of the p
 In order to request replication of the file to a specific provider, a `POST` request on the specific file path has to be invoked with provider ID provided as parameter, for example:
 
 ```bash
-curl -X POST -H "macaroon: $ACCESS_TOKEN"  \
+curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
 'https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
 ```
 
@@ -79,10 +79,10 @@ Please note, that this operation is asynchronous as it can take a long time depe
 The default API for replica management is compatible with [CDMI]() convention of using complete file and directory paths directly in the request URL's. Additionaly, we provide REST operations which take directly file and folder ID's instead of paths and can be used in the same way as the above operations, i.e.:
 
 ```bash
-curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
 
-curl -X POST -H "macaroon: $ACCESS_TOKEN"  \
+curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
 ```
 
@@ -94,19 +94,19 @@ The `/transfer/` operations provide basic transfer management functionality base
 In order to get information about a specific transfer, simply query the following resource:
 
 ```bash
-curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
 ```
 
 or you can request all active transfers for given user:
 ```bash
-curl -X GET -H "macaroon: $ACCESS_TOKEN" \
+curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers
 ```
 
 Each transfer can be cancelled using `DELETE` method:
 ```bash
-curl -X DELETE -H "macaroon: $ACCESS_TOKEN" \
+curl -X DELETE -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
 ```
 

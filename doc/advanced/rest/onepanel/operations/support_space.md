@@ -1,6 +1,6 @@
 
 <a name="support_space"></a>
-#### Create or support space
+#### Support or create space
 ```
 POST /provider/spaces
 ```
@@ -48,7 +48,8 @@ json :
 {
   "name" : "MySpace1",
   "token" : "ASDJNASD87687ASDMNBMNASD87786asd",
-  "size" : 1024000
+  "size" : 1024000,
+  "storageName" : "NAS_1"
 }
 ```
 

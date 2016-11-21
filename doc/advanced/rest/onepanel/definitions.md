@@ -29,6 +29,7 @@
 |[ServiceStatusHost](definitions/ServiceStatusHost.md)|The service status.|
 |[SpaceDetails](definitions/SpaceDetails.md)|The space details.|
 |[SpaceSupportRequest](definitions/SpaceSupportRequest.md)|The configuration details required to create or support a space by a provider.|
+|[StorageModifyRequest](definitions/StorageModifyRequest.md)|The storage configuration details that can be modified.|
 |[Swift](definitions/Swift.md)|The OpenStack Swift configuration.|
 |[TaskStatus](definitions/TaskStatus.md)|The result of a scheduled operation, e.g. database service configuration.|
 |[UserCreateRequest](definitions/UserCreateRequest.md)|The new user account details.|
