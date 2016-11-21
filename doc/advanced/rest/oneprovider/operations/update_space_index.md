@@ -17,7 +17,7 @@ on the database backend.
 **Get list of indexes for space**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
--H "Content-type: text/javascript" \
+-H "Content-type: application/javascript" \
 -d "@./my_improved_index1.js" \
 https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 ```
@@ -44,7 +44,7 @@ https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 
 ##### Consumes
 
-* `text/javascript`
+* `application/javascript`
 
 
 ##### Example HTTP request

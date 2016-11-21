@@ -17,7 +17,8 @@ The configuration details required to create or support a space by a provider.
 {
   "name" : "MySpace1",
   "token" : "ASDJNASD87687ASDMNBMNASD87786asd",
-  "size" : 1024000
+  "size" : 1024000,
+  "storageName" : "NAS_1"
 }
 ```
 

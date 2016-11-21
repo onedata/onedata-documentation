@@ -46,8 +46,7 @@ function(x) {
 
 ##### Produces
 
-* `application/json`
-* `application/rdf+xml`
+* `application/javascript`
 
 
 ##### Example HTTP request
