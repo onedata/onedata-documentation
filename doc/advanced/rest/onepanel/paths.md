@@ -43,13 +43,14 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/managers](operations/start_stop_provider_managers.md)|PATCH|Start/stop provider cluster managers|
 |[/provider/managers/{host}](operations/get_provider_manager_status.md)|GET|Get provider cluster manager status|
 |[/provider/managers/{host}](operations/start_stop_provider_manager.md)|PATCH|Start/stop provider cluster manager|
-|[/provider/spaces](operations/support_space.md)|POST|Create or support space|
+|[/provider/spaces](operations/support_space.md)|POST|Support or create space|
 |[/provider/spaces](operations/get_provider_spaces.md)|GET|Get provider spaces|
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
 |[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space.|
 |[/provider/storages](operations/add_storage.md)|POST|Add storage.|
 |[/provider/storages](operations/get_storages.md)|GET|Get storages|
 |[/provider/storages/{name}](operations/get_storage_details.md)|GET|Get storage details|
+|[/provider/storages/{name}](operations/modify_storage.md)|PATCH|Modify storage details|
 |[/provider/workers](operations/add_provider_workers.md)|POST|Add provider cluster workers|
 |[/provider/workers](operations/get_provider_workers_status.md)|GET|Get provider cluster workers status|
 |[/provider/workers](operations/start_stop_provider_workers.md)|PATCH|Start/stop provider cluster workers|
