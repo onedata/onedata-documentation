@@ -165,7 +165,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createSpace name:=\"Space 1\" token:=ASLKJ1DHAKJS2DLKJAHS5DKJ4ASDKJ3HALSKJD3HLKAJSDHASD1O"
+            "source": "onezone-rest-cli createSpace name:=\"Space 1\" token==ASLKJ1DHAKJS2DLKJAHS5DKJ4ASDKJ3HALSKJD3HLKAJSDHASD1O"
           }
         ]
       }
@@ -311,7 +311,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli modifySpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 name:=\"New Space Name\""
+            "source": "onezone-rest-cli modifySpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 name==\"New Space Name\""
           }
         ]
       },
@@ -528,7 +528,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli addUserToSpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 userId:=lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0"
+            "source": "onezone-rest-cli addUserToSpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 userId==lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0"
           }
         ]
       }
@@ -1058,7 +1058,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli addGroupToSpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 groupId:=T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM"
+            "source": "onezone-rest-cli addGroupToSpace id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 groupId==T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM"
           }
         ]
       }
@@ -1884,7 +1884,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createShare id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 sid=9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc name:=my_share rootFileId:=DC21sY1KucueUeoZA6KXxNgzlvqmmrbzqE_B"
+            "source": "onezone-rest-cli createShare id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 sid=9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc name==my_share rootFileId:=DC21sY1KucueUeoZA6KXxNgzlvqmmrbzqE_B"
           }
         ]
       }
@@ -2030,7 +2030,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli getShare id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 name:=Share20 publicUrl:=\"http://oz.example.com/shares/sgAxi5I803ZirkUfdiWDd4W3\""
+            "source": "onezone-rest-cli getShare id=bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3 name==Share20 publicUrl==\"http://oz.example.com/shares/sgAxi5I803ZirkUfdiWDd4W3\""
           }
         ]
       },
@@ -2215,7 +2215,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli modifyUser name:=new_name"
+            "source": "onezone-rest-cli modifyUser name==new_name"
           }
         ]
       },
@@ -2343,7 +2343,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli authenticateUser token:=ASKDJHASKJDHLKAJASD785674ASDghjkoGLHJKASDJGHK7655I803ZirkUfdiWDd4W3"
+            "source": "onezone-rest-cli authenticateUser token==ASKDJHASKJDHLKAJASD785674ASDghjkoGLHJKASDJGHK7655I803ZirkUfdiWDd4W3"
           }
         ]
       }
@@ -2621,7 +2621,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli setUserDefaultSpace spaceId:=LASKJLD7687ASDJKLHGasd67867KJGHASDJHAJKLSHDLJKASD"
+            "source": "onezone-rest-cli setUserDefaultSpace spaceId==LASKJLD7687ASDJKLHGasd67867KJGHASDJHAJKLSHDLJKASD"
           }
         ]
       }
@@ -2696,7 +2696,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli joinSpace token:=ASDKLJHASD868&ASDJKJKHasjhdaASD89798asdaA"
+            "source": "onezone-rest-cli joinSpace token==ASDKLJHASD868&ASDJKJKHasjhdaASD89798asdaA"
           }
         ]
       }
@@ -3034,7 +3034,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createGroupForUser name:=Group1 type:=team"
+            "source": "onezone-rest-cli createGroupForUser name==Group1 type==team"
           }
         ]
       }
@@ -3109,7 +3109,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli joinGroup token:=LKJGH6785678asdASDKhj879asdLKJHASDASDJHAJKLSHDLJKASD"
+            "source": "onezone-rest-cli joinGroup token==LKJGH6785678asdASDKhj879asdLKJHASDASDJHAJKLSHDLJKASD"
           }
         ]
       }
@@ -3800,7 +3800,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createGroup name:=Group2 type:=role "
+            "source": "onezone-rest-cli createGroup name==Group2 type==role "
           }
         ]
       }
@@ -5120,7 +5120,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli joinNestedGroup id=HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8 token:=AKLSHJHDKLJASHDJKHASKDHASDKASDGAHSGDHJASDHJJAHGDSJKHG"
+            "source": "onezone-rest-cli joinNestedGroup id=HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8 token==AKLSHJHDKLJASHDJKHASKDHASDKASDGAHSGDHJASDHJJAHGDSJKHG"
           }
         ]
       }
@@ -5599,7 +5599,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createSpaceForGroup id=HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8 name:=\"New space name\""
+            "source": "onezone-rest-cli createSpaceForGroup id=HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8 name==\"New space name\""
           }
         ]
       }
@@ -5684,7 +5684,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli groupJoinSpace id=T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM token:=9ASDKJHAJKyvajsbd675OqgExw00RwaU2MXT51"
+            "source": "onezone-rest-cli groupJoinSpace id=T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM token==9ASDKJHAJKyvajsbd675OqgExw00RwaU2MXT51"
           }
         ]
       }
@@ -6524,7 +6524,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createProviderSpace name:=\"My Space\" token:=KAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFS size+=1024"
+            "source": "onezone-rest-cli createProviderSpace name==\"My Space\" token==KAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFS size:=1024"
           }
         ]
       }
@@ -6598,7 +6598,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli providerSpaceSupport token:=WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"
+            "source": "onezone-rest-cli providerSpaceSupport token==WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc"
           }
         ]
       }
@@ -8948,7 +8948,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli modifyHandle hndl=DLAKSHDLKJHJjSADHLKJhlkASHLH resourceId:=RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC"
+            "source": "onezone-rest-cli modifyHandle hndl=DLAKSHDLKJHJjSADHLKJhlkASHLH resourceId==RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC"
           }
         ]
       },
