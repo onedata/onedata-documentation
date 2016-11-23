@@ -20,7 +20,7 @@ This operation requires `list_providers` privilege.
 
 **Get specific provider details**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+curl -k --cert ozp_cert.pem --key ozp_key.pem -X GET  \
 https://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc
 ```
 

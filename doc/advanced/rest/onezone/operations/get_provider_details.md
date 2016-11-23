@@ -16,7 +16,7 @@ This operation requires peer certificate authentication.
 
 **Get information about provider**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem \
+curl -k --cert ozp_cert.pem --key ozp_key.pem \
 https://$HOST:8443/api/v3/onezone/provider
 
 {
