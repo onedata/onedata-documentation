@@ -6138,7 +6138,7 @@
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get provider details",
         "x-bash-codegen-description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n",
-        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get information about provider**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem \\\nhttps://$HOST:8443/api/v3/onezone/provider\n\n{\n  \"clientName\": \"example\",\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\",\n  \"urls\": [\"195.216.97.151\"],\n  \"redirectionPoint\": \"https://195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\": 19.909444\n}\n```\n",
+        "description": "Returns information about the Oneprovider that performed the request \n(based on provided Peer Certificate authentication).\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get information about provider**\n```bash\ncurl -k --cert ozp_cert.pem --key ozp_key.pem \\\nhttps://$HOST:8443/api/v3/onezone/provider\n\n{\n  \"clientName\": \"example\",\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk\",\n  \"urls\": [\"195.216.97.151\"],\n  \"redirectionPoint\": \"https://195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\": 19.909444\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -6279,7 +6279,7 @@
         "x-onedata-method": "provider_logic:modify",
         "summary": "Modify provider details",
         "x-bash-codegen-description": "Updates information about the Oneprovider identified by the\npeer certificate used for the request.\n",
-        "description": "Updates information about the Oneprovider identified by the\npeer certificate used for the request.\n\n***Example cURL requests***\n\n**Update provider geo location**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X PATCH \\\n-d '{\"latitude\":50.068968,\"longitude\":20.909444}'  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
+        "description": "Updates information about the Oneprovider identified by the\npeer certificate used for the request.\n\n***Example cURL requests***\n\n**Update provider geo location**\n```bash\ncurl -k --cert ozp_cert.pem --key ozp_key.pem -X PATCH \\\n-d '{\"latitude\":50.068968,\"longitude\":20.909444}'  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -6347,7 +6347,7 @@
         "x-onedata-method": "provider_logic:remove",
         "summary": "Unregister provider",
         "x-bash-codegen-description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. \nit can only be invoked by Oneprovider which wants to unregister. It does't \nrequire any parameters, as the provider is identified by the peer \ncertificate used for this connection.\n",
-        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. \nit can only be invoked by Oneprovider which wants to unregister. It does't \nrequire any parameters, as the provider is identified by the peer \ncertificate used for this connection.\n\n***Example cURL requests***\n\n**Unregister provider from Onezone**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
+        "description": "Allows Oneprovider service to unregister from Onezone.\n\nThis operation allows a Oneprovider to unregister from a this Onezone, i.e. \nit can only be invoked by Oneprovider which wants to unregister. It does't \nrequire any parameters, as the provider is identified by the peer \ncertificate used for this connection.\n\n***Example cURL requests***\n\n**Unregister provider from Onezone**\n```bash\ncurl -k --cert ozp_cert.pem --key ozp_key.pem -X DELETE  \\\nhttps://$HOST:8443/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -6406,7 +6406,7 @@
         "x-onedata-method": "provider_logic:get_spaces",
         "summary": "Get spaces at provider",
         "x-bash-codegen-description": "Returns the list of spaces managed by the Oneprovider that performed the \nrequest.\n\nThis operation requires peer certificate authentication.\n",
-        "description": "Returns the list of spaces managed by the Oneprovider that performed the \nrequest.\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get spaces supported by provider**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/provider/spaces\n\n{\n  \"spaces\":[\"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\"]\n}\n```\n",
+        "description": "Returns the list of spaces managed by the Oneprovider that performed the \nrequest.\n\nThis operation requires peer certificate authentication.\n\n***Example cURL requests***\n\n**Get spaces supported by provider**\n```bash\ncurl -k --cert ozp_cert.pem --key ozp_key.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/provider/spaces\n\n{\n  \"spaces\":[\"ASDKJHKLAJSDHKjhAsdkjh68asdASDlk\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -6984,7 +6984,7 @@
         "x-onedata-method": "provider_logic:get_data",
         "summary": "Get other provider details",
         "x-bash-codegen-description": "Returns the information about another Oneprovider service, which is \nconnected to the onezone.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n",
-        "description": "Returns the information about another Oneprovider service, which is \nconnected to the onezone.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc\n```\n",
+        "description": "Returns the information about another Oneprovider service, which is \nconnected to the onezone.\n\nIf called by other provider doesn't require any special privileges. \n\nWhen called by a regular user, requires 'list_providers' privilege.\n\nThis operation requires `list_providers` privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -k --cert ozp_cert.pem --key ozp_key.pem -X GET  \\\nhttps://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc\n```\n",
         "produces": [
           "application/json"
         ],
