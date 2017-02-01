@@ -1,32 +1,25 @@
 
-<a name="get_provider"></a>
-#### Get provider details
+<a name="unregister_provider"></a>
+#### Unregister provider
 ```
-GET /provider
+DELETE /provider
 ```
 
 
 ##### Description
-Returns information about the Oneprovider that performed the request 
-(based on provided Peer Certificate authentication).
+Allows Oneprovider service to unregister from Onezone.
 
-This operation requires peer certificate authentication.
+This operation allows a Oneprovider to unregister from a this Onezone, i.e. 
+it can only be invoked by Oneprovider which wants to unregister. It does't 
+require any parameters, as the provider is identified by the peer 
+certificate used for this connection.
 
 ***Example cURL requests***
 
-**Get information about provider**
+**Unregister provider from Onezone**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem \
+curl -k --cert ozp_cert.pem --key ozp_key.pem -X DELETE  \
 https://$HOST:8443/api/v3/onezone/provider
-
-{
-  "clientName": "example",
-  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
-  "urls": ["195.216.97.151"],
-  "redirectionPoint": "https://195.216.97.151",
-  "latitude": 50.068968,
-  "longitude": 19.909444
-}
 ```
 
 
@@ -34,7 +27,7 @@ https://$HOST:8443/api/v3/onezone/provider
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the information about Oneprovider.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
+|**202**|Provider will be unregistered.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -42,7 +35,7 @@ https://$HOST:8443/api/v3/onezone/provider
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -57,19 +50,6 @@ json :
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "providerId" : "LASDASJDBH89869ASD79869asd",
-  "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
-  "redirectionPoint" : "http://beta.onedata.org/provider2",
-  "latitude" : 50.0647,
-  "longitude" : 19.945
-}
-```
-
 
 ###### Response 400
 ```

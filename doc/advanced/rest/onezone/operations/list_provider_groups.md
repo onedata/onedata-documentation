@@ -1,27 +1,28 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="list_provider_groups"></a>
+#### Get groups of provider
 ```
-GET /groups/{id}
+GET /providers/{pid}/groups
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns the list of groups of a specific provider.
 
-This operation requires `group_view_data` or `list_groups` privilege.
+This operation requires `list_groups_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Get group details**
+**List groups of a provider**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups
 
 {
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
+  "groups": [
+    "ASDKJHKLAJSDHKjhAsdkjh68asdASDlk", 
+    "JKLAHSDLKHASJKLDH76786ASDHBKJHMa"
+  ]
 }
 ```
 
@@ -30,19 +31,26 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|The list of group ID's.|[Response 200](#list_provider_groups-response-200)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+<a name="list_provider_groups-response-200"></a>
+**Response 200**
+
+|Name|Description|Schema|
+|---|---|---|
+|**groups**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -55,7 +63,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/providers/string/groups"
 ```
 
 
@@ -64,10 +72,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "name" : "Test group",
-  "type" : "role"
-}
+"object"
 ```
 
 

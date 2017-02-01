@@ -1,27 +1,29 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="get_user_group_privileges"></a>
+#### Get user's group privileges
 ```
-GET /groups/{id}
+GET /groups/{id}/users/{uid}/privileges
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns the list of user privileges in a specific group.
 
-This operation requires `group_view_data` or `list_groups` privilege.
+This operation requires `group_view_data` privilege.
 
 ***Example cURL requests***
 
-**Get group details**
+**Get group users**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+curl -k -u username:password -X GET 
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges
 
 {
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
+  "privileges": [
+    "group_change_data",
+    "group_create_space",
+    "group_create_space_token",
+    "group_invite_group"]
 }
 ```
 
@@ -31,13 +33,14 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|The list of user privileges in a group.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,7 +58,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/groups/string/users/string/privileges"
 ```
 
 
@@ -65,8 +68,7 @@ json :
 ```
 json :
 {
-  "name" : "Test group",
-  "type" : "role"
+  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
 }
 ```
 

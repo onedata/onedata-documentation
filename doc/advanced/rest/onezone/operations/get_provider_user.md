@@ -1,24 +1,28 @@
 
-<a name="set_group_nested_privileges"></a>
-#### Set subgroup privileges
+<a name="get_provider_user"></a>
+#### Get user of provider
 ```
-PUT /groups/{id}/nested/{nid}/privileges
+GET /providers/{pid}/users/{uid}
 ```
 
 
 ##### Description
-Sets privileges for a specific subgroup in a group.
+Returns the details of a user of a specific provider.
 
-This operation requires `group_set_privileges` privilege.
+This operation requires `list_users_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Get subgroup privileges in a group**
-
+**Get user of a provider**
 ```bash
-curl -k -u username:password  -H "Content-type: application/json" -X PUT \
--d '{"privileges": ["group_view_data"]}' \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/nested/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
+
+{
+  "userId": "KJHAGSDJKHGASJKHDGAKJHSDGKHJASD",
+  "login":"username",
+  "name":"admin"
+}
 ```
 
 
@@ -26,16 +30,15 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**nid**  <br>*required*|Subgroup ID.|string|--|
-|**Body**|**data**  <br>*required*|Nested group privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been added.|No Content|
+|**200**|The user ID.|[User](../definitions/User.md#user)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -43,25 +46,40 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
+##### Produces
+
+* `application/json`
+
+
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
-"/groups/string/nested/string/privileges"
-```
-
-
-###### Request body
-```
-json :
-{
-  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
-}
+"/providers/string/users/string"
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "name" : "Rudolf Lingens",
+  "connectedAccounts" : [ {
+    "accountId" : "ASD879ASD-7SADASFSsa0831",
+    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
+  }, {
+    "accountId" : "QWESsD-7SADASFSsa0831",
+    "providerId" : "7QWEJ-123ASD870-ASDASD"
+  } ],
+  "alias" : "John Doe",
+  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
+}
+```
+
 
 ###### Response 400
 ```

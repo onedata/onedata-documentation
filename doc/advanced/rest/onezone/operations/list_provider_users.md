@@ -1,29 +1,28 @@
 
-<a name="get_group_user_privileges"></a>
-#### Get user's group privileges
+<a name="list_provider_users"></a>
+#### Get users of provider
 ```
-GET /groups/{id}/users/{uid}/privileges
+GET /providers/{pid}/users
 ```
 
 
 ##### Description
-Returns the list of user privileges in a specific group.
+Returns the list of users of a specific provider.
 
-This operation requires `group_view_data` privilege.
+This operation requires `list_users_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Get group users**
+**List users of a provider**
 ```bash
-curl -k -u username:password -X GET 
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/users
 
 {
-  "privileges": [
-    "group_change_data",
-    "group_create_space",
-    "group_create_space_token",
-    "group_invite_group"]
+  "users": [
+    "ASDKJHKLAJSDHKjhAsdkjh68asdASDlk", 
+    "JKLAHSDLKHASJKLDH76786ASDHBKJHMa"
+  ]
 }
 ```
 
@@ -32,20 +31,26 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**uid**  <br>*required*|User ID.|string|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of user privileges in a group.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|
+|**200**|The list of user ID's.|[Response 200](#list_provider_users-response-200)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+<a name="list_provider_users-response-200"></a>
+**Response 200**
+
+|Name|Description|Schema|
+|---|---|---|
+|**users**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -58,7 +63,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string/users/string/privileges"
+"/providers/string/users"
 ```
 
 
@@ -67,9 +72,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
-}
+"object"
 ```
 
 

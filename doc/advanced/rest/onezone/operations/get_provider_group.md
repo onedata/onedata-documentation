@@ -1,32 +1,44 @@
 
-<a name="delete_provider"></a>
-#### Unregister provider
+<a name="get_provider_group"></a>
+#### Get group of provider
 ```
-DELETE /provider
+GET /providers/{pid}/groups/{gid}
 ```
 
 
 ##### Description
-Allows Oneprovider service to unregister from Onezone.
+Returns the details of a group of a specific provider.
 
-This operation allows a Oneprovider to unregister from a this Onezone, i.e. it can only be invoked
-by Oneprovider which wants to unregister. It does't require any parameters, as the provider is
-identified by the peer certificate used for this connection.
+This operation requires `list_groups_of_provider` privilege.
 
 ***Example cURL requests***
 
-**Unregister provider from Onezone**
+**Get group of a provider**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \
-https://$HOST:8443/api/v3/onezone/provider
+curl -ksS -u username:password -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
+
+{
+  "groupId":"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD",
+  "name":"new_group",
+  "type":"role"
+}
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**gid**  <br>*required*|Group ID.|string|--|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|Provider will be unregistered.|No Content|
+|**200**|The group ID.|[Group](../definitions/Group.md#group)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -34,7 +46,7 @@ https://$HOST:8443/api/v3/onezone/provider
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Consumes
+##### Produces
 
 * `application/json`
 
@@ -44,11 +56,21 @@ https://$HOST:8443/api/v3/onezone/provider
 ###### Request path
 ```
 json :
-"/provider"
+"/providers/string/groups/string"
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "name" : "Test group",
+  "type" : "role"
+}
+```
+
 
 ###### Response 400
 ```

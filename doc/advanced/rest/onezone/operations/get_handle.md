@@ -24,7 +24,8 @@ https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH
   "handleServiceId": "ASKDGHKAJSHDukjhasdlkjalksjd76876asdkb",
   "handle": "10.572/ABCD-asdakjsdak87587asdk-1234/8",
   "resourceId": "dlkjalkADKDGHKAJSHDukjhassjd76876asdkb",
-  "metadata": "..."
+  "metadata": "...",
+  "timestamp": "1997-07-16T19:20"
 }
 ```
 

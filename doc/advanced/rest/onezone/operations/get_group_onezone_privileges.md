@@ -2,7 +2,7 @@
 <a name="get_group_onezone_privileges"></a>
 #### Get group's Onezone privileges
 ```
-GET /privileges/group/{id}
+GET /groups/{id}/privileges
 ```
 
 
@@ -16,7 +16,7 @@ This operation requires `view_privileges` privilege.
 **Get groups privileges to Onezone service**
 ```bash
 curl -k -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 
 {
   "privileges": []
@@ -53,7 +53,7 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/groups/string/privileges"
 ```
 
 

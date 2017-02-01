@@ -1,5 +1,5 @@
 
-<a name="delete_handle_service"></a>
+<a name="remove_handle_service"></a>
 #### Unregister handle service
 ```
 DELETE /handle_services/{id}

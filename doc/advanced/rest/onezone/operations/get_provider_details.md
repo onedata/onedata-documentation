@@ -1,43 +1,40 @@
 
-<a name="get_group"></a>
-#### Get group details
+<a name="get_provider_details"></a>
+#### Get provider details
 ```
-GET /groups/{id}
+GET /provider
 ```
 
 
 ##### Description
-Returns the information about a specific group.
+Returns information about the Oneprovider that performed the request 
+(based on provided Peer Certificate authentication).
 
-This operation requires `group_view_data` or `list_groups` privilege.
+This operation requires peer certificate authentication.
 
 ***Example cURL requests***
 
-**Get group details**
+**Get information about provider**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+curl -k --cert ozp_cert.pem --key ozp_key.pem \
+https://$HOST:8443/api/v3/onezone/provider
 
 {
-  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
-  "name":"new_group",
-  "type":"role"
+  "clientName": "example",
+  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
+  "urls": ["195.216.97.151"],
+  "redirectionPoint": "https://195.216.97.151",
+  "latitude": 50.068968,
+  "longitude": 19.909444
 }
 ```
-
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a group.|[Group](../definitions/Group.md#group)|
+|**200**|Returns the information about Oneprovider.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,7 +52,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253spt
 ###### Request path
 ```
 json :
-"/groups/string"
+"/provider"
 ```
 
 
@@ -65,8 +62,11 @@ json :
 ```
 json :
 {
-  "name" : "Test group",
-  "type" : "role"
+  "providerId" : "LASDASJDBH89869ASD79869asd",
+  "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
+  "redirectionPoint" : "http://beta.onedata.org/provider2",
+  "latitude" : 50.0647,
+  "longitude" : 19.945
 }
 ```
 

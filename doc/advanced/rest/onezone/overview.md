@@ -16,17 +16,17 @@ In order to be able to use this API the REST client must be able to authenticate
 
 REST API operations from the permissions perspective in Onezone service can be divided into 2 groups,
 depending on the actor making the request:
- * **User requests** - regular end user requests are authenticated based on the `macaroon` header, which
+ * **User requests** - regular end user requests are authenticated based on the `X-Auth-Token` header, which
  must include valid client access token, and authorization is made based on the privileges assigned
  to the user in the system. Each operation in this API that is available to end users, has a list of
  required privileges, except for the operations which are related to user account management, i.e.
- each user can perform any operation on his account, the `macaroon` header example:
+ each user can perform any operation on his account, the `X-Auth-Token` header example:
  ```
-   macaroon: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
+   X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
  ```
  * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,
  it must authenticate using the peer certificate which was assigned to this provider when registering
- in the Onezone service. In such case the `macaroon` header is not necessary.
+ in the Onezone service. In such case the `X-Auth-Token` header is not necessary.
 
 Some special operations are completely open and require no authentication:
  * `POST /user/authorize` - authorizes user with authentication token through
@@ -72,10 +72,6 @@ credentials as well as space and group membership.
 Provider specific calls enable for getting global information about the spaces managed by the provider,
 and some administrative operations which can be used for monitoring or accounting.
 
-**Privileges management**
-Onezone allows any user to have selected administration privileges for the Onezone service itself,
-enabling them to view and configure certain aspects of the system.
-
 **Handle API**
 Onezone provides extensive support for integration with Handle system registration
 services, including support for DOI and PID identifier assignment services. The API
@@ -95,12 +91,12 @@ https://beta.onedata.org:8443/api/v3/onezone/user/client_token
 **Get user details**
 ```bash
 curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
--H 'macaroon:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'
+-H 'X-Auth-Token:MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk'
 ```
 
 
 ### Version information
-*Version* : 3.0.0-rc9
+*Version* : 3.0.0-rc11
 
 
 ### Contact information
@@ -123,7 +119,6 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 * Group : Group related operations
 * User : User related operations
 * Provider : Provider related operations
-* Privileges : Operations on Onezone privileges
 * Handle : Operations for managing Handle system service and identifier generation.
 
 

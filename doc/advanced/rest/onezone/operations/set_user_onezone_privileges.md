@@ -2,7 +2,7 @@
 <a name="set_user_onezone_privileges"></a>
 #### Set user's Onezone privileges
 ```
-PATCH /privileges/users/{id}
+PATCH /users/{id}/privileges
 ```
 
 
@@ -17,7 +17,7 @@ This operation requires `set_privileges` privilege.
 ```bash
 curl -k -u username:password  -H "Content-type: application/json"  -X PUT \
 -d '{"privileges":["list_spaces"]}' \
-https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
+https://$HOST:8443/api/v3/onezone/users/ivMnRLb2WYNApEmPj3SF0NsqBgdHG7iel89FHY802w/privileges
 ```
 
 
@@ -46,7 +46,7 @@ https://$HOST:8443/api/v3/onezone/privileges/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdH
 ###### Request path
 ```
 json :
-"/privileges/users/string"
+"/users/string/privileges"
 ```
 
 
