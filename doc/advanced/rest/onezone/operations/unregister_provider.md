@@ -18,7 +18,7 @@ certificate used for this connection.
 
 **Unregister provider from Onezone**
 ```bash
-curl -k --cert ./etc/op_worker/certs/grpcert.pem -X DELETE  \
+curl -k --cert ozp_cert.pem --key ozp_key.pem -X DELETE  \
 https://$HOST:8443/api/v3/onezone/provider
 ```
 
