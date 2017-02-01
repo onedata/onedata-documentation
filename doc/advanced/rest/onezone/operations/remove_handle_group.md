@@ -1,6 +1,6 @@
 
 <a name="remove_handle_group"></a>
-#### Remove handle group
+#### Add handle group
 ```
 DELETE /handles/{hndl}/groups/{gid}
 ```

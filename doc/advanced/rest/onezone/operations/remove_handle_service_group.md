@@ -1,6 +1,6 @@
 
 <a name="remove_handle_service_group"></a>
-#### Remove handle service group
+#### Add handle service group
 ```
 DELETE /handle_services/{id}/groups/{gid}
 ```

@@ -1,25 +1,29 @@
 
-<a name="get_group_onezone_privileges"></a>
-#### Get group's Onezone privileges
+<a name="get_group_user_privileges"></a>
+#### Get user's group privileges
 ```
-GET /privileges/group/{id}
+GET /groups/{id}/users/{uid}/privileges
 ```
 
 
 ##### Description
-Returns the list of group privileges for Onezone.
+Returns the list of user privileges in a specific group.
 
-This operation requires `view_privileges` privilege.
+This operation requires `group_view_data` privilege.
 
 ***Example cURL requests***
 
-**Get groups privileges to Onezone service**
+**Get group users**
 ```bash
-curl -k -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+curl -k -u username:password -X GET 
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0/privileges
 
 {
-  "privileges": []
+  "privileges": [
+    "group_change_data",
+    "group_create_space",
+    "group_create_space_token",
+    "group_invite_group"]
 }
 ```
 
@@ -29,13 +33,14 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of group privileges in Onezone.|[OnezonePrivileges](../definitions/OnezonePrivileges.md#onezoneprivileges)|
+|**200**|The list of user privileges in a group.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -53,7 +58,7 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/groups/string/users/string/privileges"
 ```
 
 
@@ -63,7 +68,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "view_privileges", "set_privileges", "list_spaces", "list_providers", "list_providers_of_space" ]
+  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
 }
 ```
 

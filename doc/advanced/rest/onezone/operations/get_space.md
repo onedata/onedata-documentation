@@ -9,8 +9,7 @@ GET /spaces/{id}
 ##### Description
 Returns the details about a specific space.
 
-If called by user who is not member of the space, requires 'list_spaces' 
-privilege.
+If called by user who is not member of the space, requires 'list_spaces' privilege.
 
 ***Example cURL requests***
 

@@ -1,41 +1,40 @@
 
-<a name="get_group_onezone_privileges"></a>
-#### Get group's Onezone privileges
+<a name="get_provider"></a>
+#### Get provider details
 ```
-GET /privileges/group/{id}
+GET /provider
 ```
 
 
 ##### Description
-Returns the list of group privileges for Onezone.
+Returns information about the Oneprovider that performed the request 
+(based on provided Peer Certificate authentication).
 
-This operation requires `view_privileges` privilege.
+This operation requires peer certificate authentication.
 
 ***Example cURL requests***
 
-**Get groups privileges to Onezone service**
+**Get information about provider**
 ```bash
-curl -k -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
+curl -k --cert ./etc/op_worker/certs/grpcert.pem \
+https://$HOST:8443/api/v3/onezone/provider
 
 {
-  "privileges": []
+  "clientName": "example",
+  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
+  "urls": ["195.216.97.151"],
+  "redirectionPoint": "https://195.216.97.151",
+  "latitude": 50.068968,
+  "longitude": 19.909444
 }
 ```
-
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of group privileges in Onezone.|[OnezonePrivileges](../definitions/OnezonePrivileges.md#onezoneprivileges)|
+|**200**|Returns the information about Oneprovider.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -53,7 +52,7 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/provider"
 ```
 
 
@@ -63,7 +62,11 @@ json :
 ```
 json :
 {
-  "privileges" : [ "view_privileges", "set_privileges", "list_spaces", "list_providers", "list_providers_of_space" ]
+  "providerId" : "LASDASJDBH89869ASD79869asd",
+  "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
+  "redirectionPoint" : "http://beta.onedata.org/provider2",
+  "latitude" : 50.0647,
+  "longitude" : 19.945
 }
 ```
 

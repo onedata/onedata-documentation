@@ -7,8 +7,8 @@ POST /provider/spaces/support
 
 
 ##### Description
-Adds support for specific space on behalf of the Oneprovider that 
-performed the request. Space support token is required.
+Adds support for specific space on behalf of the Oneprovider that performed the 
+request. Space support token is required.
 
 This operation requires peer certificate authentication.
 

@@ -28,19 +28,12 @@ https://$HOST:8443/api/v3/onezone/spaces
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|List of spaces Id's.|[Response 200](#get_spaces-response-200)|
+|**200**|List of spaces Id's.|< string > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="get_spaces-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**spaces**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -62,7 +55,7 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+"array"
 ```
 
 

@@ -1,26 +1,22 @@
 
-<a name="get_group_onezone_privileges"></a>
-#### Get group's Onezone privileges
+<a name="delete_handle_service"></a>
+#### Unregister handle service
 ```
-GET /privileges/group/{id}
+DELETE /handle_services/{id}
 ```
 
 
 ##### Description
-Returns the list of group privileges for Onezone.
+Allows to unregister a registeed handle service.
 
-This operation requires `view_privileges` privilege.
+This operation requires `delete_handle_services` privilege.
 
 ***Example cURL requests***
 
-**Get groups privileges to Onezone service**
+**Unregister handle service**
 ```bash
-curl -k -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
-
-{
-  "privileges": []
-}
+curl -k -u username:password -X DELETE \
+https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
 
 
@@ -28,14 +24,14 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Path**|**id**  <br>*required*||string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of group privileges in Onezone.|[OnezonePrivileges](../definitions/OnezonePrivileges.md#onezoneprivileges)|
+|**202**|Unregistration was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -43,30 +39,16 @@ https://$HOST:8443/api/v3/onezone/privileges/groups/T5x_HhFYOnILOCUf9OqgExw00Rwa
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
-
-* `application/json`
-
-
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
-"/privileges/group/string"
+"/handle_services/string"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "privileges" : [ "view_privileges", "set_privileges", "list_spaces", "list_providers", "list_providers_of_space" ]
-}
-```
-
 
 ###### Response 400
 ```

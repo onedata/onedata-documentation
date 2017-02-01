@@ -1,14 +1,13 @@
 
 <a name="get_other_provider"></a>
-#### Get other provider details
+#### Get provider details
 ```
-GET /providers/{pid}
+GET /provider/{pid}
 ```
 
 
 ##### Description
-Returns the information about another Oneprovider service, which is 
-connected to the onezone.
+Returns the information about another Oneprovider service, which is connected to the onezone.
 
 If called by other provider doesn't require any special privileges. 
 
@@ -20,8 +19,8 @@ This operation requires `list_providers` privilege.
 
 **Get specific provider details**
 ```bash
-curl -k --cert ozp_cert.pem --key ozp_key.pem -X GET  \
-https://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
+https://$HOST:8443/api/v3/onezone/provider/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc
 ```
 
 
@@ -54,7 +53,7 @@ https://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxN
 ###### Request path
 ```
 json :
-"/providers/string"
+"/provider/string"
 ```
 
 

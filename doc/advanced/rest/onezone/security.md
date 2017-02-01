@@ -5,7 +5,7 @@
 <a name="api_key"></a>
 ### api_key
 *Type* : apiKey  
-*Name* : X-Auth-Token  
+*Name* : macaroon  
 *In* : HEADER
 
 

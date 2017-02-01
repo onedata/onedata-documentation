@@ -7,11 +7,10 @@ POST /spaces
 
 
 ##### Description
-When called by a regular user, creates a new space and creates the current 
-user its owner.
+When called by a regular user, creates a new space and creates the current user its owner.
 
-When called by a provider, creates a new space and automatically adds 
-support for it, based on the token provided in the request body.
+When called by a provider, creates a new space and automatically adds support for it, 
+based on the token provided in the request body.
 
 This operation does not require any specific privileges.
 

@@ -27,7 +27,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 |---|---|---|---|---|
 |**Path**|**gid**  <br>*required*|Group ID.|string|--|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**data**  <br>*optional*|Space privileges.|[SpacePrivileges](../definitions/SpacePrivileges.md#spaceprivileges)|--|
+|**Body**|**data**  <br>*optional*|Space privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
 
 
 ##### Responses
@@ -55,7 +55,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "space_invite_user", "space_remove_user", "space_invite_group", "space_remove_group", "space_set_privileges", "space_remove", "space_add_provider", "space_remove_provider", "space_change_data", "space_view_data" ]
+  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
 }
 ```
 

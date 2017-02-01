@@ -7,8 +7,7 @@ GET /provider/spaces
 
 
 ##### Description
-Returns the list of spaces managed by the Oneprovider that performed the 
-request.
+Returns the list of spaces managed by the Oneprovider that performed the request.
 
 This operation requires peer certificate authentication.
 
@@ -16,7 +15,7 @@ This operation requires peer certificate authentication.
 
 **Get spaces supported by provider**
 ```bash
-curl -k --cert ozp_cert.pem --key ozp_key.pem -X GET  \
+curl -k --cert ./etc/op_worker/certs/grpcert.pem -X GET  \
 https://$HOST:8443/api/v3/onezone/provider/spaces
 
 {

@@ -7,8 +7,7 @@ GET /provider/test/check_my_ip
 
 
 ##### Description
-Returns the IP of the request peer. Will return the external IP (as seen 
-by the Onezone).
+Returns the IP of the request peer. Will return the external IP (as seen by the Onezone).
 
 This operation has public access.
 
