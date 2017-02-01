@@ -47,10 +47,24 @@ In order for these users to login to Onezone, basic authentication module has to
 ### Removing users
 In order to remove an existing user account, simply execute `DELETE` method on the user path and provide user name, i.e.:
 
+
+{% codetabs name="cURL", type="sh" -%}
+curl -X DELETE -u "${ADMIN_USERNAME}:${ADMIN_PASSWORD}" \
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/${USERNAME}
+{%- language name="wget", type="sh" -%}
+curl -X DELETE -u "${ADMIN_USERNAME}:${ADMIN_PASSWORD}" \
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/${USERNAME}
+{%- language name="CLI", type="sh" -%}
+export ONEPANEL_HOST=https://<ONEPANEL_HOSTNAME>:9443
+export ONEPANEL_BASIC_AUTH=${ADMIN_USERNAME}:${ADMIN_PASSWORD}
+onepanel-rest-cli removeUser username=${USERNAME}
+{%- endcodetabs %}
+
+<!-- 
 ```bash
 curl -X DELETE -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} \
 https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/${USERNAME}
-```
+``` -->
 
 It is also possible to remove the current user account by invoking:
 ```bash

@@ -1,15 +1,16 @@
 {
-    "gitbook": "~2.6",
+    "gitbook": "3.2.2",
     "plugins": [
       "onedata-theme@file:gitbook-plugin-onedata-theme",
       "youtube@file:gitbook-plugin-youtube",
-      "image-captions@0.4.1",
-      "toggle-chapters@0.0.3",
+      "image-captions",
+      "toggle-chapters",
       "toc@0.0.1",
       "include",
-      "responsive-iframes@1.0.2",
-      "styles-sass@file:gitbook-plugin-styles-sass",
-      "ga"
+      "responsive-iframes",
+      "ga",
+      "codetabs",
+      "styles-sass@file:gitbook-plugin-styles-sass"
     ],
     "variables": {
     },
