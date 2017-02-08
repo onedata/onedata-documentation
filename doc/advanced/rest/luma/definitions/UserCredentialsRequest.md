@@ -6,17 +6,19 @@ User credentials request - provides all necessary information to perform the acc
 
 |Name|Description|Schema|
 |---|---|---|
-|**spaceName**  <br>*required*|Name of user space for which storage mapping is requested.|string|
+|**spaceId**  <br>*required*|ID of user space for which storage mapping is requested.|string|
 |**storageId**  <br>*optional*|Storage ID (site specific), can be used interchangeably with `spaceType`.|string|
-|**storageType**  <br>*optional*|Storage ID (site specific), can be used interchangeably with `spaceId`.|string|
+|**storageName**  <br>*required*|Storage name (site specific).|string|
+|**storageType**  <br>*optional*|Storage ID (site specific), can be used interchangeably with `storageId`.|string|
 |**userDetails**  <br>*required*||[UserDetails](UserDetails.md#userdetails)|
 
 **Example**
 ```
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
-  "storageType" : "POSIX",
-  "spaceName" : "Space1",
+  "storageName" : "NFS",
+  "storageType" : "posix",
+  "spaceId" : "KXIK8S8CLEHXYX7NE2J9QU31",
   "userDetails" : {
     "name" : "User One",
     "connectedAccounts" : [ {

@@ -52,8 +52,9 @@ json :
 json :
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
-  "storageType" : "POSIX",
-  "spaceName" : "Space1",
+  "storageName" : "NFS",
+  "storageType" : "posix",
+  "spaceId" : "KXIK8S8CLEHXYX7NE2J9QU31",
   "userDetails" : {
     "name" : "User One",
     "connectedAccounts" : [ {

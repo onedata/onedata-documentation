@@ -2,9 +2,9 @@
   "swagger": "2.0",
   "basePath": "/api/v3/luma",
   "info": {
-    "version": "3.0.0-rc11",
+    "version": "3.0.0-rc12",
     "title": "LUMA",
-    "description": "LUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users \n(of any system/kind) to storage specific users, in the process authorizing them with the storage.\nNew storage types are added by means of plugin system of generators. A generator is responsible for:\nmapping users to storage specific users creating a user credentials for accessing the actual storage\n\nAs of now there are four kinds of generators implemented in LUMA:\n * Posix\n * Ceph\n * Amazon S3\n * Openstack Swift\n\nLUMA is written using [Flask](http://flask.pocoo.org/) framework and uses SQLite backend to store information about user credentials.\n\nMore information: [https://github.com/onedata/luma](https://github.com/onedata/luma)\n",
+    "description": "# Overview\n\nLUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users\n(of any system/kind) to storage specific users, in the process authorizing them with the storage.\nNew storage types are added by means of plugin system of generators. A generator is responsible for:\nmapping users to storage specific users creating a user credentials for accessing the actual storage\n\nAs of now there are four kinds of generators implemented in LUMA:\n * Posix\n * Ceph\n * Amazon S3\n * Openstack Swift\n\nLUMA is written using [Flask](http://flask.pocoo.org/) framework and uses SQLite backend to store information about user credentials.\n\nMore information: [https://github.com/onedata/luma](https://github.com/onedata/luma)\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -13,6 +13,10 @@
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "x-logo": {
+      "url": "https://onedata.org/assets/images/api/luma-logo.svg",
+      "backgroundColor": "#FFFFFF"
     }
   },
   "paths": {
@@ -110,12 +114,16 @@
           "description": "Storage ID (site specific), can be used interchangeably with `spaceType`.",
           "type": "string"
         },
-        "storageType": {
-          "description": "Storage ID (site specific), can be used interchangeably with `spaceId`.",
+        "storageName": {
+          "description": "Storage name (site specific).",
           "type": "string"
         },
-        "spaceName": {
-          "description": "Name of user space for which storage mapping is requested.",
+        "storageType": {
+          "description": "Storage ID (site specific), can be used interchangeably with `storageId`.",
+          "type": "string"
+        },
+        "spaceId": {
+          "description": "ID of user space for which storage mapping is requested.",
           "type": "string"
         },
         "userDetails": {
@@ -123,13 +131,15 @@
         }
       },
       "required": [
-        "spaceName",
+        "storageName",
+        "spaceId",
         "userDetails"
       ],
       "example": {
         "storageId": "AKSDHKAJSHD898798ASDKJHA89878ASD",
-        "storageType": "POSIX",
-        "spaceName": "Space1",
+        "storageName": "NFS",
+        "storageType": "posix",
+        "spaceId": "KXIK8S8CLEHXYX7NE2J9QU31",
         "userDetails": {
           "name": "User One",
           "connectedAccounts": [
@@ -293,19 +303,17 @@
               "type": "string",
               "description": "POSIX user group ID in the local system."
             }
-          }
+          },
+          "required": [
+            "uid",
+            "gid"
+          ]
         }
       ],
       "example": {
-        "type": "Posix",
         "uid": 3121,
         "gid": 123
-      },
-      "required": [
-        "type",
-        "uid",
-        "gid"
-      ]
+      }
     },
     "S3": {
       "allOf": [
@@ -324,19 +332,17 @@
               "type": "string",
               "description": "S3 secret key for user."
             }
-          }
+          },
+          "required": [
+            "accessKey",
+            "secretKey"
+          ]
         }
       ],
       "example": {
-        "type": "S3",
         "accessKey": "J7657576ASDFKJAHSDASDASDJHVASDLKJAHSDLK",
         "secretKey": "ASDASDJHVASDLKJAHSDLKJ7657576ASDFKJAHSD"
-      },
-      "required": [
-        "type",
-        "accessKey",
-        "secretKey"
-      ]
+      }
     },
     "Ceph": {
       "allOf": [
@@ -347,27 +353,25 @@
           "type": "object",
           "description": "The Ceph storage credentials.",
           "properties": {
-            "userName": {
+            "username": {
               "type": "string",
               "description": "Ceph user name."
             },
-            "userKey": {
+            "key": {
               "type": "string",
               "description": "Ceph user key."
             }
-          }
+          },
+          "required": [
+            "username",
+            "key"
+          ]
         }
       ],
       "example": {
-        "type": "Ceph",
-        "userName": "user1",
-        "userKey": "LKAJHFLKJHASD9879ASDASDBNASD"
-      },
-      "required": [
-        "type",
-        "accessKey",
-        "secretKey"
-      ]
+        "username": "user1",
+        "key": "LKAJHFLKJHASD9879ASDASDBNASD"
+      }
     },
     "Swift": {
       "allOf": [
@@ -378,7 +382,7 @@
           "type": "object",
           "description": "The OpenStack Keystone credentials.",
           "properties": {
-            "userName": {
+            "username": {
               "type": "string",
               "description": "OpenStack Keystone user name."
             },
@@ -386,12 +390,15 @@
               "type": "string",
               "description": "OpenStack Keystone user password."
             }
-          }
+          },
+          "required": [
+            "username",
+            "password"
+          ]
         }
       ],
       "example": {
-        "type": "Swift",
-        "userName": "user1",
+        "username": "user1",
         "password": "P@$$W0RD"
       }
     }

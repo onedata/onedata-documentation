@@ -7,9 +7,9 @@
 
 |Name|Description|Schema|
 |---|---|---|
+|**key**  <br>*required*|Ceph user key.|string|
 |**type**  <br>*required*|Type of storage.|enum (Posix, Ceph, S3, Swift)|
-|**userKey**  <br>*optional*|Ceph user key.|string|
-|**userName**  <br>*optional*|Ceph user name.|string|
+|**username**  <br>*required*|Ceph user name.|string|
 
 
 
