@@ -7,9 +7,9 @@ GET /index/{iid}
 
 
 ##### Description
-This method returns a specific index source code.  
+This method returns a specific index source code.
 
-The indexes are defined as JavaScript functions which are executed 
+The indexes are defined as JavaScript functions which are executed
 on the database backend.
 
 ***Example cURL requests***

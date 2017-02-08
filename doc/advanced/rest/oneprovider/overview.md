@@ -3,6 +3,8 @@
 
 <a name="overview"></a>
 ## Overview
+# Overview
+
 This is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).
 
 > This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate
@@ -15,14 +17,14 @@ https://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/fil
 ```
 Please note that currently the default port for Oneprovider instances is `8443`.
 
-In addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, 
+In addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol,
 and some of data management operations are currently only possible via CDMI.
 
 
 ## Authentication
 In order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.
 
-Currently this is supported through authentication token which can be generate using the Onedata user interface. 
+Currently this is supported through authentication token which can be generate using the Onedata user interface.
 The token must be added to the request header like this:
 ```
 X-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...
@@ -67,7 +69,7 @@ providers.
 
 #### Transfer management
 The `/transfer/` operations provide basic transfer management functionality based on the ID of transfer
-returned by `/replicas/{path} [POST]` operation. 
+returned by `/replicas/{path} [POST]` operation.
 
 ### Monitoring
 
@@ -78,7 +80,7 @@ records with sequence numbers representing their current version.
 
 #### Monitoring metrics
 The `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.
-All monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/) 
+All monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/)
 database files, with resolution determined by the `step` query parameter.
 
 ## Examples
@@ -99,7 +101,7 @@ More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 3.0.0-rc11
+*Version* : 3.0.0-rc12
 
 
 ### Contact information

@@ -15,7 +15,7 @@ For regular file attributes, currently only POSIX mode can be changed by sending
   ```
 where the POSIX mode is specified in octal notation.
 
-For extended attributes any string value can be send. The exteded attributes are 
+For extended attributes any string value can be send. The exteded attributes are
 accessed by setting `extended` flag in the request query to `true`.
 
 ***Example cURL requests***

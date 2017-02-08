@@ -37,10 +37,10 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 -H "Accept: application/json" \
 https://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3
-```    
+```
 
 **Set specific JSON value in metadata document using key path**
-In this example the contents of the PUT body will be assigned the 
+In this example the contents of the PUT body will be assigned the
 value of "key3" in the metadata document.
 
 ```bash
@@ -58,7 +58,7 @@ https://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd96
 |**Path**|**id**  <br>*required*|File or folder path or space ID|string|--|
 |**Query**|**filter**  <br>*optional*|The filter to apply to the metadata document before returning.|string|--|
 |**Query**|**filter_type**  <br>*optional*|The type of filter to apply to the metadata document.|string|--|
-|**Query**|**inherited**  <br>*optional*|When set to true, this operation will merge the metadata documents from  parent folders as well as entire space into a single JSON or RDF document.|boolean|--|
+|**Query**|**inherited**  <br>*optional*|When set to true, this operation will merge the metadata documents from parent folders as well as entire space into a single JSON or RDF document.|boolean|--|
 |**Query**|**metadata_type**  <br>*optional*|Type of metadata backend (if not specified in `Accept` header)|enum (JSON, RDF)|--|
 
 

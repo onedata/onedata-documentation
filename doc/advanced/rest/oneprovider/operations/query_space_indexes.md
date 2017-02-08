@@ -9,7 +9,7 @@ GET /query-index/{iid}
 ##### Description
 This method returns the list of files which match the query on a predefined index.
 
-Currently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.   
+Currently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.
 
 This operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).
 
@@ -62,15 +62,15 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 |**Path**|**iid**  <br>*required*|Id of the index to query.|string|--|
 |**Query**|**bbox**  <br>*optional*|Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)|string|--|
 |**Query**|**descending**  <br>*optional*|Return the documents in descending by key order.|boolean|`"false"`|
-|**Query**|**endkey**  <br>*optional*|Stop returning records when the specified key is reached.  Key must be specified as a JSON value.|string|--|
+|**Query**|**endkey**  <br>*optional*|Stop returning records when the specified key is reached. Key must be specified as a JSON value.|string|--|
 |**Query**|**endkey_docid**  <br>*optional*|Stop returning records when the specified document ID is reached.|string|--|
-|**Query**|**inclusive_end**  <br>*optional*|Specifies whether the specified end key is included in the result.  ***Note:*** Do not use `inclusive_end` with `key` or `keys`.|boolean|`"false"`|
-|**Query**|**key**  <br>*optional*|Return only documents that match the specified key.  Key must be specified as a JSON value.|string|--|
-|**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array.  Keys must be specified as a JSON array, escaped properly.  Sorting is not applied when using this option.|string|--|
+|**Query**|**inclusive_end**  <br>*optional*|Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.|boolean|`"false"`|
+|**Query**|**key**  <br>*optional*|Return only documents that match the specified key. Key must be specified as a JSON value.|string|--|
+|**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array. Keys must be specified as a JSON array, escaped properly. Sorting is not applied when using this option.|string|--|
 |**Query**|**limit**  <br>*optional*|Limit the number of the returned documents to the specified number.|integer|--|
 |**Query**|**skip**  <br>*optional*|Skip this number of records before starting to return the results.|integer|--|
 |**Query**|**stale**  <br>*optional*|Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.|enum (ok, update_after, false)|`"update_after"`|
-|**Query**|**startkey**  <br>*optional*|Return records with a value equal to or greater than the specified key.  Key must be specified as a JSON value.|string|--|
+|**Query**|**startkey**  <br>*optional*|Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.|string|--|
 |**Query**|**startkey_docid**  <br>*optional*|Return records starting with the specified document ID.|string|--|
 
 
