@@ -33,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the joined space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined space.|No Content|
+|**201**|ID of the joined space in the form /spaces/{id} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

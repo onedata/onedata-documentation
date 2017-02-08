@@ -7,9 +7,9 @@ POST /groups/{id}/nested/join
 
 
 ##### Description
-Adds given group as a subgroup of a specific group based on provided token. 
+Adds given group as a subgroup of a specific group based on provided token.
 
-The parent group to which the group will be added is identified from the token 
+The parent group to which the group will be added is identified from the token
 (the token is issued in the context of a group).
 
 This operation requires `group_join_group` privilege.
@@ -37,7 +37,7 @@ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the joined group in the form /groups/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined group.|No Content|
+|**201**|ID of the joined group in the form /groups/{id} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the joined group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

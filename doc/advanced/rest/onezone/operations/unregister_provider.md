@@ -9,9 +9,9 @@ DELETE /provider
 ##### Description
 Allows Oneprovider service to unregister from Onezone.
 
-This operation allows a Oneprovider to unregister from a this Onezone, i.e. 
-it can only be invoked by Oneprovider which wants to unregister. It does't 
-require any parameters, as the provider is identified by the peer 
+This operation allows a Oneprovider to unregister from a this Onezone, i.e.
+it can only be invoked by Oneprovider which wants to unregister. It does't
+require any parameters, as the provider is identified by the peer
 certificate used for this connection.
 
 ***Example cURL requests***
