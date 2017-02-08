@@ -15,7 +15,7 @@ In order to be able to mount your spaces you need to authenticate with [onedata.
 #### Authentication token
 In order to get an authentication token, go to [onedata.org](onedata.org) Web user interface, press **Tokens** in the top menu and press **Authorization token** button. Copy the displayed token and type the following commands:
 ~~~
-export ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN> 
+export ONECLIENT_AUTHORIZATION_TOKEN=<CLIENT_TOKEN>
 
 export PROVIDER_HOSTNAME=<DEFAULT_PROVIDER>
 
@@ -62,7 +62,7 @@ If you already have an account at [onedata.org](onedata.org) or some other Oneda
 ```
 docker run  --privileged -e ONECLIENT_AUTHORIZATION_TOKEN=$USER_ACCESS_TOKEN \
  -e PROVIDER_HOSTNAME=$ONEPROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-rc11
+ onedata/oneclient:3.0.0-rc12
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient` folder (inside container). They can be accessed from another terminal, for instance using:

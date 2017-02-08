@@ -8,7 +8,7 @@ POST /zone/configuration
 
 ##### Description
 Configures and starts zone services, such as database, cluster manager and cluster worker.
-This request can be executed by unauthorized usersas long as there are no  admin users in the system.
+This request can be executed by unauthorized usersas long as there are no admin users in the system.
 
 
 ##### Parameters
@@ -22,7 +22,7 @@ This request can be executed by unauthorized usersas long as there are no  admin
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check  operation status.|No Content|
+|**201**|Deployment process successfully started.  <br>**Headers** :   <br>`Location` (string) : The path to the task resource, which can be queried to check operation status.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|

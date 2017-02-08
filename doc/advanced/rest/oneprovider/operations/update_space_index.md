@@ -7,9 +7,9 @@ PUT /index/{iid}
 
 
 ##### Description
-This method replaces an existing index code with request body content.  
+This method replaces an existing index code with request body content.
 
-The indexes are defined as JavaScript functions which are executed 
+The indexes are defined as JavaScript functions which are executed
 on the database backend.
 
 ***Example cURL requests***

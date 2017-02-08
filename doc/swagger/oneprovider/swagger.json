@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "basePath": "/api/v3/oneprovider",
   "info": {
-    "version": "3.0.0-rc11",
+    "version": "3.0.0-rc12",
     "title": "Oneprovider",
-    "description": "This is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n```\nhttps://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol, \nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface. \nThe token must be added to the request header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation. \n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/) \ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
-    "x-bash-codegen-description": "This is the RESTful API definition of Oneprovider component of Onedata data \nmanagement system [onedata.org](http://www.onedata.org).\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to \nauthenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be \ngenerate using the Onedata user interface. The token must be added to the \nrequest header like this:\n```\nX-Auth-Token:LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\nor exported as an environment variable: \n```\nexport ONEPROVIDER_API_KEY=LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\n\nIn addition please take into account, that depending on your account \nauthorization rights, not all operations may be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly \nwith virtual file paths relative to user spaces, which are provided as part \nof the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\nBasic data management including getting information about data objects (\nfiles or folders).\n\n### Replication\n\nData transfer management.\n\n### Monitoring\n\nMonitoring of changes performed in folders and files and getting metrics \nhistory.\n\n## Example usage\n\n  export ONEPROVIDER_API_KEY=ASDKjhajksdlGDALHJsgDJHAGSDKJHAGSD\n\n  export ONEPROVIDER_HOST=https://<provider_hostname>:8443\n\n  # Print detailed help on operation\n  oneprovider-rest-cli getAllSpaces -h\n\n  # Call operation\n  oneprovider-rest-cli getAllSpaces\n\n  # Get file POSIX mode\n  oneprovider-rest-cli getFileAttributes path=\"/Space 1/Folder2/file3.txt\" \n  attribute=mode\n\n  # Get some extended attribute value\n  oneprovider-rest-cli getFileAttributes path=\"/Space 1/Folder2/file3.txt\" \n  attribute=license extended=true\n\n  # Get JSON metadata attached to the file\n  oneprovider-rest-cli getFileMetadata -ac json \n  path=\"/Space 1/Folder2/file3.txt\"\n\n  # List files in a space\n  oneprovider-rest-cli listFiles path=\"/OxfordFlowerDataset\"\n\n  # Get the list of file replicas\n  oneprovider-rest-cli getFileReplicas path=\"/Space 1/Folder2/file3.txt\"\n",
+    "description": "# Overview\n\nThis is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n```\nhttps://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol,\nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface.\nThe token must be added to the request header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n```\n\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation.\n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/)\ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of Oneprovider component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to\nauthenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be\ngenerate using the Onedata user interface. The token must be added to the\nrequest header like this:\n```\nX-Auth-Token:LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\nor exported as an environment variable:\n```\nexport ONEPROVIDER_API_KEY=LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\n\nIn addition please take into account, that depending on your account\nauthorization rights, not all operations may be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly\nwith virtual file paths relative to user spaces, which are provided as part\nof the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\nBasic data management including getting information about data objects (\nfiles or folders).\n\n### Replication\n\nData transfer management.\n\n### Monitoring\n\nMonitoring of changes performed in folders and files and getting metrics\nhistory.\n\n## Example usage\n\n  export ONEPROVIDER_API_KEY=ASDKjhajksdlGDALHJsgDJHAGSDKJHAGSD\n\n  export ONEPROVIDER_HOST=https://<provider_hostname>:8443\n\n  # Print detailed help on operation\n  oneprovider-rest-cli getAllSpaces -h\n\n  # Call operation\n  oneprovider-rest-cli getAllSpaces\n\n  # Get file POSIX mode\n  oneprovider-rest-cli getFileAttributes path=\"/Space 1/Folder2/file3.txt\"\n  attribute=mode\n\n  # Get some extended attribute value\n  oneprovider-rest-cli getFileAttributes path=\"/Space 1/Folder2/file3.txt\"\n  attribute=license extended=true\n\n  # Get JSON metadata attached to the file\n  oneprovider-rest-cli getFileMetadata -ac json\n  path=\"/Space 1/Folder2/file3.txt\"\n\n  # List files in a space\n  oneprovider-rest-cli listFiles path=\"/OxfordFlowerDataset\"\n\n  # Get the list of file replicas\n  oneprovider-rest-cli getFileReplicas path=\"/Space 1/Folder2/file3.txt\"\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -16,7 +16,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-logo": {
-      "url": "https://onedata.org/docs/doc/img/oneprovider-icon.png",
+      "url": "https://onedata.org/assets/images/api/oneprovider-logo.svg",
       "backgroundColor": "#FFFFFF"
     }
   },
@@ -166,8 +166,8 @@
           "Data"
         ],
         "summary": "List files and folders",
-        "x-bash-codegen-description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the \nsingle item with the path to the file requested, confirming it exists.\n",
-        "description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.\n\n***Example cURL requests***\n\n**Get files in space subfolder**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/files/MySpace1/MyFolder2\"\n\n[\n  { \n    \"id\": \"c4798eb2-dbd2-486f-ae94-0e6fa0a5071d\", \n    \"path\": \"/MySpace1/MyFolder2/File1.txt\"\n  },\n  { \n    \"id\": \"620e1642-4f2d-45f2-b4eb-37f8a958b46f\", \n    \"path\": \"/MySpace1/MyFolder2/Folder3\"\n  },\n  { \n    \"id\": \"55ac4ed3-a723-47ab-a892-638578b9cad7\", \n    \"path\": \"/MySpace1/MyFolder2/File3.txt\"\n  }\n]\n```\n",
+        "x-bash-codegen-description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the\nsingle item with the path to the file requested, confirming it exists.\n",
+        "description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.\n\n***Example cURL requests***\n\n**Get files in space subfolder**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/files/MySpace1/MyFolder2\"\n\n[\n  {\n    \"id\": \"c4798eb2-dbd2-486f-ae94-0e6fa0a5071d\",\n    \"path\": \"/MySpace1/MyFolder2/File1.txt\"\n  },\n  {\n    \"id\": \"620e1642-4f2d-45f2-b4eb-37f8a958b46f\",\n    \"path\": \"/MySpace1/MyFolder2/Folder3\"\n  },\n  {\n    \"id\": \"55ac4ed3-a723-47ab-a892-638578b9cad7\",\n    \"path\": \"/MySpace1/MyFolder2/File3.txt\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -227,7 +227,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Allows to specify maximum number of files that should be returned. If there are more files, they can be retrieved using `offset` query parameter. \n",
+            "description": "Allows to specify maximum number of files that should be returned. If there are more files, they can be retrieved using `offset` query parameter.\n",
             "type": "integer",
             "required": false,
             "maximum": 1000,
@@ -236,7 +236,7 @@
           {
             "name": "offset",
             "in": "query",
-            "description": "Index of the partial result, can be used to get subset of the result,  when the number of files and folders under given path exceeds 1000.\n",
+            "description": "Index of the partial result, can be used to get subset of the result, when the number of files and folders under given path exceeds 1000.\n",
             "type": "integer",
             "required": false,
             "minimum": 0
@@ -261,8 +261,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag \nin the request query to `true`.\n",
-        "description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag \nin the request query to `true`.\n\n***Example cURL requests***\n\n**Get file POSIX mode**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode\"\n\n{ \n  \"mode\": \"0777\" \n}\n```\n\n**Get extended file attributes**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license\"\n\n{ \n  \"license\": \"CC-0\"\n}\n```\n",
+        "x-bash-codegen-description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag\nin the request query to `true`.\n",
+        "description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag\nin the request query to `true`.\n\n***Example cURL requests***\n\n**Get file POSIX mode**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode\"\n\n{\n  \"mode\": \"0777\"\n}\n```\n\n**Get extended file attributes**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license\"\n\n{\n  \"license\": \"CC-0\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -351,8 +351,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by \nsending:\n```\n mode:=0777\n```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes \nare accessed by setting `extended` flag in the request query to `true`.\n",
-        "description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by sending:\n  ```\n  { \"mode\", \"0777\" }\n  ```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes are \naccessed by setting `extended` flag in the request query to `true`.\n\n***Example cURL requests***\n\n**Set file POSIX mode**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"name\": \"mode\", \"value\": \"0777\" }'\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt\"\n```\n\n**Set extended file attribute**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"name\": \"license\", \"value\": \"CC-0\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true\"\n```\n",
+        "x-bash-codegen-description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by\nsending:\n```\n mode:=0777\n```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes\nare accessed by setting `extended` flag in the request query to `true`.\n",
+        "description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by sending:\n  ```\n  { \"mode\", \"0777\" }\n  ```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes are\naccessed by setting `extended` flag in the request query to `true`.\n\n***Example cURL requests***\n\n**Set file POSIX mode**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"name\": \"mode\", \"value\": \"0777\" }'\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt\"\n```\n\n**Set extended file attribute**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"name\": \"license\", \"value\": \"CC-0\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true\"\n```\n",
         "produces": [
           "application/json"
         ],
@@ -432,8 +432,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or \nspace. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" \nheader in the request, or from the optional `metadata_type` query parameter.\nProper accept header can be set  using `-ac json` or `-ac rdf` switches).\n\nBy default the method returns the complete metadata document of requested \ntype. It is possible to request only a part of the document by specifying \n`filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, \n                separated by `.`, array elements should be expressed as \n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
-        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
+        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or\nspace. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \"\nheader in the request, or from the optional `metadata_type` query parameter.\nProper accept header can be set  using `-ac json` or `-ac rdf` switches).\n\nBy default the method returns the complete metadata document of requested\ntype. It is possible to request only a part of the document by specifying\n`filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object,\n                separated by `.`, array elements should be expressed as\n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
+        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```\n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the\nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -506,7 +506,7 @@
           {
             "name": "inherited",
             "in": "query",
-            "description": "When set to true, this operation will merge the metadata documents from  parent folders as well as entire space into a single JSON or RDF document.\n",
+            "description": "When set to true, this operation will merge the metadata documents from parent folders as well as entire space into a single JSON or RDF document.\n",
             "type": "boolean",
             "required": false
           }
@@ -528,8 +528,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method allows to set specific metadata document for a file, folder or \nspace specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \n\"Content-type: \" header in the request (which can be set using \n`-ct json` or `-ct rdf` switches), or from the optional \n`metadata_type` query parameter. This operation will replace the entire \nmetadata document in the specified metadata backend.\n",
-        "description": "This method allows to set specific metadata document for a file, folder or space specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1\n```    \n",
+        "x-bash-codegen-description": "This method allows to set specific metadata document for a file, folder or\nspace specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the\n\"Content-type: \" header in the request (which can be set using\n`-ct json` or `-ct rdf` switches), or from the optional\n`metadata_type` query parameter. This operation will replace the entire\nmetadata document in the specified metadata backend.\n",
+        "description": "This method allows to set specific metadata document for a file, folder or space specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1\n```\n",
         "consumes": [
           "application/json",
           "application/rdf+xml"
@@ -609,7 +609,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat metadata.rdf | oneprovider-rest-cli -ct rdf setFileMetadata path='/Space 1/Folder 2/file3.txt'"
+            "source": "cat metadata.rdf | oneprovider-rest-cli -ct rdf setFileMetadata path='/Space 1/Folder 2/file3.txt' -"
           }
         ]
       }
@@ -625,8 +625,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or \nspace by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" \nheader in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested \ntype. It is possible to request only a part of the document by specifying \nfilter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, \n                separated by `.`, array elements should be expressed as \n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
-        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```    \n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the \nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```  \n",
+        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or\nspace by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \"\nheader in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested\ntype. It is possible to request only a part of the document by specifying\nfilter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object,\n                separated by `.`, array elements should be expressed as\n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
+        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the\nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n",
         "produces": [
           "application/json",
           "application/rdf+xml"
@@ -699,7 +699,7 @@
           {
             "name": "inherited",
             "in": "query",
-            "description": "When set to true, this operation will merge the metadata documents from  parent folders as well as entire space into a single JSON or RDF document.\n",
+            "description": "When set to true, this operation will merge the metadata documents from parent folders as well as entire space into a single JSON or RDF document.\n",
             "type": "boolean",
             "required": false
           }
@@ -721,7 +721,7 @@
         "tags": [
           "Data"
         ],
-        "description": "This method allows to set specific metadata document for a file, folder or space specified by ID in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/9e91571f-9dc9-4cea-a86a-9e6bae5aaaca\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/1e65d5f4-c49d-495a-a2b6-50acd02a25b1\n```    \n",
+        "description": "This method allows to set specific metadata document for a file, folder or space specified by ID in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/9e91571f-9dc9-4cea-a86a-9e6bae5aaaca\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/1e65d5f4-c49d-495a-a2b6-50acd02a25b1\n```\n",
         "consumes": [
           "application/json",
           "application/rdf+xml"
@@ -801,7 +801,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat metadata.json | oneprovider-rest-cli -ct json setFileMetadataById id=ALKSJDHKASD7687asDBASDDsd"
+            "source": "cat metadata.json | oneprovider-rest-cli -ct json setFileMetadataById id=ALKSJDHKASD7687asDBASDDsd -"
           }
         ]
       }
@@ -884,7 +884,7 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching \nthrough data. Currently indexes are created per space, i.e. the `space_id` \nquery parameter is required.\n\nThe operation returns the created index ID in the response `Location` \nheader.\n",
+        "x-bash-codegen-description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching\nthrough data. Currently indexes are created per space, i.e. the `space_id`\nquery parameter is required.\n\nThe operation returns the created index ID in the response `Location`\nheader.\n",
         "description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching through data.\n\nCurrently indexes are created per space, i.e. the `space_id` query parameter is required.\n\nThe operation returns the created index ID in the response `Location` header.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n-H \"Content-type: text/javascript\" \\\n-d \"@./my_index_1.js\"\nhttps://$HOST:8443/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47cd969280a2&name=MyIndex1\n```\n",
         "consumes": [
           "text/javascript"
@@ -952,7 +952,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli addSpaceIndex space_id=ASLDJLASKJDLADkhhasdaksdaADS name=MyIndex1"
+            "source": "cat index.js | oneprovider-rest-cli addSpaceIndex space_id=ASLDJLASKJDLADkhhasdaksdaADS name=MyIndex1 -"
           }
         ]
       }
@@ -968,8 +968,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns a specific index source code.  \n\nThe indexes are defined as JavaScript functions which are executed \non the database backend. \n",
-        "description": "This method returns a specific index source code.  \n\nThe indexes are defined as JavaScript functions which are executed \non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n\n\nfunction(x) {\n  ...\n}\n```\n",
+        "x-bash-codegen-description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
+        "description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n\n\nfunction(x) {\n  ...\n}\n```\n",
         "produces": [
           "application/javascript"
         ],
@@ -1031,8 +1031,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method replaces an existing index code with request body content.  \n\nThe indexes are defined as JavaScript functions which are executed \non the database backend.\n",
-        "description": "This method replaces an existing index code with request body content.  \n\nThe indexes are defined as JavaScript functions which are executed \non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
+        "x-bash-codegen-description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
+        "description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
         "consumes": [
           "application/javascript"
         ],
@@ -1086,7 +1086,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS limit=100 offset=300"
+            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS limit=100 offset=300 -"
           }
         ]
       }
@@ -1102,8 +1102,8 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns the list of files which match the query on a \npredefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited \nto files and folders in a space for which the index was defined.   \n\nThis operation supports also custom index query attributes as provided by \nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionaly, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are \n\npossible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the \n[http://geojson.org/] format.\n",
-        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.   \n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n**Get a 100 files from index skipping first 200**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?skip=200&limit=100\n\n[\n  \"30518c78-6def-40e0-9a85-c90e7efe7ffc\",\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"1af64b02-1bbd-48ad-a9ef-25e9af593391\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\",\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates located in Europe**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?bbox=81.008797,39.869301,27.636311,-31.266001\n\n[\n  \"5145c581-af6f-4add-b3c0-d6e0253e8862\",\n  \"6c2e5abd-0495-4fec-95b7-f8601e244b45\",\n]\n```\n",
+        "x-bash-codegen-description": "This method returns the list of files which match the query on a\npredefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited\nto files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionaly, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\n\npossible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
+        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n**Get a 100 files from index skipping first 200**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?skip=200&limit=100\n\n[\n  \"30518c78-6def-40e0-9a85-c90e7efe7ffc\",\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"1af64b02-1bbd-48ad-a9ef-25e9af593391\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\",\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates located in Europe**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?bbox=81.008797,39.869301,27.636311,-31.266001\n\n[\n  \"5145c581-af6f-4add-b3c0-d6e0253e8862\",\n  \"6c2e5abd-0495-4fec-95b7-f8601e244b45\",\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1161,14 +1161,14 @@
           {
             "name": "key",
             "in": "query",
-            "description": "Return only documents that match the specified key.  Key must be specified as a JSON value.\n",
+            "description": "Return only documents that match the specified key. Key must be specified as a JSON value.\n",
             "type": "string",
             "required": false
           },
           {
             "name": "keys",
             "in": "query",
-            "description": "Return only documents that match any of the keys specified within the given array.  Keys must be specified as a JSON array, escaped properly.  Sorting is not applied when using this option.\n",
+            "description": "Return only documents that match any of the keys specified within the given array. Keys must be specified as a JSON array, escaped properly. Sorting is not applied when using this option.\n",
             "type": "string",
             "required": false
           },
@@ -1189,7 +1189,7 @@
           {
             "name": "startkey",
             "in": "query",
-            "description": "Return records with a value equal to or greater than the specified key.  Key must be specified as a JSON value.\n",
+            "description": "Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.\n",
             "type": "string",
             "required": false
           },
@@ -1203,7 +1203,7 @@
           {
             "name": "endkey",
             "in": "query",
-            "description": "Stop returning records when the specified key is reached.  Key must be specified as a JSON value.\n",
+            "description": "Stop returning records when the specified key is reached. Key must be specified as a JSON value.\n",
             "type": "string",
             "required": false
           },
@@ -1217,7 +1217,7 @@
           {
             "name": "inclusive_end",
             "in": "query",
-            "description": "Specifies whether the specified end key is included in the result.  ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
+            "description": "Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
             "type": "boolean",
             "required": false,
             "default": false
@@ -1262,7 +1262,7 @@
           "Replication"
         ],
         "summary": "Get replicas by path",
-        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at \nthis provider.\n",
+        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at\nthis provider.\n",
         "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by path**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"784dae9d-34a3-4aef-ab4b-2c6c60b74e27\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"b296ab05-3d62-4755-be46-c57ced411ff1\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
@@ -1328,8 +1328,8 @@
           "Replication"
         ],
         "summary": "Replicate file or folder by path",
-        "x-bash-codegen-description": "Replicates a file to a specified provider. This operation is asynchronous \nas it can take a long time depending on the size of the data to move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to \nrequested provider.\n",
-        "description": "Replicates a file to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "x-bash-codegen-description": "Replicates a file to a specified provider. This operation is asynchronous\nas it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1415,7 +1415,7 @@
           "Replication"
         ],
         "summary": "Get replicas by ID",
-        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at \nthis provider.\n",
+        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at\nthis provider.\n",
         "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by ID**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
@@ -1481,8 +1481,8 @@
           "Replication"
         ],
         "summary": "Replicate file or folder by ID",
-        "x-bash-codegen-description": "Replicates a file with ID to a specified provider. This operation is \nasynchronous as it can take a long time depending on the size of the data \nto move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to \nrequested provider.\n",
-        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move. \n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by ID to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by ID to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "x-bash-codegen-description": "Replicates a file with ID to a specified provider. This operation is\nasynchronous as it can take a long time depending on the size of the data\nto move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by ID to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by ID to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1652,7 +1652,7 @@
           "Replication"
         ],
         "summary": "Get transfer status",
-        "x-bash-codegen-description": "Returns status of specific transfer. In case the transfer has been \nscheduled for entire folder, the result is a list of transfer statuses \nfor each item in the folder.\n",
+        "x-bash-codegen-description": "Returns status of specific transfer. In case the transfer has been\nscheduled for entire folder, the result is a list of transfer statuses\nfor each item in the folder.\n",
         "description": "Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n\n{\n  \"path\": \"/My Space 1/Folder2/file3.txt\",\n  \"status\": \"scheduled\",\n  \"targetProviderId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\"\n}\n```\n",
         "produces": [
           "application/json"
@@ -1718,7 +1718,7 @@
           "Replication"
         ],
         "summary": "Cancel specific transfer",
-        "x-bash-codegen-description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer \nis already completed, canceled or failed.\n",
+        "x-bash-codegen-description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer\nis already completed, canceled or failed.\n",
         "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n```\n",
         "responses": {
           "204": {
@@ -1874,7 +1874,7 @@
           "Monitoring"
         ],
         "x-bash-codegen-description": "Returns space related metrics of specified type for specific user.\n",
-        "description": "Returns space related metrics of specified type for specific user.\n\n***Example cURL requests***\n\n**Get user storage block access metrics with 1 hour resolution**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/metrics/space/fe14b4cc-bce0-4220-8394-a911d11a0a53/user/8fd85f71-3290-411d-ae3e-a65d48b5229c?metric=block_access&step=1h\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 3600\n      }\n    }\n}\n```    \n",
+        "description": "Returns space related metrics of specified type for specific user.\n\n***Example cURL requests***\n\n**Get user storage block access metrics with 1 hour resolution**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/metrics/space/fe14b4cc-bce0-4220-8394-a911d11a0a53/user/8fd85f71-3290-411d-ae3e-a65d48b5229c?metric=block_access&step=1h\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 3600\n      }\n    }\n}\n```\n",
         "produces": [
           "application/json",
           "application/xml"
@@ -1974,7 +1974,7 @@
           "Monitoring"
         ],
         "summary": "Subscribe to file events",
-        "x-bash-codegen-description": "This method subscribes through HTTP streaming on events of specific type \nfor a given space.\n\nUntil the connection is kept alive, the events will be streamed to \nsubscribers as soon as they are occur. The optional `timeout` parameter \ncan be used to automatically disconnect  when no events occur in a \ngiven time window.\n",
+        "x-bash-codegen-description": "This method subscribes through HTTP streaming on events of specific type\nfor a given space.\n\nUntil the connection is kept alive, the events will be streamed to\nsubscribers as soon as they are occur. The optional `timeout` parameter\ncan be used to automatically disconnect  when no events occur in a\ngiven time window.\n",
         "description": "This method subscribes through HTTP streaming on events of specific type for a given space.\n\nUntil the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.\n\n***Example cURL requests***\n\n**Listen to space change events**\n```bash\ncurl --tlsv1.2 -N -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/changes/metadata/MySpace1\"\n```\n",
         "produces": [
           "application/json"
@@ -2022,7 +2022,7 @@
           {
             "name": "timeout",
             "in": "query",
-            "description": "Optional timeout in milliseconds, which allows to automatically break connection  when no event occured in specified time. By default the timeout is unlimited.\n",
+            "description": "Optional timeout in milliseconds, which allows to automatically break connection when no event occured in specified time. By default the timeout is unlimited.\n",
             "type": "integer",
             "required": false
           },

@@ -19,16 +19,16 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/files/MySpace1/MyFolder2"
 
 [
-  { 
-    "id": "c4798eb2-dbd2-486f-ae94-0e6fa0a5071d", 
+  {
+    "id": "c4798eb2-dbd2-486f-ae94-0e6fa0a5071d",
     "path": "/MySpace1/MyFolder2/File1.txt"
   },
-  { 
-    "id": "620e1642-4f2d-45f2-b4eb-37f8a958b46f", 
+  {
+    "id": "620e1642-4f2d-45f2-b4eb-37f8a958b46f",
     "path": "/MySpace1/MyFolder2/Folder3"
   },
-  { 
-    "id": "55ac4ed3-a723-47ab-a892-638578b9cad7", 
+  {
+    "id": "55ac4ed3-a723-47ab-a892-638578b9cad7",
     "path": "/MySpace1/MyFolder2/File3.txt"
   }
 ]
@@ -41,7 +41,7 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 |---|---|---|---|---|
 |**Path**|**path**  <br>*required*|Directory path (e.g. '/My Private Space/testfiles')|string|--|
 |**Query**|**limit**  <br>*optional*|Allows to specify maximum number of files that should be returned. If there are more files, they can be retrieved using `offset` query parameter.|integer|--|
-|**Query**|**offset**  <br>*optional*|Index of the partial result, can be used to get subset of the result,  when the number of files and folders under given path exceeds 1000.|integer|--|
+|**Query**|**offset**  <br>*optional*|Index of the partial result, can be used to get subset of the result, when the number of files and folders under given path exceeds 1000.|integer|--|
 
 
 ##### Responses

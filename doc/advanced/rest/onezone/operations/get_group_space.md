@@ -23,7 +23,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
   "name": "a",
   "canonicalName": "a",
   "providersSupports": []
-}    
+}
 ```
 
 

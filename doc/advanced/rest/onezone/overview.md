@@ -3,6 +3,7 @@
 
 <a name="overview"></a>
 ## Overview
+# Overview
 This is the RESTful API definition of Onezone component of Onedata data management system [onedata.org](http://www.onedata.org).
 
 > This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate
@@ -30,10 +31,10 @@ depending on the actor making the request:
 
 Some special operations are completely open and require no authentication:
  * `POST /user/authorize` - authorizes user with authentication token through
- Onezone web interface.This interface is called only by providers, 
- * `POST /provider` - registers a Oneprovider in Onezone service 
+ Onezone web interface.This interface is called only by providers,
+ * `POST /provider` - registers a Oneprovider in Onezone service
  (however a valid CSR in the body is required),
- * `POST /provider/test/check_my_ports` - checks if all given ports 
+ * `POST /provider/test/check_my_ports` - checks if all given ports
  are reachable from Onezone,
  * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).
 
@@ -42,14 +43,14 @@ The provider specific operations include:
  * `POST /spaces` - create new space,
  * `GET /space/{id}` - get specific space details,
  * `GET /spaces/{id}/users` - list space users.
- 
+
 All other operations can be invoked by a user assuming he has valid privileges in the system,
 each operation description lists required permissions, if any.
 
 ## Effective users and effective groups
 Onedata supports creation of arbitrary nested group tree structures. In order to allow identification
 if a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,
-separate API calls are provided for getting information about group users (direct group members) and 
+separate API calls are provided for getting information about group users (direct group members) and
 effective users (indirect group members).
 
 ## API structure
@@ -57,7 +58,7 @@ Most operations are RESTful, i.e. paths reflect the actual resource mode and ope
 most appropriate HTTP methods.
 
 **Space management**
-The space management operations of this API provide means for accessing information about spaces 
+The space management operations of this API provide means for accessing information about spaces
 and their management.
 
 **Group management**
@@ -96,7 +97,7 @@ curl -k https://beta.onedata.org:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-rc11
+*Version* : 3.0.0-rc12
 
 
 ### Contact information
