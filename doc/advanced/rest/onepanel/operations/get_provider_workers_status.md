@@ -7,14 +7,14 @@ GET /provider/workers
 
 
 ##### Description
-Returns status of cluster worker service on each host where it has been  deployed.
+Returns status of cluster worker service on each host where it has been deployed.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster worker service on each host where it has been  deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**200**|The status of cluster worker service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster worker service has not been deployed.|No Content|

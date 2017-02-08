@@ -14,7 +14,7 @@ Returns status of cluster worker service on the selected host.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**host**  <br>*required*|The name of a host for which cluster worker service status should be  returned.|string|--|
+|**Path**|**host**  <br>*required*|The name of a host for which cluster worker service status should be returned.|string|--|
 
 
 ##### Responses

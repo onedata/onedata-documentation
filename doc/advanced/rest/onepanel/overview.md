@@ -3,20 +3,22 @@
 
 <a name="overview"></a>
 ## Overview
+# Overview
+
 This is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).
 
 > This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).
 
-This API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. 
+This API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources.
 
 Each of these components is composed of the following services:
   * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,
   * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,
   * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.
 
-**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. 
+**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**.
 
-Using this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. 
+Using this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service.
 
 All paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:
 
@@ -41,7 +43,7 @@ The Onepanel API is structured to reflect that it can either be used to control 
 
 The overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.
 
-## Examples 
+## Examples
 Below are some example requests to Onepanel using cURL:
 
 **Create new user**
@@ -55,19 +57,19 @@ https://172.17.0.6:9443/api/v3/onepanel/users
 ```bash
 curl -X PUT -u admin:Password1 -k -vvv -H "content-type: application/json" \
 -d '{"NFS": {"type": "posix", "mountPoint": "/mnt/vfs"}}' \
-https://172.17.0.4:9443/api/v3/onepanel/provider/storages 
+https://172.17.0.4:9443/api/v3/onepanel/provider/storages
 ```
 
 **Add a new Onezone worker**
 ```bash
 curl -X PUT -u admin:Password1 -k -vvv -H "content-type: application/json" \
 -d '{"hosts": ["node1.p1.1.dev"]}' \
-https://172.17.0.4:9443/api/v3/onepanel/zone/workers 
+https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 ```
 
 
 ### Version information
-*Version* : 3.0.0-rc11
+*Version* : 3.0.0-rc12
 
 
 ### Contact information

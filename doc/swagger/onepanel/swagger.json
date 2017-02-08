@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "3.0.0-rc11",
+    "version": "3.0.0-rc12",
     "title": "Onepanel",
-    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data \nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment, \nin particular full control over the **Onezone** and **Oneprovider** services \nand their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and \n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a \n                         Couchbase backend, which can be distributed on any \n                         number of nodes, these are available under \n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other \n                               deployed processes in one site, these are \n                               availables under these are available under \n                               `/zone/managers` and `/provider/managers` \n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of \nservices: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, \nstarted and stopped on a specified host in the local site, in the context of \neither **Onezone** or **Oneprovider** service. \n",
-    "description": "This is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. \n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone** or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific requests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.\n\n## Examples \nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages \n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers \n```\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
+    "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone** or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific requests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -16,7 +16,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-logo": {
-      "url": "https://onedata.org/docs/doc/img/onepanel-icon.png",
+      "url": "https://onedata.org/assets/images/api/onepanel-logo.svg",
       "backgroundColor": "#FFFFFF"
     }
   },
@@ -70,7 +70,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret addUser username==bob password==secret userRole==regular --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addUser username==bob password==secret userRole==regular"
           }
         ]
       }
@@ -124,7 +124,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getUser username==bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getUser username==bob"
           }
         ]
       },
@@ -187,7 +187,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret modifyUser password==new_secret --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 modifyUser password==new_secret"
           }
         ]
       },
@@ -233,7 +233,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeUser username==bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 removeUser username==bob"
           }
         ]
       }
@@ -284,7 +284,7 @@
       "get": {
         "operationId": "get_cluster_hosts",
         "summary": "Get cluster or discovered hosts",
-        "description": "Returns the list of administrative cluster hosts. It is also possible to return the list of hosts that have been discovered using multicast  advertisment.\nIn order to retrieve discovered hosts set the `discovered` query string to `true`. This request can be executed by unauthorized users only if there  are no admin users in the system.\n",
+        "description": "Returns the list of administrative cluster hosts. It is also possible to return the list of hosts that have been discovered using multicast advertisment.\nIn order to retrieve discovered hosts set the `discovered` query string to `true`. This request can be executed by unauthorized users only if there are no admin users in the system.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
@@ -341,7 +341,7 @@
       "post": {
         "operationId": "create_cluster",
         "summary": "Create or join cluster",
-        "description": "Initializes administrative cluster or if `clusterHost` parameter has been  provided in the query string adds this host to an existing cluster.\nIn both cases the host handling this request has to be newly started or  removed from previous cluster. It cannot contain any configuration data.\nThis request can be executed by unauthorized users as long as there are no  admin users.\n",
+        "description": "Initializes administrative cluster or if `clusterHost` parameter has been provided in the query string adds this host to an existing cluster.\nIn both cases the host handling this request has to be newly started or removed from previous cluster. It cannot contain any configuration data.\nThis request can be executed by unauthorized users as long as there are no admin users.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
@@ -486,7 +486,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getTaskStatus id=ASLDJLAKSJDASD --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getTaskStatus id=ASLDJLAKSJDASD"
           }
         ]
       }
@@ -528,7 +528,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProvider --host https://example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://example.com:9443 getProvider"
           }
         ]
       },
@@ -582,7 +582,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat provider_details.json | onepanel-rest-cli -u alice:secret addProvider --host https://example.com:9443"
+            "source": "cat provider_details.json | onepanel-rest-cli -u alice:secret --host https://example.com:9443 addProvider -"
           }
         ]
       },
@@ -630,7 +630,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat provider_details.json | onepanel-rest-cli -u alice:secret modifyProvider --host https://example.com:9443"
+            "source": "cat provider_details.json | onepanel-rest-cli -u alice:secret --host https://example.com:9443 modifyProvider -"
           }
         ]
       },
@@ -664,7 +664,46 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeProvider --host https://example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://example.com:9443 removeProvider"
+          }
+        ]
+      }
+    },
+    "/provider/nagios": {
+      "get": {
+        "operationId": "get_provider_nagios_report",
+        "summary": "Get provider nagios report",
+        "description": "Returns the provider nagios report.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_service",
+        "x-onedata-resource": "nagios",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The provider nagios report."
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderNagiosReport"
           }
         ]
       }
@@ -732,7 +771,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -766,7 +805,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat provider_config.json | onepanel-rest-cli -u alice:secret configureProvider --host https://example.com:9443"
+            "source": "cat provider_config.json | onepanel-rest-cli -u alice:secret  --host https://example.com:9443 configureProvider -"
           }
         ]
       }
@@ -808,14 +847,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderSpaces --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaces"
           }
         ]
       },
       "post": {
         "operationId": "support_space",
         "summary": "Support or create space",
-        "description": "Supports an existing space or creates a new space and automatically  supports it.\n",
+        "description": "Supports an existing space or creates a new space and automatically supports it.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "spaces",
@@ -868,7 +907,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret supportSpace name==MySpace1 token==ASDKJASKJDHKAJSHD size:=1073741824 storageName==NAS_1 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 supportSpace name==MySpace1 token==ASDKJASKJDHKAJSHD size:=1073741824 storageName==NAS_1"
           }
         ]
       }
@@ -922,14 +961,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getSpaceDetails id=ASLKDJHAKJSDH --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getSpaceDetails id=ASLKDJHAKJSDH"
           }
         ]
       },
       "delete": {
         "operationId": "revoke_space_support",
         "summary": "Revoke space support for a space.",
-        "description": "Allows provider to revoke storage support for a specific space. Users with access to this space will no longer be able to store data on the resources of this provider. \n",
+        "description": "Allows provider to revoke storage support for a specific space. Users with access to this space will no longer be able to store data on the resources of this provider.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "space",
@@ -968,7 +1007,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret revokeSpaceSupport id=ASLKDJHAKJSDH --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 revokeSpaceSupport id=ASLKDJHAKJSDH"
           }
         ]
       }
@@ -1013,7 +1052,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getStorages --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getStorages"
           }
         ]
       },
@@ -1067,7 +1106,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat storages.json | onepanel-rest-cli -u alice:secret addStorage --host https://op.example.com:9443"
+            "source": "cat storages.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addStorage -"
           }
         ]
       }
@@ -1121,7 +1160,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getStorageDetails name=S3 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getStorageDetails name=S3"
           }
         ]
       },
@@ -1176,7 +1215,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 modifyStorage name=S3 timeout==10000"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 modifyStorage name=S3 timeout:=10000"
           }
         ]
       }
@@ -1221,7 +1260,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderDatabasesStatus --host https://example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://example.com:9443 getProviderDatabasesStatus"
           }
         ]
       },
@@ -1244,7 +1283,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1281,7 +1320,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat service_dbs.json | onepanel-rest-cli -u alice:secret addProviderDatabases --host https://example.com:9443"
+            "source": "cat service_dbs.json | onepanel-rest-cli -u alice:secret --host https://example.com:9443 addProviderDatabases -"
           }
         ]
       },
@@ -1328,7 +1367,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderDatabases started=false --host https://example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://example.com:9443 startStopProviderDatabases started=false"
           }
         ]
       }
@@ -1382,7 +1421,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderDatabaseStatus host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderDatabaseStatus host=db1.example.com"
           }
         ]
       },
@@ -1436,7 +1475,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderDatabase host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopProviderDatabase host=db1.example.com"
           }
         ]
       }
@@ -1481,7 +1520,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderManagersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderManagersStatus"
           }
         ]
       },
@@ -1504,7 +1543,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1541,7 +1580,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat mng_hosts.json | onepanel-rest-cli -u alice:secret -ct json addProviderManagers --host https://op.example.com:9443"
+            "source": "cat mng_hosts.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 -ct json addProviderManagers -"
           }
         ]
       },
@@ -1588,7 +1627,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderManagers started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopProviderManagers started=false"
           }
         ]
       }
@@ -1642,14 +1681,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderManagerStatus host=mng.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderManagerStatus host=mng.example.com"
           }
         ]
       },
       "patch": {
         "operationId": "start_stop_provider_manager",
         "summary": "Start/stop provider cluster manager",
-        "description": "Starts or stops cluster manager service on the selected hosts in the local  deployment.\n",
+        "description": "Starts or stops cluster manager service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -1687,7 +1726,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1696,7 +1735,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderManager started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopProviderManager started=false"
           }
         ]
       }
@@ -1705,7 +1744,7 @@
       "get": {
         "operationId": "get_provider_workers_status",
         "summary": "Get provider cluster workers status",
-        "description": "Returns status of cluster worker service on each host where it has been  deployed.\n",
+        "description": "Returns status of cluster worker service on each host where it has been deployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_op_worker",
@@ -1717,7 +1756,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on each host where it has been  deployed.\n",
+            "description": "The status of cluster worker service on each host where it has been deployed.\n",
             "schema": {
               "$ref": "#/definitions/ServiceStatus"
             }
@@ -1741,7 +1780,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderWorkersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderWorkersStatus"
           }
         ]
       },
@@ -1764,7 +1803,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -1801,7 +1840,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addProviderWorkers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addProviderWorkers -"
           }
         ]
       },
@@ -1839,7 +1878,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster worker service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster worker service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1848,7 +1887,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorkers started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopProviderWorkers started=true"
           }
         ]
       }
@@ -1893,7 +1932,7 @@
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster worker service status should be  returned.\n",
+            "description": "The name of a host for which cluster worker service status should be returned.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -1902,14 +1941,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderWorkerStatus host=work.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderWorkerStatus host=work.example.com"
           }
         ]
       },
       "patch": {
         "operationId": "start_stop_provider_worker",
         "summary": "Start/stop provider cluster worker",
-        "description": "Starts or stops cluster worker service on the selected host in the  local deployment.\n",
+        "description": "Starts or stops cluster worker service on the selected host in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_op_worker",
@@ -1939,7 +1978,7 @@
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster worker service status should be  changed.\n",
+            "description": "The name of a host for which cluster worker service status should be changed.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -1947,7 +1986,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster worker service. The service will  be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster worker service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -1956,7 +1995,46 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorker host=work.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopProviderWorker host=work.example.com started=false"
+          }
+        ]
+      }
+    },
+    "/zone/nagios": {
+      "get": {
+        "operationId": "get_zone_nagios_report",
+        "summary": "Get zone nagios report",
+        "description": "Returns the zone nagios report.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_service",
+        "x-onedata-resource": "nagios",
+        "tags": [
+          "Onezone"
+        ],
+        "produces": [
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The zone nagios report."
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneNagiosReport"
           }
         ]
       }
@@ -1999,14 +2077,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneConfiguration --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneConfiguration"
           }
         ]
       },
       "post": {
         "operationId": "configure_zone",
         "summary": "Configure zone deployment",
-        "description": "Configures and starts zone services, such as database, cluster manager and cluster worker.\nThis request can be executed by unauthorized usersas long as there are no  admin users in the system.\n",
+        "description": "Configures and starts zone services, such as database, cluster manager and cluster worker.\nThis request can be executed by unauthorized usersas long as there are no admin users in the system.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_onezone",
@@ -2024,7 +2102,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -2058,7 +2136,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat zone_config.json | onepanel-rest-cli -u alice:secret configureZone --host https://op.example.com:9443"
+            "source": "cat zone_config.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 configureZone -"
           }
         ]
       }
@@ -2103,7 +2181,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneDatabasesStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneDatabasesStatus"
           }
         ]
       },
@@ -2163,7 +2241,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneDatabases --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addZoneDatabases -"
           }
         ]
       },
@@ -2210,7 +2288,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabases started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopZoneDatabases started=false"
           }
         ]
       }
@@ -2264,14 +2342,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneDatabaseStatus host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneDatabaseStatus host=db1.example.com"
           }
         ]
       },
       "patch": {
         "operationId": "start_stop_zone_databases_host",
         "summary": "Start/stop zone database",
-        "description": "Starts or stops database service on the selected hosts in the local  deployment.\n",
+        "description": "Starts or stops database service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_couchbase",
@@ -2318,7 +2396,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabasesHost host=db1.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret  --host https://op.example.com:9443startStopZoneDatabasesHost host=db1.example.com started=false"
           }
         ]
       }
@@ -2327,7 +2405,7 @@
       "get": {
         "operationId": "get_zone_managers_status",
         "summary": "Get zone cluster managers status",
-        "description": "Returns status of cluster manager service on each host where it has been  eployed.\n",
+        "description": "Returns status of cluster manager service on each host where it has been eployed.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -2339,7 +2417,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster manager service on each host where it has been  deployed.\n",
+            "description": "The status of cluster manager service on each host where it has been deployed.\n",
             "schema": {
               "$ref": "#/definitions/ServiceStatus"
             }
@@ -2363,7 +2441,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneManagersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneManagersStatus"
           }
         ]
       },
@@ -2386,7 +2464,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -2423,7 +2501,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneManagers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addZoneManagers -"
           }
         ]
       },
@@ -2461,7 +2539,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -2470,7 +2548,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneManagers started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopZoneManagers started=true"
           }
         ]
       }
@@ -2515,7 +2593,7 @@
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster manager service status should be  returned.\n",
+            "description": "The name of a host for which cluster manager service status should be returned.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -2524,14 +2602,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneManagerStatus host=mng.example.com started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneManagerStatus host=mng.example.com started=true"
           }
         ]
       },
       "patch": {
         "operationId": "start_stop_zone_manager",
         "summary": "Start/stop zone cluster manager",
-        "description": "Starts or stops cluster manager service on the selected hosts in the local  deployment.\n",
+        "description": "Starts or stops cluster manager service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_cluster_manager",
@@ -2561,7 +2639,7 @@
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster manager service status should be  changed.\n",
+            "description": "The name of a host for which cluster manager service status should be changed.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -2569,7 +2647,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster manager service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster manager service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -2578,7 +2656,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneManager host=mng.example.com started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopZoneManager host=mng.example.com started=true"
           }
         ]
       }
@@ -2599,7 +2677,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The status of cluster worker service on each host where it has been  deployed.\n",
+            "description": "The status of cluster worker service on each host where it has been deployed.\n",
             "schema": {
               "$ref": "#/definitions/ServiceStatus"
             }
@@ -2623,7 +2701,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneWorkersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneWorkersStatus"
           }
         ]
       },
@@ -2646,7 +2724,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -2683,7 +2761,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneWorkers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 addZoneWorkers -"
           }
         ]
       },
@@ -2721,7 +2799,7 @@
           {
             "name": "started",
             "in": "query",
-            "description": "Defines the intended state of the cluster worker service. The service  will be started or stopped in order to match the requested state.\n",
+            "description": "Defines the intended state of the cluster worker service. The service will be started or stopped in order to match the requested state.\n",
             "type": "boolean",
             "default": true,
             "required": false
@@ -2730,7 +2808,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorkers started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopZoneWorkers started=false"
           }
         ]
       }
@@ -2784,14 +2862,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneWorkerStatus host=work.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getZoneWorkerStatus host=work.example.com"
           }
         ]
       },
       "patch": {
         "operationId": "start_stop_zone_worker",
         "summary": "Start/stop zone cluster worker",
-        "description": "Starts or stops cluster worker service on the selected hosts in the local  deployment.\n",
+        "description": "Starts or stops cluster worker service on the selected hosts in the local deployment.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_oz_worker",
@@ -2821,7 +2899,7 @@
         "parameters": [
           {
             "name": "host",
-            "description": "The name of a host for which cluster worker service status should be  changed.\n",
+            "description": "The name of a host for which cluster worker service status should be changed.\n",
             "in": "path",
             "type": "string",
             "required": true
@@ -2838,7 +2916,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorker host=work.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 startStopZoneWorker host=work.example.com started=false"
           }
         ]
       }
@@ -3147,13 +3225,9 @@
           "type": "object",
           "x-discriminator-value": "S3",
           "properties": {
-            "s3Hostname": {
+            "hostname": {
               "type": "string",
               "description": "The hostname of a machine where S3 storage is installed."
-            },
-            "iamHostname": {
-              "type": "string",
-              "description": "The IAM hostname for the S3 storage."
             },
             "bucketName": {
               "type": "string",
@@ -3174,11 +3248,15 @@
             "blockSize": {
               "type": "integer",
               "description": "Storage block size in bytes."
+            },
+            "insecure": {
+              "type": "boolean",
+              "default": false,
+              "description": "Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode.\n"
             }
           },
           "required": [
-            "s3Hostname",
-            "iamHostname",
+            "hostname",
             "bucketName",
             "accessKey",
             "secretKey"
@@ -3187,8 +3265,7 @@
       ],
       "example": {
         "type": "S3",
-        "s3Hostname": "s3.example.com",
-        "iamHostname": "iam.example.com",
+        "hostname": "s3.example.com",
         "bucketName": "bucket1.iam.example.com",
         "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
         "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK"
@@ -3206,11 +3283,11 @@
           "properties": {
             "username": {
               "type": "string",
-              "description": "The username for authentication to Ceph cluster."
+              "description": "The username of the Ceph cluster administrator."
             },
             "key": {
               "type": "string",
-              "description": "The key to access the Ceph cluster."
+              "description": "The admin key to access the Ceph cluster."
             },
             "monitorHostname": {
               "type": "string",
@@ -3227,6 +3304,11 @@
             "timeout": {
               "type": "integer",
               "description": "Storage operation timeout in milliseconds."
+            },
+            "insecure": {
+              "type": "boolean",
+              "default": false,
+              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
             }
           },
           "required": [
@@ -3244,7 +3326,8 @@
         "key": "LKJASHD6876ASDBJHV65765ASD",
         "monitorHostname": "test.example.com",
         "clusterName": "CephCluster1",
-        "poolName": "data"
+        "poolName": "data",
+        "insecure": true
       }
     },
     "Swift": {
@@ -3284,6 +3367,11 @@
             "blockSize": {
               "type": "integer",
               "description": "Storage block size in bytes."
+            },
+            "insecure": {
+              "type": "boolean",
+              "default": false,
+              "description": "Defines whether storage administrator credentials (username and password) may be used by users without storage accounts to access storage in direct IO mode.\n"
             }
           },
           "required": [
@@ -3301,7 +3389,8 @@
         "tenantName": "Project1",
         "containerName": "Container1",
         "username": "user",
-        "password": "p@$$w0rd"
+        "password": "p@$$w0rd",
+        "insecure": true
       }
     },
     "StorageModifyRequest": {

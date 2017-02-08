@@ -7,14 +7,14 @@ PATCH /zone/workers/{host}
 
 
 ##### Description
-Starts or stops cluster worker service on the selected hosts in the local  deployment.
+Starts or stops cluster worker service on the selected hosts in the local deployment.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**host**  <br>*required*|The name of a host for which cluster worker service status should be  changed.|string|--|
+|**Path**|**host**  <br>*required*|The name of a host for which cluster worker service status should be changed.|string|--|
 |**Query**|**started**  <br>*optional*|Defines the intended state of the cluster worker service. The service will be started or stopped in order to match the requested state.|boolean|`"true"`|
 
 

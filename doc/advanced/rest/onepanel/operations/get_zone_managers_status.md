@@ -7,14 +7,14 @@ GET /zone/managers
 
 
 ##### Description
-Returns status of cluster manager service on each host where it has been  eployed.
+Returns status of cluster manager service on each host where it has been eployed.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The status of cluster manager service on each host where it has been  deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
+|**200**|The status of cluster manager service on each host where it has been deployed.|[ServiceStatus](../definitions/ServiceStatus.md#servicestatus)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Cluster manager service has not been deployed.|No Content|

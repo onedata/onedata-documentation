@@ -12,6 +12,7 @@ The OpenStack Swift configuration.
 |**authUrl**  <br>*required*|The URL to OpenStack Keystone identity service.|string|
 |**blockSize**  <br>*optional*|Storage block size in bytes.|integer|
 |**containerName**  <br>*required*|The name of the Swift storage container.|string|
+|**insecure**  <br>*optional*|Defines whether storage administrator credentials (username and password) may be used by users without storage accounts to access storage in direct IO mode.  <br>**Default** : `false`|boolean|
 |**password**  <br>*required*|The Keystone authentication password.|string|
 |**tenantName**  <br>*required*|The name of the tenant to which the user belongs.|string|
 |**timeout**  <br>*optional*|Storage operation timeout in milliseconds.|integer|

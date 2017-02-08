@@ -7,7 +7,7 @@ PATCH /zone/databases/{host}
 
 
 ##### Description
-Starts or stops database service on the selected hosts in the local  deployment.
+Starts or stops database service on the selected hosts in the local deployment.
 
 
 ##### Parameters
