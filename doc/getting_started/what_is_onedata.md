@@ -32,7 +32,7 @@ Data in spaces can be managed through a web interface as well as from command-li
 For more information about *Spaces* and *Groups* see [Space Management](../using_onedata/space_management.md) and [Group Management](../using_onedata/group_management.md).
 
 ### Providers
-Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service, attaching storage resources and registering at a private Onezone service or in the global [onedata.org](onedata.org) zone. 
+Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service, attaching storage resources and registering at a private Onezone service or in the global [onedata.org](onedata.org) zone.
 
 A user can use several providers simultaneously to manage their data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
@@ -47,9 +47,9 @@ Users use *Onezone* portals like [onedata.org](onedata.org) in order to authenti
 For more information about Onedata's provider service, check out [Oneprovider Overview](../administering_onedata/provider_overview.md) documentation.
 
 ### Zones
-Onedata is a distributed system divided into zones that are created by deploying a dedicated service called *Onezone*.  
+Onedata is a distributed system divided into zones that are created by deploying a dedicated service called *Onezone*.
 
-The main public zone is [onedata.org](onedata.org) that is managed by *Onezone* service deployed at that address. Any organization, community or user group can deploy their own *Onezone* service with customized login page and either connect it to the distributed network of *Onezone* services or run it as a isolated private deployment. 
+The main public zone is [onedata.org](onedata.org) that is managed by *Onezone* service deployed at that address. Any organization, community or user group can deploy their own *Onezone* service with customized login page and either connect it to the distributed network of *Onezone* services or run it as a isolated private deployment.
 
 *Onezone* is responsible for authentication and authorization of users, makes it possible for users from different zones to communicate with each other and share data. It allows providers from different zones to interact with each other i.e. allowing users from different zones to support their spaces regardless of the zone in which particular provider is located.
 
@@ -64,7 +64,7 @@ For more information about Onedata's  *Onezone* service, check out [*Onezone* Ov
 
 ## User interfaces
 
-Onedata gives you 4 basic ways to manage and access your data:
+Onedata gives you 4 ways to manage and access your data:
 
 ### User web interface
 
@@ -85,4 +85,3 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 ### Developer interfaces
 
 Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](../advanced/cdmi.md) and RESTful [interface](../advanced/rest/README.md) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
-

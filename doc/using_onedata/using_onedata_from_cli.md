@@ -80,6 +80,7 @@ MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgd00tmNldJSWxHUVZ5X00hQQlh1S008
 First of all, we can retrieve basic user account information using REST API:
 ```bash
 onezone-rest-cli getCurrentUser | pp
+
 {
    "name" : "admin",
    "alias" : "",
@@ -101,6 +102,7 @@ All space related functionality can be accessed through the REST API.
 To see the list of all user spaces call:
 ```bash
 onezone-rest-cli getUserSpaces | pp
+
 {
    "default" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
    "spaces" : [
@@ -116,6 +118,7 @@ ID of the default space.
 In order to get more information about a specific space use:
 ```bash
 onezone-rest-cli getUserSpace sid=Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY | pp
+
 {
    "providersSupports" : {
       "hxfMCWmquqAIjG1GeG2eZY8qvs8iRIn09HzjCJilnSE" : 5368709120
@@ -206,7 +209,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it onedata/oneclient:3.0.0-rc12
+docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:3.0.0-rc12
 ```
 
 ```bash
@@ -214,8 +217,7 @@ export PROVIDER_HOSTNAME=192.168.1.4
 export ONEPROVIDER_HOST=https://$PROVIDER_HOSTNAME:8443
 export ONEPROVIDER_API_KEY=$ONEZONE_API_KEY
 
-mkdir ~/mnt
-mkdir ~/mnt/onedata
+mkdir -p ~/mnt/onedata
 oneclient -H $PROVIDER_HOSTNAME -t $ONEPROVIDER_API_KEY ~/mnt/onedata
 ls -la ~/mnt/onedata
 
@@ -319,13 +321,13 @@ function in some text editor:
 vi index1.js
 ```
 
-and paste there the following code, which creates an index over `key2` attribute
-of the files metadata:
+and paste there the following code, which creates an index over `key1` and `key2`
+attributes of the files' metadata:
 
 ```js
 function(meta) {
-        if(meta['key2']) {
-                return [meta['key2']];
+        if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {
+                return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];
         }
         return null;
 }
@@ -344,7 +346,7 @@ oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | pp
 
 [
   {
-     "indexId" : "qZzGdGJNGAy_4xb33JuiVbXfnWknDfycynO39eiyD3g",
+     "indexId" : "0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE",
      "spaceId" : "gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o",
      "name" : "MyIndex1",
      "spatial" : false
@@ -355,9 +357,23 @@ oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | pp
 Now the files which match the specified index can be queried using the
 following command:
 ```bash
-oneprovider-rest-cli querySpaceIndexes iid=qZzGdGJNGAy_4xb33JuiVbXfnWknDfycynO39eiyD3g key=\"5\"
+oneprovider-rest-cli -g querySpaceIndexes iid=0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE key='["value1", 5]'
 
-[]
+["0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F"]
+```
+
+The returned result is the list file ID's which match the index.
+
+> The format and length of the file identifiers is compatible with CDMI standard.
+
+Currently the path to the file can be resolved only using CDMI API:
+
+```bash
+curl -H "X-Auth-Token: $ONEPROVIDER_API_KEY" -H "X-CDMI-Specification-Version: 1.1.1" \
+$ONEPROVIDER_HOST/cdmi/cdmi_objectid/0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F \
+| jsawk 'return this.parentURI+this.objectName'
+
+/Personal files/file1.txt
 ```
 
 #### RDF
