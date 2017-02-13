@@ -2,13 +2,13 @@
 
 <!-- toc -->
 
-Onedata supports several storage backends which can be used by storage providers to support users spaces. 
+Onedata supports several storage backends which can be used by storage providers to support users spaces.
 
 The currently supported storage backends include:
 * **POSIX** - any POSIX based storage, typically attached over high-throughput local network, such as Lustre,
 * **S3** - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage,
 * **Ceph** - storage backend allowing to support user spaces on storage resources managed by [Ceph](http://ceph.com/ceph-storage/) object storage,
-* **SWIFT** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol. 
+* **SWIFT** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
 
 The sections below describe how to attach each of these storage types to a Onedata deployment on a local site. Storage can be attached using Oneprovider REST API, by updating the configuration. Example YAML configuration with multiple storage backends is presented below:
 
@@ -26,6 +26,8 @@ The sections below describe how to attach each of these storage types to a Oneda
         nodes:
           - "n1"
       database:
+        serverQuota: 20972
+        bucketQuota: 10486
         nodes:
           - "n1"
       storage:
@@ -120,5 +122,3 @@ Swift required attributes are:
 | password | **string** | The Keystone authentication password |
 
 More information about these attributes can be found in the official OpenStack Swift [documentation](http://docs.openstack.org/developer/swift/).
-
-

@@ -18,7 +18,7 @@ Onedata REST API provides comprehensive means for managing permissions for users
 
 ### Space privileges
 
-Space privileges can be assigned either to individual users as well as groups of users. 
+Space privileges can be assigned either to individual users as well as groups of users.
 
 The following space privileges are available:
 
@@ -64,10 +64,10 @@ Please note that modifying space privileges requires providing complete set of p
 In order to understand group privilege management functionality, it is necessary to first understand 2 concepts related to group functionality in Onedata.
 
 > **Nested groups**
-> Nest groups (or subgroups) allow creation of arbitrary hierarchies of groups of users. Each group can have mutliple parents and siblings.
+> Nested groups (or subgroups) allow creation of arbitrary hierarchies of groups of users. Each group can have mutliple parents and siblings.
 
 > **Effective users**
->Since users to each group or space can be either assigned directly, or indirectly via groups and their subgroups, effective user set contains all users either directly or indirectly assigned to a specific space or group. 
+>Since users to each group or space can be either assigned directly, or indirectly via groups and their subgroups, effective user set contains all users either directly or indirectly assigned to a specific space or group.
 
 The following privileges can be assigned to groups:
 
@@ -129,7 +129,7 @@ Finally, in order to gain access to specific parts of the Onezone service itself
 | remove_member_from_space | Allows to remove any user or group from any space (typically for zone administrators) |
 | list_users | List all users in the Onezone instance and get their details |
 | list_groups | List all groups in the Onezone instance and get their details |
-| list_spaces | List all spaces in the Onezone instance and get their details | 
+| list_spaces | List all spaces in the Onezone instance and get their details |
 | list_users_of_provider | List users of a specific provider |
 | list_groups_of_provider | List groups of a specific provider |
 | list_spaces_of_provider | List spaces supported by a specific provider |
@@ -147,5 +147,3 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/privileges/users/ABC123
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEZONE_HOST:8443/api/v3/onezone/privileges/groups/IOP567
 ```
-
-

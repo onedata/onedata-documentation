@@ -1,6 +1,7 @@
 # User Guide
 
-From the users perspective Onedata provides a set of interfaces for easy access and management of data distributed among the storage providers resources. 
+From the users perspective Onedata provides a set of interfaces for easy access
+and management of data distributed among the storage providers resources.
 
 This section provides detailed Onedata documentation necessary from the users perspective:
 
@@ -15,3 +16,4 @@ This section provides detailed Onedata documentation necessary from the users pe
 * [Oneclient command line interface](using_onedata/oneclient.md)
 * [Shares](using_onedata/shares.md)
 * [Handle services](using_onedata/handle_services.md)
+* [Using Onedata REST from command line](using_onedata/using_onedata_from_cli.md)

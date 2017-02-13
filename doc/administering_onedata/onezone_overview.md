@@ -9,7 +9,7 @@ Onezone is a cluster solution that divides Onedata distributed system into zones
 It allows users to:
 - generate space support tokens, that can be used to support user spaces with storage from a dedicated storage provider
 - monitor availability of storage providers that support user spaces
-- see the geographical distribution of storage providers 
+- see the geographical distribution of storage providers
 - choosing storage provider for spaces
 
 **Onezone** is a cluster solution that is composed of 3 types of services:
@@ -18,4 +18,3 @@ It allows users to:
 * **Database** - a service providing persistent storage for metadata and tranfer control
 
 Each service can be scaled to any number of nodes in a site, depending on the performance and reliability requirements. The cluster can be administered from any node, thanks to *Onepanel* web application that runs on every Onedata node.
-

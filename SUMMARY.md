@@ -39,7 +39,6 @@
    * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
    * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
    * [Local User MApping](doc/administering_onedata/luma.md)
-   * [Deploying using Docker](doc/administering_onedata/docker_deployment.md)
 
 * [Advanced topics](doc/advanced/README.md)
   * [Overview](doc/advanced/README.md)
