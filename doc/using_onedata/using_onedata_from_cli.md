@@ -1,14 +1,8 @@
 # Using Onedata REST API from command line
 
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Authentication](#authentication)
-* [Account management](#account_management)
-* [Space management](#space_management)
-* [Data management](#data_management)
-* [Metadata management](#metadata_management)
+<!-- toc -->
 
-## Overview {#overview}
+## Overview
 This tutorial section presents how to manage Onedata platform and access user
 data solely from command line, using Onedata's REST API's as well as
 *oneclient* command line tool for mounting virtual Onedata filesystem on the
@@ -49,7 +43,7 @@ contains clients for all previous releases, to switch to a specific release
 onedata-select-version 3.0.0-rc10
 ```
 
-## Authentication {#authentication}
+## Authentication
 
 Onedata authentication is based on authentication tokens. In order to proceed
 with the next steps it is necessary to generate an access token for an active
@@ -76,7 +70,7 @@ MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgd00tmNldJSWxHUVZ5X00hQQlh1S008
 ```
 
 
-## Account management {#account_management}
+## Account management
 First of all, we can retrieve basic user account information using REST API:
 ```bash
 onezone-rest-cli getCurrentUser | pp
@@ -96,7 +90,7 @@ and modify some of the properties, for instance user alias to `administrator`:
 onezone-rest-cli modifyUser alias==administrator
 ```
 
-## Space management {#space_management}
+## Space management
 All space related functionality can be accessed through the REST API.
 
 To see the list of all user spaces call:
@@ -175,7 +169,7 @@ MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDZhMnhxVEhxcHdEcXpMSWMzVk500Tl
 This token has to be sent to the preferred storage provider who will grant the
 storage support.
 
-## Data management {#data_management}
+## Data management
 Onedata provides several means for accessing the data including Web GUI
 (not covered here), REST and CDMI API's as well as direct POSIX access via
 *oneclient* tool.
@@ -238,7 +232,7 @@ echo "FILE3" > ~/mnt/onedata/Personal\ files/file3.txt
 ```
 
 
-## Metadata management {#metadata_management}
+## Metadata management
 
 Onedata supports 3 levels of metadata (for more details see [here](../using_onedata/metadata.md)):
 * Filesystem attributes
