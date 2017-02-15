@@ -8,7 +8,7 @@ data solely from command line, using Onedata's REST API's as well as
 *oneclient* command line tool for mounting virtual Onedata filesystem on the
 local machine.
 
-## Prerequisites {#prerequisites}
+## Prerequisites
 This tutorial is based on a Docker image with a preconfigured Zsh environment
 for accessing Onedata services, including Onedata command line clients,
 [jsawk](https://github.com/micha/jsawk) for parsing output JSON and

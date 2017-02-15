@@ -108,7 +108,13 @@ Each Oneprovider service can have connected multiple storage backends at the
 same time. Using Onepanel REST API it is possible to add storage resources to a running
 Oneprovider instance.
 
-First of all it is possible to list the available storages:
+First it is necessary to select Onepanel service on Oneprovider host:
+
+```bash
+export ONEPANEL_HOST=https://<ONEPROVIDER IP ADDRESS>:9443
+```
+
+Now it is possible to list the available storages:
 
 ```bash
 onepanel-rest-cli getStorages | pp
@@ -169,8 +175,9 @@ onepanel-rest-cli getStorages | pp
 ## Space support
 One of most frequent administrative tasks is supporting user spaces based on
 tokens passed to administrators by users. In order to support a space on a
-selected storage with a specific quota. In order to this it is possible to
-connect to Onepanel service of a specific Oneprovider service:
+selected storage with a specific quota.
+
+First it is necessary to select Onepanel on Oneprovider host:
 
 ```bash
 export ONEPANEL_HOST=https://<ONEPROVIDER IP ADDRESS>:9443
