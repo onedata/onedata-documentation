@@ -11,9 +11,8 @@ local machine.
 ## Prerequisites
 This tutorial is based on a Docker image with a preconfigured Zsh environment
 for accessing Onedata services, including Onedata command line clients,
-[jsawk](https://github.com/micha/jsawk) for parsing output JSON and
-[resty](https://github.com/micha/resty) for a `pp` JSON formatter. To start this
-environment simply execute:
+CDMI client and [jq](https://stedolan.github.io/jq/) tool for parsing and
+formatting JSON. To start this environment simply execute:
 
 ```bash
 docker run -it onedata/rest-cli
@@ -58,7 +57,7 @@ or using Onedata REST API (if basic authentication is available for the user
 account):
 
 ```bash
-export ONEZONE_API_KEY=`onezone-rest-cli getClientToken | jsawk "return this.token"`
+export ONEZONE_API_KEY=`onezone-rest-cli getClientToken | jq -r '.token'`
 ```
 
 Check if the token has been generated successfully. From now on we can use it
@@ -73,7 +72,7 @@ MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgd00tmNldJSWxHUVZ5X00hQQlh1S008
 ## Account management
 First of all, we can retrieve basic user account information using REST API:
 ```bash
-onezone-rest-cli getCurrentUser | pp
+onezone-rest-cli getCurrentUser | jq '.'
 
 {
    "name" : "admin",
@@ -95,7 +94,7 @@ All space related functionality can be accessed through the REST API.
 
 To see the list of all user spaces call:
 ```bash
-onezone-rest-cli getUserSpaces | pp
+onezone-rest-cli getUserSpaces | jq '.'
 
 {
    "default" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
@@ -111,7 +110,7 @@ ID of the default space.
 
 In order to get more information about a specific space use:
 ```bash
-onezone-rest-cli getUserSpace sid=Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY | pp
+onezone-rest-cli getUserSpace sid=Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY | jq '.'
 
 {
    "providersSupports" : {
@@ -151,9 +150,9 @@ Now we can check the properties of the space, in particular see if there are any
 providers supporting the space:
 
 ```bash
-onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jsawk 'return "Space \"" + this.name +"\" is supported by " + this.providersSupports.length + " providers."'
+onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providersSupports | length'
 
-Space "Personal files" is supported by 0 providers.
+1
 ```
 
 Since by default all newly created spaces in Onedata have no storage support, a
@@ -161,7 +160,7 @@ storage support must be requested from some provider. The request token can be
 generated using this command:
 
 ```bash
-onezone-rest-cli getSpaceProviderToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jsawk "return this.token"
+onezone-rest-cli getSpaceProviderToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq -r '.token'
 
 MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDZhMnhxVEhxcHdEcXpMSWMzVk500TldLb3hGeWY4Rkw00dFd6TlJwTHZYbEUKMDAyOGNpZCB00b2tlblR5cGUgPSBzcGFjZV9zdXBwb3J00X3Rva2VuCjAwMmZzaWduYXR1cmUgdFo02YRFqN7Xr201P6h01rgIZsT2yO02qQTgZqs00itL9AFwK
 ```
@@ -177,8 +176,8 @@ Onedata provides several means for accessing the data including Web GUI
 First, let's select a space on which we'll be working on. For that we need to
 extract the ID of the space "Personal files":
 ```bash
-onezone-rest-cli getUserSpaces | jsawk 'return this.spaces.join("\n")' \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jsawk "if (this.name == \"Personal files\") return this.spaceId; else return \"\""'
+onezone-rest-cli getUserSpaces | jq '.spaces | join(" ")' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq "if .name == \"Personal files\" then .spaceId else \"\" end"'
 
 gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
 ```
@@ -192,8 +191,8 @@ Since this is a new space, it is empty. We can mount this space directly to the
 local filesystem, but first we need to find an IP of the provider who supports
 our space:
 ```bash
-onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jsawk "return Object.keys(this.providersSupports)[0]" \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getOtherProvider pid={} | jsawk "return this.urls[0]"'
+onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jq '.providersSupports | keys[0]' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getOtherProvider pid={} | jq ".urls[0]"'
 
 192.168.1.4
 ```
@@ -247,7 +246,7 @@ by the data management system.
 
 For instance to get information about the file size, we can execute:
 ```bash
-oneprovider-rest-cli getFileAttributes path="Personal files/file1.txt" attribute=size | pp
+oneprovider-rest-cli getFileAttributes path="Personal files/file1.txt" attribute=size | jq '.'
 
 {
    "size" : 6
@@ -268,7 +267,7 @@ oneprovider-rest-cli -ct json setFileAttribute path="Personal files/file1.txt" l
 and than we can check the extended attributes using:
 
 ```bash
-oneprovider-rest-cli getFileAttributes path="Personal files/file1.txt" extended=true | pp
+oneprovider-rest-cli getFileAttributes path="Personal files/file1.txt" extended=true | jq '.'
 
 {
    "license" : "CC-0"
@@ -336,7 +335,7 @@ cat index1.js | oneprovider-rest-cli -ct js addSpaceIndex name=MyIndex1 space_id
 We can now get the ID of the index using the following command:
 
 ```bash
-oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | pp
+oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | jq '.'
 
 [
   {
@@ -365,7 +364,7 @@ Currently the path to the file can be resolved only using CDMI API:
 ```bash
 curl -H "X-Auth-Token: $ONEPROVIDER_API_KEY" -H "X-CDMI-Specification-Version: 1.1.1" \
 $ONEPROVIDER_HOST/cdmi/cdmi_objectid/0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F \
-| jsawk 'return this.parentURI+this.objectName'
+| jq '.parentURI+.objectName'
 
 /Personal files/file1.txt
 ```
