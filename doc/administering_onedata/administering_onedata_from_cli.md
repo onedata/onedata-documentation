@@ -13,9 +13,8 @@ is deployed, typically on port `9443`.
 ## Prerequisites
 This tutorial is based on a Docker image with a preconfigured Zsh environment
 for accessing Onedata services, including Onedata command line clients,
-[jsawk](https://github.com/micha/jsawk) for parsing output JSON and
-[resty](https://github.com/micha/resty) for a `pp` JSON formatter. To start this
-environment simply execute:
+CDMI client and [jq](https://stedolan.github.io/jq/) tool for parsing and
+formatting JSON. To start this environment simply execute:
 
 ```bash
 docker run -it onedata/rest-cli
@@ -79,7 +78,7 @@ Then we can check that the user account was created properly by using Onezone
 REST API:
 
 ```bash
-onezone-rest-cli -u alice:secret getCurrentUser | pp
+onezone-rest-cli -u alice:secret getCurrentUser | jq '.'
 
 {
    "connectedAccounts" : [],
@@ -105,8 +104,8 @@ onepanel-rest-cli removeUser username=alice
 
 ## Storage management
 Each Oneprovider service can have connected multiple storage backends at the
-same time. Using Onepanel REST API it is possible to add storage resources to a running
-Oneprovider instance.
+same time. Using Onepanel REST API it is possible to add storage resources to a
+running Oneprovider instance.
 
 First it is necessary to select Onepanel service on Oneprovider host:
 
@@ -117,7 +116,7 @@ export ONEPANEL_HOST=https://<ONEPROVIDER IP ADDRESS>:9443
 Now it is possible to list the available storages:
 
 ```bash
-onepanel-rest-cli getStorages | pp
+onepanel-rest-cli getStorages | jq '.'
 
 {
    "NFS" : {
@@ -154,7 +153,7 @@ cat s3.json | onepanel-rest-cli addStorage -
 Now we can check again, if the storage was added succesfully:
 
 ```bash
-onepanel-rest-cli getStorages | pp
+onepanel-rest-cli getStorages | jq '.'
 
 {
    "NFS" : {
@@ -184,7 +183,7 @@ export ONEPANEL_HOST=https://<ONEPROVIDER IP ADDRESS>:9443
 ```
 
 ```bash
-onepanel-rest-cli supportSpace token==MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDI2THNTM3RkdGNoZ00pUS3ZMb3JkMFQ00cDZPSXhWQnVvZHAwYUxNWHVxdzAKMDAyOGNpZCB00b2tlblR5cGUgPSBzcGFjZV9zdXBwb3J00X3Rva2VuCjAwMmZzaWduYXR1cmUg1EKnr7dPbh00I01X02wx8ULLjNt02HzBtfMxTp3jtse01vFsK size:=1073741824 storageName==NFS | pp
+onepanel-rest-cli supportSpace token==MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDI2THNTM3RkdGNoZ00pUS3ZMb3JkMFQ00cDZPSXhWQnVvZHAwYUxNWHVxdzAKMDAyOGNpZCB00b2tlblR5cGUgPSBzcGFjZV9zdXBwb3J00X3Rva2VuCjAwMmZzaWduYXR1cmUg1EKnr7dPbh00I01X02wx8ULLjNt02HzBtfMxTp3jtse01vFsK size:=1073741824 storageName==NFS | jq '.'
 
 {
    "id" : "gle-Xf89_TX77x1RITRkfmhII7aCfNYS0VpiCq93h-M"
@@ -195,7 +194,7 @@ We can now check that the space has been supported by checking the list of space
 in the Oneprovider interface (as administrator):
 
 ```bash
-oneprovider-rest-cli -u admin:password getAllSpaces | pp
+oneprovider-rest-cli -u admin:password getAllSpaces | jq '.'
 [
    {
       "spaceId" : "gle-Xf89_TX77x1RITRkfmhII7aCfNYS0VpiCq93h-M",
