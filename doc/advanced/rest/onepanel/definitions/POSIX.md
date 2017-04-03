@@ -10,6 +10,7 @@ The POSIX storage configuration.
 |Name|Description|Schema|
 |---|---|---|
 |**mountPoint**  <br>*required*|The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.|string|
+|**readonly**  <br>*optional*|Defines whether storage is readonly.  <br>**Default** : `false`|boolean|
 |**timeout**  <br>*optional*|Storage operation timeout in milliseconds.|integer|
 |**type**  <br>*required*|The type of storage.|enum (POSIX, S3, Ceph, Swift)|
 

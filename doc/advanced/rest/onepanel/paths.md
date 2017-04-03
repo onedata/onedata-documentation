@@ -44,7 +44,7 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/managers/{host}](operations/get_provider_manager_status.md)|GET|Get provider cluster manager status|
 |[/provider/managers/{host}](operations/start_stop_provider_manager.md)|PATCH|Start/stop provider cluster manager|
 |[/provider/nagios](operations/get_provider_nagios_report.md)|GET|Get provider nagios report|
-|[/provider/spaces](operations/support_space.md)|POST|Support or create space|
+|[/provider/spaces](operations/support_space.md)|POST|Create or support space|
 |[/provider/spaces](operations/get_provider_spaces.md)|GET|Get provider spaces|
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
 |[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space.|
