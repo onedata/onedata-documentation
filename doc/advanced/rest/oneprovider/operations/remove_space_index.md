@@ -1,31 +1,20 @@
 
-<a name="get_space_index"></a>
-#### Get index
+<a name="remove_space_index"></a>
+#### Remove index
 ```
-GET /index/{iid}
+DELETE /index/{iid}
 ```
 
 
 ##### Description
-This method returns a specific index source code.
-
-The indexes are defined as JavaScript functions which are executed
-on the database backend.
+This method removes an existing index.
 
 ***Example cURL requests***
 
-**Get list of indexes for space**
+**Remove existing index**
 ```bash
-curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
+curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X DELETE \
 https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
-
-
-function(x) {
-  if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {
-    return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];
-  }
-  return null;
-}
 ```
 
 
@@ -33,21 +22,21 @@ function(x) {
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**iid**  <br>*required*|Id of the index to return.|string|--|
+|**Path**|**iid**  <br>*required*|Id of the index to update.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Index source returned successfully.|string|
+|**204**|Index removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|File not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
 * `application/javascript`
 
@@ -62,13 +51,6 @@ json :
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"string"
-```
-
 
 ###### Response 400
 ```

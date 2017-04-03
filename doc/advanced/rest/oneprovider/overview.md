@@ -101,7 +101,7 @@ More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 3.0.0-rc12
+*Version* : 3.0.0-rc13
 
 
 ### Contact information
