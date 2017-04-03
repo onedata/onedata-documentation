@@ -2,7 +2,7 @@
 <a name="set_handle_service_user_privileges"></a>
 #### Set handle service user privileges
 ```
-PUT /handle_services/{id}/users/{uid}/privileges
+PATCH /handle_services/{id}/users/{uid}/privileges
 ```
 
 
@@ -15,7 +15,7 @@ This operation requires `modify_handle_service` privilege.
 
 **Set handle service user privileges**
 ```bash
-curl -k -u username:password -X PUT  -H "Content-type: application/json" \
+curl -u username:password -X PATCH  -H "Content-type: application/json" \
 -d '{"privileges": ["register_handle"]}' \
 https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/hlkASHDLAKSHDLKJHJjLHSADHLKJhlk/privileges
 ```
@@ -60,7 +60,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "register_handle", "handle_service_remove", "handle_service_change_data", "handle_service_view_data", "handle_service_add_user", "handle_service_remove_user", "handle_service_add_group", "handle_service_remove_group" ]
+  "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
 }
 ```
 
@@ -71,8 +71,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +80,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +89,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -111,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

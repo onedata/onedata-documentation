@@ -11,11 +11,11 @@ This method allows to set a value of a regular and extended file attributes.
 
 For regular file attributes, currently only POSIX mode can be changed by sending:
   ```
-  { "mode", "0777" }
+  { "mode": "0777" }
   ```
 where the POSIX mode is specified in octal notation.
 
-For extended attributes any string value can be send. The exteded attributes are 
+For extended attributes any string value can be send. The exteded attributes are
 accessed by setting `extended` flag in the request query to `true`.
 
 ***Example cURL requests***
@@ -23,14 +23,14 @@ accessed by setting `extended` flag in the request query to `true`.
 **Set file POSIX mode**
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
--H 'Content-type: application/json' -d '{ "name": "mode", "value": "0777" }'
+-H 'Content-type: application/json' -d '{ "mode": "0777" }'
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt"
 ```
 
 **Set extended file attribute**
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
--H 'Content-type: application/json' -d '{ "name": "license", "value": "CC-0" }' \
+-H 'Content-type: application/json' -d '{ "license": "CC-0" }' \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 

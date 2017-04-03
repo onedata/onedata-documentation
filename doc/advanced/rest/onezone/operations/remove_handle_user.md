@@ -7,7 +7,7 @@ DELETE /handles/{hndl}/users/{uid}
 
 
 ##### Description
-Allows to remove a user from access to a handle.
+Allows to revoke users access to a handle.
 
 This operation requires `modify_handle` privilege.
 
@@ -15,7 +15,7 @@ This operation requires `modify_handle` privilege.
 
 **Remove handle service user**
 ```bash
-curl -k -u username:password -X DELETE \
+curl -u username:password -X DELETE \
 https://$HOST:8443/api/v3/handles/AKSHDLKJHJjLHSADHLKJhlkASHDL/users/JHJjLHADHLKJhDLAKSHDLK
 ```
 
@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/handles/AKSHDLKJHJjLHSADHLKJhlkASHDL/users/JHJjLHADHLK
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|User removed successfully.|No Content|
+|**204**|User removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,8 +55,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -65,8 +64,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -75,8 +73,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -85,8 +82,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -95,8 +91,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

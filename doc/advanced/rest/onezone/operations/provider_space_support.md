@@ -7,7 +7,7 @@ POST /provider/spaces/support
 
 
 ##### Description
-Adds support for specific space on behalf of the Oneprovider that 
+Adds support for specific space on behalf of the Oneprovider that
 performed the request. Space support token is required.
 
 This operation requires peer certificate authentication.
@@ -17,14 +17,14 @@ This operation requires peer certificate authentication.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**pid**  <br>*optional*||[SpaceSupportToken](../definitions/SpaceSupportToken.md#spacesupporttoken)|--|
+|**Body**|**token**  <br>*optional*|The space support token.|[SpaceSupportToken](../definitions/SpaceSupportToken.md#spacesupporttoken)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the supported space in the form /spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the supported space.|No Content|
+|**201**|ID of the supported space in the form /spaces/{id} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the supported space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -61,8 +61,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -71,8 +70,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +79,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +88,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +97,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

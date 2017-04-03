@@ -9,6 +9,7 @@
           * [Get index list for space](doc/advanced/rest/oneprovider/operations/get_space_indexes.md)
           * [List files and folders](doc/advanced/rest/oneprovider/operations/list_files.md)
           * [Query index](doc/advanced/rest/oneprovider/operations/query_space_indexes.md)
+          * [Remove index](doc/advanced/rest/oneprovider/operations/remove_space_index.md)
           * [Set file attribute](doc/advanced/rest/oneprovider/operations/set_file_attribute.md)
           * [Set file metadata](doc/advanced/rest/oneprovider/operations/set_file_metadata.md)
           * [Set file metadata by ID](doc/advanced/rest/oneprovider/operations/set_file_metadata_by_id.md)

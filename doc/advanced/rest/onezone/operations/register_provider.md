@@ -7,9 +7,9 @@ POST /provider
 
 
 ##### Description
-Registers a Oneprovider in Onezone service. 
+Registers a Oneprovider in Onezone service.
 
-Requires a valid CSR in the bodyand returns signed certificate that will 
+Requires a valid CSR in the body and returns signed certificate that will
 must used by the Oneprovider for authorization (SSL Peer Certificate).
 
 This operation has public access.
@@ -26,20 +26,12 @@ This operation has public access.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Provider registered successfully.|[Response 200](#register_provider-response-200)|
+|**200**|Provider registered successfully.|[ProviderRegistrationResponse](../definitions/ProviderRegistrationResponse.md#providerregistrationresponse)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="register_provider-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**cert**  <br>*optional*|The signed certificate to be used when connecting to Onezone services.|string|
-|**id**  <br>*optional*|The ID of the registered provider|string|
 
 
 ##### Consumes
@@ -74,7 +66,10 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "id" : "string",
+  "cert" : "string"
+}
 ```
 
 
@@ -82,8 +77,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -92,8 +86,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -102,8 +95,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -112,8 +104,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -122,8 +113,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

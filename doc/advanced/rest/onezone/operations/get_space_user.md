@@ -16,7 +16,7 @@ This operation requires `space_view_data` privilege.
 
 **Get space user data**
 ```bash
-curl -k -u username:password -X GET \
+curl -u username:password -X GET \
 https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
 ```
 
@@ -33,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Information about a space user.|No Content|
+|**200**|Information about a space user.|[User](../definitions/User.md#user)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -57,12 +57,30 @@ json :
 
 ##### Example HTTP response
 
+###### Response 200
+```
+json :
+{
+  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "name" : "Rudolf Lingens",
+  "connectedAccounts" : [ {
+    "accountId" : "ASD879ASD-7SADASFSsa0831",
+    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
+  }, {
+    "accountId" : "QWESsD-7SADASFSsa0831",
+    "providerId" : "7QWEJ-123ASD870-ASDASD"
+  } ],
+  "alias" : "John Doe",
+  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
+}
+```
+
+
 ###### Response 400
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -71,8 +89,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +116,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

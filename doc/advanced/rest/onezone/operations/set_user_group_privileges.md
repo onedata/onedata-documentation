@@ -2,7 +2,7 @@
 <a name="set_user_group_privileges"></a>
 #### Set user's group privileges
 ```
-PUT /groups/{id}/users/{uid}/privileges
+PATCH /groups/{id}/users/{uid}/privileges
 ```
 
 
@@ -18,7 +18,7 @@ This operation requires `group_set_privileges` privilege.
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
 |**Path**|**uid**  <br>*required*|User ID.|string|--|
-|**Body**|**data**  <br>*required*|User privileges.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
+|**Body**|**data**  <br>*required*|User privileges in the group.|[GroupPrivileges](../definitions/GroupPrivileges.md#groupprivileges)|--|
 
 
 ##### Responses
@@ -46,7 +46,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "group_change_data", "group_invite_user", "group_remove_user", "group_join_space", "group_create_space", "group_set_privileges", "group_remove", "group_leave_space", "group_view_data", "group_create_space_token", "group_join_group", "group_invite_group", "group_remove_group" ]
+  "privileges" : [ "group_change_data", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_remove", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view_data" ]
 }
 ```
 
@@ -57,8 +57,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -67,8 +66,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -77,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -87,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -97,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

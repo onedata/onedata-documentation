@@ -16,10 +16,12 @@ You can create as many spaces as necessary, and each of them can have different 
 
 ### Home Space
 
-You can select one of the spaces as you **Home** space. This will be the space which is opened by default when logging into Oneprovider data management interface.
+You can select one of the spaces as you **Home** space. This will be the space
+which is opened by default when logging into Oneprovider data management
+interface.
 
 ## Manage your spaces
-You can manage your spaces from the **Data space management** tab located in the web user interface. 
+You can manage your spaces from the **Data space management** tab located in the web user interface.
 To navigate to **Spaces** page, click on the **Spaces** in the left menubar, there you can see the list of all your spaces with one of them denoted as the home space.
 
 ### Create new space
@@ -50,9 +52,9 @@ All information regarding your space is presented here, including:
 
 For more information about groups, see [Group Management](group_management.md).
 
-For more information about permissions, see [Access Control](file_management.md#Access Control Lists).
+For more information about permissions, see [Access Control](file_management.md#access-control-lists).
 
-### Space management
+### Spaces management
 On the **Spaces** page, each listed space has an **Settings** button, which allows you to manage the space.
 
 <img  style="display:block;margin:0 auto;max-width:250px" src="../img/spaces/spacemenu.png">
@@ -62,12 +64,11 @@ On the **Spaces** page, each listed space has an **Settings** button, which allo
 | Set as home  | Set this space to be your home space                                    |
 | Leave space  | Remove this space from the list of your spaces                          |
 | Rename       | Rename this space                                                       |
-| Remove       | Remove this space and all the data it contains                          |
 | Invite user  | Add a user to this space                                                |
 | Invite group | Add a group to this space                                               |
 | Get support  | Generate a unique token for this space that can be sent to the provider |
 
-### Add storage support
+### Get storage support
 In order to increase your space quota:
 1. Navigate to **Spaces** page.
 2. On your space, click the **Settings** button.

@@ -11,13 +11,13 @@ Metadata in Onedata are organized into 3 levels:
 * **Extended attributes** - these attributes enable assigning custom key-value pairs with resources in Onedata. These attributes can include for instance information about owner and creators of the file, Access Control Lists, license, etc.,
 * **Custom metadata** - this level provides most flexibility and Onedata itself does not assume any schema related with these metadata. For each resource, user can assign a separate document in one of supported metadata formats (currently JSON and RDF).
 
-The filesystem and extended level attributes are accessible directly via POSIX and CDMI protocols. 
+The filesystem and extended level attributes are accessible directly via POSIX and CDMI protocols.
 
 ## Filesystem attributes
 
 This section describes typical filesystem metadata attributes. The list of attributes at this level is closed (i.e. users cannot add new attributes) and most of them are read-only, which means their values cannot be directly modified (`cdmi_` attributes). Other attributes (currently only `posix_mode`) can be modified by the user using the REST API.
 
-| Attribute          | Sample value | Description |  
+| Attribute          | Sample value | Description |
 | -------------------- | ------------------- | ---------- |
 | **size** | 1024 | File size in bytes |
 | **mode**  | 0666 | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
@@ -73,17 +73,26 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 
 <img  style="display:block;margin:0 auto;" src="../img/edit_metadata_json.png">
 
-In each of these backends, user can store any properly formatted metadaate documents, which can be modified and retrieved using the [REST API](../../advanced/rest/oneprovider/overview.md) or in the future in the Graphical User Interface.
+In each of these backends, user can store any properly formatted metadata
+documents, which can be modified and retrieved using the
+[REST API](../advanced/rest/oneprovider/operations/get_file_metadata.md)
+or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
 
-Onedata supports creation of custom indexing functions over the metadata, which enable efficient querying for files 
+Onedata supports creation of custom indexing functions over the metadata,
+which enable efficient querying for files.
 
-Currently indexes work within the scope of a single space. Indexes can operate on both extended attributes as well as JSON metadata - RDF metadata backend indexing is not yet supported.
+Currently indexes work within the scope of a single space. Indexes can operate
+on both extended attributes as well as JSON metadata - RDF metadata backend
+indexing is not yet supported.
 
-In order to create an index. it is necessary to write a simple Javascript function, which accepts as a single argument the metadata document related to each object in a space and returns the value which should be indexed.
+In order to create an index, it is necessary to write a simple Javascript
+function, which accepts as a single argument the metadata document related
+to each object in a space and returns the value which should be indexed.
 
-The example below presents a simple function which creates an index over an `license` extended attribute.
+The example below presents a simple function which creates an index over a
+`license` extended attribute.
 
 ```javascript
 function(meta) {
@@ -94,7 +103,19 @@ function(meta) {
 }
 ```
 
-In order to register this index in the space, the following REST API call has to be made:
+It is possible to create custom indexes, based on multiple attribute fields, e.g.:
+
+```javascript
+function(meta) {
+    if(meta['license'] && meta['year']) {
+        return [meta['license'], meta['year']];
+    }
+    return null;
+}
+```
+
+In order to register this index in the space, the following REST API call has
+to be made:
 
 ```bash
 curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
@@ -102,7 +123,8 @@ curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/index?space_id=$SPACE_ID&name=license_index"
 ```
 
-This call returns the ID of the newly created index in the response `Location` header.
+This call returns the ID of the newly created index in the response `Location`
+header.
 
 The space ID required for this call can be obtained from Onezone as follows:
 
@@ -111,13 +133,16 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/onezone/user/spaces"
 ```
 
-Once the index is created, it can be eaily queried using the REST API:
+Once the index is created, it can be easily queried using the REST API:
 ```bash
 curl -v -k --tlsv1.2 -Ss -H "X-Auth-Token: $TOKEN" \
 -X GET "https://$HOST:8443/api/v3/oneprovider/query-index/$INDEX_ID?key=\"CC-0\"&stale=false"
 ```
 
-In order to create indexes over user JSON metadata, the functions attribute path must start from `onedata_json` key, e.g.:
+### JSON metadata
+In order to create indexes over user JSON metadata, the functions attribute path
+must start from `onedata_json` key, which is a special attribute which provides
+access to user-defined JSON document attached to a resource, e.g.:
 
 ```javascript
 function(meta) {

@@ -2,39 +2,41 @@
 <a name="get_provider_details"></a>
 #### Get provider details
 ```
-GET /provider
+GET /providers/{pid}
 ```
 
 
 ##### Description
-Returns information about the Oneprovider that performed the request 
-(based on provided Peer Certificate authentication).
+Returns the information about a specific Oneprovider service, which is
+connected to the onezone.
 
-This operation requires peer certificate authentication.
+If called by other provider doesn't require any special privileges.
+
+When called by a regular user, requires 'list_providers' privilege.
+
+This operation requires `list_providers` privilege.
 
 ***Example cURL requests***
 
-**Get information about provider**
+**Get specific provider details**
 ```bash
-curl -k --cert ozp_cert.pem --key ozp_key.pem \
-https://$HOST:8443/api/v3/onezone/provider
-
-{
-  "clientName": "example",
-  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
-  "urls": ["195.216.97.151"],
-  "redirectionPoint": "https://195.216.97.151",
-  "latitude": 50.068968,
-  "longitude": 19.909444
-}
+curl --cert ozp_cert.pem --key ozp_key.pem -X GET  \
+https://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxNfH87Plc
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**pid**  <br>*required*|Provider ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the information about Oneprovider.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
+|**200**|Information about a provider.|[ProviderDetails](../definitions/ProviderDetails.md#providerdetails)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -52,7 +54,7 @@ https://$HOST:8443/api/v3/onezone/provider
 ###### Request path
 ```
 json :
-"/provider"
+"/providers/string"
 ```
 
 
@@ -75,8 +77,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -85,8 +86,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -95,8 +95,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -105,8 +104,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -115,8 +113,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

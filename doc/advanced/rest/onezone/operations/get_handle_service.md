@@ -15,7 +15,7 @@ This operation requires `view_handle_service` privilege.
 
 **Get handle services**
 ```bash
-curl -k -u username:password -X GET \
+curl -u username:password -X GET \
 https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 {
@@ -48,7 +48,7 @@ https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of identifiers of registered handle services.|< string > array|
+|**200**|The details of specific handle service.|[HandleService](../definitions/HandleService.md#handleservice)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -75,7 +75,22 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+{
+  "name" : "MyCommunity Handle service",
+  "proxyEndpoint" : "https://localhost:17000/handle_proxy",
+  "serviceProperties" : {
+    "type" : "DOI",
+    "host" : "https://mds.test.datacite.org",
+    "doiEndpoint" : "/doi",
+    "metadataEndpoint" : "/metadata",
+    "mediaEndpoint" : "/media",
+    "prefix" : 10.5072,
+    "username" : "alice",
+    "password" : "pa$$word",
+    "identifierTemplate" : "{{space.name}}-{{space.guid}}",
+    "allowTemplateOverride" : false
+  }
+}
 ```
 
 
@@ -83,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -93,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -103,8 +116,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -113,8 +125,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -123,8 +134,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

@@ -11,7 +11,7 @@ This method returns selected file attributes as a JSON object.
 
 By default the method returns regular file attributes.
 
-The exteded attributes are accessed by setting `extended` flag 
+The exteded attributes are accessed by setting `extended` flag
 in the request query to `true`.
 
 ***Example cURL requests***
@@ -21,8 +21,8 @@ in the request query to `true`.
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode"
 
-{ 
-  "mode": "0777" 
+{
+  "mode": "0777"
 }
 ```
 
@@ -31,7 +31,7 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X GET \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license"
 
-{ 
+{
   "license": "CC-0"
 }
 ```

@@ -2,7 +2,7 @@
 <a name="get_parent_group"></a>
 #### Get parent group details
 ```
-GET /groups/{id}/parent/{pid}
+GET /groups/{id}/parents/{pid}
 ```
 
 
@@ -15,8 +15,13 @@ This operation requires `group_view_data` privilege.
 
 **Get parent group details**
 ```bash
-curl -k -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parent/9OqgExw00RwaU2MXT51
+curl -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/parents/9OqgExw00RwaU2MXT51
+
+{
+  "name": "Group1",
+  "type": "organization"
+}
 ```
 
 
@@ -50,7 +55,7 @@ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oW
 ###### Request path
 ```
 json :
-"/groups/string/parent/string"
+"/groups/string/parents/string"
 ```
 
 
@@ -70,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -80,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -90,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -100,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -110,8 +111,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

@@ -15,7 +15,7 @@ This operation can be invoked on behalf of current user only.
 
 **Leave group**
 ```bash
-curl -k -u username:password -X DELETE \
+curl -u username:password -X DELETE \
 https://$HOST:8443/api/v3/onezone/user/groups/qScCV0Tt3NiTLYbx_DGzJFnQxDYQNqNxk6o5YANWRo8
 ```
 
@@ -59,8 +59,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -69,8 +68,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -79,8 +77,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -89,8 +86,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -99,8 +95,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

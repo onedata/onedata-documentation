@@ -9,14 +9,14 @@ GET /spaces/{id}
 ##### Description
 Returns the details about a specific space.
 
-If called by user who is not member of the space, requires 'list_spaces' 
+If called by user who is not member of the space, requires 'list_spaces'
 privilege.
 
 ***Example cURL requests***
 
 **Get space details**
 ```bash
-curl -k -u admin:password -X GET \
+curl -u admin:password -X GET \
 https://$HOST:8443/api/v3/onezone/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
 
 {
@@ -78,8 +78,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -88,8 +87,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -98,8 +96,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -108,8 +105,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -118,8 +114,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

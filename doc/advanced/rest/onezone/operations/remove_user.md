@@ -2,27 +2,36 @@
 <a name="remove_user"></a>
 #### Remove user
 ```
-DELETE /user
+DELETE /users/{id}
 ```
 
 
 ##### Description
-Removes the account of currently authenticated user.
+Removes a specific user.
+
+This operation requires `user_remove` privilege.
 
 ***Example cURL requests***
 
-**Remove user account**
+**Remove user**
 ```bash
-curl -k -u username:password -X DELETE  \
-https://$HOST:8443/api/v3/onezone/user
+curl -u admin:password -X DELETE  \
+https://$HOST:8443/api/v3/onezone/users/LT88rteQ4KMSYXMWO0Oibiqn7X5nUD51NTsCqgDN8e4
 ```
+
+
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Path**|**id**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User removed successfully.|string|
+|**202**|The user will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -35,25 +44,17 @@ https://$HOST:8443/api/v3/onezone/user
 ###### Request path
 ```
 json :
-"/user"
+"/users/string"
 ```
 
 
 ##### Example HTTP response
 
-###### Response 200
-```
-json :
-"string"
-```
-
-
 ###### Response 400
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -62,8 +63,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -72,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -82,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -92,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
