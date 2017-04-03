@@ -26,12 +26,12 @@ More information: [https://github.com/onedata/luma](https://github.com/onedata/l
 
 
 ### Contact information
-*Contact* : Onedata support
+*Contact* : Onedata support  
 *Contact Email* : info@onedata.org
 
 
 ### License information
-*License* : Apache 2.0
+*License* : Apache 2.0  
 *License URL* : http://www.apache.org/licenses/LICENSE-2.0.html
 
 
@@ -42,3 +42,6 @@ More information: [https://github.com/onedata/luma](https://github.com/onedata/l
 ### Tags
 
 * LUMA : LUMA API methods
+
+
+
