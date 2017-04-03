@@ -69,16 +69,16 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 
 
 ### Version information
-*Version* : 3.0.0-rc12
+*Version* : 3.0.0-rc13
 
 
 ### Contact information
-*Contact* : Onedata support  
+*Contact* : Onedata support
 *Contact Email* : info@onedata.org
 
 
 ### License information
-*License* : Apache 2.0  
+*License* : Apache 2.0
 *License URL* : http://www.apache.org/licenses/LICENSE-2.0.html
 
 
@@ -91,6 +91,3 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 * Onepanel : Common Onepanel resources and operations
 * Oneprovider : Resources and operations for managing Oneprovider deployment
 * Onezone : Resources and operations for managing Onezone deployment
-
-
-

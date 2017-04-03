@@ -94,7 +94,7 @@ All space related functionality can be accessed through the REST API.
 
 To see the list of all user spaces call:
 ```bash
-onezone-rest-cli getUserSpaces | jq '.'
+onezone-rest-cli listUserSpaces | jq '.'
 
 {
    "default" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
@@ -176,7 +176,7 @@ Onedata provides several means for accessing the data including Web GUI
 First, let's select a space on which we'll be working on. For that we need to
 extract the ID of the space "Personal files":
 ```bash
-onezone-rest-cli getUserSpaces | jq '.spaces | join(" ")' \
+onezone-rest-cli listUserSpaces | jq '.spaces | join(" ")' \
 | xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq "if .name == \"Personal files\" then .spaceId else \"\" end"'
 
 gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
@@ -202,7 +202,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:3.0.0-rc12
+docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:3.0.0-rc13
 ```
 
 ```bash

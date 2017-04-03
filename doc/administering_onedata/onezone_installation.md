@@ -15,7 +15,7 @@ the local network where Onezone service have been installed and allows for
 configuration of services on each cluster node.
 
 Upon successful installation of Onezone package, you need to navigate to
-`https://<ip>:9443` address. The default credentials for logging into Onepanel
+`https://ONEZONE_IP:9443` address. The default credentials for logging into Onepanel
 are:
 ~~~
 login: admin
@@ -28,25 +28,33 @@ password: password
 
 <p align="center"><img src="../img/admin/oz_step1_host_selection.png"></p>
 
-In this step, Onepanel detects all nodes in the network where Onezone package
+In this step, Onepanel detects all nodes in the network where Onezone packages
 has been installed and Onepanel service is running. You can specify on which
 nodes Onezone services will be installed.
 
+### Step 2: Select the main Cluster Manager node
+In case Onezone service will be deployed on more than one nodes, it is necessary
+to select which node will act as a cluster manager for this set of Onezone nodes.
+
+<p align="center"><img src="../img/admin/oz_step2_primary_cm_selection.png"></p>
+
+<!--
 
 ### Step 2: Application ports check
 
 In order to work properly, Onezone needs a number of [ports](./firewall_setup.md)
 open on the machine. In this step Onezone ensures that all needed ports are open.
 
-<p align="center"><img src="../img/admin/oz_step3_ports_check.png"></p>
+<p align="center"><img src="../img/admin/oz_step3_ports_check.png"></p> -->
 
 
-### Step 3: System limits configuration
+### Step 3: System installation summary
 
-Administrators may impose limit on a number of files opened by Onezone, services
-and processes spawned by them.
+<p align="center"><img src="../img/admin/oz_step4_install_summary.png"></p>
 
-<p align="center"><img src="../img/admin/oz_step4_system_limists.png"></p>
+After pressing `Install` button the installation will proceed using selected
+settings, showing installation progress on a progress bar.
+
 
 ## Configuration using YAML
 In addition to Onepanel GUI, Onezone can be configured before starting using

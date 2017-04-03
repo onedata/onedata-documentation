@@ -43,8 +43,15 @@ will be active at the same time. Here you can choose which one:
 
 <p align="center"><img src="../img/admin/step2_primary_cm_selection.png"></p>
 
+### Step 3: Installation summary.
 
-### Step 3: Application ports check.
+<p align="center"><img src="../img/admin/step3_install_summary.png"></p>
+
+After pressing `Install` button the installation will proceed using selected
+settings, showing installation progress on a progress bar.
+
+
+<!-- ### Step 3: Application ports check.
 
 In order to work properly Oneprovider needs a number of
 [required ports](./firewall_setup.md) open on machine. In this step Oneprovider
@@ -67,35 +74,32 @@ Select a path to a mounted storage, which Oneprovider will use to store user
 data. Detailed information on the supported storage types is discussed
 [here](./storage_configuration.md).
 
-<p align="center"><img src="../img/admin/step5_path_to_storage.png"></p>
+<p align="center"><img src="../img/admin/step5_path_to_storage.png"></p> -->
 
 
 ## Registration with Onezone service
 Once installed, Oneprovider has to be registered with some Onezone instance,
 which allows users to login to the service and generated access tokens.
 
-### Step 1&2: Connection check and Ports configuration
+### Step 1: Specify Onezone connection details
 
 Please make sure that all [required ports](./firewall_setup.md) on Oneprovider
 and Onezone hosts are accessible to Onedata services and users. For the sake of
 security it is recommended, that ports on database and cluster manager nodes
 are not publicly available.
 
-<p align="center"><img src="../img/admin/rstrep1_info.png"></p>
+In the registration form fill all necessary fields:
+<p align="center"><img src="../img/admin/zone_registration_step1.png"></p>
 
-<p align="center"><img src="../img/admin/rstep2_ports.png"></p>
+After the registration is complete, the ID of this Oneprovider assigned by
+Onezone should be displayed:
+<p align="center"><img src="../img/admin/zone_registration_step2.png"></p>
 
 Ideally all the nodes should have a dedicated public IP address and the above
 mentioned ports open to the world. In other case you can configure a `;`
 separated *Redirection points*, where each entry is a pair of public IP and the
 port which point to one of the nodes.
 
-
-### Step 3: Name configuration
-The last step allows to set a name for the provider by which it will be
-identified in Onezone service and presented to users.
-
-<p align="center"><img src="../img/admin/rstep2_name.png"></p>
 
 ## Configuration using YAML
 In addition to Onepanel GUI, Onezone can be configured before starting using
