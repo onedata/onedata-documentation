@@ -1,6 +1,6 @@
 
 <a name="list_handle_groups"></a>
-#### Get handle groups
+#### List handle groups
 ```
 GET /handles/{hndl}/groups
 ```
@@ -15,13 +15,15 @@ This operation requires `view_handle` privilege.
 
 **Get handle groups**
 ```bash
-curl -k -u username:password -X GET \
+curl -u username:password -X GET \
 https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups
 
-[
-  "LKLKJhlkASHDJLAKSHDHJjL",
-  "KJHJjLHDLLKLAKSJhlkASHD"
-]
+{
+  "groups": [
+    "LKLKJhlkASHDJLAKSHDHJjL",
+    "KJHJjLHDLLKLAKSJhlkASHD"
+  ]
+}
 ```
 
 
@@ -36,7 +38,7 @@ https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of identifiers of groups with access to specific handle.|< string > array|
+|**200**|The list of identifiers of groups with access to specific handle.|[Groups](../definitions/Groups.md#groups)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -63,7 +65,9 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+{
+  "groups" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
 ```
 
 
@@ -71,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -111,8 +111,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

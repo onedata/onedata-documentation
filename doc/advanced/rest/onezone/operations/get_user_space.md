@@ -13,13 +13,15 @@ This operation can be invoked on behalf of current user only.
 
 ***Example cURL requests***
 
-**Generate space join token**
+**Get space details**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/user/spaces/IkHB1CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p00Y8
+curl -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/user/spaces/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY
 
 {
-
+  "spaceId": "oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY",
+  "providersSupports": {},
+  "name": "Test space 1"
 }
 ```
 
@@ -74,8 +76,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -84,8 +85,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -94,8 +94,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -104,8 +103,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -114,8 +112,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

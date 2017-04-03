@@ -2,7 +2,7 @@
 <a name="create_user_group_invite_token"></a>
 #### Create user invite token for group
 ```
-GET /groups/{id}/users/token
+POST /groups/{id}/users/token
 ```
 
 
@@ -15,10 +15,12 @@ This operation requires `group_invite_user` privilege.
 
 **Generate user group invite token**
 ```bash
-curl -k -u username:password -X GET \
+curl -u username:password -X POST \
 https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/token
 
-{"token":"MDAxNmxvY2F00aW9uIHJlZlFTUbnZpdGVthHo8xmai4RqqBO2MZM00mrYGgo"}
+{
+  "token": "MDAxNmxvY2F00aW9uIHJlZlFTUbnZpdGVthHo8xmai4RqqBO2MZM00mrYGgo"
+}
 ```
 
 
@@ -27,6 +29,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
+|**Body**|**data**  <br>*optional*|Group invite token attributes.|[GroupInviteTokenRequest](../definitions/GroupInviteTokenRequest.md#groupinvitetokenrequest)|--|
 
 
 ##### Responses
@@ -41,6 +44,11 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
+##### Consumes
+
+* `application/json`
+
+
 ##### Produces
 
 * `application/json`
@@ -52,6 +60,13 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 ```
 json :
 "/groups/string/users/token"
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 
@@ -70,8 +85,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -80,8 +94,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -90,8 +103,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -100,8 +112,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -110,8 +121,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

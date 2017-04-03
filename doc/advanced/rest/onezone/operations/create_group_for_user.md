@@ -7,7 +7,7 @@ POST /user/groups
 
 
 ##### Description
-Creates a new group for the current user. 
+Creates a new group for the current user.
 The user automatically becomes a member of this group.
 
 This operation can be invoked on behalf of current user only.
@@ -16,7 +16,7 @@ This operation can be invoked on behalf of current user only.
 
 **Create new group**
 ```bash
-curl -k -u username:password  -H "Content-type: application/json" \
+curl -u username:password  -H "Content-type: application/json" \
 -X POST -d '{ "name" : "test_group" , "type" : "admin" }' \
 https://$HOST:8443/api/v3/onezone/user/groups
 ```
@@ -33,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/user/groups
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created group in the form /user/groups/{gid} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
+|**201**|ID of the created group in the form /user/groups/{gid} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -71,8 +71,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +80,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +89,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -111,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

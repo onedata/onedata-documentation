@@ -7,7 +7,7 @@ POST /user/spaces
 
 
 ##### Description
-Creates a new space as current user. The user automaticaly becomes 
+Creates a new space as current user. The user automaticaly becomes
 the spaces' member.
 
 This operation can be invoked on behalf of current user only.
@@ -16,8 +16,8 @@ This operation can be invoked on behalf of current user only.
 
 **Create new user space**
 ```bash
-curl -k -u admin:password  -H "Content-type: application/json" -X POST \
--d '{ "name" : "test_space" , "token" : "JKAxNWxUgPCAxNDk2MTQwMTQ0v38YI0Z2",  "size" : "150" }'  
+curl -u admin:password  -H "Content-type: application/json" -X POST \
+-d '{ "name" : "test_space" , "token" : "JKAxNWxUgPCAxNDk2MTQwMTQ0v38YI0Z2",  "size" : "150" }'
 https://$HOST:8443/api/v3/onezone/user/spaces
 ```
 
@@ -33,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/user/spaces
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the created space in the form /user/spaces/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
+|**201**|ID of the created space in the form /user/spaces/{id} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -72,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -82,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -92,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -102,8 +99,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -112,8 +108,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

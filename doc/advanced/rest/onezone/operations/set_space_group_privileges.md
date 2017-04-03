@@ -2,7 +2,7 @@
 <a name="set_space_group_privileges"></a>
 #### Set group privileges to space
 ```
-PUT /spaces/{id}/groups/{gid}/privileges
+PATCH /spaces/{id}/groups/{gid}/privileges
 ```
 
 
@@ -15,8 +15,8 @@ This operation requires `space_set_privileges` privilege.
 
 **Set space group privileges**
 ```bash
-curl -k -u username:password  -H "Content-type: application/json" \
--X PUT -d '{"privileges": ["space_change_data"]}' \
+curl -u username:password  -H "Content-type: application/json" \
+-X PATCH -d '{"privileges": ["space_change_data"]}' \
 https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 ```
 
@@ -55,7 +55,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "space_invite_user", "space_remove_user", "space_invite_group", "space_remove_group", "space_set_privileges", "space_remove", "space_add_provider", "space_remove_provider", "space_change_data", "space_view_data" ]
+  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
 }
 ```
 
@@ -66,8 +66,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -76,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -86,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -96,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -106,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
