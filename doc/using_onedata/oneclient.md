@@ -53,7 +53,7 @@ In order to get an authentication token, go to [onedata.org](onedata.org) Web
 user interface, press **Tokens** in the top menu and press
 **Access token** button.
 
-### Using third-party IdP access tokens
+### Using third party IdP access tokens
 Onedata supports authentication directly using tokens issued by trusted
 third-party tokens (e.g. GitHub), if they are enabled in a paritcular Onedata
 deployment. In order to use such tokens, they have to be prefixed with the IdP
