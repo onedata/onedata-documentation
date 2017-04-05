@@ -11,6 +11,6 @@ Onepanel eases the deployment of these components among the nodes assigned to On
 
 Detailed instructions on how to setup each of these services using Onepanel graphical interface are available here:
 * [Onezone](onezone_installation.md)
-* [Onepanel](oneprovider_installation.md)
+* [Onepanel](provider_installation.md)
 
 Furthermore, Onepanel enables easy creation of user accounts allowing access to Onedata service using HTTP basic authentication.

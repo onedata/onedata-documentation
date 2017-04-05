@@ -21,7 +21,7 @@ docker run -it onedata/rest-cli
 Before proceeding first set the following environment variables:
 ```bash
 export ONEZONE_HOST=https://<ONEZONE IP ADDRESS>:8443
-export ONEZONE_API_KEY=ABCDEFGHIJKLMNOP
+export ONEZONE_API_KEY=Xdasd64asdASD54ASDAKk-ADSa6q
 ```
 
 The Docker provides 3 command line utilities for each of the main Onedata
@@ -36,10 +36,10 @@ services:
 
 By default Docker is configured for the latest Onedata release, but it also
 contains clients for all previous releases, to switch to a specific release
-(for instance 3.0.0-rc10) use:
+(for instance 3.0.0-rc11) use:
 
 ```bash
-onedata-select-version 3.0.0-rc10
+onedata-select-version 3.0.0-rc11
 ```
 
 ## Authentication
@@ -202,7 +202,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:3.0.0-rc13
+docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:3.0.0-rc14
 ```
 
 ```bash

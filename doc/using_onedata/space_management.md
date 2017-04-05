@@ -44,7 +44,7 @@ In order to do that it is necessary to request a **Space join** token from the o
 ### Space Properties
 On the **Spaces** page, you can see a detailed information about a space by clicking on it.
 
-<img  style="display:block;margin:0 auto;" src="../img/spaces/space_details.png">
+<img  style="display:block;margin:0 auto;" src="../img/spacestab.png">
 
 All information regarding your space is presented here, including:
 - a list of users who can access your space and their permissions
@@ -57,7 +57,7 @@ For more information about permissions, see [Access Control](file_management.md#
 ### Spaces management
 On the **Spaces** page, each listed space has an **Settings** button, which allows you to manage the space.
 
-<img  style="display:block;margin:0 auto;max-width:250px" src="../img/spaces/spacemenu.png">
+<img  style="display:block;margin:0 auto;max-width:250px" src="../img/space_menu.png">
 
 | Action Name  | Description                                                             |
 |:-------------|:------------------------------------------------------------------------|

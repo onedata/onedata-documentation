@@ -6,7 +6,7 @@ You can give other users or groups access to your space by adding them to your s
 
 For more details on permissions, see [Space Management](space_management.md) page.
 
-<img  style="display:block;margin:0 auto;" src="../img/spaces/space_details.png">
+<img  style="display:block;margin:0 auto;" src="../img/spacestab.png">
 
 ## Invite another user to your space
 To share a space with another user:
