@@ -28,7 +28,4 @@ The API's are defined using [Open API](https://openapis.org/) specification stan
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/luma/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/luma/swagger.json)
 
-Some examples of typical use cases that can be achieved using this API
-is presented [here](examples.md).
-
 Please note that all Onedata services use solely TLS v1.2 protocol.

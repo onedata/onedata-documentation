@@ -51,9 +51,21 @@ option on every `oneclient` invocation.*
 ### Authentication token
 In order to get an authentication token, go to [onedata.org](onedata.org) Web
 user interface, press **Tokens** in the top menu and press
-**Access token** button. Copy the displayed token and type the following
-commands:
+**Access token** button.
 
+### Using third-party IdP access tokens
+Onedata supports authentication directly using tokens issued by trusted
+third-party tokens (e.g. GitHub), if they are enabled in a paritcular Onedata
+deployment. In order to use such tokens, they have to be prefixed with the IdP
+token prefix as configured by administrators of Onezone service. For instance:
+
+```
+github:e72e16c7e42f292c6912e7710c838347ae178b4a
+```
+
+### Mounting spaces
+
+The basic command line syntax to mount spaces using a specific provider is:
 ```bash
 oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
 ```
@@ -152,7 +164,7 @@ Onedata zone, you can simply mount your spaces to any folder using single docker
 ```bash
 docker run  --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
  -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-rc12
+ onedata/oneclient:3.0.0-rc14
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
