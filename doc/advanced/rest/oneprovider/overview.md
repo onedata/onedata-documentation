@@ -29,7 +29,12 @@ The token must be added to the request header like this:
 ```
 X-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...
 ```
-
+In case this Onedata deployment supports authentication delegation other IdP's,
+the `X-Auth-Token` field can contain token from such IdP with appropriate prefix,
+as configured by Onezone administrators, e.g.:
+```
+  X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS
+```
 In addition please take into account, that depending on your account authorization rights, not all operations
 may be possible.
 
@@ -101,7 +106,7 @@ More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 3.0.0-rc13
+*Version* : 3.0.0-rc14
 
 
 ### Contact information

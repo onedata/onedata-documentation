@@ -25,6 +25,13 @@ depending on the actor making the request:
  ```
    X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...
  ```
+In case the Onezone deployment supports authentication delegation other IdP's,
+the `X-Auth-Token` field can contain token from such IdP with appropriate prefix,
+as configured by Onezone administrators, e.g.:
+ ```
+   X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS
+ ```
+
  * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,
  it must authenticate using the peer certificate which was assigned to this provider when registering
  in the Onezone service. In such case the `X-Auth-Token` header is not necessary.
@@ -93,7 +100,7 @@ with pre-configured shell with full help on the APIs and autocomplete for
 operations and attributes.
 
 ```
-docker run -it onedata/rest-cli:3.0.0-rc13
+docker run -it onedata/rest-cli:3.0.0-rc14
 ```
 
 We have also prepared tutorials which show how to use this API in practice:
@@ -117,7 +124,7 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-rc13
+*Version* : 3.0.0-rc14
 
 
 ### Contact information
