@@ -9,7 +9,8 @@ GET /files/{path}
 ##### Description
 Returns the list of folders and files directly under specified path.
 
-If the path points to a file, the result array will consist only of the single item with the path to the file requested, confirming it exists.
+If the path points to a file, the result array will consist only of the
+single item with the path to the file requested, confirming it exists.
 
 ***Example cURL requests***
 
@@ -48,19 +49,11 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of files and folders under specified path.|< [Response 200](#list_files-response-200) > array|
+|**200**|The list of files and folders under specified path.|< [FilePath](../definitions/FilePath.md#filepath) > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|Invalid path - file or directory not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
-
-<a name="list_files-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**id**  <br>*optional*|Id of the file or folder.|string|
-|**path**  <br>*optional*|Path to the file or folder.|string|
 
 
 ##### Produces

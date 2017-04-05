@@ -14,7 +14,7 @@ on the database backend.
 
 ***Example cURL requests***
 
-**Get list of indexes for space**
+**Update space index**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
 -H "Content-type: application/javascript" \

@@ -16,7 +16,7 @@ This operation requires `modify_handle` privilege.
 
 **Modify handle resource**
 ```bash
-curl -k -u username:password -X PATCH  -H "Content-type: application/json" \
+curl -u username:password -X PATCH  -H "Content-type: application/json" \
 -d '{"resourceId": "jalkADKDGHKAJSdlkHDukjhassjd76876asdkb"}' \
 https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 ```
@@ -75,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -85,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -95,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -105,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -115,8 +111,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

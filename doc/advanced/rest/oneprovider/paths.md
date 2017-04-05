@@ -16,6 +16,7 @@ Space and file related operations
 |[/index](operations/get_space_indexes.md)|GET|Get index list for space|
 |[/index/{iid}](operations/get_space_index.md)|GET|Get index|
 |[/index/{iid}](operations/update_space_index.md)|PUT|Update index|
+|[/index/{iid}](operations/remove_space_index.md)|DELETE|Remove index|
 |[/metadata-id/{id}](operations/get_file_metadata_by_id.md)|GET|Get file metadata by ID|
 |[/metadata-id/{id}](operations/set_file_metadata_by_id.md)|PUT|Set file metadata by ID|
 |[/metadata/{path}](operations/get_file_metadata.md)|GET|Get file metadata|

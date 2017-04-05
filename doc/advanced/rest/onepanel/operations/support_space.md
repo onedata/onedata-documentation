@@ -1,13 +1,13 @@
 
 <a name="support_space"></a>
-#### Support or create space
+#### Create or support space
 ```
 POST /provider/spaces
 ```
 
 
 ##### Description
-Supports an existing space or creates a new space and automatically supports it.
+Supports an existing space or creates a new space and automatically  supports it.
 
 
 ##### Parameters
@@ -48,8 +48,7 @@ json :
 {
   "name" : "MySpace1",
   "token" : "ASDJNASD87687ASDMNBMNASD87786asd",
-  "size" : 1024000,
-  "storageName" : "NAS_1"
+  "size" : 1024000
 }
 ```
 

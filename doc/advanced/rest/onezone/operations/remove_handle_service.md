@@ -15,7 +15,7 @@ This operation requires `delete_handle_services` privilege.
 
 **Unregister handle service**
 ```bash
-curl -k -u username:password -X DELETE \
+curl -u username:password -X DELETE \
 https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
 
@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|Unregistration was successful.|No Content|
+|**204**|Unregistration was successful.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -54,8 +54,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -64,8 +63,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -74,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -84,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -94,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

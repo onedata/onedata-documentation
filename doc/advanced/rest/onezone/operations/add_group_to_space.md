@@ -2,12 +2,12 @@
 <a name="add_group_to_space"></a>
 #### Add group to space
 ```
-POST /spaces/{id}/groups
+PUT /spaces/{id}/groups/{gid}
 ```
 
 
 ##### Description
-Allows to add a group to any space. 
+Allows to add a group to any space.
 
 This operation can be invoked by system administrators only
 and requires `add_member_to_space` privilege.
@@ -16,9 +16,8 @@ and requires `add_member_to_space` privilege.
 
 **Add group to space**
 ```bash
-curl -k -u username:password  -H "Content-type: application/json"\
- -X POST -d '{"groupId" : "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM"}' \
- https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups
+curl -u username:password  -H "Content-type: application/json" -X PUT \
+ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/qE_BQiaHEEDC21sY1Kuc9ueUeoZA6KXxNgzlvqmmrbz
 ```
 
 
@@ -26,15 +25,9 @@ curl -k -u username:password  -H "Content-type: application/json"\
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
+|**Path**|**gid**  <br>*required*|Group ID.|string|--|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**groupId**  <br>*required*||[groupId](#add_group_to_space-groupid)|--|
-
-<a name="add_group_to_space-groupid"></a>
-**groupId**
-
-|Name|Description|Schema|
-|---|---|---|
-|**groupId**  <br>*optional*|ID of the group to add to space.|string|
+|**Body**|**groupId**  <br>*optional*||[SpacePrivileges](../definitions/SpacePrivileges.md#spaceprivileges)|--|
 
 
 ##### Responses
@@ -59,7 +52,7 @@ curl -k -u username:password  -H "Content-type: application/json"\
 ###### Request path
 ```
 json :
-"/spaces/string/groups"
+"/spaces/string/groups/string"
 ```
 
 
@@ -67,7 +60,7 @@ json :
 ```
 json :
 {
-  "groupId" : "string"
+  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
 }
 ```
 
@@ -78,8 +71,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -88,8 +80,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -98,8 +89,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -108,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -118,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

@@ -64,12 +64,11 @@ On the **Spaces** page, each listed space has an **Settings** button, which allo
 | Set as home  | Set this space to be your home space                                    |
 | Leave space  | Remove this space from the list of your spaces                          |
 | Rename       | Rename this space                                                       |
-| Remove       | Remove this space and all the data it contains                          |
 | Invite user  | Add a user to this space                                                |
 | Invite group | Add a group to this space                                               |
 | Get support  | Generate a unique token for this space that can be sent to the provider |
 
-### Add storage support
+### Get storage support
 In order to increase your space quota:
 1. Navigate to **Spaces** page.
 2. On your space, click the **Settings** button.

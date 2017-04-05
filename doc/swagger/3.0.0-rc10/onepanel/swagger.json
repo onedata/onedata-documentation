@@ -4,8 +4,8 @@
   "info": {
     "version": "3.0.0-rc10",
     "title": "Onepanel",
-    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data \nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment, \nin particular full control over the **Onezone** and **Oneprovider** services \nand their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and \n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a \n                         Couchbase backend, which can be distributed on any \n                         number of nodes, these are available under \n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other \n                               deployed processes in one site, these are \n                               availables under these are available under \n                               `/zone/managers` and `/provider/managers` \n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of \nservices: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, \nstarted and stopped on a specified host in the local site, in the context of \neither **Onezone** or **Oneprovider** service. \n",
-    "description": "This is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources. \n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**. \n\nUsing this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service. \n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone** or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific requests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.\n\n## Examples \nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages \n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers \n```\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
+    "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate client libraries - [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in particular full control over the **Onezone** and **Oneprovider** services and their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a Couchbase backend, which can be distributed on any number of nodes, these are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other deployed processes in one site, these are availables under these are available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of services: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured, started and stopped on a specified host in the local site, in the context of either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel REST API which is `/api/v3/onepanel`, so complete URL for a request to Onepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\nOnepanel supports only HTTP basic authentication, i.e. using `username` and `password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using which users can login to Onezone service using HTTP Basic authentication without OpenID. This role makes sense only on Onepanel which manages Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin` account.\n\n## API structure\nThe Onepanel API is structured to reflect that it can either be used to control **Onezone** or **Oneprovider** deployment, each Onedata component deployment has a separate Onepanel instance. In order to make the API calls explicit, **Onezone** or **Oneprovider** specific requests have different paths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`, `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating `/api/v3/onepanel/zone/configuration` and `/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -16,7 +16,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-logo": {
-      "url": "https://onedata.org/docs/doc/img/onepanel-icon.png",
+      "url": "https://onedata.org/assets/images/api/onepanel-logo.svg",
       "backgroundColor": "#FFFFFF"
     }
   },
@@ -70,7 +70,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret addUser username:=bob password:=secret userRole:=regular --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret addUser username==bob password==secret userRole==regular --host https://op.example.com:9443"
           }
         ]
       }
@@ -124,7 +124,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getUser username:=bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getUser username==bob --host https://op.example.com:9443"
           }
         ]
       },
@@ -187,7 +187,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret modifyUser password:=new_secret --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret modifyUser password==new_secret --host https://op.example.com:9443"
           }
         ]
       },
@@ -233,7 +233,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeUser username:=bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret removeUser username==bob --host https://op.example.com:9443"
           }
         ]
       }
@@ -386,7 +386,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=cluster.example.com cookie:=AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=cluster.example.com cookie==AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://op.example.com:9443"
           }
         ]
       }
@@ -431,7 +431,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeClusterHost discovered=true host=cluster.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 removeClusterHost discovered=true host=cluster.example.com"
           }
         ]
       }
@@ -814,7 +814,7 @@
       },
       "post": {
         "operationId": "support_space",
-        "summary": "Create or support space",
+        "summary": "Support or create space",
         "description": "Supports an existing space or creates a new space and automatically  supports it.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
@@ -868,7 +868,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret supportSpace name:=MySpace1 token:=ASDKJASKJDHKAJSHD size+=1073741824 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret supportSpace name==MySpace1 token==ASDKJASKJDHKAJSHD size:=1073741824 storageName==NAS_1 --host https://op.example.com:9443"
           }
         ]
       }
@@ -1122,6 +1122,61 @@
           {
             "lang": "Shell",
             "source": "onepanel-rest-cli -u alice:secret getStorageDetails name=S3 --host https://op.example.com:9443"
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_storage",
+        "summary": "Modify storage details",
+        "description": "Modifies basic storage details, such as operation timeout.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_service",
+        "x-onedata-resource": "storage",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Storage details have been successfully modified."
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "type": "string",
+            "description": "The name of a storage resource, which details should be returned.\n",
+            "required": true
+          },
+          {
+            "name": "storageModifyRequest",
+            "in": "body",
+            "description": "New values for storage configuration parameters which should be changed.\n",
+            "schema": {
+              "$ref": "#/definitions/StorageModifyRequest"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 modifyStorage name=S3 timeout==10000"
           }
         ]
       }
@@ -3066,6 +3121,10 @@
             "mountPoint": {
               "type": "string",
               "description": "The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.\n"
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Storage operation timeout in milliseconds."
             }
           },
           "required": [
@@ -3107,6 +3166,14 @@
             "secretKey": {
               "type": "string",
               "description": "The secret key to the S3 storage."
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Storage operation timeout in milliseconds."
+            },
+            "blockSize": {
+              "type": "integer",
+              "description": "Storage block size in bytes."
             }
           },
           "required": [
@@ -3156,6 +3223,10 @@
             "poolName": {
               "type": "string",
               "description": "The Ceph pool name."
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Storage operation timeout in milliseconds."
             }
           },
           "required": [
@@ -3205,6 +3276,14 @@
             "password": {
               "type": "string",
               "description": "The Keystone authentication password."
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Storage operation timeout in milliseconds."
+            },
+            "blockSize": {
+              "type": "integer",
+              "description": "Storage block size in bytes."
             }
           },
           "required": [
@@ -3223,6 +3302,19 @@
         "containerName": "Container1",
         "username": "user",
         "password": "p@$$w0rd"
+      }
+    },
+    "StorageModifyRequest": {
+      "type": "object",
+      "description": "The storage configuration details that can be modified.",
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "description": "Storage operation timeout in milliseconds."
+        }
+      },
+      "example": {
+        "timeout": 10000
       }
     },
     "ZoneConfiguration": {
@@ -3895,7 +3987,8 @@
       "example": {
         "name": "MySpace1",
         "token": "ASDJNASD87687ASDMNBMNASD87786asd",
-        "size": 1024000
+        "size": 1024000,
+        "storageName": "NAS_1"
       }
     }
   },

@@ -20,7 +20,7 @@ The user can be added by invoking a `POST` request to the Onepanel `/user` REST 
 * _userRole_ - currently only 2 roles are supported: **admin** and **regular**
 
 The following examples assume that the following environment variables had been exported:
-* `ONEZONE_HOST` - The IP or FQDN of the Onezone service 
+* `ONEZONE_HOST` - The IP or FQDN of the Onezone service
 * `ADMIN_USERNAME` - Onezone service administrator username
 * `ADMIN_PASSWORD` - Onezone service administrator password
 * `USERNAME` - The new user username

@@ -15,7 +15,7 @@ Requires `list_users` privilege.
 
 **List all users in the system**
 ```bash
- curl -k -u username:password -X GET https://$HOST:8443/api/v3/onezone/users
+ curl -u username:password -X GET https://$HOST:8443/api/v3/onezone/users
 ```
 
 
@@ -23,19 +23,12 @@ Requires `list_users` privilege.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of user ID's registered within the Onezone service.|[Response 200](#list_users-response-200)|
+|**200**|The list of user ID's registered within the Onezone service.|[Users](../definitions/Users.md#users)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="list_users-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**users**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -57,7 +50,9 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "users" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
 ```
 
 
@@ -65,8 +60,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -75,8 +69,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -85,8 +78,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -95,8 +87,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -105,8 +96,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

@@ -4,6 +4,7 @@
         * [FileDistribution](doc/advanced/rest/oneprovider/definitions/FileDistribution.md)
         * [FileMetadata](doc/advanced/rest/oneprovider/definitions/FileMetadata.md)
         * [FileMetadataChange](doc/advanced/rest/oneprovider/definitions/FileMetadataChange.md)
+        * [FilePath](doc/advanced/rest/oneprovider/definitions/FilePath.md)
         * [FileTransferStatus](doc/advanced/rest/oneprovider/definitions/FileTransferStatus.md)
         * [Index](doc/advanced/rest/oneprovider/definitions/Index.md)
         * [Metrics](doc/advanced/rest/oneprovider/definitions/Metrics.md)

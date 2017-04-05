@@ -6,7 +6,7 @@ Client token for authorization from command line or via REST.
 
 |Name|Description|Schema|
 |---|---|---|
-|**token**  <br>*required*|The client token.|string|
+|**token**  <br>*required*|The access token.|string|
 
 **Example**
 ```
