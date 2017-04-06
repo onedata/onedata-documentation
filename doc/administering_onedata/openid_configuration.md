@@ -145,12 +145,12 @@ This section is specific to EGI OpenID Connect [authentication service](https://
 ```
 
 ## Authentication delegation using third party IdP tokens
-Onezone service supports authentication delegation using other trusted IdP
-services, which when enabled allows users to directly use their tokens
+Onezone service supports authentication delegation using other trusted OAuth
+providers. When enabled it allows users to directly use their access tokens
 (e.g. from GitHub) to authenticate with Onedata.
 
 In order to enable this feature for specific IdP, an `authority_delegation` entry
-has to be added to the IdP config, for instance:
+has to be added to the OpenID config, for instance:
 
 ```Erlang
     {github, [
@@ -166,19 +166,16 @@ has to be added to the IdP config, for instance:
       ]}
 ```
 
-In such case, users can directly access the Onedata API's and `oneclient` tool
-using tokens obtained from external IdP by prefixing the token.
+In such case, users can directly access the Onedata API's
+using access tokens obtained from external OAuth provider by prefixing the
+access token.
 
 In case of API calls this prefix needs to be added before the third party token
-in `X-Auth-Token` header:
+in `X-Auth-Token` header, for instance:
 ```
-  X-Auth-Token: github:ASDKH7aeasda6asdASD66asdASD9hzkjckasdj
+  X-Auth-Token: github:e72e16c7e42f292c6912e7710c838347ae178b4a
 ```
-
-In case of `oneclient` the token should be passed on the command line:
-```bash
-oneclient -t "github:ASDKH7aeasda6asdASD66asdASD9hzkjckasdj" -H <oneprovider_host> ~/Onedata
-```
+where `e72e16c7e42f292c6912e7710c838347ae178b4a` is the actual GitHub access token.
 
 ## Complete example
 
