@@ -13,7 +13,7 @@ before deployment.
 
 | Requirement | Minimum | Optimal |
 |----         |----     |----     |
-| No of VMs   | 1       | 2 + 1 for each 5000 users |
+| No of VMs   | 1       | 2 + 1 for every 5000 users |
 | CPU | 8 vCPU | 16 vCPU |
 | RAM | 32GB   | 64GB    |
 | Local disk | SATA | SSD |
@@ -25,7 +25,7 @@ before deployment.
 
 | Requirement | Minimum | Optimal |
 |----         |----     |----     |
-| No of VMs   | 1       | 2 + 1 for each 500 concurrent users |
+| No of VMs   | 1       | 2 + 1 for every 500 concurrent users |
 | CPU | 8 vCPU | 16 vCPU |
 | RAM | 32GB   | 64GB    |
 | Local disk | SSD | SSD |
