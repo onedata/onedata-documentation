@@ -1,6 +1,8 @@
 # Administrator Guide
 
-This section describes **Onezone** and **Oneprovider** components and how to configure and use them.
+This section describes **Onezone** and **Oneprovider** components and how to
+configure and use them. Please consider first the
+[minimal system requirements](system_requirements.md) for Onedata.
 
 In order to create custom deployments read carefully the following sections.
 

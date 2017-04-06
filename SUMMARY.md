@@ -23,6 +23,7 @@
 
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
+   * [System requirements](doc/system_requirements.md)
    * [Onezone](Onezone)
      * [Onezone Overview](doc/administering_onedata/onezone_overview.md)
      * [Onezone Setup](doc/administering_onedata/onezone_installation.md)

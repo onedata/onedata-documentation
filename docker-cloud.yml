@@ -9,7 +9,7 @@ doc:
       docker: $IMAGE
   volumes:
       - /usr/share/nginx/html
-  tags: 
+  tags:
     - onedata-doc-${TAG}
 
 nginx:
@@ -21,5 +21,5 @@ nginx:
     - doc
   ports:
     - 80:80
-  tags: 
+  tags:
     - onedata-doc-${TAG}
