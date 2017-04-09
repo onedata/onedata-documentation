@@ -6,12 +6,12 @@ The list of handle privileges.
 
 |Name|Description|Schema|
 |---|---|---|
-|**privileges**  <br>*optional*||< enum (unregister_handle, handle_change_data, handle_view_data) > array|
+|**privileges**  <br>*optional*||< enum (delete_handle, modify_handle, view_handle) > array|
 
 **Example**
 ```
 {
-  "privileges" : [ "unregister_handle", "handle_change_data", "handle_view_data" ]
+  "privileges" : [ "delete_handle", "modify_handle", "view_handle" ]
 }
 ```
 

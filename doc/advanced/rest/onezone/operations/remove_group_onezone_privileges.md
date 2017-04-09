@@ -15,7 +15,7 @@ This operation requires `set_privileges` privilege.
 
 **Remove all groups privileges to Onezone service**
 ```bash
-curl -i -k -u username:password  -X DELETE  \
+curl -i -u username:password -X DELETE \
 https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2/privileges
 ```
 
@@ -54,8 +54,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -64,8 +63,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -74,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -84,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -94,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

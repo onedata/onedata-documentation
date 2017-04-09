@@ -1,7 +1,12 @@
 # ![Onedata](doc/img/heading.png) Documentation
+<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: 3.0.0-rc14</div>
+
+
+
 Onedata is a global data management system, providing easy access to distributed storage resources, supporting wide range of use cases from personal data management to data-intensive scientific computations.
 
 For quick overview of basic concepts and functionality check out our [Getting started](doc/getting_started/what_is_onedata.md) section.
+
 
 #### For users
 Learn how to access, manage and share your data. Create groups of users with fine grained access rights. Share and collaborate on your data.

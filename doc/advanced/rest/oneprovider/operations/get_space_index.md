@@ -7,9 +7,9 @@ GET /index/{iid}
 
 
 ##### Description
-This method returns a specific index source code.  
+This method returns a specific index source code.
 
-The indexes are defined as JavaScript functions which are executed 
+The indexes are defined as JavaScript functions which are executed
 on the database backend.
 
 ***Example cURL requests***
@@ -21,7 +21,10 @@ https://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a
 
 
 function(x) {
-  ...
+  if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {
+    return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];
+  }
+  return null;
 }
 ```
 

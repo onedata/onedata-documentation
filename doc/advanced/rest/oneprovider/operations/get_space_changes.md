@@ -26,7 +26,7 @@ curl --tlsv1.2 -N -X GET -H "X-Auth-Token: $TOKEN" \
 |---|---|---|---|---|
 |**Path**|**sid**  <br>*required*|Space ID.|string|--|
 |**Query**|**last_seq**  <br>*optional*|Last known file metadata sequence number|integer|--|
-|**Query**|**timeout**  <br>*optional*|Optional timeout in milliseconds, which allows to automatically break connection  when no event occured in specified time. By default the timeout is unlimited.|integer|--|
+|**Query**|**timeout**  <br>*optional*|Optional timeout in milliseconds, which allows to automatically break connection when no event occured in specified time. By default the timeout is unlimited.|integer|--|
 
 
 ##### Responses

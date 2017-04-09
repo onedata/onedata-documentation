@@ -15,7 +15,7 @@ This operation requires `modify_handle_services` privilege.
 
 **Modify handle service password**
 ```bash
-curl -k -u username:password -X PATCH  -H "Content-type: application/json" \
+curl -u username:password -X PATCH  -H "Content-type: application/json" \
 -d '{"password": "new_password"}' \
 https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
@@ -70,8 +70,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -80,8 +79,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -90,8 +88,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -100,8 +97,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -110,8 +106,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

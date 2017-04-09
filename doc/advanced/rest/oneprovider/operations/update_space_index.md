@@ -7,14 +7,14 @@ PUT /index/{iid}
 
 
 ##### Description
-This method replaces an existing index code with request body content.  
+This method replaces an existing index code with request body content.
 
-The indexes are defined as JavaScript functions which are executed 
+The indexes are defined as JavaScript functions which are executed
 on the database backend.
 
 ***Example cURL requests***
 
-**Get list of indexes for space**
+**Update space index**
 ```bash
 curl --tlsv1.2 -H "X-Auth-Token: $TOKEN" -X PUT \
 -H "Content-type: application/javascript" \

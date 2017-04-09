@@ -7,7 +7,7 @@ DELETE /groups/{id}/users/{uid}
 
 
 ##### Description
-Removes the user {uid} from a group {id} (the user will no longer have access 
+Removes the user {uid} from a group {id} (the user will no longer have access
 to spaces accessible to the group).
 
 This operation requires `group_remove_user` privilege.
@@ -16,7 +16,7 @@ This operation requires `group_remove_user` privilege.
 
 **Remove user from group**
 ```bash
-curl -k  -u username:password -X DELETE \
+curl -u username:password -X DELETE \
 https://$HOST:8443/api/v3/onezone/groups/Qi4QT2oalnfQu0SzTK1HgXxKuUrlRppb68rr_UhwC50/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY802w
 ```
 
@@ -61,8 +61,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -71,8 +70,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +79,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +88,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +97,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

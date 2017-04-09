@@ -15,7 +15,7 @@ This operation does require any specific privileges.
 
 **Create new group of type `role`**
 ```bash
- curl -k -u username:password  -H "Content-type: application/json" \
+ curl -u username:password  -H "Content-type: application/json" \
  -X POST -d '{ "name":"new_group" , "type":"role" }' \
  https://$HOST:8443/api/v3/onezone/groups/
 ```
@@ -32,7 +32,7 @@ This operation does require any specific privileges.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**201**|ID of the group created in the form /groups/{id} is  returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
+|**201**|ID of the group created in the form /groups/{id} is returned in the response `Location` header.  <br>**Headers** :   <br>`Location` (string) : ID of the created group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -70,8 +70,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -80,8 +79,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -90,8 +88,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -100,8 +97,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -110,8 +106,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

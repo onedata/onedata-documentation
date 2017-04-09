@@ -24,14 +24,14 @@ LUMA reference implementation is written using [Flask](http://flask.pocoo.org/) 
 LUMA API detailed description can be found [here](https://beta.onedata.org/docs/doc/advanced/rest/index.html).
 
 ## LUMA in Onedata
-Used in [Onedata](onedata.org), LUMA allows to map Onedata user credentials 
-to storage/system user credentials. By default, it is deployed as part of 
-[Oneprovider](https://github.com/onedata/op-worker), however it can 
-be overwritten by an external LUMA server. Admins can use an external LUMA 
+Used in [Onedata](onedata.org), LUMA allows to map Onedata user credentials
+to storage/system user credentials. By default, it is deployed as part of
+[Oneprovider](https://github.com/onedata/op-worker), however it can
+be overwritten by an external LUMA server. Admins can use an external LUMA
 server to define dedicated policies for credentials management.
 
 ## LUMA Docker Image
-Every release of LUMA is published as a docker image. Here are a few example 
+Every release of LUMA is published as a docker image. Here are a few example
 commands how to use it:
 
 ```bash
@@ -63,16 +63,16 @@ LUMA sources can be downloaded directly from our [GitHub repository](https://git
 
 ### Pairing generator with storage type or id.
 
-LUMA requires that generator implementation must be paired with storage id or 
-type. This is achieved by entry in generators_mapping. Using this pairings 
-LUMA will try to choose proper generator for given request. In request user 
-may provide storage_id, storage_type or both. When only storage_id is provided 
-LUMA will try to find its storage_type in storage id to type mapping. Now LUMA 
-will try to use storage_id (if provided) to find generator, if this fails LUMA 
-will use storage_type to find generator. If no generator is found LUMA will 
+LUMA requires that generator implementation must be paired with storage id or
+type. This is achieved by entry in generators_mapping. Using this pairings
+LUMA will try to choose proper generator for given request. In request user
+may provide storage_id, storage_type or both. When only storage_id is provided
+LUMA will try to find its storage_type in storage id to type mapping. Now LUMA
+will try to use storage_id (if provided) to find generator, if this fails LUMA
+will use storage_type to find generator. If no generator is found LUMA will
 respond with error. To summarize:
 
-1. User provides generators_mapping (storage id/type to generator_id) and 
+1. User provides generators_mapping (storage id/type to generator_id) and
 optionally storage_id to storage_type mapping.
 
 2. LUMA receives request for mapping with storage_id, storage_type or both.
@@ -83,14 +83,14 @@ optionally storage_id to storage_type mapping.
 
 5. If previous operation fails LUMA uses storage_type to find generator.
 
-6. If both previous operation fails LUMA returns error, if one of operation 
+6. If both previous operation fails LUMA returns error, if one of operation
 succeed generator is called.
 
-Generators results for given user_id and storage id/type will be 
+Generators results for given user_id and storage id/type will be
 cached in LUMA database.
 
-Additionally LUMA allows to specify static `user(storageType/Id)->credentials` 
-mappings to bypass the generators for specific users. Usage of static 
+Additionally LUMA allows to specify static `user(storageType/Id)->credentials`
+mappings to bypass the generators for specific users. Usage of static
 mappings is described in detail in "Registering user to credentials" section.
 
 ### Initialize Database
@@ -133,8 +133,8 @@ Optional arguments:
 LUMA implements support for storages by means of generators.
 
 ### Adding new generators
-To support new storage or existing one in different way, user should create 
-a python script in `generators` folder. All files in this folder are scanned 
+To support new storage or existing one in different way, user should create
+a python script in `generators` folder. All files in this folder are scanned
 by LUMA.
 
 
@@ -164,7 +164,7 @@ def gen_storage_id(id):
     return LowestUID + int(m.hexdigest(), 16) % HighestUID
 
 
-def create_user_credentials(storage_type, storage_id, space_name, client_ip, 
+def create_user_credentials(storage_type, storage_id, space_name, client_ip,
                             user_details):
     """Creates user credentials for POSIX storage based on provided user data.
     """
@@ -181,17 +181,17 @@ def create_user_credentials(storage_type, storage_id, space_name, client_ip,
 
 It has to implement function
 ```python
-def create_user_credentials(storage_type, storage_id, space_name, client_ip, 
+def create_user_credentials(storage_type, storage_id, space_name, client_ip,
                             user_details):
 ```
 
-and return user's credentials as oneof:
+and return user's credentials as one of:
 
 - PosixCredentials
 - S3Credentials
 - CephCredentials
 - SwiftCredentials
-  
+
 Credentials params description:
 
 | Storage type    | Params                   | Note                              |
@@ -201,10 +201,10 @@ Credentials params description:
 | Amazon S3       | access_key, secret_key   |                                   |
 | Openstack Swift | user_name, password      | Credentials to Openstack Keystone service. |
 
-RuntimeErrors thrown in generators will be caught by LUMA and they will 
+RuntimeErrors thrown in generators will be caught by LUMA and they will
 be converted to meaningful errors for the user.
 
-In the file `generators.cfg` user can specify configuration of the generator. 
+In the file `generators.cfg` user can specify configuration of the generator.
 Example configuration for POSIX;
 
 ```
@@ -219,10 +219,10 @@ more examples can be found in `generators/generators.cfg.example`.
 ### Registering Generators
 
 #### Pairing generator with storage_id
-The generators need to be paired with specific storage by specifying a tuple of 
-`storageId` (or `storageType`) and `generatorId`. 
-Those mappings are located in **generators_mapping.json** and can be passed to 
-luma via command line options. Example file is located in `/example_config` 
+The generators need to be paired with specific storage by specifying a tuple of
+`storageId` (or `storageType`) and `generatorId`.
+Those mappings are located in **generators_mapping.json** and can be passed to
+luma via command line options. Example file is located in `/example_config`
 folder.
 
 ```json
@@ -247,8 +247,8 @@ folder.
 ```
 
 #### Registering id to type mapping
-Additionally, one can specify a pairing of `storageId` and `storageType`. 
-If LUMA fails to use a generator for a specific `storageId` it will then 
+Additionally, one can specify a pairing of `storageId` and `storageType`.
+If LUMA fails to use a generator for a specific `storageId` it will then
 try to find one matching `storageType`.
 
 ```json
@@ -265,9 +265,10 @@ try to find one matching `storageType`.
 
 ```
 
-#### Registering user to credentials
-Sometimes one might need to bypass the generators for specific users. 
-LUMA allows to specify static `user(storageType/Id)->credentials` mappings:
+#### User specific credentials
+Sometimes one might need to bypass the generators for specific users.
+LUMA allows to specify static `user(storageType/storageId)->credentials`
+mappings:
 
 ```json
 [
@@ -275,7 +276,7 @@ LUMA allows to specify static `user(storageType/Id)->credentials` mappings:
     "userId": "id",
     "storageId": "storage_id",
     "credentials": {
-      "type": "Posix"  
+      "type": "Posix"
       "uid" : 1
     }
   },
@@ -283,7 +284,7 @@ LUMA allows to specify static `user(storageType/Id)->credentials` mappings:
     "userId": "id2",
     "storageId": "storage_id2",
     "credentials": {
-      "type": "S3"  
+      "type": "S3"
       "accessKey": "ACCESS_KEY",
       "secretKey": "SECRET_KEY"
     }
@@ -300,5 +301,5 @@ HOST = '0.0.0.0' # the hostname to listen on. Set this to '0.0.0.0' to have the 
 PORT = 5000 # the port of the webserver. Defaults to 5000
 API_KEY = 'example_api_key' # api key that must match api key from oneprovider to perform request
 ```
-
-and any option described in Flask [documentation](http://flask.pocoo.org/docs/0.10/config/#builtin-configuration-values)
+and any option described in Flask
+[documentation](http://flask.pocoo.org/docs/0.10/config/#builtin-configuration-values)

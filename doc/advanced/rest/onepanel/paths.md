@@ -43,7 +43,8 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/managers](operations/start_stop_provider_managers.md)|PATCH|Start/stop provider cluster managers|
 |[/provider/managers/{host}](operations/get_provider_manager_status.md)|GET|Get provider cluster manager status|
 |[/provider/managers/{host}](operations/start_stop_provider_manager.md)|PATCH|Start/stop provider cluster manager|
-|[/provider/spaces](operations/support_space.md)|POST|Support or create space|
+|[/provider/nagios](operations/get_provider_nagios_report.md)|GET|Get provider nagios report|
+|[/provider/spaces](operations/support_space.md)|POST|Create or support space|
 |[/provider/spaces](operations/get_provider_spaces.md)|GET|Get provider spaces|
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
 |[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space.|
@@ -77,6 +78,7 @@ Resources and operations for managing Onezone deployment
 |[/zone/managers](operations/start_stop_zone_managers.md)|PATCH|Start/stop zone cluster managers|
 |[/zone/managers/{host}](operations/get_zone_manager_status.md)|GET|Get zone cluster manager status|
 |[/zone/managers/{host}](operations/start_stop_zone_manager.md)|PATCH|Start/stop zone cluster manager|
+|[/zone/nagios](operations/get_zone_nagios_report.md)|GET|Get zone nagios report|
 |[/zone/workers](operations/add_zone_workers.md)|POST|Add zone cluster workers|
 |[/zone/workers](operations/get_zone_workers_status.md)|GET|Get zone cluster workers status|
 |[/zone/workers](operations/start_stop_zone_workers.md)|PATCH|Start/stop zone cluster workers|

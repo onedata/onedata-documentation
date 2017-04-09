@@ -2,7 +2,7 @@
 <a name="set_handle_user_privileges"></a>
 #### Set handle user privileges
 ```
-PUT /handles/{hndl}/users/{uid}/privileges
+PATCH /handles/{hndl}/users/{uid}/privileges
 ```
 
 
@@ -15,7 +15,7 @@ This operation requires `modify_handle` privilege.
 
 **Set handle user privileges**
 ```bash
-curl -k -u username:password -X PUT -H "Content-type: application/json" \
+curl -u username:password -X PATCH -H "Content-type: application/json" \
 -d '{"privileges": ["handle_change_data"]}' \
 https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/hlkASHDLAKSHDLKJHJjLHSADHLKJhlk/privileges
 ```
@@ -60,7 +60,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "unregister_handle", "handle_change_data", "handle_view_data" ]
+  "privileges" : [ "delete_handle", "modify_handle", "view_handle" ]
 }
 ```
 
@@ -71,8 +71,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -81,8 +80,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -91,8 +89,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -101,8 +98,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -111,8 +107,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

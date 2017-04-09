@@ -6,12 +6,12 @@ The list of handle service privileges.
 
 |Name|Description|Schema|
 |---|---|---|
-|**privileges**  <br>*optional*||< enum (register_handle, handle_service_remove, handle_service_change_data, handle_service_view_data, handle_service_add_user, handle_service_remove_user, handle_service_add_group, handle_service_remove_group) > array|
+|**privileges**  <br>*optional*||< enum (delete_handle_service, handle_service_list_handles, modify_handle_service, register_handle, view_handle_service) > array|
 
 **Example**
 ```
 {
-  "privileges" : [ "register_handle", "handle_service_remove", "handle_service_change_data", "handle_service_view_data", "handle_service_add_user", "handle_service_remove_user", "handle_service_add_group", "handle_service_remove_group" ]
+  "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
 }
 ```
 

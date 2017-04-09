@@ -14,8 +14,8 @@ peer certificate used for the request.
 
 **Update provider geo location**
 ```bash
-curl -k --cert ozp_cert.pem --key ozp_key.pem -X PATCH \
--d '{"latitude":50.068968,"longitude":20.909444}'  \
+curl --cert ozp_cert.pem --key ozp_key.pem -X PATCH \
+-d '{"latitude": 50.068968,"longitude": 20.909444}'  \
 https://$HOST:8443/api/v3/onezone/provider
 ```
 
@@ -72,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -82,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -92,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -102,8 +99,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -112,8 +108,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

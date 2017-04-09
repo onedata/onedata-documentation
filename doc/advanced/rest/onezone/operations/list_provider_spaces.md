@@ -1,6 +1,6 @@
 
 <a name="list_provider_spaces"></a>
-#### Get spaces supported by provider
+#### List spaces supported by provider
 ```
 GET /providers/{pid}/spaces
 ```
@@ -15,12 +15,12 @@ This operation requires `list_spaces_of_provider` privilege.
 
 **List spaces supported by provider**
 ```bash
-curl -ksS -u username:password -X GET  \
+curlsS -u username:password -X GET  \
 https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces
 
 {
   "spaces": [
-    "ASDKJHKLAJSDHKjhAsdkjh68asdASDlk", 
+    "ASDKJHKLAJSDHKjhAsdkjh68asdASDlk",
     "JKLAHSDLKHASJKLDH76786ASDHBKJHMa"
   ]
 }
@@ -38,19 +38,12 @@ https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/spaces
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of space ID's.|[Response 200](#list_provider_spaces-response-200)|
+|**200**|The list of space ID's.|[Spaces](../definitions/Spaces.md#spaces)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="list_provider_spaces-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**spaces**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -72,7 +65,9 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "spaces" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
 ```
 
 
@@ -80,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -90,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -100,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -110,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -120,8 +111,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

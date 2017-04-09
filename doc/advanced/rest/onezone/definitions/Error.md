@@ -6,14 +6,12 @@ Generic error model for REST requests.
 
 |Name|Description|Schema|
 |---|---|---|
-|**error**  <br>*optional*|Identifier representing internal error code.|string|
-|**error_description**  <br>*optional*|Detailed error message.|string|
+|**error**  <br>*optional*|Description of the error.|string|
 
 **Example**
 ```
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

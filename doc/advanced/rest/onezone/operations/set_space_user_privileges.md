@@ -2,12 +2,12 @@
 <a name="set_space_user_privileges"></a>
 #### Set user privileges to space
 ```
-PUT /spaces/{id}/users/{uid}/privileges
+PATCH /spaces/{id}/users/{uid}/privileges
 ```
 
 
 ##### Description
-Adds specific privileges for a user in a space.
+Sets privileges for a user to a space.
 
 This operation requires `space_set_privileges` privilege.
 
@@ -55,7 +55,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "space_invite_user", "space_remove_user", "space_invite_group", "space_remove_group", "space_set_privileges", "space_remove", "space_add_provider", "space_remove_provider", "space_change_data", "space_view_data" ]
+  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
 }
 ```
 
@@ -66,8 +66,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -76,8 +75,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -86,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -96,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -106,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

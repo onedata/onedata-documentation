@@ -3,7 +3,9 @@
 
 <a name="overview"></a>
 ## Overview
-LUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users 
+# Overview
+
+LUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users
 (of any system/kind) to storage specific users, in the process authorizing them with the storage.
 New storage types are added by means of plugin system of generators. A generator is responsible for:
 mapping users to storage specific users creating a user credentials for accessing the actual storage
@@ -20,7 +22,7 @@ More information: [https://github.com/onedata/luma](https://github.com/onedata/l
 
 
 ### Version information
-*Version* : 3.0.0-rc11
+*Version* : 3.0.0-rc14
 
 
 ### Contact information

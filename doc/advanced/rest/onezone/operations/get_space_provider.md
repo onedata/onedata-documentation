@@ -15,16 +15,18 @@ This operation requires `list_providers_of_space` privilege.
 
 **Get space provider details**
 ```bash
-curl -k -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8/providers/H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk
+curl -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8/providers/H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0-upGkf9tk
 
 {
+  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0-upGkf9tk",
   "clientName": "example",
-  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
-  "urls": ["195.216.97.151"],
+  "urls": [
+    "195.216.97.151"
+  ],
   "redirectionPoint": "https://195.216.97.151",
   "latitude": 50.068968,
-  "longitude":19.909444
+  "longitude": 19.909444
 }
 ```
 
@@ -82,8 +84,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -92,8 +93,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -102,8 +102,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -112,8 +111,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -122,8 +120,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

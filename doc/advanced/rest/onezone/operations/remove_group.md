@@ -15,7 +15,7 @@ This operation requires `group_remove` privilege.
 
 **Remove group**
 ```bash
-curl -k -u admin:password -X DELETE  \
+curl -u admin:password -X DELETE  \
 https://$HOST:8443/api/v3/onezone/user/groups/LT88rteQ4KMSYXMWO0Oibiqn7X5nUD51NTsCqgDN8e4
 ```
 
@@ -54,8 +54,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -64,8 +63,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -74,8 +72,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -84,8 +81,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 
@@ -94,8 +90,7 @@ json :
 ```
 json :
 {
-  "error" : "invalid_token",
-  "error_description" : "Provided token could not be validated."
+  "error" : "Provided data could not be understood by the server"
 }
 ```
 

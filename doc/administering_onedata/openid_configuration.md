@@ -6,13 +6,14 @@ OpenID is the main authentication method used in Onedata. It allows users to reu
 
 When configuring Onedata, it is necessary to decide which identity providers should be trusted by the Onezone service. This can be achieved by editing the `/var/lib/oz_worker/auth.config` file on Onezone node. Example file is presented below. All unnecessary login methods can be removed and all tokens must be replaced with actual application tokens and secrets for each service:
 
+
 ## Supported authentication sources
 Below is the list of supported OpenID providers. Most such services, require registration of each application (such as Onezone services). Sections below describe how to this for each supported service.
 
 For OpenID services, the login validation endpoint for any Onezone instance has to configured in the OpenID providers setup. The URL is:
 
 ```
-https://ONEZONE_HOST/validate_login
+https://<ONEZONE_HOST>/validate_login
 ```
 
 
@@ -143,6 +144,39 @@ This section is specific to EGI OpenID Connect [authentication service](https://
     ]}
 ```
 
+## Authentication delegation using third party IdP tokens
+Onezone service supports authentication delegation using other trusted OAuth
+providers. When enabled it allows users to directly use their access tokens
+(e.g. from GitHub) to authenticate with Onedata.
+
+In order to enable this feature for specific IdP, an `authority_delegation` entry
+has to be added to the OpenID config, for instance:
+
+```Erlang
+    {github, [
+        {auth_module, auth_github},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        {authorize_endpoint, <<"https://github.com/login/oauth/authorize">>},
+        {access_token_endpoint, <<"https://github.com/login/oauth/access_token">>},
+        {user_info_endpoint, <<"https://api.github.com/user">>},
+        {user_emails_endpoint, <<"https://api.github.com/user/emails">>},
+        {authority_delegation, [
+            {enabled, true}, {token_prefix, <<"github:">>}]},
+      ]}
+```
+
+In such case, users can directly access the Onedata API's
+using access tokens obtained from external OAuth provider by prefixing the
+access token.
+
+In case of API calls this prefix needs to be added before the third party token
+in `X-Auth-Token` header, for instance:
+```
+  X-Auth-Token: github:e72e16c7e42f292c6912e7710c838347ae178b4a
+```
+where `e72e16c7e42f292c6912e7710c838347ae178b4a` is the actual GitHub access token.
+
 ## Complete example
 
 The complete auth.conf file is presented below. It is specified directly in [Erlang](https://www.erlang.org/). For new deployments edit this file, remove all unsupported entries and replace all `APP_ID and `APP_SECRET` occurences with your actual OpenID tokens.
@@ -192,7 +226,9 @@ The complete auth.conf file is presented below. It is specified directly in [Erl
         {user_info_endpoint,
             <<"https://api.github.com/user">>},
         {user_emails_endpoint,
-            <<"https://api.github.com/user/emails">>}
+            <<"https://api.github.com/user/emails">>},
+        {authority_delegation, [
+            {enabled, true}, {token_prefix, <<"github:">>}]},
     ]},
 
     {dropbox, [
@@ -225,7 +261,10 @@ The complete auth.conf file is presented below. It is specified directly in [Erl
         {app_secret, <<"APP_SECRET">>},
         % Provider specific config
         % Provider specific config
-        {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
+        {xrds_endpoint,
+            <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>},
+        {authority_delegation, [
+            {enabled, true}, {token_prefix, <<"indigo:">>}]},
     ]},
 
     {egi, [
@@ -233,10 +272,9 @@ The complete auth.conf file is presented below. It is specified directly in [Erl
         {app_id, <<"APP_ID">>},
         {app_secret, <<"APP_SECRET">>},
         % Provider specific config
-        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>}
+        {xrds_endpoint, <<"https://aai.egi.eu/oidc/.well-known/openid-configuration">>},
+        {authority_delegation, [
+            {enabled, true}, {token_prefix, <<"egi:">>}]},
     ]}
 ].
 ```
-
-
-
