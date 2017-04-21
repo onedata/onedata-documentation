@@ -20,9 +20,11 @@ curl --cert ozp_cert.pem --key ozp_key.pem \
 https://$HOST:8443/api/v3/onezone/provider
 
 {
-  "clientName": "example",
-  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0__-upGkf9tk",
-  "urls": ["195.216.97.151"],
+  "name": "example",
+  "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0123upGkf9tk",
+  "urls": [
+    "195.216.97.151"
+  ],
   "redirectionPoint": "https://195.216.97.151",
   "latitude": 50.068968,
   "longitude": 19.909444
@@ -62,7 +64,8 @@ json :
 ```
 json :
 {
-  "providerId" : "LASDASJDBH89869ASD79869asd",
+  "name" : "Example provider",
+  "providerId" : "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0123upGkf9tk",
   "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
   "redirectionPoint" : "http://beta.onedata.org/provider2",
   "latitude" : 50.0647,

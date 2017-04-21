@@ -26,7 +26,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEqsj4q253spt
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Body**|**data**  <br>*required*|Group parameters|[Group](../definitions/Group.md#group)|--|
+|**Body**|**data**  <br>*required*|Group parameters|[GroupUpdateRequest](../definitions/GroupUpdateRequest.md#groupupdaterequest)|--|
 
 
 ##### Responses
@@ -59,8 +59,7 @@ json :
 ```
 json :
 {
-  "name" : "Test group",
-  "type" : "role"
+  "type" : "unit"
 }
 ```
 

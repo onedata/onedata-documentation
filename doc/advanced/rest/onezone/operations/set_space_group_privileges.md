@@ -34,7 +34,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The group privileges have been added.|No Content|
+|**204**|The group privileges have been updated.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -55,6 +55,7 @@ json :
 ```
 json :
 {
+  "operation" : [ "set" ],
   "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
 }
 ```

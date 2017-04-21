@@ -11,6 +11,8 @@ Removes all privileges for a user to Onezone.
 
 This operation can be invoked on behalf of current user only.
 
+This operation requires `set_privileges` administrator privilege.
+
 ***Example cURL requests***
 
 **Delete all user privileges to Onezone service**
@@ -24,7 +26,7 @@ https://$HOST:8443/api/v3/onezone/users/privileges
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been removed.|No Content|
+|**202**|The user privileges will be cleared.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

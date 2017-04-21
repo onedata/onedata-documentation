@@ -16,7 +16,7 @@ This operation has public access.
 **Check provider ports**
 ```bash
 curl -i --tlsv1.2 -X POST -H 'Content-type: application/json' \
--d '[ 80 ]' https://$HOST:8443/api/v3/onezone/provider/test/check_my_ports
+-d '[ "https://provider1.com:80", "https://provider1.com:443" ]' https://$HOST:8443/api/v3/onezone/provider/test/check_my_ports
 ```
 
 

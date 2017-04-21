@@ -9,7 +9,9 @@ GET /spaces/{id}/providers/{pid}
 ##### Description
 Returns details about a specific provider supporting the space.
 
-This operation requires `list_providers_of_space` privilege.
+For users who are members of space it requires `space_view_data`.
+For administrators who do not have to be members of this space,
+`list_providers_of_space` privilege is required.
 
 ***Example cURL requests***
 
@@ -20,7 +22,7 @@ https://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p
 
 {
   "providerId": "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0-upGkf9tk",
-  "clientName": "example",
+  "name": "example",
   "urls": [
     "195.216.97.151"
   ],
@@ -71,7 +73,8 @@ json :
 ```
 json :
 {
-  "providerId" : "LASDASJDBH89869ASD79869asd",
+  "name" : "Example provider",
+  "providerId" : "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0123upGkf9tk",
   "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
   "redirectionPoint" : "http://beta.onedata.org/provider2",
   "latitude" : 50.0647,

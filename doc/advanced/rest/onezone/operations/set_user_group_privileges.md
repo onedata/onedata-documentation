@@ -25,7 +25,7 @@ This operation requires `group_set_privileges` privilege.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been added.|No Content|
+|**204**|The user privileges have been added.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

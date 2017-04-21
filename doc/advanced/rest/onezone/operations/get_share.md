@@ -19,9 +19,10 @@ https://$HOST:8443/api/v3/onezone/shares/bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWD
 {
   "shareId": "bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3",
   "name": "MyShare",
-  "public_url": "http://onedata.org/shares/bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3",
-  "root_file_id": "",
-  "parent_space": "UIsgAxi5I803ZirkUfdiWDd4W3bI4QaPBog_0kCdUdd"
+  "publicUrl": "http://onedata.org/shares/bI4QaPBog_0kCdUddUIsgAxi5I803ZirkUfdiWDd4W3",
+  "rootFileId": "I4QaPBog0kCdUPBog0kCdUdd",
+  "spaceId": "UIsgAxi5I803ZirkUfdiWDd4W3bI4QaPBog_0kCdUdd",
+  "handleId": "doi:10.15911/MyShares.726855"
 }
 ```
 
@@ -65,11 +66,12 @@ json :
 ```
 json :
 {
-  "shareId" : null,
+  "shareId" : "8asd89asdlbKJSBD79a8sdkLKJH8asdkjasd8989",
   "name" : "MyNewShare",
   "publicUrl" : "https://onedata.org/shares/ASDLKJH8asdkjasd89898asd89asdlbKJSBDikjab89-asdmASD",
   "rootFileId" : "ASDkjlkkasdjoiwnafldnacbaasd8879a8sdkjb",
-  "parentSpace" : "LKJH8asdkjasd89898asd89asdlbKJSBD79a8sdk"
+  "spaceId" : "LKJH8asdkjasd89898asd89asdlbKJSBD79a8sdk",
+  "handleId" : "doi:10.15911/MyShares.726855"
 }
 ```
 

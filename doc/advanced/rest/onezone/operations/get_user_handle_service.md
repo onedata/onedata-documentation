@@ -1,6 +1,6 @@
 
 <a name="get_user_handle_service"></a>
-#### Get space details
+#### Get user handle service details
 ```
 GET /user/handle_services/{hsid}
 ```
@@ -76,6 +76,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

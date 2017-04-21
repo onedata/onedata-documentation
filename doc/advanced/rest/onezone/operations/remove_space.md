@@ -9,6 +9,9 @@ DELETE /spaces/{id}
 ##### Description
 Removes a specific space.
 
+If called by user who is not member of the space, requires `space_remove`
+privilege.
+
 ***Example cURL requests***
 
 **Remove space**
@@ -29,7 +32,7 @@ https://$HOST:8443/api/v3/onezone/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgA
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The space has been removed successfully.|No Content|
+|**202**|The space will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

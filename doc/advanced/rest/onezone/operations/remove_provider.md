@@ -11,9 +11,7 @@ Removes specific Oneprovider from this zone.
 
 If called by other provider doesn't require any special privileges.
 
-When called by a regular user, requires 'list_providers' privilege.
-
-This operation requires `list_providers` privilege.
+This operation requires `remove_provider` administrator privilege.
 
 ***Example cURL requests***
 
@@ -35,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/providers/WEavnRE7c49EU2sjF0Rz7l_kpiA1IBrwbDxN
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Provider unregistered successfully|No Content|
+|**202**|Provider will be unregistered.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

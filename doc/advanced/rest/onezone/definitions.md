@@ -15,9 +15,11 @@
 |[DefaultSpace](definitions/DefaultSpace.md)|Default space Id.|
 |[Error](definitions/Error.md)|Generic error model for REST requests.|
 |[Group](definitions/Group.md)|Group details.|
+|[GroupCreateRequest](definitions/GroupCreateRequest.md)|Group create request.|
 |[GroupInviteToken](definitions/GroupInviteToken.md)|Group invitation token for user.|
 |[GroupInviteTokenRequest](definitions/GroupInviteTokenRequest.md)|Group invitation token request.|
 |[GroupPrivileges](definitions/GroupPrivileges.md)|The list of group privileges.|
+|[GroupUpdateRequest](definitions/GroupUpdateRequest.md)|Group update request.|
 |[Groups](definitions/Groups.md)|List of groups.|
 |[Handle](definitions/Handle.md)|Handle properties.|
 |[HandlePrivileges](definitions/HandlePrivileges.md)|The list of handle privileges.|
@@ -33,19 +35,23 @@
 |[PIDServiceProperties](definitions/PIDServiceProperties.md)|The properties of a [PID](http://www.pidconsortium.eu/) registration service.|
 |[PIDServicePropertiesUpdate](definitions/PIDServicePropertiesUpdate.md)|The properties of a [PID](http://www.pidconsortium.eu/) registration service update.|
 |[ProviderDetails](definitions/ProviderDetails.md)|Provider properties.|
-|[ProviderRegistrationRequest](definitions/ProviderRegistrationRequest.md)|Provider reqistration request.|
+|[ProviderRegistrationRequest](definitions/ProviderRegistrationRequest.md)|Provider registration request.|
 |[ProviderRegistrationResponse](definitions/ProviderRegistrationResponse.md)|Signed certificate for registered provider.|
+|[ProviderUpdateRequest](definitions/ProviderUpdateRequest.md)|Provider settings update request.|
 |[Providers](definitions/Providers.md)|List of providers.|
 |[Share](definitions/Share.md)|Share parameters.|
 |[ShareUpdateRequest](definitions/ShareUpdateRequest.md)|Share parameters.|
 |[Shares](definitions/Shares.md)|List of shares.|
 |[Space](definitions/Space.md)|User space parameters.|
 |[SpaceAlias](definitions/SpaceAlias.md)|Space alias.|
+|[SpaceCreateRequest](definitions/SpaceCreateRequest.md)|New space parameters.|
 |[SpaceInviteToken](definitions/SpaceInviteToken.md)|Space invitation token for user.|
 |[SpacePrivileges](definitions/SpacePrivileges.md)|The list of space privileges.|
+|[SpaceSupportRequest](definitions/SpaceSupportRequest.md)|Space support token for provider.|
 |[SpaceSupportToken](definitions/SpaceSupportToken.md)|Space support token for provider.|
 |[Spaces](definitions/Spaces.md)|List of spaces.|
 |[User](definitions/User.md)|Describes a user account.|
+|[UserUpdateRequest](definitions/UserUpdateRequest.md)|User update request message.|
 |[Users](definitions/Users.md)|List of users.|
 
 

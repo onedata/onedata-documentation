@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/user/handle_services/oOVF-KrO1P6rpA0LFgNVI8Nxu
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The handle service was deleted successfuly.|No Content|
+|**202**|The handle service will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

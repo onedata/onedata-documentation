@@ -25,7 +25,7 @@ https://$HOST:8443/api/v3/onezone/user
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**data**  <br>*required*|User data.|[User](../definitions/User.md#user)|--|
+|**Body**|**data**  <br>*required*|User data.|[UserUpdateRequest](../definitions/UserUpdateRequest.md#userupdaterequest)|--|
 
 
 ##### Responses
@@ -58,17 +58,8 @@ json :
 ```
 json :
 {
-  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
   "name" : "Rudolf Lingens",
-  "connectedAccounts" : [ {
-    "accountId" : "ASD879ASD-7SADASFSsa0831",
-    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
-  }, {
-    "accountId" : "QWESsD-7SADASFSsa0831",
-    "providerId" : "7QWEJ-123ASD870-ASDASD"
-  } ],
-  "alias" : "John Doe",
-  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
+  "alias" : "John Doe"
 }
 ```
 

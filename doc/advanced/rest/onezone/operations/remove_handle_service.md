@@ -9,7 +9,7 @@ DELETE /handle_services/{id}
 ##### Description
 Allows to unregister a registeed handle service.
 
-This operation requires `delete_handle_services` privilege.
+This operation requires `delete_handle_service` privilege.
 
 ***Example cURL requests***
 
@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Unregistration was successful.|No Content|
+|**202**|Handle service will be unregistered.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

@@ -9,6 +9,8 @@ DELETE /groups/{id}/handles/{hid}
 ##### Description
 Removes the groups ownership or membership in a specific space.
 
+This operation requires `group_change_data` privilege.
+
 ***Example cURL requests***
 
 **Delete user space**
@@ -30,7 +32,7 @@ https://$HOST:8443/api/v3/onezone/groups/AKSDKJLHASDJKjhjaksdLKJASD/spaces/oOVF-
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The space was deleted successfuly.|No Content|
+|**202**|The handle will be removed from group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

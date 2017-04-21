@@ -11,6 +11,15 @@ Modifies supported space parameters.
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Change supported size**
+```bash
+curl --key ./certs/ozp_key.pem --cert ./certs/ozp_cert.pem -X PATCH \
+-d '{"size": 1024000}' \
+https://$HOST:8443/api/v3/onezone/provider/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
+```
+
 
 ##### Parameters
 

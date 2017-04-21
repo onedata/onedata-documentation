@@ -21,7 +21,7 @@ This operation requires `group_join_group` privilege.
 ```bash
 curl  -u admin:password -H "Content-type: application/json" -X POST \
 -d  '{"token":"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW"}'  \
-https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o
+https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122o/parents/join
 ```
 
 

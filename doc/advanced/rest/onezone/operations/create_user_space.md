@@ -26,7 +26,7 @@ https://$HOST:8443/api/v3/onezone/user/spaces
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**space**  <br>*required*|New space parameters.|[Space](../definitions/Space.md#space)|--|
+|**Body**|**space**  <br>*required*|New space parameters.|[SpaceCreateRequest](../definitions/SpaceCreateRequest.md#spacecreaterequest)|--|
 
 
 ##### Responses
@@ -59,9 +59,7 @@ json :
 ```
 json :
 {
-  "name" : "My Private space",
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
-  "size" : 150
+  "name" : "My Private space"
 }
 ```
 

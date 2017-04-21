@@ -9,8 +9,11 @@ DELETE /spaces/{id}/groups/{gid}
 ##### Description
 Removes a specific group from space.
 
-This operation requires `space_remove_group` privilege or
-`remove_member_from_space` privilege.
+For regular users, who belong to this space it requires
+`space_remove_group` privilege to remove a group from this space.
+
+For administrators, who are not members of this space,
+`remove_member_from_space` privilege is required.
 
 ***Example cURL requests***
 
@@ -33,7 +36,7 @@ https://$HOST:8443/api/v3/onezone/spaces/HUUPOMNGzikwiLXHaFYcE8-qxDtKmt1Gb3v5OnF
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|A space has been removed from group.|No Content|
+|**202**|A group will be removed from space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

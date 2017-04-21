@@ -4,7 +4,7 @@
 
 <a name="group_resource"></a>
 ### Group
-Group related operations
+Group management operations
 
 
 |Path|Method|Description|
@@ -24,7 +24,7 @@ Group related operations
 |[/groups/{id}/effective_children](operations/get_effective_children_groups.md)|GET|Get effective child groups|
 |[/groups/{id}/effective_children/{cid}](operations/get_effective_child_group.md)|GET|Get effective child group details|
 |[/groups/{id}/effective_children/{cid}/privileges](operations/list_effective_child_group_privileges.md)|GET|List effective child group privileges|
-|[/groups/{id}/effective_children/{cid}/privileges](operations/set_effective_child_group_privileges.md)|PATCH|List effective child group privileges|
+|[/groups/{id}/effective_children/{cid}/privileges](operations/set_effective_child_group_privileges.md)|PATCH|Set effective child group privileges|
 |[/groups/{id}/effective_handle_services](operations/list_effective_group_handle_services.md)|GET|List effective group handle services|
 |[/groups/{id}/effective_handle_services/{hsid}](operations/get_group_effective_handle_service.md)|GET|Get effective group handle service details|
 |[/groups/{id}/effective_handles](operations/list_effective_group_handles.md)|GET|List effective group handles|
@@ -53,16 +53,13 @@ Group related operations
 |[/groups/{id}/privileges](operations/list_group_onezone_privileges.md)|GET|List group's Onezone privileges|
 |[/groups/{id}/privileges](operations/remove_group_onezone_privileges.md)|DELETE|Remove group's Onezone privileges|
 |[/groups/{id}/privileges](operations/set_group_onezone_privileges.md)|PATCH|Set group's Onezone privileges|
-|[/groups/{id}/spaces](operations/create_space_for_group.md)|POST|Creates new space for group|
+|[/groups/{id}/spaces](operations/create_space_for_group.md)|POST|Create new space for group|
 |[/groups/{id}/spaces](operations/list_group_spaces.md)|GET|List group's spaces|
 |[/groups/{id}/spaces/join](operations/group_join_space.md)|POST|Join space by group|
-|[/groups/{id}/spaces/{sid}/alias](operations/get_group_space_alias.md)|GET|Get groups space alias|
-|[/groups/{id}/spaces/{sid}/alias](operations/set_group_space_alias.md)|PUT|Get space alias|
-|[/groups/{id}/spaces/{sid}/alias](operations/remove_group_space_alias.md)|DELETE|Remove space alias|
 |[/groups/{id}/users](operations/list_group_users.md)|GET|List group users|
 |[/groups/{id}/users/token](operations/create_user_group_invite_token.md)|POST|Create user invite token for group|
 |[/groups/{id}/users/{uid}](operations/get_group_user.md)|GET|Get group user details|
-|[/groups/{id}/users/{uid}](operations/add_group_user.md)|PUT|Get group user details|
+|[/groups/{id}/users/{uid}](operations/add_group_user.md)|PUT|Add user to group|
 |[/groups/{id}/users/{uid}](operations/remove_group_user.md)|DELETE|Remove user from group|
 |[/groups/{id}/users/{uid}/privileges](operations/list_user_group_privileges.md)|GET|List user's group privileges|
 |[/groups/{id}/users/{uid}/privileges](operations/set_user_group_privileges.md)|PATCH|Set user's group privileges|
@@ -87,7 +84,7 @@ Operations for managing Handle system service and identifier generation.
 |[/handle_services/{id}/effective_users/{uid}](operations/get_effective_handle_service_user.md)|GET|Get effective handle service user|
 |[/handle_services/{id}/effective_users/{uid}/privileges](operations/list_effective_handle_service_user_privileges.md)|GET|List effective handle service user privileges|
 |[/handle_services/{id}/groups](operations/list_handle_service_groups.md)|GET|List handle service groups|
-|[/handle_services/{id}/groups/{gid}](operations/get_handle_service_group.md)|GET|Get handle service group|
+|[/handle_services/{id}/groups/{gid}](operations/get_handle_service_group.md)|GET|Get handle service group details|
 |[/handle_services/{id}/groups/{gid}](operations/add_handle_service_group.md)|PUT|Add handle service group|
 |[/handle_services/{id}/groups/{gid}](operations/remove_handle_service_group.md)|DELETE|Remove handle service group|
 |[/handle_services/{id}/groups/{gid}/privileges](operations/list_handle_service_group_privileges.md)|GET|List handle service group privileges|
@@ -123,13 +120,11 @@ Operations for managing Handle system service and identifier generation.
 |[/handles/{hndl}/users/{uid}](operations/remove_handle_user.md)|DELETE|Remove handle user|
 |[/handles/{hndl}/users/{uid}/privileges](operations/list_handle_user_privileges.md)|GET|List handle user privileges|
 |[/handles/{hndl}/users/{uid}/privileges](operations/set_handle_user_privileges.md)|PATCH|Set handle user privileges|
-|[/user/handle_services](operations/add_user_handle_service.md)|POST|Add user handle service|
-|[/user/handle_services](operations/list_user_handle_services.md)|GET|List user handle services|
 
 
 <a name="provider_resource"></a>
 ### Provider
-Provider related operations
+Provider management operations
 
 
 |Path|Method|Description|
@@ -158,13 +153,13 @@ Provider related operations
 
 <a name="space_resource"></a>
 ### Space
-Space related operations
+Space management operations
 
 
 |Path|Method|Description|
 |---|---|---|
 |[/shares](operations/create_share.md)|POST|Create share|
-|[/shares](operations/list_shares.md)|GET|List share details|
+|[/shares](operations/list_shares.md)|GET|List all shares|
 |[/shares/{id}](operations/get_share.md)|GET|Get share details|
 |[/shares/{id}](operations/remove_share.md)|DELETE|Remove share|
 |[/shares/{id}](operations/modify_share.md)|PATCH|Modify share details|
@@ -175,7 +170,10 @@ Space related operations
 |[/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
 |[/spaces/{id}/effective_groups](operations/list_effective_space_groups.md)|GET|List effective space groups|
 |[/spaces/{id}/effective_groups/{gid}](operations/get_effective_space_group.md)|GET|Get effective space group details|
-|[/spaces/{id}/effective_groups/{gid}/privileges](operations/list_effective_space_group_privileges.md)|GET|List group privileges to space|
+|[/spaces/{id}/effective_groups/{gid}/privileges](operations/list_effective_space_group_privileges.md)|GET|List effective group privileges to space|
+|[/spaces/{id}/effective_users](operations/list_effective_space_users.md)|GET|List effective space users|
+|[/spaces/{id}/effective_users/{uid}](operations/get_effective_space_user.md)|GET|Get effective space user details|
+|[/spaces/{id}/effective_users/{uid}/privileges](operations/list_effective_space_user_privileges.md)|GET|List effective user privileges to space|
 |[/spaces/{id}/groups](operations/list_space_groups.md)|GET|List space groups|
 |[/spaces/{id}/groups/token](operations/create_space_group_token.md)|POST|Create space invite token for group|
 |[/spaces/{id}/groups/{gid}](operations/get_space_group.md)|GET|Get group details|
@@ -200,7 +198,7 @@ Space related operations
 
 <a name="user_resource"></a>
 ### User
-User related operations
+Regular user operations
 
 
 |Path|Method|Description|
@@ -214,14 +212,14 @@ User related operations
 |[/user/client_tokens/{tid}](operations/remove_client_token.md)|DELETE|Delete access token|
 |[/user/default_provider](operations/get_default_provider.md)|GET|Get default provider|
 |[/user/default_provider](operations/set_default_provider.md)|PUT|Set default provider|
-|[/user/default_provider](operations/remove_default_provider.md)|DELETE|Set default space|
+|[/user/default_provider](operations/remove_default_provider.md)|DELETE|Unset default provider|
 |[/user/default_space](operations/get_default_space.md)|GET|Get default space|
 |[/user/default_space](operations/set_default_space.md)|PUT|Set default space|
-|[/user/default_space](operations/remove_default_space.md)|DELETE|Set default space|
+|[/user/default_space](operations/remove_default_space.md)|DELETE|Unset default space|
 |[/user/effective_groups](operations/list_effective_user_groups.md)|GET|List effective user groups|
 |[/user/effective_groups/{gid}](operations/get_user_effective_group.md)|GET|Get effective group details|
-|[/user/effective_handle_services](operations/list_user_effective_handle_services.md)|GET|List user effective providers|
-|[/user/effective_handle_services/{hsid}](operations/get_user_effective_handle_service.md)|GET|Get effective provider details|
+|[/user/effective_handle_services](operations/list_user_effective_handle_services.md)|GET|List user effective handle services|
+|[/user/effective_handle_services/{hsid}](operations/get_user_effective_handle_service.md)|GET|Get effective handle service details|
 |[/user/effective_handles](operations/list_user_effective_handles.md)|GET|Get user effective handles|
 |[/user/effective_handles/{hid}](operations/get_user_effective_handle.md)|GET|Get effective handle details|
 |[/user/effective_privileges](operations/list_current_user_effective_privileges.md)|GET|List current user effective privileges|
@@ -234,7 +232,9 @@ User related operations
 |[/user/groups/join](operations/join_group.md)|POST|Join group|
 |[/user/groups/{gid}](operations/get_user_group.md)|GET|Get group details|
 |[/user/groups/{gid}](operations/leave_group.md)|DELETE|Leave group|
-|[/user/handle_services/{hsid}](operations/get_user_handle_service.md)|GET|Get space details|
+|[/user/handle_services](operations/add_user_handle_service.md)|POST|Add user handle service|
+|[/user/handle_services](operations/list_user_handle_services.md)|GET|List user handle services|
+|[/user/handle_services/{hsid}](operations/get_user_handle_service.md)|GET|Get user handle service details|
 |[/user/handle_services/{hsid}](operations/remove_user_handle_service.md)|DELETE|Remove user handle service|
 |[/user/handles](operations/create_user_handle.md)|POST|Create new user handle|
 |[/user/handles](operations/list_user_handles.md)|GET|List user handles|
@@ -248,16 +248,25 @@ User related operations
 |[/user/spaces/join](operations/join_space.md)|POST|Join space|
 |[/user/spaces/{sid}](operations/get_user_space.md)|GET|Get space details|
 |[/user/spaces/{sid}](operations/remove_user_space.md)|DELETE|Leave space|
-|[/user/spaces/{sid}/alias](operations/get_user_space_alias.md)|GET|Get space alias|
-|[/user/spaces/{sid}/alias](operations/set_user_space_alias.md)|PUT|Get space alias|
+|[/user/spaces/{sid}/alias](operations/get_user_space_alias.md)|GET|Get user space alias|
+|[/user/spaces/{sid}/alias](operations/set_user_space_alias.md)|PUT|Set user space alias|
 |[/user/spaces/{sid}/alias](operations/remove_user_space_alias.md)|DELETE|Remove space alias|
-|[/users](operations/list_users.md)|GET|List all users|
-|[/users/{id}](operations/get_user.md)|GET|Get user details|
 |[/users/{id}](operations/remove_user.md)|DELETE|Remove user|
-|[/users/{id}/effective_privileges](operations/list_user_onezone_effective_privileges.md)|GET|List user's Onezone privileges|
-|[/users/{id}/privileges](operations/list_user_onezone_privileges.md)|GET|List user Onezone privileges|
 |[/users/{id}/privileges](operations/remove_user_onezone_privileges.md)|DELETE|Remove user's Onezone privileges|
 |[/users/{id}/privileges](operations/set_user_onezone_privileges.md)|PATCH|Set user's Onezone privileges|
+
+
+<a name="users_resource"></a>
+### Users
+User management operations
+
+
+|Path|Method|Description|
+|---|---|---|
+|[/users](operations/list_users.md)|GET|List all users|
+|[/users/{id}](operations/get_user.md)|GET|Get user details|
+|[/users/{id}/effective_privileges](operations/list_user_onezone_effective_privileges.md)|GET|List user's effective Onezone privileges|
+|[/users/{id}/privileges](operations/list_user_onezone_privileges.md)|GET|List user Onezone privileges|
 
 
 

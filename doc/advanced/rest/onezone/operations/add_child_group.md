@@ -9,7 +9,8 @@ PUT /groups/{id}/children/{cid}
 ##### Description
 Adds group {cid} as child group of {id}.
 
-This operation requires `group_change_data` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_add_members` privilege is required.
 
 ***Example cURL requests***
 

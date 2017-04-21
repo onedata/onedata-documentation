@@ -9,6 +9,8 @@ POST /handle_services
 ##### Description
 Allows to register a new handle service.
 
+This operation requires `oz_handle_services_create` administrator privilege.
+
 ***Example cURL requests***
 
 **Add handle services**
@@ -55,6 +57,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

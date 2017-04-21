@@ -11,6 +11,16 @@ Join existing group using inivitation token.
 
 This operation can be invoked on behalf of current user only.
 
+***Example cURL requests***
+
+**Join group**
+
+```bash
+curl -u username:password  -H "Content-type: application/json" \
+-X POST -d '{ "token": "LKJGH6785678asdASDKhj879asdLKJHASDASDJHAJKLSHDLJKASD" }' \
+https://$HOST:8443/api/v3/onezone/user/groups/join
+```
+
 
 ##### Parameters
 

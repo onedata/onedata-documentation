@@ -65,6 +65,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

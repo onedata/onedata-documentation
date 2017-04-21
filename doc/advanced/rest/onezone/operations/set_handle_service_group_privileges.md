@@ -60,6 +60,7 @@ json :
 ```
 json :
 {
+  "operation" : [ "grant" ],
   "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
 }
 ```

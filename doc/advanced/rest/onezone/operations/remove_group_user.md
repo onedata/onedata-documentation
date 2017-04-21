@@ -11,6 +11,8 @@ Removes the user {uid} from a group {id} (the user will no longer have access
 to spaces accessible to the group).
 
 This operation requires `group_remove_user` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_remove_members` privilege is required.
 
 ***Example cURL requests***
 

@@ -9,14 +9,20 @@ GET /handle_services/{id}/effective_groups/{gid}
 ##### Description
 Get details of a handle service owned by an effective group.
 
-This operation requires `modify_handle_service` privilege.
+This operation requires `view_handle_service` administrator privilege.
 
 ***Example cURL requests***
 
-**Get effective group handle service**
+**Get effective handle service group details**
 ```bash
-curl -u username:password -X PUT \
-https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/DLAKSHDLKJHJjLHADHLKJh
+curl -u username:password -X GET \
+https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+
+{
+  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
+  "name":"Group name",
+  "type":"role"
+}
 ```
 
 
@@ -60,6 +66,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

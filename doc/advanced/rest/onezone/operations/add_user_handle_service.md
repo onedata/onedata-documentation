@@ -55,6 +55,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

@@ -9,12 +9,17 @@ PATCH /shares/{id}
 ##### Description
 Updates the details about a share.
 
+Currently this operation allows only to change the name of the share.
+
+This operation requires privilege `space_manage_shares` in space
+in which the share was created.
+
 ***Example cURL requests***
 
 **Change share name**
 ```bash
 curl -u username:password -H "Content-type: application/json" \
--X PATCH -d '{"name": "new_share_name"}' \
+-X PATCH -d '{"name": "NewShareName"}' \
 https://$HOST:8443/api/v3/onezone/shares/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE
 ```
 
@@ -24,14 +29,21 @@ https://$HOST:8443/api/v3/onezone/shares/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**data**  <br>*required*|Share parameters|[ShareUpdateRequest](../definitions/ShareUpdateRequest.md#shareupdaterequest)|--|
+|**Body**|**data**  <br>*required*|Share parameters|[data](#modify_share-data)|--|
+
+<a name="modify_share-data"></a>
+**data**
+
+|Name|Description|Schema|
+|---|---|---|
+|**name**  <br>*optional*|The name of the share.|string|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Share has been updated successfully.|No Content|
+|**204**|Share will be updated.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -57,11 +69,7 @@ json :
 ```
 json :
 {
-  "shareId" : null,
-  "name" : "MyNewShare",
-  "publicUrl" : "https://onedata.org/shares/ASDLKJH8asdkjasd89898asd89asdlbKJSBDikjab89-asdmASD",
-  "rootFileId" : "ASDkjlkkasdjoiwnafldnacbaasd8879a8sdkjb",
-  "parentSpace" : "LKJH8asdkjasd89898asd89asdlbKJSBD79a8sdk"
+  "name" : "string"
 }
 ```
 

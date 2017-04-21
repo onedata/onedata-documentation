@@ -1,6 +1,6 @@
 
 <a name="get_user_effective_handle_service"></a>
-#### Get effective provider details
+#### Get effective handle service details
 ```
 GET /user/effective_handle_services/{hsid}
 ```
@@ -76,6 +76,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

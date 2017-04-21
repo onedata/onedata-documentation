@@ -9,7 +9,7 @@ GET /handles/{hndl}/effective_groups
 ##### Description
 Returns effective groups with access to a handle instance.
 
-This operation requires `view_handle` privilege.
+This operation requires `view_handle` administrator privilege.
 
 ***Example cURL requests***
 

@@ -9,15 +9,31 @@ GET /groups/{id}/effective_handle_services/{hsid}
 ##### Description
 Returns the details of a specific effective handle service.
 
+This operation requires `group_view_data` privilege.
+
 ***Example cURL requests***
 
 **Get effective handle service details**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/ALASDLKJALKSDJKLASD/effective_handle_services/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY
+https://$HOST:8443/api/v3/onezone/groups/ALASDLKJALKSDJKLASD/effective_handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 {
-
+    "handleServiceId": "SADHLKJhlkASHDLAKSHDLKJHJjLH",
+    "name": "MyCommunity Handle service",
+    "proxyEndpoint": "https://localhost:17000/handle_proxy",
+    "serviceProperties": {
+        "allowTemplateOverride": false,
+        "doiEndpoint": "/doi",
+        "host": "https://mds.test.datacite.org",
+        "identifierTemplate": "{{space.name}}-{{space.guid}}",
+        "mediaEndpoint": "/media",
+        "metadataEndpoint": "/metadata",
+        "password": "pa$$word",
+        "prefix": 10.5072,
+        "type": "DOI",
+        "username": "alice"
+    }
 }
 ```
 
@@ -62,6 +78,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

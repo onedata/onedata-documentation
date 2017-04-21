@@ -12,6 +12,22 @@ performed the request.
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Get space details**
+```bash
+curl --key ./certs/ozp_key.pem --cert ./certs/ozp_cert.pem -X GET \
+https://$HOST:8443/api/v3/onezone/provider/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
+
+{
+  "spaceId": "803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I",
+  "name": "new_space1",
+  "providersSupports": {
+    "hxfMCWmquqAIjG1GeG2eZY8qvs8iRIn09HzjCJilnSE" : 5368709120
+  }
+}
+```
+
 
 ##### Parameters
 
@@ -52,9 +68,11 @@ json :
 ```
 json :
 {
+  "spaceId" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
   "name" : "My Private space",
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
-  "size" : 150
+  "providersSupports" : {
+    "hxfMCWmquqAIjG1GeG2eZY8qvs8iRIn09HzjCJilnSE" : 5368709120
+  }
 }
 ```
 
