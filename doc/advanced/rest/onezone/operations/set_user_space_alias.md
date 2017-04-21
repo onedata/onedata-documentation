@@ -1,6 +1,6 @@
 
 <a name="set_user_space_alias"></a>
-#### Get space alias
+#### Set user space alias
 ```
 PUT /user/spaces/{sid}/alias
 ```

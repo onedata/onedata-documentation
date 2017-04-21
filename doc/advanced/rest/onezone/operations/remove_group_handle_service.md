@@ -30,7 +30,7 @@ https://$HOST:8443/api/v3/onezone/groups/AJKLASHJKDHKAJSHD/handle_services/oOVF-
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The handle service was deleted successfuly.|No Content|
+|**202**|The handle service will be deleted.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

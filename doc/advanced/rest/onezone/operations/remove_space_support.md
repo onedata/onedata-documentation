@@ -11,6 +11,14 @@ Removes support for space from the Oneprovider that performed the request.
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Revoke space support**
+```bash
+curl --key ./certs/ozp_key.pem --cert ./certs/ozp_cert.pem -X DELETE \
+https://$HOST:8443/api/v3/onezone/provider/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
+```
+
 
 ##### Parameters
 
@@ -23,7 +31,7 @@ This operation requires peer certificate authentication.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|The space support has ended.|No Content|
+|**202**|Support for space will be revoked.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

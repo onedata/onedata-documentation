@@ -10,6 +10,8 @@ GET /groups/{id}/children
 Returns the list of subgroups of a specific group.
 
 This operation requires `group_view_data` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_list_groups` privilege is required.
 
 ***Example cURL requests***
 

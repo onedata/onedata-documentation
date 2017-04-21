@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/users/ivMnRLb2WYNApEmP-j3SF0NsqBgdHG7iel89FHY8
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user privileges have been removed.|No Content|
+|**202**|The user privileges will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

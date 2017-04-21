@@ -1,6 +1,6 @@
 
 <a name="remove_default_space"></a>
-#### Set default space
+#### Unset default space
 ```
 DELETE /user/default_space
 ```
@@ -24,7 +24,7 @@ https://$HOST:8443/api/v3/onezone/user/default_space
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Default space removed successfully.|No Content|
+|**202**|Default space will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

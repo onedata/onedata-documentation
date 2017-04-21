@@ -10,14 +10,24 @@ GET /spaces/{id}/users/{uid}
 Returns the public information about a specific user in a space.
 
 This operation requires `space_view_data` privilege.
-
+For administrators who do not have to be members of this space,
+`oz_spaces_list_users` privilege is required.
 
 ***Example cURL requests***
 
 **Get space user data**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo
+
+{
+   "name" : "John Doe",
+   "alias" : "",
+   "login" : "username",
+   "connectedAccounts" : [],
+   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
+   "emailList" : []
+}
 ```
 
 

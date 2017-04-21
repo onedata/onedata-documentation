@@ -18,10 +18,12 @@ This operation requires `view_handle_service` privilege.
 curl -u username:password -X GET \
 https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users
 
-[
-  "LKJhlkASHDLAKSHDLKJHJjL",
-  "LAKSHDLKJHJjLLKJhlkASHD"
-]
+{
+  "users": [
+    "LKJhlkASHDLAKSHDLKJHJjL",
+    "LAKSHDLKJHJjLLKJhlkASHD"
+  ]
+}
 ```
 
 
@@ -36,7 +38,7 @@ https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of identifiers of users with access to specific handle service.|< string > array|
+|**200**|The list of identifiers of users with access to specific handle service.|[Users](../definitions/Users.md#users)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -63,7 +65,9 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+{
+  "users" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
 ```
 
 

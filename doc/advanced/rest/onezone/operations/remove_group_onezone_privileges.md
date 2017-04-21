@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2/privileg
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The group privileges have been added.|No Content|
+|**202**|The group privileges will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

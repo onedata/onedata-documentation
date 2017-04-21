@@ -10,6 +10,8 @@ GET /groups/{id}/users/{uid}
 Returns the public information about a user {uid} in group {id}.
 
 This operation requires `group_view_data` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_list_users` privilege is required.
 
 ***Example cURL requests***
 
@@ -20,8 +22,11 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 {
   "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
-  "login": "username",
-  "name": "admin"
+  "login": "admin",
+  "name": "admin",
+  "connectedAccounts": [],
+  "alias": "",
+  "emailList": []
 }
 ```
 

@@ -9,6 +9,9 @@ PATCH /spaces/{id}
 ##### Description
 Updates the details about a space.
 
+If called by user who is not member of the space, requires `space_change_data`
+privilege.
+
 ***Example cURL requests***
 
 **Change space name**
@@ -24,7 +27,14 @@ https://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**data**  <br>*required*|Space parameters|[Space](../definitions/Space.md#space)|--|
+|**Body**|**data**  <br>*required*|Space parameters|[data](#modify_space-data)|--|
+
+<a name="modify_space-data"></a>
+**data**
+
+|Name|Description|Schema|
+|---|---|---|
+|**name**  <br>*optional*|The name of the new space.|string|
 
 
 ##### Responses
@@ -57,9 +67,7 @@ json :
 ```
 json :
 {
-  "name" : "My Private space",
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
-  "size" : 150
+  "name" : "string"
 }
 ```
 

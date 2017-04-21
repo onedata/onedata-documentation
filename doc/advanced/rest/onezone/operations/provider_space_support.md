@@ -12,12 +12,21 @@ performed the request. Space support token is required.
 
 This operation requires peer certificate authentication.
 
+***Example cURL requests***
+
+**Add support for specific space**
+```bash
+curl --key ./certs/ozp_key.pem --cert ./certs/ozp_cert.pem -X POST \
+-d '{"size": 1024000, "token": "Ko1SDKLJASHDkjjkjashdkjahsdkk655a8sdkgkasdASD"}' \
+https://$HOST:8443/api/v3/onezone/provider/spaces/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I
+```
+
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**token**  <br>*optional*|The space support token.|[SpaceSupportToken](../definitions/SpaceSupportToken.md#spacesupporttoken)|--|
+|**Body**|**token**  <br>*optional*|The space support token.|[SpaceSupportRequest](../definitions/SpaceSupportRequest.md#spacesupportrequest)|--|
 
 
 ##### Responses
@@ -50,7 +59,8 @@ json :
 ```
 json :
 {
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
+  "size" : 1024000000
 }
 ```
 

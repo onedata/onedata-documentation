@@ -22,7 +22,7 @@ https://$HOST:8443/api/v3/onezone/user
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User removed successfully.|string|
+|**202**|User will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -40,13 +40,6 @@ json :
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-"string"
-```
-
 
 ###### Response 400
 ```

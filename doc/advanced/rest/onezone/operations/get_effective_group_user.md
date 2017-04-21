@@ -16,12 +16,15 @@ This operation requires `group_view_data` privilege.
 **Get group user details**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5d2JDQ6YvB7a0
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0
 
 {
   "userId": "lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0",
-  "login": "username",
-  "name": "user1"
+  "login": "admin",
+  "name": "admin",
+  "connectedAccounts": [],
+  "alias": "",
+  "emailList": []
 }
 ```
 

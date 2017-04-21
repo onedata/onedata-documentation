@@ -1,6 +1,6 @@
 
 <a name="get_user_space_alias"></a>
-#### Get space alias
+#### Get user space alias
 ```
 GET /user/spaces/{sid}/alias
 ```

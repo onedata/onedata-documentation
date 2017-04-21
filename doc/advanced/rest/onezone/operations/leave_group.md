@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/user/groups/qScCV0Tt3NiTLYbx_DGzJFnQxDYQNqNxk6
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The user left the group successfully.|No Content|
+|**202**|The user will be removed from group.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

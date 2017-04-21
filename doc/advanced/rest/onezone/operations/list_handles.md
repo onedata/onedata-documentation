@@ -7,7 +7,9 @@ GET /handles
 
 
 ##### Description
-Returns the list of ID's of all handles accessible by the current user.
+Returns the list of ID's of all handles registered in Onezone.
+
+This operation requires `oz_handles_list` administrator privilege.
 
 ***Example cURL requests***
 

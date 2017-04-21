@@ -89,6 +89,16 @@ security it is recommended, that ports on database and cluster manager nodes
 are not publicly available.
 
 In the registration form fill all necessary fields:
+
+ * **Onezone domain** - this is the Onezone IP or FDQN address to which you're connecting
+   e.g. `onedata.org`,
+ * **Redirection point** - the external IP or FQDN address of the Oneprovider instance,
+   e.g. `provider.example.com`,
+ * **Provider name** - descriptive name of your Oneprovider instance, under which it
+   will be visible to users in the Onezone service,
+ * **Latitude** and **Longitude** - geographical coordinates under which the Oneprovider
+   instance will be visible on a world map in Onezone user interface.
+
 <p align="center"><img src="../img/admin/zone_registration_step1.png"></p>
 
 After the registration is complete, the ID of this Oneprovider assigned by

@@ -1,23 +1,27 @@
 
-<a name="set_group_space_alias"></a>
-#### Get space alias
+<a name="list_effective_space_users"></a>
+#### List effective space users
 ```
-PUT /groups/{id}/spaces/{sid}/alias
+GET /spaces/{id}/effective_users
 ```
 
 
 ##### Description
-Sets the alias of a specific space.
-
-This operation can be invoked on behalf of current user only.
+Returns the effective list of users belonging to a specific space.
 
 ***Example cURL requests***
 
-**Set space alias**
+**Get space effective users**
 ```bash
-curl -u username:password -X POST -d '{"alias": "Space alias"}' \
--H 'Content-type: application/json' \
-https://$HOST:8443/api/v3/onezone/groups/ASDLJASDOASDBAMNSBVD89as/spaces/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY/alias
+curl -u username:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/effective_users
+
+{
+  "users": [
+    "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM",
+    "e3piG9yg9877lagR7aHayk73te9gAMXxQvjBycwvnaow"
+  ]
+}
 ```
 
 
@@ -25,16 +29,14 @@ https://$HOST:8443/api/v3/onezone/groups/ASDLJASDOASDBAMNSBVD89as/spaces/oOVF-Kr
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**sid**  <br>*required*|Space ID.|string|--|
-|**Body**|**data**  <br>*required*|New space alias.|[SpaceAlias](../definitions/SpaceAlias.md#spacealias)|--|
+|**Path**|**id**  <br>*required*|Space ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Space alias has been successfully set.|No Content|
+|**200**|The list of effective user ID's that belong to a specific space.|[Users](../definitions/Users.md#users)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -42,7 +44,7 @@ https://$HOST:8443/api/v3/onezone/groups/ASDLJASDOASDBAMNSBVD89as/spaces/oOVF-Kr
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Consumes
+##### Produces
 
 * `application/json`
 
@@ -52,20 +54,20 @@ https://$HOST:8443/api/v3/onezone/groups/ASDLJASDOASDBAMNSBVD89as/spaces/oOVF-Kr
 ###### Request path
 ```
 json :
-"/groups/string/spaces/string/alias"
-```
-
-
-###### Request body
-```
-json :
-{
-  "alias" : "Another name."
-}
+"/spaces/string/effective_users"
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "users" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
+```
+
 
 ###### Response 400
 ```

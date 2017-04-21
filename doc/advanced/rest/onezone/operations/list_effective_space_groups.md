@@ -9,9 +9,12 @@ GET /spaces/{id}/effective_groups
 ##### Description
 Returns the effective list of groups belonging to a specific space.
 
+If called by user who is not member of the space, requires `space_view_data`
+privilege.
+
 ***Example cURL requests***
 
-**Get space groups**
+**Get space effective groups**
 ```bash
 curl -u username:password -X GET \
 https://$HOST:8443/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/effective_groups

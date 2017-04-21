@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/onezone/spaces/IkHBv8CoAFm5FCswhAJynbFU4fj26yiE1lhpK3p
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|A space is no longer supported by this provider.|No Content|
+|**202**|A space is no longer supported by this provider.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

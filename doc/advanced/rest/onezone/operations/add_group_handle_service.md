@@ -9,6 +9,10 @@ POST /groups/{id}/handle_services
 ##### Description
 Allows to register a new handle service for group.
 
+For administrator who do not need to be members of this group
+`oz_handle_services_create` privilege is required.
+
+
 ***Example cURL requests***
 
 **Add group handle services**
@@ -56,6 +60,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

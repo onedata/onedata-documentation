@@ -9,6 +9,8 @@ GET /groups/{id}/handle_services
 ##### Description
 Returns the list of registered group handle services.
 
+This operation requires `group_view_data` privilege.
+
 ***Example cURL requests***
 
 **Get group handle services**

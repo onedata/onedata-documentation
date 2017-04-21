@@ -1,6 +1,6 @@
 
 <a name="set_effective_child_group_privileges"></a>
-#### List effective child group privileges
+#### Set effective child group privileges
 ```
 PATCH /groups/{id}/effective_children/{cid}/privileges
 ```

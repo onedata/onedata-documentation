@@ -17,7 +17,7 @@ This operation can be invoked on behalf of current user only.
 **Create new group**
 ```bash
 curl -u username:password  -H "Content-type: application/json" \
--X POST -d '{ "name" : "test_group" , "type" : "admin" }' \
+-X POST -d '{ "name" : "test_group" , "type" : "role" }' \
 https://$HOST:8443/api/v3/onezone/user/groups
 ```
 
@@ -59,6 +59,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/handles/SDLLKHASDkSDLHU70ASDnHU70ASDnkjhA
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|Unregistration was successful.|No Content|
+|**202**|Handle will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

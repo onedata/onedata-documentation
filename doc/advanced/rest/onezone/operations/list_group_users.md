@@ -10,6 +10,8 @@ GET /groups/{id}/users
 Returns the list of users belonging to a specific group.
 
 This operation requires `group_view_data` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_list_users` privilege is required.
 
 ***Example cURL requests***
 
