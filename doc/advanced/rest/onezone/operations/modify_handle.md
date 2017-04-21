@@ -7,8 +7,8 @@ PATCH /handles/{hndl}
 
 
 ##### Description
-Allows to update a registeed handle, for instance change the Onedata resource
-to which it points to.
+Allows to update a registered handle, currently it only allows
+to modify the handle metadata property.
 
 This operation requires `modify_handle` privilege.
 
@@ -17,7 +17,7 @@ This operation requires `modify_handle` privilege.
 **Modify handle resource**
 ```bash
 curl -u username:password -X PATCH  -H "Content-type: application/json" \
--d '{"resourceId": "jalkADKDGHKAJSdlkHDukjhassjd76876asdkb"}' \
+-d '{"metadata": "<?xml..."}' \
 https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 ```
 
@@ -27,7 +27,14 @@ https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**hndl**  <br>*required*||string|--|
-|**Body**|**handle**  <br>*required*||[Handle](../definitions/Handle.md#handle)|--|
+|**Body**|**handle**  <br>*required*||[handle](#modify_handle-handle)|--|
+
+<a name="modify_handle-handle"></a>
+**handle**
+
+|Name|Description|Schema|
+|---|---|---|
+|**metadata**  <br>*optional*|Dublin Core metadata in XML for the handle.|string|
 
 
 ##### Responses
@@ -60,11 +67,7 @@ json :
 ```
 json :
 {
-  "handleId" : "2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88",
-  "handleType" : "DOI",
-  "handle" : "10.572/test-handle-G9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEh/123",
-  "resourceId" : "RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC",
-  "handleServiceId" : "JKAxNWxvY2F0aW9uImSEFSSGdrbHFCa1pWST2OTQ4cz"
+  "metadata" : "string"
 }
 ```
 

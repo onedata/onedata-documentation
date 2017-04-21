@@ -9,7 +9,7 @@ DELETE /users/{id}
 ##### Description
 Removes a specific user.
 
-This operation requires `user_remove` privilege.
+This operation requires `oz_users_delete` privilege.
 
 ***Example cURL requests***
 

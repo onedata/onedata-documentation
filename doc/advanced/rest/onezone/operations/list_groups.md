@@ -23,19 +23,12 @@ Requires `list_groups` privilege.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of group ID's created within the Onezone service.|[Response 200](#list_groups-response-200)|
+|**200**|The list of group ID's created within the Onezone service.|[Groups](../definitions/Groups.md#groups)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
-
-<a name="list_groups-response-200"></a>
-**Response 200**
-
-|Name|Description|Schema|
-|---|---|---|
-|**groups**  <br>*optional*||< string > array|
 
 
 ##### Produces
@@ -57,7 +50,9 @@ json :
 ###### Response 200
 ```
 json :
-"object"
+{
+  "groups" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
 ```
 
 

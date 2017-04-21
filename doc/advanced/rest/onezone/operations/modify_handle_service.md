@@ -7,16 +7,16 @@ PATCH /handle_services/{id}
 
 
 ##### Description
-Allows to update a registeed handle service.
+Allows to update a registered handle service.
 
-This operation requires `modify_handle_services` privilege.
+This operation requires `modify_handle_service` privilege.
 
 ***Example cURL requests***
 
 **Modify handle service password**
 ```bash
 curl -u username:password -X PATCH  -H "Content-type: application/json" \
--d '{"password": "new_password"}' \
+-d '{"name": "New handle service name"}' \
 https://$HOST:8443/api/v3/handle_services/LKHASDkkjhASDLHU70ASDn
 ```
 

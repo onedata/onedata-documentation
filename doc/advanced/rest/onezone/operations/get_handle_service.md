@@ -9,7 +9,7 @@ GET /handle_services/{id}
 ##### Description
 Returns the properties of a specific handle service.
 
-This operation requires `view_handle_service` privilege.
+This operation requires `oz_handle_services_list` administrator privilege.
 
 ***Example cURL requests***
 
@@ -19,6 +19,7 @@ curl -u username:password -X GET \
 https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH
 
 {
+    "handleServiceId": "SADHLKJhlkASHDLAKSHDLKJHJjLH",
     "name": "MyCommunity Handle service",
     "proxyEndpoint": "https://localhost:17000/handle_proxy",
     "serviceProperties": {
@@ -76,6 +77,7 @@ json :
 ```
 json :
 {
+  "handleServiceId" : "SADHLKJhlkASHDLAKSHDLKJHJjLH",
   "name" : "MyCommunity Handle service",
   "proxyEndpoint" : "https://localhost:17000/handle_proxy",
   "serviceProperties" : {

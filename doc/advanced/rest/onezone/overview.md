@@ -143,10 +143,11 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/user \
 
 ### Tags
 
-* Space : Space related operations
-* Group : Group related operations
-* User : User related operations
-* Provider : Provider related operations
+* User : Regular user operations
+* Users : User management operations
+* Group : Group management operations
+* Space : Space management operations
+* Provider : Provider management operations
 * Handle : Operations for managing Handle system service and identifier generation.
 
 

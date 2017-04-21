@@ -33,7 +33,7 @@ https://$HOST:8443/api/v3/onezone/spaces/p-mts_OBjwXss-E9kBxzp-ux12KNW2CBSaXlkDo
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User has been removed from space successfully.|No Content|
+|**202**|User will be removed from space.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

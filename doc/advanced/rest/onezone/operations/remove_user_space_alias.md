@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/user/spaces/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrY
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The space was deleted successfuly.|No Content|
+|**202**|The space alias will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

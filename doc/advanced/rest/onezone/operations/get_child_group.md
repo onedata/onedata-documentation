@@ -10,6 +10,8 @@ GET /groups/{id}/children/{cid}
 Returns information about a specific child group.
 
 This operation requires `group_view_data` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_list_groups` privilege is required.
 
 ***Example cURL requests***
 
@@ -66,6 +68,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

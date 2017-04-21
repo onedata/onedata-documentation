@@ -25,7 +25,7 @@ This operation does require any specific privileges.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**data**  <br>*required*|Group properties.|[Group](../definitions/Group.md#group)|--|
+|**Body**|**data**  <br>*required*|Group properties.|[GroupCreateRequest](../definitions/GroupCreateRequest.md#groupcreaterequest)|--|
 
 
 ##### Responses

@@ -16,12 +16,15 @@ This operation requires `list_users_of_provider` privilege.
 **Get effective user of a provider**
 ```bash
 curl -u username:password -X GET  \
-https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/effective_users/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD
+https://$HOST:8443/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo
 
 {
-  "userId": "KJHAGSDJKHGASJKHDGAKJHSDGKHJASD",
-  "login":"username",
-  "name":"admin"
+   "name" : "John Doe",
+   "alias" : "",
+   "login" : "username",
+   "connectedAccounts" : [],
+   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
+   "emailList" : []
 }
 ```
 

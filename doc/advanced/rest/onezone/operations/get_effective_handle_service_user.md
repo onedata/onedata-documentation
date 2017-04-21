@@ -16,10 +16,15 @@ This operation requires `modify_handle_service` privilege.
 **Get effective handle service user**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/DLAKSHDLKJHJjLHADHLKJh
+https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo
 
 {
-
+   "name" : "John Doe",
+   "alias" : "",
+   "login" : "username",
+   "connectedAccounts" : [],
+   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
+   "emailList" : []
 }
 ```
 

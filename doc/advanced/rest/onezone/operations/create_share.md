@@ -9,13 +9,16 @@ POST /shares
 ##### Description
 Creates a new share.
 
+This operation requires privilege `space_manage_shares` in space
+in which the share is created.
+
 ***Example cURL requests***
 
 **Create share**
 ```bash
-curl -u username:password -H "Content-type: application/json" \
--X POST -d '{"name": "new_share_name"}' \
-https://$HOST:8443/api/v3/onezone/shares/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE
+curl -u username:password -H "Content-type: application/json" -X POST -d \
+'{"shareId": "LKJASD2123saa3", "name": "NewShare", "spaceId": "LKJASHDKLJHASDKJHASD876asd", "rootFileId": "LKAHSDJHuuasDASDasdjjasdAS"}' \
+https://$HOST:8443/api/v3/onezone/shares
 ```
 
 
@@ -56,11 +59,7 @@ json :
 ```
 json :
 {
-  "shareId" : null,
-  "name" : "MyNewShare",
-  "publicUrl" : "https://onedata.org/shares/ASDLKJH8asdkjasd89898asd89asdlbKJSBDikjab89-asdmASD",
-  "rootFileId" : "ASDkjlkkasdjoiwnafldnacbaasd8879a8sdkjb",
-  "parentSpace" : "LKJH8asdkjasd89898asd89asdlbKJSBD79a8sdk"
+  "name" : "MyNewShare"
 }
 ```
 

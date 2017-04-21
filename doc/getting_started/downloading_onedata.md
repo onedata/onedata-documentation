@@ -26,7 +26,7 @@ For more advanced tutorials on running Onedata with Docker, see our [Getting Sta
 
 We provide packages *Oneprovider* and *Onezone* for:
 - Fedora 23
-- Ubuntu 15.04, 16.04
+- Ubuntu 16.04
 
 and *Oneclient* packages for:
 - Fedora 23

@@ -1,6 +1,6 @@
 
 <a name="add_group_user"></a>
-#### Get group user details
+#### Add user to group
 ```
 PUT /groups/{id}/users/{uid}
 ```
@@ -8,6 +8,9 @@ PUT /groups/{id}/users/{uid}
 
 ##### Description
 Returns the public information about a user {uid} in group {id}.
+
+Optionally, user privileges in this gropu can be specified
+in the request body.
 
 This operation requires `oz_groups_add_members` privilege.
 

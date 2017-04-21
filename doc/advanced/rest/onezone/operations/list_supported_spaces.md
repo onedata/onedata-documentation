@@ -16,7 +16,7 @@ This operation requires peer certificate authentication.
 
 **Get spaces supported by provider**
 ```bash
-curl --cert ozp_cert.pem --key ozp_key.pem -X GET  \
+curl --key ./certs/ozp_key.pem --cert ./certs/ozp_cert.pem -X GET  \
 https://$HOST:8443/api/v3/onezone/provider/spaces
 
 {

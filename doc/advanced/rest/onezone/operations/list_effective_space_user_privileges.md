@@ -1,22 +1,28 @@
 
-<a name="remove_group_space_alias"></a>
-#### Remove space alias
+<a name="list_effective_space_user_privileges"></a>
+#### List effective user privileges to space
 ```
-DELETE /groups/{id}/spaces/{sid}/alias
+GET /spaces/{id}/effective_users/{uid}/privileges
 ```
 
 
 ##### Description
-Removes the space alias.
+Returns privileges for an effective user to a specific space.
 
-This operation can be invoked on behalf of current user only.
+This operation requires `space_view_data` privilege.
 
 ***Example cURL requests***
 
-**Remove user space alias**
+**Get effective space user privileges**
 ```bash
-curl -u username:password -X DELETE \
-https://$HOST:8443/api/v3/onezone/groups/ASDHAKLJSHDLKASHD8asd/spaces/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY/alias
+curl -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_users/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
+
+{
+  "privileges": [
+    "space_view_data"
+  ]
+}
 ```
 
 
@@ -24,15 +30,15 @@ https://$HOST:8443/api/v3/onezone/groups/ASDHAKLJSHDLKASHD8asd/spaces/oOVF-KrO1P
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**sid**  <br>*required*|Space Id.|string|--|
+|**Path**|**id**  <br>*required*|Space ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|The space alias was deleted successfuly.|No Content|
+|**200**|The list of user privileges in a space.|[SpacePrivileges](../definitions/SpacePrivileges.md#spaceprivileges)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -50,11 +56,21 @@ https://$HOST:8443/api/v3/onezone/groups/ASDHAKLJSHDLKASHD8asd/spaces/oOVF-KrO1P
 ###### Request path
 ```
 json :
-"/groups/string/spaces/string/alias"
+"/spaces/string/effective_users/string/privileges"
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "operation" : [ "set" ],
+  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
+}
+```
+
 
 ###### Response 400
 ```

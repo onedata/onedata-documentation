@@ -9,6 +9,8 @@ GET /groups/{id}/handles
 ##### Description
 Returns the list of groups handles.
 
+This operation requires `group_view_data` privilege.
+
 ***Example cURL requests***
 
 **Get group handles**

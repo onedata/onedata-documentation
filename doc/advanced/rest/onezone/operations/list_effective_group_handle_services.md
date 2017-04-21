@@ -9,6 +9,8 @@ GET /groups/{id}/effective_handle_services
 ##### Description
 Returns the list of registered group effective handle services.
 
+This operation requires `group_view_data` privilege.
+
 ***Example cURL requests***
 
 **Get group effective handle services**

@@ -7,16 +7,17 @@ User space parameters.
 |Name|Description|Schema|
 |---|---|---|
 |**name**  <br>*required*|The name of the space.|string|
-|**size**  <br>*required*|The size of requested space support.|integer|
-|**spaceId**  <br>*optional*|Unique ID of the space.|string|
-|**token**  <br>*required*|Provider token.|string|
+|**providersSupports**  <br>*required*|The map of providers Ids supporting this space and the size of provisioned storage in bytes.|< string, integer > map|
+|**spaceId**  <br>*required*|Unique ID of the space.|string|
 
 **Example**
 ```
 {
+  "spaceId" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
   "name" : "My Private space",
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK",
-  "size" : 150
+  "providersSupports" : {
+    "hxfMCWmquqAIjG1GeG2eZY8qvs8iRIn09HzjCJilnSE" : 5368709120
+  }
 }
 ```
 

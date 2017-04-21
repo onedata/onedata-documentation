@@ -10,9 +10,6 @@ POST /spaces
 When called by a regular user, creates a new space and sets the current
 user as its owner.
 
-When called by a provider, creates a new space and automatically adds
-support for it, based on the token provided in the request body.
-
 This operation does not require any specific privileges.
 
 ***Example cURL requests***
@@ -36,8 +33,7 @@ https://$HOST:8443/api/v3/onezone/spaces
 
 |Name|Description|Schema|
 |---|---|---|
-|**name**  <br>*optional*|The name of the space|string|
-|**token**  <br>*optional*|Space creation token (only for providers).|string|
+|**name**  <br>*optional*|The name of the new space.|string|
 
 
 ##### Responses
@@ -70,8 +66,7 @@ json :
 ```
 json :
 {
-  "name" : "string",
-  "token" : "string"
+  "name" : "string"
 }
 ```
 

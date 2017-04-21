@@ -118,7 +118,6 @@ onezone-rest-cli getUserSpace sid=Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY | 
    },
    "shares" : [],
    "spaceId" : "Xnp1JVpWfL8_stHJgct76AFALjRsI0W3rNs1nfMwqnY",
-   "canonicalName" : "Test",
    "name" : "Test"
 }
 ```

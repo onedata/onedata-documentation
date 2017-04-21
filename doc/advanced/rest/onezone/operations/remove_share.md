@@ -9,6 +9,9 @@ DELETE /shares/{id}
 ##### Description
 Removes a specific share.
 
+This operation requires privilege `space_manage_shares` in space
+in which the share was created.
+
 ***Example cURL requests***
 
 **Remove space**
@@ -29,7 +32,7 @@ https://$HOST:8443/api/v3/onezone/shares/803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgA
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The share has been removed successfully.|No Content|
+|**202**|The share will been removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

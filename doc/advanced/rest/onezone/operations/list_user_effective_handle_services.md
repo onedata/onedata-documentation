@@ -1,6 +1,6 @@
 
 <a name="list_user_effective_handle_services"></a>
-#### List user effective providers
+#### List user effective handle services
 ```
 GET /user/effective_handle_services
 ```

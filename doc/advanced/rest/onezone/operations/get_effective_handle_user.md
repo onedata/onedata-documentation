@@ -9,14 +9,23 @@ GET /handles/{hndl}/effective_users/{uid}
 ##### Description
 Returns effective handle user details.
 
-This operation requires `modify_handle_service` privilege.
+This operation requires `view_handle` administrator privilege.
 
 ***Example cURL requests***
 
 **Add handle user**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/DLAKSHDLKJHJjLHADHLKJh
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo
+
+{
+   "name" : "John Doe",
+   "alias" : "",
+   "login" : "username",
+   "connectedAccounts" : [],
+   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
+   "emailList" : []
+}
 ```
 
 

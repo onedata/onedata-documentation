@@ -1,25 +1,30 @@
 
-<a name="get_group_space_alias"></a>
-#### Get groups space alias
+<a name="get_effective_space_user"></a>
+#### Get effective space user details
 ```
-GET /groups/{id}/spaces/{sid}/alias
+GET /spaces/{id}/effective_users/{uid}
 ```
 
 
 ##### Description
-Returns the alias of a specific space.
+Returns details about a specific effective user in a space.
 
-This operation can be invoked on behalf of current user only.
+This operation requires `space_view_data` privilege.
 
 ***Example cURL requests***
 
-**Get space alias**
+**Get effective space user details**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/KLJASDFJKHASDASER3ewdas/spaces/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY/alias
+https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_users/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM
 
 {
-  "alias": "Test space 2"
+  "userId": "T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM",
+  "login": "username",
+  "name": "John Doe",
+  "connectedAccounts": [],
+  "alias": "",
+  "emailList": []
 }
 ```
 
@@ -28,15 +33,15 @@ https://$HOST:8443/api/v3/onezone/groups/KLJASDFJKHASDASER3ewdas/spaces/oOVF-KrO
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Path**|**sid**  <br>*required*|Space ID.|string|--|
+|**Path**|**id**  <br>*required*|Space ID.|string|--|
+|**Path**|**uid**  <br>*required*|User ID.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Returns the alias of a specific space.|[SpaceAlias](../definitions/SpaceAlias.md#spacealias)|
+|**200**|Details of a specific user in a space.|[User](../definitions/User.md#user)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -54,7 +59,7 @@ https://$HOST:8443/api/v3/onezone/groups/KLJASDFJKHASDASER3ewdas/spaces/oOVF-KrO
 ###### Request path
 ```
 json :
-"/groups/string/spaces/string/alias"
+"/spaces/string/effective_users/string"
 ```
 
 
@@ -64,7 +69,17 @@ json :
 ```
 json :
 {
-  "alias" : "Another name."
+  "userId" : "ALKJSDH77i79ASDKJA-ASDBAS9-87",
+  "name" : "Rudolf Lingens",
+  "connectedAccounts" : [ {
+    "accountId" : "ASD879ASD-7SADASFSsa0831",
+    "providerId" : "7YASBFLJ-123ASD870-ASDASD"
+  }, {
+    "accountId" : "QWESsD-7SADASFSsa0831",
+    "providerId" : "7QWEJ-123ASD870-ASDASD"
+  } ],
+  "alias" : "John Doe",
+  "emailList" : [ "rudolf.linges@example.com", "john.doe@example.com" ]
 }
 ```
 

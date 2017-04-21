@@ -57,7 +57,8 @@ json :
 ```
 json :
 {
-  "providerId" : "LASDASJDBH89869ASD79869asd",
+  "name" : "Example provider",
+  "providerId" : "H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0123upGkf9tk",
   "urls" : [ "http://beta.onedata.org/provider1", "http://beta.onedata.org/provider2" ],
   "redirectionPoint" : "http://beta.onedata.org/provider2",
   "latitude" : 50.0647,

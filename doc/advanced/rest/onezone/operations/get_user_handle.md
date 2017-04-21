@@ -20,11 +20,20 @@ https://$HOST:8443/api/v3/onezone/user/handles/oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnr
 
 {
   "handleId": "oOVF-KrO1P6rpA0LFgNVI8NxuhxyQMUnrYzjAnKiyAY",
-  "handleType": "DOI",
   "handleServiceId": "ASKDGHKAJSHDukjhasdlkjalksjd76876asdkb",
-  "handle": "10.572/ABCD-asdakjsdak87587asdk-1234/8",
+  "resourceType": "Share",
   "resourceId": "dlkjalkADKDGHKAJSHDukjhassjd76876asdkb",
-  "metadata": "...",
+  "metadata": "<?xml version=\"1.0\"?>
+      <!DOCTYPE rdf:RDF SYSTEM \\"http://dublincore.org/2000/12/01-dcmes-xml-dtd.dtd\">
+      <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"
+               xmlns:dc=\"http://purl.org/dc/elements/1.1/\">
+        <rdf:Description rdf:about=\"http://example.com/resouces/1\">
+          <dc:title>Example Resource</dc:title>
+          <dc:creator>John Doe</dc:creator>
+          <dc:publisher>MIT</dc:publisher>
+          <dc:date>2000-06-06</dc:date>
+        </rdf:Description>
+      </rdf:RDF>",
   "timestamp": "1997-07-16T19:20"
 }
 ```
@@ -69,11 +78,12 @@ json :
 ```
 json :
 {
-  "handleId" : "2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88",
-  "handleType" : "DOI",
-  "handle" : "10.572/test-handle-G9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEh/123",
+  "handleId" : "10.572/test-handle-G9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEh/123",
+  "resourceType" : "Share",
   "resourceId" : "RsNk1CVHZTU3Z0OThwcHAhRN1NPawowMDFhY2lkIHRpbWUgPC",
-  "handleServiceId" : "JKAxNWxvY2F0aW9uImSEFSSGdrbHFCa1pWST2OTQ4cz"
+  "handleServiceId" : "JKAxNWxvY2F0aW9uImSEFSSGdrbHFCa1pWST2OTQ4cz",
+  "metadata" : "<?xml version=\\\"1.0\\\"?> <!DOCTYPE rdf:RDF SYSTEM \\\\\"http://dublincore.org/2000/12/01-dcmes-xml-dtd.dtd\\\"> <rdf:RDF xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\"\n         xmlns:dc=\\\"http://purl.org/dc/elements/1.1/\\\">\n  <rdf:Description rdf:about=\\\"http://example.com/resouces/1\\\">\n    <dc:title>Example Resource</dc:title>\n    <dc:creator>John Doe</dc:creator>\n    <dc:publisher>MIT</dc:publisher>\n    <dc:date>2000-06-06</dc:date>\n  </rdf:Description>\n</rdf:RDF>\n",
+  "timestamp" : "2016-07-16T18:20:30.450Z"
 }
 ```
 

@@ -10,6 +10,8 @@ GET /spaces/{id}/groups/{gid}
 Returns details about a specific group in a space.
 
 This operation requires `space_view_data` privilege.
+For administrators who do not have to be members of this space,
+`oz_spaces_list_groups` privilege is required.
 
 ***Example cURL requests***
 
@@ -66,6 +68,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

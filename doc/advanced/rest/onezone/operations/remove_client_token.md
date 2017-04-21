@@ -31,7 +31,7 @@ https://$HOST:8443/api/v3/onezone/user/client_tokens/PMPs42mROSS7Rg7z7BwU9JYpSof
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The token was deleted successfuly.|No Content|
+|**202**|The token will be deleted.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

@@ -9,14 +9,23 @@ GET /handles/{hndl}/users/{uid}
 ##### Description
 Allows to add a user to a handle.
 
-This operation requires `read_handle` privilege.
+This operation requires `view_handle` administrator privilege.
 
 ***Example cURL requests***
 
 **Get handle user**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/DLAKSHDLKJHJjLHADHLKJh
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo
+
+{
+   "name" : "John Doe",
+   "alias" : "",
+   "login" : "username",
+   "connectedAccounts" : [],
+   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
+   "emailList" : []
+}
 ```
 
 
