@@ -1,6 +1,6 @@
 
 <a name="list_shares"></a>
-#### List share details
+#### List all shares
 ```
 GET /shares
 ```
@@ -9,12 +9,13 @@ GET /shares
 ##### Description
 Returns the list of shares.
 
+This operation requires administrator privilege `oz_shares_list`.
+
 ***Example cURL requests***
 
 **Get shares**
 ```bash
-curl -u admin:password -X GET \
-https://$HOST:8443/api/v3/onezone/shares
+curl -u admin:password -X GET https://$HOST:8443/api/v3/onezone/shares
 
 {
   "shares: [

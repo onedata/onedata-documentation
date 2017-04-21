@@ -1,6 +1,6 @@
 
 <a name="create_space_for_group"></a>
-#### Creates new space for group
+#### Create new space for group
 ```
 POST /groups/{id}/spaces
 ```

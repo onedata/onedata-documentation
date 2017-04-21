@@ -20,7 +20,7 @@ https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/hlk
 
 {
   "privileges": [
-    "register_doi",
+    "delete_handle_service",
     "view_handle_service"
   ]
 }
@@ -67,6 +67,7 @@ json :
 ```
 json :
 {
+  "operation" : [ "grant" ],
   "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
 }
 ```

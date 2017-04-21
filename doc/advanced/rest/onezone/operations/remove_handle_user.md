@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/handles/AKSHDLKJHJjLHSADHLKJhlkASHDL/users/JHJjLHADHLK
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|User removed successfully.|No Content|
+|**202**|User will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

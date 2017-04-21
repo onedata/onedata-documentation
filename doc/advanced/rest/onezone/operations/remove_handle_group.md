@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/handles/AKSHDLKJHJjLHSADHLKJhlkASHDL/groups/JHJjLHADHL
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|Group removed successfully.|No Content|
+|**202**|Group will be removed.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

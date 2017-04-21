@@ -9,6 +9,9 @@ GET /handle_services
 ##### Description
 Returns the list of registered handle services.
 
+This operation requires `oz_handle_services_list` administrator privilege.
+
+
 ***Example cURL requests***
 
 **Get handle services**

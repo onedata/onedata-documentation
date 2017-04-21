@@ -66,6 +66,7 @@ json :
 ```
 json :
 {
+  "operation" : [ "grant" ],
   "privileges" : [ "delete_handle", "modify_handle", "view_handle" ]
 }
 ```

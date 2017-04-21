@@ -10,6 +10,8 @@ DELETE /groups/{id}/children/{cid}
 Removes a specific child with {cid} from parent group with {id}.
 
 This operation requires `group_remove_group` privilege.
+For administrator who do not need to be members of this group
+`oz_groups_remove_members` privilege is required.
 
 ***Example cURL requests***
 

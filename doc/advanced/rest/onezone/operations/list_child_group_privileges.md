@@ -16,7 +16,7 @@ This operation requires `group_view_data` privilege.
 **Get child group privileges in a group**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/onezone/groups/GROUP_ID/children/CHILD_GROUP_ID/privileges
+https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/children/FX2GVC8lKEasj4q253sptVqF8HwUpk8jrwxKOe45uzL/privileges
 
 {
   "privileges": [

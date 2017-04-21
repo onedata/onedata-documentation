@@ -16,7 +16,13 @@ This operation requires `modify_handle` privilege.
 **Get effective handle group**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/DLAKSHDLKJHJjLHADHLKJh
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+
+{
+  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
+  "name":"Group name",
+  "type":"role"
+}
 ```
 
 
@@ -60,6 +66,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

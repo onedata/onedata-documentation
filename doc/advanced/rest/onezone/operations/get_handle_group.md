@@ -9,14 +9,20 @@ GET /handles/{hndl}/groups/{gid}
 ##### Description
 Returns the details of a group with access to handle.
 
-This operation requires `modify_handle` privilege.
+This operation requires `view_handle` administrator privilege.
 
 ***Example cURL requests***
 
 **Add handle group**
 ```bash
 curl -u username:password -X GET \
-https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/DLAKSHDLKJHJjLHADHLKJh
+https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8
+
+{
+  "groupId":"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8",
+  "name":"Group name",
+  "type":"role"
+}
 ```
 
 
@@ -60,6 +66,7 @@ json :
 ```
 json :
 {
+  "groupId" : "ALSKDHLASD8ASDNjasd99",
   "name" : "Test group",
   "type" : "role"
 }

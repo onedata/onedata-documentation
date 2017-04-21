@@ -9,7 +9,10 @@ GET /spaces/{id}/providers
 ##### Description
 Returns the list of providers supporting specific space.
 
-This operation requires `list_providers_of_space` privilege.
+For users who are members of space it requires `space_view_data`.
+
+For administrators who do not have to be members of this space,
+`list_providers_of_space` privilege is required.
 
 ***Example cURL requests***
 

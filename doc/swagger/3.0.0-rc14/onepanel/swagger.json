@@ -4119,6 +4119,26 @@
       "description": "Resources and operations for managing Onezone deployment"
     }
   ],
+  "x-tagGroups": [
+    {
+      "name": "Onepanel management",
+      "tags": [
+        "Onepanel"
+      ]
+    },
+    {
+      "name": "Onezone management",
+      "tags": [
+        "Onezone"
+      ]
+    },
+    {
+      "name": "Oneprovider management",
+      "tags": [
+        "Oneprovider"
+      ]
+    }
+  ],
   "securityDefinitions": {
     "basic": {
       "type": "basic"

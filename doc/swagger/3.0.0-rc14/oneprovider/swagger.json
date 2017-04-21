@@ -2616,6 +2616,26 @@
       "description": "Metrics and change events monitoring related operations"
     }
   ],
+  "x-tagGroups": [
+    {
+      "name": "Data access and management",
+      "tags": [
+        "Data"
+      ]
+    },
+    {
+      "name": "Replication and transfer control",
+      "tags": [
+        "Replication"
+      ]
+    },
+    {
+      "name": "Monitoring and metrics",
+      "tags": [
+        "Monitoring"
+      ]
+    }
+  ],
   "securityDefinitions": {
     "api_key": {
       "type": "apiKey",
@@ -2625,5 +2645,13 @@
     "basic": {
       "type": "basic"
     }
-  }
+  },
+  "security": [
+    {
+      "basic": []
+    },
+    {
+      "api_key": []
+    }
+  ]
 }

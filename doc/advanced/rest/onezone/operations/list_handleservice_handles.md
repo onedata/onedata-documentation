@@ -9,6 +9,8 @@ GET /handle_services/{id}/handles
 ##### Description
 Returns the list of ID's of all handles registered by handle service.
 
+This operation requires `handle_service_list_handles` administrator privilege.
+
 ***Example cURL requests***
 
 **Get handle services handles**

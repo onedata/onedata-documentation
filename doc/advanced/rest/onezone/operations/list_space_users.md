@@ -10,6 +10,8 @@ GET /spaces/{id}/users
 Returns the list of users belonging to a specific space.
 
 This operation requires `space_view_data` privilege.
+For administrators who do not have to be members of this space,
+`oz_spaces_list_users` privilege is required.
 
 ***Example cURL requests***
 

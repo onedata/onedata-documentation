@@ -1,6 +1,6 @@
 
 <a name="remove_default_provider"></a>
-#### Set default space
+#### Unset default provider
 ```
 DELETE /user/default_provider
 ```
@@ -24,7 +24,7 @@ https://$HOST:8443/api/v3/onezone/user/default_provider
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|Default provider removed successfully.|No Content|
+|**202**|Default provider removed successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|

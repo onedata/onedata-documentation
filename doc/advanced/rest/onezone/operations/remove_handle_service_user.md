@@ -32,7 +32,7 @@ https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/DLA
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**202**|User removed successfully.|No Content|
+|**202**|User will be removed from handle service.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
