@@ -1,4 +1,4 @@
-# Onezone deployment tutorial
+# Onezone installation tutorial
 
 <!-- toc -->
 
@@ -7,8 +7,10 @@ This section describes the steps needed to install and configure Onezone service
 ## Installation
 Onezone can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Wily*, *Ubuntu Xenial* and *Fedora 23*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
 
+**Onezone** service can be deployed on multiple nodes for high-availability purpose, in such case either the Docker setup or the packages need to be installed on all nodes where the **Onezone** should be deployed. This tutorial assumes **Onezone** will be installed on a single node.
+
 ### Prerequisites
-In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations.
+In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
 
 #### Increase maximum number of opened files
 In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is at least 4096:
@@ -73,7 +75,6 @@ $ sudo systemctl start disable-thp.service
 
 #### Node hostname
 Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `onezone-demo.tk`.
-
 
 ### Docker based setup
 Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
@@ -247,7 +248,7 @@ TODO
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
 
-Furthermore, on each **Onezone** node Couchbase instance is automatically deployed, which exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 
 <!--
 ### Load balancing setup
@@ -310,7 +311,7 @@ $ sudo systemctl enable onezone.service
 $ sudo systemctl start onezone.service
 $ sudo systemctl status onezone.service
 ...
-May 25 23:25:32 touchlyte1 docker-compose[13499]: onezone-1                  | Congratulations! onezone has been successfully started.
+May 25 23:25:32 localhost docker-compose[13499]: onezone-1                  | Congratulations! onezone has been successfully started.
 
 # Stopping Onezone service
 $ sudo systemctl stop onezone.service
@@ -363,6 +364,35 @@ curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
 ```
 
 If all components report `"ok"` and overall healthdata status is also `"ok"`, it means the service is running properly.
+
+## Upgrading
+
+### Docker based installation
+To upgrade a Docker based installation, stop the Onezone service using:
+
+```
+$ sudo systemctl stop onezone.service
+```
+
+and modify the onezone Docker image version in `/opt/onedata/onezone/docker-compose.yml`:
+
+```yaml
+  ...
+  node1.onezone.localhost:
+    # Onezone Docker image version
+    image: onedata/onezone:VERSION
+    ...
+```
+
+and restart the service:
+
+```
+$ sudo systemctl start onezone.service
+```
+
+### Package based installation
+
+TODO
 
 ## Typical administration tasks
 
