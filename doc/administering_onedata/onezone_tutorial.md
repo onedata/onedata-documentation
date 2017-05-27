@@ -1,0 +1,378 @@
+# Onezone deployment tutorial
+
+<!-- toc -->
+
+This section describes the steps needed to install and configure Onezone service in production, either using Docker images or directly using our packages. For instructions how to setup test deployments with minimal effort checkout our [Getting Started](https://github.com/onedata/getting-started) repository - this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
+
+## Installation
+Onezone can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Wily*, *Ubuntu Xenial* and *Fedora 23*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
+
+### Prerequisites
+In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations.
+
+#### Increase maximum number of opened files
+In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is at least 4096:
+
+```sh
+$ ulimit -n
+4096
+```
+
+If it's less, increase the limit using:
+
+```sh
+$ sudo sh -c 'echo "* soft nofile 4096" >> /etc/security/limits.conf'
+```
+
+#### Swap preference settings
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most 1 - see [here](https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html) for details):
+
+```sh
+$ cat /proc/sys/vm/swappiness
+60
+```
+and if necessary decrease it using:
+```sh
+$ sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
+```
+
+#### Disable Transparent Huge Pages feature
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which improves apparent performance of machines running multiple application at once, however it deteriorates the performance of most database-heavy applications, such as **Onezone**.
+
+These settings can be checked using the following commands (here the output shown is the expected setting):
+
+```
+$ cat /sys/kernel/mm/transparent_hugepage/enabled
+always madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/defrag
+always madvise [never]
+```
+
+If any of the settings is different than the above, they should be changed permanently, which can be achieved for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
+
+```
+[Unit]
+Description=Disable Transparent Huge Pages
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
+ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+and enabling it on start using:
+
+```
+$ sudo systemctl enable disable-thp.service
+$ sudo systemctl start disable-thp.service
+```
+
+#### Node hostname
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `onezone-demo.tk`.
+
+
+### Docker based setup
+Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
+
+#### Customizing Onezone Docker Compose script
+In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the folder `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
+
+Create the following Docker Compose file in `/opt/onedata/onezone/docker-compose.yml`:
+
+```Yaml
+version: '2.0'
+services:
+  node1.onezone.localhost:
+    # Onezone Docker image version
+    image: onedata/onezone:3.0.0-rc14
+    # Hostname (in this case the hostname inside Docker network)
+    hostname: node1.onezone.localhost
+    # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
+    container_name: onezone-1
+    # Mapping of volumes to Onezone container
+    volumes:
+       - "/var/run/docker.sock:/var/run/docker.sock"
+       # Onezone runtime files
+       - "/opt/onedata/onezone/persistence:/volumes/persistence"
+       # OpenID configuration
+       - "/opt/onedata/onezone/auth.config:/var/lib/oz_worker/auth.config"
+       # Load balancing configuration based on DNS
+       - "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
+       # Onezone certificate key
+       - "/opt/onedata/onezone/certs/key.pem:/etc/oz_panel/certs/key.pem"
+       # Onezone public certificate
+       - "/opt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/cert.pem"
+       # Certificate of public certificate signing authority
+       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
+       # Certificate of public certificate signing authority (same as above)
+       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
+    # Expose the necessary ports from Onezone container to the host
+    ports:
+      - "53:53"
+      - "53:53/udp"
+      - "443:443"
+      - "80:80"
+      - "5555:5555"
+      - "5556:5556"
+      - "6665:6665"
+      - "6666:6666"
+      - "7443:7443"
+      - "8443:8443"
+      - "8876:8876"
+      - "8877:8877"
+      - "9443:9443"
+    environment:
+      # Force Onepanel to read configuration from environment variable
+      ONEPANEL_BATCH_MODE: "true"
+      # Provide initial Onezone configuration for Onepanel in environment variable
+      ONEZONE_CONFIG: |
+        # Cluster configuration allows to specify distribution of Onezone
+        # components over multiple nodes - here we deploy entire service on
+        # a single node
+        cluster:
+          domainName: "onezone.localhost"
+          autoDeploy: true
+          nodes:
+            n1:
+              hostname: "node1"
+          managers:
+            mainNode: "n1"
+            nodes:
+              - "n1"
+          workers:
+            nodes:
+              - "n1"
+          databases:
+            # Per node Couchbase cache size in MB for all buckets
+            serverQuota: 4096
+            # Per bucket Couchbase cache size in MB across the cluster
+            bucketQuota: 1024
+            nodes:
+              - "n1"
+        onezone:
+          # Assign custom name to the Onezone instance
+          name: "ONEZONE-DEMO"
+          domainName: "onezone.localhost"
+        onepanel:
+          # Create initially 1 administrator and 1 regular user
+          users:
+            "admin":
+              password: "password"
+              userRole: "admin"
+            "user":
+              password: "password"
+              userRole: "regular"
+```
+
+To install the necessary Docker images on the machine run:
+
+```sh
+$ docker-compose -f /opt/onedata/onezone/docker-compose.yml pull
+```
+
+### Installation from distribution packages
+The following instructions are based on Ubuntu Xenial.
+
+#### Package installation
+Now in order to install **Onezone** service, it should be enough to execute our install script, which automatically detects operating system version, adds our repository and installs required packages:
+
+```sh
+$ curl -sS  http://get.onedata.org/onezone.sh | bash
+```
+
+Alternatively, the necessary packages can be installed manually:
+```sh
+# Add Onedata package repository
+$ sudo sh -c 'curl -sSL  http://packages.onedata.org/onedata.gpg.key | apt-key add -'
+$ sudo sh -c 'echo "deb http://packages.onedata.org/apt/ubuntu/xenial xenial main" > /etc/apt/sources.list.d/onedata.list'
+$ sudo sh -c 'echo "deb-src http://packages.onedata.org/apt/ubuntu/xenial xenial main" >> /etc/apt/sources.list.d/onedata.list'
+
+# Update package list
+$ sudo apt update
+
+# Install packages
+$ sudo apt install oz-panel
+$ sudo apt install cluster-manager
+$ sudo apt install oz-worker
+$ sudo apt install couchbase-server-community
+$ sudo apt install onezone
+```
+
+> Sometimes Couchbase service fails to start automatically during installation, in such case it has to be restarted manually using `$ sudo systemctl restart couchbase-server.service`
+
+## Configuration
+
+### Configuring service properties
+
+TODO
+
+### Configuring authentication methods
+In order to specify authentication options for the **Onezone** service, `auth.config` file has to be provided. Currently **Onezone** supports 2 general modes of authentication, i.e.: basic authentication and OpenID Connect. For all supported OpenID Provider services see [here](openid_configuration.md). The example below presents how to enable basic authentication and Google IdP. Basic authentication does not take any parameters here, and accounts can be managed via **Onepanel** REST API. The Google authentication plugin requires that special Service Key is generated in [Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
+
+In case of installation using Docker, create a file `/opt/onedata/onezone/auth.config` (in case of package installation edit file `/var/lib/oz_worker/auth.config`) with the following contents:
+
+```erlang
+[
+    {basicAuth, [
+    ]},
+    {google, [
+        {auth_module, auth_google},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        {xrds_endpoint,
+            <<"https://accounts.google.com/.well-known/openid-configuration">>}
+    ]}
+].
+```
+
+### Setting up certificates
+
+#### Manually using CA issued set of certificates
+In order to configure certificates for **Onezone** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
+
+| Name             | Path for Docker deployment | Path for package deployment |
+|:-----------------|:-----------------|:-----------------|
+| Onezone private key | `/opt/onedata/onezone/certs/key.pem` | `/etc/oz_panel/certs/key.pem` |
+| Onezone public certificate | `/opt/onedata/onezone/certs/cert.pem` | `/etc/oz_panel/certs/cert.pem`|
+| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/certs/cert.pem`, `/etc/oz_worker/certs/cacert.pem` |
+
+#### Automated setup using Let's Encrypt
+
+TODO
+
+### Security and recommended firewall settings
+**Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
+
+Furthermore, on each **Onezone** node Couchbase instance is automatically deployed, which exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+
+<!--
+### Load balancing setup
+
+TODO -->
+
+### Cluster configuration for package based deployment
+This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://onezone-demo.tk:9443` port to configure **Onezone** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+
+```
+$ sudo systemctl restart oz_panel.service
+```
+
+Open `https://onezone-demo.tk:9443` using any web browser and continue through the following steps:
+
+* Login using default credentials specified in (e.g. `admin:password`)
+<p align="center"><img src="../img/admin/oz_tutorial_panel_login.png" width="640"></p>
+
+* Select hosts in the cluster which will have specific roles (leave as is)
+<p align="center"><img src="../img/admin/oz_tutorial_panel_hosts_selection.png" width="640"></p>
+
+* Select the main cluster manager host
+<p align="center"><img src="../img/admin/oz_tutorial_panel_cluster_manager.png" width="640"></p>
+
+* Verify the configuration and proceed with install
+<p align="center"><img src="../img/admin/oz_tutorial_panel_summary.png" width="640"></p>
+
+* Wait for installation to complete
+<p align="center"><img src="../img/admin/oz_tutorial_panel_success.png" width="640"></p>
+
+After this step succeeds, **Onezone** should be ready and accessible at `https://onezone-demo.tk`
+
+## Running
+
+### Running Docker based installation using systemd
+Docker based installation can be conveniently managed using a **systemd** service unit. Simply create a `/etc/systemd/system/onezone.service`:
+
+```
+[Unit]
+Description=Onezone Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStartPre=/usr/bin/docker-compose -f /opt/onedata/onezone/docker-compose.yml down
+ExecStart=/usr/bin/docker-compose -f /opt/onedata/onezone/docker-compose.yml up --abort-on-container-exit --no-recreate
+ExecStop=-/usr/bin/docker-compose -f /opt/onedata/onezone/docker-compose.yml down
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then the **Onezone** service can be managed using standard `systemctl` command:
+```
+# Enable Onezone service on machine startup
+$ sudo systemctl enable onezone.service
+
+# Start Onezone service
+$ sudo systemctl start onezone.service
+$ sudo systemctl status onezone.service
+...
+May 25 23:25:32 touchlyte1 docker-compose[13499]: onezone-1                  | Congratulations! onezone has been successfully started.
+
+# Stopping Onezone service
+$ sudo systemctl stop onezone.service
+
+# Restarting Onezone service while keeping all persistent files
+$ sudo systemctl restart onezone.service
+
+# Remove Onezone data files
+$ sudo systemctl stop onezone.service
+$ sudo rm -rf /opt/onedata/onezone/persistence/*
+```
+
+### Running package based installation
+After web based Onepanel setup is complete, **Onezone** service should be operating normally. However, **Onezone** service can be manually started and stopped when needed, it is composed of several **systemd** units:
+
+
+| Name             | Purpose |
+|:-----------------|:-----------------|
+| `couchbase-server.service` | Couchbase server for **Onezone** metadata |
+| `oz_panel.service` | Onepanel administration service |
+| `cluster_manager.service` | The process for managing a cluster **Onezone** deployment |
+| `oz_worker.service` | The main **Onezone** service |
+
+
+### Monitoring
+
+Monitoring information is available on a specific port and provides basic status of all **Onezone** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
+
+```xml
+curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
+<?xml version="1.0"?>
+<healthdata date="2017/05/26 17:52:33" status="ok">
+  <oz_worker name="oz_worker@onezone-demo.tk" status="ok">
+    <node_manager status="ok"/>
+    <request_dispatcher status="ok"/>
+    <changes_worker status="ok"/>
+    <datastore_worker status="ok"/>
+    <dns_worker status="ok"/>
+    <ozpca_worker status="ok"/>
+    <subscriptions_worker status="ok"/>
+    <tp_router status="ok"/>
+    <dns_listener status="ok"/>
+    <gui_listener status="ok"/>
+    <nagios_listener status="ok"/>
+    <oz_redirector_listener status="ok"/>
+    <rest_listener status="ok"/>
+    <subscriptions_wss_listener status="ok"/>
+  </oz_worker>
+</healthdata>
+```
+
+If all components report `"ok"` and overall healthdata status is also `"ok"`, it means the service is running properly.
+
+## Typical administration tasks
+
+### Adding new users
+If basic authentication is enabled, new users can be added via the Onepanel interface using the following command:
+
+```sh
+curl -sS -X POST -H 'Content-type: application/json' \
+-d '{"username": "alice", "password": "secret", "userRole": "regular"}' \
+https://onezone-demo.tk:9443/api/v3/onepanel/zone/users
+```
+
+where `userRole` can be either `regular` for normal users and `admin` for administrators.

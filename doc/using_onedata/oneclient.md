@@ -17,11 +17,11 @@ Oneclient is supported on several major Linux platforms including Ubuntu and Fed
 curl -sS  http://get.onedata.org/oneclient.sh | bash
 ```
 
-*After installing ensure that you are able to access `fusermount` tool, by
+>After installing ensure that you are able to access `fusermount` tool, by
 running `fusermount -h`. In case you are not allowed to execute `fusermount`,
 ask your administrator to make you a member of a `fuse` group. If you have
 administrator rights to your machine, use command `gpasswd -a <username> fuse`
-to add your account to `fuse` group.*.
+to add your account to `fuse` group.
 
 ### macOS
 An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
@@ -42,16 +42,15 @@ defaults write com.apple.finder ShowMountedServersOnDesktop 1
 ## Authentication
 
 In order to be able to mount your spaces you need to authenticate with
-[onedata.org](onedata.org) and obtain the access token using.
+a specific Onezone service and obtain an access token. Access token can be generated directly from the Web interface using *Access tokens* menu:
 
-*NOTE: If you are connecting to a provider service which does not have a
-globally trusted certificate, you will have to use `-i` or `--insecure`
-option on every `oneclient` invocation.*
+<p align="center"> <img src="../img/access_token_menu.png"> </p>
 
-### Authentication token
-In order to get an authentication token, go to [onedata.org](onedata.org) Web
-user interface, press **Tokens** in the top menu and press
-**Access token** button.
+> IMPORTANT: Please make sure not to share or publish access tokens with anyone, access tokens should be treated as private keys which should be only used by their owners for authentication with Onedata services. In particular they should NOT be used for sharing your data with others - for this purpose you can issue special purpose tokens such as [space invite tokens](space_collaboration.md) or [group invite tokens](group_management.md).
+
+If you are connecting to a provider service which does not have a
+globally trusted certificate, you will have to use `-i` or `--insecure` on every `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable .
+
 
 <!--
 ### Using third party IdP access tokens
@@ -66,7 +65,7 @@ github:e72e16c7e42f292c6912e7710c838347ae178b4a
 
 ### Mounting spaces
 
-The basic command line syntax to mount spaces using a specific provider is:
+The basic command line syntax to mount spaces using a specific Oneprovider is:
 ```bash
 oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
 ```
@@ -90,7 +89,7 @@ oneclient -u MOUNT_POINT
 ## Options
 
 To see full set of `oneclient` command line options checkout the man page
-`man oneclient` or print help information using `oneclient -h`.
+`man oneclient` or print help information using `oneclient -h`:
 
 ```bash
 $ oneclient -h
@@ -159,20 +158,19 @@ FUSE options:
 ```
 
 ## Using Oneclient from Docker
-If you already have an account at [onedata.org](onedata.org) or some other
-Onedata zone, you can simply mount your spaces to any folder using single docker command:
+Oneclient can also be started without installation using our official Docker images:
 
 ```bash
-docker run  --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
- -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME \
- onedata/oneclient:3.0.0-rc14
+docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
+-e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
+-d --name oneclient-1 onedata/oneclient:3.0.0-rc14
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
 folder (inside container). They can be accessed from another terminal,
 for instance using:
 ```bash
-docker exec -it <docker_container_name> /bin/bash
+docker exec -it oneclient-1 /bin/bash
 
 ls /mnt/oneclient
 ```
