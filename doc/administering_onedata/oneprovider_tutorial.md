@@ -221,25 +221,86 @@ $ sudo apt install oneprovider
 
 ## Configuration
 
-### Configuring service properties
+<!-- ### Configuring service properties
 
-TODO
+TODO -->
 
 
 ### Setting up certificates
-
-#### Manually using CA issued set of certificates
 In order to configure certificates for **Oneprovider** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
 
 | Name             | Path for Docker deployment | Path for package deployment |
 |:-----------------|:-----------------|:-----------------|
 | Oneprovider private key | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/key.pem` |
 | Oneprovider public certificate | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/cert.pem`|
-| Oneprovider certificate CA cert | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/certs/cert.pem`, `/etc/op_worker/certs/cacert.pem` |
+| Oneprovider certificate CA cert | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/cacerts/oz_cacert.pem` |
+
+During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directories `/etc/op_worker/cacerts` and `/etc/op_worker/certs`.
 
 #### Automated setup using Let's Encrypt
+These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
 
-TODO
+##### Docker based deployment
+```sh
+# Stop Oneprovider container (if it's already running)
+$ sudo systemctl stop oneprovider.service
+
+# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install certbot
+$ sudo certbot certonly --standalone -d oneprovider-demo.tk
+
+# The certificates should be in:
+$ sudo ls /etc/letsencrypt/live/oneprovider-demo.tk
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+
+# Link the files to the certificates in Docker container
+$ cd /opt/onedata/oneprovider/certs
+$ rm -rf *.pem
+$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem cacert.pem
+$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
+$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
+
+# Restart Onezone container
+$ sudo systemctl start oneprovider.service
+```
+
+##### Package based deployment
+```sh
+# Stop Oneprovider services
+$ sudo systemctl stop op_panel.service
+$ sudo systemctl stop op_worker.service
+
+# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install certbot
+$ sudo certbot certonly --standalone -d oneprovider-demo.tk
+
+# The certificates should be in:
+$ sudo ls /etc/letsencrypt/live/oneprovider-demo.tk
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+
+# Link the files to the certificates in Onepanel and Oneprovider services
+$ cd /etc/op_panel/cacerts
+$ sudo rm -rf *.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem oz_cacert.pem
+$ cd /etc/op_panel/certs
+$ sudo rm -rf *.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
+$ cd /etc/op_worker/certs
+$ sudo rm -rf web_key.pem web_cert.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem web_cert.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem web_key.pem
+
+# Restart Oneprovider services
+$ sudo systemctl start op_panel.service
+$ sudo systemctl start op_worker.service
+```
 
 ### Security and recommended firewall settings
 **Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
@@ -342,7 +403,7 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-curl -sS http://oneprovider-demo.tk:6666/nagios | xmllint --format -
+$ curl -sS http://oneprovider-demo.tk:6666/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
   <op_worker name="op_worker@oneprovider-demo.tk" status="ok">
@@ -399,14 +460,43 @@ $ sudo systemctl start oneprovider.service
 
 ### Package based installation
 
-TODO
+To upgrade **Oneprovider** deployment perform the following steps. In case **Oneprovider** is running on multiple nodes, stop the services first on all nodes, perform upgrade and then restart the services.
+
+```sh
+# Stop Oneprovider components
+$ sudo systemctl stop op_panel.service
+$ sudo systemctl stop op_worker.service
+$ sudo systemctl stop cluster_manager.service
+$ sudo systemctl stop couchbase-server.service
+
+# Upgrade packages
+$ sudo apt upgrade onezone
+
+# Start Oneprovider components
+$ sudo systemctl start couchbase-server.service
+$ sudo systemctl start cluster_manager.service
+$ sudo systemctl start op_panel.service
+$ sudo systemctl start op_worker.service
+```
+
 
 ## Typical administration tasks
+This section presents few typical administration tasks that can be performed by **Oneprovider** admins.
 
 ### Adding new storage to Oneprovider
 
-TODO
+Storage resources can be conveniently added to a **Oneprovider** instance using the Onepanel GUI, in menu **Software->Storage configuration**:
+
+* Select storage type and provider required connection details (example for S3):
+<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="640"></p>
+
+From this point on when supporting user spaces, this storage will be available as an option.
 
 ### Support user spaces with storage
 
-TODO
+The only way users can use the **Oneprovider** storage resources is by requesting storage support from **Oneprovider** administrator, by sending them **Space support** tokens created in the **Onezone** user interface.
+
+Using the token, the administrator can support the space on a specific storage using the web interface:
+
+* Select storage type, paste support token received from user and specify storage quota for the user:
+<p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="640"></p>

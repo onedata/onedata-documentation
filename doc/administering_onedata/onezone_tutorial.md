@@ -207,10 +207,10 @@ $ sudo apt install onezone
 
 ## Configuration
 
-### Configuring service properties
+<!-- ### Configuring service properties
 
 TODO
-
+ -->
 ### Configuring authentication methods
 In order to specify authentication options for the **Onezone** service, `auth.config` file has to be provided. Currently **Onezone** supports 2 general modes of authentication, i.e.: basic authentication and OpenID Connect. For all supported OpenID Provider services see [here](openid_configuration.md). The example below presents how to enable basic authentication and Google IdP. Basic authentication does not take any parameters here, and accounts can be managed via **Onepanel** REST API. The Google authentication plugin requires that special Service Key is generated in [Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
 
@@ -231,19 +231,83 @@ In case of installation using Docker, create a file `/opt/onedata/onezone/auth.c
 ```
 
 ### Setting up certificates
-
-#### Manually using CA issued set of certificates
 In order to configure certificates for **Onezone** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
 
 | Name             | Path for Docker deployment | Path for package deployment |
 |:-----------------|:-----------------|:-----------------|
 | Onezone private key | `/opt/onedata/onezone/certs/key.pem` | `/etc/oz_panel/certs/key.pem` |
 | Onezone public certificate | `/opt/onedata/onezone/certs/cert.pem` | `/etc/oz_panel/certs/cert.pem`|
-| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/certs/cert.pem`, `/etc/oz_worker/certs/cacert.pem` |
+| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/cacerts/oz_cacert.pem` |
+
+During deployment, Onepanel will install these certificates in the **Onezone** certificate directories `/etc/oz_worker/cacerts` and `/etc/oz_worker/certs`.
 
 #### Automated setup using Let's Encrypt
+These instructions show how to replace certificates in **Onezone** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar.
 
-TODO
+##### Docker based deployment
+```sh
+# Stop Onezone container
+$ sudo systemctl stop onezone.service
+
+# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install certbot
+$ sudo certbot certonly --standalone -d onezone-demo.tk
+
+# The certificates should be in:
+$ sudo ls /etc/letsencrypt/live/onezone-demo.tk
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+
+# Link the files to the certificates in Docker container
+$ cd /opt/onedata/onezone/certs
+$ rm -rf *.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/chain.pem cacert.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem cert.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem key.pem
+
+# Restart Onezone container
+$ sudo systemctl start onezone.service
+```
+
+##### Package based deployment
+```sh
+# Stop Onezone services
+$ sudo systemctl stop oz_panel.service
+$ sudo systemctl stop oz_worker.service
+
+# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install certbot
+$ sudo certbot certonly --standalone -d onezone-demo.tk
+
+# The certificates should be in:
+$ sudo ls /etc/letsencrypt/live/onezone-demo.tk
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+
+# Link the files to the certificates in Onepanel and Onezone services
+$ cd /etc/oz_panel/cacerts
+$ rm -rf *.pem
+$ cd /etc/oz_panel/certs
+$ rm -rf *.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem cert.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem key.pem
+
+# These are only necessary when replacing certificates in already deployed
+# Onezone service
+$ cd /etc/oz_worker/certs
+$ rm -rf *.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem web_cert.pem
+$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem web_key.pem
+
+# Restart Onezone services
+$ sudo systemctl start oz_panel.service
+$ sudo systemctl start oz_worker.service
+```
+
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
@@ -341,7 +405,7 @@ After web based Onepanel setup is complete, **Onezone** service should be operat
 Monitoring information is available on a specific port and provides basic status of all **Onezone** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
+$ curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/26 17:52:33" status="ok">
   <oz_worker name="oz_worker@onezone-demo.tk" status="ok">
@@ -391,8 +455,24 @@ $ sudo systemctl start onezone.service
 ```
 
 ### Package based installation
+To upgrade **Onezone** deployment perform the following steps. In case **Onezone** is running on multiple nodes, stop the services first on all nodes, perform upgrade and then restart the services.
 
-TODO
+```sh
+# Stop Onezone components
+$ sudo systemctl stop oz_panel.service
+$ sudo systemctl stop oz_worker.service
+$ sudo systemctl stop cluster_manager.service
+$ sudo systemctl stop couchbase-server.service
+
+# Upgrade packages
+$ sudo apt upgrade onezone
+
+# Start Onezone components
+$ sudo systemctl start couchbase-server.service
+$ sudo systemctl start cluster_manager.service
+$ sudo systemctl start oz_panel.service
+$ sudo systemctl start oz_worker.service
+```
 
 ## Typical administration tasks
 
@@ -406,3 +486,5 @@ https://onezone-demo.tk:9443/api/v3/onepanel/zone/users
 ```
 
 where `userRole` can be either `regular` for normal users and `admin` for administrators.
+
+For more information on user management see [here](./creating_user_accounts.md).
