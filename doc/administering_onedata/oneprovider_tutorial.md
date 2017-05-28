@@ -89,7 +89,7 @@ Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-com
 ```Yaml
 version: '2.0'
 services:
-  node1.onezone.localhost:
+  node1.oneprovider.localhost:
     # Oneprovider Docker image version
     image: onedata/oneprovider:3.0.0-rc14
     # Hostname (in this case the hostname inside Docker network)
@@ -258,10 +258,10 @@ cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Docker container
 $ cd /opt/onedata/oneprovider/certs
-$ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem cacert.pem
-$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
-$ ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
+$ sudo rm -rf *.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem cacert.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
+$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
 
 # Restart Onezone container
 $ sudo systemctl start oneprovider.service
@@ -479,9 +479,17 @@ $ sudo systemctl start op_panel.service
 $ sudo systemctl start op_worker.service
 ```
 
-
 ## Typical administration tasks
 This section presents few typical administration tasks that can be performed by **Oneprovider** admins.
+
+### Change administrator password
+The administrator password to the **Oneprovider** administration panel can be changed easily within GUI (`https://oneprovider-demo.tk:9443`) or using the REST API:
+
+```sh
+curl -sS -X PATCH -H 'Content-type: application/json' \
+-d '{"username": "admin", "password": "NewPassword"}' -u admin:password \
+https://oneprovider-demo.tk:9443/api/v3/onepanel/users
+```
 
 ### Adding new storage to Oneprovider
 

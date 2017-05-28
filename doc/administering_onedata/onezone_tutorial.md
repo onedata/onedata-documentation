@@ -480,7 +480,7 @@ $ sudo systemctl start oz_worker.service
 If basic authentication is enabled, new users can be added via the Onepanel interface using the following command:
 
 ```sh
-curl -sS -X POST -H 'Content-type: application/json' \
+curl -sS -X POST -H 'Content-type: application/json' -u admin:password \
 -d '{"username": "alice", "password": "secret", "userRole": "regular"}' \
 https://onezone-demo.tk:9443/api/v3/onepanel/zone/users
 ```
