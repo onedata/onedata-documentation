@@ -24,6 +24,13 @@ curl -u username:password -X POST -d '' -H 'content-type: application/json' \
 ```
 
 
+##### Parameters
+
+|Type|Name|Description|Schema|Default|
+|---|---|---|---|---|
+|**Body**|**options**  <br>*optional*|Optional token parameters|string|--|
+
+
 ##### Responses
 
 |HTTP Code|Description|Schema|
@@ -34,6 +41,11 @@ curl -u username:password -X POST -d '' -H 'content-type: application/json' \
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+
+##### Consumes
+
+* `application/json`
 
 
 ##### Produces
@@ -47,6 +59,13 @@ curl -u username:password -X POST -d '' -H 'content-type: application/json' \
 ```
 json :
 "/user/client_tokens"
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 

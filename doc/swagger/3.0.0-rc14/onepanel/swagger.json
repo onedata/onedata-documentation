@@ -70,7 +70,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret addUser username:=bob password:=secret userRole:=regular --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret addUser username==bob password==secret userRole==regular --host https://op.example.com:9443"
           }
         ]
       }
@@ -124,7 +124,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getUser username:=bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getUser username==bob --host https://op.example.com:9443"
           }
         ]
       },
@@ -187,7 +187,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret modifyUser password:=new_secret --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret modifyUser password==new_secret --host https://op.example.com:9443"
           }
         ]
       },
@@ -233,7 +233,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeUser username:=bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret removeUser username==bob --host https://op.example.com:9443"
           }
         ]
       }
@@ -284,7 +284,7 @@
       "get": {
         "operationId": "get_cluster_hosts",
         "summary": "Get cluster or discovered hosts",
-        "description": "Returns the list of administrative cluster hosts. It is also possible to return the list of hosts that have been discovered using multicast  advertisment.\nIn order to retrieve discovered hosts set the `discovered` query string to `true`. This request can be executed by unauthorized users only if there  are no admin users in the system.\n",
+        "description": "Returns the list of administrative cluster hosts. It is also possible to return the list of hosts that have been discovered using multicast advertisment.\nIn order to retrieve discovered hosts set the `discovered` query string to `true`. This request can be executed by unauthorized users only if there are no admin users in the system.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
@@ -341,7 +341,7 @@
       "post": {
         "operationId": "create_cluster",
         "summary": "Create or join cluster",
-        "description": "Initializes administrative cluster or if `clusterHost` parameter has been  provided in the query string adds this host to an existing cluster.\nIn both cases the host handling this request has to be newly started or  removed from previous cluster. It cannot contain any configuration data.\nThis request can be executed by unauthorized users as long as there are no  admin users.\n",
+        "description": "Initializes administrative cluster or if `clusterHost` parameter has been provided in the query string adds this host to an existing cluster.\nIn both cases the host handling this request has to be newly started or removed from previous cluster. It cannot contain any configuration data.\nThis request can be executed by unauthorized users as long as there are no admin users.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
@@ -386,7 +386,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=cluster.example.com cookie:=AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=cluster.example.com cookie==AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://op.example.com:9443"
           }
         ]
       }
@@ -854,7 +854,7 @@
       "post": {
         "operationId": "support_space",
         "summary": "Create or support space",
-        "description": "Supports an existing space or creates a new space and automatically  supports it.\n",
+        "description": "Supports an existing space or creates a new space and automatically supports it.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "spaces",
@@ -907,7 +907,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret supportSpace name:=MySpace1 token:=ASDKJASKJDHKAJSHD size+=1073741824 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret supportSpace name==MySpace1 token==ASDKJASKJDHKAJSHD size:=1073741824 --host https://op.example.com:9443"
           }
         ]
       }
