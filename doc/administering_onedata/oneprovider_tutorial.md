@@ -348,7 +348,7 @@ After this step succeeds, **Oneprovider** should be running and opening a `https
 ### Advanced configuration
 After installation several **Oneprovider** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/op_worker/app.config` for package based deployment and in `/opt/onedata/oneprovider/persistence/etc/op_worker/app.config`. After modifying `app.config` file always restart **Oneprovider** service in order for changes to take effect.
 
-#### Onezone domain, name and administrator email
+#### Oneprovider domain, name and administrator email
 Make sure that Oneprovider domain was properly set by **Onepanel**, example entries for this tutorial:
 
 ```erlang
