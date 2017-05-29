@@ -2,23 +2,28 @@
 
 Due to the fact that Onedata consists of several services which need to communicate between different sites, several ports need to be opened to the outside of the local network.
 
-Below is a detailed list of ports which need to be opened and their designation:
+Below is a detailed list of ports, which need to be opened and their designation for both **Onezone** and **Oneprovider** services:
 
 | Port      |  Description |
 |-----------|--------------|
-| 53/TCP    |  DNS (Optional - used for load-balancing)   |
-| 53/UDP    |  DNS (Optional - used for load-balancing)   |
+| 53/TCP    | DNS (Optional - used for load-balancing)   |
+| 53/UDP    | DNS (Optional - used for load-balancing)   |
 | 80/TCP    | HTTP    |
 | 443/TCP   | HTTPS   |
 | 5555/TCP  | Communication between Oneclient command line tool and Oneprovider service (TCP) |
 | 5556/TCP  | Communication between Oneprovider services among different sites |
 | 6665/TCP  | Onedata data transfer channel (RTransfer) |
-| 6666/TCP  | Onedata data transfer channel (RTransfer) |
+| 6666/TCP  | Nagios monitoring port |
 | 7443/TCP  | Communication between Oneprovider instances and Onezone used to exchange metadata  |
 | 8443/TCP  | REST and CDMI API's  (HTTP) |
 | 8876/TCP  | RTransfer protocol gateway |
 | 8877/TCP  | RTransfer protocol gateway |
 | 9443/TCP  | Onepanel web interface |
+
+
+Furthermore, on each Onedata deployment node where Couchbase database is installed, [these ports](https://developer.couchbase.com/documentation/server/3.x/admin/Install/install-networkPorts.html) must be available between the nodes (however they can be limited to the internal network).
+
+
 
 <!--
 Onezone service provides 2 REST operations for testing whether all the ports in a given deployment are properly opened, and can be used as follows.

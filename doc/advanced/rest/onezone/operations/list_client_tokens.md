@@ -13,7 +13,7 @@ This operation can be invoked on behalf of currently authenticated user only.
 
 ***Example cURL requests***
 
-**Add user to space**
+**Get user tokens**
 ```bash
 curl -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_tokens
 

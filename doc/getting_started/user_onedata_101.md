@@ -12,7 +12,7 @@ This step-by-step guide shows how to create a Onedata account, support your
 ## Supporting your first space
 At the first login, you need to create your first space. Like every new space,
 at the beginning it has quota size of 0. You have to request storage support
-for certain storage space (e.g. 5GB) from some storage provider (or setup your
+for certain amount of storage space (e.g. 5GB) from some storage provider (or setup your
 own *Oneprovider* service) to be able to store any files in this space.
 
 In the left panel of *Onezone* page you can find the *Data space management*
@@ -31,22 +31,22 @@ appear on the map on *Onezone* page.
 <p align="center"> <img src="../img/gotoyourfiles.png"> </p>
 
 Click on the provider icon on the map and click on the button
-"Go to your files". You will be redirected to
+*Go to your files*. You will be redirected to
 [Oneprovider web interface](../user_guide.md), where you can
 [access and manage](../user_guide.md) your files.
 
 ## Data management
 Once in the Oneprovider interface, you can easily:
 
-* switch between your spaces in the `Spaces` tab
+#### Switch between your spaces in the `Spaces` tab
 
 <p align="center"> <img src="../img/spacestab.png"> </p>
 
-* access and manage data in `Data` tab
+#### Access and manage data in `Data` tab
 
 <p align="center"> <img src="../img/datatab.png"> </p>
 
-* and create and manage user groups in the `Groups` tab.
+#### Create and manage user groups in the `Groups` tab.
 
 <p align="center"> <img src="../img/grouptab.png"> </p>
 
@@ -60,16 +60,12 @@ tool. Typically all it takes to have your spaces available in your local file
 system is:
 
 ```
-export ONECLIENT_PROVIDER_HOST=<PREFERRED_PROVIDER_IP>
-
-export ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN>
-
 mkdir ~/Onedata
 
-oneclient ~/Onedata
+oneclient -H <PREFERRED_PROVIDER_IP> -t <ACCESS_TOKEN> ~/Onedata
 ```
 
-For more information see [Oneclient manual](../using_onedata/oneclient.md).
+For more information and how to download and install Oneclient see [Oneclient manual](../using_onedata/oneclient.md).
 
 ## Next steps
 After you are comfortable using basic file operations in your space, see the

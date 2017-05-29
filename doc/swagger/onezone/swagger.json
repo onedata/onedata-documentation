@@ -1001,7 +1001,7 @@
         "x-onedata-method": "token_logic:get",
         "summary": "List user access tokens",
         "x-bash-codegen-description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n",
-        "description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_tokens\n\n{\n  \"tokens: [\n     \"LKHKJASDkkajsdnKJASDkjasDJASDjkasACJNS2KJNAS\"\n  ]\n}\n```\n",
+        "description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Get user tokens**\n```bash\ncurl -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_tokens\n\n{\n  \"tokens: [\n     \"LKHKJASDkkajsdnKJASDkjasDJASDjkasACJNS2KJNAS\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1065,6 +1065,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token has been successfully created.",
@@ -1103,6 +1106,17 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "options",
+            "description": "Optional token parameters",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "x-code-samples": [
           {
             "lang": "Shell",

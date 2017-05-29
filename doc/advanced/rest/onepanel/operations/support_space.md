@@ -7,7 +7,7 @@ POST /provider/spaces
 
 
 ##### Description
-Supports an existing space or creates a new space and automatically  supports it.
+Supports an existing space or creates a new space and automatically supports it.
 
 
 ##### Parameters
