@@ -100,7 +100,7 @@ with pre-configured shell with full help on the APIs and autocomplete for
 operations and attributes.
 
 ```
-docker run -it onedata/rest-cli:3.0.0-rc14
+docker run -it onedata/rest-cli:3.0.0-rc15
 ```
 
 We have also prepared tutorials which show how to use this API in practice:
@@ -124,7 +124,7 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 3.0.0-rc14
+*Version* : 3.0.0-rc15
 
 
 ### Contact information
