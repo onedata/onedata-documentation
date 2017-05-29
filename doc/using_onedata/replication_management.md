@@ -58,19 +58,19 @@ The result is a JSON list of objects, where each contains the id of one of the p
         "providerId": "34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS"
     }
 ]
-                            
+
 ```
 
 In order to request replication of the file to a specific provider, a `POST` request on the specific file path has to be invoked with provider ID provided as parameter, for example:
 
 ```bash
 curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
-'https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
+'https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
 ```
 
 This operation returns a transfer ID which can be used to monitor and cancel the transfer:
 ```json
-{ 
+{
     "transferId": "UGHLKJ8758ASD99879ASDASD987897aDASD"
 }
 ```
@@ -83,13 +83,13 @@ curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
 
 curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?providerId=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
+https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
 ```
 
 
 ### Transfer control and monitoring
 
-The `/transfer/` operations provide basic transfer management functionality based on the ID of transfer returned by `/replicas/{path} [POST]` operation. 
+The `/transfer/` operations provide basic transfer management functionality based on the ID of transfer returned by `/replicas/{path} [POST]` operation.
 
 In order to get information about a specific transfer, simply query the following resource:
 
