@@ -13,21 +13,21 @@ Onezone can be deployed using our [official Docker images](https://hub.docker.co
 In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
 
 #### Increase maximum number of opened files
-In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is at least 4096:
+In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
 ```sh
 $ ulimit -n
-4096
+1024
 ```
 
-If it's less, increase the limit using:
+If necessary, increase the limit using:
 
 ```sh
-$ sudo sh -c 'echo "* soft nofile 4096" >> /etc/security/limits.conf'
+$ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
 ```
 
 #### Swap preference settings
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most 1 - see [here](https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html) for details):
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` - see [here](https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html) for details):
 
 ```sh
 $ cat /proc/sys/vm/swappiness
@@ -345,6 +345,20 @@ Open `https://onezone-demo.tk:9443` using any web browser and continue through t
 
 After this step succeeds, **Onezone** should be ready and accessible at `https://onezone-demo.tk`
 
+### Advanced configuration
+After installation several **Onezone** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/oz_worker/app.config` for package based deployment and in `/opt/onedata/onezone/persistence/etc/oz_worker/app.config`. After modifying `app.config` file always restart **Onezone** service in order for changes to take effect.
+
+#### Onezone domain, name and administrator email
+Make sure that Onezone domain was properly set by **Onepanel**, example entries for this tutorial:
+
+```erlang
+...
+    {http_domain, "onezone-demo.tk"},
+    {oz_name, "ONEZONE-DEMO"},
+    {admin_emails, "admin@onezone-demo.tk"},
+...
+```
+
 ## Running
 
 ### Running Docker based installation using systemd
@@ -428,6 +442,37 @@ $ curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
 ```
 
 If all components report `"ok"` and overall healthdata status is also `"ok"`, it means the service is running properly.
+
+### Logs
+In case of issues, both **Onepanel** and **Onezone** logs should be checked and included in any reported issues.
+
+**Onepanel** logs should be consulted for issues related to Onezone deployment or adding new users. **Onezone** logs should contain errors related to accessing user spaces, registering providers and others.
+
+#### Docker based deployment
+In case of Docker based deployment, assuming the paths were set as in the tutorial, the following directories contain logs:
+
+```
+# Onepanel logs
+$ sudo ls /opt/onedata/onezone/persistence/var/log/oz_panel/
+cmd.log debug.log error.log info.log run_erl.log
+
+# Onezone logs
+sudo ls /opt/onedata/onezone/persistence/var/log/oz_worker/
+debug.log error.log info.log run_erl.log
+```
+
+#### Package based deployment
+In case of package based deployment, the following directories contain logs:
+
+```
+# Onepanel logs
+$ sudo ls /var/log/oz_panel/
+cmd.log debug.log error.log info.log run_erl.log
+
+# Onezone logs
+sudo ls /var/log/oz_worker/
+debug.log error.log info.log run_erl.log
+```
 
 ## Upgrading
 

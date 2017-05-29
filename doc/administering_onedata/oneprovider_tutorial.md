@@ -15,21 +15,21 @@ For instructions how to setup test deployments with minimal effort checkout our 
 In order to ensure optimum performance of the **Oneprovider** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
 
 #### Increase maximum number of opened files
-In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is at least `4096`:
+In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
 ```sh
 $ ulimit -n
-4096
+1024
 ```
 
-If it's less, increase the limit using:
+If necessary, increase the limit using:
 
 ```sh
-$ sudo sh -c 'echo "* soft nofile 4096" >> /etc/security/limits.conf'
+$ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
 ```
 
 #### Swap preference settings
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most 1 - see [here](https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html) for details):
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` - see [here](https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html) for details):
 
 ```sh
 $ cat /proc/sys/vm/swappiness
@@ -345,6 +345,18 @@ Open `https://oneprovider-demo.tk:9443` using any web browser and continue throu
 
 After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
 
+### Advanced configuration
+After installation several **Oneprovider** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/op_worker/app.config` for package based deployment and in `/opt/onedata/oneprovider/persistence/etc/op_worker/app.config`. After modifying `app.config` file always restart **Oneprovider** service in order for changes to take effect.
+
+#### Onezone domain, name and administrator email
+Make sure that Oneprovider domain was properly set by **Onepanel**, example entries for this tutorial:
+
+```erlang
+...
+    {http_domain, "oneprovider-demo.tk"},
+...
+```
+
 ## Running
 
 ### Running Docker based installation using systemd
@@ -431,6 +443,37 @@ $ curl -sS http://oneprovider-demo.tk:6666/nagios | xmllint --format -
 ```
 
 If all components report `"ok"` and overall healthdata status is also `"ok"`, it means the service is running properly.
+
+### Logs
+In case of issues, both **Onepanel** and **Oneprovider** logs should be checked and included in any reported issues.
+
+**Onepanel** logs should be consulted for issues related to Oneprovider deployment, registering new storage backends or supporting spaces. **Oneprovider** logs should contain errors related to data management tasks and replication.
+
+#### Docker based deployment
+In case of Docker based deployment, assuming the paths were set as in the tutorial, the following directories contain logs:
+
+```
+# Onepanel logs
+$ sudo ls /opt/onedata/onezone/persistence/var/log/op_panel/
+cmd.log debug.log error.log info.log run_erl.log
+
+# Oneprovider logs
+sudo ls /opt/onedata/onezone/persistence/var/log/oz_worker/
+debug.log error.log info.log run_erl.log
+```
+
+#### Package based deployment
+In case of package based deployment, the following directories contain logs:
+
+```
+# Onepanel logs
+$ sudo ls /var/log/op_panel/
+cmd.log debug.log error.log info.log run_erl.log
+
+# Oneprovider logs
+sudo ls /var/log/op_worker/
+debug.log error.log info.log run_erl.log
+```
 
 
 ## Upgrading
