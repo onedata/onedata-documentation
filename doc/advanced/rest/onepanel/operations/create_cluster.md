@@ -7,9 +7,9 @@ POST /hosts
 
 
 ##### Description
-Initializes administrative cluster or if `clusterHost` parameter has been  provided in the query string adds this host to an existing cluster.
-In both cases the host handling this request has to be newly started or  removed from previous cluster. It cannot contain any configuration data.
-This request can be executed by unauthorized users as long as there are no  admin users.
+Initializes administrative cluster or if `clusterHost` parameter has been provided in the query string adds this host to an existing cluster.
+In both cases the host handling this request has to be newly started or removed from previous cluster. It cannot contain any configuration data.
+This request can be executed by unauthorized users as long as there are no admin users.
 
 
 ##### Parameters
