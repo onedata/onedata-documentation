@@ -82,6 +82,14 @@ Onezone installation using Docker is very straightforward, the best way is to us
 #### Customizing Onezone Docker Compose script
 In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the folder `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
 
+The following assumes you have prepared the following directory structure:
+
+```sh
+$ sudo mkdir -p /opt/onedata/onezone
+$ sudo mkdir /opt/onedata/onezone/certs
+$ sudo mkdir /opt/onedata/onezone/persistence
+```
+
 Create the following Docker Compose file in `/opt/onedata/onezone/docker-compose.yml`:
 
 ```Yaml
