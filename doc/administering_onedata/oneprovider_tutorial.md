@@ -84,6 +84,14 @@ Make sure that the machine has a resolvable, domain-style hostname (it can be Fu
 #### Customizing Oneprovider Docker Compose script
 In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
 
+The following assumes you have prepared the following directory structure:
+
+```sh
+$ sudo mkdir -p /opt/onedata/oneprovider
+$ sudo mkdir /opt/onedata/oneprovider/certs
+$ sudo mkdir /opt/onedata/oneprovider/persistence
+```
+
 Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-compose.yml`:
 
 ```Yaml
@@ -130,7 +138,7 @@ services:
       # Force Onepanel to read configuration from environment variable
       ONEPANEL_BATCH_MODE: "true"
       # Provide initial Oneprovider configuration for Onepanel in environment variable
-      ONEZONE_CONFIG: |
+      ONEPROVIDER_CONFIG: |
         # Cluster configuration allows to specify distribution of Oneprovider
         # components over multiple nodes - here we deploy entire service on
         # a single node
