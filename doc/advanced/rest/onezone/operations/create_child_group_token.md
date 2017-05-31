@@ -29,7 +29,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Group ID.|string|--|
-|**Body**|**data**  <br>*required*|Group token request.|[GroupInviteTokenRequest](../definitions/GroupInviteTokenRequest.md#groupinvitetokenrequest)|--|
+|**Body**|**body**  <br>*optional*|Group token request.|[GroupInviteTokenRequest](../definitions/GroupInviteTokenRequest.md#groupinvitetokenrequest)|--|
 
 
 ##### Responses
@@ -42,6 +42,11 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
 |**404**|Resource not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
+
+
+##### Consumes
+
+* `application/json`
 
 
 ##### Produces

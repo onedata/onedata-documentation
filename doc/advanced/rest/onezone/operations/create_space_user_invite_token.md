@@ -29,6 +29,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
+|**Body**|**options**  <br>*optional*|Optional token parameters.|string|--|
 
 
 ##### Responses
@@ -43,6 +44,11 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
+##### Consumes
+
+* `application/json`
+
+
 ##### Produces
 
 * `application/json`
@@ -54,6 +60,13 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 ```
 json :
 "/spaces/string/users/token"
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 
