@@ -1051,7 +1051,7 @@
         ]
       },
       "post": {
-        "operationId": "generate_client_token",
+        "operationId": "create_client_token",
         "tags": [
           "User"
         ],
@@ -1120,7 +1120,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli generateClientToken"
+            "source": "onezone-rest-cli createClientToken"
           }
         ]
       }

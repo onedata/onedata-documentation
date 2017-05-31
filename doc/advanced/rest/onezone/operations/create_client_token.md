@@ -1,5 +1,5 @@
 
-<a name="generate_client_token"></a>
+<a name="create_client_token"></a>
 #### Generate user access token
 ```
 POST /user/client_tokens

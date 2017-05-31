@@ -207,7 +207,7 @@ Regular user operations
 |[/user](operations/remove_current_user.md)|DELETE|Remove current user|
 |[/user](operations/modify_current_user.md)|PATCH|Modify current user|
 |[/user/authorize](operations/authorize_user.md)|POST|Authenticate user|
-|[/user/client_tokens](operations/generate_client_token.md)|POST|Generate user access token|
+|[/user/client_tokens](operations/create_client_token.md)|POST|Generate user access token|
 |[/user/client_tokens](operations/list_client_tokens.md)|GET|List user access tokens|
 |[/user/client_tokens/{tid}](operations/remove_client_token.md)|DELETE|Delete access token|
 |[/user/default_provider](operations/get_default_provider.md)|GET|Get default provider|

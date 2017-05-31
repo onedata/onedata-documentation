@@ -167,7 +167,7 @@
           * [Create new user handle](doc/advanced/rest/onezone/operations/create_user_handle.md)
           * [Create new user space](doc/advanced/rest/onezone/operations/create_user_space.md)
           * [Delete access token](doc/advanced/rest/onezone/operations/remove_client_token.md)
-          * [Generate user access token](doc/advanced/rest/onezone/operations/generate_client_token.md)
+          * [Generate user access token](doc/advanced/rest/onezone/operations/create_client_token.md)
           * [Get current user details](doc/advanced/rest/onezone/operations/get_current_user.md)
           * [Get default provider](doc/advanced/rest/onezone/operations/get_default_provider.md)
           * [Get default space](doc/advanced/rest/onezone/operations/get_default_space.md)
