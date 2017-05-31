@@ -1051,7 +1051,7 @@
         ]
       },
       "post": {
-        "operationId": "generate_client_token",
+        "operationId": "create_client_token",
         "tags": [
           "User"
         ],
@@ -1120,7 +1120,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli generateClientToken"
+            "source": "onezone-rest-cli createClientToken"
           }
         ]
       }
@@ -5592,6 +5592,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for joining a specific group.",
@@ -5639,13 +5642,13 @@
             "required": true
           },
           {
-            "name": "data",
+            "name": "body",
             "in": "body",
             "description": "Group token request.",
             "schema": {
               "$ref": "#/definitions/GroupInviteTokenRequest"
             },
-            "required": true
+            "required": false
           }
         ],
         "x-code-samples": [
@@ -8264,6 +8267,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for joining a specific group.",
@@ -8309,6 +8315,15 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "options",
+            "description": "Optional token parameters.",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "x-code-samples": [
@@ -9925,6 +9940,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for getting space storage support from a provider.",
@@ -9970,6 +9988,15 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Token parameters.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
           }
         ],
         "x-code-samples": [
