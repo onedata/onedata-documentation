@@ -42,10 +42,10 @@ In this tutorial we are most interested in `onepanel-rest-cli`.
 
 By default Docker is configured for the latest Onedata release, but it also
 contains clients for all previous releases, to switch to a specific release
-(for instance 3.0.0-rc10) use:
+(for instance 17.06.0) use:
 
 ```bash
-onedata-select-version 3.0.0-rc10
+onedata-select-version 17.06.0
 ```
 
 ## Authentication
