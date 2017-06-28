@@ -14,6 +14,8 @@ For instructions how to setup test deployments with minimal effort checkout our 
 ### Prerequisites
 In order to ensure optimum performance of the **Oneprovider** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
 
+After these settings are modified, the machine needs to be rebooted.
+
 #### Increase maximum number of opened files
 In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
@@ -78,6 +80,12 @@ $ sudo systemctl start disable-thp.service
 #### Node hostname
 Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-demo.tk`.
 
+Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
+
+```sh
+$ export ONEPROVIDER_HOST="onezone-demo.tk"
+```
+
 ### Docker based setup
 **Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
 
@@ -99,7 +107,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:3.0.0-rc14
+    image: onedata/oneprovider:17.06.0-beta2
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -248,66 +256,57 @@ During deployment, Onepanel will install these certificates in the **Oneprovider
 #### Automated setup using Let's Encrypt
 These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
 
-##### Docker based deployment
-```sh
-# Stop Oneprovider container (if it's already running)
-$ sudo systemctl stop oneprovider.service
+> In your are running the following commands after the Onezone service has been
+ started or rerunning them to generate new certificates, the Onezone service has to be stopped.
 
+##### Docker based deployment
+
+```sh
 # Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
 $ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
 $ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d oneprovider-demo.tk
+$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
 
 # The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/oneprovider-demo.tk
+$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
 cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Docker container
 $ cd /opt/onedata/oneprovider/certs
 $ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem cacert.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
-
-# Restart Onezone container
-$ sudo systemctl start oneprovider.service
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem cacert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem cert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem key.pem
 ```
 
 ##### Package based deployment
-```sh
-# Stop Oneprovider services
-$ sudo systemctl stop op_panel.service
-$ sudo systemctl stop op_worker.service
 
+```sh
 # Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
 $ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
 $ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d oneprovider-demo.tk
+$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
 
 # The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/oneprovider-demo.tk
+$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
 cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Onepanel and Oneprovider services
 $ cd /etc/op_panel/cacerts
 $ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/chain.pem oz_cacert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem oz_cacert.pem
 $ cd /etc/op_panel/certs
 $ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem cert.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem key.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem cert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem key.pem
 $ cd /etc/op_worker/certs
 $ sudo rm -rf web_key.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/fullchain.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/oneprovider-demo.tk/privkey.pem web_key.pem
-
-# Restart Oneprovider services
-$ sudo systemctl start op_panel.service
-$ sudo systemctl start op_worker.service
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
 ```
 
 ### Security and recommended firewall settings
@@ -332,24 +331,23 @@ Open `https://oneprovider-demo.tk:9443` using any web browser and continue throu
 * Login using default credentials specified in (e.g. `admin:password`)
 <p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="640"></p>
 
+* Initialize the cluster setup
+<p align="center"><img src="../img/admin/op_tutorial_panel_start.png" width="640"></p>
+
 * Select hosts in the cluster which will have specific roles (leave as is)
 <p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="640"></p>
-
-* Select the main cluster manager host
-<p align="center"><img src="../img/admin/op_tutorial_panel_cluster_manager.png" width="640"></p>
-
-* Verify the configuration and proceed with install
-<p align="center"><img src="../img/admin/op_tutorial_panel_summary.png" width="640"></p>
-
-* Wait for installation to complete and choose to register with a Onezone instance
-<p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="640"></p>
 
 * Provide Onezone details
 <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="640"></p>
 
-* Wait for registration to complete
-<p align="center"><img src="../img/admin/op_tutorial_panel_registration_success.png" width="640"></p>
+* Add storage
+<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="640"></p>
 
+* Verify the storage was added successfully
+<p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="640"></p>
+
+* Wait for registration and deployment to complete
+<p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="640"></p>
 
 After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
 
@@ -423,7 +421,7 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS http://oneprovider-demo.tk:6666/nagios | xmllint --format -
+$ curl -sS http://$ONEPROVIDER_HOST:6666/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
   <op_worker name="op_worker@oneprovider-demo.tk" status="ok">
@@ -534,20 +532,20 @@ $ sudo systemctl start op_worker.service
 This section presents few typical administration tasks that can be performed by **Oneprovider** admins.
 
 ### Change administrator password
-The administrator password to the **Oneprovider** administration panel can be changed easily within GUI (`https://oneprovider-demo.tk:9443`) or using the REST API:
+The administrator password to the **Oneprovider** administration panel can be changed easily within GUI (`https://$ONEPROVIDER_HOST:9443`) or using the REST API:
 
 ```sh
 curl -sS -X PATCH -H 'Content-type: application/json' \
 -d '{"username": "admin", "password": "NewPassword"}' -u admin:password \
-https://oneprovider-demo.tk:9443/api/v3/onepanel/users
+https://$ONEPROVIDER_HOST:9443/api/v3/onepanel/users
 ```
 
 ### Adding new storage to Oneprovider
 
-Storage resources can be conveniently added to a **Oneprovider** instance using the Onepanel GUI, in menu **Software->Storage configuration**:
+Storage resources can be conveniently added to a **Oneprovider** instance using the Onepanel GUI, in menu **Storages** and click **Add storage** in the top right corner:
 
 * Select storage type and provider required connection details (example for S3):
-<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_add_more_storage.png" width="640"></p>
 
 From this point on when supporting user spaces, this storage will be available as an option.
 

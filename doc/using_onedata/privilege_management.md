@@ -25,18 +25,18 @@ The following space privileges are available:
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| space_add_provider    | Allow adding new storage providers to this space |
-| space_change_data     | Allow modifying space content |
+| space_invite_provider    | Allow adding new storage providers to this space |
+| space_update     | Allow modifying space content |
 | space_invite_group    | Allow inviting other groups to this space |
 | space_invite_user     | Allow inviting other users to this space |
 | space_manage_shares   | Allow management of shares related to this space |
-| space_remove          | Allow removing of this space |
+| space_delete          | Allow removing of this space |
 | space_remove_group    | Allow removing groups from this space |
 | space_remove_provider | Allow removing storage providers supporting this space |
 | space_remove_user     | Allow removing users from space |
 | space_set_privileges  | Allow changing privileges for this space |
-| space_view_data       | Allow browsing space content |
-| space_write_files     | Allow write access to space |
+| space_view       | Allow browsing space content |
+| space_write_data     | Allow write access to space |
 
 These privileges can be changed using the REST API, depending on whether they are assigned to an invdividual user or a group of users. Below are some examples:
 * List user 'ABC123' permissions to space 'QWE789':
@@ -46,12 +46,12 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 which should return something similar to:
 ```bash
-{"privileges": ["space_view_data", "space_change_data","space_remove"]}
+{"privileges": ["space_view", "space_modify","space_delete"]}
 ```
 * Limit user 'ABC123' to only browse contents of space 'QWE789':
 ```bash
 curl -X PUT -H "X-Auth-Token: $ACCESS_TOKEN" \
--d '{"privileges": ["space_view_data"]}' -H 'Content-type: application/json' \
+-d '{"privileges": ["space_view"]}' -H 'Content-type: application/json' \
 https://$ONEZONE_HOST:8443/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
 * Allow group 'IOP567' to change privileges of space 'QWE789':
@@ -79,18 +79,18 @@ Below are presented examples of using the API for group privilege management.
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| group_change_data | Allow modifying group information |
+| group_update | Allow modifying group information |
 | group_create_space | Allow group user to create spaces |
 | group_invite_group | Allow group user to invite other groups to join this group |
 | group_invite_user | Allow inviting other users to the group |
 | group_join_group | Allow group user to join this group with other groups |
 | group_join_space | Allow group to join other spaces |
 | group_leave_space | Allow group user to remove the group from a specific space |
-| group_remove | Allow group user to remove the group |
+| group_delete | Allow group user to remove the group |
 | group_remove_group | Allow group user to remove groups which have joined this group |
 | group_remove_user | Allow removing users from the group |
 | group_set_privileges | Allow group user to change group privileges |
-| group_view_data | Allow group user to view group data |
+| group_view | Allow group user to view group data |
 
 Example group privilege REST API calls are presented below:
 * List group 'IOP567' permissions to space 'QWE789':
@@ -124,11 +124,11 @@ a Onezone.
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| delete_handle_service | Remove a handle service |
+| handle_service_delete | Remove a handle service |
 | handle_service_list_handles | List handles registered by a handle service |
-| modify_handle_service | Modify a handle service |
-| register_handle | Register a new handle using a handle service |
-| view_handle_service | View handle service details |
+| handle_service_update | Modify a handle service |
+| handle_service_register_handle | Register a new handle using a handle service |
+| handle_service_view | View handle service details |
 
 ### Handle privileges
 These privileges control access to specific handles (DOI's, PID's) assigned
@@ -136,9 +136,9 @@ to specific shares and registered using a specific Handle Service.
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| delete_handle | Remove specific handle |
-| modify_handle | Change specific handle attributes |
-| view_handle | View specific handle details |
+| handle_delete | Remove specific handle |
+| handle_update | Change specific handle attributes |
+| handle_view | View specific handle details |
 
 
 ### Onezone privileges
@@ -146,15 +146,15 @@ Finally, in order to gain access to specific parts of the Onezone service itself
 
 | Privilege    | Description     |
 |--------------|-----------------|
-| add_member_to_space | Allows to add any user or group to any space (typically for zone administrators) |
+| oz_spaces_add_members | Allows to add any user or group to any space (typically for zone administrators) |
 | list_groups | List all groups in the Onezone instance and get their details |
-| list_groups_of_provider | List groups of a specific provider |
-| list_providers | Allow the user to list all providers registered in the zone |
-| list_providers_of_space | Allow the user to see all providers supporting specific space|
-| list_spaces | List all spaces in the Onezone instance and get their details |
-| list_spaces_of_provider | List spaces supported by a specific provider |
+| oz_providers_list_groups | List groups of a specific provider |
+| oz_providers_list | Allow the user to list all providers registered in the zone |
+| oz_spaces_list_providers | Allow the user to see all providers supporting specific space|
+| oz_spaces_list | List all spaces in the Onezone instance and get their details |
+| oz_providers_list_spaces | List spaces supported by a specific provider |
 | list_users | List all users in the Onezone instance and get their details |
-| list_users_of_provider | List users of a specific provider |
+| oz_providers_list_users | List users of a specific provider |
 | oz_groups_add_members | Add any user to any group |
 | oz_groups_list_groups | List subgroups of any group |
 | oz_groups_list_users | List users of any group |
@@ -167,7 +167,7 @@ Finally, in order to gain access to specific parts of the Onezone service itself
 | oz_spaces_list_groups | List all groups belonging to any space |
 | oz_spaces_list_users | List all users of any space |
 | oz_users_delete | Remove any user |
-| remove_member_from_space | Allows to remove any user or group from any space (typically for zone administrators) |
+| oz_spaces_remove_members | Allows to remove any user or group from any space (typically for zone administrators) |
 | set_privileges | Allow the user to modify the privileges |
 | view_privileges | Allow the user to view privileges |
 
