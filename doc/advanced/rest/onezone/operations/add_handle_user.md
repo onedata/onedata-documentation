@@ -9,7 +9,7 @@ PUT /handles/{hndl}/users/{uid}
 ##### Description
 Allows to add a user to a handle.
 
-This operation requires `modify_handle` privilege.
+This operation requires `handle_update` privilege.
 
 ***Example cURL requests***
 

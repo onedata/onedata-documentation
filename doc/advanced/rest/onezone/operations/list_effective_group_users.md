@@ -11,7 +11,7 @@ Returns the list of effective group users, which includes both who directly
 belong to the group, as well as users who belong to the group indirectly
 through its parent groups.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

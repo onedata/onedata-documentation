@@ -1,6 +1,6 @@
 
 <a name="posix"></a>
-### POSIX
+### posix
 The POSIX storage configuration.
 
 *Polymorphism* : Inheritance  
@@ -9,10 +9,12 @@ The POSIX storage configuration.
 
 |Name|Description|Schema|
 |---|---|---|
+|**id**  <br>*optional*|The ID of storage.|string|
 |**mountPoint**  <br>*required*|The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.|string|
+|**name**  <br>*optional*|The name of storage.|string|
 |**readonly**  <br>*optional*|Defines whether storage is readonly.  <br>**Default** : `false`|boolean|
 |**timeout**  <br>*optional*|Storage operation timeout in milliseconds.|integer|
-|**type**  <br>*required*|The type of storage.|enum (POSIX, S3, Ceph, Swift)|
+|**type**  <br>*required*|The type of storage.|enum (posix, s3, ceph, swift, glusterfs)|
 
 
 

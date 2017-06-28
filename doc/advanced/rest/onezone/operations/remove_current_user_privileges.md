@@ -11,7 +11,7 @@ Removes all privileges for a user to Onezone.
 
 This operation can be invoked on behalf of current user only.
 
-This operation requires `set_privileges` administrator privilege.
+This operation requires `oz_set_privileges` administrator privilege.
 
 ***Example cURL requests***
 

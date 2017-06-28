@@ -6,7 +6,6 @@ The zone cluster configuration.
 
 |Name|Description|Schema|
 |---|---|---|
-|**autoDeploy**  <br>*optional*|Defines whether administrative cluster should be created from the list of provided cluster nodes.|boolean|
 |**databases**  <br>*required*||[ClusterDatabases](ClusterDatabases.md#clusterdatabases)|
 |**domainName**  <br>*required*|The name of a domain common for all services in the cluster. Together with a node hostname constitute a node fully qualified domain name.|string|
 |**managers**  <br>*required*||[ClusterManagers](ClusterManagers.md#clustermanagers)|

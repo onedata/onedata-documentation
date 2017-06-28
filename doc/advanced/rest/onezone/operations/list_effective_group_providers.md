@@ -9,7 +9,7 @@ GET /groups/{id}/effective_providers
 ##### Description
 Returns the effective list of providers supporting group spaces.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

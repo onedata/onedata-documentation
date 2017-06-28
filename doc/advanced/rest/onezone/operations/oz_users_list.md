@@ -1,5 +1,5 @@
 
-<a name="list_users"></a>
+<a name="oz_users_list"></a>
 #### List all users
 ```
 GET /users
@@ -9,7 +9,7 @@ GET /users
 ##### Description
 Returns the list of all users in the system.
 
-Requires `list_users` privilege.
+Requires `oz_users_list` privilege.
 
 ***Example cURL requests***
 

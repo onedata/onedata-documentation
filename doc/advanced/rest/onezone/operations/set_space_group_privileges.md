@@ -16,7 +16,7 @@ This operation requires `space_set_privileges` privilege.
 **Set space group privileges**
 ```bash
 curl -u username:password  -H "Content-type: application/json" \
--X PATCH -d '{"privileges": ["space_change_data"]}' \
+-X PATCH -d '{"privileges": ["space_update"]}' \
 https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 ```
 
@@ -56,7 +56,7 @@ json :
 json :
 {
   "operation" : [ "set" ],
-  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
+  "privileges" : [ "space_invite_provider", "space_update", "space_invite_group", "space_invite_user", "space_manage_shares", "space_delete", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view", "space_write_data" ]
 }
 ```
 

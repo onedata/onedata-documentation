@@ -14,7 +14,7 @@ Returns the zone cluster configuration.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The zone cluster configuration.|[ZoneConfiguration](../definitions/ZoneConfiguration.md#zoneconfiguration)|
+|**200**|The zone cluster configuration.|[ZoneConfigurationDetails](../definitions/ZoneConfigurationDetails.md#zoneconfigurationdetails)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
@@ -41,21 +41,15 @@ json :
 json :
 {
   "cluster" : {
-    "domainName" : "onezone.onedata.example.com",
-    "nodes" : {
-      "node1" : {
-        "hostname" : "node1"
-      }
-    },
     "manager" : {
-      "defaultNode" : "node1",
-      "nodes" : [ "node1" ]
+      "mainHost" : "node1.onezone.onedata.example.com",
+      "hosts" : [ "node1.onezone.onedata.example.com" ]
     },
     "worker" : {
-      "nodes" : [ "node1" ]
+      "hosts" : [ "node1.onezone.onedata.example.com" ]
     },
     "database" : {
-      "nodes" : [ "node1" ]
+      "hosts" : [ "node1.onezone.onedata.example.com" ]
     }
   },
   "onezone" : {

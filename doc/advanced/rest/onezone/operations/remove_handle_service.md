@@ -9,7 +9,7 @@ DELETE /handle_services/{id}
 ##### Description
 Allows to unregister a registeed handle service.
 
-This operation requires `delete_handle_service` privilege.
+This operation requires `handle_service_delete` privilege.
 
 ***Example cURL requests***
 

@@ -64,6 +64,20 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
+### Setting extended attributes using command line
+
+Oneclient mounted spaces have support for extended attribute (xattr) feature, which can be accessed and manipulating using such tools as `xattr` or `getfattr` and `setfattr`. For instance to set an attribute on a file:
+
+```sh
+[/mnt/oneclient/MySpace1]$ ls
+File2.txt
+
+[/mnt/oneclient/MySpace1]$ xattr -l File2.txt
+license
+
+[/mnt/oneclient/MySpace1]$ xattr -p license File2.txt
+CC-0
+```
 
 ## Custom metadata
 

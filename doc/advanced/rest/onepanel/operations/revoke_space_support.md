@@ -1,6 +1,6 @@
 
 <a name="revoke_space_support"></a>
-#### Revoke space support for a space.
+#### Revoke space support for a space
 ```
 DELETE /provider/spaces/{id}
 ```

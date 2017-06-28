@@ -9,7 +9,7 @@ GET /handles/{hndl}/effective_groups/{gid}
 ##### Description
 Returns the details of an effective group with access to handle.
 
-This operation requires `modify_handle` privilege.
+This operation requires `handle_update` privilege.
 
 ***Example cURL requests***
 

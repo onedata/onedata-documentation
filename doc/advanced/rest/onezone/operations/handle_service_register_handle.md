@@ -1,5 +1,5 @@
 
-<a name="register_handle"></a>
+<a name="handle_service_register_handle"></a>
 #### Register handle
 ```
 POST /handles
@@ -11,7 +11,7 @@ Allows to register a new handle identifier, using a specific handle service.
 
 The handle service must be registered in Onedata separately.
 
-This operation requires `register_handle` privilege, which needs to
+This operation requires `handle_service_register_handle` privilege, which needs to
 be assigned to a specific handle service.
 
 ***Example cURL requests***

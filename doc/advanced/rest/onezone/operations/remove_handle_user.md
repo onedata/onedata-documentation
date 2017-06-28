@@ -9,7 +9,7 @@ DELETE /handles/{hndl}/users/{uid}
 ##### Description
 Allows to revoke users access to a handle.
 
-This operation requires `modify_handle` privilege.
+This operation requires `handle_update` privilege.
 
 ***Example cURL requests***
 

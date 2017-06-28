@@ -9,7 +9,7 @@ GET /groups/{id}/parents
 ##### Description
 Returns the parent groups of a specific group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

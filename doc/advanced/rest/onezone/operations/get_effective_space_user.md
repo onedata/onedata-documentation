@@ -9,7 +9,7 @@ GET /spaces/{id}/effective_users/{uid}
 ##### Description
 Returns details about a specific effective user in a space.
 
-This operation requires `space_view_data` privilege.
+This operation requires `space_view` privilege.
 
 ***Example cURL requests***
 

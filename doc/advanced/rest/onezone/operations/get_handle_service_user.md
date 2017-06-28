@@ -9,7 +9,7 @@ GET /handle_services/{id}/users/{uid}
 ##### Description
 Allows to get a user to a handle service.
 
-This operation requires `modify_handle_service` privilege.
+This operation requires `handle_service_update` privilege.
 
 ***Example cURL requests***
 

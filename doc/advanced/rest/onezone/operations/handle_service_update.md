@@ -1,5 +1,5 @@
 
-<a name="modify_handle_service"></a>
+<a name="handle_service_update"></a>
 #### Modify handle service
 ```
 PATCH /handle_services/{id}
@@ -9,7 +9,7 @@ PATCH /handle_services/{id}
 ##### Description
 Allows to update a registered handle service.
 
-This operation requires `modify_handle_service` privilege.
+This operation requires `handle_service_update` privilege.
 
 ***Example cURL requests***
 

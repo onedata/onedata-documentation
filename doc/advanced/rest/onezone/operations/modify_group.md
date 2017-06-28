@@ -9,7 +9,7 @@ PATCH /groups/{id}
 ##### Description
 Updates the details about a group.
 
-This operation requires `group_change_data` privilege.
+This operation requires `group_update` privilege.
 
 ***Example cURL requests***
 

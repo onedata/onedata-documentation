@@ -9,7 +9,7 @@ GET /spaces/{id}/groups/{gid}
 ##### Description
 Returns details about a specific group in a space.
 
-This operation requires `space_view_data` privilege.
+This operation requires `space_view` privilege.
 For administrators who do not have to be members of this space,
 `oz_spaces_list_groups` privilege is required.
 
