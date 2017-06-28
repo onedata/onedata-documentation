@@ -1,27 +1,27 @@
 
 <a name="add_storage"></a>
-#### Add storage.
+#### Add storage
 ```
 POST /provider/storages
 ```
 
 
 ##### Description
-Adds additional storage resource to the storage provider.
+Adds additional storage resources to the provider.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**clusterStoragesList**  <br>*required*|The list of configuration details of storages to be added to the provider deployment.|[ClusterStoragesList](../definitions/ClusterStoragesList.md#clusterstorageslist)|--|
+|**Body**|**storageCreateRequest**  <br>*required*|The configuration details of storage resources to be added to the provider deployment.|[StorageCreateRequest](../definitions/StorageCreateRequest.md#storagecreaterequest)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|The storage has been successfully added to the provider deployment.|No Content|
+|**204**|The storage resources have been successfully added to the provider deployment.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
@@ -47,7 +47,7 @@ json :
 json :
 {
   "s3" : {
-    "type" : "S3",
+    "type" : "s3",
     "s3Hostname" : "s3.example.com",
     "iamHostname" : "iam.example.com",
     "bucketName" : "bucket1.iam.example.com",
@@ -55,7 +55,7 @@ json :
     "secretKey" : "ASASDLLASD89798&LKJHLAKJSHD887678678ASDK"
   },
   "swift" : {
-    "type" : "SWIFT",
+    "type" : "swift",
     "authUrl" : "http://keystone2.example.com",
     "tenantName" : "Project1",
     "containerName" : "Container1",

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "3.0.0-rc15",
+    "version": "17.06.0-beta2",
     "title": "Onepanel",
     "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
     "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\nOnepanel supports only HTTP basic authentication, i.e. using `username` and\n`password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators\n    and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using\n    which users can login to Onezone service using HTTP Basic authentication\n    without OpenID. This role makes sense only on Onepanel which manages\n    Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin`\naccount.\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
@@ -21,6 +21,122 @@
     }
   },
   "paths": {
+    "/session": {
+      "post": {
+        "operationId": "create_session",
+        "summary": "Create Onepanel user session",
+        "description": "Creates a new Onepanel user session.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel_session",
+        "x-onedata-resource": "session",
+        "tags": [
+          "Onepanel"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The created session details.",
+            "schema": {
+              "$ref": "#/definitions/SessionDetails"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret createSession --host https://op.example.com:9443"
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get_session",
+        "summary": "Get Onepanel user session",
+        "description": "Returns details of a Onepanel user session associated with the request.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel_session",
+        "x-onedata-resource": "session",
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The created session details.",
+            "schema": {
+              "$ref": "#/definitions/SessionDetails"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Session not found."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "remove_session",
+        "summary": "Remove Onepanel user session",
+        "description": "Removes the Onepanel user session.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel_session",
+        "x-onedata-resource": "session",
+        "tags": [
+          "Onepanel"
+        ],
+        "responses": {
+          "204": {
+            "description": "The user session has been successfully removed."
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "User session not found."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "post": {
         "operationId": "add_user",
@@ -288,7 +404,6 @@
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onepanel",
         "x-onedata-resource": "hosts",
-        "x-onedata-noauth": true,
         "tags": [
           "Onepanel"
         ],
@@ -727,7 +842,7 @@
           "200": {
             "description": "The provider cluster configuration.",
             "schema": {
-              "$ref": "#/definitions/ProviderConfiguration"
+              "$ref": "#/definitions/ProviderConfigurationDetails"
             }
           },
           "401": {
@@ -771,7 +886,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -826,7 +941,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The provider spaces details.",
+            "description": "The provider spaces IDs.",
             "schema": {
               "$ref": "#/definitions/ProviderSpaces"
             }
@@ -965,10 +1080,67 @@
           }
         ]
       },
+      "patch": {
+        "operationId": "modify_space",
+        "summary": "Modify space details",
+        "description": "Modifies the space import/update strategies.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "The space details has been successfully changed."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "The user does not exist."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The ID of a space which details should be modified.",
+            "required": true
+          },
+          {
+            "name": "spaceModifyRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SpaceModifyRequest"
+            },
+            "required": true
+          }
+        ]
+      },
       "delete": {
         "operationId": "revoke_space_support",
-        "summary": "Revoke space support for a space.",
-        "description": "Allows provider to revoke storage support for a specific space. Users with access to this space will no longer be able to store data on the resources of this provider. \n",
+        "summary": "Revoke space support for a space",
+        "description": "Allows provider to revoke storage support for a specific space. Users with access to this space will no longer be able to store data on the resources of this provider.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "space",
@@ -1028,12 +1200,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The list of provider storage and their details.",
+            "description": "The provider storage resources IDs.",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ClusterStorages"
-              }
+              "$ref": "#/definitions/ProviderStorages"
             }
           },
           "401": {
@@ -1058,8 +1227,8 @@
       },
       "post": {
         "operationId": "add_storage",
-        "summary": "Add storage.",
-        "description": "Adds additional storage resource to the storage provider.",
+        "summary": "Add storage",
+        "description": "Adds additional storage resources to the provider.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "storages",
@@ -1071,7 +1240,7 @@
         ],
         "responses": {
           "204": {
-            "description": "The storage has been successfully added to the provider deployment.\n"
+            "description": "The storage resources have been successfully added to the provider deployment.\n"
           },
           "400": {
             "description": "Invalid request.",
@@ -1094,11 +1263,11 @@
         },
         "parameters": [
           {
-            "name": "clusterStoragesList",
+            "name": "storageCreateRequest",
             "in": "body",
-            "description": "The list of configuration details of storages to be added to the provider deployment.\n",
+            "description": "The configuration details of storage resources to be added to the provider deployment.\n",
             "schema": {
-              "$ref": "#/definitions/ClusterStoragesList"
+              "$ref": "#/definitions/StorageCreateRequest"
             },
             "required": true
           }
@@ -1111,7 +1280,7 @@
         ]
       }
     },
-    "/provider/storages/{name}": {
+    "/provider/storages/{id}": {
       "get": {
         "operationId": "get_storage_details",
         "summary": "Get storage details",
@@ -1127,9 +1296,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The details of a selected storage",
+            "description": "The details of a selected storage.",
             "schema": {
-              "$ref": "#/definitions/ClusterStorages"
+              "$ref": "#/definitions/StorageDetails"
             }
           },
           "401": {
@@ -1150,10 +1319,10 @@
         },
         "parameters": [
           {
-            "name": "name",
+            "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The name of a storage resource, which details should be returned.\n",
+            "description": "The ID of a storage resource, which details should be returned.\n",
             "required": true
           }
         ],
@@ -1196,10 +1365,10 @@
         },
         "parameters": [
           {
-            "name": "name",
+            "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The name of a storage resource, which details should be returned.\n",
+            "description": "The ID of a storage resource, which details should be modified.\n",
             "required": true
           },
           {
@@ -2058,7 +2227,7 @@
           "200": {
             "description": "The zone cluster configuration.",
             "schema": {
-              "$ref": "#/definitions/ZoneConfiguration"
+              "$ref": "#/definitions/ZoneConfigurationDetails"
             }
           },
           "401": {
@@ -2084,7 +2253,7 @@
       "post": {
         "operationId": "configure_zone",
         "summary": "Configure zone deployment",
-        "description": "Configures and starts zone services, such as database, cluster manager and cluster worker.\nThis request can be executed by unauthorized usersas long as there are no  admin users in the system.\n",
+        "description": "Configures and starts zone services, such as database, cluster manager and cluster worker.\nThis request can be executed by unauthorized users as long as there are no admin users in the system.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_service",
         "x-onedata-resource": "service_onezone",
@@ -2102,7 +2271,7 @@
             "headers": {
               "Location": {
                 "type": "string",
-                "description": "The path to the task resource, which can be queried to check  operation status.\n"
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
               }
             }
           },
@@ -2959,6 +3128,28 @@
         "description": "User role must be one of 'admin' or 'regular'."
       }
     },
+    "SessionDetails": {
+      "type": "object",
+      "description": "The user session details.",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "The session ID."
+        },
+        "username": {
+          "type": "string",
+          "description": "The name of a user associated with the session."
+        }
+      },
+      "required": [
+        "sessionId",
+        "username"
+      ],
+      "example": {
+        "sessionId": "i3h2bp4TjPVuOyvXulbW",
+        "username": "someName"
+      }
+    },
     "UserDetails": {
       "type": "object",
       "description": "The user configuration details.",
@@ -3023,16 +3214,22 @@
       "type": "object",
       "description": "The user configuration details that can be modified.",
       "properties": {
-        "password": {
+        "currentPassword": {
           "type": "string",
-          "description": "The user password."
+          "description": "The current user password that should be changed or password of an administrator that is issuing this request on behalf of a user. \n"
+        },
+        "newPassword": {
+          "type": "string",
+          "description": "The new user password."
         }
       },
       "required": [
-        "password"
+        "currentPassword",
+        "newPassword"
       ],
       "example": {
-        "password": "P@@$$W0RD"
+        "currentPassword": "P@@$$W0RD1",
+        "newPassword": "P@@$$W0RD2"
       }
     },
     "PanelConfiguration": {
@@ -3131,7 +3328,7 @@
         "nodes"
       ]
     },
-    "ClusterStorages": {
+    "StorageDetails": {
       "type": "object",
       "description": "The cluster storage configuration.",
       "discriminator": "type",
@@ -3140,18 +3337,28 @@
         "posix",
         "s3",
         "ceph",
-        "swift"
+        "swift",
+        "glusterfs"
       ],
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ID of storage."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of storage."
+        },
         "type": {
           "type": "string",
           "description": "The type of storage.",
           "x-discriminator": true,
           "enum": [
-            "POSIX",
-            "S3",
-            "Ceph",
-            "Swift"
+            "posix",
+            "s3",
+            "ceph",
+            "swift",
+            "glusterfs"
           ]
         }
       },
@@ -3159,42 +3366,15 @@
         "type"
       ]
     },
-    "ClusterStoragesList": {
-      "type": "object",
-      "description": "The list of supported storage types.",
-      "x-onedata-dictionary": true,
-      "x-onedata-dictionary-value-type": "cluster_storages",
-      "additionalProperties": {
-        "$ref": "#/definitions/ClusterStorages"
-      },
-      "example": {
-        "s3": {
-          "type": "S3",
-          "s3Hostname": "s3.example.com",
-          "iamHostname": "iam.example.com",
-          "bucketName": "bucket1.iam.example.com",
-          "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
-          "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDK"
-        },
-        "swift": {
-          "type": "SWIFT",
-          "authUrl": "http://keystone2.example.com",
-          "tenantName": "Project1",
-          "containerName": "Container1",
-          "username": "user",
-          "password": "p@$$w0rd"
-        }
-      }
-    },
-    "POSIX": {
+    "posix": {
       "description": "The POSIX storage configuration.",
       "allOf": [
         {
-          "$ref": "#/definitions/ClusterStorages"
+          "$ref": "#/definitions/StorageDetails"
         },
         {
           "type": "object",
-          "x-discriminator-value": "POSIX",
+          "x-discriminator-value": "posix",
           "properties": {
             "mountPoint": {
               "type": "string",
@@ -3217,18 +3397,19 @@
       ],
       "example": {
         "type": "POSIX",
+        "name": "SomePosix",
         "mountPoint": "/mnt/nfs"
       }
     },
-    "S3": {
+    "s3": {
       "description": "The Simple Storage Service configuration.",
       "allOf": [
         {
-          "$ref": "#/definitions/ClusterStorages"
+          "$ref": "#/definitions/StorageDetails"
         },
         {
           "type": "object",
-          "x-discriminator-value": "S3",
+          "x-discriminator-value": "s3",
           "properties": {
             "hostname": {
               "type": "string",
@@ -3279,22 +3460,23 @@
         }
       ],
       "example": {
-        "type": "S3",
+        "type": "s3",
+        "name": "SomeS3",
         "hostname": "s3.example.com",
         "bucketName": "bucket1.iam.example.com",
         "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
         "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK"
       }
     },
-    "Ceph": {
+    "ceph": {
       "description": "The Ceph storage configuration.",
       "allOf": [
         {
-          "$ref": "#/definitions/ClusterStorages"
+          "$ref": "#/definitions/StorageDetails"
         },
         {
           "type": "object",
-          "x-discriminator-value": "CEPH",
+          "x-discriminator-value": "ceph",
           "properties": {
             "username": {
               "type": "string",
@@ -3341,7 +3523,8 @@
         }
       ],
       "example": {
-        "type": "CEPH",
+        "type": "ceph",
+        "name": "SomeCeph",
         "username": "user1",
         "key": "LKJASHD6876ASDBJHV65765ASD",
         "monitorHostname": "test.example.com",
@@ -3350,15 +3533,15 @@
         "insecure": true
       }
     },
-    "Swift": {
+    "swift": {
       "description": "The OpenStack Swift configuration.",
       "allOf": [
         {
-          "$ref": "#/definitions/ClusterStorages"
+          "$ref": "#/definitions/StorageDetails"
         },
         {
           "type": "object",
-          "x-discriminator-value": "SWIFT",
+          "x-discriminator-value": "swift",
           "properties": {
             "authUrl": {
               "type": "string",
@@ -3409,13 +3592,117 @@
         }
       ],
       "example": {
-        "type": "SWIFT",
+        "type": "swift",
+        "name": "SomeSwift",
         "authUrl": "http://keystone2.example.com",
         "tenantName": "Project1",
         "containerName": "Container1",
         "username": "user",
         "password": "p@$$w0rd",
         "insecure": true
+      }
+    },
+    "glusterfs": {
+      "description": "The GlusterFS storage configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetails"
+        },
+        {
+          "type": "object",
+          "x-discriminator-value": "glusterfs",
+          "properties": {
+            "volume": {
+              "type": "string",
+              "description": "The name of the volume to use as a storage backend."
+            },
+            "hostname": {
+              "type": "string",
+              "description": "The hostname (IP address or FQDN) of GlusterFS volume server."
+            },
+            "port": {
+              "type": "integer",
+              "description": "The GlusterFS port on volume server.",
+              "default": 24007
+            },
+            "transport": {
+              "type": "string",
+              "description": "The transport protocol to use to connect to the volume server.",
+              "enum": [
+                "tcp",
+                "rdma",
+                "socket"
+              ],
+              "default": "tcp"
+            },
+            "mountPoint": {
+              "type": "string",
+              "description": "Relative mountpoint within the volume which should be used by Oneprovider.",
+              "default": ""
+            },
+            "xlatorOptions": {
+              "type": "string",
+              "description": "Volume specific GlusterFS translator options, in the format:\n  TRANSLATOR1.OPTION1=VALUE1;TRANSLATOR2.OPTION2=VALUE2;...\n",
+              "default": ""
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Storage operation timeout in milliseconds."
+            },
+            "insecure": {
+              "type": "boolean",
+              "default": false,
+              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "description": "Defines whether storage is readonly."
+            }
+          },
+          "required": [
+            "volume",
+            "hostname"
+          ]
+        }
+      ],
+      "example": {
+        "type": "glusterfs",
+        "name": "LocalGluster",
+        "volume": "Volume1",
+        "hostname": "volfileserver.example.com",
+        "transport": "tcp",
+        "port": 24007,
+        "mountPoint": "",
+        "xlatorOptions": "transport.socket.ssl-enabled=on",
+        "insecure": true
+      }
+    },
+    "StorageCreateRequest": {
+      "type": "object",
+      "description": "The configuration details required to add storage resources.\n",
+      "x-onedata-dictionary": true,
+      "x-onedata-dictionary-value-type": "storage_details",
+      "additionalProperties": {
+        "$ref": "#/definitions/StorageDetails"
+      },
+      "example": {
+        "s3": {
+          "type": "s3",
+          "s3Hostname": "s3.example.com",
+          "iamHostname": "iam.example.com",
+          "bucketName": "bucket1.iam.example.com",
+          "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
+          "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDK"
+        },
+        "swift": {
+          "type": "swift",
+          "authUrl": "http://keystone2.example.com",
+          "tenantName": "Project1",
+          "containerName": "Container1",
+          "username": "user",
+          "password": "p@$$w0rd"
+        }
       }
     },
     "StorageModifyRequest": {
@@ -3430,6 +3717,52 @@
       "example": {
         "timeout": 10000
       }
+    },
+    "StorageImportDetails": {
+      "type": "object",
+      "description": "The storage import configuration. Storage import allows to import data from storage to space without need for copying the data.\n",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "description": "The import strategy. One of no_import, simple_scan."
+        },
+        "maxDepth": {
+          "type": "integer",
+          "description": "Maximum depth of filesystem tree that will be traversed during storage synchronization.\n"
+        }
+      },
+      "required": [
+        "strategy"
+      ]
+    },
+    "StorageUpdateDetails": {
+      "type": "object",
+      "description": "The storage update configuration. Storage update ensures that all changes on storage will be reflected in space.\n",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "description": "The update strategy. One of no_update, simple_scan."
+        },
+        "maxDepth": {
+          "type": "integer",
+          "description": "Maximum depth of filesystem tree that will be traversed during storage synchronization.\n"
+        },
+        "scanInterval": {
+          "type": "integer",
+          "description": "Period between subsequent scans in seconds (counted from end of one scan till beginning of the following).\n"
+        },
+        "writeOnce": {
+          "type": "boolean",
+          "description": "Flag determining that synchronized storage will be treated as immutable (only creations and deletions of files on storage will be detected).\n"
+        },
+        "deleteEnable": {
+          "type": "boolean",
+          "description": "Flag determining that deletions of files will be detected.\n"
+        }
+      },
+      "required": [
+        "strategy"
+      ]
     },
     "ZoneConfiguration": {
       "type": "object",
@@ -3468,7 +3801,7 @@
             }
           },
           "manager": {
-            "defaultNode": "node1",
+            "mainNode": "node1",
             "nodes": [
               "node1"
             ]
@@ -3485,6 +3818,56 @@
           }
         },
         "onezone": {
+          "domainName": "example.com",
+          "name": "example"
+        }
+      }
+    },
+    "ZoneConfigurationDetails": {
+      "type": "object",
+      "description": "The zone cluster configuration.",
+      "properties": {
+        "cluster": {
+          "$ref": "#/definitions/ClusterConfigurationDetails"
+        },
+        "onezone": {
+          "type": "object",
+          "description": "The zone custom configuration.",
+          "properties": {
+            "name": {
+              "description": "The name of a zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "cluster",
+        "onezone"
+      ],
+      "example": {
+        "cluster": {
+          "manager": {
+            "mainHost": "node1.onezone.onedata.example.com",
+            "hosts": [
+              "node1.onezone.onedata.example.com"
+            ]
+          },
+          "worker": {
+            "hosts": [
+              "node1.onezone.onedata.example.com"
+            ]
+          },
+          "database": {
+            "hosts": [
+              "node1.onezone.onedata.example.com"
+            ]
+          }
+        },
+        "onezone": {
           "name": "example"
         }
       }
@@ -3493,10 +3876,6 @@
       "type": "object",
       "description": "The zone cluster configuration.",
       "properties": {
-        "autoDeploy": {
-          "type": "boolean",
-          "description": "Defines whether administrative cluster should be created from the list of provided cluster nodes.\n"
-        },
         "domainName": {
           "type": "string",
           "description": "The name of a domain common for all services in the cluster. Together with a node hostname constitute a node fully qualified domain name.\n"
@@ -3604,7 +3983,7 @@
             }
           },
           "manager": {
-            "defaultNode": "node1",
+            "mainNode": "node1",
             "nodes": [
               "node1"
             ]
@@ -3621,7 +4000,7 @@
           },
           "storage": {
             "NFS": {
-              "type": "POSIX",
+              "type": "posix",
               "mountPoint": "/volumes/storage"
             }
           }
@@ -3638,17 +4017,62 @@
         }
       }
     },
+    "ProviderConfigurationDetails": {
+      "type": "object",
+      "description": "The provider deployment configuration.",
+      "properties": {
+        "cluster": {
+          "$ref": "#/definitions/ClusterConfigurationDetails"
+        },
+        "oneprovider": {
+          "type": "object",
+          "description": "The provider custom configuration.",
+          "properties": {
+            "name": {
+              "description": "The name of a provider.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "cluster",
+        "oneprovider"
+      ],
+      "example": {
+        "cluster": {
+          "manager": {
+            "mainHost": "node1.oneprovider.onedata.example.com",
+            "hosts": [
+              "node1.oneprovider.onedata.example.com"
+            ]
+          },
+          "worker": {
+            "hosts": [
+              "node1.oneprovider.onedata.example.com"
+            ]
+          },
+          "database": {
+            "hosts": [
+              "node1.oneprovider.onedata.example.com"
+            ]
+          }
+        },
+        "oneprovider": {
+          "name": "example"
+        }
+      }
+    },
     "ProviderClusterConfiguration": {
       "type": "object",
       "description": "The provider cluster configuration.",
       "properties": {
-        "autoDeploy": {
-          "type": "boolean",
-          "description": "Defines whether administrative cluster should be created from the list of provided cluster nodes.\n"
-        },
         "domainName": {
           "type": "string",
-          "description": "The name of a domain common for all services in the cluster. Together with a node hostname constitutes a fully qualified domain name (FDQN) of the node.\n"
+          "description": "The name of a domain common for all services in the cluster. Together with a node hostname constitutes a fully qualified domain name (FQDN) of the node.\n"
         },
         "nodes": {
           "type": "object",
@@ -3676,11 +4100,7 @@
           "$ref": "#/definitions/ClusterWorkers"
         },
         "storages": {
-          "type": "object",
-          "description": "The cluster storage configuration.",
-          "additionalProperties": {
-            "$ref": "#/definitions/ClusterStorages"
-          }
+          "$ref": "#/definitions/StorageCreateRequest"
         }
       },
       "required": [
@@ -3751,6 +4171,28 @@
         "ids": {
           "type": "array",
           "description": "The list of IDs of spaces supported by a provider.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ids"
+      ],
+      "example": {
+        "ids": [
+          "x7It3cpgNgLZ8RwOrOoW",
+          "Q1boCClpCS5mUNhM7YCy"
+        ]
+      }
+    },
+    "ProviderStorages": {
+      "type": "object",
+      "description": "The cluster storage resources.",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "description": "The list of IDs of cluster storage resources.",
           "items": {
             "type": "string"
           }
@@ -3848,7 +4290,7 @@
         }
       },
       "required": [
-        "services"
+        "hosts"
       ]
     },
     "ServiceStatusHost": {
@@ -3893,7 +4335,6 @@
           "type": "object",
           "description": "The collection of hosts with associated error description.",
           "additionalProperties": {
-            "description": "The description of an error that has occured on a service host.",
             "$ref": "#/definitions/Error"
           }
         }
@@ -3957,17 +4398,40 @@
         ]
       }
     },
+    "DatabaseHosts": {
+      "type": "object",
+      "description": "The cluster database service hosts configuration.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "description": "The list of service hosts.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "hosts"
+      ],
+      "example": {
+        "hosts": [
+          "node1.example.com",
+          "node2.example.com",
+          "node3.example.com"
+        ]
+      }
+    },
     "ManagerHosts": {
       "type": "object",
       "description": "The cluster manager service hosts configuration.",
       "properties": {
         "mainHost": {
           "type": "string",
-          "description": "The name of a host where main cluster manager node should be deployed. Main cluster manager node is responsible for monitoring cluster worker nodes. Other nodes, called optional, are suspended. In case of main cluster manager node failure one of optional nodes is resumed and takes over main node responsibilities.\n"
+          "description": "The main cluster manager host. Main cluster manager node is responsible for monitoring cluster worker nodes. Other nodes, which are redundant, are suspended. In case of main cluster manager node failure one of redundant nodes is resumed and takes over main node responsibilities.\n"
         },
         "hosts": {
           "type": "array",
-          "description": "The list of hosts where service should be deployed.",
+          "description": "The list of service hosts.",
           "items": {
             "type": "string"
           }
@@ -3985,6 +4449,49 @@
           "node3.example.com"
         ]
       }
+    },
+    "WorkerHosts": {
+      "type": "object",
+      "description": "The cluster worker service hosts configuration.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "description": "The list of service hosts.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "hosts"
+      ],
+      "example": {
+        "hosts": [
+          "node1.example.com",
+          "node2.example.com",
+          "node3.example.com"
+        ]
+      }
+    },
+    "ClusterConfigurationDetails": {
+      "type": "object",
+      "description": "The cluster configuration.",
+      "properties": {
+        "databases": {
+          "$ref": "#/definitions/DatabaseHosts"
+        },
+        "managers": {
+          "$ref": "#/definitions/ManagerHosts"
+        },
+        "workers": {
+          "$ref": "#/definitions/WorkerHosts"
+        }
+      },
+      "required": [
+        "databases",
+        "managers",
+        "workers"
+      ]
     },
     "TaskStatus": {
       "type": "object",
@@ -4026,7 +4533,6 @@
           "type": "object",
           "description": "The collection of hosts with associated error description.",
           "additionalProperties": {
-            "description": "The description of an error that has occured on a service host.",
             "$ref": "#/definitions/Error"
           }
         }
@@ -4054,6 +4560,10 @@
           "type": "string",
           "description": "The name of the space."
         },
+        "storageId": {
+          "type": "string",
+          "description": "Id of StorageDetails that supports this space on provider that is associated with this panel.\n"
+        },
         "supportingProviders": {
           "type": "object",
           "description": "The collection of provider IDs with associated supported storage space in bytes.\n",
@@ -4061,11 +4571,18 @@
             "type": "integer",
             "description": "Supported storage space in bytes."
           }
+        },
+        "storageImport": {
+          "$ref": "#/definitions/StorageImportDetails"
+        },
+        "storageUpdate": {
+          "$ref": "#/definitions/StorageUpdateDetails"
         }
       },
       "required": [
-        "spaceId",
+        "id",
         "name",
+        "storageId",
         "supportingProviders"
       ]
     },
@@ -4085,28 +4602,43 @@
           "type": "integer",
           "description": "The storage space size in bytes that provider is willing to assign to the space.\n"
         },
-        "storageName": {
-          "type": "string",
-          "description": "The user defined name of the storage resource, where the space data should be stored. To be used interchangeably with `storageId`.\n"
-        },
         "storageId": {
           "type": "string",
-          "description": "The ID of the storage resource where the space data should be stored. To be used interchangeably with `storageName`.\n"
+          "description": "The ID of the storage resource where the space data should be stored.\n"
         },
         "mountInRoot": {
           "type": "boolean",
           "default": false,
           "description": "Defines whether space will be mounted in / or /{SpaceId}/ path.\n"
+        },
+        "storageImport": {
+          "$ref": "#/definitions/StorageImportDetails"
+        },
+        "storageUpdate": {
+          "$ref": "#/definitions/StorageUpdateDetails"
         }
       },
       "required": [
         "token",
-        "size"
+        "size",
+        "storageId"
       ],
       "example": {
-        "name": "MySpace1",
         "token": "ASDJNASD87687ASDMNBMNASD87786asd",
-        "size": 1024000
+        "size": 1024000,
+        "storageId": "x7It3cpgNgLZ8RwOrOoW"
+      }
+    },
+    "SpaceModifyRequest": {
+      "type": "object",
+      "description": "The space configuration details that can be modified.",
+      "properties": {
+        "storageImport": {
+          "$ref": "#/definitions/StorageImportDetails"
+        },
+        "storageUpdate": {
+          "$ref": "#/definitions/StorageUpdateDetails"
+        }
       }
     }
   },
@@ -4122,26 +4654,6 @@
     {
       "name": "Onezone",
       "description": "Resources and operations for managing Onezone deployment"
-    }
-  ],
-  "x-tagGroups": [
-    {
-      "name": "Onepanel management",
-      "tags": [
-        "Onepanel"
-      ]
-    },
-    {
-      "name": "Onezone management",
-      "tags": [
-        "Onezone"
-      ]
-    },
-    {
-      "name": "Oneprovider management",
-      "tags": [
-        "Oneprovider"
-      ]
     }
   ],
   "securityDefinitions": {

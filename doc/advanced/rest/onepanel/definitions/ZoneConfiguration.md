@@ -29,7 +29,7 @@ The zone deployment configuration.
       }
     },
     "manager" : {
-      "defaultNode" : "node1",
+      "mainNode" : "node1",
       "nodes" : [ "node1" ]
     },
     "worker" : {
@@ -40,6 +40,7 @@ The zone deployment configuration.
     }
   },
   "onezone" : {
+    "domainName" : "example.com",
     "name" : "example"
   }
 }

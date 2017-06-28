@@ -1,28 +1,24 @@
 
-<a name="get_storages"></a>
-#### Get storages
+<a name="remove_session"></a>
+#### Remove Onepanel user session
 ```
-GET /provider/storages
+DELETE /session
 ```
 
 
 ##### Description
-Returns the list of provider storage resources and their details.
+Removes the Onepanel user session.
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider storage resources IDs.|[ProviderStorages](../definitions/ProviderStorages.md#providerstorages)|
+|**204**|The user session has been successfully removed.|No Content|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
+|**404**|User session not found.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
-
-
-##### Produces
-
-* `application/json`
 
 
 ##### Example HTTP request
@@ -30,20 +26,11 @@ Returns the list of provider storage resources and their details.
 ###### Request path
 ```
 json :
-"/provider/storages"
+"/session"
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
-}
-```
-
 
 ###### Response 500
 ```

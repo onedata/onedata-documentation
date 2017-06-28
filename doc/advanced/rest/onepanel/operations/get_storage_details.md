@@ -2,7 +2,7 @@
 <a name="get_storage_details"></a>
 #### Get storage details
 ```
-GET /provider/storages/{name}
+GET /provider/storages/{id}
 ```
 
 
@@ -14,14 +14,14 @@ Returns the details of the selected storage.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**name**  <br>*required*|The name of a storage resource, which details should be returned.|string|--|
+|**Path**|**id**  <br>*required*|The ID of a storage resource, which details should be returned.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The details of a selected storage|[ClusterStorages](../definitions/ClusterStorages.md#clusterstorages)|
+|**200**|The details of a selected storage.|[StorageDetails](../definitions/StorageDetails.md#storagedetails)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**404**|Storage does not exist.|No Content|
@@ -48,6 +48,8 @@ json :
 ```
 json :
 {
+  "id" : "string",
+  "name" : "string",
   "type" : "string"
 }
 ```

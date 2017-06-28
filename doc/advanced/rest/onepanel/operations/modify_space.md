@@ -1,34 +1,36 @@
 
-<a name="get_space_details"></a>
-#### Get space details
+<a name="modify_space"></a>
+#### Modify space details
 ```
-GET /provider/spaces/{id}
+PATCH /provider/spaces/{id}
 ```
 
 
 ##### Description
-Returns details of space specified by space Id in the path.
+Modifies the space import/update strategies.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**id**  <br>*required*|The ID of a space which details should be returned.|string|--|
+|**Path**|**id**  <br>*required*|The ID of a space which details should be modified.|string|--|
+|**Body**|**spaceModifyRequest**  <br>*required*||[SpaceModifyRequest](../definitions/SpaceModifyRequest.md#spacemodifyrequest)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The space details.|[SpaceDetails](../definitions/SpaceDetails.md#spacedetails)|
+|**204**|The space details has been successfully changed.|No Content|
+|**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
-|**404**|Space does not exist or is not supported by the provider.|No Content|
+|**404**|The user does not exist.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
-##### Produces
+##### Consumes
 
 * `application/json`
 
@@ -42,18 +44,10 @@ json :
 ```
 
 
-##### Example HTTP response
-
-###### Response 200
+###### Request body
 ```
 json :
 {
-  "id" : "string",
-  "name" : "string",
-  "storageId" : "string",
-  "supportingProviders" : {
-    "string" : 0
-  },
   "storageImport" : {
     "strategy" : "string",
     "maxDepth" : 0
@@ -65,6 +59,18 @@ json :
     "writeOnce" : true,
     "deleteEnable" : true
   }
+}
+```
+
+
+##### Example HTTP response
+
+###### Response 400
+```
+json :
+{
+  "error" : "Invalid Request",
+  "description" : "User role must be one of 'admin' or 'regular'."
 }
 ```
 
