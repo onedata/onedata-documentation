@@ -22,7 +22,7 @@ More information: [https://github.com/onedata/luma](https://github.com/onedata/l
 
 
 ### Version information
-*Version* : 3.0.0-rc15
+*Version* : 17.06.0-beta2
 
 
 ### Contact information
