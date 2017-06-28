@@ -13,7 +13,7 @@ For regular users, who belong to this space it requires
 `space_remove_group` privilege to remove a group from this space.
 
 For administrators, who are not members of this space,
-`remove_member_from_space` privilege is required.
+`oz_spaces_remove_members` privilege is required.
 
 ***Example cURL requests***
 

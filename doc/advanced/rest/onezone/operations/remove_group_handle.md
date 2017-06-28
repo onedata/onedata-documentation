@@ -9,7 +9,7 @@ DELETE /groups/{id}/handles/{hid}
 ##### Description
 Removes the groups ownership or membership in a specific space.
 
-This operation requires `group_change_data` privilege.
+This operation requires `group_update` privilege.
 
 ***Example cURL requests***
 

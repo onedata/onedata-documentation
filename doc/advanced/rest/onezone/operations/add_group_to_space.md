@@ -12,7 +12,7 @@ can be passed in the request body, otherwise default
 privileges will be set for group in this space.
 
 This operation can be invoked by system administrators only
-and requires `add_member_to_space` privilege.
+and requires `oz_spaces_add_members` privilege.
 
 ***Example cURL requests***
 
@@ -29,7 +29,7 @@ curl -u username:password  -H "Content-type: application/json" -X PUT \
 |---|---|---|---|---|
 |**Path**|**gid**  <br>*required*|Group ID.|string|--|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
-|**Body**|**groupId**  <br>*optional*||[SpacePrivileges](../definitions/SpacePrivileges.md#spaceprivileges)|--|
+|**Body**|**privileges**  <br>*optional*||[SpacePrivileges](../definitions/SpacePrivileges.md#spaceprivileges)|--|
 
 
 ##### Responses
@@ -63,7 +63,7 @@ json :
 json :
 {
   "operation" : [ "set" ],
-  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
+  "privileges" : [ "space_invite_provider", "space_update", "space_invite_group", "space_invite_user", "space_manage_shares", "space_delete", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view", "space_write_data" ]
 }
 ```
 

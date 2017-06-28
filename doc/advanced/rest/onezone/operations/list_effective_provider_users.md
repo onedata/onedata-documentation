@@ -9,7 +9,7 @@ GET /providers/{pid}/effective_users
 ##### Description
 Returns the list of effective users of a specific provider.
 
-This operation requires `list_users_of_provider` privilege.
+This operation requires `oz_providers_list_users` privilege.
 
 ***Example cURL requests***
 

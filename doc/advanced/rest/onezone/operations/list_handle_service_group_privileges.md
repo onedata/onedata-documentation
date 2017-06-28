@@ -9,7 +9,7 @@ GET /handle_services/{id}/groups/{gid}/privileges
 ##### Description
 Returns group privileges for accessing a handle service instance.
 
-This operation requires `view_handle_service` privilege.
+This operation requires `handle_service_view` privilege.
 
 ***Example cURL requests***
 
@@ -20,8 +20,8 @@ https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/hlk
 
 {
   "privileges": [
-    "delete_handle_service",
-    "view_handle_service"
+    "handle_service_delete",
+    "handle_service_view"
   ]
 }
 ```
@@ -68,7 +68,7 @@ json :
 json :
 {
   "operation" : [ "grant" ],
-  "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
+  "privileges" : [ "handle_service_view", "handle_service_update", "handle_service_delete", "handle_service_register_handle", "handle_service_list_handles" ]
 }
 ```
 

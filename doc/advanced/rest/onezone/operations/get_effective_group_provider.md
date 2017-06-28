@@ -9,7 +9,7 @@ GET /groups/{id}/effective_providers/{pid}
 ##### Description
 Returns information about a specific effective provider supporting groups spaces.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

@@ -17,7 +17,7 @@ This operation requires `group_set_privileges` privilege.
 
 ```bash
 curl -u username:password  -H "Content-type: application/json" -X PUT \
--d '{"privileges": ["group_view_data"]}' \
+-d '{"privileges": ["group_view"]}' \
 https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 ```
 
@@ -56,7 +56,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "group_change_data", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_remove", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view_data" ]
+  "privileges" : [ "group_update", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_delete", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view" ]
 }
 ```
 

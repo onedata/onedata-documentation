@@ -9,7 +9,7 @@ GET /spaces/{id}/users/{uid}
 ##### Description
 Returns the public information about a specific user in a space.
 
-This operation requires `space_view_data` privilege.
+This operation requires `space_view` privilege.
 For administrators who do not have to be members of this space,
 `oz_spaces_list_users` privilege is required.
 

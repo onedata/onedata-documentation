@@ -9,7 +9,7 @@ GET /groups/{id}/effective_children/{cid}/privileges
 ##### Description
 Returns the list of effective child group privileges in a specific group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 
@@ -20,7 +20,7 @@ https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253spt
 
 {
   "privileges": [
-    "group_view_data"
+    "group_view"
   ]
 }
 ```
@@ -66,7 +66,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "group_change_data", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_remove", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view_data" ]
+  "privileges" : [ "group_update", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_delete", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view" ]
 }
 ```
 

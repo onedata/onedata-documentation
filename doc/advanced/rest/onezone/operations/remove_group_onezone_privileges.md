@@ -9,7 +9,7 @@ DELETE /groups/{id}/privileges
 ##### Description
 Removes all privileges for a group {id} to Onezone.
 
-This operation requires `set_privileges` privilege.
+This operation requires `oz_set_privileges` privilege.
 
 ***Example cURL requests***
 

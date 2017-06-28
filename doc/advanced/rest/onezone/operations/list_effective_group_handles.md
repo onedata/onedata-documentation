@@ -9,7 +9,7 @@ GET /groups/{id}/effective_handles
 ##### Description
 Returns the list of effective groups' handles.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

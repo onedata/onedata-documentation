@@ -163,7 +163,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:3.0.0-rc14
+-d --name oneclient-1 onedata/oneclient:17.06.0-beta2
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`

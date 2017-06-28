@@ -9,7 +9,7 @@ PATCH /spaces/{id}
 ##### Description
 Updates the details about a space.
 
-If called by user who is not member of the space, requires `space_change_data`
+If called by user who is not member of the space, requires `space_update`
 privilege.
 
 ***Example cURL requests***

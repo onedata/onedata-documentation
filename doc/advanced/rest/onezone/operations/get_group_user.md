@@ -9,7 +9,7 @@ GET /groups/{id}/users/{uid}
 ##### Description
 Returns the public information about a user {uid} in group {id}.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 For administrator who do not need to be members of this group
 `oz_groups_list_users` privilege is required.
 

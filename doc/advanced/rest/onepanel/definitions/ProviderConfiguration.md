@@ -40,7 +40,7 @@ The provider deployment configuration.
       }
     },
     "manager" : {
-      "defaultNode" : "node1",
+      "mainNode" : "node1",
       "nodes" : [ "node1" ]
     },
     "worker" : {
@@ -51,7 +51,7 @@ The provider deployment configuration.
     },
     "storage" : {
       "NFS" : {
-        "type" : "POSIX",
+        "type" : "posix",
         "mountPoint" : "/volumes/storage"
       }
     }

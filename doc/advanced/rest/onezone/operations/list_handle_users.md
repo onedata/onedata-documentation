@@ -9,7 +9,7 @@ GET /handles/{hndl}/users
 ##### Description
 Returns all users with access to a handle instance
 
-This operation requires `view_handle` privilege.
+This operation requires `handle_view` privilege.
 
 ***Example cURL requests***
 

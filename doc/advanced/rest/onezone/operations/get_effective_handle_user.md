@@ -9,7 +9,7 @@ GET /handles/{hndl}/effective_users/{uid}
 ##### Description
 Returns effective handle user details.
 
-This operation requires `view_handle` administrator privilege.
+This operation requires `handle_view` administrator privilege.
 
 ***Example cURL requests***
 

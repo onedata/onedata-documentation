@@ -9,7 +9,7 @@ GET /groups/{id}/effective_handle_services/{hsid}
 ##### Description
 Returns the details of a specific effective handle service.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

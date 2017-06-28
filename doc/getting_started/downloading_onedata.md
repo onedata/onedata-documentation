@@ -31,7 +31,6 @@ We provide packages *Oneprovider* and *Onezone* for:
 and *Oneclient* packages for:
 - Fedora 23
 - Ubuntu 14.04, 15.10, 16.04
-- SL6
 - CentOS 7
 
 The bash script at https://get.onedata.org, which can be run with `wget` or

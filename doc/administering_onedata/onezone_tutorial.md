@@ -7,10 +7,12 @@ This section describes the steps needed to install and configure Onezone service
 ## Installation
 Onezone can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Wily*, *Ubuntu Xenial* and *Fedora 23*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
 
-**Onezone** service can be deployed on multiple nodes for high-availability purpose, in such case either the Docker setup or the packages need to be installed on all nodes where the **Onezone** should be deployed. This tutorial assumes **Onezone** will be installed on a single node.
+**Onezone** service can be deployed on multiple nodes for high-availability purposes, in such case either the Docker setup or the packages need to be installed on all nodes where the **Onezone** should be deployed. This tutorial assumes **Onezone** will be installed on a single node.
 
 ### Prerequisites
 In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
+
+After these settings are modified, the machine needs to be rebooted.
 
 #### Increase maximum number of opened files
 In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
@@ -39,7 +41,7 @@ $ sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
 ```
 
 #### Disable Transparent Huge Pages feature
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which improves apparent performance of machines running multiple application at once, however it deteriorates the performance of most database-heavy applications, such as **Onezone**.
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which improves apparent performance of machines running multiple applications at once, however it deteriorates the performance of most database-heavy applications, such as **Onezone**.
 
 These settings can be checked using the following commands (here the output shown is the expected setting):
 
@@ -76,6 +78,12 @@ $ sudo systemctl start disable-thp.service
 #### Node hostname
 Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `onezone-demo.tk`.
 
+Following command examples assumes an environment variable `ONEZONE_HOST` is available, for instance:
+
+```sh
+$ export ONEZONE_HOST="onezone-demo.tk"
+```
+
 ### Docker based setup
 Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
 
@@ -97,7 +105,7 @@ version: '2.0'
 services:
   node1.onezone.localhost:
     # Onezone Docker image version
-    image: onedata/onezone:3.0.0-rc14
+    image: onedata/onezone:17.06.0-beta2
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.onezone.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -252,48 +260,43 @@ During deployment, Onepanel will install these certificates in the **Onezone** c
 #### Automated setup using Let's Encrypt
 These instructions show how to replace certificates in **Onezone** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar.
 
-##### Docker based deployment
-```sh
-# Stop Onezone container
-$ sudo systemctl stop onezone.service
+> In your are running the following commands after the Onezone service has been
+ started or rerunning them to generate new certificates, the Onezone service has to be stopped.
 
+##### Docker based deployment
+
+```sh
 # Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
 $ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
 $ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d onezone-demo.tk
+$ sudo certbot certonly --standalone -d $ONEZONE_HOST
 
 # The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/onezone-demo.tk
+$ sudo ls /etc/letsencrypt/live/$ONEZONE_HOST
 cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Docker container
 $ cd /opt/onedata/onezone/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/chain.pem cacert.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem cert.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem key.pem
-
-# Restart Onezone container
-$ sudo systemctl start onezone.service
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem cacert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem cert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem key.pem
 ```
 
 ##### Package based deployment
-```sh
-# Stop Onezone services
-$ sudo systemctl stop oz_panel.service
-$ sudo systemctl stop oz_worker.service
 
+```sh
 # Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
 $ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
 $ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d onezone-demo.tk
+$ sudo certbot certonly --standalone -d $ONEZONE_HOST
 
 # The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/onezone-demo.tk
+$ sudo ls /etc/letsencrypt/live/$ONEZONE_HOST
 cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Onepanel and Onezone services
@@ -301,21 +304,16 @@ $ cd /etc/oz_panel/cacerts
 $ rm -rf *.pem
 $ cd /etc/oz_panel/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem cert.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem key.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem cert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem key.pem
 
 # These are only necessary when replacing certificates in already deployed
 # Onezone service
 $ cd /etc/oz_worker/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/fullchain.pem web_cert.pem
-$ ln -s /etc/letsencrypt/live/onezone-demo.tk/privkey.pem web_key.pem
-
-# Restart Onezone services
-$ sudo systemctl start oz_panel.service
-$ sudo systemctl start oz_worker.service
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem web_cert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
 ```
-
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
@@ -328,13 +326,13 @@ Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is 
 TODO -->
 
 ### Cluster configuration for package based deployment
-This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://onezone-demo.tk:9443` port to configure **Onezone** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://$ONEZONE_HOST:9443` port to configure **Onezone** instance. In case it was not started properly, it can be restarted using `systemctl` command:
 
 ```
 $ sudo systemctl restart oz_panel.service
 ```
 
-Open `https://onezone-demo.tk:9443` using any web browser and continue through the following steps:
+Open `https://$ONEZONE_HOST:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
 <p align="center"><img src="../img/admin/oz_tutorial_panel_login.png" width="640"></p>
@@ -342,16 +340,10 @@ Open `https://onezone-demo.tk:9443` using any web browser and continue through t
 * Select hosts in the cluster which will have specific roles (leave as is)
 <p align="center"><img src="../img/admin/oz_tutorial_panel_hosts_selection.png" width="640"></p>
 
-* Select the main cluster manager host
-<p align="center"><img src="../img/admin/oz_tutorial_panel_cluster_manager.png" width="640"></p>
-
-* Verify the configuration and proceed with install
-<p align="center"><img src="../img/admin/oz_tutorial_panel_summary.png" width="640"></p>
-
 * Wait for installation to complete
 <p align="center"><img src="../img/admin/oz_tutorial_panel_success.png" width="640"></p>
 
-After this step succeeds, **Onezone** should be ready and accessible at `https://onezone-demo.tk`
+After this step succeeds, **Onezone** should be ready and accessible at `https://$ONEZONE_HOST`
 
 ### Advanced configuration
 After installation several **Onezone** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/oz_worker/app.config` for package based deployment and in `/opt/onedata/onezone/persistence/etc/oz_worker/app.config`. After modifying `app.config` file always restart **Onezone** service in order for changes to take effect.
@@ -427,7 +419,7 @@ After web based Onepanel setup is complete, **Onezone** service should be operat
 Monitoring information is available on a specific port and provides basic status of all **Onezone** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS http://onezone-demo.tk:6666/nagios | xmllint --format -
+$ curl -sS http://$ONEZONE_HOST:6666/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/26 17:52:33" status="ok">
   <oz_worker name="oz_worker@onezone-demo.tk" status="ok">
@@ -535,7 +527,7 @@ If basic authentication is enabled, new users can be added via the Onepanel inte
 ```sh
 curl -sS -X POST -H 'Content-type: application/json' -u admin:password \
 -d '{"username": "alice", "password": "secret", "userRole": "regular"}' \
-https://onezone-demo.tk:9443/api/v3/onepanel/zone/users
+https://$ONEZONE_HOST:9443/api/v3/onepanel/zone/users
 ```
 
 where `userRole` can be either `regular` for normal users and `admin` for administrators.

@@ -9,7 +9,7 @@ GET /handle_services/{id}/effective_groups/{gid}
 ##### Description
 Get details of a handle service owned by an effective group.
 
-This operation requires `view_handle_service` administrator privilege.
+This operation requires `handle_service_view` administrator privilege.
 
 ***Example cURL requests***
 

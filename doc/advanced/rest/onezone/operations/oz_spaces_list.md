@@ -1,47 +1,37 @@
 
-<a name="modify_handle"></a>
-#### Modify handle
+<a name="oz_spaces_list"></a>
+#### List all spaces
 ```
-PATCH /handles/{hndl}
+GET /spaces
 ```
 
 
 ##### Description
-Allows to update a registered handle, currently it only allows
-to modify the handle metadata property.
+Returns the list of all spaces managed by the Onezone service.
 
-This operation requires `modify_handle` privilege.
+This operation requires `oz_spaces_list` privilege.
 
 ***Example cURL requests***
 
-**Modify handle resource**
+**List all spaces**
 ```bash
-curl -u username:password -X PATCH  -H "Content-type: application/json" \
--d '{"metadata": "<?xml..."}' \
-https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
+curl -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces
+
+{
+  "spaces": [
+    "S0Y9FSe9TFJFFzzLtBEs8",
+    "IkHBv8CoAFmbFU4fj26"
+  ]
+}
 ```
-
-
-##### Parameters
-
-|Type|Name|Description|Schema|Default|
-|---|---|---|---|---|
-|**Path**|**hndl**  <br>*required*||string|--|
-|**Body**|**handle**  <br>*required*||[handle](#modify_handle-handle)|--|
-
-<a name="modify_handle-handle"></a>
-**handle**
-
-|Name|Description|Schema|
-|---|---|---|
-|**metadata**  <br>*optional*|Dublin Core metadata in XML for the handle.|string|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|Update was successful.|No Content|
+|**200**|List of spaces Id's.|[Spaces](../definitions/Spaces.md#spaces)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -49,7 +39,7 @@ https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
-##### Consumes
+##### Produces
 
 * `application/json`
 
@@ -59,20 +49,20 @@ https://$HOST:8443/api/v3/handles/LKHASDkkjhASDLHU70ASDn
 ###### Request path
 ```
 json :
-"/handles/string"
-```
-
-
-###### Request body
-```
-json :
-{
-  "metadata" : "string"
-}
+"/spaces"
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "spaces" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
+}
+```
+
 
 ###### Response 400
 ```

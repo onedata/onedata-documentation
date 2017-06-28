@@ -13,6 +13,9 @@ Common Onepanel resources and operations
 |[/hosts](operations/create_cluster.md)|POST|Create or join cluster|
 |[/hosts](operations/get_cluster_hosts.md)|GET|Get cluster or discovered hosts|
 |[/hosts/{host}](operations/remove_cluster_host.md)|DELETE|Remove host from cluster|
+|[/session](operations/create_session.md)|POST|Create Onepanel user session|
+|[/session](operations/get_session.md)|GET|Get Onepanel user session|
+|[/session](operations/remove_session.md)|DELETE|Remove Onepanel user session|
 |[/tasks/{id}](operations/get_task_status.md)|GET|Get background task result|
 |[/users](operations/add_user.md)|POST|Create Onepanel user|
 |[/users/{username}](operations/get_user.md)|GET|Get Onepanel user details|
@@ -47,11 +50,12 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/spaces](operations/support_space.md)|POST|Create or support space|
 |[/provider/spaces](operations/get_provider_spaces.md)|GET|Get provider spaces|
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
-|[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space.|
-|[/provider/storages](operations/add_storage.md)|POST|Add storage.|
+|[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space|
+|[/provider/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
+|[/provider/storages](operations/add_storage.md)|POST|Add storage|
 |[/provider/storages](operations/get_storages.md)|GET|Get storages|
-|[/provider/storages/{name}](operations/get_storage_details.md)|GET|Get storage details|
-|[/provider/storages/{name}](operations/modify_storage.md)|PATCH|Modify storage details|
+|[/provider/storages/{id}](operations/get_storage_details.md)|GET|Get storage details|
+|[/provider/storages/{id}](operations/modify_storage.md)|PATCH|Modify storage details|
 |[/provider/workers](operations/add_provider_workers.md)|POST|Add provider cluster workers|
 |[/provider/workers](operations/get_provider_workers_status.md)|GET|Get provider cluster workers status|
 |[/provider/workers](operations/start_stop_provider_workers.md)|PATCH|Start/stop provider cluster workers|
