@@ -10,7 +10,7 @@ POST /spaces/{id}/providers/token
 Creates a token which can be submitted to a selected provider in order to
 add storage support for the space.
 
-This operation requires `space_add_provider` privilege.
+This operation requires `space_invite_provider` privilege.
 
 ***Example cURL requests***
 

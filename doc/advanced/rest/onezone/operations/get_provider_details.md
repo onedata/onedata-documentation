@@ -12,9 +12,9 @@ connected to the onezone.
 
 If called by other provider doesn't require any special privileges.
 
-When called by a regular user, requires 'list_providers' privilege.
+When called by a regular user, requires 'oz_providers_list' privilege.
 
-This operation requires `list_providers` privilege.
+This operation requires `oz_providers_list` privilege.
 
 ***Example cURL requests***
 

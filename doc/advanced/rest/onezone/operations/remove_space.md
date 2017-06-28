@@ -9,7 +9,7 @@ DELETE /spaces/{id}
 ##### Description
 Removes a specific space.
 
-If called by user who is not member of the space, requires `space_remove`
+If called by user who is not member of the space, requires `space_delete`
 privilege.
 
 ***Example cURL requests***

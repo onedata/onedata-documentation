@@ -9,7 +9,7 @@ GET /spaces/{id}/groups
 ##### Description
 Returns the list of groups belonging to a specific space.
 
-If called by user who is not member of the space, requires `space_view_data`
+If called by user who is not member of the space, requires `space_view`
 privilege.
 
 ***Example cURL requests***

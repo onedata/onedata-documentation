@@ -76,7 +76,7 @@ Operations for managing Handle system service and identifier generation.
 |[/handle_services](operations/list_handle_services.md)|GET|List handle services|
 |[/handle_services/{id}](operations/get_handle_service.md)|GET|Get handle service|
 |[/handle_services/{id}](operations/remove_handle_service.md)|DELETE|Unregister handle service|
-|[/handle_services/{id}](operations/modify_handle_service.md)|PATCH|Modify handle service|
+|[/handle_services/{id}](operations/handle_service_update.md)|PATCH|Modify handle service|
 |[/handle_services/{id}/effective_groups](operations/list_effective_handle_service_groups.md)|GET|List effective handle service groups|
 |[/handle_services/{id}/effective_groups/{gid}](operations/get_effective_handle_service_group.md)|GET|Get effective handle service group|
 |[/handle_services/{id}/effective_groups/{gid}/privileges](operations/get_effective_handle_service_group_privileges.md)|GET|Get effective handle service group privileges|
@@ -97,11 +97,11 @@ Operations for managing Handle system service and identifier generation.
 |[/handle_services/{id}/users/{uid}](operations/remove_handle_service_user.md)|DELETE|Remove handle service user|
 |[/handle_services/{id}/users/{uid}/privileges](operations/get_handle_service_user_privileges.md)|GET|List handle service user privileges|
 |[/handle_services/{id}/users/{uid}/privileges](operations/set_handle_service_user_privileges.md)|PATCH|Set handle service user privileges|
-|[/handles](operations/register_handle.md)|POST|Register handle|
+|[/handles](operations/handle_service_register_handle.md)|POST|Register handle|
 |[/handles](operations/list_handles.md)|GET|List handles|
 |[/handles/{hndl}](operations/get_handle.md)|GET|Get handle|
 |[/handles/{hndl}](operations/remove_handle.md)|DELETE|Unregister handle|
-|[/handles/{hndl}](operations/modify_handle.md)|PATCH|Modify handle|
+|[/handles/{hndl}](operations/handle_update.md)|PATCH|Modify handle|
 |[/handles/{hndl}/effective_groups](operations/list_effective_handle_groups.md)|GET|Get effective handle groups|
 |[/handles/{hndl}/effective_groups/{gid}](operations/get_effective_handle_group.md)|GET|Get effective handle group|
 |[/handles/{hndl}/effective_groups/{gid}/privileges](operations/list_effective_handle_group_privileges.md)|GET|List effective handle group privileges|
@@ -140,7 +140,7 @@ Provider management operations
 |[/provider/spaces/{sid}](operations/modify_supported_space.md)|PATCH|Modify supported space|
 |[/provider/test/check_my_ip](operations/check_my_ip.md)|GET|Show client IP address|
 |[/provider/test/check_my_ports](operations/check_my_ports.md)|POST|Check ports availability|
-|[/providers](operations/list_providers.md)|GET|List providers|
+|[/providers](operations/oz_providers_list.md)|GET|List providers|
 |[/providers/{pid}](operations/get_provider_details.md)|GET|Get provider details|
 |[/providers/{pid}](operations/remove_provider.md)|DELETE|Remove provider|
 |[/providers/{pid}/effective_groups](operations/list_effective_provider_groups.md)|GET|List effective groups of provider|
@@ -164,7 +164,7 @@ Space management operations
 |[/shares/{id}](operations/remove_share.md)|DELETE|Remove share|
 |[/shares/{id}](operations/modify_share.md)|PATCH|Modify share details|
 |[/spaces](operations/create_space.md)|POST|Create new space|
-|[/spaces](operations/list_spaces.md)|GET|List all spaces|
+|[/spaces](operations/oz_spaces_list.md)|GET|List all spaces|
 |[/spaces/{id}](operations/get_space.md)|GET|Get space details|
 |[/spaces/{id}](operations/remove_space.md)|DELETE|Remove space|
 |[/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
@@ -263,7 +263,7 @@ User management operations
 
 |Path|Method|Description|
 |---|---|---|
-|[/users](operations/list_users.md)|GET|List all users|
+|[/users](operations/oz_users_list.md)|GET|List all users|
 |[/users/{id}](operations/get_user.md)|GET|Get user details|
 |[/users/{id}/effective_privileges](operations/list_user_onezone_effective_privileges.md)|GET|List user's effective Onezone privileges|
 |[/users/{id}/privileges](operations/list_user_onezone_privileges.md)|GET|List user Onezone privileges|

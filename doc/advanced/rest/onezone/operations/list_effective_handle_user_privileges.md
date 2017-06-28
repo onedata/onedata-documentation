@@ -9,7 +9,7 @@ GET /handles/{hndl}/effective_users/{uid}/privileges
 ##### Description
 Returns effective user privileges for accessing a handle instance.
 
-This operation requires `view_handle` privilege.
+This operation requires `handle_view` privilege.
 
 ***Example cURL requests***
 
@@ -20,8 +20,8 @@ https://$HOST:8443/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/h
 
 {
   "privileges": [
-    "modify_handle",
-    "view_handle"
+    "handle_update",
+    "handle_view"
   ]
 }
 ```
@@ -68,7 +68,7 @@ json :
 json :
 {
   "operation" : [ "grant" ],
-  "privileges" : [ "delete_handle", "modify_handle", "view_handle" ]
+  "privileges" : [ "handle_delete", "handle_update", "handle_view" ]
 }
 ```
 

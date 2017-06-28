@@ -10,7 +10,7 @@ DELETE /spaces/{id}/users/{uid}
 Removes user from specific space.
 
 This operation requires `space_remove_user` or
-`remove_member_from_space` privilege.
+`oz_spaces_remove_members` privilege.
 
 ***Example cURL requests***
 

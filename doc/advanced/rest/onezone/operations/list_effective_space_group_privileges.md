@@ -9,7 +9,7 @@ GET /spaces/{id}/effective_groups/{gid}/privileges
 ##### Description
 Returns privileges for an effective group to a specific space.
 
-This operation requires `space_view_data` privilege.
+This operation requires `space_view` privilege.
 
 ***Example cURL requests***
 
@@ -20,7 +20,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 
 {
   "privileges": [
-    "space_view_data"
+    "space_view"
   ]
 }
 ```
@@ -67,7 +67,7 @@ json :
 json :
 {
   "operation" : [ "set" ],
-  "privileges" : [ "space_add_provider", "space_change_data", "space_invite_group", "space_invite_user", "space_manage_shares", "space_remove", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view_data", "space_write_files" ]
+  "privileges" : [ "space_invite_provider", "space_update", "space_invite_group", "space_invite_user", "space_manage_shares", "space_delete", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view", "space_write_data" ]
 }
 ```
 

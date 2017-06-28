@@ -9,14 +9,14 @@ PATCH /handle_services/{id}/groups/{gid}/privileges
 ##### Description
 Sets group privileges for accessing a handle service instance.
 
-This operation requires `modify_handle_service` privilege.
+This operation requires `handle_service_update` privilege.
 
 ***Example cURL requests***
 
 **Set handle service group privileges**
 ```bash
 curl -u username:password -X PUT  -H "Content-type: application/json" \
--d '{"privileges": ["register_handle"]}' \
+-d '{"privileges": ["handle_service_register_handle"]}' \
 https://$HOST:8443/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/group/hlkASHDLAKSHDLKJHJjLHSADHLKJhlk/privileges
 ```
 
@@ -61,7 +61,7 @@ json :
 json :
 {
   "operation" : [ "grant" ],
-  "privileges" : [ "view_handle_service", "modify_handle_service", "delete_handle_service", "register_handle", "handle_service_list_handles" ]
+  "privileges" : [ "handle_service_view", "handle_service_update", "handle_service_delete", "handle_service_register_handle", "handle_service_list_handles" ]
 }
 ```
 

@@ -1,5 +1,5 @@
 
-<a name="list_providers"></a>
+<a name="oz_providers_list"></a>
 #### List providers
 ```
 GET /providers
@@ -9,7 +9,7 @@ GET /providers
 ##### Description
 Returns the list of providers registered in the Onezone service.
 
-This operation requires `list_providers` privilege.
+This operation requires `oz_providers_list` privilege.
 
 ***Example cURL requests***
 

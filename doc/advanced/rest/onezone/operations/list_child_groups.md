@@ -9,7 +9,7 @@ GET /groups/{id}/children
 ##### Description
 Returns the list of subgroups of a specific group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 For administrator who do not need to be members of this group
 `oz_groups_list_groups` privilege is required.
 

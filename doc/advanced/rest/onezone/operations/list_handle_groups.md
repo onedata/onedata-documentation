@@ -9,7 +9,7 @@ GET /handles/{hndl}/groups
 ##### Description
 Returns all groups with access to a handle instance
 
-This operation requires `view_handle` privilege.
+This operation requires `handle_view` privilege.
 
 ***Example cURL requests***
 

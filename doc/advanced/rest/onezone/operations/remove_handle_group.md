@@ -9,7 +9,7 @@ DELETE /handles/{hndl}/groups/{gid}
 ##### Description
 Allows to remove a group from access to a handle.
 
-This operation requires `modify_handle` privilege.
+This operation requires `handle_update` privilege.
 
 ***Example cURL requests***
 

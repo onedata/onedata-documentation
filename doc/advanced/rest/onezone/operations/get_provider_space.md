@@ -9,7 +9,7 @@ GET /providers/{pid}/spaces/{sid}
 ##### Description
 Returns the details of space supported by a specific provider.
 
-This operation requires `list_spaces_of_provider` privilege.
+This operation requires `oz_providers_list_spaces` privilege.
 
 ***Example cURL requests***
 

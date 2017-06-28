@@ -9,7 +9,7 @@ GET /handle_services/{id}/groups/{gid}
 ##### Description
 Get details of a group with access to handle service.
 
-This operation requires `view_handle_service` administrator privilege.
+This operation requires `handle_service_view` administrator privilege.
 
 ***Example cURL requests***
 

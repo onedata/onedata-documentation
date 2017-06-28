@@ -9,7 +9,7 @@ DELETE /handles/{hndl}
 ##### Description
 Allows to unregister a registered handle.
 
-This operation requires `delete_handle` privilege.
+This operation requires `handle_delete` privilege.
 
 ***Example cURL requests***
 

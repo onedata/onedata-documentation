@@ -9,7 +9,7 @@ GET /providers/{pid}/spaces
 ##### Description
 Returns the list of spaces supported by specific provider.
 
-This operation requires `list_spaces_of_provider` privilege.
+This operation requires `oz_providers_list_spaces` privilege.
 
 ***Example cURL requests***
 

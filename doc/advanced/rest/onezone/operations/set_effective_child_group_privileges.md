@@ -16,7 +16,7 @@ This operation requires `group_set_privileges` privilege.
 **Set child group privileges in a group**
 ```bash
 curl -u username:password -X PATCH -H 'Content-type: application/json' \
--d '{"privileges": "group_view_data"}'
+-d '{"privileges": "group_view"}'
 https://$HOST:8443/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM/privileges
 ```
 

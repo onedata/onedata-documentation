@@ -9,7 +9,7 @@ GET /handle_services/{id}/effective_users
 ##### Description
 Returns all users with access to a handle service instance
 
-This operation requires `view_handle_service` privilege.
+This operation requires `handle_service_view` privilege.
 
 ***Example cURL requests***
 

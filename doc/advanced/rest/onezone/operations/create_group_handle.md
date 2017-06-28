@@ -9,7 +9,7 @@ POST /groups/{id}/handles
 ##### Description
 Creates a new handle on behalf of a group.
 
-This operation requires `register_handle` privilege, for the handle service
+This operation requires `handle_service_register_handle` privilege, for the handle service
 specified in the `handleServiceId` field.
 
 

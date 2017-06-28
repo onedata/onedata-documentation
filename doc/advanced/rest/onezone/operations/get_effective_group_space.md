@@ -9,7 +9,7 @@ GET /groups/{id}/effective_spaces/{sid}
 ##### Description
 Returns information about a specific effective space to which the group belongs.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 
