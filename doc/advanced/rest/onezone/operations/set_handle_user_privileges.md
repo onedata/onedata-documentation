@@ -9,7 +9,7 @@ PATCH /handles/{hndl}/users/{uid}/privileges
 ##### Description
 Sets user privileges for accessing a handle instance.
 
-This operation requires `modify_handle` privilege.
+This operation requires `handle_update` privilege.
 
 ***Example cURL requests***
 
@@ -61,7 +61,7 @@ json :
 json :
 {
   "operation" : [ "grant" ],
-  "privileges" : [ "delete_handle", "modify_handle", "view_handle" ]
+  "privileges" : [ "handle_delete", "handle_update", "handle_view" ]
 }
 ```
 

@@ -9,7 +9,7 @@ GET /providers/{pid}/effective_groups
 ##### Description
 Returns the effective list of groups of a specific provider.
 
-This operation requires `list_groups_of_provider` privilege.
+This operation requires `oz_providers_list_groups` privilege.
 
 ***Example cURL requests***
 

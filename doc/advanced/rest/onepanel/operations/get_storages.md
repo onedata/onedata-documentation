@@ -14,7 +14,7 @@ Returns the list of provider storage resources and their details.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The list of provider storage and their details.|< [ClusterStorages](../definitions/ClusterStorages.md#clusterstorages) > array|
+|**200**|The provider storage resources IDs.|[ProviderStorages](../definitions/ProviderStorages.md#providerstorages)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
@@ -39,7 +39,9 @@ json :
 ###### Response 200
 ```
 json :
-"array"
+{
+  "ids" : [ "x7It3cpgNgLZ8RwOrOoW", "Q1boCClpCS5mUNhM7YCy" ]
+}
 ```
 
 

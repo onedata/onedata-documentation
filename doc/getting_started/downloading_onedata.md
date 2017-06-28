@@ -26,17 +26,16 @@ For more advanced tutorials on running Onedata with Docker, see our [Getting Sta
 
 We provide packages *Oneprovider* and *Onezone* for:
 - Fedora 23
-- Ubuntu 16.04
+- Ubuntu 15.10, 16.04
 
 and *Oneclient* packages for:
 - Fedora 23
-- Ubuntu 14.04, 15.04, 16.04
-- SL6
+- Ubuntu 14.04, 15.10, 16.04
 - CentOS 7
 
 The bash script at https://get.onedata.org, which can be run with `wget` or
 `curl`, automatically downloads Onedata packages and installs them on your
-machine.
+machine, provided that the operating system version is supported.
 
 ```
 # wget version
@@ -53,5 +52,5 @@ curl -sS  http://get.onedata.org/onezone.sh | bash         # for onezone
 ### Building from source
 
 Onedata is composed of several components, to find instruction on building each
-of them from source please checkout main README at our
+of them from source please checkout our main README at our
 [GitHub repository](https://github.com/onedata/onedata).

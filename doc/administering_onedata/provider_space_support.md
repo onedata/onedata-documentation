@@ -13,15 +13,12 @@ mxYQpUBQtD-ai5dEQNB_k3qSVGwjxpgjbKMEdtTNphasdnl1asdhQ
 
 
 ## Space support step by step
-In order to grant user a support for his space, login into Onepanel service.
+In order to grant user a support for his space, login into Onepanel service and go to **Space** menu and select **Support space** button.
 
-The default screen shows the list of currently supported spaces, e.g.:
 
-<img src="../img/onepanelspaces.png">
+Press *Support Space* button, select storage name and paste the token given by a user and amount of space granted to the user.
 
-Press *Support Space* button and paste the token given by a user and amount of space granted to the user.
-
-<p align="center"><img src="../img/supportspace.png"></p>
+<p align="center"><img src="../img/admin/op_tutorial_support_space.png"></p>
 
 ## Removing space storage support
 To remove support for a space press the **Trash** icon in the appropriate Space box.

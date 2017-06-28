@@ -1001,7 +1001,7 @@
         "x-onedata-method": "token_logic:get",
         "summary": "List user access tokens",
         "x-bash-codegen-description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n",
-        "description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_tokens\n\n{\n  \"tokens: [\n     \"LKHKJASDkkajsdnKJASDkjasDJASDjkasACJNS2KJNAS\"\n  ]\n}\n```\n",
+        "description": "Returns the list of user tokens.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Get user tokens**\n```bash\ncurl -u username:password -X GET https://$HOST:8443/api/v3/onezone/user/client_tokens\n\n{\n  \"tokens: [\n     \"LKHKJASDkkajsdnKJASDkjasDJASDjkasACJNS2KJNAS\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1051,7 +1051,7 @@
         ]
       },
       "post": {
-        "operationId": "generate_client_token",
+        "operationId": "create_client_token",
         "tags": [
           "User"
         ],
@@ -1063,6 +1063,9 @@
         "x-bash-codegen-description": "Creates new user token.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n",
         "description": "Creates new user token. The token is returned in the response body.\n\nThis operation can be invoked on behalf of currently authenticated user only.\n\n***Example cURL requests***\n\n**Generate user token**\n```bash\ncurl -u username:password -X POST -d '' -H 'content-type: application/json' \\\n  https://$HOST:8443/api/v3/onezone/user/client_tokens\n\n{\n  \"token\": \"MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgSlVxNGFLVkJSTXVFN3FLbHNQVHlNX00lLeHpYZXNWdVFSMGNfMldpOXFZNAowMDFhY2lkIHRpbWUgPCAxNTIyMzU4MzMzCjAwMmZzaWduYXR1cmUgv02ByyOA9802H02rPMB7Y9mIhDVAjYDmjAUjtrMs13znukK\"\n}\n```\n",
         "produces": [
+          "application/json"
+        ],
+        "consumes": [
           "application/json"
         ],
         "responses": {
@@ -1103,10 +1106,21 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "options",
+            "description": "Optional token parameters",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli generateClientToken"
+            "source": "onezone-rest-cli createClientToken"
           }
         ]
       }
@@ -5578,6 +5592,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for joining a specific group.",
@@ -5625,13 +5642,13 @@
             "required": true
           },
           {
-            "name": "data",
+            "name": "body",
             "in": "body",
             "description": "Group token request.",
             "schema": {
               "$ref": "#/definitions/GroupInviteTokenRequest"
             },
-            "required": true
+            "required": false
           }
         ],
         "x-code-samples": [
@@ -8250,6 +8267,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for joining a specific group.",
@@ -8295,6 +8315,15 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "options",
+            "description": "Optional token parameters.",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "x-code-samples": [
@@ -9911,6 +9940,9 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "The token for getting space storage support from a provider.",
@@ -9956,6 +9988,15 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Token parameters.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
           }
         ],
         "x-code-samples": [

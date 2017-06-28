@@ -2,7 +2,7 @@
 <a name="modify_storage"></a>
 #### Modify storage details
 ```
-PATCH /provider/storages/{name}
+PATCH /provider/storages/{id}
 ```
 
 
@@ -14,7 +14,7 @@ Modifies basic storage details, such as operation timeout.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**name**  <br>*required*|The name of a storage resource, which details should be returned.|string|--|
+|**Path**|**id**  <br>*required*|The ID of a storage resource, which details should be modified.|string|--|
 |**Body**|**storageModifyRequest**  <br>*required*|New values for storage configuration parameters which should be changed.|[StorageModifyRequest](../definitions/StorageModifyRequest.md#storagemodifyrequest)|--|
 
 

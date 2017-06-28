@@ -9,7 +9,7 @@ GET /users/{id}
 ##### Description
 Returns the information about a specific group.
 
-This operation requires `list_users` privilege.
+This operation requires `oz_users_list` privilege.
 
 ***Example cURL requests***
 

@@ -48,7 +48,8 @@ json :
 ```
 json :
 {
-  "password" : "P@@$$W0RD"
+  "currentPassword" : "P@@$$W0RD1",
+  "newPassword" : "P@@$$W0RD2"
 }
 ```
 

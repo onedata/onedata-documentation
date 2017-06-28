@@ -9,7 +9,7 @@ GET /handles/{hndl}/groups/{gid}
 ##### Description
 Returns the details of a group with access to handle.
 
-This operation requires `view_handle` administrator privilege.
+This operation requires `handle_view` administrator privilege.
 
 ***Example cURL requests***
 

@@ -50,8 +50,20 @@ json :
 {
   "id" : "string",
   "name" : "string",
+  "storageId" : "string",
   "supportingProviders" : {
     "string" : 0
+  },
+  "storageImport" : {
+    "strategy" : "string",
+    "maxDepth" : 0
+  },
+  "storageUpdate" : {
+    "strategy" : "string",
+    "maxDepth" : 0,
+    "scanInterval" : 0,
+    "writeOnce" : true,
+    "deleteEnable" : true
   }
 }
 ```

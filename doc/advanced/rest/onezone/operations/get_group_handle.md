@@ -9,7 +9,7 @@ GET /groups/{id}/handles/{hid}
 ##### Description
 Returns the details of a specific handle.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

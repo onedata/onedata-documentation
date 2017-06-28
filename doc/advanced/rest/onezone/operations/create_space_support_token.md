@@ -10,7 +10,7 @@ POST /spaces/{id}/providers/token
 Creates a token which can be submitted to a selected provider in order to
 add storage support for the space.
 
-This operation requires `space_add_provider` privilege.
+This operation requires `space_invite_provider` privilege.
 
 ***Example cURL requests***
 
@@ -30,6 +30,7 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
 |**Path**|**id**  <br>*required*|Space ID.|string|--|
+|**Body**|**body**  <br>*optional*|Token parameters.|string|--|
 
 
 ##### Responses
@@ -44,6 +45,11 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 |**500**|Internal server Error.|[Error](../definitions/Error.md#error)|
 
 
+##### Consumes
+
+* `application/json`
+
+
 ##### Produces
 
 * `application/json`
@@ -55,6 +61,13 @@ https://$HOST:8443/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY
 ```
 json :
 "/spaces/string/providers/token"
+```
+
+
+###### Request body
+```
+json :
+{ }
 ```
 
 

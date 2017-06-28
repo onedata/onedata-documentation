@@ -14,7 +14,7 @@ Returns the list of spaces supported by the provider.
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The provider spaces details.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
+|**200**|The provider spaces IDs.|[ProviderSpaces](../definitions/ProviderSpaces.md#providerspaces)|
 |**401**|Unauthorized request.|No Content|
 |**403**|Forbidden request.|No Content|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|

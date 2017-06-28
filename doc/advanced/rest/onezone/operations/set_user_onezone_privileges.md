@@ -9,14 +9,14 @@ PATCH /users/{id}/privileges
 ##### Description
 Modifies privileges for a user {id} for Onezone.
 
-This operation requires `set_privileges` privilege.
+This operation requires `oz_set_privileges` privilege.
 
 ***Example cURL requests***
 
 **Modifies users privileges to Onezone service**
 ```bash
 curl -u username:password  -H "Content-type: application/json"  -X PUT \
--d '{"privileges":["list_spaces"]}' \
+-d '{"privileges":["oz_spaces_list"]}' \
 https://$HOST:8443/api/v3/onezone/users/ivMnRLb2WYNApEmPj3SF0NsqBgdHG7iel89FHY802w/privileges
 ```
 
@@ -55,7 +55,7 @@ json :
 json :
 {
   "operation" : [ "set" ],
-  "privileges" : [ "add_member_to_space", "list_groups", "list_groups_of_provider", "list_providers", "list_providers_of_space", "list_spaces", "list_spaces_of_provider", "list_users", "list_users_of_provider", "oz_groups_add_members", "oz_groups_list_groups", "oz_groups_list_users", "oz_groups_remove_members", "oz_handles_list", "oz_handle_services_create", "oz_handle_services_list", "oz_providers_delete", "oz_shares_list", "oz_spaces_list_groups", "oz_spaces_list_users", "oz_users_delete", "remove_member_from_space", "set_privileges", "view_privileges" ]
+  "privileges" : [ "oz_spaces_add_members", "list_groups", "oz_providers_list_groups", "oz_providers_list", "oz_spaces_list_providers", "oz_spaces_list", "oz_providers_list_spaces", "oz_users_list", "oz_providers_list_users", "oz_groups_add_members", "oz_groups_list_groups", "oz_groups_list_users", "oz_groups_remove_members", "oz_handles_list", "oz_handle_services_create", "oz_handle_services_list", "oz_providers_delete", "oz_shares_list", "oz_spaces_list_groups", "oz_spaces_list_users", "oz_users_delete", "oz_spaces_remove_members", "oz_set_privileges", "oz_view_privileges" ]
 }
 ```
 

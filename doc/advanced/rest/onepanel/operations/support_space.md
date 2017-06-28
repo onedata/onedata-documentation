@@ -7,7 +7,7 @@ POST /provider/spaces
 
 
 ##### Description
-Supports an existing space or creates a new space and automatically  supports it.
+Supports an existing space or creates a new space and automatically supports it.
 
 
 ##### Parameters
@@ -46,9 +46,9 @@ json :
 ```
 json :
 {
-  "name" : "MySpace1",
   "token" : "ASDJNASD87687ASDMNBMNASD87786asd",
-  "size" : 1024000
+  "size" : 1024000,
+  "storageId" : "x7It3cpgNgLZ8RwOrOoW"
 }
 ```
 

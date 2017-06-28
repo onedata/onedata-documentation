@@ -9,7 +9,7 @@ GET /handles/{hndl}
 ##### Description
 Returns the properties of a specific handle.
 
-This operation requires `view_handle` privilege.
+This operation requires `handle_view` privilege.
 
 ***Example cURL requests***
 

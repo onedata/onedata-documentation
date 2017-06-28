@@ -1,25 +1,28 @@
 
-<a name="generate_client_token"></a>
-#### Generate user access token
+<a name="oz_spaces_list"></a>
+#### List all spaces
 ```
-POST /user/client_tokens
+GET /spaces
 ```
 
 
 ##### Description
-Creates new user token. The token is returned in the response body.
+Returns the list of all spaces managed by the Onezone service.
 
-This operation can be invoked on behalf of currently authenticated user only.
+This operation requires `oz_spaces_list` privilege.
 
 ***Example cURL requests***
 
-**Generate user token**
+**List all spaces**
 ```bash
-curl -u username:password -X POST -d '' -H 'content-type: application/json' \
-  https://$HOST:8443/api/v3/onezone/user/client_tokens
+curl -u admin:password -X GET \
+https://$HOST:8443/api/v3/onezone/spaces
 
 {
-  "token": "MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgSlVxNGFLVkJSTXVFN3FLbHNQVHlNX00lLeHpYZXNWdVFSMGNfMldpOXFZNAowMDFhY2lkIHRpbWUgPCAxNTIyMzU4MzMzCjAwMmZzaWduYXR1cmUgv02ByyOA9802H02rPMB7Y9mIhDVAjYDmjAUjtrMs13znukK"
+  "spaces": [
+    "S0Y9FSe9TFJFFzzLtBEs8",
+    "IkHBv8CoAFmbFU4fj26"
+  ]
 }
 ```
 
@@ -28,7 +31,7 @@ curl -u username:password -X POST -d '' -H 'content-type: application/json' \
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|The token has been successfully created.|[ClientToken](../definitions/ClientToken.md#clienttoken)|
+|**200**|List of spaces Id's.|[Spaces](../definitions/Spaces.md#spaces)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**401**|Authentication error.|[Error](../definitions/Error.md#error)|
 |**403**|Authorization error.|[Error](../definitions/Error.md#error)|
@@ -46,7 +49,7 @@ curl -u username:password -X POST -d '' -H 'content-type: application/json' \
 ###### Request path
 ```
 json :
-"/user/client_tokens"
+"/spaces"
 ```
 
 
@@ -56,7 +59,7 @@ json :
 ```
 json :
 {
-  "token" : "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
+  "spaces" : [ "Bmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK", "ASmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR" ]
 }
 ```
 

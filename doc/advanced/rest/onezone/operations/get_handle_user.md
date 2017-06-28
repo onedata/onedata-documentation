@@ -9,7 +9,7 @@ GET /handles/{hndl}/users/{uid}
 ##### Description
 Allows to add a user to a handle.
 
-This operation requires `view_handle` administrator privilege.
+This operation requires `handle_view` administrator privilege.
 
 ***Example cURL requests***
 

@@ -1,15 +1,15 @@
 
-<a name="clusterstorageslist"></a>
-### ClusterStoragesList
-The list of supported storage types.
+<a name="storagecreaterequest"></a>
+### StorageCreateRequest
+The configuration details required to add storage resources.
 
-*Type* : < string, [ClusterStorages](ClusterStorages.md#clusterstorages) > map
+*Type* : < string, [StorageDetails](StorageDetails.md#storagedetails) > map
 
 **Example**
 ```
 {
   "s3" : {
-    "type" : "S3",
+    "type" : "s3",
     "s3Hostname" : "s3.example.com",
     "iamHostname" : "iam.example.com",
     "bucketName" : "bucket1.iam.example.com",
@@ -17,7 +17,7 @@ The list of supported storage types.
     "secretKey" : "ASASDLLASD89798&LKJHLAKJSHD887678678ASDK"
   },
   "swift" : {
-    "type" : "SWIFT",
+    "type" : "swift",
     "authUrl" : "http://keystone2.example.com",
     "tenantName" : "Project1",
     "containerName" : "Container1",

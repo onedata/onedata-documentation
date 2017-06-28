@@ -9,7 +9,7 @@ GET /groups/{id}/effective_parents/{pid}
 ##### Description
 Returns details about a specific effective parent group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

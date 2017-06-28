@@ -7,3 +7,5 @@ official [Onedata Getting Started repository](https://github.com/onedata/getting
 
 The Getting Started tutorial provides several scenarios with varying degrees
 of complexity for setting up a Onedata deployment.
+
+For in-depth administrator tutorial on how to deploy Onedata services in production see [here](../administering_onedata/deployment_tutorial.md).

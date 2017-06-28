@@ -9,7 +9,7 @@ GET /groups/{id}/effective_children/{cid}
 ##### Description
 Returns information about a specific effective child group.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

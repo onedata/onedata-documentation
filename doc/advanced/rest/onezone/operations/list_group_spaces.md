@@ -9,7 +9,7 @@ GET /groups/{id}/spaces
 ##### Description
 Returns the list of spaces to which the group has access.
 
-This operation requires `group_view_data` privilege.
+This operation requires `group_view` privilege.
 
 ***Example cURL requests***
 

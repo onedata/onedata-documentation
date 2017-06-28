@@ -2,8 +2,7 @@
 
 <!-- toc -->
 
-Onedata services have certain minimum system requirements, which should be considered
-before deployment.
+Onedata services have certain minimum system requirements, which should be considered before deployment.
 
 > Please note that these numbers are rough estimates and depend on actual
 > data access patterns of users, network capacity and underlying storage
@@ -18,8 +17,8 @@ before deployment.
 | RAM | 32GB   | 64GB    |
 | Local disk | SATA | SSD |
 | Local storage space | 20GB | 40GB |
-| OS | Any Docker compatible | Any Docker compatible |
-
+| OS (Docker deployment)| Any Docker compatible | Any Docker compatible |
+| OS (Package deployment)| Ubuntu (15.10, 16.04), Fedora 23 | Ubuntu (15.10, 16.04), Fedora 23 |
 
 ## Oneprovider
 
@@ -30,4 +29,5 @@ before deployment.
 | RAM | 32GB   | 64GB    |
 | Local disk | SSD | SSD |
 | Local storage space | 20GB + 8MB for each 1000 files | 40GB + 8MB for each 1000 files |
-| OS | Any Docker compatible | Any Docker compatible |
+| OS (Docker deployment) | Any Docker compatible | Any Docker compatible |
+| OS (Package deployment)| Ubuntu (15.10, 16.04), Fedora 23 | Ubuntu (15.10, 16.04), Fedora 23 |
