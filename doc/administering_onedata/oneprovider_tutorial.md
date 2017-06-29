@@ -329,25 +329,25 @@ $ sudo systemctl restart op_panel.service
 Open `https://oneprovider-demo.tk:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
-<p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
 
 * Initialize the cluster setup
-<p align="center"><img src="../img/admin/op_tutorial_panel_start.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_panel_start.png" width="720"></p>
 
 * Select hosts in the cluster which will have specific roles (leave as is)
-<p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="720"></p>
 
 * Provide Onezone details
-<p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
 * Add storage
-<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
 
 * Verify the storage was added successfully
-<p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
 
 * Wait for registration and deployment to complete
-<p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
 After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
 
@@ -545,7 +545,7 @@ https://$ONEPROVIDER_HOST:9443/api/v3/onepanel/users
 Storage resources can be conveniently added to a **Oneprovider** instance using the Onepanel GUI, in menu **Storages** and click **Add storage** in the top right corner:
 
 * Select storage type and provider required connection details (example for S3):
-<p align="center"><img src="../img/admin/op_tutorial_add_more_storage.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_panel_tutorial_add_more_storage.png" width="720"></p>
 
 From this point on when supporting user spaces, this storage will be available as an option.
 
@@ -556,4 +556,48 @@ The only way users can use the **Oneprovider** storage resources is by requestin
 Using the token, the administrator can support the space on a specific storage using the web interface:
 
 * Select storage type, paste support token received from user and specify storage quota for the user:
-<p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="640"></p>
+<p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="720"></p>
+
+### Add storage with existing data
+
+Oneprovider allows to enable synchronization of existing storage with legacy data without the need for manually importing that data into the Oneprovider.
+
+First, storage with the legacy data must be registered in the Oneprovider, as explained above. In case the data set is meant to be exposed in read only mode, make sure to set the radio button **Read only** while adding the storage:
+
+<p align="center"><img src="../img/admin/op_import_add_storage.png" width="720"></p>
+
+Then a space has to be created in the Onezone for this data set, and then support for the storage has to be added in the Onepanel interface. When supporting the space, the import can be enabled. This means that from the same storage several data collections can be exported under different spaces and with different options.
+
+When supporting a space for storage synchronization, typically **Mount in root** option must be enabled. This option will align the space namespace with the mounpoint specified in the storage. In case this option is not enabled, Oneprovider will look for the files under storage path suffixed with space id, i.e. it only makes sens to use this option when connecting empty storage to space.
+
+Second option, **Import storage data** needs to be selected and it provides 2 basic modes of import: one-time import or continuous synchronization.
+
+#### One time data import
+In case only one-time import is required, i.e. no future changes in the filesystems (new files, modified files, removed files) will be detected. This can be enabled using the following configuration:
+
+<p align="center"><img src="../img/admin/op_import_one_time.png" width="720"></p>
+
+The following options can be provided:
+
+* **Import strategy** - currently only Simple scan mode is available
+* **Max depth** - the maximum directory depth the scanner should follow (by default it is unlimited)
+
+#### Continuous synchronization
+In case only one-time import is required, i.e. no future changes in the filesystems (new files, modified files, removed files) will be detected. This can be enabled using the following configuration:
+
+<p align="center"><img src="../img/admin/op_import_with_updates.png" width="720"></p>
+
+The following options can be provided in this case:
+
+* **Import strategy** - currently only Simple scan mode is available
+* **Max depth** - the maximum directory depth the scanner should follow (by default it is unlimited)
+* **Update strategy** - currently only Simple scan mode is available, which must be selected
+* **Max depth** - again, the maximum directory depth the scanner should follow for consecutive updates (by default it is unlimited)
+* **Scan interval** - the delay between consecutive scans of the filesystem changes
+* **Write once** - determines that the storage should be treated as read-only
+* **Delete enabled** - allows to enable or disable detection of deleted files
+
+
+After the space is supported, storage synchronization starts automatically and can it's progress can be observed in the spaces details view with several charts visualizing the data import progress:
+
+<p align="center"><img src="../img/admin/op_import_statistics.png" width="720"></p>
