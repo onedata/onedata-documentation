@@ -78,7 +78,7 @@ json :
 ```
 json :
 {
-  "privileges" : [ "group_update", "group_create_space", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_delete", "group_remove_group", "group_remove_user", "group_set_privileges", "group_view" ]
+  "privileges" : [ "group_create_space", "group_delete", "group_invite_group", "group_invite_user", "group_join_group", "group_join_space", "group_leave_space", "group_remove_group", "group_remove_user", "group_set_privileges", "group_update", "group_view" ]
 }
 ```
 

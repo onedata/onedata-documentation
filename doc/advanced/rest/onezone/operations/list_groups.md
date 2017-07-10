@@ -9,7 +9,7 @@ GET /groups
 ##### Description
 Returns the list of all groups in the system.
 
-Requires `list_groups` privilege.
+Requires `oz_groups_list` privilege.
 
 ***Example cURL requests***
 

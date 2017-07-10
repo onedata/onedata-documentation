@@ -61,7 +61,7 @@ json :
 json :
 {
   "operation" : [ "grant" ],
-  "privileges" : [ "handle_service_view", "handle_service_update", "handle_service_delete", "handle_service_register_handle", "handle_service_list_handles" ]
+  "privileges" : [ "handle_service_delete", "handle_service_list_handles", "handle_service_register_handle", "handle_service_update", "handle_service_view" ]
 }
 ```
 

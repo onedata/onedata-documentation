@@ -9,7 +9,7 @@ GET /groups/{id}
 ##### Description
 Returns the information about a specific group.
 
-This operation requires `group_view` or `list_groups` privilege.
+This operation requires `group_view` or `oz_groups_list` privilege.
 
 ***Example cURL requests***
 

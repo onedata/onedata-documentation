@@ -56,7 +56,7 @@ json :
 json :
 {
   "operation" : [ "set" ],
-  "privileges" : [ "space_invite_provider", "space_update", "space_invite_group", "space_invite_user", "space_manage_shares", "space_delete", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_view", "space_write_data" ]
+  "privileges" : [ "space_delete", "space_invite_group", "space_invite_provider", "space_invite_user", "space_manage_shares", "space_remove_group", "space_remove_provider", "space_remove_user", "space_set_privileges", "space_update", "space_view", "space_write_data" ]
 }
 ```
 
