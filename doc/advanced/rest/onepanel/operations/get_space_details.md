@@ -51,9 +51,11 @@ json :
   "id" : "string",
   "name" : "string",
   "storageId" : "string",
+  "localStorages" : [ "string" ],
   "supportingProviders" : {
     "string" : 0
   },
+  "mountInRoot" : true,
   "storageImport" : {
     "strategy" : "string",
     "maxDepth" : 0

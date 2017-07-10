@@ -10,6 +10,7 @@ The POSIX storage configuration.
 |Name|Description|Schema|
 |---|---|---|
 |**id**  <br>*optional*|The ID of storage.|string|
+|**insecure**  <br>*optional*|Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.  <br>**Default** : `false`|boolean|
 |**mountPoint**  <br>*required*|The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.|string|
 |**name**  <br>*optional*|The name of storage.|string|
 |**readonly**  <br>*optional*|Defines whether storage is readonly.  <br>**Default** : `false`|boolean|

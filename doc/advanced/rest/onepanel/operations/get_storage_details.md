@@ -50,6 +50,8 @@ json :
 {
   "id" : "string",
   "name" : "string",
+  "insecure" : true,
+  "readonly" : true,
   "type" : "string"
 }
 ```
