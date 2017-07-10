@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/luma",
   "info": {
-    "version": "17.06.0-beta2",
+    "version": "17.06.0-beta5",
     "title": "LUMA",
     "description": "# Overview\n\nLUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users\n(of any system/kind) to storage specific users, in the process authorizing them with the storage.\nNew storage types are added by means of plugin system of generators. A generator is responsible for:\nmapping users to storage specific users creating a user credentials for accessing the actual storage\n\nAs of now there are four kinds of generators implemented in LUMA:\n * Posix\n * Ceph\n * Amazon S3\n * Openstack Swift\n\nLUMA is written using [Flask](http://flask.pocoo.org/) framework and uses SQLite backend to store information about user credentials.\n\nMore information: [https://github.com/onedata/luma](https://github.com/onedata/luma)\n",
     "contact": {
