@@ -106,7 +106,7 @@ More detailed examples are available in the documentation of each operation.
 
 
 ### Version information
-*Version* : 17.06.0-beta2
+*Version* : 17.06.0-beta5
 
 
 ### Contact information
