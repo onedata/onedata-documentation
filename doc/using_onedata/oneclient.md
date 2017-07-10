@@ -88,6 +88,24 @@ oneclient -u MOUNT_POINT
 
 ## Options
 
+### Direct IO and Proxy IO modes
+By default `oneclient` will automatically try to detect if it can access storage supporting
+mounted spaces directly, which significantly improves IO performance as all read and write
+operations go directly to the storage and not via the Oneprovider service.
+
+This feature can be controlled using 2 command line options:
+  
+  * `--force-proxy-io` - disables Direct IO mode, all data transfers will go via Oneprovider service
+  * `--force-direct-io` - forces Direct IO mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
+
+### Buffering
+`oneclient` employs an in-memory buffer for input and output data blocks, which can significantly
+improve performance for various types of storages, in particular object based storages such as S3.
+
+If for some reason this local cache is undesired, it can be disabled using `--no-buffer` option.
+
+### Other options
+
 To see full set of `oneclient` command line options checkout the man page
 `man oneclient` or print help information using `oneclient -h`:
 
@@ -118,6 +136,10 @@ General options:
                                         Specify custom path for Oneclient logs.
 
 Advanced options:
+  --force-proxy-io                      Force proxied access to storage via
+                                        Oneprovider for all spaces.
+  --force-direct-io                     Force direct access to storage for all
+                                        spaces.
   --buffer-scheduler-thread-count <threads> (=1)
                                         Specify number of parallel buffer
                                         scheduler threads.
@@ -130,6 +152,8 @@ Advanced options:
   --storage-helper-thread-count <threads> (=10)
                                         Specify number of parallel storage
                                         helper threads.
+  --no-buffer                           Disable in-memory cache for
+                                        input/output data blocks.
   --read-buffer-min-size <size> (=1048576)
                                         Specify minimum size in bytes of
                                         in-memory cache for input data blocks.
@@ -163,7 +187,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:17.06.0-beta2
+-d --name oneclient-1 onedata/oneclient:17.06.0-beta5
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
