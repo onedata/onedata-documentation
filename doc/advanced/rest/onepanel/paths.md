@@ -52,6 +52,7 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
 |[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space|
 |[/provider/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
+|[/provider/spaces/{id}/sync](operations/get_provider_space_sync_stats.md)|GET|Get statistics of storage synchronization|
 |[/provider/storages](operations/add_storage.md)|POST|Add storage|
 |[/provider/storages](operations/get_storages.md)|GET|Get storages|
 |[/provider/storages/{id}](operations/get_storage_details.md)|GET|Get storage details|

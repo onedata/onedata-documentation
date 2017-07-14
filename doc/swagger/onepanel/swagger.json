@@ -1184,6 +1184,76 @@
         ]
       }
     },
+    "/provider/spaces/{id}/sync": {
+      "get": {
+        "operationId": "get_provider_space_sync_stats",
+        "summary": "Get statistics of storage synchronization",
+        "description": "Returns requested statistics of storage synchronization for given space on this provider.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_sync_stats",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Space synchronization status and statistics.",
+            "schema": {
+              "$ref": "#/definitions/SpaceSyncStats"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret getProviderSpaceSyncStats --host https://op.example.com:9443"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The ID of a space for which sync stats should be returned.",
+            "required": true
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "description": "Predefined time period for which the statistics should be fetched",
+            "type": "string",
+            "enum": [
+              "minute",
+              "hour",
+              "day"
+            ],
+            "required": false
+          },
+          {
+            "name": "metrics",
+            "in": "query",
+            "description": "Specify which statistic metrics should be returned - strings delimited with comma",
+            "type": "string",
+            "required": false
+          }
+        ]
+      }
+    },
     "/provider/storages": {
       "get": {
         "operationId": "get_storages",
@@ -4661,6 +4731,161 @@
         },
         "storageUpdate": {
           "$ref": "#/definitions/StorageUpdateDetails"
+        }
+      }
+    },
+    "SpaceSyncStats": {
+      "type": "object",
+      "description": "Status and statistics of storage/space synchronization.",
+      "properties": {
+        "importStatus": {
+          "type": "string",
+          "description": "Describes import algorithm run status.",
+          "enum": [
+            "inProgress",
+            "done"
+          ]
+        },
+        "updateStatus": {
+          "type": "string",
+          "enum": [
+            "waiting",
+            "inProgress"
+          ],
+          "description": "Describes update algorithm run status."
+        },
+        "stats": {
+          "description": "Collection of statistics for requested metrics.",
+          "$ref": "#/definitions/TimeStatsCollection"
+        }
+      },
+      "required": [
+        "importStatus"
+      ],
+      "example": {
+        "importStatus": "done",
+        "updateStatus": "inProgress",
+        "stats": {
+          "queueLength": {
+            "name": "queueLength",
+            "lastValueDate": "2017-06-22T13:29:39.654Z",
+            "period": "hour",
+            "values": [
+              4,
+              8,
+              12,
+              16,
+              20,
+              10,
+              4,
+              2,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "insertCount": {
+            "name": "insertCount",
+            "lastValueDate": "2017-06-22T13:29:39.654Z",
+            "period": "hour",
+            "values": [
+              4,
+              8,
+              12,
+              16,
+              20,
+              10,
+              4,
+              2,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "TimeStats": {
+      "type": "object",
+      "description": "Statistics for single metric over specified time.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of metric for which this object holds statistics.",
+          "enum": [
+            "queueLength",
+            "insertCount",
+            "updateCount",
+            "deleteCount"
+          ]
+        },
+        "lastValueDate": {
+          "type": "string",
+          "description": "Date of last measurement value in this object in ISO 8601 format"
+        },
+        "period": {
+          "description": "Predefined time period for which the statistics were fetched",
+          "type": "string",
+          "enum": [
+            "minute",
+            "hour",
+            "day"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "description": "List of sample values for given metric. The used period is divided into array-length number of parts. E.g. if the used period is an hour, and if there are 12 values in this array, every value is a value for 1/12 of day, which gives value for every hour of the day. If the value is null, there is no sample for given time part.\n",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "lastValueDate",
+        "values"
+      ],
+      "example": {
+        "name": "queueLength",
+        "lastValueDate": "2017-06-22T13:29:39.654Z",
+        "period": "minute",
+        "values": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          10,
+          4,
+          2,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "TimeStatsCollection": {
+      "type": "object",
+      "description": "Statistics for single metric over specified time.",
+      "properties": {
+        "queueLength": {
+          "description": "Statistics of storage sync jobs queue length.",
+          "$ref": "#/definitions/TimeStats"
+        },
+        "insertCount": {
+          "description": "Statistics of storage sync imported files.",
+          "$ref": "#/definitions/TimeStats"
+        },
+        "updateCount": {
+          "description": "Statistics of storage sync updated files.",
+          "$ref": "#/definitions/TimeStats"
+        },
+        "deleteCount": {
+          "description": "Statistics of storage sync deleted files.",
+          "$ref": "#/definitions/TimeStats"
         }
       }
     }

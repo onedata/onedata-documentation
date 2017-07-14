@@ -29,6 +29,7 @@
           * [Get provider nagios report](doc/advanced/rest/onepanel/operations/get_provider_nagios_report.md)
           * [Get provider spaces](doc/advanced/rest/onepanel/operations/get_provider_spaces.md)
           * [Get space details](doc/advanced/rest/onepanel/operations/get_space_details.md)
+          * [Get statistics of storage synchronization](doc/advanced/rest/onepanel/operations/get_provider_space_sync_stats.md)
           * [Get storage details](doc/advanced/rest/onepanel/operations/get_storage_details.md)
           * [Get storages](doc/advanced/rest/onepanel/operations/get_storages.md)
           * [Modify provider details](doc/advanced/rest/onepanel/operations/modify_provider.md)

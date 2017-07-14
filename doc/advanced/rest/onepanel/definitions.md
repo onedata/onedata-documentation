@@ -30,12 +30,15 @@
 |[SpaceDetails](definitions/SpaceDetails.md)|The space details.|
 |[SpaceModifyRequest](definitions/SpaceModifyRequest.md)|The space configuration details that can be modified.|
 |[SpaceSupportRequest](definitions/SpaceSupportRequest.md)|The configuration details required to create or support a space by a provider.|
+|[SpaceSyncStats](definitions/SpaceSyncStats.md)|Status and statistics of storage/space synchronization.|
 |[StorageCreateRequest](definitions/StorageCreateRequest.md)|The configuration details required to add storage resources.|
 |[StorageDetails](definitions/StorageDetails.md)|The cluster storage configuration.|
 |[StorageImportDetails](definitions/StorageImportDetails.md)|The storage import configuration. Storage import allows to import data from storage to space without need for copying the data.|
 |[StorageModifyRequest](definitions/StorageModifyRequest.md)|The storage configuration details that can be modified.|
 |[StorageUpdateDetails](definitions/StorageUpdateDetails.md)|The storage update configuration. Storage update ensures that all changes on storage will be reflected in space.|
 |[TaskStatus](definitions/TaskStatus.md)|The result of a scheduled operation, e.g. database service configuration.|
+|[TimeStats](definitions/TimeStats.md)|Statistics for single metric over specified time.|
+|[TimeStatsCollection](definitions/TimeStatsCollection.md)|Statistics for single metric over specified time.|
 |[UserCreateRequest](definitions/UserCreateRequest.md)|The new user account details.|
 |[UserDetails](definitions/UserDetails.md)|The user configuration details.|
 |[UserModifyRequest](definitions/UserModifyRequest.md)|The user configuration details that can be modified.|
