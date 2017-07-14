@@ -107,7 +107,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:17.06.0-beta5
+    image: onedata/oneprovider:17.06.0-beta6
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -562,11 +562,11 @@ Using the token, the administrator can support the space on a specific storage u
 
 Oneprovider allows to enable synchronization of existing storage with legacy data without the need for manually importing that data into the Oneprovider.
 
-First, storage with the legacy data must be registered in the Oneprovider, as explained above. In case the data set is meant to be exposed in read only mode, make sure to set the radio button **Read only** while adding the storage:
+First, storage with the legacy data must be registered in the Oneprovider, as explained above. In case the underlying storage is read-only, make sure to set the radio button **Read only** while adding the storage, which will prevent Oneprovider from storing a local copy of the monitoring metrics on that storage:
 
 <p align="center"><img src="../img/admin/op_import_add_storage.png" width="720"></p>
 
-Then a space has to be created in the Onezone for this data set, and then support for the storage has to be added in the Onepanel interface. When supporting the space, the import can be enabled. This means that from the same storage several data collections can be exported under different spaces and with different options.
+Then a space has to be created in the Onezone for this data set, and then support for the  storage has to be added in the Onepanel interface. When supporting the space, the import can be enabled. This means that from the same storage several data collections can be exported under different spaces and with different options.
 
 When supporting a space for storage synchronization, typically **Mount in root** option must be enabled. This option will align the space namespace with the mounpoint specified in the storage. In case this option is not enabled, Oneprovider will look for the files under storage path suffixed with space id, i.e. it only makes sens to use this option when connecting empty storage to space.
 
@@ -598,6 +598,6 @@ The following options can be provided in this case:
 * **Delete enabled** - allows to enable or disable detection of deleted files
 
 
-After the space is supported, storage synchronization starts automatically and can it's progress can be observed in the spaces details view with several charts visualizing the data import progress:
+After the space is supported, storage synchronization starts automatically and it's progress can be observed in the spaces details view with several charts visualizing the data import progress:
 
 <p align="center"><img src="../img/admin/op_import_statistics.png" width="720"></p>
