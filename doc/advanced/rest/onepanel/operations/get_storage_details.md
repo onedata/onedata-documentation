@@ -52,7 +52,11 @@ json :
   "name" : "string",
   "insecure" : true,
   "readonly" : true,
-  "type" : "string"
+  "type" : "string",
+  "lumaEnabled" : true,
+  "lumaUrl" : "string",
+  "lumaCacheTimeout" : 0,
+  "lumaApiKey" : "string"
 }
 ```
 

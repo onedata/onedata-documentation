@@ -12,6 +12,10 @@ The GlusterFS storage configuration.
 |**hostname**  <br>*required*|The hostname (IP address or FQDN) of GlusterFS volume server.|string|
 |**id**  <br>*optional*|The ID of storage.|string|
 |**insecure**  <br>*optional*|Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.  <br>**Default** : `false`|boolean|
+|**lumaApiKey**  <br>*optional*|LUMA API Key, must be identical with API Key in external LUMA service.|string|
+|**lumaCacheTimeout**  <br>*optional*|LUMA cache timeout in minutes.|integer|
+|**lumaEnabled**  <br>*optional*|If true LUMA and reverse LUMA services will be enabled.  <br>**Default** : `false`|boolean|
+|**lumaUrl**  <br>*optional*|URL of external LUMA service|string|
 |**mountPoint**  <br>*optional*|Relative mountpoint within the volume which should be used by Oneprovider.  <br>**Default** : `""`|string|
 |**name**  <br>*optional*|The name of storage.|string|
 |**port**  <br>*optional*|The GlusterFS port on volume server.|integer|
