@@ -1,0 +1,2657 @@
+{
+  "swagger": "2.0",
+  "basePath": "/api/v3/oneprovider",
+  "info": {
+    "version": "17.06.0-rc2",
+    "title": "Oneprovider",
+    "description": "# Overview\n\nThis is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n```\nhttps://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n```\nPlease note that currently the default port for Oneprovider instances is `8443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol,\nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface.\nThe token must be added to the request header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n```\nIn case this Onedata deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n```\n  X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n```\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation.\n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/)\ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$PROVIDER:8443/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of Oneprovider component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to\nauthenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be\ngenerate using the Onedata user interface. The token must be added to the\nrequest header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\nor exported as an environment variable:\n```\nexport ONEPROVIDER_API_KEY=LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\n\nIn addition please take into account, that depending on your account\nauthorization rights, not all operations may be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly\nwith virtual file paths relative to user spaces, which are provided as part\nof the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\nBasic data management including getting information about data objects (\nfiles or folders).\n\n### Replication\n\nData transfer management.\n\n### Monitoring\n\nMonitoring of changes performed in folders and files and getting metrics\nhistory.\n",
+    "contact": {
+      "name": "Onedata support",
+      "url": "https://onedata.org/support",
+      "email": "info@onedata.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "x-logo": {
+      "url": "https://onedata.org/assets/images/api/oneprovider-logo.svg",
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  "paths": {
+    "/spaces": {
+      "get": {
+        "operationId": "get_all_spaces",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "files",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_all_spaces",
+        "tags": [
+          "Data"
+        ],
+        "summary": "Get all spaces",
+        "x-bash-codegen-description": "Returns the list of all user spaces.",
+        "description": "Returns the list of all user spaces.\n\n***Example cURL requests***\n\n**List all user spaces**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/spaces\"\n\n[\n  {\n    \"spaceId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n    \"name\": \"Space1\"\n  },\n  {\n    \"spaceId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n    \"name\": \"Space2\"\n  }\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of all user spaces - containining their names and ID's.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Space name."
+                  },
+                  "spaceId": {
+                    "type": "string",
+                    "description": "Space ID."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getAllSpaces"
+          }
+        ]
+      }
+    },
+    "/spaces/{sid}": {
+      "get": {
+        "operationId": "get_space",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "spaces",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space",
+        "tags": [
+          "Data"
+        ],
+        "summary": "Get basic space information",
+        "x-bash-codegen-description": "Returns the basic information about space with given ID.\n",
+        "description": "Returns the basic information about space with given ID.\n\n***Example cURL requests***\n\n**Get information about a specific space**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n\n{\n    \"name\": \"My Space 1\",\n    \"providers\": [\n        {\n            \"providerId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n            \"providerName\": \"MyPrivateCloud\"\n        },\n        {\n            \"providerId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n            \"providerName\": \"PublicCloud1\"\n        }\n    ],\n    \"spaceId\": \"8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space information.",
+            "schema": {
+              "$ref": "#/definitions/Space"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getSpace sid=ASLDKAJSD764ASDLnaAsd"
+          }
+        ]
+      }
+    },
+    "/files/{path}": {
+      "get": {
+        "operationId": "list_files",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "files",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "list_files",
+        "tags": [
+          "Data"
+        ],
+        "summary": "List files and folders",
+        "x-bash-codegen-description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the\nsingle item with the path to the file requested, confirming it exists.\n",
+        "description": "Returns the list of folders and files directly under specified path.\n\nIf the path points to a file, the result array will consist only of the\nsingle item with the path to the file requested, confirming it exists.\n\n***Example cURL requests***\n\n**Get files in space subfolder**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/files/MySpace1/MyFolder2\"\n\n[\n  {\n    \"id\": \"c4798eb2-dbd2-486f-ae94-0e6fa0a5071d\",\n    \"path\": \"/MySpace1/MyFolder2/File1.txt\"\n  },\n  {\n    \"id\": \"620e1642-4f2d-45f2-b4eb-37f8a958b46f\",\n    \"path\": \"/MySpace1/MyFolder2/Folder3\"\n  },\n  {\n    \"id\": \"55ac4ed3-a723-47ab-a892-638578b9cad7\",\n    \"path\": \"/MySpace1/MyFolder2/File3.txt\"\n  }\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of files and folders under specified path.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilePath"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Invalid path - file or directory not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Directory path (e.g. '/My Private Space/testfiles')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Allows to specify maximum number of files that should be returned. If there are more files, they can be retrieved using `offset` query parameter.\n",
+            "type": "integer",
+            "required": false,
+            "maximum": 1000,
+            "minimum": 1
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Index of the partial result, can be used to get subset of the result, when the number of files and folders under given path exceeds 1000.\n",
+            "type": "integer",
+            "required": false,
+            "minimum": 0
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli listFiles path='/My Space/Folder1' limit=100 offset=300"
+          }
+        ]
+      }
+    },
+    "/attributes/{path}": {
+      "get": {
+        "operationId": "get_file_attributes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "attributes",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_attributes",
+        "summary": "Get file attributes",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag\nin the request query to `true`.\n",
+        "description": "This method returns selected file attributes as a JSON object.\n\nBy default the method returns regular file attributes.\n\nThe exteded attributes are accessed by setting `extended` flag\nin the request query to `true`.\n\n***Example cURL requests***\n\n**Get file POSIX mode**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?attribute=mode\"\n\n{\n  \"mode\": \"0777\"\n}\n```\n\n**Get extended file attributes**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true&attribute=license\"\n\n{\n  \"license\": \"CC-0\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the requested file attributes.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Type of attribute to query for.",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "mode"
+            ]
+          },
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Whether we want to access extended attributes or regular.\n",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "name": "inherited",
+            "in": "query",
+            "description": "When set to true, this operation will return all non-masking attributes from parent folders as well as entire space attributes. When the same attribute is set on multiple levels, the lowest level attribute value will be returned (e.g. attribute set on file will have precedence over attribute set on folder).\n",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getFileAttributes path='/My Space 1/Folder 2/file3.txt' attribute=license extended=true"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_file_attribute",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "attributes",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "set_file_attribute",
+        "summary": "Set file attribute",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by\nsending:\n```\n mode:=0777\n```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes\nare accessed by setting `extended` flag in the request query to `true`.\n",
+        "description": "This method allows to set a value of a regular and extended file attributes.\n\nFor regular file attributes, currently only POSIX mode can be changed by sending:\n  ```\n  { \"mode\": \"0777\" }\n  ```\nwhere the POSIX mode is specified in octal notation.\n\nFor extended attributes any string value can be send. The exteded attributes are\naccessed by setting `extended` flag in the request query to `true`.\n\n***Example cURL requests***\n\n**Set file POSIX mode**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"mode\": \"0777\" }'\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt\"\n```\n\n**Set extended file attribute**\n```bash\ncurl --tlsv1.2 -X PUT -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"license\": \"CC-0\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true\"\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "File attributes where update successfuly."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "attribute",
+            "in": "body",
+            "description": "Attribute name and value.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Whether this is an extended or regular attribute. Default is false.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli setFileAttribute path='/My Space 1/Folder 2/file3.txt' license==CC-0 extended=true"
+          }
+        ]
+      }
+    },
+    "/metadata/{path}": {
+      "get": {
+        "operationId": "get_file_metadata",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_metadata",
+        "summary": "Get file metadata",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or\nspace. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \"\nheader in the request, or from the optional `metadata_type` query parameter.\nProper accept header can be set  using `-ac json` or `-ac rdf` switches).\n\nBy default the method returns the complete metadata document of requested\ntype. It is possible to request only a part of the document by specifying\n`filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object,\n                separated by `.`, array elements should be expressed as\n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
+        "description": "This method returns the metadata document for specified file, folder or space. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for File2.txt**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Get specific JSON value from metadata document**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt?filter_type=keypath&filter=key1.key2.[2].key3\n```\n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the\nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n",
+        "produces": [
+          "application/json",
+          "application/rdf+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Metadata returned successfully.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File or folder path or space name (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metadata_type",
+            "in": "query",
+            "description": "Type of metadata backend (if not specified in `Accept` header)",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "JSON",
+              "RDF"
+            ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter to apply to the metadata document before returning.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inherited",
+            "in": "query",
+            "description": "When set to true, this operation will merge the metadata documents from parent folders as well as entire space into a single JSON or RDF document.\n",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli -ac json getFileMetadata path='/Space 1/Folder 2/file3.txt' inherited=false"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_file_metadata",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "set_file_metadata",
+        "summary": "Set file metadata",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method allows to set specific metadata document for a file, folder or\nspace specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the\n\"Content-type: \" header in the request (which can be set using\n`-ct json` or `-ct rdf` switches), or from the optional\n`metadata_type` query parameter. This operation will replace the entire\nmetadata document in the specified metadata backend.\n",
+        "description": "This method allows to set specific metadata document for a file, folder or space specified in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1/File2.txt\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata/MySpace1\n```\n",
+        "consumes": [
+          "application/json",
+          "application/rdf+xml"
+        ],
+        "responses": {
+          "204": {
+            "description": "Metadata document updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File or folder path or space name (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metadata_type",
+            "in": "query",
+            "description": "Type of metadata backend (if not specified in `Accept` header)",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "JSON",
+              "RDF"
+            ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The metadata document in one of accepted formats.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat metadata.rdf | oneprovider-rest-cli -ct rdf setFileMetadata path='/Space 1/Folder 2/file3.txt' -"
+          }
+        ]
+      }
+    },
+    "/metadata-id/{id}": {
+      "get": {
+        "operationId": "get_file_metadata_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_metadata_by_id",
+        "summary": "Get file metadata by ID",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns the metadata document for specified file, folder or\nspace by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \"\nheader in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested\ntype. It is possible to request only a part of the document by specifying\nfilter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object,\n                separated by `.`, array elements should be expressed as\n                `[i]` (e.g. `key1.key2.[2].key3`)\n",
+        "description": "This method returns the metadata document for specified file, folder or space by ID. Onedata supports multiple metadata backends in parallell.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Accept: \" header in the request, or from the optional `metadata_type` query parameter.\n\nBy default the method returns the complete metadata document of requested type. It is possible to request only a part of the document by specifying `filter_type` and `filter` attributes in the query.\n\nSupported filter types are currently supported only for JSON backend:\n  * **keypath** - list of JSON keys which point to requested JSON object, separated by `.`, array elements should be expressed as `[i]` (e.g. `key1.key2.[2].key3`)\n\n\n***Example cURL requests***\n\n**Get complete RDF metadata document for file**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/rdf+xml\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/6fd04d80-3856-4f82-8382-4fca29b1171d\n```\n\n**Get specific JSON value from metadata document**\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n-H \"Accept: application/json\" \\\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n\n**Set specific JSON value in metadata document using key path**\nIn this example the contents of the PUT body will be assigned the\nvalue of \"key3\" in the metadata document.\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{\"new_key\": \"new_value\"}'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/7f85c115-8631-4602-b7d5-47cd969280a2?filter_type=keypath&filter=key1.key2.[2].key3\n```\n",
+        "produces": [
+          "application/json",
+          "application/rdf+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Metadata returned successfully.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "File or folder path or space ID",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metadata_type",
+            "in": "query",
+            "description": "Type of metadata backend (if not specified in `Accept` header)",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "JSON",
+              "RDF"
+            ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter to apply to the metadata document before returning.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inherited",
+            "in": "query",
+            "description": "When set to true, this operation will merge the metadata documents from parent folders as well as entire space into a single JSON or RDF document.\n",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli -ac rdf getFileMetadata id=ASJHDJHASD7132nasdlASD"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "set_file_metadata_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "set_file_metadata_by_id",
+        "summary": "Set file metadata by ID",
+        "tags": [
+          "Data"
+        ],
+        "description": "This method allows to set specific metadata document for a file, folder or space specified by ID in the request path.\n\nThe currently supported metadata stores include:\n * JSON\n * RDF\n\nThe metadata source will be selected automatically based on the \"Content-type: \" header in the request, or from the optional `metadata_type` query parameter.\n\nThis operation will replace the entire metadata document in the specified metadata backend.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/json\" \\\n-d '{ \"key1\": { \"key2\": [\"val1\", \"val2\", \"val3\", \"val4\"] } }'\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/9e91571f-9dc9-4cea-a86a-9e6bae5aaaca\n```\n\n**Set RDF metadata for space from RDF file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/rdf+xml\" \\\n-d \"@./space1_dublincore.rdf\"\nhttps://$HOST:8443/api/v1/oneprovider/metadata-id/1e65d5f4-c49d-495a-a2b6-50acd02a25b1\n```\n",
+        "consumes": [
+          "application/json",
+          "application/rdf+xml"
+        ],
+        "responses": {
+          "204": {
+            "description": "Metadata document updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "File or folder path or space name (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metadata_type",
+            "in": "query",
+            "description": "Type of metadata backend (if not specified in `Accept` header)",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "JSON",
+              "RDF"
+            ]
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "description": "The type of filter to apply to the metadata document.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter allowing to set specific metadata document key.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The metadata document in one of accepted formats.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat metadata.json | oneprovider-rest-cli -ct json setFileMetadataById id=ALKSJDHKASD7687asDBASDDsd -"
+          }
+        ]
+      }
+    },
+    "/index": {
+      "get": {
+        "operationId": "get_space_indexes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "get_space_indexes",
+        "summary": "Get index list for space",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns the list of user defined index functions.\n\nThe result can be limited to specific space using query parameter `space_id`.\n",
+        "description": "This method returns the list of user defined index functions.\n\nThe result can be limited to specific space using query parameter `space_id`.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/index?space_id=2e462492-a4d7-46b9-8641-abfdf50f06af\n\n[\n  {\n    \"spaceId\": \"2e462492-a4d7-46b9-8641-abfdf50f06af\",\n    \"name\": \"My index\",\n    \"indexId\": \"fdecdf35-5e18-4a9b-a01a-1702acd4d274\"\n  }\n]\n```\n",
+        "produces": [
+          "application/json",
+          "application/rdf+xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Index list returned successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Index"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "space_id",
+            "in": "query",
+            "description": "Id of the space to query.",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getSpaceIndexes space_id=ASLDJLASKJDLADkhhasdaksdaADS"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "add_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "add_space_index",
+        "summary": "Create index for space",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching\nthrough data. Currently indexes are created per space, i.e. the `space_id`\nquery parameter is required.\n\nThe operation returns the created index ID in the response `Location`\nheader.\n",
+        "description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching through data.\n\nCurrently indexes are created per space, i.e. the `space_id` query parameter is required.\n\nThe operation returns the created index ID in the response `Location` header.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n-H \"Content-type: text/javascript\" \\\n-d \"@./my_index_1.js\"\nhttps://$HOST:8443/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47cd969280a2&name=MyIndex1\n```\n",
+        "consumes": [
+          "text/javascript"
+        ],
+        "responses": {
+          "204": {
+            "description": "Metadata document updated successfully.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The path to the index resource, including it's assigned identifier.\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "space_id",
+            "in": "query",
+            "description": "File or folder path or space id.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provided, an auto generated name will be assigned.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The index function.\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat index.js | oneprovider-rest-cli addSpaceIndex space_id=ASLDJLASKJDLADkhhasdaksdaADS name=MyIndex1 -"
+          }
+        ]
+      }
+    },
+    "/index/{iid}": {
+      "get": {
+        "operationId": "get_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "get_space_index",
+        "summary": "Get index",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
+        "description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n\n\nfunction(x) {\n  if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {\n    return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];\n  }\n  return null;\n}\n```\n",
+        "produces": [
+          "application/javascript"
+        ],
+        "responses": {
+          "200": {
+            "description": "Index source returned successfully.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "iid",
+            "in": "path",
+            "description": "Id of the index to return.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "update_space_index",
+        "summary": "Update index",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
+        "description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
+        "consumes": [
+          "application/javascript"
+        ],
+        "responses": {
+          "204": {
+            "description": "Index updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "iid",
+            "in": "path",
+            "description": "Id of the index to update.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The index function.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS -"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "update_space_index",
+        "summary": "Remove index",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method removes an existing index.\n",
+        "description": "This method removes an existing index.\n\n***Example cURL requests***\n\n**Remove existing index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST:8443/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
+        "consumes": [
+          "application/javascript"
+        ],
+        "responses": {
+          "204": {
+            "description": "Index removed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "iid",
+            "in": "path",
+            "description": "Id of the index to update.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli removeSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS"
+          }
+        ]
+      }
+    },
+    "/query-index/{iid}": {
+      "get": {
+        "operationId": "query_space_indexes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "query_space_indexes",
+        "summary": "Query index",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method returns the list of files which match the query on a\npredefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited\nto files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionaly, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\n\npossible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
+        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n**Get a 100 files from index skipping first 200**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?skip=200&limit=100\n\n[\n  \"30518c78-6def-40e0-9a85-c90e7efe7ffc\",\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"1af64b02-1bbd-48ad-a9ef-25e9af593391\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\",\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates located in Europe**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?bbox=81.008797,39.869301,27.636311,-31.266001\n\n[\n  \"5145c581-af6f-4add-b3c0-d6e0253e8862\",\n  \"6c2e5abd-0495-4fec-95b7-f8601e244b45\",\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Index list returned successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "iid",
+            "in": "path",
+            "description": "Id of the index to query.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "description": "Return the documents in descending by key order.",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Return only documents that match the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "keys",
+            "in": "query",
+            "description": "Return only documents that match any of the keys specified within the given array. Keys must be specified as a JSON array, escaped properly. Sorting is not applied when using this option.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of the returned documents to the specified number.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip this number of records before starting to return the results.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "startkey",
+            "in": "query",
+            "description": "Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "startkey_docid",
+            "in": "query",
+            "description": "Return records starting with the specified document ID.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey",
+            "in": "query",
+            "description": "Stop returning records when the specified key is reached. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey_docid",
+            "in": "query",
+            "description": "Stop returning records when the specified document ID is reached.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inclusive_end",
+            "in": "query",
+            "description": "Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "stale",
+            "in": "query",
+            "description": "Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.\n",
+            "type": "string",
+            "required": false,
+            "default": "update_after",
+            "enum": [
+              "ok",
+              "update_after",
+              "false"
+            ]
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)\n",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli querySpaceIndexes iid=ASJHDJHASD7132nasdlASD key=value1"
+          }
+        ]
+      }
+    },
+    "/replicas/{path}": {
+      "get": {
+        "operationId": "get_file_replicas",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "file_distribution",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_distribution",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get replicas by path",
+        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at\nthis provider.\n",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by path**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"784dae9d-34a3-4aef-ab4b-2c6c60b74e27\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"b296ab05-3d62-4755-be46-c57ced411ff1\"\n  }\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of file blocks stored at each provider.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileDistribution"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getFileReplicas path='/Space 1/Folder 2/file.txt' key=value1"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "replicate_file",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "replicate_file",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Replicate file or folder by path",
+        "x-bash-codegen-description": "Replicates a file to a specified provider. This operation is asynchronous\nas it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer ID."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "callback",
+            "in": "body",
+            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Callback"
+            }
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli replicateFile path='/Space 1/Folder 2/file.txt' provider_id=SADLKJHALSKDH88ASDLKJASD"
+          }
+        ]
+      }
+    },
+    "/replicas-id/{fid}": {
+      "get": {
+        "operationId": "get_file_replicas_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "file_distribution",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_file_distribution",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get replicas by ID",
+        "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at\nthis provider.\n",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by ID**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of file blocks stored at each provider.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileDistribution"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fid",
+            "in": "path",
+            "description": "The ID of the file",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getFileReplicasById fid=ASLDKAJSD764ASDLnaAsd"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "replicate_file_by_id",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "replicate_file",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Replicate file or folder by ID",
+        "x-bash-codegen-description": "Replicates a file with ID to a specified provider. This operation is\nasynchronous as it can take a long time depending on the size of the data\nto move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by ID to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by ID to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST:8443/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer ID."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fid",
+            "in": "path",
+            "description": "ID of the file.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "callback",
+            "in": "body",
+            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Callback"
+            }
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli replicateFileById fid=ASLDKAJSD764ASDLnaAsd provider_id=SADLKJHALSKDH88ASDLKJASD"
+          }
+        ]
+      }
+    },
+    "/transfers": {
+      "get": {
+        "operationId": "get_all_transfers",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "get_all_transfers",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get all transfers",
+        "x-bash-codegen-description": "Returns the list of all transfer IDs.\n",
+        "description": "Returns the list of all transfer IDs.\n\n***Example cURL requests***\n\n**List at most 3 active transfers**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/transfers?status=active&limit=3\"\n\n[\n  \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n  \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n  \"da426f74-5770-42a1-b799-354a3c4c154b\"\n]\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of transfer IDs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Allows to limit the returned transfers only to transfers with specific status.\n",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "scheduled",
+                "active",
+                "completed",
+                "cancelled",
+                "failed"
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Allows to limit the number of returned transfers only to the last N transfers.\n",
+            "type": "integer"
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getAllTransfers status=active limit=20"
+          }
+        ]
+      }
+    },
+    "/transfers/{tid}": {
+      "get": {
+        "operationId": "get_transfer_status",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "transfer",
+        "x-onedata-method": "get_transfer_status",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Get transfer status",
+        "x-bash-codegen-description": "Returns status of specific transfer. In case the transfer has been\nscheduled for entire folder, the result is a list of transfer statuses\nfor each item in the folder.\n",
+        "description": "Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n\n{\n  \"path\": \"/My Space 1/Folder2/file3.txt\",\n  \"status\": \"scheduled\",\n  \"targetProviderId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of transfer statuses.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileTransferStatus"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Transfer with provided ID was not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tid",
+            "in": "path",
+            "description": "Transfer ID.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli getTransferStatus tid=ASLDKAJSD764ASDLnaAsd"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "cancel_transfer",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "transfers",
+        "x-onedata-resource": "transfer",
+        "x-onedata-method": "cancel_transfer",
+        "tags": [
+          "Replication"
+        ],
+        "summary": "Cancel specific transfer",
+        "x-bash-codegen-description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer\nis already completed, canceled or failed.\n",
+        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n```\n",
+        "responses": {
+          "204": {
+            "description": "The transfer has been canceled."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Transfer with provided ID was not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tid",
+            "in": "path",
+            "description": "Transfer ID.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli cancelTransfer tid=ASLDKAJSD764ASDLnaAsd"
+          }
+        ]
+      }
+    },
+    "/metrics/space/{sid}": {
+      "get": {
+        "operationId": "get_space_metrics",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metrics",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_metrics",
+        "summary": "Get space metrics",
+        "tags": [
+          "Monitoring"
+        ],
+        "x-bash-codegen-description": "Returns space related metrics of specified type.\n",
+        "description": "Returns space related metrics of specified type.\n\n***Example cURL requests***\n\n**Get storage space used metrics**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space f4f1799f-4954-4d7a-bc31-630998883296; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 300\n      }\n    }\n}\n```\n",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The monitoring data retrieved in the form of RRD record exported to JSON or XML.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metrics"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "ID of a specific space for which the monitoring metrics should be retrieved",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metric",
+            "in": "query",
+            "description": "The type of metrics to retrieve.",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "storage_quota",
+              "storage_used",
+              "data_access",
+              "block_access",
+              "connected_users"
+            ]
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "The resolution of the monitoring data to return - default is 5m [5 minutes].",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "5m",
+              "1h",
+              "1d",
+              "1m"
+            ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli -ac json getSpaceMetrics sid=ASJHDJHASD7132nasdlASD metric=storage_quota step=5m"
+          }
+        ]
+      }
+    },
+    "/metrics/space/{sid}/user/{uid}": {
+      "get": {
+        "operationId": "get_space_user_metrics",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metrics",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_user_metrics",
+        "summary": "Get space user metrics",
+        "tags": [
+          "Monitoring"
+        ],
+        "x-bash-codegen-description": "Returns space related metrics of specified type for specific user.\n",
+        "description": "Returns space related metrics of specified type for specific user.\n\n***Example cURL requests***\n\n**Get user storage block access metrics with 1 hour resolution**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/metrics/space/fe14b4cc-bce0-4220-8394-a911d11a0a53/user/8fd85f71-3290-411d-ae3e-a65d48b5229c?metric=block_access&step=1h\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 3600\n      }\n    }\n}\n```\n",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "The monitoring data retrieved in the form of RRD record exported to JSON or XML.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metrics"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "ID of a specific space for which the monitoring metrics should be retrieved.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "ID of a specific user within a space for which the monitoring metrics should be limited to.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "metric",
+            "in": "query",
+            "description": "The type of metrics to retrieve.",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "storage_used",
+              "data_access",
+              "block_access"
+            ]
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "The resolution of the monitoring data to return - default is 5m [5 minutes].",
+            "type": "string",
+            "required": false,
+            "enum": [
+              "5m",
+              "1h",
+              "1d",
+              "1m"
+            ]
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli -ac xml getSpaceUserMetrics sid=ASJHDJHASD7132nasdlASD uid=ASD66ASDASDn7nasd metric=metadata_access_ops step=1h"
+          }
+        ]
+      }
+    },
+    "/changes/metadata/{sid}": {
+      "get": {
+        "operationId": "get_space_changes",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "events",
+        "x-onedata-resource": "space",
+        "x-onedata-method": "get_space_changes",
+        "tags": [
+          "Monitoring"
+        ],
+        "summary": "Subscribe to file events",
+        "x-bash-codegen-description": "This method subscribes through HTTP streaming on events of specific type\nfor a given space.\n\nUntil the connection is kept alive, the events will be streamed to\nsubscribers as soon as they are occur. The optional `timeout` parameter\ncan be used to automatically disconnect  when no events occur in a\ngiven time window.\n",
+        "description": "This method subscribes through HTTP streaming on events of specific type for a given space.\n\nUntil the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.\n\n***Example cURL requests***\n\n**Listen to space change events**\n```bash\ncurl --tlsv1.2 -N -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST:8443/api/v3/oneprovider/changes/metadata/MySpace1\"\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription to events has been successful.",
+            "schema": {
+              "$ref": "#/definitions/FileMetadataChange"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Oneprovider REST API not available.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "description": "Optional timeout in milliseconds, which allows to automatically break connection when no event occured in specified time. By default the timeout is unlimited.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "last_seq",
+            "in": "query",
+            "description": "Last known file metadata sequence number\n",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli setSpaceChanges sid=ASLJDJASHD timeout=10000 last_seq=124721"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "description": "Generic error model for REST requests.",
+      "properties": {
+        "error": {
+          "description": "Identifier representing internal error code.",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Detailed error message.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "error": "invalid_token",
+        "error_description": "Provided token could not be validated."
+      }
+    },
+    "FileDistribution": {
+      "type": "array",
+      "description": "Describes distribution of a single file among different storage providers. For each provider, this data type provides a list of byte ranges  (specified as a list of pairs [offset, size]), which describe which blocks of a given file are stored at which provider.\n",
+      "items": {
+        "type": "object",
+        "properties": {
+          "providerId": {
+            "type": "string",
+            "description": "ID of the provider"
+          },
+          "blocks": {
+            "type": "array",
+            "description": "The list of blocks in byte ranges stored at that provider.",
+            "items": {
+              "type": "array",
+              "description": "File block specified as a pair [offset, size].",
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2
+            }
+          }
+        }
+      },
+      "example": [
+        {
+          "providerId": "b4687585-57d5-4edb-a192-0f3b1cab636b",
+          "blocks": [
+            [
+              0,
+              4
+            ],
+            [
+              10,
+              20
+            ]
+          ]
+        },
+        {
+          "providerId": "a0274289-6f8a-482f-86f8-4a518760749c",
+          "blocks": [
+            [
+              1024,
+              2048
+            ],
+            [
+              4096,
+              1048576
+            ]
+          ]
+        }
+      ]
+    },
+    "FileAttribute": {
+      "type": "object",
+      "description": "File attribute.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the attribute (e.g. 'mode')"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the file attribute. Can be"
+        }
+      },
+      "example": {
+        "name": "mode",
+        "value": "0444"
+      }
+    },
+    "FileTransferStatus": {
+      "type": "object",
+      "description": "File transfer status.",
+      "properties": {
+        "fileId": {
+          "type": "string",
+          "description": "Id of the file or directory being transferred."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the file or folder in the virtual file system."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the transfer.",
+          "enum": [
+            "scheduled",
+            "active",
+            "completed",
+            "cancelled",
+            "failed"
+          ]
+        },
+        "targetProviderId": {
+          "type": "string",
+          "description": "The ID of the target provider to which the replication was requested."
+        },
+        "progress": {
+          "type": "integer",
+          "description": "The progress of the transfer in %."
+        }
+      },
+      "example": {
+        "path": "/My Space 1/Folder2/file3.txt",
+        "status": "scheduled",
+        "targetProviderId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8"
+      }
+    },
+    "FilePath": {
+      "description": "Mapping between file Id and file path.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of the file or folder."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the file or folder."
+        }
+      }
+    },
+    "Callback": {
+      "type": "object",
+      "description": "Callback definition.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL which should be called, when requested action completed."
+        }
+      },
+      "example": {
+        "url": "http://monitoring.example.com:8080/notifications"
+      }
+    },
+    "FileMetadata": {
+      "type": "object",
+      "description": "File or directory metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "File or directory path."
+        },
+        "type": {
+          "type": "string",
+          "description": "Determines whether this a regular file or a folder.",
+          "enum": [
+            "reg",
+            "dir",
+            "lnk"
+          ]
+        },
+        "mode": {
+          "type": "integer",
+          "description": "POSIX file permissions in decimal format"
+        },
+        "mtime": {
+          "type": "integer",
+          "description": "Last modification timestamp."
+        },
+        "atime": {
+          "type": "integer",
+          "description": "Last access timestamp."
+        },
+        "ctime": {
+          "type": "integer",
+          "description": "Creation timestamp."
+        },
+        "uid": {
+          "type": "string",
+          "description": "ID of the owner of this file"
+        },
+        "size": {
+          "type": "integer",
+          "description": "Size of the file in bytes."
+        },
+        "version": {
+          "type": "integer",
+          "description": "Version of the current file snaphost."
+        },
+        "is_scope": {
+          "type": "boolean",
+          "description": "True only when this is a space folder."
+        },
+        "scope": {
+          "type": "string",
+          "description": "ID of the space in which this file is contained."
+        },
+        "xattrs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileAttribute"
+          }
+        }
+      },
+      "example": {
+        "type": "reg",
+        "mode": 511,
+        "atime": 1464958683054,
+        "mtime": 1464958683051,
+        "ctime": 1464958681054,
+        "uid": "16cc75ea-7fc4-4cd1-9cc8-12fa31595c50",
+        "size": 1024,
+        "version": 1,
+        "is_scope": false,
+        "scope": "4db2db29-7b96-4eda-954b-8bc43b0e1d5e",
+        "xattrs": [
+          {
+            "name": "mime_type",
+            "value": "application/text"
+          },
+          {
+            "name": "dc.language",
+            "value": "en"
+          },
+          {
+            "name": "dc.identifier",
+            "value": "doi:10.1002/0470123"
+          }
+        ]
+      }
+    },
+    "FileMetadataChange": {
+      "type": "object",
+      "description": "File metadata record",
+      "properties": {
+        "seq": {
+          "type": "string",
+          "description": "Sequence number (version) of the metadata document."
+        },
+        "file_id": {
+          "type": "string",
+          "description": "Unique ID of the file."
+        },
+        "file_path": {
+          "type": "string",
+          "description": "Absolute path to the file (starting with the Space name)."
+        },
+        "deleted": {
+          "type": "boolean",
+          "description": "If true, it means the file has been already deleted."
+        },
+        "changes": {
+          "type": "array",
+          "description": "The list of changes representing current status of the file metadata. If only 1 change is in the list, then it represents the current metadata state. If more than 1 change is present, it means there is a conflict which needs to be resolved.\n",
+          "items": {
+            "$ref": "#/definitions/FileMetadata"
+          }
+        }
+      },
+      "example": {
+        "seq": 123,
+        "file_id": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
+        "file_path": "/Space1/folder2/file1.txt",
+        "name": "file1.txt",
+        "deleted": false,
+        "changes": [
+          {
+            "type": "reg",
+            "mode": 511,
+            "atime": 1464958683054,
+            "mtime": 1464958683051,
+            "ctime": 1464958681054,
+            "uid": "f986246a-4d95-46ae-b3b9-e00172767e88",
+            "size": 1024,
+            "version": 1,
+            "is_scope": false,
+            "scope": "a0274289-6f8a-482f-86f8-4a518760749c",
+            "xattrs": [
+              {
+                "name": "mime_type",
+                "value": "application/text"
+              },
+              {
+                "name": "dc.language",
+                "value": "en"
+              },
+              {
+                "name": "dc.identifier",
+                "value": "doi:10.1002/0470123"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Space": {
+      "type": "object",
+      "description": "Basic information about space.",
+      "properties": {
+        "spaceId": {
+          "type": "string",
+          "description": "ID of the space."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the space."
+        },
+        "providers": {
+          "type": "array",
+          "description": "The list of providers who support this space.",
+          "items": {
+            "$ref": "#/definitions/Provider"
+          }
+        }
+      },
+      "example": {
+        "spaceId": "cda5d1bd-ca13-40ef-95e6-51fc1cc3b322",
+        "name": "My Space 1",
+        "providers": [
+          {
+            "providerId": "c40a3a39-0bbc-41cd-878f-5591f8c55014",
+            "providerName": "MyPrivateCloud"
+          },
+          {
+            "providerId": "27d58af6-82ef-4bdd-a596-c4ff080fbde6",
+            "providerName": "PublicCloud1"
+          }
+        ]
+      }
+    },
+    "Provider": {
+      "type": "object",
+      "description": "Provider instance definitions.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The ID of the provider supporting the space."
+        },
+        "providerName": {
+          "type": "string",
+          "description": "The name of the provider"
+        }
+      },
+      "example": {
+        "providerId": "c40a3a39-0bbc-41cd-878f-5591f8c55014",
+        "providerName": "MyFavouriteCloudProvider"
+      }
+    },
+    "Metrics": {
+      "type": "object",
+      "description": "Export of monitoring metrics for specific provider.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The ID of the provider."
+        },
+        "rrd": {
+          "description": "RRD database export.",
+          "$ref": "#/definitions/RRD"
+        }
+      },
+      "example": {
+        "providerId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
+        "rrd": {
+          "about": "RRDtool graph JSON output",
+          "meta": {
+            "start": 1465466700,
+            "end": 1465553100,
+            "step": 300,
+            "legend": [
+              "storage_free"
+            ]
+          },
+          "data": [
+            [
+              5.6435528434
+            ],
+            [
+              2.6435528434
+            ],
+            [
+              4.6435528434
+            ]
+          ]
+        }
+      }
+    },
+    "RRD": {
+      "type": "object",
+      "description": "RRD database export.",
+      "properties": {
+        "about": {
+          "type": "string",
+          "description": "Name of the RRD database"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "number",
+              "description": "Start timestamp of the metrics."
+            },
+            "end": {
+              "type": "number",
+              "description": "End timestamp of the metrics."
+            },
+            "step": {
+              "type": "number",
+              "description": "Step of the metrics."
+            },
+            "legend": {
+              "type": "array",
+              "description": "Names of the columns in the exported array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "example": {
+        "about": "RRDtool graph JSON output",
+        "meta": {
+          "start": 1465466700,
+          "end": 1465553100,
+          "step": 300,
+          "legend": [
+            "space s1; metric block_access; user u1; oneprovider ID p1; block_access_read[iops/s]",
+            "space s1; metric block_access; user u1; oneprovider ID p1; block_access_write[iops/s]"
+          ]
+        },
+        "data": [
+          [
+            null,
+            null
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            5.6435528434,
+            2.6435528434
+          ],
+          [
+            null,
+            null
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    "Index": {
+      "type": "object",
+      "description": "The basic index information.",
+      "properties": {
+        "indexId": {
+          "description": "The unique identifier of the index.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The user friendly index name.",
+          "type": "string"
+        },
+        "spaceId": {
+          "description": "The space on which the index is defined.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "indexId",
+        "name",
+        "spaceId"
+      ],
+      "example": {
+        "indexId": "c9e7a9d6-8d09-42d7-ab5e-d48b86ed645e",
+        "name": "My Index 1",
+        "spaceId": "ee4ac5df-095c-4760-bee9-a9bd2f37e508"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Data",
+      "description": "Space and file related operations"
+    },
+    {
+      "name": "Replication",
+      "description": "Replication, file distribution and transfer control operations"
+    },
+    {
+      "name": "Monitoring",
+      "description": "Metrics and change events monitoring related operations"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Data access and management",
+      "tags": [
+        "Data"
+      ]
+    },
+    {
+      "name": "Replication and transfer control",
+      "tags": [
+        "Replication"
+      ]
+    },
+    {
+      "name": "Monitoring and metrics",
+      "tags": [
+        "Monitoring"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "X-Auth-Token",
+      "in": "header"
+    },
+    "basic": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basic": []
+    },
+    {
+      "api_key": []
+    }
+  ]
+}
