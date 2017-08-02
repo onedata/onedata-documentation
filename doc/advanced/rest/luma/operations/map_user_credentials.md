@@ -58,11 +58,12 @@ json :
   "userDetails" : {
     "name" : "User One",
     "connectedAccounts" : [ {
-      "providerId" : "ASDKLJH859876ASD87687ASDU",
+      "providerId" : "github",
       "userId" : "ASDJH65675ASD765ASD890ASD6",
       "login" : "user1",
       "name" : "User One",
-      "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ]
+      "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ],
+      "groups" : [ "vo:example-org.eu/tm:members/member", "vo:example-org.eu/rl:administration/admin" ]
     } ],
     "alias" : "user.one",
     "emailList" : [ "user.1@example2.com", "user.one@example2.com", "user.i@example2.com" ]
@@ -77,7 +78,8 @@ json :
 ```
 json :
 {
-  "type" : "string"
+  "type" : "string",
+  "name" : "string"
 }
 ```
 

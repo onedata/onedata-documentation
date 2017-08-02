@@ -15,11 +15,11 @@ User details needed for user mapping.
 **Example**
 ```
 {
-  "id" : "ASDJH65675ASD765ASD890ASD6",
+  "id" : "9743a66f914cc249efca164485a19c5c",
   "name" : "user1",
   "connectedAccounts" : [ {
-    "providerId" : "ASDKLJH859876ASD87687ASDU",
-    "userId" : "ASDJH65675ASD765ASD890ASD6",
+    "providerId" : "github",
+    "userId" : "5c28904a-124a-4035-853c-36938143dd4e",
     "login" : "user1",
     "name" : "User One",
     "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ]

@@ -1,6 +1,6 @@
 
 <a name="ceph"></a>
-### Ceph
+### ceph
 *Polymorphism* : Inheritance  
 *Discriminator* : type
 
@@ -8,7 +8,8 @@
 |Name|Description|Schema|
 |---|---|---|
 |**key**  <br>*required*|Ceph user key.|string|
-|**type**  <br>*required*|Type of storage.|enum (Posix, Ceph, S3, Swift)|
+|**name**  <br>*optional*|Name of storage.|string|
+|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift)|
 |**username**  <br>*required*|Ceph user name.|string|
 
 

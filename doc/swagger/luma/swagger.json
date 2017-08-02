@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/luma",
   "info": {
-    "version": "17.06.0-beta6",
+    "version": "17.06.0-rc2",
     "title": "LUMA",
     "description": "# Overview\n\nLUMA (Local User MApping) is a REST server that exposes simple REST API that can be used to map users\n(of any system/kind) to storage specific users, in the process authorizing them with the storage.\nNew storage types are added by means of plugin system of generators. A generator is responsible for:\nmapping users to storage specific users creating a user credentials for accessing the actual storage\n\nAs of now there are four kinds of generators implemented in LUMA:\n * Posix\n * Ceph\n * Amazon S3\n * Openstack Swift\n\nLUMA is written using [Flask](http://flask.pocoo.org/) framework and uses SQLite backend to store information about user credentials.\n\nMore information: [https://github.com/onedata/luma](https://github.com/onedata/luma)\n",
     "contact": {
@@ -81,6 +81,68 @@
           }
         ]
       }
+    },
+    "/resolve_user_identity": {
+      "post": {
+        "summary": "Resolve user identity",
+        "description": "Returns the user identity from storage credentials.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "luma",
+        "x-onedata-resource": "user",
+        "operationId": "resolve_user_identity",
+        "tags": [
+          "LUMA"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User identity returned successfully.",
+            "schema": {
+              "$ref": "#/definitions/UserIdentity"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User credentials not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userStorageCredentials",
+            "description": "User storage credentials.",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserStorageCredentials"
+            },
+            "required": true
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -144,7 +206,7 @@
           "name": "User One",
           "connectedAccounts": [
             {
-              "providerId": "ASDKLJH859876ASD87687ASDU",
+              "providerId": "github",
               "userId": "ASDJH65675ASD765ASD890ASD6",
               "login": "user1",
               "name": "User One",
@@ -152,6 +214,10 @@
                 "user.1@example.com",
                 "user.one@example.com",
                 "user.i@example.com"
+              ],
+              "groups": [
+                "vo:example-org.eu/tm:members/member",
+                "vo:example-org.eu/rl:administration/admin"
               ]
             }
           ],
@@ -190,6 +256,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "groups": {
+          "type": "array",
+          "description": "A list of strings denoting user group memberships as acquired from the\nidentity provider. Memberships are in Onedata normalized form.\n",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -197,10 +270,11 @@
         "userId",
         "login",
         "name",
-        "emailList"
+        "emailList",
+        "groups"
       ],
       "example": {
-        "providerId": "ASDKLJH859876ASD87687ASDU",
+        "providerId": "github",
         "userId": "ASDJH65675ASD765ASD890ASD6",
         "login": "user1",
         "name": "User One",
@@ -208,6 +282,10 @@
           "user.1@example.com",
           "user.one@example.com",
           "user.i@example.com"
+        ],
+        "groups": [
+          "vo:example-org.eu/tm:members/member",
+          "vo:example-org.eu/rl:administration/admin"
         ]
       }
     },
@@ -243,12 +321,12 @@
         }
       },
       "example": {
-        "id": "ASDJH65675ASD765ASD890ASD6",
+        "id": "9743a66f914cc249efca164485a19c5c",
         "name": "user1",
         "connectedAccounts": [
           {
-            "providerId": "ASDKLJH859876ASD87687ASDU",
-            "userId": "ASDJH65675ASD765ASD890ASD6",
+            "providerId": "github",
+            "userId": "5c28904a-124a-4035-853c-36938143dd4e",
             "login": "user1",
             "name": "User One",
             "emailList": [
@@ -266,6 +344,24 @@
         ]
       }
     },
+    "UserIdentity": {
+      "type": "object",
+      "description": "User identity.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "Id of identity provider that was (or will be) used by subject user to log in\ninto onezone, identical to id specified in auth.config / saml.config.\nIf the user was created via onepanel, use the value \"onezone\".\n"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Id of user as recognized by the identity provider. If the user was created\nvia onepanel, use the userId from onepanel (can be checked using REST).\n"
+        }
+      },
+      "example": {
+        "providerId": "google",
+        "userId": "5484af38-8b5d-464f-bdd1-da9ef801090f"
+      }
+    },
     "UserStorageCredentials": {
       "type": "object",
       "description": "Generic storage credentials response type.",
@@ -275,18 +371,22 @@
           "type": "string",
           "description": "Type of storage.",
           "enum": [
-            "Posix",
-            "Ceph",
-            "S3",
-            "Swift"
+            "posix",
+            "ceph",
+            "s3",
+            "swift"
           ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of storage."
         }
       },
       "required": [
         "type"
       ]
     },
-    "Posix": {
+    "posix": {
       "allOf": [
         {
           "$ref": "#/definitions/UserStorageCredentials"
@@ -315,7 +415,7 @@
         "gid": 123
       }
     },
-    "S3": {
+    "s3": {
       "allOf": [
         {
           "$ref": "#/definitions/UserStorageCredentials"
@@ -344,7 +444,7 @@
         "secretKey": "ASDASDJHVASDLKJAHSDLKJ7657576ASDFKJAHSD"
       }
     },
-    "Ceph": {
+    "ceph": {
       "allOf": [
         {
           "$ref": "#/definitions/UserStorageCredentials"
@@ -373,7 +473,7 @@
         "key": "LKAJHFLKJHASD9879ASDASDBNASD"
       }
     },
-    "Swift": {
+    "swift": {
       "allOf": [
         {
           "$ref": "#/definitions/UserStorageCredentials"

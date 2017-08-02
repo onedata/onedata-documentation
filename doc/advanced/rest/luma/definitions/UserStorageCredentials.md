@@ -6,7 +6,8 @@ Generic storage credentials response type.
 
 |Name|Description|Schema|
 |---|---|---|
-|**type**  <br>*required*|Type of storage.|enum (Posix, Ceph, S3, Swift)|
+|**name**  <br>*optional*|Name of storage.|string|
+|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift)|
 
 
 
