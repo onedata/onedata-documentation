@@ -100,7 +100,7 @@ with pre-configured shell with full help on the APIs and autocomplete for
 operations and attributes.
 
 ```
-docker run -it onedata/rest-cli:17.06.0-beta6
+docker run -it onedata/rest-cli:17.06.0-rc2
 ```
 
 We have also prepared tutorials which show how to use this API in practice:
