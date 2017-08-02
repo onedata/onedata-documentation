@@ -14,6 +14,7 @@ This section provides detailed Onedata documentation necessary from the users pe
 * [Replication and transfer management](using_onedata/replication_management.md)
 * [Metadata](using_onedata/metadata.md)
 * [Oneclient command line interface](using_onedata/oneclient.md)
+* [Docker volume plugin](using_onedata/docker_volume_plugin.md)
 * [Shares](using_onedata/shares.md)
 * [Handle services](using_onedata/handle_services.md)
 * [Using Onedata REST from command line](using_onedata/using_onedata_from_cli.md)
