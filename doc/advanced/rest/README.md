@@ -6,9 +6,13 @@ Onedata provides comprehensive REST API for all of it's main components:
 * [Onepanel](onepanel/overview.md)
 * [LUMA](luma/overview.md)
 
-The API's are defined using [Open API](https://openapis.org/) specification standard, based on [Swagger](http://swagger.io/). Each Onedata service has a separate Swagger REST specification in JSON. Below you can download Swagger JSON specification for each of Onedata services in specific versions:
+The API's are defined using [Open API](https://openapis.org/) specification
+standard, based on [Swagger](http://swagger.io/). Each Onedata service has a
+separate Swagger REST specification in JSON. Below you can download Swagger
+JSON specification for each of Onedata services in specific versions:
 
 * Onezone
+    * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
     * [17.06.0-beta2](../../swagger/17.06.0-beta2/onezone/swagger.json)
     * [3.0.0-rc15](../../swagger/3.0.0-rc15/onezone/swagger.json)
@@ -17,6 +21,7 @@ The API's are defined using [Open API](https://openapis.org/) specification stan
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/onezone/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/onezone/swagger.json)
 * Oneprovider
+    * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
     * [17.06.0-beta2](../../swagger/17.06.0-beta2/onezone/swagger.json)
     * [3.0.0-rc15](../../swagger/3.0.0-rc15/onezone/swagger.json)
@@ -25,6 +30,7 @@ The API's are defined using [Open API](https://openapis.org/) specification stan
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/oneprovider/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/oneprovider/swagger.json)
 * Onepanel
+    * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
     * [17.06.0-beta2](../../swagger/17.06.0-beta2/onezone/swagger.json)
     * [3.0.0-rc15](../../swagger/3.0.0-rc15/onezone/swagger.json)
@@ -33,6 +39,7 @@ The API's are defined using [Open API](https://openapis.org/) specification stan
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/onepanel/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/onepanel/swagger.json)
 * LUMA
+    * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
     * [17.06.0-beta2](../../swagger/17.06.0-beta2/onezone/swagger.json)
     * [3.0.0-rc15](../../swagger/3.0.0-rc15/onezone/swagger.json)
