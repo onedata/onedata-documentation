@@ -61,6 +61,8 @@ In order to check that the service is running properly, the following command
 can be used and the expected output should look similar to this example:
 
 ```
+$ systemctl status docker-volume-onedata.service
+
 ● docker-volume-onedata.service - Onedata Docker volume plugin
    Loaded: loaded (/usr/lib/systemd/system/docker-volume-onedata.service; disabled; vendor preset: enabled)
    Active: active (running) since Wed 2017-08-02 11:08:59 CEST; 1h 56min ago
