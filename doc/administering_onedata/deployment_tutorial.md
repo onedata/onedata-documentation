@@ -20,7 +20,7 @@ In case of Docker deployments the only prerequisites are:
 
 In case of installation using packages, please make sure that you will be installing Onedata services on one of our supported platforms:
 - Fedora 23
-- Ubuntu 15.10, 16.04
+- Ubuntu 16.04
 
 
 To install a complete Onedata deployment, start with [Onezone setup tutorial](onezone_tutorial.md).
