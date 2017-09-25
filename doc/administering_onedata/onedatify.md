@@ -26,11 +26,11 @@ Go the main Onezone interface and select `DATA SPACE MANAGEMENT->Create new spac
 
 <p align="center"> <img src="../img/admin/onedatify_create_space.png"> </p>
 
-### Prepare host certificates
-In case you have certificates for the host machine were Oneprovider will be installed,
+### Setup target Oneprovider host certificate
+In case you have certificate for the host machine were Oneprovider will be installed,
 place place them in some folder (the script will ask for these paths later).
 
-Certificates can be also easily generated using Let's Encrypt service. First install 
+Certificate can be also easily generated using Let's Encrypt service. First install 
 `certbot` tool by following the steps described [here](https://certbot.eff.org/) 
 for your specific distribution.
 
@@ -39,7 +39,7 @@ Then simply invoke:
 sudo certbot certonly --standalone -d $ONEPROVIDER_DOMAIN -d www.$ONEPROVIDER_DOMAIN
 ```
 
-### Generate oneline Onedatify invocation in Onezone
+### Generate oneline Onedatify command in Onezone
 The next step depends whether the Oneprovider should be deployed with empty storage
 attached, or whether it should automatically scan legacy filesystem and expose it's
 contents via the space.
