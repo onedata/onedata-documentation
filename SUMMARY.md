@@ -32,6 +32,7 @@
    * [Installation tutorial](doc/administering_onedata/deployment_tutorial.md)
       * [Onezone setup](doc/administering_onedata/onezone_tutorial.md)
       * [Oneprovider setup](doc/administering_onedata/oneprovider_tutorial.md)
+      * [Onedatify](doc/administering_onedata/onedatify.md)
    * [Administrator manual](Administrator manual)
       * [Creating Local Users](doc/administering_onedata/creating_user_accounts.md)
       * [OpenID Configuration](doc/administering_onedata/openid_configuration.md)
