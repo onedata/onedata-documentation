@@ -24,5 +24,7 @@
           * [Get replicas by ID](doc/advanced/rest/oneprovider/operations/get_file_replicas_by_id.md)
           * [Get replicas by path](doc/advanced/rest/oneprovider/operations/get_file_replicas.md)
           * [Get transfer status](doc/advanced/rest/oneprovider/operations/get_transfer_status.md)
+          * [Remove existing replica by file ID](doc/advanced/rest/oneprovider/operations/delete_replica_by_id.md)
+          * [Remove existing replica by file path](doc/advanced/rest/oneprovider/operations/delete_replica.md)
           * [Replicate file or folder by ID](doc/advanced/rest/oneprovider/operations/replicate_file_by_id.md)
           * [Replicate file or folder by path](doc/advanced/rest/oneprovider/operations/replicate_file.md)

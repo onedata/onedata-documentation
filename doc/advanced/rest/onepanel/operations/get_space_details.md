@@ -58,14 +58,16 @@ json :
   "mountInRoot" : true,
   "storageImport" : {
     "strategy" : "string",
-    "maxDepth" : 0
+    "maxDepth" : 0,
+    "syncAcl" : true
   },
   "storageUpdate" : {
     "strategy" : "string",
     "maxDepth" : 0,
     "scanInterval" : 0,
     "writeOnce" : true,
-    "deleteEnable" : true
+    "deleteEnable" : true,
+    "syncAcl" : true
   }
 }
 ```
