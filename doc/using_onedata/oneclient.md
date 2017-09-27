@@ -94,7 +94,7 @@ mounted spaces directly, which significantly improves IO performance as all read
 operations go directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
-  
+
   * `--force-proxy-io` - disables Direct IO mode, all data transfers will go via Oneprovider service
   * `--force-direct-io` - forces Direct IO mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
 
@@ -187,7 +187,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:17.06.0-rc2
+-d --name oneclient-1 onedata/oneclient:17.06.0-rc3
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
