@@ -54,6 +54,12 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 ]
 ```
 
+**Get file popularity for a specific space**
+In
+```bash
+curl --tlsv1.2 -sSk -X GET -H "X-Auth-Token: $TOKEN" "https://$HOST:8443/api/v3/oneprovider/query-index/file-popularity-9JO5__9nL1b01YEvwnft1r20gwgwlkIp19ND_n8hgxs?spatial=true&start_range=\[1,0,0,0,0,0\]&end_range=\[null,null,null,null,null,null\]"
+```
+
 
 ##### Parameters
 
@@ -62,6 +68,7 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 |**Path**|**iid**  <br>*required*|Id of the index to query.|string|--|
 |**Query**|**bbox**  <br>*optional*|Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)|string|--|
 |**Query**|**descending**  <br>*optional*|Return the documents in descending by key order.|boolean|`"false"`|
+|**Query**|**end_range**  <br>*optional*|Array specifying the range in spatial queries (e.g. `end_range=[null,null,null,null,null,null]`).|string|--|
 |**Query**|**endkey**  <br>*optional*|Stop returning records when the specified key is reached. Key must be specified as a JSON value.|string|--|
 |**Query**|**endkey_docid**  <br>*optional*|Stop returning records when the specified document ID is reached.|string|--|
 |**Query**|**inclusive_end**  <br>*optional*|Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.|boolean|`"false"`|
@@ -69,7 +76,9 @@ https://$HOST:8443/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf5
 |**Query**|**keys**  <br>*optional*|Return only documents that match any of the keys specified within the given array. Keys must be specified as a JSON array, escaped properly. Sorting is not applied when using this option.|string|--|
 |**Query**|**limit**  <br>*optional*|Limit the number of the returned documents to the specified number.|integer|--|
 |**Query**|**skip**  <br>*optional*|Skip this number of records before starting to return the results.|integer|--|
+|**Query**|**spatial**  <br>*optional*|Enable spatial type of query. When querying the file-popularity index, the `start_range` and<br>`end_range` constraints should be specified as 6-dimensional arrays, with the following fields:<br>`[SizeLowerLimit, LastOpenHoursEpochLowerLimit, TotalOpenLowerLimit, HoursOpenAvgLowerLimit, DayOpenAvgLowerLimit, MonthOpenAvgLowerLimit]`.|boolean|--|
 |**Query**|**stale**  <br>*optional*|Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.|enum (ok, update_after, false)|`"update_after"`|
+|**Query**|**start_range**  <br>*optional*|Array specifying the range in spatial queries (e.g. `start_range=[1,0,0,0,0,0]`).|string|--|
 |**Query**|**startkey**  <br>*optional*|Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.|string|--|
 |**Query**|**startkey_docid**  <br>*optional*|Return records starting with the specified document ID.|string|--|
 
@@ -105,6 +114,7 @@ json :
 {
   "bbox" : "string",
   "descending" : true,
+  "end_range" : "string",
   "endkey" : "string",
   "endkey_docid" : "string",
   "inclusive_end" : true,
@@ -112,7 +122,9 @@ json :
   "keys" : "string",
   "limit" : 0,
   "skip" : 0,
+  "spatial" : true,
   "stale" : "string",
+  "start_range" : "string",
   "startkey" : "string",
   "startkey_docid" : "string"
 }

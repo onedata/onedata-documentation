@@ -47,8 +47,10 @@ Replication, file distribution and transfer control operations
 |---|---|---|
 |[/replicas-id/{fid}](operations/replicate_file_by_id.md)|POST|Replicate file or folder by ID|
 |[/replicas-id/{fid}](operations/get_file_replicas_by_id.md)|GET|Get replicas by ID|
+|[/replicas-id/{fid}](operations/delete_replica_by_id.md)|DELETE|Remove existing replica by file ID|
 |[/replicas/{path}](operations/replicate_file.md)|POST|Replicate file or folder by path|
 |[/replicas/{path}](operations/get_file_replicas.md)|GET|Get replicas by path|
+|[/replicas/{path}](operations/delete_replica.md)|DELETE|Remove existing replica by file path|
 |[/transfers](operations/get_all_transfers.md)|GET|Get all transfers|
 |[/transfers/{tid}](operations/get_transfer_status.md)|GET|Get transfer status|
 |[/transfers/{tid}](operations/cancel_transfer.md)|DELETE|Cancel specific transfer|

@@ -7,7 +7,7 @@ GET /transfers/{tid}
 
 
 ##### Description
-Returns status of specific transfer. In case the transfer has been scheduled for entire folder, the result is a list of transfer statuses for each item in the folder.
+Returns status of specific transfer.
 
 ***Example cURL requests***
 
@@ -17,9 +17,21 @@ curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
 "https://$HOST:8443/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69"
 
 {
-  "path": "/My Space 1/Folder2/file3.txt",
-  "status": "scheduled",
-  "targetProviderId": "b3c85b99-44db-4277-8c66-2ccd50888565"
+  "transferStatus":"completed",
+  "targetProviderId":"HICATChd8wzbFmB6qfGby9VN7MfdXgI1qC4pULGVm8Q",
+  "startTime":1504688814,
+  "path":"/space/tmp",
+  "minHist":[419430400,1153433600,1258291200,1468006400,1048576000,1048576000,1048576000,1153433600,629145600,1258291200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  "lastUpdate":1504689377,
+  "invalidationStatus":"skipped",
+  "hrHist":[10485760000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  "filesTransferred":1,
+  "filesToTransfer":1,
+  "fileId":"00000000005CF4706775696423745F772D67686431633765446F4D76546D6F2D67575F3361737A7670486B477A7936587734507265584A7723394A4F355F5F396E4C31623031594576776E667431723230677767776C6B497031394E445F6E3868677873",
+  "dyHist":[10485760000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  "callback":null,
+  "bytesTransferred":10485760000,
+  "bytesToTransfer":10485760000
 }
 ```
 
