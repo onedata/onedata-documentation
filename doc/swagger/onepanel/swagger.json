@@ -3827,6 +3827,10 @@
         "maxDepth": {
           "type": "integer",
           "description": "Maximum depth of filesystem tree that will be traversed during storage synchronization.\n"
+        },
+        "syncAcl": {
+          "type": "boolean",
+          "description": "Flag that enables synchronization of NFSv4 ACLs.\n"
         }
       },
       "required": [
@@ -3856,6 +3860,10 @@
         "deleteEnable": {
           "type": "boolean",
           "description": "Flag determining that deletions of files will be detected.\n"
+        },
+        "syncAcl": {
+          "type": "boolean",
+          "description": "Flag that enables synchronization of NFSv4 ACLs.\n"
         }
       },
       "required": [
