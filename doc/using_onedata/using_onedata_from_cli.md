@@ -36,10 +36,10 @@ services:
 
 By default Docker is configured for the latest Onedata release, but it also
 contains clients for all previous releases, to switch to a specific release
-(for instance 17.06.0-beta5) use:
+(for instance 17.06.0-rc2) use:
 
 ```bash
-onedata-select-version 17.06.0-beta5
+onedata-select-version 17.06.0-rc2
 ```
 
 ## Authentication
@@ -201,7 +201,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash docker.onedata.org/oneclient:17.06.0-rc2
+docker run -it --entrypoint=/bin/bash onedata/oneclient:17.06.0-rc3
 ```
 
 ```bash
