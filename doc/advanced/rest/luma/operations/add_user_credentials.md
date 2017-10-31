@@ -1,27 +1,28 @@
 
-<a name="resolve_user_identity"></a>
-#### Resolve user identity
+<a name="add_user_credentials"></a>
+#### Add user credentials
 ```
-POST /resolve_user
+PUT /admin/users/{lid}/credentials
 ```
 
 
 ##### Description
-Returns the user identity from storage credentials.
+Adds user credentials to specific storage (optional).
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
+|**Path**|**lid**  <br>*required*|LUMA user Id.|integer|--|
+|**Body**|**credentials**  <br>*required*|Add user credentials for specific storage.|< [UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials) > array|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User identity returned successfully.|[UserIdentity](../definitions/UserIdentity.md#useridentity)|
+|**204**|User credentials added successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
@@ -33,41 +34,26 @@ Returns the user identity from storage credentials.
 * `application/json`
 
 
-##### Produces
-
-* `application/json`
-
-
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
-"/resolve_user"
+"/admin/users/0/credentials"
 ```
 
 
 ###### Request body
 ```
 json :
-{
+[ {
   "type" : "string",
   "id" : "string"
-}
+} ]
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "idp" : "google",
-  "userId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
-}
-```
-
 
 ###### Response 400
 ```

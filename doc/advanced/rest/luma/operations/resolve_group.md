@@ -1,27 +1,27 @@
 
-<a name="map_user_credentials"></a>
-#### Get user credentials
+<a name="resolve_group"></a>
+#### Resolve group identity
 ```
-POST /map_user_credentials
+POST /resolve_group
 ```
 
 
 ##### Description
-Returns user credentials to storage in JSON format.
+Returns group identity based on storage specific group id.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userCredentialsRequest**  <br>*required*|User credentials mapping request.|[UserCredentialsRequest](../definitions/UserCredentialsRequest.md#usercredentialsrequest)|--|
+|**Body**|**groupDetails**  <br>*required*|Group mapping request.|[GroupDetails](../definitions/GroupDetails.md#groupdetails)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User details returned successfully.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|
+|**200**|Group identity returned successfully.|[GroupIdentity](../definitions/GroupIdentity.md#groupidentity)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
@@ -43,7 +43,7 @@ Returns user credentials to storage in JSON format.
 ###### Request path
 ```
 json :
-"/map_user_credentials"
+"/resolve_group"
 ```
 
 
@@ -51,21 +51,9 @@ json :
 ```
 json :
 {
-  "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
-  "userDetails" : {
-    "id" : "ASDJASDNNALSDNALSDNALSDLASD",
-    "name" : "User One",
-    "connectedAccounts" : [ {
-      "idp" : "github",
-      "userId" : "ASDJH65675ASD765ASD890ASD6",
-      "login" : "user1",
-      "name" : "User One",
-      "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ],
-      "groups" : [ "vo:example-org.eu/tm:members/member", "vo:example-org.eu/rl:administration/admin" ]
-    } ],
-    "login" : "user.one",
-    "emailList" : [ "user.1@example2.com", "user.one@example2.com", "user.i@example2.com" ]
-  }
+  "id" : "Assdwe897Dsdjhx9",
+  "gid" : "1001",
+  "name" : "users"
 }
 ```
 
@@ -76,8 +64,8 @@ json :
 ```
 json :
 {
-  "type" : "string",
-  "id" : "string"
+  "idp" : "github",
+  "groupId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
 }
 ```
 

@@ -6,30 +6,25 @@ User credentials request - provides all necessary information to perform the acc
 
 |Name|Description|Schema|
 |---|---|---|
-|**spaceId**  <br>*required*|ID of user space for which storage mapping is requested.|string|
-|**storageId**  <br>*optional*|Storage ID (site specific), can be used interchangeably with `spaceType`.|string|
-|**storageName**  <br>*required*|Storage name (site specific).|string|
-|**storageType**  <br>*optional*|Storage ID (site specific), can be used interchangeably with `storageId`.|string|
+|**storageId**  <br>*required*|Storage ID (site specific).|string|
 |**userDetails**  <br>*required*||[UserDetails](UserDetails.md#userdetails)|
 
 **Example**
 ```
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
-  "storageName" : "NFS",
-  "storageType" : "posix",
-  "spaceId" : "KXIK8S8CLEHXYX7NE2J9QU31",
   "userDetails" : {
+    "id" : "ASDJASDNNALSDNALSDNALSDLASD",
     "name" : "User One",
     "connectedAccounts" : [ {
-      "providerId" : "github",
+      "idp" : "github",
       "userId" : "ASDJH65675ASD765ASD890ASD6",
       "login" : "user1",
       "name" : "User One",
       "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ],
       "groups" : [ "vo:example-org.eu/tm:members/member", "vo:example-org.eu/rl:administration/admin" ]
     } ],
-    "alias" : "user.one",
+    "login" : "user.one",
     "emailList" : [ "user.1@example2.com", "user.one@example2.com", "user.i@example2.com" ]
   }
 }

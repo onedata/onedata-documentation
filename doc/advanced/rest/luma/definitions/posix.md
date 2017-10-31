@@ -7,10 +7,11 @@
 
 |Name|Description|Schema|
 |---|---|---|
-|**gid**  <br>*required*|POSIX user group ID in the local system.|string|
-|**name**  <br>*optional*|Name of storage.|string|
-|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift)|
-|**uid**  <br>*required*|POSIX user ID in the local system.|string|
+|**gid**  <br>*optional*|POSIX user group ID in the local system.|string|
+|**id**  <br>*required*|Storage Id.|string|
+|**name**  <br>*optional*|Username for POSIX compatible ACL's.|string|
+|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift, glusterfs)|
+|**uid**  <br>*optional*|POSIX user ID in the local system.|string|
 
 
 

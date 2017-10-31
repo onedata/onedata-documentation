@@ -1,39 +1,35 @@
 
-<a name="resolve_user_identity"></a>
-#### Resolve user identity
+<a name="get_group_mapping"></a>
+#### Get group mapping
 ```
-POST /resolve_user
+GET /admin/{idp}/groups/{groupId}
 ```
 
 
 ##### Description
-Returns the user identity from storage credentials.
+Returns group details known by LUMA.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
+|**Path**|**groupId**  <br>*required*|Id of a group as recognized by a specific identity provider.|string|--|
+|**Path**|**idp**  <br>*required*|Id of identity provider that was (or will be) used by subject user to log in into onezone, identical to id specified in auth.config / saml.config.|string|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User identity returned successfully.|[UserIdentity](../definitions/UserIdentity.md#useridentity)|
+|**200**|Group details returned successfully.|< [GroupDetails](../definitions/GroupDetails.md#groupdetails) > array|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
+|**404**|Group credentials not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Consumes
-
-* `application/json`
-
-
-##### Produces
 
 * `application/json`
 
@@ -43,17 +39,7 @@ Returns the user identity from storage credentials.
 ###### Request path
 ```
 json :
-"/resolve_user"
-```
-
-
-###### Request body
-```
-json :
-{
-  "type" : "string",
-  "id" : "string"
-}
+"/admin/string/groups/string"
 ```
 
 
@@ -62,10 +48,7 @@ json :
 ###### Response 200
 ```
 json :
-{
-  "idp" : "google",
-  "userId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
-}
+"array"
 ```
 
 

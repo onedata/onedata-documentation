@@ -1,27 +1,27 @@
 
-<a name="resolve_user_identity"></a>
-#### Resolve user identity
+<a name="get_user_details"></a>
+#### Get user details
 ```
-POST /resolve_user
+GET /admin/users/{lid}
 ```
 
 
 ##### Description
-Returns the user identity from storage credentials.
+Returns user details known by LUMA.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
+|**Path**|**lid**  <br>*required*|LUMA user Id.|integer|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User identity returned successfully.|[UserIdentity](../definitions/UserIdentity.md#useridentity)|
+|**200**|User details returned successfully.|[UserDetails](../definitions/UserDetails.md#userdetails)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
 |**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
@@ -33,27 +33,12 @@ Returns the user identity from storage credentials.
 * `application/json`
 
 
-##### Produces
-
-* `application/json`
-
-
 ##### Example HTTP request
 
 ###### Request path
 ```
 json :
-"/resolve_user"
-```
-
-
-###### Request body
-```
-json :
-{
-  "type" : "string",
-  "id" : "string"
-}
+"/admin/users/0"
 ```
 
 
@@ -63,8 +48,27 @@ json :
 ```
 json :
 {
-  "idp" : "google",
-  "userId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
+  "id" : "9743a66f914cc249efca164485a19c5c",
+  "name" : "user1",
+  "connectedAccounts" : [ {
+    "idp" : "github",
+    "userId" : "5c28904a-124a-4035-853c-36938143dd4e",
+    "login" : "user1",
+    "name" : "User One",
+    "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ]
+  }, {
+    "idp" : "EGI",
+    "userId" : "john@example.com",
+    "login" : "user1",
+    "name" : "User One",
+    "custom" : {
+      "userCertificateSubject" : "/C=PL/O=GRID/O=ACME/CN=John Doe",
+      "eduPersonPrincipalName" : "john@example.com"
+    },
+    "emailList" : [ "user.1@example.com" ]
+  } ],
+  "login" : "user.one",
+  "emailList" : [ "user.1@example2.com", "user.one@example2.com", "user.i@example2.com" ]
 }
 ```
 

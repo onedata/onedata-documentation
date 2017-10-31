@@ -1,39 +1,35 @@
 
-<a name="resolve_user_identity"></a>
-#### Resolve user identity
+<a name="add_group_mapping"></a>
+#### Add group mapping
 ```
-POST /resolve_user
+PUT /admin/{idp}/groups/{groupId}
 ```
 
 
 ##### Description
-Returns the user identity from storage credentials.
+Allows to add group mapping to LUMA.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
+|**Path**|**groupId**  <br>*required*|Id of a group as recognized by a specific identity provider.|string|--|
+|**Path**|**idp**  <br>*required*|Id of identity provider that was (or will be) used by subject user to log in into onezone, identical to id specified in auth.config / saml.config.|string|--|
+|**Body**|**groupDetails**  <br>*required*|Add group details for mapping.|< [GroupDetails](../definitions/GroupDetails.md#groupdetails) > array|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**200**|User identity returned successfully.|[UserIdentity](../definitions/UserIdentity.md#useridentity)|
+|**204**|Group mapping added successfully.|No Content|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Consumes
-
-* `application/json`
-
-
-##### Produces
 
 * `application/json`
 
@@ -43,31 +39,22 @@ Returns the user identity from storage credentials.
 ###### Request path
 ```
 json :
-"/resolve_user"
+"/admin/string/groups/string"
 ```
 
 
 ###### Request body
 ```
 json :
-{
-  "type" : "string",
-  "id" : "string"
-}
+[ {
+  "id" : "Assdwe897Dsdjhx9",
+  "gid" : "1001",
+  "name" : "users"
+} ]
 ```
 
 
 ##### Example HTTP response
-
-###### Response 200
-```
-json :
-{
-  "idp" : "google",
-  "userId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
-}
-```
-
 
 ###### Response 400
 ```
@@ -80,16 +67,6 @@ json :
 
 
 ###### Response 403
-```
-json :
-{
-  "error" : "invalid_user",
-  "errorDescription" : "Invalid user ID."
-}
-```
-
-
-###### Response 404
 ```
 json :
 {

@@ -7,9 +7,9 @@
 
 |Name|Description|Schema|
 |---|---|---|
-|**name**  <br>*optional*|Name of storage.|string|
+|**id**  <br>*required*|Storage Id.|string|
 |**password**  <br>*required*|OpenStack Keystone user password.|string|
-|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift)|
+|**type**  <br>*required*|Type of storage.|enum (posix, ceph, s3, swift, glusterfs)|
 |**username**  <br>*required*|OpenStack Keystone user name.|string|
 
 
