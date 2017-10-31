@@ -107,7 +107,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:17.06.0-rc3
+    image: onedata/oneprovider:17.06.0-rc6
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -225,6 +225,7 @@ $ sudo sh -c 'echo "deb-src http://packages.onedata.org/apt/ubuntu/xenial xenial
 $ sudo apt update
 
 # Install packages
+$ export ONEPANEL_AUTOSTART=false # Disable automatic Onepanel start
 $ sudo apt install op-panel
 $ sudo apt install cluster-manager
 $ sudo apt install op-worker

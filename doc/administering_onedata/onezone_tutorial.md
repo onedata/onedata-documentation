@@ -105,7 +105,7 @@ version: '2.0'
 services:
   node1.onezone.localhost:
     # Onezone Docker image version
-    image: onedata/onezone:17.06.0-rc3
+    image: onedata/onezone:17.06.0-rc6
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.onezone.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -212,6 +212,7 @@ $ sudo sh -c 'echo "deb-src http://packages.onedata.org/apt/ubuntu/xenial xenial
 $ sudo apt update
 
 # Install packages
+$ export ONEPANEL_AUTOSTART=false # Disable automatic Onepanel start
 $ sudo apt install oz-panel
 $ sudo apt install cluster-manager
 $ sudo apt install oz-worker

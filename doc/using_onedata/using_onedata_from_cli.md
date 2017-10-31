@@ -201,7 +201,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash onedata/oneclient:17.06.0-rc3
+docker run -it --entrypoint=/bin/bash onedata/oneclient:17.06.0-rc6
 ```
 
 ```bash

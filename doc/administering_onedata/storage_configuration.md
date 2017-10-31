@@ -121,6 +121,8 @@ Ceph storage attributes are:
 
 More information about these attributes can be found in the official Ceph [documentation](http://docs.ceph.com/docs/hammer/rados/configuration/ceph-conf/).
 
+> Ceph client requires among others, 'x' permission on the OSD in order to enable striped object layout.
+
 
 ## OpenStack Swift
 

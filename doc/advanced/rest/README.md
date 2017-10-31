@@ -12,6 +12,7 @@ separate Swagger REST specification in JSON. Below you can download Swagger
 JSON specification for each of Onedata services in specific versions:
 
 * Onezone
+    * [17.06.0-rc6](../../swagger/17.06.0-rc6/onezone/swagger.json)
     * [17.06.0-rc3](../../swagger/17.06.0-rc3/onezone/swagger.json)
     * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
@@ -22,6 +23,7 @@ JSON specification for each of Onedata services in specific versions:
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/onezone/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/onezone/swagger.json)
 * Oneprovider
+    * [17.06.0-rc6](../../swagger/17.06.0-rc6/onezone/swagger.json)
     * [17.06.0-rc3](../../swagger/17.06.0-rc3/onezone/swagger.json)
     * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
@@ -32,6 +34,7 @@ JSON specification for each of Onedata services in specific versions:
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/oneprovider/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/oneprovider/swagger.json)
 * Onepanel
+    * [17.06.0-rc6](../../swagger/17.06.0-rc6/onezone/swagger.json)
     * [17.06.0-rc3](../../swagger/17.06.0-rc3/onezone/swagger.json)
     * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
@@ -42,6 +45,7 @@ JSON specification for each of Onedata services in specific versions:
     * [3.0.0-rc10](../../swagger/3.0.0-rc10/onepanel/swagger.json)
     * [3.0.0-rc9](../../swagger/3.0.0-rc9/onepanel/swagger.json)
 * LUMA
+    * [17.06.0-rc6](../../swagger/17.06.0-rc6/onezone/swagger.json)
     * [17.06.0-rc3](../../swagger/17.06.0-rc3/onezone/swagger.json)
     * [17.06.0-rc2](../../swagger/17.06.0-rc2/onezone/swagger.json)
     * [17.06.0-beta6](../../swagger/17.06.0-beta6/onezone/swagger.json)
