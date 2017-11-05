@@ -1,6 +1,6 @@
 
 <a name="delete_user"></a>
-#### Delete user
+#### Delete user details
 ```
 DELETE /admin/users/{lid}
 ```

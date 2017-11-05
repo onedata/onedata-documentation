@@ -1,13 +1,13 @@
 
 <a name="post_user_details"></a>
-#### Get user details
+#### Add user details
 ```
 POST /admin/users
 ```
 
 
 ##### Description
-Add user details an return LUMA id.
+Add user details and return user LUMA ID.
 
 
 ##### Parameters

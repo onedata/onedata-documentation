@@ -52,6 +52,7 @@ json :
 json :
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
+  "storageName" : "NFS",
   "userDetails" : {
     "id" : "ASDJASDNNALSDNALSDNALSDLASD",
     "name" : "User One",

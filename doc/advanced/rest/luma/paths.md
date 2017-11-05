@@ -9,10 +9,10 @@ LUMA management endpoint
 
 |Path|Method|Description|
 |---|---|---|
-|[/admin/users](operations/post_user_details.md)|POST|Get user details|
+|[/admin/users](operations/post_user_details.md)|POST|Add user details|
 |[/admin/users/{lid}](operations/get_user_details.md)|GET|Get user details|
 |[/admin/users/{lid}](operations/update_user_details.md)|PUT|Update user details|
-|[/admin/users/{lid}](operations/delete_user.md)|DELETE|Delete user|
+|[/admin/users/{lid}](operations/delete_user.md)|DELETE|Delete user details|
 |[/admin/users/{lid}/credentials](operations/add_user_credentials.md)|PUT|Add user credentials|
 |[/admin/{idp}/groups/{groupId}](operations/get_group_mapping.md)|GET|Get group mapping|
 |[/admin/{idp}/groups/{groupId}](operations/add_group_mapping.md)|PUT|Add group mapping|

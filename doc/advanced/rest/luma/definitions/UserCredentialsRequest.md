@@ -1,18 +1,20 @@
 
 <a name="usercredentialsrequest"></a>
 ### UserCredentialsRequest
-User credentials request - provides all necessary information to perform the account mapping.
+User credentials request - provides all necessary information to perform the mapping from federated user to storage credentials.
 
 
 |Name|Description|Schema|
 |---|---|---|
-|**storageId**  <br>*required*|Storage ID (site specific).|string|
+|**storageId**  <br>*optional*|Storage ID.|string|
+|**storageName**  <br>*optional*|Administrator defined storage name.|string|
 |**userDetails**  <br>*required*||[UserDetails](UserDetails.md#userdetails)|
 
 **Example**
 ```
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
+  "storageName" : "NFS",
   "userDetails" : {
     "id" : "ASDJASDNNALSDNALSDNALSDLASD",
     "name" : "User One",
