@@ -52,7 +52,8 @@ json :
 json :
 {
   "type" : "string",
-  "id" : "string"
+  "storageId" : "string",
+  "storageName" : "string"
 }
 ```
 

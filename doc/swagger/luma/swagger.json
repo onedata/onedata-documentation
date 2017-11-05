@@ -918,14 +918,17 @@
             "glusterfs"
           ]
         },
-        "id": {
+        "storageId": {
           "type": "string",
-          "description": "Storage Id."
+          "description": "Storage Id. Either storageId or storageName are required."
+        },
+        "storageName": {
+          "type": "string",
+          "description": "Storage name. Either storageId or storageName are required."
         }
       },
       "required": [
-        "type",
-        "id"
+        "type"
       ]
     },
     "GroupDetails": {
