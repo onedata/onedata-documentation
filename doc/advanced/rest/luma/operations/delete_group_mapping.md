@@ -7,7 +7,7 @@ DELETE /admin/{idp}/groups/{groupId}
 
 
 ##### Description
-Allows to add group mapping to LUMA.
+Allows to remove group mapping from LUMA.
 
 
 ##### Parameters

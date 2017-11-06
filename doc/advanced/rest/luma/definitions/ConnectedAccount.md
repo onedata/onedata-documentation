@@ -12,7 +12,7 @@ User connected account.
 |**idp**  <br>*required*|ID of the identity provider.|string|
 |**login**  <br>*optional*|User login name.|string|
 |**name**  <br>*optional*|User full name.|string|
-|**userId**  <br>*required*|User ID assigned in Onezone.|string|
+|**userId**  <br>*optional*|User ID assigned in Onezone.|string|
 
 **Example**
 ```

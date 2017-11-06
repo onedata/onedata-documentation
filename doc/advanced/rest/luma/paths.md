@@ -26,7 +26,7 @@ User and group mapping
 
 |Path|Method|Description|
 |---|---|---|
-|[/map_user_credentials](operations/map_user_credentials.md)|POST|Get user credentials|
+|[/map_user_credentials](operations/map_user_credentials.md)|POST|Map user credentials|
 |[/resolve_group](operations/resolve_group.md)|POST|Resolve group identity|
 |[/resolve_user](operations/resolve_user_identity.md)|POST|Resolve user identity|
 

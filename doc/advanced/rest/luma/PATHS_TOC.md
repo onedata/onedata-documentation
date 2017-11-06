@@ -8,6 +8,6 @@
           * [Get user details](doc/advanced/rest/luma/operations/get_user_details.md)
           * [Update user details](doc/advanced/rest/luma/operations/update_user_details.md)
         * [Mapping]()
-          * [Get user credentials](doc/advanced/rest/luma/operations/map_user_credentials.md)
+          * [Map user credentials](doc/advanced/rest/luma/operations/map_user_credentials.md)
           * [Resolve group identity](doc/advanced/rest/luma/operations/resolve_group.md)
           * [Resolve user identity](doc/advanced/rest/luma/operations/resolve_user_identity.md)

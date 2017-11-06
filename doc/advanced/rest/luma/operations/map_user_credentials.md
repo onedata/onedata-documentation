@@ -1,6 +1,6 @@
 
 <a name="map_user_credentials"></a>
-#### Get user credentials
+#### Map user credentials
 ```
 POST /map_user_credentials
 ```

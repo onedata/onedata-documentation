@@ -14,7 +14,7 @@ Add user details and return user LUMA ID.
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userDetails**  <br>*required*|Add user details for mapping.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
+|**Body**|**userDetails**  <br>*required*|User details for mapping.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
 
 
 ##### Responses

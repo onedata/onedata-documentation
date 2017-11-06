@@ -22,7 +22,7 @@
   "paths": {
     "/map_user_credentials": {
       "post": {
-        "summary": "Get user credentials",
+        "summary": "Map user credentials",
         "description": "Returns user credentials to storage in JSON format.",
         "x-onedata-version": 3,
         "x-onedata-module": "luma",
@@ -252,7 +252,7 @@
         "parameters": [
           {
             "name": "userDetails",
-            "description": "Add user details for mapping.",
+            "description": "User details for mapping.",
             "in": "body",
             "schema": {
               "$ref": "#/definitions/UserDetails"
@@ -619,7 +619,7 @@
       },
       "delete": {
         "summary": "Delete group mapping",
-        "description": "Allows to add group mapping to LUMA.\n",
+        "description": "Allows to remove group mapping from LUMA.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "luma",
         "x-onedata-resource": "group",
@@ -789,8 +789,7 @@
         }
       },
       "required": [
-        "idp",
-        "userId"
+        "idp"
       ],
       "example": {
         "idp": "github",
