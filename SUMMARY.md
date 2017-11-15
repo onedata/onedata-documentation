@@ -42,6 +42,7 @@
       * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
       * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
       * [Local User MApping](doc/administering_onedata/luma.md)
+      * [File popularity](doc/administering_onedata/file_popularity.md)
       * [Admin REST API](doc/administering_onedata/administering_onedata_from_cli.md)
 * [Advanced topics](doc/advanced/README.md)
   * [Overview](doc/advanced/README.md)

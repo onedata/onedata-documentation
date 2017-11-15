@@ -26,7 +26,7 @@ The following examples assume that the following environment variables had been 
 * `USERNAME` - The new user username
 * `PASSWORD` - The new user password
 
-Now, a new user can created using the following command line request:
+Now, a new user can be created using the following command line request:
 
 ```bash
 curl -X POST -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \

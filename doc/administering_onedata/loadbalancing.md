@@ -57,16 +57,16 @@ An example file is presented below:
         % This value must be incremented on every update of this config file
         {serial, 2014111200},
         % Time interval before the zone should be refreshed
-        {refresh, 7200}, 
+        {refresh, 7200},
         % Time interval that should elapse before a failed refresh should be retried
         {retry, 1800},
-        % Time value that specifies the upper limit on the time interval that 
+        % Time value that specifies the upper limit on the time interval that
         % can elapse before the zone is no longer authoritative
         {expiry, 1209600},
         % Time a NAME ERROR = NXDOMAIN result may be cached by any resolver
         {nxdomain_ttl, 120}
     ]},
-    % Time To Live for defferent types of responses
+    % Time To Live for different types of responses
     {ttl, [
         {a, 120},
         {ns, 120},

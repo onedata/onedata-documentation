@@ -18,7 +18,7 @@ Onedata services have certain minimum system requirements, which should be consi
 | Local disk | SATA | SSD |
 | Local storage space | 20GB | 40GB |
 | OS (Docker deployment)| Any Docker compatible | Any Docker compatible |
-| OS (Package deployment)| Ubuntu (16.04), Fedora 23 | Ubuntu (16.04), Fedora 23 |
+| OS (Package deployment)| Ubuntu (16.04), CentOS 7 | Ubuntu (16.04), CentOS 7 |
 
 ## Oneprovider
 
@@ -30,4 +30,4 @@ Onedata services have certain minimum system requirements, which should be consi
 | Local disk | SSD | SSD |
 | Local storage space | 20GB + 8MB for each 1000 files | 40GB + 8MB for each 1000 files |
 | OS (Docker deployment) | Any Docker compatible | Any Docker compatible |
-| OS (Package deployment)| Ubuntu (16.04), Fedora 23 | Ubuntu (16.04), Fedora 23 |
+| OS (Package deployment)| Ubuntu (16.04), CentOS 7 | Ubuntu (16.04), CentOS 7 |

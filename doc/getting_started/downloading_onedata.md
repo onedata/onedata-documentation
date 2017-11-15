@@ -1,9 +1,9 @@
 # Downloading Onedata
 
 Onedata platform is composed of 3 basic components:
- * *Oneprovider* - service which manages actual storage resources contributed by storage providers
- * *Onezone* - service which enables federation of multiple storage providers into (*onedata.org* is an example of a zone)
- * *Oneclient* - command line tool for accessing and managing user spaces via virtual file system
+ * **Oneprovider** - service which manages actual storage resources contributed by storage providers
+ * **Onezone** - service which enables federation of multiple storage providers into (*onedata.org* is an example of a zone)
+ * **Oneclient** - command line tool for accessing and managing user spaces via virtual file system
 
 Selection of which components to install depends on particular requirements.
 End users typically only need to install *Oneclient* command-line tool.
@@ -25,17 +25,14 @@ For more advanced tutorials on running Onedata with Docker, see our [Getting Sta
 ### Pre-built Linux packages
 
 We provide packages *Oneprovider* and *Onezone* for:
-- Fedora 23
 - Ubuntu 16.04
+- CentOS 7
 
 and *Oneclient* packages for:
-- Fedora 23
 - Ubuntu 14.04, 16.04
 - CentOS 7
 
-The bash script at https://get.onedata.org, which can be run with `wget` or
-`curl`, automatically downloads Onedata packages and installs them on your
-machine, provided that the operating system version is supported.
+The bash script at https://get.onedata.org, which can be downloaded with `wget` or `curl`, automatically downloads Onedata packages and installs them on your machine, provided that the operating system version is supported.
 
 ```
 # wget version
@@ -49,8 +46,10 @@ curl -sS  http://get.onedata.org/oneprovider.sh | bash     # for oneprovider
 curl -sS  http://get.onedata.org/onezone.sh | bash         # for onezone
 ```
 
+For detailed instructions on installing Oneclient see [here](../using_onedata/oneclient.md).
+
+For detailed instructions on installing Onezone see [here](../administering_onedata/onezone_tutorial.md) and for Oneprovider see [here](../administering_onedata/oneprovider_tutorial.md).
+
 ### Building from source
 
-Onedata is composed of several components, to find instruction on building each
-of them from source please checkout our main README at our
-[GitHub repository](https://github.com/onedata/onedata).
+Onedata is composed of several components, to find instruction on building each of them from source please checkout our main README at our [GitHub repository](https://github.com/onedata/onedata).

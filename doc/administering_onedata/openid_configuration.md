@@ -126,7 +126,6 @@ This section is specific to the storage providers supporting the [INDIGO-DataClo
         {app_id, <<"APP_ID">>},
         {app_secret, <<"APP_SECRET">>},
         % Provider specific config
-        % Provider specific config
         {xrds_endpoint, <<"https://iam-test.indigo-datacloud.eu/.well-known/openid-configuration">>}
     ]}
 ```
@@ -144,7 +143,42 @@ This section is specific to EGI OpenID Connect [authentication service](https://
     ]}
 ```
 
-## Authentication delegation using third party IdP tokens
+### Advanced features
+
+#### Group Mapping
+
+For each IdP it is possible to define a method for mapping groups and roles from IdP to Onedata. In order to enable this for a selected IdP a special section `group_mapping` has to be added to an IdP definition. For example:
+
+```erlang
+    {egi, [
+        {auth_module, auth_egi},
+        {app_id, <<"APP_ID">>},
+        {app_secret, <<"APP_SECRET">>},
+        {group_mapping, [
+          {enabled, true},
+          {vo_group_id, <<"VOGroup">>},
+          {attributes_to_map, [
+            {<<"groups">>, team, {nested, <<"/">>}},
+            {<<"roles">>, role, flat}
+          ]},
+         {super_group, <<"ParentGroup">>}
+     ]}
+```
+
+The fields in this section have the following meaning:
+
+* `enabled` - activates group mapping feature
+* `vo_group_id` - the Id of the VO group in IdP
+* `attributes_to_map` - the definition of the mapping defined in the form `{IDP_ATTRIBUTE_NAME, ONEDATA_ROLE_TYPE, IDP_GROUP_PATTERN}`, where:
+  * IDP_ATTRIBUTE_NAME - name of the attribute in IdP metadata e.g. *group*, *role*
+  * ONEDATA_ROLE_TYPE - one of: `organization | unit | team | role`
+  * IDP_GROUP_PATTERN - this can have the following values:
+    * `flat` - the group name from IdP is copied as-is to Onedata
+    * `nested`, <<"SEP">> - where SEP is a separator string used to tokenize the group name from IdP and build a nested group in Onedata, where each token from the original name will be a separate group in Onedata
+* `super_group` - the super group in VO, can be set to `undefined` if not necessary
+
+#### Authentication delegation using third party IdP tokens
+
 Onezone service supports authentication delegation using other trusted OAuth
 providers. When enabled it allows users to directly use their access tokens
 (e.g. from GitHub) to authenticate with Onedata.
