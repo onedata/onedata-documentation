@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "17.06.0-rc6",
+    "version": "17.06.0-rc7",
     "title": "Onepanel",
     "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
     "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\nOnepanel supports only HTTP basic authentication, i.e. using `username` and\n`password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators\n    and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using\n    which users can login to Onezone service using HTTP Basic authentication\n    without OpenID. This role makes sense only on Onepanel which manages\n    Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin`\naccount.\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
@@ -1218,12 +1218,6 @@
             }
           }
         },
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderSpaceSyncStats --host https://op.example.com:9443"
-          }
-        ],
         "parameters": [
           {
             "name": "id",
@@ -1250,6 +1244,175 @@
             "description": "Specify which statistic metrics should be returned - strings delimited with comma",
             "type": "string",
             "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceSyncStats id=JaHSGDJHG12312aassdCXX09 started_after=\"2017-10-20T21:39:37\"\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto_cleaning_status": {
+      "get": {
+        "operationId": "get_provider_space_auto_cleaning_status",
+        "summary": "Get status of space auto cleaning",
+        "description": "Returns status of current process of auto cleaning for the space\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_status",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about current auto cleaning process for the space",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningStatus"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The ID of a space",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceAutoCleaningStatus id=JaHSGDJHG12312aassdCXX09\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto_cleaning_reports": {
+      "get": {
+        "operationId": "get_provider_space_auto_cleaning_reports",
+        "summary": "Get reports of space auto cleaning",
+        "description": "Returns collection of reports of auto cleaning for the space\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_report_collection",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Collection of space auto cleaning reports",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningReportCollection"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The ID of a space",
+            "required": true
+          },
+          {
+            "name": "started_after",
+            "in": "query",
+            "type": "string",
+            "description": "Fetch only reports that started after this date (ISO-8601)",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceAutoCleaningReports id=JaHSGDJHG12312aassdCXX09 started_after=\"2017-10-20T21:39:37\"\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/start_cleaning": {
+      "post": {
+        "operationId": "provider_space_start_cleaning",
+        "summary": "Start space cleaning",
+        "description": "Starts cleaning of space with current configuration.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "start_cleaning",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Cleaning of given space has started."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The ID of a space",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret providerSpaceStartCleaning --host https://op.example.com:9443"
           }
         ]
       }
@@ -4690,11 +4853,23 @@
           "default": false,
           "description": "Defines whether space will be mounted in / or /{SpaceId}/ path.\n"
         },
+        "softQuota": {
+          "type": "integer",
+          "description": "Number of bytes that can be written above support limit.\n"
+        },
         "storageImport": {
           "$ref": "#/definitions/StorageImportDetails"
         },
         "storageUpdate": {
           "$ref": "#/definitions/StorageUpdateDetails"
+        },
+        "filesPopularity": {
+          "description": "Configuration of files popularity feature for this space",
+          "$ref": "#/definitions/SpaceFilesPopularity"
+        },
+        "autoCleaning": {
+          "description": "Configuration of auto cleaning feature for this space",
+          "$ref": "#/definitions/SpaceAutoCleaning"
         }
       },
       "required": [
@@ -4702,7 +4877,8 @@
         "name",
         "storageId",
         "localStorages",
-        "supportingProviders"
+        "supportingProviders",
+        "softQuota"
       ]
     },
     "SpaceSupportRequest": {
@@ -4757,6 +4933,14 @@
         },
         "storageUpdate": {
           "$ref": "#/definitions/StorageUpdateDetails"
+        },
+        "filesPopularity": {
+          "description": "Configuration of files popularity feature for this space",
+          "$ref": "#/definitions/SpaceFilesPopularity"
+        },
+        "autoCleaning": {
+          "description": "Configuration of auto cleaning feature for this space",
+          "$ref": "#/definitions/SpaceAutoCleaning"
         }
       }
     },
@@ -4913,6 +5097,159 @@
           "description": "Statistics of storage sync deleted files.",
           "$ref": "#/definitions/TimeStats"
         }
+      }
+    },
+    "SpaceFilesPopularity": {
+      "type": "object",
+      "description": "Settings of files popularity feature of space",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "If true, files popularity feature for the space is enabled"
+        },
+        "restUrl": {
+          "type": "string",
+          "description": "REST endpoint to view file popularity statistics\n"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "example": {
+        "enabled": true,
+        "restUrl": "https://example.com/some_api/some_method"
+      }
+    },
+    "SpaceAutoCleaning": {
+      "type": "object",
+      "description": "Space auto cleaning settings",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "If true, auto cleaning feature for the space is enabled"
+        },
+        "settings": {
+          "description": "Settings when and what files auto cleaning should clean",
+          "$ref": "#/definitions/SpaceAutoCleaningSettings"
+        }
+      },
+      "example": {
+        "enabled": true,
+        "settings": {
+          "lowerFileSizeLimit": 1000,
+          "upperFileSizeLimit": 1000000,
+          "maxFileNotOpenedHours": 60000,
+          "target": 5000000000,
+          "threshold": 6000000000
+        }
+      }
+    },
+    "SpaceAutoCleaningSettings": {
+      "type": "object",
+      "description": "Settings for auto cleaning algorithms - for what files and when it should be started. If parameter is not set in the request, previous value will be used.\n",
+      "properties": {
+        "lowerFileSizeLimit": {
+          "type": "integer",
+          "description": "Only files which size [b] is greater than or equal to given value should be cleaned. Set to null to disable this parameter.\n"
+        },
+        "upperFileSizeLimit": {
+          "type": "integer",
+          "description": "Only files which size [b] is less than or equal to given value should be cleaned Set to null to disable this parameter.\n"
+        },
+        "maxFileNotOpenedHours": {
+          "type": "integer",
+          "description": "Files that haven't been opened for longer than or equal to given period [h] will be cleaned. Set to null to disable this parameter.\n"
+        },
+        "threshold": {
+          "type": "integer",
+          "description": "Amount of data [b], which should trigger the auto cleaning in the space.  Only replicas maintained by this storage provider will be removed. If not  specified, the auto cleaning will not start automatically.\n"
+        },
+        "target": {
+          "type": "integer",
+          "description": "Amount of data [b], at which the auto cleaning process should stop. This parameter is required to enale auto cleaning.\n"
+        }
+      },
+      "example": {
+        "lowerFileSizeLimit": 1000,
+        "upperFileSizeLimit": 1000000,
+        "maxFileNotOpenedHours": 60000,
+        "target": 5000000000,
+        "threshold": 6000000000
+      }
+    },
+    "SpaceAutoCleaningStatus": {
+      "type": "object",
+      "description": "Status of current auto cleaning process for given space",
+      "properties": {
+        "inProgress": {
+          "type": "boolean",
+          "description": "Flag which indicates whether auto cleaning process is currently in progress\n"
+        },
+        "spaceOccupancy": {
+          "type": "integer",
+          "description": "Amount of storage [b] used by data from given space on that storage."
+        }
+      },
+      "required": [
+        "inProgress",
+        "spaceOccupancy"
+      ],
+      "example": {
+        "inProgress": true,
+        "spaceOccupancy": 100200
+      }
+    },
+    "SpaceAutoCleaningReportCollection": {
+      "type": "object",
+      "description": "List of auto cleaning report entries",
+      "properties": {
+        "reportEntries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SpaceAutoCleaningReport",
+            "minItems": 0
+          }
+        }
+      }
+    },
+    "SpaceAutoCleaningReport": {
+      "type": "object",
+      "description": "Autocleaning report",
+      "properties": {
+        "startedAt": {
+          "type": "string",
+          "description": "Start time of autocleaning procedure in ISO 8601 format"
+        },
+        "stoppedAt": {
+          "type": "string",
+          "description": "Finish time of autocleaning procedure in ISO 8601 format"
+        },
+        "releasedBytes": {
+          "type": "integer",
+          "description": "Number of bytes deleted during autocleaning procedure."
+        },
+        "bytesToRelease": {
+          "type": "integer",
+          "description": "Number of bytes that should be deleted."
+        },
+        "filesNumber": {
+          "type": "integer",
+          "description": "Number of deleted files."
+        }
+      },
+      "required": [
+        "startedAt",
+        "stoppedAt",
+        "releasedBytes",
+        "bytesToRelease",
+        "filesNumber"
+      ],
+      "example": {
+        "startedAt": "2017-06-22T13:29:39.654Z",
+        "stoppedAt": "2017-06-22T15:57:41.958Z",
+        "releasedBytes": 60000,
+        "bytesToRelease": 500,
+        "filesNumber": 10
       }
     }
   },

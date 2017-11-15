@@ -60,6 +60,20 @@ json :
     "writeOnce" : true,
     "deleteEnable" : true,
     "syncAcl" : true
+  },
+  "filesPopularity" : {
+    "enabled" : true,
+    "restUrl" : "https://example.com/some_api/some_method"
+  },
+  "autoCleaning" : {
+    "enabled" : true,
+    "settings" : {
+      "lowerFileSizeLimit" : 1000,
+      "upperFileSizeLimit" : 1000000,
+      "maxFileNotOpenedHours" : 60000,
+      "target" : 5000000000,
+      "threshold" : 6000000000
+    }
   }
 }
 ```

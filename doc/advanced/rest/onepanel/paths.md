@@ -52,6 +52,9 @@ Resources and operations for managing Oneprovider deployment
 |[/provider/spaces/{id}](operations/get_space_details.md)|GET|Get space details|
 |[/provider/spaces/{id}](operations/revoke_space_support.md)|DELETE|Revoke space support for a space|
 |[/provider/spaces/{id}](operations/modify_space.md)|PATCH|Modify space details|
+|[/provider/spaces/{id}/auto_cleaning_reports](operations/get_provider_space_auto_cleaning_reports.md)|GET|Get reports of space auto cleaning|
+|[/provider/spaces/{id}/auto_cleaning_status](operations/get_provider_space_auto_cleaning_status.md)|GET|Get status of space auto cleaning|
+|[/provider/spaces/{id}/start_cleaning](operations/provider_space_start_cleaning.md)|POST|Start space cleaning|
 |[/provider/spaces/{id}/sync](operations/get_provider_space_sync_stats.md)|GET|Get statistics of storage synchronization|
 |[/provider/storages](operations/add_storage.md)|POST|Add storage|
 |[/provider/storages](operations/get_storages.md)|GET|Get storages|

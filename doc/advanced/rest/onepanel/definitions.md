@@ -27,7 +27,13 @@
 |[ServiceStatus](definitions/ServiceStatus.md)|The generic model for service status.|
 |[ServiceStatusHost](definitions/ServiceStatusHost.md)|The service status.|
 |[SessionDetails](definitions/SessionDetails.md)|The user session details.|
+|[SpaceAutoCleaning](definitions/SpaceAutoCleaning.md)|Space auto cleaning settings|
+|[SpaceAutoCleaningReport](definitions/SpaceAutoCleaningReport.md)|Autocleaning report|
+|[SpaceAutoCleaningReportCollection](definitions/SpaceAutoCleaningReportCollection.md)|List of auto cleaning report entries|
+|[SpaceAutoCleaningSettings](definitions/SpaceAutoCleaningSettings.md)|Settings for auto cleaning algorithms - for what files and when it should be started. If parameter is not set in the request, previous value will be used.|
+|[SpaceAutoCleaningStatus](definitions/SpaceAutoCleaningStatus.md)|Status of current auto cleaning process for given space|
 |[SpaceDetails](definitions/SpaceDetails.md)|The space details.|
+|[SpaceFilesPopularity](definitions/SpaceFilesPopularity.md)|Settings of files popularity feature of space|
 |[SpaceModifyRequest](definitions/SpaceModifyRequest.md)|The space configuration details that can be modified.|
 |[SpaceSupportRequest](definitions/SpaceSupportRequest.md)|The configuration details required to create or support a space by a provider.|
 |[SpaceSyncStats](definitions/SpaceSyncStats.md)|Status and statistics of storage/space synchronization.|

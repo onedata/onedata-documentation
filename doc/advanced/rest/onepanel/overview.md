@@ -105,7 +105,7 @@ https://172.17.0.4:9443/api/v3/onepanel/zone/workers
 
 
 ### Version information
-*Version* : 17.06.0-rc6
+*Version* : 17.06.0-rc7
 
 
 ### Contact information
