@@ -1,35 +1,39 @@
 
-<a name="add_user_credentials"></a>
-#### Add user credentials
+<a name="resolve_acl_user_identity"></a>
+#### Resolve user ACL identity
 ```
-PUT /admin/users/{lid}/credentials
+POST /resolve_acl_user
 ```
 
 
 ##### Description
-Adds user credentials to specific storage (optional).
+Returns the user identity from storage credentials. This operation is used when storage supports ACL's (e.g. NFSv4 or POSIX) and it is required that ACL's from storage are translated to Onedata ACL's when importing data from legacy storage.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Path**|**lid**  <br>*required*|LUMA user Id.|integer|--|
-|**Body**|**credentials**  <br>*required*|Add user credentials for specific storage.|< [UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials) > array|--|
+|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials for reverse mapping.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
 
 
 ##### Responses
 
 |HTTP Code|Description|Schema|
 |---|---|---|
-|**204**|User credentials added successfully.|No Content|
+|**200**|User identity returned successfully.|[UserIdentity](../definitions/UserIdentity.md#useridentity)|
 |**400**|Invalid request.|[Error](../definitions/Error.md#error)|
 |**403**|Forbidden request.|[Error](../definitions/Error.md#error)|
-|**404**|User credentials not found.|[Error](../definitions/Error.md#error)|
+|**404**|User ACL name not found.|[Error](../definitions/Error.md#error)|
 |**500**|Internal server error.|[Error](../definitions/Error.md#error)|
 
 
 ##### Consumes
+
+* `application/json`
+
+
+##### Produces
 
 * `application/json`
 
@@ -39,23 +43,33 @@ Adds user credentials to specific storage (optional).
 ###### Request path
 ```
 json :
-"/admin/users/0/credentials"
+"/resolve_acl_user"
 ```
 
 
 ###### Request body
 ```
 json :
-[ {
+{
   "type" : "string",
   "storageId" : "string",
   "storageName" : "string",
   "aclName" : "string"
-} ]
+}
 ```
 
 
 ##### Example HTTP response
+
+###### Response 200
+```
+json :
+{
+  "idp" : "google",
+  "userId" : "5484af38-8b5d-464f-bdd1-da9ef801090f"
+}
+```
+
 
 ###### Response 400
 ```

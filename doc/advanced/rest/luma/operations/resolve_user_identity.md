@@ -7,14 +7,14 @@ POST /resolve_user
 
 
 ##### Description
-Returns the user identity from storage credentials.
+Returns the user identity based on provided storage credentials. This operation is used when importing data from legacy storage, and it is needed that the user storage identity (e.g. uid on POSIX) storages is mapped to a proper federated identity.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
+|**Body**|**userStorageCredentials**  <br>*required*|User storage credentials for reverse mapping.|[UserStorageCredentials](../definitions/UserStorageCredentials.md#userstoragecredentials)|--|
 
 
 ##### Responses
@@ -52,7 +52,9 @@ json :
 json :
 {
   "type" : "string",
-  "id" : "string"
+  "storageId" : "string",
+  "storageName" : "string",
+  "aclName" : "string"
 }
 ```
 

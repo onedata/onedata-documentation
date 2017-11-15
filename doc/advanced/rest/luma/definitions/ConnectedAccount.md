@@ -9,10 +9,10 @@ User connected account.
 |**custom**  <br>*optional*|This field stores all additional properties that were provided by the IdP for this user.|< string, string > map|
 |**emailList**  <br>*optional*|The list of user email accounts.|< string > array|
 |**groups**  <br>*optional*|A list of strings denoting user group memberships as acquired from the<br>identity provider. Memberships are in Onedata normalized form.|< string > array|
-|**idp**  <br>*required*|ID of the identity provider.|string|
+|**idp**  <br>*optional*|ID of the identity provider.|string|
 |**login**  <br>*optional*|User login name.|string|
 |**name**  <br>*optional*|User full name.|string|
-|**userId**  <br>*required*|User ID assigned in Onezone.|string|
+|**userId**  <br>*optional*|User ID assigned in Onezone.|string|
 
 **Example**
 ```
@@ -26,7 +26,7 @@ User connected account.
   "custom" : [ {
     "eduPersonPrincipalName" : "user.1@example.com"
   }, {
-    "userCertificateSubject" : "\t/C=PL/O=GRID/O=ACME/CN=User One"
+    "userCertificateSubject" : "/C=PL/O=GRID/O=ACME/CN=User One"
   } ]
 }
 ```

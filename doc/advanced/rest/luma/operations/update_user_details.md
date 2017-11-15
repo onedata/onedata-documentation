@@ -7,7 +7,7 @@ PUT /admin/users/{lid}
 
 
 ##### Description
-Allows to update user details, based on which credential mapping will be performed. Typically this operation can be left unimplemented, as the mapping logic can should use external, however for simple scenarios this interface can be used to configure the user storage credential mapping.
+Allows to update user details, based on which credential mapping will be performed.
 
 
 ##### Parameters

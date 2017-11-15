@@ -1,20 +1,20 @@
 
-<a name="post_user_details"></a>
-#### Get user details
+<a name="add_user_details"></a>
+#### Add user details
 ```
 POST /admin/users
 ```
 
 
 ##### Description
-Add user details an return LUMA id.
+Add user details and return user LUMA ID. This operation returns the ID which represents the user in LUMA. It is necessary as not every user mapping requires user Id, thus this ID represents uniquely a certain user account for associated user accounts with storage credentials.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**userDetails**  <br>*required*|Add user details for mapping.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
+|**Body**|**userDetails**  <br>*required*|User details for mapping.|[UserDetails](../definitions/UserDetails.md#userdetails)|--|
 
 
 ##### Responses

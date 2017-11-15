@@ -1,21 +1,24 @@
 
 <a name="groupdetails"></a>
 ### GroupDetails
-Group identity. At least one of `gid` and `name` properties are required.
+Group storage identity.
 
 
 |Name|Description|Schema|
 |---|---|---|
-|**gid**  <br>*optional*|Type of storage.|string|
-|**id**  <br>*required*|Storage ID (site specific).|string|
-|**name**  <br>*optional*|Name of the group.|string|
+|**aclName**  <br>*optional*|Group ACL name.|string|
+|**gid**  <br>*optional*|Group Id on the storage.|integer|
+|**spaceId**  <br>*optional*|Space id in the context of which the request is performed.|string|
+|**storageId**  <br>*optional*|Storage ID (site specific).|string|
+|**storageName**  <br>*optional*|Storage Name (site specific).|string|
 
 **Example**
 ```
 {
-  "id" : "Assdwe897Dsdjhx9",
-  "gid" : "1001",
-  "name" : "users"
+  "storageId" : "Assdwe897Dsdjhx9",
+  "storageName" : "NFS",
+  "gid" : 1001,
+  "aclName" : "users"
 }
 ```
 

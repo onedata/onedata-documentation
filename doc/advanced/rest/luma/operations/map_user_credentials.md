@@ -1,13 +1,13 @@
 
 <a name="map_user_credentials"></a>
-#### Get user credentials
+#### Map user credentials
 ```
 POST /map_user_credentials
 ```
 
 
 ##### Description
-Returns user credentials to storage in JSON format.
+Returns user credentials to storage based on user federated identity. In general, proper storage credentials can be chosen based on any property from the user model, including Onedata user Id or user Id from other IdP's, as well as any other property such as email.
 
 
 ##### Parameters
@@ -52,6 +52,8 @@ json :
 json :
 {
   "storageId" : "AKSDHKAJSHD898798ASDKJHA89878ASD",
+  "storageName" : "NFS",
+  "spaceId" : "98ASDKJHA89878ASDAKSDHKAJSHD898798",
   "userDetails" : {
     "id" : "ASDJASDNNALSDNALSDNALSDLASD",
     "name" : "User One",
@@ -77,7 +79,9 @@ json :
 json :
 {
   "type" : "string",
-  "id" : "string"
+  "storageId" : "string",
+  "storageName" : "string",
+  "aclName" : "string"
 }
 ```
 

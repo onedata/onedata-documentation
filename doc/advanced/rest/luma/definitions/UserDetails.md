@@ -8,7 +8,7 @@ User details needed for user mapping.
 |---|---|---|
 |**connectedAccounts**  <br>*optional*|The list of user Open ID accounts.|< [ConnectedAccount](ConnectedAccount.md#connectedaccount) > array|
 |**emailList**  <br>*optional*|The list of user email accounts.|< string > array|
-|**id**  <br>*optional*|Onedata user ID.|string|
+|**id**  <br>*optional*|Onedata user ID. This ID is by default associated with 'onedata' IdP.|string|
 |**login**  <br>*optional*|User login.|string|
 |**name**  <br>*optional*|User name.|string|
 

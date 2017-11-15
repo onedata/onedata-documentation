@@ -7,14 +7,14 @@ POST /resolve_group
 
 
 ##### Description
-Returns group identity based on storage specific group id.
+Returns group identity based on storage specific group id. This operation is used when importing data from legacy storage, and it is needed that the user group (e.g. gid on POSIX) storages is mapped to a proper federated group Id. The group resolution can be performed in the context of specific storage (identified by `storageId` or `storageName`). In case the no storage group Id is passed in the `groupDetails` parameter, a default group Id for current space can be returned.
 
 
 ##### Parameters
 
 |Type|Name|Description|Schema|Default|
 |---|---|---|---|---|
-|**Body**|**groupDetails**  <br>*required*|Group mapping request.|[GroupDetails](../definitions/GroupDetails.md#groupdetails)|--|
+|**Body**|**groupStorageDetails**  <br>*required*|Group details for group mapping.|[GroupDetails](../definitions/GroupDetails.md#groupdetails)|--|
 
 
 ##### Responses
@@ -51,9 +51,10 @@ json :
 ```
 json :
 {
-  "id" : "Assdwe897Dsdjhx9",
-  "gid" : "1001",
-  "name" : "users"
+  "storageId" : "Assdwe897Dsdjhx9",
+  "storageName" : "NFS",
+  "gid" : 1001,
+  "aclName" : "users"
 }
 ```
 

@@ -1,6 +1,6 @@
 
 <a name="add_group_mapping"></a>
-#### Add group mapping
+#### Set group mapping
 ```
 PUT /admin/{idp}/groups/{groupId}
 ```
@@ -47,9 +47,10 @@ json :
 ```
 json :
 [ {
-  "id" : "Assdwe897Dsdjhx9",
-  "gid" : "1001",
-  "name" : "users"
+  "storageId" : "Assdwe897Dsdjhx9",
+  "storageName" : "NFS",
+  "gid" : 1001,
+  "aclName" : "users"
 } ]
 ```
 
