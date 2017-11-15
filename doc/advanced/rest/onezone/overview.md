@@ -124,7 +124,7 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 17.06.0-rc6
+*Version* : 17.06.0-rc7
 
 
 ### Contact information
