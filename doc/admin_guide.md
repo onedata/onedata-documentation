@@ -5,7 +5,7 @@ configure and use them. Please consider first the
 [minimal system requirements](system_requirements.md) for Onedata.
 
 For a tutorial on how to use **Onedatify** script, enabling easy deployment of
-**Oneprovider** and optionally expose existing legacy data collection via some space - see [here](./administering_onedata/onedatify.md).  
+**Oneprovider** and optionally expose existing legacy data collection via some space - see [here](./administering_onedata/onedatify.md).
 
 In order to create custom deployments read carefully the following sections.
 

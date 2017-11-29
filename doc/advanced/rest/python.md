@@ -16,8 +16,9 @@ After it's loaded simply go to `Generate client` menu and selected the language 
 
 Install [Swagger Codegen](https://github.com/swagger-api/swagger-codegen) tool and run (to generate Python client):
 ```bash
-echo '{"packageName": "Onezone", "packageVersion": "17.06.0"}' > config-python.json
-swagger-codegen generate -i ./swagger.json -l python -o python --config config-python.json
+$ wget https://onedata.org/swagger/17.06.0-rc8/onezone/swagger.json
+$ echo '{"packageName": "Onezone", "packageVersion": "17.06.0"}' > config-python.json
+$ swagger-codegen generate -i ./swagger.json -l python -o python --config config-python.json
 ```
 
 ## Using Onedata clients

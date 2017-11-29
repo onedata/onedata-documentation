@@ -67,7 +67,4 @@
 {% include "doc/advanced/rest/luma/DEFINITIONS_TOC.md" %}
         * [Operations](doc/advanced/rest/luma/paths.md)
 {% include "doc/advanced/rest/luma/PATHS_TOC.md" %}
-     * [Examples](doc/advanced/rest/examples.md)
-        * [Command line](doc/advanced/rest/cli.md)
-        * [Python](doc/advanced/rest/python.md)
-   * [CDMI API](doc/advanced/cdmi.md)
+ * [CDMI API](doc/advanced/cdmi.md)
