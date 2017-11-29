@@ -9,6 +9,9 @@ LUMA management endpoint
 
 |Path|Method|Description|
 |---|---|---|
+|[/admin/spaces/{sid}/default_group](operations/get_space_default_group.md)|GET|Get default space group|
+|[/admin/spaces/{sid}/default_group](operations/set_space_default_group.md)|PUT|Set default space group|
+|[/admin/spaces/{sid}/default_group](operations/delete_space_default_group.md)|DELETE|Delete default space group|
 |[/admin/users](operations/add_user_details.md)|POST|Add user details|
 |[/admin/users/{lid}](operations/get_user_details.md)|GET|Get user details|
 |[/admin/users/{lid}](operations/update_user_details.md)|PUT|Update user details|
