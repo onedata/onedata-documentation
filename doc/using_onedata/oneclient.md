@@ -18,10 +18,10 @@ curl -sS  http://get.onedata.org/oneclient.sh | bash
 ```
 
 >After installing ensure that you are able to access `fusermount` tool, by
-running `fusermount -h`. In case you are not allowed to execute `fusermount`,
-ask your administrator to make you a member of a `fuse` group. If you have
-administrator rights to your machine, use command `gpasswd -a <username> fuse`
-to add your account to `fuse` group.
+>running `fusermount -h`. In case you are not allowed to execute `fusermount`,
+>ask your administrator to make you a member of a `fuse` group. If you have
+>administrator rights to your machine, use command `gpasswd -a <username> fuse`
+>to add your account to `fuse` group.
 
 ### macOS
 An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
@@ -61,12 +61,12 @@ token prefix as configured by administrators of Onezone service. For instance:
 
 ```
 github:e72e16c7e42f292c6912e7710c838347ae178b4a
-``` -->
+​``` -->
 
 ### Mounting spaces
 
 The basic command line syntax to mount spaces using a specific Oneprovider is:
-```bash
+​```bash
 oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
 ```
 
@@ -173,7 +173,9 @@ Advanced options:
                                         Specify idle period in seconds before
                                         flush of in-memory cache for output
                                         data blocks.
-
+  --metadata-cache-size <size> (=100000)
+                                        Specify maximum number of file metadata
+                                        entries which can be stored in cache.
 FUSE options:
   -f [ --foreground ]         Foreground operation.
   -d [ --debug ]              Enable debug mode (implies -f).
@@ -187,7 +189,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:17.06.0-rc7
+-d --name oneclient-1 onedata/oneclient:17.06.0-rc8
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
@@ -198,3 +200,55 @@ docker exec -it oneclient-1 /bin/bash
 
 ls /mnt/oneclient
 ```
+
+## Running Oneclient as systemd service
+
+In some scenarios it may be convenient to run Oneclient as a service which is mounted before certain other services (e.g. user jobs) are executed on the machine. For this purpose a simple systemd service script can be created, with accompanying environment file with proper definitions.
+
+The environment file should be created at: `/etc/oneclient.env`
+
+```ini
+ONECLIENT_PROVIDER_HOST=<ONEPROVIDER_HOST>
+ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN>
+ONECLIENT_MOUNT=/mnt/oneclient
+```
+
+After that the systemd service script `` can look like this:
+
+```ini
+[Unit]
+Description = Oneclient service
+After       = network.target
+
+[Service]
+EnvironmentFile=/etc/oneclient.env
+# Create Oneclient mountpoint if necessary
+ExecStartPre=/usr/bin/mkdir -p $ONECLIENT_MOUNT
+# Start Oneclient
+ExecStart=/opt/oneclient/bin/oneclient -i -o allow_other $ONECLIENT_MOUNT
+# Unmount oneclient when stopping the service
+ExecStop      = /bin/fusermount -uz $ONECLIENT_MOUNT
+# Change to `always` to automatically restart Oneclient
+Restart       = no
+Type          = forking
+
+[Install]
+WantedBy    = multi-user.target
+```
+
+The oneclient service can then be used in the following way:
+
+```bash
+# Start oneclient
+sudo systemctl start oneclient
+
+# Start oneclient on machine startup
+sudo systemctl enable oneclient
+
+# Unmount oneclient
+sudo systemctl stop oneclient
+
+# Check oneclient status
+sudo systemctl status oneclient
+```
+

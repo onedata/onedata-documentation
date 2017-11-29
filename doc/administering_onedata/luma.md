@@ -249,7 +249,7 @@ Each of the above operations' arguments depend on the type of storage for which 
 
 ## LUMA deployment
 
-This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and [TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from [onedata/luma](https://github.com/onedata/luma/tree/release/17.06.0-rc7) GitHub repository.
+This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and [TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from [onedata/luma](https://github.com/onedata/luma/tree/release/17.06.0-rc8) GitHub repository.
 
 ### Add Oneprovider storage with LUMA support
 
@@ -271,7 +271,7 @@ Latest LUMA container can be found on our [Dockerhub repository](https://hub.doc
 
 ```bash
 $ touch db.json # Only the first time
-$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:17.06.0-rc7
+$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:17.06.0-rc8
 ```
 
 Flask server will by default log all requests to the stdout, so it should be easy to see whether the Oneprovider requests are handled properly.
@@ -283,7 +283,7 @@ LUMA can be also started directly without Docker:
 ```bash
 $ git clone https://github.com/onedata/luma
 $ cd luma
-$ git checkout release/17.06.0-rc7
+$ git checkout release/17.06.0-rc8
 $ cd luma
 $ vim db.json # Define the mappings manually or leave empty
 $ python app.py # Make sure that the service will run persistently
@@ -394,18 +394,6 @@ In order to get the Id of a specific group in Onedata, it is necessary to list t
     "wZTuAqxmm8ntFhCY5NpbjAKzAjokHqs2Ehj9SdqMJCk",
     "vSJ4IRnBmNyLSHFLbRaotI7FVsck-6yT5X5S0KV08-o",
     "zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8",
-    "2d8950e9906941550d925d734ad5a8b6",
-    "4cd7e5abfb60b7826685a4155b5e97e3",
-    "182558bbbf31ba86b44f0f6e27dc79fc",
-    "3a03833b34bf536b52a09229080eac12",
-    "4bcfd2b2f147fb29413330efb5945a7c",
-    "54938227e8111a2bb26bbc1c314929a2",
-    "2e8e1132377d829d1a03ebc12cb06991",
-    "5ff9bbcf302dcd0fc0955a102555d78b",
-    "6bd0b3e7f051efe10c43e9d85ffb8d8f",
-    "396a71bfe20fdae15383921ddf59f290",
-    "367239461069f0798969eb202b2854bb",
-    "12b0ddb46ae9583e7a057efe1aff56d4",
     "all_users"
   ]
 }
@@ -472,6 +460,17 @@ The LUMA mappings can be defined directly in a `db.json` file of the LUMA refere
         {
           "gid": 3000,
           "storageName": "LUMATEST"
+        }
+      ]
+    }
+  },
+  "spaces": {
+    "1": {
+      "spaceId": "zzzzz",
+      "groupDetails":  [
+        {
+         "gid": 9999,
+         "storageName": "LUMATEST"
         }
       ]
     }

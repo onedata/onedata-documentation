@@ -43,7 +43,7 @@ $ sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
 ```
 
 #### Disable Transparent Huge Pages feature
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which improves performance of machines running multiple application at once, however it deteriorates the performance of most database-heavy applications, such as **Oneprovider**.
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which somehwat improves performance of machines running multiple application at once (e.g. desktop operation systems), however it deteriorates the performance of most database-heavy applications, such as **Oneprovider**.
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
 
@@ -90,7 +90,7 @@ $ export ONEPROVIDER_HOST="onezone-demo.tk"
 **Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
 
 #### Customizing Oneprovider Docker Compose script
-In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
+In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
 
 The following assumes you have prepared the following directory structure:
 
@@ -107,10 +107,14 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:17.06.0-rc7
+    image: onedata/oneprovider:17.06.0-rc8
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
+    # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
+    # To use bridge network 
+    network_mode: host
+    # Friendly name of the Oneprovider Docker container
     container_name: oneprovider-1
     # Mapping of volumes to Oneprovider container
     volumes:
@@ -128,6 +132,7 @@ services:
        # Certificate of public certificate signing authority (same as above)
        - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_worker/cacerts/cacert.pem"
     # Expose the necessary ports from Oneprovider container to the host
+    # This section can be commented when using host mode networking
     ports:
       - "53:53"
       - "53:53/udp"
@@ -151,6 +156,8 @@ services:
         # components over multiple nodes - here we deploy entire service on
         # a single node
         cluster:
+          # Domain name of the provider within Docker network, will be appended
+          # to all nodes specified below
           domainName: "oneprovider.localhost"
           autoDeploy: true
           nodes:
@@ -238,18 +245,14 @@ $ sudo apt install oneprovider
 
 ## Configuration
 
-<!-- ### Configuring service properties
-
-TODO -->
-
 
 ### Setting up certificates
 In order to configure certificates for **Oneprovider** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
 
-| Name             | Path for Docker deployment | Path for package deployment |
-|:-----------------|:-----------------|:-----------------|
-| Oneprovider private key | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/key.pem` |
-| Oneprovider public certificate | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/cert.pem`|
+| Name                            | Path for Docker deployment               | Path for package deployment           |
+| :------------------------------ | :--------------------------------------- | :------------------------------------ |
+| Oneprovider private key         | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/key.pem`         |
+| Oneprovider public certificate  | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/cert.pem`        |
 | Oneprovider certificate CA cert | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/cacerts/oz_cacert.pem` |
 
 During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directories `/etc/op_worker/cacerts` and `/etc/op_worker/certs`.
@@ -258,7 +261,7 @@ During deployment, Onepanel will install these certificates in the **Oneprovider
 These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
 
 > In your are running the following commands after the Onezone service has been
- started or rerunning them to generate new certificates, the Onezone service has to be stopped.
+>  started or rerunning them to generate new certificates, the Onezone service has to be stopped.
 
 ##### Docker based deployment
 
@@ -315,11 +318,6 @@ $ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
 
 Furthermore, on all nodes of **Oneprovider** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 
-<!--
-### Load balancing setup
-
-TODO -->
-
 ### Cluster configuration for package based deployment
 This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-demo.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
 
@@ -330,25 +328,25 @@ $ sudo systemctl restart op_panel.service
 Open `https://oneprovider-demo.tk:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
-<p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
 
 * Initialize the cluster setup
-<p align="center"><img src="../img/admin/op_tutorial_panel_start.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_panel_start.png" width="720"></p>
 
 * Select hosts in the cluster which will have specific roles (leave as is)
-<p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="720"></p>
 
 * Provide Onezone details
-<p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
 * Add storage
-<p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
 
 * Verify the storage was added successfully
-<p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
 
 * Wait for registration and deployment to complete
-<p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
 After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
 
@@ -410,12 +408,12 @@ $ sudo rm -rf /opt/onedata/oneprovider/persistence/*
 ### Running package based installation
 After web based Onepanel setup is complete, **Oneprovider** service should be operating normally. However, **Oneprovider** service can be manually started and stopped when needed, it is composed of several **systemd** units:
 
-| Name             | Purpose |
-|:-----------------|:-----------------|
+| Name                       | Purpose                                  |
+| :------------------------- | :--------------------------------------- |
 | `couchbase-server.service` | Couchbase server for **Oneprovider** metadata |
-| `op_panel.service` | **Onepanel** administration service |
-| `cluster_manager.service` | The process for managing a cluster **Oneprovider** deployment |
-| `op_worker.service` | The main **Oneprovider** service |
+| `op_panel.service`         | **Onepanel** administration service      |
+| `cluster_manager.service`  | The process for managing a cluster **Oneprovider** deployment |
+| `op_worker.service`        | The main **Oneprovider** service         |
 
 ### Monitoring
 
@@ -546,7 +544,7 @@ https://$ONEPROVIDER_HOST:9443/api/v3/onepanel/users
 Storage resources can be conveniently added to a **Oneprovider** instance using the Onepanel GUI, in menu **Storages** and click **Add storage** in the top right corner:
 
 * Select storage type and provider required connection details (example for S3):
-<p align="center"><img src="../img/admin/op_panel_tutorial_add_more_storage.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_panel_tutorial_add_more_storage.png" width="720"></p>
 
 From this point on when supporting user spaces, this storage will be available as an option.
 
@@ -557,7 +555,7 @@ The only way users can use the **Oneprovider** storage resources is by requestin
 Using the token, the administrator can support the space on a specific storage using the web interface:
 
 * Select storage type, paste support token received from user and specify storage quota for the user:
-<p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="720"></p>
+  <p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="720"></p>
 
 ### Add storage with existing data
 

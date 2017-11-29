@@ -55,7 +55,7 @@ The sections below describe how to attach each of these storage types to a Oneda
           tenantName: Tenant1
           containerName: Container1
           username: alice
-          password:
+          password: password
         GlusterFSVolumeA:
           type: "glusterfs"
           hostname: 192.168.12.101
@@ -76,9 +76,9 @@ The sections below describe how to attach each of these storage types to a Oneda
 
 POSIX attributes for configuration are:
 
-|  Attribute | Type | Description |
-|------------|------|-------------|
-| type       | **string** | Must be equal to posix' |
+| Attribute  | Type       | Description                              |
+| ---------- | ---------- | ---------------------------------------- |
+| type       | **string** | Must be equal to posix'                  |
 | mountPoint | **string** | The local path at which Oneprovider worker threads can access this storage |
 | timeout    | **string** | **(Optional)** Storage operation timeout in milliseconds |
 | readonly   | **string** | **(Optional)** Defines whether storage is readonly |
@@ -89,16 +89,16 @@ Please note that Oneprovider will not automatically mount or unmount this storag
 
 S3 attributes for configuration are:
 
-|  Attribute | Type | Description |
-|------------|------|-------------|
-| type       | **string** | Must be equal to 's3' |
-| hostname | **string** | The name of the host exposing the S3 REST API |
+| Attribute  | Type       | Description                              |
+| ---------- | ---------- | ---------------------------------------- |
+| type       | **string** | Must be equal to 's3'                    |
+| hostname   | **string** | The name of the host exposing the S3 REST API |
 | bucketName | **string** | The name of S3 bucket which will be used as the storage resource |
-| accessKey | **string** | The access key for the S3 storage |
-| secretKey | **string** | The secret key for the S3 storage |
-| timeout | **string** | **(Optional)** Storage operation timeout in milliseconds |
-| blockSize | **string** | **(Optional)** Storage block size in bytes |
-| insecure | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| accessKey  | **string** | The access key for the S3 storage        |
+| secretKey  | **string** | The secret key for the S3 storage        |
+| timeout    | **string** | **(Optional)** Storage operation timeout in milliseconds |
+| blockSize  | **string** | **(Optional)** Storage block size in bytes |
+| insecure   | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
 | readonly   | **string** | **(Optional)** Defines whether storage is readonly |
 
 
@@ -107,17 +107,17 @@ S3 attributes for configuration are:
 Ceph storage attributes are:
 
 
-|  Attribute | Type | Description |
-|------------|------|-------------|
-| type       | **string** | Must be equal to 'ceph' |
-| username | **string** | The username on behalf of which the Ceph storage will be accessed |
-| key | **string** | The key for the selected username |
+| Attribute       | Type       | Description                              |
+| --------------- | ---------- | ---------------------------------------- |
+| type            | **string** | Must be equal to 'ceph'                  |
+| username        | **string** | The username on behalf of which the Ceph storage will be accessed |
+| key             | **string** | The key for the selected username        |
 | monitorHostname | **string** | The host where the Ceph monitoring deamon `ceph-mon` is running |
-| clusterName | **string** | The name of the Ceph cluster |
-| poolName | **string** | The Ceph pool name |
-| timeout    | **string** | **(Optional)** Storage operation timeout in milliseconds |
-| insecure | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly | **string** | **(Optional)** Defines whether storage is readonly |
+| clusterName     | **string** | The name of the Ceph cluster             |
+| poolName        | **string** | The Ceph pool name                       |
+| timeout         | **string** | **(Optional)** Storage operation timeout in milliseconds |
+| insecure        | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly        | **string** | **(Optional)** Defines whether storage is readonly |
 
 More information about these attributes can be found in the official Ceph [documentation](http://docs.ceph.com/docs/hammer/rados/configuration/ceph-conf/).
 
@@ -128,17 +128,17 @@ More information about these attributes can be found in the official Ceph [docum
 
 Swift storage attributes are:
 
-|  Attribute | Type | Description |
-|------------|------|-------------|
-| type       | **string** | Must be equal to 'swift' |
+| Attribute     | Type       | Description                              |
+| ------------- | ---------- | ---------------------------------------- |
+| type          | **string** | Must be equal to 'swift'                 |
 | authUrl       | **string** | The URL to OpenStack Keystone identity service |
-| tenantName | **string** | The name of the tenant to which the user belongs |
-| containerName | **string** | The name of the Swift storage container |
-| username | **string** | The Keystone authentication username |
-| password | **string** | The Keystone authentication password |
-| blockSize | **string** | **(Optional)** Storage block size in bytes |
-| insecure | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly | **string** | **(Optional)** Defines whether storage is readonly |
+| tenantName    | **string** | The name of the tenant to which the user belongs |
+| containerName | **string** | The name of the Swift storage container  |
+| username      | **string** | The Keystone authentication username     |
+| password      | **string** | The Keystone authentication password     |
+| blockSize     | **string** | **(Optional)** Storage block size in bytes |
+| insecure      | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly      | **string** | **(Optional)** Defines whether storage is readonly |
 
 More information about these attributes can be found in the official OpenStack Swift [documentation](http://docs.openstack.org/developer/swift/).
 
@@ -147,14 +147,14 @@ More information about these attributes can be found in the official OpenStack S
 
 GlusterFS storage attributes are:
 
-|  Attribute | Type | Description |
-|------------|------|-------------|
-| type       | **string** | Must be equal to 'glusterfs' |
-| hostname   | **string** | The URL to GlusteFS volume server |
-| volume | **string** | The volume name |
-| port | **integer** | **(Optional)** The volume server port |
-| transport | **string** | **(Optional)** Transport between provider and volume (tcp, rdma or socket). Default: 'tcp' |
-| xlatorOptions | **string** | **(Optional)** Custom client GlusterFS translator options, in the format: `Option1=Value1;Option2=Value2;Option3=Value3;...` |
-| blockSize | **string** | **(Optional)** Storage block size in bytes |
-| insecure | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly | **string** | **(Optional)** Defines whether storage is readonly |
+| Attribute     | Type        | Description                              |
+| ------------- | ----------- | ---------------------------------------- |
+| type          | **string**  | Must be equal to 'glusterfs'             |
+| hostname      | **string**  | The URL to GlusteFS volume server        |
+| volume        | **string**  | The volume name                          |
+| port          | **integer** | **(Optional)** The volume server port    |
+| transport     | **string**  | **(Optional)** Transport between provider and volume (tcp, rdma or socket). Default: 'tcp' |
+| xlatorOptions | **string**  | **(Optional)** Custom client GlusterFS translator options, in the format: `Option1=Value1;Option2=Value2;Option3=Value3;...` |
+| blockSize     | **string**  | **(Optional)** Storage block size in bytes |
+| insecure      | **string**  | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly      | **string**  | **(Optional)** Defines whether storage is readonly |

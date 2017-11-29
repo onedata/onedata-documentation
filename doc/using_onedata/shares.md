@@ -34,10 +34,6 @@ Handle service can be registered in Onezone by users who have access rights to s
 
 Open access shares which have valid metadata will be exposed by the [OAI-PMH](https://www.openarchives.org/pmh/) Data Provider interface and can be used by content aggregators for indexing open access data sets.
 
-<!-- #### Web user interface
-
-<img  style="display:block;margin:0 auto;" src="../img/handleregistration.png">
- -->
 #### REST API
 Handles for shares can be also generated using the  REST API using the following command line:
 
