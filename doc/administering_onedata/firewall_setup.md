@@ -10,7 +10,7 @@ Below is a detailed list of ports, which need to be opened and their designation
 | 53/UDP    | DNS (Optional - used for load-balancing)   |
 | 80/TCP    | HTTP    |
 | 443/TCP   | HTTPS   |
-| 5555/TCP  | Communication between Oneclient command line tool and Oneprovider service (TCP) |
+|   |  |
 | 5556/TCP  | Communication between Oneprovider services among different sites |
 | 6665/TCP  | Onedata data transfer channel (RTransfer) |
 | 6666/TCP  | Nagios monitoring port |

@@ -1,61 +1,97 @@
-# SSL certificate management
+# TLS certificate management
 
 <!-- toc -->
 
 All Onedata components require certain X.509 certificates to be installed in specific folders in order to properly handle TLS connections with clients.
 
-The following sections detail certificates required by each Onedata service.
+Depending on the type of services which is being installed, Onepanel will look for certificates under the following paths:
 
-Whenever certificates for given service change, the service must be restarted.
+- **Onezone** 
 
-The certificates should be accessible to the Onepanel administration service before deploying particular Onedata service, i.e.: Onezone or Oneprovider. Depending on the type of services which is being installed, Onepanel will look for certificates under the following paths:
-* Onezone - `/etc/oz_panel/certs` and `/etc/oz_panel/cacerts`
-* Oneprovider - `/etc/op_panel/certs`  and `/etc/op_panel/cacerts`
+- - `/etc/oz_panel/certs/web_key.pem` 
+  - `/etc/oz_panel/certs/web_cert.pem` 
+  - `/etc/oz_panel/certs/web_chain.pem` (optional) 
+  - `/etc/oz_panel/cacerts/*` (optional) 
 
-Each service requires specific certificate and key files, as explained below.
+- **Oneprovider**
+
+- - `/etc/op_panel/certs/web_key.pem` 
+  - `/etc/op_panel/certs/web_cert.pem` 
+  - `/etc/op_panel/certs/web_chain.pem` (optional) 
+  - `/etc/oz_panel/cacerts/*` (optional) 
+
+By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OnedataTestCa`. There is no need to change anything if you are just testing and do not care about the browser connection to be secure. However, you must not use those certificates in production. 
 
 ## Onezone
 
 | Web Server private key |
 |:-----------------|
-| `/etc/oz_panel/certs/key.pem"` |
-| This is the private key of the certificate for Onezone service for securing the HTTPS traffic. |
+| `/etc/oz_panel/certs/web_key.pem` |
+| This is the private key of the TLS certificate for Onezone service for securing the HTTPS traffic. |
 
 | Web Server public certificate |
 |:-----------------|
-| `/etc/oz_panel/certs/cert.pem` |
-| This is the public certificate for Onezone service for securing the HTTPS traffic. |
+| `/etc/oz_panel/certs/web_cert.pem` |
+| This is the public key of the TLS certificate for Onezone service for securing the HTTPS traffic. |
 
 | Web Server CA certificate |
 |:-----------------|
-| `/etc/oz_panel/cacerts/oz_cacert.pem` |
-| This is the certificate of the CA authority used for signing Onezone certificates. |
+| `/etc/oz_panel/certs/web_chain.pem` |
+| This is the CA chain for the web certificate. It’s optional (omitted if the file does not exists) - there is no need to provide it if your web certificate was signed by a well-known, trusted root CA. |
+
+| Trusted CA certificates                                      |
+| ------------------------------------------------------------ |
+| `/etc/oz_panel/cacerts/*`                                    |
+| This directory is used to add trusted certificates to Onezone. By default, a standard CA bundle is used, so in most cases there is no need to add additional certificates. If your environment uses its own certification, you should add your trusted CA’s here.  To add certificates, just place files in this directory. Each file can contain any number of certificates. The application will read the whole directory, no matter what the file names actually are. This directory is NOT used to add trusted chain to your web certificate, in such case please see the Web Server CA certificate section. |
 
 ## Oneprovider
 
 | Web Server private key |
 |:-----------------|
-| `/etc/op_panel/certs/key.pem"` |
-| This is the private key of the certificate for Oneprovider service for securing the HTTPS traffic. |
+| `/etc/op_panel/certs/web_key.pem` |
+| This is the private key of the TLS certificate for Oneprovider service for securing the HTTPS traffic. |
 
 | Web Server public certificate |
 |:-----------------|
-| `/etc/op_panel/certs/cert.pem` |
-| This is the public certificate for Oneprovider service for securing the HTTPS traffic. |
+| `/etc/op_panel/certs/web_cert.pem` |
+| This is the public key of the TLS certificate for Oneprovider service for securing the HTTPS traffic. |
 
 | Web Server CA certificate |
 |:-----------------|
-| `/etc/op_panel/cacerts/oz_cacert.pem` |
-| This is the certificate of the CA authority used for signing Oneprovider certificates. |
+| `/etc/op_panel/certs/web_chain.pem` |
+| This is the CA chain for the web certificate. It’s optional (omitted if the file does not exists) - there is no need to provide it if your web certificate was signed by a well-known, trusted root CA. |
+
+| Trusted CA certificates                                      |
+| ------------------------------------------------------------ |
+| `/etc/op_panel/cacerts/*`                                    |
+| This directory is used to add trusted certificates to Oneprovider. By default, a standard CA bundle is used, so in most cases there is no need to add additional certificates. If your environment uses its own certification, you should add your trusted CA’s here.  To add certificates, just place files in this directory. Each file can contain any number of certificates. The application will read the whole directory, no matter what the file names actually are. This directory is NOT used to add trusted chain to your web certificate, in such case please see the Web Server CA certificate section. |
+
+## Let’s Encrypt support
+
+**Oneprovider** supports obtaining web certificates automatically via Let’s Encrypt, given that subdomain delegation [tu link do sekcji subdomain delegation] is enabled. This option can be enabled both during deployment via GUI or in batch mode. 
+
+Please note that **Onezone** is subject to limits imposed by Let’s Encrypt, so the automatic generation might not always be possible, in case the limits are reached.
+
+> NOTE: When deploying via GUI using this feature, your web browser will need to reload the page when new certificates are installed.
+
 
 
 ## Docker deployment
-When deploying Onedata services using Docker, SSL certificates for Onedata services must be stored on the host machine where they will be accessible, relative to folder `/volumes/persistence` inside containers, i.e. a file that on a Onedata installation deployed using packages would be under path:
 
-* `/etc/oz_panel/certs/key.pem`
+When deploying **Onedata** services using Docker, TLS certificates for Onedata services must be mounted from the host to the appropriate paths in the Docker container, for example when using Docker Compose, this can be achieved using the following configuration:
 
-under Docker container must be available under:
+```yaml
+version: '2.0'
+services:
+  node1.oneprovider:
+    image: onedata/oneprovider:18.02.1
+    hostname: node1.oneprovider.
+    container_name: oneprovider-1
+    volumes:
+        - "/etc/letsencrypt/live/onedata-test-02.tk/privkey.pem:/etc/op_panel/certs/web_key.pem"
+        - "/etc/letsencrypt/live/onedata-test-02.tk/cert.pem:/etc/op_panel/certs/web_cert.pem"
+        - "/etc/letsencrypt/live/onedata-test-02.tk/fullchain.pem:/etc/op_panel/certs/web_chain.pem"
+        ...
 
-* `/volumes/persistence/etc/oz_worker/certs/gui_key.pem`
+```
 
-For examples of configuration that include certificates please refer to [getting-started](https://github.com/onedata/getting-started) GitHub repository, where you can find multiple *docker-compose.yaml* configuration files using them.

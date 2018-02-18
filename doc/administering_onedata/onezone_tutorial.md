@@ -105,7 +105,7 @@ version: '2.0'
 services:
   node1.onezone.localhost:
     # Onezone Docker image version
-    image: onedata/onezone:17.06.0-rc8
+    image: onedata/onezone:18.02.1
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.onezone.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -120,27 +120,17 @@ services:
        # Load balancing configuration based on DNS
        - "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
        # Onezone certificate key
-       - "/opt/onedata/onezone/certs/key.pem:/etc/oz_panel/certs/key.pem"
+       - "/opt/onedata/onezone/certs/key.pem:/etc/oz_panel/certs/web_key.pem"
        # Onezone public certificate
-       - "/opt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/cert.pem"
+       - "/opt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/web_cert.pem"
        # Certificate of public certificate signing authority
-       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
-       # Certificate of public certificate signing authority (same as above)
-       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
+       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_panel/certs/web_chain.pem"
     # Expose the necessary ports from Onezone container to the host
     ports:
       - "53:53"
       - "53:53/udp"
       - "443:443"
       - "80:80"
-      - "5555:5555"
-      - "5556:5556"
-      - "6665:6665"
-      - "6666:6666"
-      - "7443:7443"
-      - "8443:8443"
-      - "8876:8876"
-      - "8877:8877"
       - "9443:9443"
     environment:
       # Force Onepanel to read configuration from environment variable
@@ -173,7 +163,7 @@ services:
         onezone:
           # Assign custom name to the Onezone instance
           name: "ONEZONE-DEMO"
-          domainName: "onezone.localhost"
+          domainName: "onezone-demo.tk"
         onepanel:
           # Create initially 1 administrator and 1 regular user
           users:
@@ -252,11 +242,11 @@ In order to configure certificates for **Onezone** service the following certifi
 
 | Name             | Path for Docker deployment | Path for package deployment |
 |:-----------------|:-----------------|:-----------------|
-| Onezone private key | `/opt/onedata/onezone/certs/key.pem` | `/etc/oz_panel/certs/key.pem` |
-| Onezone public certificate | `/opt/onedata/onezone/certs/cert.pem` | `/etc/oz_panel/certs/cert.pem`|
-| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/cacerts/oz_cacert.pem` |
+| Onezone private key | `/opt/onedata/onezone/certs/key.pem` | `/etc/oz_panel/certs/web_key.pem` |
+| Onezone public certificate | `/opt/onedata/onezone/certs/cert.pem` | `/etc/oz_panel/certs/web_cert.pem` |
+| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/certs/web_chain.pem` |
 
-During deployment, Onepanel will install these certificates in the **Onezone** certificate directories `/etc/oz_worker/cacerts` and `/etc/oz_worker/certs`.
+During deployment, **Onepanel** will install these certificates in the **Onezone** certificate directory  `/etc/oz_worker/certs`.
 
 #### Automated setup using Let's Encrypt
 These instructions show how to replace certificates in **Onezone** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar.
@@ -317,7 +307,7 @@ $ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
 ```
 
 ### Security and recommended firewall settings
-**Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
+**Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
 Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 

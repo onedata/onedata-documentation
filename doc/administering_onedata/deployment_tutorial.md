@@ -19,7 +19,7 @@ In case of Docker deployments the only prerequisites are:
 - [Docker Compose](https://docs.docker.com/compose/) => 1.7
 
 In case of installation using packages, please make sure that you will be installing Onedata services on one of our supported platforms:
-- Fedora 23
+- CentOS 7
 - Ubuntu 16.04
 
 

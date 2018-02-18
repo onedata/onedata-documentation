@@ -10,6 +10,7 @@ The currently supported storage backends include:
 * **ceph** - storage backend allowing to support user spaces on storage resources managed by [Ceph](http://ceph.com/ceph-storage/) object storage,
 * **swift** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
 * **glusterfs** - [GlusterFS](https://www.gluster.org/) volumes can be directly attached to the Oneprovider.
+* **nulldevice** - storage helper which emulates behavior of `/dev/null` on local filesystem, allowing running various performance tests which are not impacted by actual storage latency.
 
 The sections below describe how to attach each of these storage types to a Onedata deployment on a local site. Storage can be attached using Oneprovider REST API, by updating the configuration. Example YAML configuration with multiple storage backends is presented below:
 
@@ -61,10 +62,17 @@ The sections below describe how to attach each of these storage types to a Oneda
           hostname: 192.168.12.101
           volume: VolumeA
           transport: tcp
+        SlowNullStorage:
+          type: "nulldevice"
+          latencyMin: 5
+          latencyMax: 25
+          filter: "read,write"
     oneprovider:
       register: true
       name: Provider1
-      redirectionPoint: "https://node1.oneprovider.onedata.example.com"
+      subdomainDelegation: false
+      domain: "node1.oneprovider.onedata.example.com"
+      adminEmail: "getting-started@example.com"
       geoLatitude: 50.068968
       geoLongitude: 19.909444
     onezone:
@@ -158,3 +166,17 @@ GlusterFS storage attributes are:
 | blockSize     | **string**  | **(Optional)** Storage block size in bytes |
 | insecure      | **string**  | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
 | readonly      | **string**  | **(Optional)** Defines whether storage is readonly |
+
+## NullDevice
+
+NullDevice storage attributes are:
+
+| Attribute          | Type       | Description                                                  |
+| ------------------ | ---------- | ------------------------------------------------------------ |
+| type               | **string** | Must be equal to `nulldevice`                                |
+| latencyMin         | **int**    | **(Optional)** NullDevice helper will emulate latency with at least this number of milliseconds |
+| latencyMax         | **int**    | **(Optional)** NullDevice helper will emulate latency with at most this number of milliseconds |
+| timeoutProbability | **float**  | **(Optional)** The probablity `[0.0, 1.0]` that a filesystem operation will return timeout error. |
+| filter             | **string** | **(Optional)** Allows to specify for which Fuse operations the latency and timeout properties will be applied (e.g. `read,write`). By default it applies to all operations. |
+| insecure           | **string** | Must be set to `true`                                        |
+| readonly           | **string** | Must be set to `true`                                        |
