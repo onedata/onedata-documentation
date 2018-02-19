@@ -4815,7 +4815,7 @@
           "aspect": "{user, ?BINDING(uid)}"
         },
         "x-onedata-permissions": [
-          "group_remove_user",
+          "group_remove_user,",
           "oz_groups_remove_members"
         ],
         "summary": "Remove user from group",
