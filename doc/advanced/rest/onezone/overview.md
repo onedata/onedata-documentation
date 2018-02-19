@@ -100,7 +100,7 @@ with pre-configured shell with full help on the APIs and autocomplete for
 operations and attributes.
 
 ```
-docker run -it onedata/rest-cli:17.06.0-rc8
+docker run -it onedata/rest-cli:18.02.0-beta1
 ```
 
 We have also prepared tutorials which show how to use this API in practice:
@@ -124,16 +124,16 @@ https://$ONEZONE_HOST:8443/api/v3/onezone/user \
 
 
 ### Version information
-*Version* : 17.06.0-rc8
+*Version* : 18.02.0-beta1
 
 
 ### Contact information
-*Contact* : Onedata support  
+*Contact* : Onedata support
 *Contact Email* : info@onedata.org
 
 
 ### License information
-*License* : Apache 2.0  
+*License* : Apache 2.0
 *License URL* : http://www.apache.org/licenses/LICENSE-2.0.html
 
 
