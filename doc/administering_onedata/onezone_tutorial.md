@@ -105,7 +105,7 @@ version: '2.0'
 services:
   node1.onezone.localhost:
     # Onezone Docker image version
-    image: onedata/onezone:18.02.1
+    image: onedata/onezone:18.02.0
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.onezone.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -240,10 +240,10 @@ In case of installation using Docker, create a file `/opt/onedata/onezone/auth.c
 ### Setting up certificates
 In order to configure certificates for **Onezone** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
 
-| Name             | Path for Docker deployment | Path for package deployment |
-|:-----------------|:-----------------|:-----------------|
-| Onezone private key | `/opt/onedata/onezone/certs/key.pem` | `/etc/oz_panel/certs/web_key.pem` |
-| Onezone public certificate | `/opt/onedata/onezone/certs/cert.pem` | `/etc/oz_panel/certs/web_cert.pem` |
+| Name                        | Path for Docker deployment              | Path for package deployment         |
+| :-------------------------- | :-------------------------------------- | :---------------------------------- |
+| Onezone private key         | `/opt/onedata/onezone/certs/key.pem`    | `/etc/oz_panel/certs/web_key.pem`   |
+| Onezone public certificate  | `/opt/onedata/onezone/certs/cert.pem`   | `/etc/oz_panel/certs/web_cert.pem`  |
 | Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/certs/web_chain.pem` |
 
 During deployment, **Onepanel** will install these certificates in the **Onezone** certificate directory  `/etc/oz_worker/certs`.
@@ -252,7 +252,7 @@ During deployment, **Onepanel** will install these certificates in the **Onezone
 These instructions show how to replace certificates in **Onezone** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar.
 
 > In your are running the following commands after the Onezone service has been
- started or rerunning them to generate new certificates, the Onezone service has to be stopped.
+>  started or rerunning them to generate new certificates, the Onezone service has to be stopped.
 
 ##### Docker based deployment
 
@@ -271,9 +271,9 @@ cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 # Link the files to the certificates in Docker container
 $ cd /opt/onedata/onezone/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem cacert.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem cert.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem key.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem web_cert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
 ```
 
 ##### Package based deployment
@@ -295,15 +295,17 @@ $ cd /etc/oz_panel/cacerts
 $ rm -rf *.pem
 $ cd /etc/oz_panel/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem cert.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem key.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/cert.pem web_cert.pem
 
 # These are only necessary when replacing certificates in already deployed
 # Onezone service
 $ cd /etc/oz_worker/certs
 $ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem web_cert.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
 $ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
+$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/cert.pem web_cert.pem
 ```
 
 ### Security and recommended firewall settings
@@ -326,17 +328,92 @@ $ sudo systemctl restart oz_panel.service
 Open `https://$ONEZONE_HOST:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
-<p align="center"><img src="../img/admin/oz_tutorial_panel_login.png" width="640"></p>
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_login.png" width="640"></p>
 
 * Select hosts in the cluster which will have specific roles (leave as is)
-<p align="center"><img src="../img/admin/oz_tutorial_panel_hosts_selection.png" width="640"></p>
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_hosts_selection.png" width="640"></p>
 
 * Wait for installation to complete
-<p align="center"><img src="../img/admin/oz_tutorial_panel_success.png" width="640"></p>
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_success.png" width="640"></p>
 
 After this step succeeds, **Onezone** should be ready and accessible at `https://$ONEZONE_HOST`
 
+### DNS records setup for subdomain delegation
+
+Onezone has its own DNS server, automatically deployed on every node of the cluster. Its purpose is to simplify cluster scaling and allow for subdomain delegation for Oneproviders - i.e. allocating subdomains of the Onezone domain for the providers and resolving DNS queries in their name. In order for subdomain delegation to work properly, it is necessary to set up DNS zone delegation in the DNS server responsible for your domain. It should delegate management of the Onezone domain and its subdomains to the Onezone DNS server. 
+
+Assuming your Onezone domain is `onezone-demo.tk` you need to set following records at your DNS provider:
+NS records pointing to ns1.onezone.org, ns2.onezone.org etc.. Number of those subdomains depends on the number of nodes in your Onezone cluster. If there are more than 10 nodes, only the first ten should be inserted.
+
+> NOTE: even if your installation uses a single node, subdomain `ns2.` is also available in order to comply with some registrars minimum of two NS records. This option can be configured in the `app.config` file. Glue records, i.e. A records with names `ns1.onezone-demo.tk`, `ns2.onezone-demo.tk` etc. and IPs of your cluster nodes.
+
+Example: your Onezone deployment (onezone.org) consists of 3 nodes:
+`150.1.0.2`, `150.1.0.3` and `150.1.0.4`
+
+In the DNS responsible for the `onezone-demo.tk` domain (usually the server is administered by the domain provider, or there is a dedicated DNS server for your organization), set the following records:
+
+| Domain           | Record | Value            |
+| ---------------- | ------ | ---------------- |
+| onedata.org.     | NS     | ns1.onedata.org. |
+| onedata.org.     | NS     | ns2.onedata.org. |
+| onedata.org.     | NS     | ns3.onedata.org. |
+| ns1.onedata.org. | A      | 150.1.0.2        |
+| ns2.onedata.org. | A      | 150.1.0.2        |
+| ns3.onedata.org. | A      | 150.1.0.2        |
+
+This way, all queries concerning the `onezone-demo.tk` domain will be routed to the DNS servers running on Onezone cluster nodes.
+
+Further fine-tuning of the Onezone DNS service (e.g. adding static DNS entries) can be achieved by modifying `dns` section of the `/etc/oz_worker/app.config` file:
+
+```erlang
+        %% DNS config
+        {dns, [
+            % Static mapings from onezone subdomain to list of ips.
+            % Full domain will be based on http_domain as set in this config
+            % file.
+            % The subdomain must be a binary and must not begin or end
+            % with the dot character.
+            % Example:
+            % {static_entries, [
+            %     {<<"example-subdomain">>, [{10,0,0,1}, {10,0,0,2}]}
+            % ]}
+            {static_entries, []},
+
+            % maximum number of ips to be presented as subdomain
+            % ns1, ns2, ns3 etc. in NS records
+            {ns_max_entries, 10},
+
+            % minimum number of resolved nsX domains. If the number specified
+            % is higher than number of oz_worker nodes, some domains will resolve
+            % to the same IP address. Must not be higher than ns_max_entries
+            % Use this option if your domain registart enforces
+            % a minimum number of Nameserver addresses.
+            {ns_min_entries, 2},
+
+            %% SOA record parameters
+            % Nameserver admin mailbox
+            {soa_admin_mailbox, "dns-admin.onedata.org"},
+            % This value must be incremented on every update of this config file
+            {soa_serial, 2017090401},
+            % Time interval before the zone should be refreshed
+            {soa_refresh, 7200},
+            % Time interval that should elapse before a failed refresh should be retried
+            {soa_retry, 1800},
+            % Time value that specifies the upper limit on the time interval that
+            % can elapse before the zone is no longer authoritative
+            {soa_expire, 1209600},
+            % Time a NAME ERROR = NXDOMAIN result may be cached by any resolver
+            {soa_minimum, 120},
+
+            {a_ttl, 120},
+            {ns_ttl, 120},
+            {soa_ttl, 120},
+            {txt_ttl, 120}
+        ]},
+```
+
 ### Advanced configuration
+
 After installation several **Onezone** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/oz_worker/app.config` for package based deployment and in `/opt/onedata/onezone/persistence/etc/oz_worker/app.config`. After modifying `app.config` file always restart **Onezone** service in order for changes to take effect.
 
 #### Onezone domain, name and administrator email
@@ -397,12 +474,12 @@ $ sudo rm -rf /opt/onedata/onezone/persistence/*
 After web based Onepanel setup is complete, **Onezone** service should be operating normally. However, **Onezone** service can be manually started and stopped when needed, it is composed of several **systemd** units:
 
 
-| Name             | Purpose |
-|:-----------------|:-----------------|
+| Name                       | Purpose                                  |
+| :------------------------- | :--------------------------------------- |
 | `couchbase-server.service` | Couchbase server for **Onezone** metadata |
-| `oz_panel.service` | Onepanel administration service |
-| `cluster_manager.service` | The process for managing a cluster **Onezone** deployment |
-| `oz_worker.service` | The main **Onezone** service |
+| `oz_panel.service`         | Onepanel administration service          |
+| `cluster_manager.service`  | The process for managing a cluster **Onezone** deployment |
+| `oz_worker.service`        | The main **Onezone** service             |
 
 
 ### Monitoring
@@ -410,7 +487,7 @@ After web based Onepanel setup is complete, **Onezone** service should be operat
 Monitoring information is available on a specific port and provides basic status of all **Onezone** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS http://$ONEZONE_HOST:6666/nagios | xmllint --format -
+$ curl -sS http://$ONEZONE_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/26 17:52:33" status="ok">
   <oz_worker name="oz_worker@onezone-demo.tk" status="ok">

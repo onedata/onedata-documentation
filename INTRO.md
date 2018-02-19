@@ -1,5 +1,5 @@
 # ![Onedata](doc/img/heading.png) Documentation
-<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: 18.02.1</div>
+<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: 18.02.0</div>
 
 
 

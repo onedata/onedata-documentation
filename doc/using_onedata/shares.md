@@ -40,7 +40,7 @@ Handles for shares can be also generated using the  REST API using the following
 ```bash
 curl -k -u username:password -X POST -H "Content-type: application/json" \
 -d '{"handleServiceId": "AFSASDARAWD32aasfASSD", "resourceType": "Share", "resourceId": "LKJGLSAKDGASGD34234JKAHSD", "metadata": "..." }' \
-https://$ONEZONE_HOST:8443/api/v3/handles
+https://$ONEZONE_HOST/api/v3/handles
 ```
 
 where metadata must be a Dublin Core compatible metadata in escaped XML.

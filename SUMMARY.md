@@ -38,7 +38,6 @@
       * [OpenID Configuration](doc/administering_onedata/openid_configuration.md)
       * [Space Support](doc/administering_onedata/provider_space_support.md)
       * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
-      * [Load Balancing Setup](doc/administering_onedata/loadbalancing.md)
       * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
       * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
       * [Local User MApping](doc/administering_onedata/luma.md)
@@ -49,22 +48,22 @@
   * [REST API](doc/advanced/rest/README.md)
      * [Onezone](doc/advanced/rest/onezone/overview.md)
         * [Definitions](doc/advanced/rest/onezone/definitions.md)
-{% include "doc/advanced/rest/onezone/DEFINITIONS_TOC.md" %}
+          {% include "doc/advanced/rest/onezone/DEFINITIONS_TOC.md" %}
         * [Operations](doc/advanced/rest/onezone/paths.md)
-{% include "doc/advanced/rest/onezone/PATHS_TOC.md" %}
+          {% include "doc/advanced/rest/onezone/PATHS_TOC.md" %}
      * [Oneprovider](doc/advanced/rest/oneprovider/overview.md)
         * [Definitions](doc/advanced/rest/oneprovider/definitions.md)
-{% include "doc/advanced/rest/oneprovider/DEFINITIONS_TOC.md" %}
+          {% include "doc/advanced/rest/oneprovider/DEFINITIONS_TOC.md" %}
         * [Operations](doc/advanced/rest/oneprovider/paths.md)
-{% include "doc/advanced/rest/oneprovider/PATHS_TOC.md" %}
+          {% include "doc/advanced/rest/oneprovider/PATHS_TOC.md" %}
      * [Onepanel](doc/advanced/rest/onepanel/overview.md)
         * [Definitions](doc/advanced/rest/onepanel/definitions.md)
-{% include "doc/advanced/rest/onepanel/DEFINITIONS_TOC.md" %}
+          {% include "doc/advanced/rest/onepanel/DEFINITIONS_TOC.md" %}
         * [Operations](doc/advanced/rest/onepanel/paths.md)
-{% include "doc/advanced/rest/onepanel/PATHS_TOC.md" %}
+          {% include "doc/advanced/rest/onepanel/PATHS_TOC.md" %}
      * [LUMA](doc/advanced/rest/luma/overview.md)
         * [Definitions](doc/advanced/rest/luma/definitions.md)
-{% include "doc/advanced/rest/luma/DEFINITIONS_TOC.md" %}
+          {% include "doc/advanced/rest/luma/DEFINITIONS_TOC.md" %}
         * [Operations](doc/advanced/rest/luma/paths.md)
-{% include "doc/advanced/rest/luma/PATHS_TOC.md" %}
+          {% include "doc/advanced/rest/luma/PATHS_TOC.md" %}
  * [CDMI API](doc/advanced/cdmi.md)

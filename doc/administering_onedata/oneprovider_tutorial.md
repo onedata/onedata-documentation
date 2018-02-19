@@ -107,12 +107,12 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:17.06.0-rc8
+    image: onedata/oneprovider:18.02.0
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
     # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
-    # To use bridge network 
+    # To use bridge network
     network_mode: host
     # Friendly name of the Oneprovider Docker container
     container_name: oneprovider-1
@@ -124,13 +124,13 @@ services:
        # Data storage directories
        - "/mnt/nfs:/volumes/storage"
        # Oneprovider certificate key
-       - "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/key.pem"
+       - "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
        # Oneprovider public certificate
-       - "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/cert.pem"
+       - "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
        # Certificate of public certificate signing authority
-       - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/cacerts/cacert.pem"
-       # Certificate of public certificate signing authority (same as above)
-       - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_worker/cacerts/cacert.pem"
+       - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
+       # Additional, trusted CA certificates (all files from this directory will be added)
+       - "/opt/onedata/oneprovider/cacerts:/etc/op_worker/cacerts"
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
     ports:
@@ -138,11 +138,7 @@ services:
       - "53:53/udp"
       - "443:443"
       - "80:80"
-      - "5556:5556"
       - "6665:6665"
-      - "6666:6666"
-      - "7443:7443"
-      - "8443:8443"
       - "8876:8876"
       - "8877:8877"
       - "9443:9443"
@@ -184,12 +180,17 @@ services:
               type: "posix"
               mountPoint: "/volumes/storage"
         oneprovider:
-          # Automatically register this Oneprovider in Onezone
-          register: true
-          name: "ONEPROVIDER-DEMO"
-          redirectionPoint: "https://oneprovider-demo.tk"
           geoLatitude: 50.0646501
           geoLongitude: 19.9449799
+          register: true
+          name: "ONEPROVIDER-DEMO"
+          adminEmail: "admin@example.com"
+          # Automatically register this Oneprovider in Onezone without subdomain delegation
+          subdomainDelegation: false
+          domain: "https://oneprovider-demo.tk"
+          # Automatically register this Oneprovider in Onezone without subdomain delegation
+          # subdomainDelegation: true
+          # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.tk"
         onezone:
           # Assign custom name to the Onezone instance
           domainName: "onezone-demo.tk"
@@ -246,15 +247,17 @@ $ sudo apt install oneprovider
 
 
 ### Setting up certificates
-In order to configure certificates for **Oneprovider** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
+Since release 18.02.0, Onedata supports automatic subdomain delegation and Let's Encrypt certificate generation for Oneprovider instances. If this options is used, it is only necessary to enable this feature in Oneprovider Docker Compose configuration file (see above) or via GUI. In such case, Onepanel will automatically create and update the Let's Encrypt certificates for Oneprovider.
 
-| Name                            | Path for Docker deployment               | Path for package deployment           |
-| :------------------------------ | :--------------------------------------- | :------------------------------------ |
-| Oneprovider private key         | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/key.pem`         |
-| Oneprovider public certificate  | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/cert.pem`        |
-| Oneprovider certificate CA cert | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/cacerts/oz_cacert.pem` |
+In order to configure certificates for **Oneprovider** service manually, the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
 
-During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directories `/etc/op_worker/cacerts` and `/etc/op_worker/certs`.
+| Name                           | Path for Docker deployment               | Path for package deployment         |
+| :----------------------------- | :--------------------------------------- | :---------------------------------- |
+| Oneprovider private key        | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/web_key.pem`   |
+| Oneprovider public certificate | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/web_cert.pem`  |
+| Oneprovider CA chain           | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/certs/web_chain.pem` |
+
+During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directory `/etc/op_worker/certs`.
 
 #### Automated setup using Let's Encrypt
 These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
@@ -299,21 +302,20 @@ $ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
 cert.pem  chain.pem  fullchain.pem  privkey.pem  README
 
 # Link the files to the certificates in Onepanel and Oneprovider services
-$ cd /etc/op_panel/cacerts
-$ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem oz_cacert.pem
 $ cd /etc/op_panel/certs
 $ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem key.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
 $ cd /etc/op_worker/certs
 $ sudo rm -rf web_key.pem web_cert.pem
 $ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
 $ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
+$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
 ```
 
 ### Security and recommended firewall settings
-**Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`5555`,`5556`,`6665`,`6666`,`7443`,`8443`,`8876`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface and `6666` for monitoring information. For more details on these ports see here.
+**Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
 
 Furthermore, on all nodes of **Oneprovider** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 
@@ -335,7 +337,7 @@ Open `https://oneprovider-demo.tk:9443` using any web browser and continue throu
 * Select hosts in the cluster which will have specific roles (leave as is)
   <p align="center"><img src="../img/admin/op_tutorial_panel_hosts_selection.png" width="720"></p>
 
-* Provide Onezone details
+* Provide Onezone details including subdomain delegation request
   <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
 * Add storage
@@ -419,7 +421,7 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS http://$ONEPROVIDER_HOST:6666/nagios | xmllint --format -
+$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
   <op_worker name="op_worker@oneprovider-demo.tk" status="ok">

@@ -5,7 +5,7 @@
 ## Overview
 This tutorial describes how to manage Onedata deployment using Onezone, Oneprovider and Onepanel REST API's from command line.
 
-Onepanel is an administration component of all Onedata services, and is automatically deployed on each node where either Onezone or Oneprovider is deployed, typically on port `9443`. Onezone and Oneprovider REST API's are available on port `8443`.
+Onepanel is an administration component of all Onedata services, and is automatically deployed on each node where either Onezone or Oneprovider is deployed, typically on port `9443`. Onezone and Oneprovider REST API's are available on port `443`.
 
 ## Prerequisites
 This tutorial is based on a Docker image with a preconfigured Zsh environment for accessing Onedata services, including Onedata command line clients, CDMI client and [jq](https://stedolan.github.io/jq/) tool for parsing and formatting JSON. To start this environment simply execute:
@@ -17,19 +17,18 @@ docker run -it onedata/rest-cli
 Before proceeding first set the following environment variables, for instance:
 ```bash
 export ONEPANEL_HOST=https://<ONEZONE IP ADDRESS>:9443
-export ONEZONE_HOST=https://<ONEZONE IP ADDRESS>:8443
-export ONEPROVIDER_HOST=https://<ONEPROVIDER IP ADDRESS>:8443
+export ONEZONE_HOST=https://<ONEZONE IP ADDRESS>
+export ONEPROVIDER_HOST=https://<ONEPROVIDER IP ADDRESS>
 export ONEPANEL_BASIC_AUTH=admin:password
 ```
 
-Alternatively the environment variables can be provided in to the Docker command in a more concise form: 
+Alternatively the environment variables can be provided in to the Docker command in a more concise form:
 
 ```bash
 docker run -e ONEDATA_ZONE=<ONEZONE_IP> -e ONEDATA_PROVIDER=<ONEPROVIDER_IP> -it onedata/rest-cli
 ```
 
-The Docker provides 3 command line utilities for each of the main Onedata
-services:
+The Docker provides 3 command line utilities for each of the main Onedata services:
 
 * `onezone-rest-cli` - for accessing Onezone REST API
 * `oneprovider-rest-cli` - for accessing Oneprovider REST API
@@ -39,10 +38,10 @@ In this tutorial we are most interested in `onepanel-rest-cli`.
 
 > If you're connecting to a Onedata service which does not have a trusted certificate remember to add `-k` option to each call before the operation name.
 
-By default Docker is configured for the latest Onedata release, but it also contains clients for all previous releases, to switch to a specific release (for instance 17.06.0) use:
+By default Docker is configured for the latest Onedata release, but it also contains clients for all previous releases, to switch to a specific release (for instance 18.02.0) use:
 
 ```bash
-onedata-select-version 17.06.0
+onedata-select-version 18.02.0
 ```
 
 ## Authentication

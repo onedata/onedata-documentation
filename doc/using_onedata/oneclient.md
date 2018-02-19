@@ -52,21 +52,11 @@ If you are connecting to a provider service which does not have a
 globally trusted certificate, you will have to use `-i` or `--insecure` on every `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable .
 
 
-<!--
-### Using third party IdP access tokens
-Onedata supports authentication directly using tokens issued by trusted
-third-party tokens (e.g. GitHub), if they are enabled in a paritcular Onedata
-deployment. In order to use such tokens, they have to be prefixed with the IdP
-token prefix as configured by administrators of Onezone service. For instance:
-
-```
-github:e72e16c7e42f292c6912e7710c838347ae178b4a
-​``` -->
 
 ### Mounting spaces
 
 The basic command line syntax to mount spaces using a specific Oneprovider is:
-​```bash
+```bash
 oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
 ```
 
@@ -189,7 +179,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:17.06.0-rc8
+-d --name oneclient-1 onedata/oneclient:18.02.1
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`

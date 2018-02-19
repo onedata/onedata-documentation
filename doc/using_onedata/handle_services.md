@@ -15,7 +15,7 @@ The command below adds a new Handle service (in this case DataCite) for assignin
 
 ```bash
 curl -k -u username:password -X POST  -H "Content-type: application/json" \
-    -d @datacite.json https://$ONEZONE_HOST:8443/api/v3/handle_services
+    -d @datacite.json https://$ONEZONE_HOST/api/v3/handle_services
 ```
 
 where `datacite.json` in the current folder contains the following content:
@@ -48,7 +48,7 @@ In order to allow other users in the community to register their shares using Ha
 In order to add a user to specific Handle service invoke the following request:
 ```bash
 curl -k -u username:password -X PUT \
-https://$ONEZONE_HOST:8443/api/v3/handle_services/${HANDLE_SERVICE_ID}/users/${USER_ID}
+https://$ONEZONE_HOST/api/v3/handle_services/${HANDLE_SERVICE_ID}/users/${USER_ID}
 ```
 
 where `HANDLE_SERVICE_ID` is the ID of the Handle service returned during registration and `USER_ID` is the ID of the user who should have permission to register identifiers for shares using this service.

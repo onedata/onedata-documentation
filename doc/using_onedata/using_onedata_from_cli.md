@@ -20,7 +20,7 @@ docker run -it onedata/rest-cli
 
 Before proceeding first set the following environment variables:
 ```bash
-export ONEZONE_HOST=https://<ONEZONE IP ADDRESS>:8443
+export ONEZONE_HOST=https://<ONEZONE IP ADDRESS>
 export ONEZONE_API_KEY=Xdasd64asdASD54ASDAKk-ADSa6q
 ```
 
@@ -39,7 +39,7 @@ contains clients for all previous releases, to switch to a specific release
 (for instance 17.06.0-rc2) use:
 
 ```bash
-onedata-select-version 17.06.0-rc2
+onedata-select-version 18.02.1
 ```
 
 ## Authentication
@@ -201,12 +201,12 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash onedata/oneclient:17.06.0-rc6
+docker run -it --entrypoint=/bin/bash onedata/oneclient:18.02.1
 ```
 
 ```bash
 export PROVIDER_HOSTNAME=192.168.1.4
-export ONEPROVIDER_HOST=https://$PROVIDER_HOSTNAME:8443
+export ONEPROVIDER_HOST=https://$PROVIDER_HOSTNAME
 export ONEPROVIDER_API_KEY=$ONEZONE_API_KEY
 
 mkdir -p ~/mnt/onedata

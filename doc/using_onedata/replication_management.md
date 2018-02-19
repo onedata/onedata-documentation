@@ -23,7 +23,7 @@ The `/replicas/` methods allow retrieving of information about file replica dist
 Information about replicas of a specific file can be retrieved using the following query:
 ```bash
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat
 ```
 
 The result is a JSON list of objects, where each contains the id of one of the providers hosting at least some fragments of the file and the list of blocks stored at it's premises in the form: `[offset, size]`.
@@ -64,7 +64,7 @@ In order to request replication of the file to a specific provider, a `POST` req
 
 ```bash
 curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
-'https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
+'https://$ONEPROVIDER_HOST/api/v3/oneprovider/replicas/MySpace1/MyFolder2/my_file3.dat?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS'
 ```
 
 This operation returns a transfer ID which can be used to monitor and cancel the transfer:
@@ -78,11 +78,13 @@ Please note, that this operation is asynchronous as it can take a long time depe
 The default API for replica management is compatible with [CDMI]() convention of using complete file and directory paths directly in the request URL's. Additionaly, we provide REST operations which take directly file and folder ID's instead of paths and can be used in the same way as the above operations, i.e.:
 
 ```bash
+# Replicate file AO3413D85757asdASas3ASD to Oneprovider at $ONEPROVIDER_HOST
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
 
+# Replicate file AO3413D85757asdASas3ASD to another Oneprovider with specific Id
 curl -X POST -H "X-Auth-Token: $ACCESS_TOKEN"  \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/replicas/AO3413D85757asdASas3ASD?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD?provider_id=34fgtYRDD5rhg5e1W4t4gt557VSffsDDAJTTS31SHRS
 ```
 
 
@@ -94,18 +96,18 @@ In order to get information about a specific transfer, simply query the followin
 
 ```bash
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/transfers/<TRANSFER_ID>
 ```
 
 or you can request all active transfers for given user:
 ```bash
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/transfers
 ```
 
 Each transfer can be cancelled using `DELETE` method:
 ```bash
 curl -X DELETE -H "X-Auth-Token: $ACCESS_TOKEN" \
-https://$ONEPROVIDER_HOST:8443/api/v3/oneprovider/transfers/<TRANSFER_ID>
+https://$ONEPROVIDER_HOST/api/v3/oneprovider/transfers/<TRANSFER_ID>
 ```
 

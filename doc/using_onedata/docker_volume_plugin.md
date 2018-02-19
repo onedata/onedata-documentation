@@ -4,7 +4,7 @@
 
 ## Overview
 
-[Docker volume plugins](https://docs.docker.com/engine/extend/plugins_volume/) 
+[Docker volume plugins](https://docs.docker.com/engine/extend/plugins_volume/)
 allow creation of Docker volumes independently of any containers, enabling
 automatic connection between containers and custom storage systems, without
 the necessity of installing any third party software inside the containers.
@@ -36,7 +36,7 @@ $ wget -qO- http://packages.onedata.org/onedata-docker-volume.sh | sh
 The script will automatically check for Docker and install latest Docker if
 none is installed on the host, after a short warning message.
 
-If an older version of Docker than required (1.13) is installed the script 
+If an older version of Docker than required (1.13) is installed the script
 will abort, and a newer Docker version must be installed manually.
 
 After the install script completes, latest `oneclient` version will be
@@ -44,11 +44,11 @@ installed on the host, which can be verified using:
 
 ```
 $ oneclient -V
-Oneclient: 17.06.0-rc2
+Oneclient: 18.02.0
 FUSE library: 2.9
 ```
 
-Onedata Docker volume plugin is installed as a systemd service, and can be 
+Onedata Docker volume plugin is installed as a systemd service, and can be
 managed using `systemctl` command. After installation is complete it should
 be enabled and started as follows:
 
@@ -96,7 +96,7 @@ $ docker volume create --driver onedata \
 
 In cases when connecting to a Oneprovider instance without a trusted certificate,
 `-o insecure=true` option must be added. Additionally, Onedata Docker volume
-plugins supports all regular 
+plugins supports all regular
 [Oneclient command line options](../using_onedata/oneclient.md), which must be
 added with `-o` followed by option name, equal sign and value
 (e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
@@ -122,7 +122,7 @@ $ docker volume inspect my_volume
 ```
 
 Creating volume does not automatically invoke Oneclient and does connect to
-Oneprovider in anyway. Only when a container is started with this volume 
+Oneprovider in anyway. Only when a container is started with this volume
 attached, the Oneclient will be invoked. If multiple containers have the same
 volume attached, the Oneclient will be automatically unmounted after the last
 container is stopped.
@@ -148,13 +148,13 @@ MySpace1
 MySpace2
 ```
 
-Please note, that the Docker image doesn't need any Onedata specific packages 
+Please note, that the Docker image doesn't need any Onedata specific packages
 installed.
 
 ### Security
 
 Docker volume plugins do have a serious security limitation, which allows any
-user in the `docker` group to access any volumes on the host, regardless of 
+user in the `docker` group to access any volumes on the host, regardless of
 which user created them. Thus, it is advisable to only use Docker volume plugins
 on machines with exclusive access or where only trusted users have access, as
 they will be able to access any Onedata volume created on this host.

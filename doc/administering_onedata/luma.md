@@ -271,7 +271,7 @@ Latest LUMA container can be found on our [Dockerhub repository](https://hub.doc
 
 ```bash
 $ touch db.json # Only the first time
-$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:17.06.0-rc8
+$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:18.02.0-beta1
 ```
 
 Flask server will by default log all requests to the stdout, so it should be easy to see whether the Oneprovider requests are handled properly.
@@ -283,7 +283,7 @@ LUMA can be also started directly without Docker:
 ```bash
 $ git clone https://github.com/onedata/luma
 $ cd luma
-$ git checkout release/17.06.0-rc8
+$ git checkout release/18.02.0-beta1
 $ cd luma
 $ vim db.json # Define the mappings manually or leave empty
 $ python app.py # Make sure that the service will run persistently

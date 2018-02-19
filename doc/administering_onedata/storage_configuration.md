@@ -89,7 +89,7 @@ POSIX attributes for configuration are:
 | type       | **string** | Must be equal to posix'                  |
 | mountPoint | **string** | The local path at which Oneprovider worker threads can access this storage |
 | timeout    | **string** | **(Optional)** Storage operation timeout in milliseconds |
-| readonly   | **string** | **(Optional)** Defines whether storage is readonly |
+| readonly   | **bool**   | **(Optional)** Defines whether storage is readonly |
 
 Please note that Oneprovider will not automatically mount or unmount this storage from the nodes, this must be ensured by administrators.
 
@@ -106,8 +106,8 @@ S3 attributes for configuration are:
 | secretKey  | **string** | The secret key for the S3 storage        |
 | timeout    | **string** | **(Optional)** Storage operation timeout in milliseconds |
 | blockSize  | **string** | **(Optional)** Storage block size in bytes |
-| insecure   | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly   | **string** | **(Optional)** Defines whether storage is readonly |
+| insecure   | **bool**   | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly   | **bool**   | **(Optional)** Defines whether storage is readonly |
 
 
 ## Ceph
@@ -124,8 +124,8 @@ Ceph storage attributes are:
 | clusterName     | **string** | The name of the Ceph cluster             |
 | poolName        | **string** | The Ceph pool name                       |
 | timeout         | **string** | **(Optional)** Storage operation timeout in milliseconds |
-| insecure        | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly        | **string** | **(Optional)** Defines whether storage is readonly |
+| insecure        | **bool**   | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly        | **bool**   | **(Optional)** Defines whether storage is readonly |
 
 More information about these attributes can be found in the official Ceph [documentation](http://docs.ceph.com/docs/hammer/rados/configuration/ceph-conf/).
 
@@ -145,8 +145,8 @@ Swift storage attributes are:
 | username      | **string** | The Keystone authentication username     |
 | password      | **string** | The Keystone authentication password     |
 | blockSize     | **string** | **(Optional)** Storage block size in bytes |
-| insecure      | **string** | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly      | **string** | **(Optional)** Defines whether storage is readonly |
+| insecure      | **bool**   | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly      | **bool**   | **(Optional)** Defines whether storage is readonly |
 
 More information about these attributes can be found in the official OpenStack Swift [documentation](http://docs.openstack.org/developer/swift/).
 
@@ -164,19 +164,19 @@ GlusterFS storage attributes are:
 | transport     | **string**  | **(Optional)** Transport between provider and volume (tcp, rdma or socket). Default: 'tcp' |
 | xlatorOptions | **string**  | **(Optional)** Custom client GlusterFS translator options, in the format: `Option1=Value1;Option2=Value2;Option3=Value3;...` |
 | blockSize     | **string**  | **(Optional)** Storage block size in bytes |
-| insecure      | **string**  | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
-| readonly      | **string**  | **(Optional)** Defines whether storage is readonly |
+| insecure      | **bool**    | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
+| readonly      | **bool**    | **(Optional)** Defines whether storage is readonly |
 
 ## NullDevice
 
 NullDevice storage attributes are:
 
-| Attribute          | Type       | Description                                                  |
-| ------------------ | ---------- | ------------------------------------------------------------ |
-| type               | **string** | Must be equal to `nulldevice`                                |
+| Attribute          | Type       | Description                              |
+| ------------------ | ---------- | ---------------------------------------- |
+| type               | **string** | Must be equal to `nulldevice`            |
 | latencyMin         | **int**    | **(Optional)** NullDevice helper will emulate latency with at least this number of milliseconds |
 | latencyMax         | **int**    | **(Optional)** NullDevice helper will emulate latency with at most this number of milliseconds |
 | timeoutProbability | **float**  | **(Optional)** The probablity `[0.0, 1.0]` that a filesystem operation will return timeout error. |
 | filter             | **string** | **(Optional)** Allows to specify for which Fuse operations the latency and timeout properties will be applied (e.g. `read,write`). By default it applies to all operations. |
-| insecure           | **string** | Must be set to `true`                                        |
-| readonly           | **string** | Must be set to `true`                                        |
+| insecure           | **bool**   | Must be set to `true`                    |
+| readonly           | **bool**   | Must be set to `true`                    |

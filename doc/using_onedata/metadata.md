@@ -17,19 +17,19 @@ The filesystem and extended level attributes are accessible directly via POSIX a
 
 This section describes typical filesystem metadata attributes. The list of attributes at this level is closed (i.e. users cannot add new attributes) and most of them are read-only, which means their values cannot be directly modified (`cdmi_` attributes). Other attributes (currently only `posix_mode`) can be modified by the user using the REST API.
 
-| Attribute          | Sample value | Description |
-| -------------------- | ------------------- | ---------- |
-| **size** | 1024 | File size in bytes |
-| **mode**  | 0666 | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
-| **ctime** | 1470304148 | Unix creation timestamp |
-| **mtime** | 1470304148 | Unix last modification timestamp |
-| **atime** | 1470304148 | Unix last access timestamp |
-| **storage_group_id** | 1470304148 | Gid of the storage group owner of this file (the same Gid is displayed via `oneclient`) |
-| **storage_user_id** | 1470304148 | Uid of the storage owner of this file |
-| **name** | file.txt | The name of the object (Space, folder or file) |
-| **owner_id** | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9 | ID of the file owner |
-| **shares** | ["b3-a87f-76a588c9b279c0ed35-f32e-4db", ...]| Array of share Id's associated with this file or folder |
-| **type** | 'reg' | Specifies whether the reource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
+| Attribute            | Sample value                             | Description                              |
+| -------------------- | ---------------------------------------- | ---------------------------------------- |
+| **size**             | 1024                                     | File size in bytes                       |
+| **mode**             | 0666                                     | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
+| **ctime**            | 1470304148                               | Unix creation timestamp                  |
+| **mtime**            | 1470304148                               | Unix last modification timestamp         |
+| **atime**            | 1470304148                               | Unix last access timestamp               |
+| **storage_group_id** | 1470304148                               | Gid of the storage group owner of this file (the same Gid is displayed via `oneclient`) |
+| **storage_user_id**  | 1470304148                               | Uid of the storage owner of this file    |
+| **name**             | file.txt                                 | The name of the object (Space, folder or file) |
+| **owner_id**         | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9     | ID of the file owner                     |
+| **shares**           | ["b3-a87f-76a588c9b279c0ed35-f32e-4db", ...] | Array of share Id's associated with this file or folder |
+| **type**             | 'reg'                                    | Specifies whether the reource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
 
 
 ## Extended attributes
@@ -55,13 +55,13 @@ Extended attributes can be modified either from the Graphical User Interface, fr
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 -H 'Content-type: application/json' -d '{ "license": "CC-0" }'
-"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
+"https://$HOST/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
 **List all extended attributes using REST API**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
+"https://$HOST/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
 ```
 
 ### Setting extended attributes using command line
@@ -134,7 +134,7 @@ to be made:
 ```bash
 curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
 -H 'Content-type: application/javascript' -d @license_index.js \
-"https://$HOST:8443/api/v3/oneprovider/index?space_id=$SPACE_ID&name=license_index"
+"https://$HOST/api/v3/oneprovider/index?space_id=$SPACE_ID&name=license_index"
 ```
 
 This call returns the ID of the newly created index in the response `Location`
@@ -144,13 +144,13 @@ The space ID required for this call can be obtained from Onezone as follows:
 
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST:8443/api/v3/onezone/user/spaces"
+"https://$HOST/api/v3/onezone/user/spaces"
 ```
 
 Once the index is created, it can be easily queried using the REST API:
 ```bash
 curl -v -k --tlsv1.2 -Ss -H "X-Auth-Token: $TOKEN" \
--X GET "https://$HOST:8443/api/v3/oneprovider/query-index/$INDEX_ID?key=\"CC-0\"&stale=false"
+-X GET "https://$HOST/api/v3/oneprovider/query-index/$INDEX_ID?key=\"CC-0\"&stale=false"
 ```
 
 ### JSON metadata

@@ -11,7 +11,7 @@ In order to automate the process of maintaining the storage usage at a certain l
 When this option is enabled, Oneprovider will collect the statistics automatically in a special index attached to the space and they will be available via the Oneprovider REST API endpoint for querying:
 
 ```bash
-$ curl --tlsv1.2 -sSk -X GET -H "X-Auth-Token: $TOKEN" "https://$HOST:8443/api/v3/oneprovider/query-index/file-popularity-9JO51239nL1b01YEvwnft1r20gwgwlkIp19NDin8hgxs?spatial=true&start_range=\[1,0,0,0,0,0\]&end_range=\[null,null,null,null,null,null\]"
+$ curl --tlsv1.2 -sSk -X GET -H "X-Auth-Token: $TOKEN" "https://$HOST/api/v3/oneprovider/query-index/file-popularity-9JO51239nL1b01YEvwnft1r20gwgwlkIp19NDin8hgxs?spatial=true&start_range=\[1,0,0,0,0,0\]&end_range=\[null,null,null,null,null,null\]"
 
 ```
 

@@ -40,7 +40,7 @@ from Onezone.rest import ApiException
 HOST='beta.onedata.org'
 
 # Create actual REST API endpoint
-REST_ENDPOINT = 'https://'+HOST+':8443/api/v3/onezone'
+REST_ENDPOINT = 'https://'+HOST+'/api/v3/onezone'
 
 
 # Only necessary when connecting to a private Onezone instance

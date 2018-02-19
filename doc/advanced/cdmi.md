@@ -40,7 +40,7 @@ or using Onedata REST API (if basic authentication is available for the user acc
 ```bash
 export ONEZONE_HOST=<ONEZONE IP ADDRESS>
 
-curl -k -X GET -u username:password "https://$ONEZONE_HOST:8443/api/v3/onezone/user/client_token"
+curl -k -X GET -u username:password "https://$ONEZONE_HOST/api/v3/onezone/user/client_token"
 
 
 {"token": "MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgam9LZGVIMFpldVdhVzY00ZmF6bkFkU009jZk5JejJvSzBaRU5tNlptWTJlYwowMDFhY2lkIHRpbWUgPCAxNTA00MDExODMwCjAwMmZzaWduYXR1cmUgtHHSpfXzfWZUI42uHPXf6b87asof1clOAqBe4prCIXkK"}
@@ -57,13 +57,13 @@ export CDMI_VSN_HEADER='X-CDMI-Specification-Version: 1.1.1'
 
 export ONEPROVIDER_HOST=<ONEPROVIDER IP ADDRESS>
 
-export ENDPOINT=https://$ONEPROVIDER_HOST:8443/cdmi
+export ENDPOINT=https://$ONEPROVIDER_HOST/cdmi
 ```
 
 
 ### Dataobject GET, PUT, DELETE
 
-When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using *$ENDPOINT/file.txt* will address file *file.txt* in home space and using *$ENDPOINT/spaces/TestSpace/file.txt* will address file *file.txt* in space *TestSpace*. 
+When referencing dataobjects or containers through CDMI, please remember that Onedata organizes all data into spaces. In our case, using *$ENDPOINT/file.txt* will address file *file.txt* in home space and using *$ENDPOINT/spaces/TestSpace/file.txt* will address file *file.txt* in space *TestSpace*.
 
 
 ##### CDMI PUT request
@@ -185,7 +185,7 @@ Identifier must contain the full Onedata user ID. Optionally the **USERNAME** ca
 
 Onedata user ID can be easily extracted using Onezone REST API:
 ```bash
-curl -k -S -X GET -H "X-Auth-Token: ${ACCESS_TOKEN}" https://$ONEZONE_HOST:8443/api/v3/onezone/user
+curl -k -S -X GET -H "X-Auth-Token: ${ACCESS_TOKEN}" https://$ONEZONE_HOST/api/v3/onezone/user
 
 {
     "userId":"6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
@@ -197,7 +197,7 @@ curl -k -S -X GET -H "X-Auth-Token: ${ACCESS_TOKEN}" https://$ONEZONE_HOST:8443/
 }
 ```
 
-Flag **IDENTIFIER_GROUP** indicates group name in identifier. 
+Flag **IDENTIFIER_GROUP** indicates group name in identifier.
 
 
 #### ACL CDMI modification
@@ -207,9 +207,9 @@ Create an Access Control Entry (ACE) list for file `test.txt`, specifying that:
 First create a file `acl.json` with the following content:
 ```json
 {
-  "metadata":{  
-      "cdmi_acl":[  
-         {  
+  "metadata":{
+      "cdmi_acl":[
+         {
             "acetype":"0x00",
             "identifier":"#6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
             "aceflags":"0x01",
