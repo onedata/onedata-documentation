@@ -10,7 +10,7 @@ On the low level, all files are divided into equal size blocks which can be inde
 
 Web interface provides visual information on the current replication of each file among the storage providers supporting the user space in which this file is located. Sample replication visualization is presented in the image below:
 
-<img  style="display:block;margin:0 auto;" src="../img/replication_example.png">
+<img  style="display:block;margin:0 auto;max-width:380px" src="../img/transfers_menu.png">
 
 ## REST interface
 
@@ -89,6 +89,28 @@ https://$ONEPROVIDER_HOST/api/v3/oneprovider/replicas-id/AO3413D85757asdASas3ASD
 
 
 ### Transfer control and monitoring
+
+#### Using GUI
+In order to initiate a transfer (either replication or migration),
+simply select the `Data distribution` icon in the top
+menu of the file browser of Oneprovider and select the target provider, to which
+replication or migration should take place:
+
+<img  style="display:block;margin:0 auto;max-width:380px" src="../img/transfers_menu.png">
+
+
+Transfers can be conveniently managed and monitored using Oneprovider GUI. 
+For each space, under tab `Transfers` on the left a dedicated transfer management
+view is available:
+
+<img  style="display:block;margin:0 auto;" src="../img/transfers.png">
+
+For each transfer within the current data space an appropriate entry in the list below is
+added, which provides information on current throughput of a specific transfer.
+
+Overall throughput for the space can be observed on the world map.
+
+#### Using REST API
 
 The `/transfer/` operations provide basic transfer management functionality based on the ID of transfer returned by `/replicas/{path} [POST]` operation.
 
