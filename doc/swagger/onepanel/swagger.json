@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "17.06.0-rc8",
+    "version": "18.02.0-beta1",
     "title": "Onepanel",
     "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
     "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\nOnepanel supports only HTTP basic authentication, i.e. using `username` and\n`password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators\n    and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using\n    which users can login to Onezone service using HTTP Basic authentication\n    without OpenID. This role makes sense only on Onepanel which manages\n    Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin`\naccount.\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
@@ -667,7 +667,7 @@
           "400": {
             "description": "Invalid request.",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/ServiceError"
             }
           },
           "401": {
@@ -717,6 +717,12 @@
         "responses": {
           "204": {
             "description": "Provider details has been successfully modified."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
           },
           "401": {
             "description": "Unauthorized request."
@@ -4202,9 +4208,18 @@
               "type": "string",
               "description": "The name under which the provider will be registered in a zone."
             },
-            "redirectionPoint": {
+            "subdomainDelegation": {
+              "type": "boolean",
+              "description": "If enabled, the storage provider will be assigned a subdomain in onezone's  domain and 'subdomain' property must be provided. If disabled,  'domain' property should be provided.\n",
+              "default": false
+            },
+            "subdomain": {
               "type": "string",
-              "description": "The address used for user redirection from a zone to the provider."
+              "description": "Unique subdomain in onezone's domain for the provider. Required if subdomain  delegation is enabled.\n"
+            },
+            "domain": {
+              "type": "string",
+              "description": "The fully qualified domain name of the provider or its IP address (only for  single-node deployments or clusters with a reverse proxy). Required if subdomain  delegation is disabled.\n"
             },
             "geoLongitude": {
               "type": "number",
@@ -4219,8 +4234,7 @@
           },
           "required": [
             "register",
-            "name",
-            "redirectionPoint"
+            "name"
           ]
         },
         "onezone": {
@@ -4277,7 +4291,8 @@
         "oneprovider": {
           "register": true,
           "name": "example",
-          "redirectionPoint": "https://node1.oneprovider.onedata.example.com",
+          "subdomainDelegation": "false,",
+          "domain": "provider.example.com",
           "geoLongitude": -24.3776025,
           "geoLatitude": -128.3519364
         },
@@ -4392,16 +4407,17 @@
           "type": "string",
           "description": "The name under which the provider has been registered in a zone."
         },
-        "urls": {
-          "type": "array",
-          "description": "The list of IP addresses of provider cluster worker nodes.",
-          "items": {
-            "type": "string"
-          }
+        "subdomainDelegation": {
+          "type": "boolean",
+          "description": "If enabled, the storage provider has a subdomain in onezone's domain and  'subdomain' property must be provided.\n"
         },
-        "redirectionPoint": {
+        "subdomain": {
           "type": "string",
-          "description": "The address used for user redirection from a zone to the provider."
+          "description": "Unique subdomain in onezone's domain for the provider. Required if subdomain  delegation is enabled.\n"
+        },
+        "domain": {
+          "type": "string",
+          "description": "The fully qualified domain name of the provider or its IP address  (only for single-node deployments or clusters with a reverse proxy).\n"
         },
         "geoLongitude": {
           "type": "number",
@@ -4412,25 +4428,29 @@
           "type": "number",
           "format": "float",
           "description": "The geographical latitude of the provider."
+        },
+        "onezoneDomainName": {
+          "type": "string",
+          "description": "The domain name of a zone where this storage provider is registered."
         }
       },
       "required": [
         "id",
         "name",
-        "urls",
-        "redirectionPoint",
+        "subdomainDelegation",
+        "domain",
         "geoLongitude",
-        "geoLatitude"
+        "geoLatitude",
+        "onezoneDomainName"
       ],
       "example": {
         "id": "VAiDGZbs3k0FD8jPhyU1",
         "name": "Provider1",
-        "urls": [
-          "192.168.11.23"
-        ],
-        "redirectionPoint": "https://192.168.11.23",
+        "subdomainDelegation": false,
+        "domain": "provider.example.com",
         "geoLongitude": -24.3776025,
-        "geoLatitude": -128.3519364
+        "geoLatitude": -128.3519364,
+        "onezoneDomainName": "onezone2.example.com"
       }
     },
     "ProviderSpaces": {
@@ -4485,9 +4505,18 @@
           "type": "string",
           "description": "The name under which the provider should be registered in a zone.\n"
         },
-        "redirectionPoint": {
+        "subdomainDelegation": {
+          "type": "boolean",
+          "description": "If enabled, the storage provider will be assigned a subdomain in onezone's domain  and 'subdomain' property must be provided. If disabled, 'domain' property  should be provided.\n",
+          "default": false
+        },
+        "subdomain": {
           "type": "string",
-          "description": "The address used for user redirection from a zone to the storage provider.\n"
+          "description": "Unique subdomain in onezone's domain for the storage provider. Required if  subdomain delegation is enabled.\n"
+        },
+        "domain": {
+          "type": "string",
+          "description": "The fully qualified domain name of the storage provider or its IP address (only for  single-node deployments or clusters with a reverse proxy). Required if  subdomain delegation is disabled.\n"
         },
         "geoLongitude": {
           "type": "number",
@@ -4506,11 +4535,12 @@
       },
       "required": [
         "name",
-        "redirectionPoint"
+        "onezoneDomainName"
       ],
       "example": {
         "name": "Provider1",
-        "redirectionPoint": "https://192.168.11.23",
+        "subdomainDelegation": false,
+        "domain": "provider.example.com",
         "geoLongitude": -24.3776025,
         "geoLatitude": -128.3519364,
         "onezoneDomainName": "onezone2.example.com"
@@ -4524,9 +4554,17 @@
           "type": "string",
           "description": "The name under which the provider has been registered in a zone."
         },
-        "redirectionPoint": {
+        "subdomainDelegation": {
+          "type": "boolean",
+          "description": "If enabled, the storage provider will be assigned a subdomain in onezone's domain  and 'subdomain' property must be provided. If disabled, 'domain' property  should be provided.\n"
+        },
+        "subdomain": {
           "type": "string",
-          "description": "The address used for user redirection from a zone to the provider."
+          "description": "Unique subdomain in onezone's domain for the provider. This property is required  only if subdomain delegation is enabled. Otherwise it is ignored.\n"
+        },
+        "domain": {
+          "type": "string",
+          "description": "The fully qualified domain name of the provider or its IP address (only for  single-node deployments or clusters with a reverse proxy). This property is required  only if subdomain delegation is disabled. Otherwise it is ignored.\n"
         },
         "geoLongitude": {
           "type": "number",
@@ -4541,7 +4579,8 @@
       },
       "example": {
         "name": "Provider1",
-        "redirectionPoint": "https://192.168.11.23",
+        "subdomainDelegation": false,
+        "domain": "provider.example.com",
         "geoLongitude": -24.3776025,
         "geoLatitude": -128.3519364
       }
@@ -5206,9 +5245,9 @@
         "reportEntries": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SpaceAutoCleaningReport"
-          },
-          "minItems": 0
+            "$ref": "#/definitions/SpaceAutoCleaningReport",
+            "minItems": 0
+          }
         }
       }
     },
