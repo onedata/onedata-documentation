@@ -4,10 +4,10 @@
 
 |Type|Description|
 |---|---|
-|[ConnectedAccount](definitions/ConnectedAccount.md)|User connected account.|
 |[Error](definitions/Error.md)|Generic error model for REST requests.|
 |[GroupDetails](definitions/GroupDetails.md)|Group storage identity.|
 |[GroupIdentity](definitions/GroupIdentity.md)|Group identity.|
+|[LinkedAccount](definitions/LinkedAccount.md)|User linked account.|
 |[UserCredentialsRequest](definitions/UserCredentialsRequest.md)|User credentials request - provides all necessary information to perform the mapping from federated user to storage credentials.|
 |[UserDetails](definitions/UserDetails.md)|User details needed for user mapping.|
 |[UserIdentity](definitions/UserIdentity.md)|User identity.|

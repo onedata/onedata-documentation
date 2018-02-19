@@ -57,9 +57,9 @@ json :
   "userDetails" : {
     "id" : "ASDJASDNNALSDNALSDNALSDLASD",
     "name" : "User One",
-    "connectedAccounts" : [ {
+    "linkedAccounts" : [ {
       "idp" : "github",
-      "userId" : "ASDJH65675ASD765ASD890ASD6",
+      "subjectId" : "ASDJH65675ASD765ASD890ASD6",
       "login" : "user1",
       "name" : "User One",
       "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ],

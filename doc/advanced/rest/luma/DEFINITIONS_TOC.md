@@ -1,7 +1,7 @@
-        * [ConnectedAccount](doc/advanced/rest/luma/definitions/ConnectedAccount.md)
         * [Error](doc/advanced/rest/luma/definitions/Error.md)
         * [GroupDetails](doc/advanced/rest/luma/definitions/GroupDetails.md)
         * [GroupIdentity](doc/advanced/rest/luma/definitions/GroupIdentity.md)
+        * [LinkedAccount](doc/advanced/rest/luma/definitions/LinkedAccount.md)
         * [UserCredentialsRequest](doc/advanced/rest/luma/definitions/UserCredentialsRequest.md)
         * [UserDetails](doc/advanced/rest/luma/definitions/UserDetails.md)
         * [UserIdentity](doc/advanced/rest/luma/definitions/UserIdentity.md)

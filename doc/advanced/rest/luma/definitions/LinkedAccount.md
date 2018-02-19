@@ -1,7 +1,7 @@
 
-<a name="connectedaccount"></a>
-### ConnectedAccount
-User connected account.
+<a name="linkedaccount"></a>
+### LinkedAccount
+User linked account.
 
 
 |Name|Description|Schema|
@@ -9,16 +9,16 @@ User connected account.
 |**custom**  <br>*optional*|This field stores all additional properties that were provided by the IdP for this user.|< string, string > map|
 |**emailList**  <br>*optional*|The list of user email accounts.|< string > array|
 |**groups**  <br>*optional*|A list of strings denoting user group memberships as acquired from the<br>identity provider. Memberships are in Onedata normalized form.|< string > array|
-|**idp**  <br>*optional*|ID of the identity provider.|string|
+|**idp**  <br>*required*|ID of the identity provider.|string|
 |**login**  <br>*optional*|User login name.|string|
 |**name**  <br>*optional*|User full name.|string|
-|**userId**  <br>*optional*|User ID assigned in Onezone.|string|
+|**subjectId**  <br>*required*|Permanent user id assigned by IdP.|string|
 
 **Example**
 ```
 {
   "idp" : "github",
-  "userId" : "ASDJH65675ASD765ASD890ASD6",
+  "subjectId" : "ASDJH65675ASD765ASD890ASD6",
   "login" : "user1",
   "name" : "User One",
   "emailList" : [ "user.1@example.com", "user.one@example.com", "user.i@example.com" ],

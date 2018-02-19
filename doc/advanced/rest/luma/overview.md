@@ -39,7 +39,7 @@ More information: [https://github.com/onedata/luma](https://github.com/onedata/l
 
 
 ### Version information
-*Version* : 17.06.0-rc8
+*Version* : 18.02.0-beta1
 
 
 ### Contact information
