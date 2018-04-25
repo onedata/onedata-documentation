@@ -115,14 +115,14 @@ General options:
   -H [ --host ] <host>                  Specify the hostname of the Oneprovider
                                         instance to which the Oneclient should
                                         connect.
-  -P [ --port ] <port> (=5555)          Specify the port to which the Oneclient
+  -P [ --port ] <port> (=443)           Specify the port to which the Oneclient
                                         should connect on the Oneprovider.
   -i [ --insecure ]                     Disable verification of server
                                         certificate, allows to connect to
                                         servers without valid certificate.
   -t [ --token ] <token>                Specify Onedata access token for
                                         authentication and authorization.
-  -l [ --log-dir ] <path> (=/tmp/oneclient/501)
+  -l [ --log-dir ] <path> (=/tmp/oneclient/0)
                                         Specify custom path for Oneclient logs.
 
 Advanced options:
@@ -133,7 +133,10 @@ Advanced options:
   --buffer-scheduler-thread-count <threads> (=1)
                                         Specify number of parallel buffer
                                         scheduler threads.
-  --communicator-thread-count <threads> (=3)
+  --communicator-pool-size <connections> (=10)
+                                        Specify number of connections in
+                                        communicator pool.
+  --communicator-thread-count <threads> (=4)
                                         Specify number of parallel communicator
                                         threads.
   --scheduler-thread-count <threads> (=1)
@@ -144,33 +147,59 @@ Advanced options:
                                         helper threads.
   --no-buffer                           Disable in-memory cache for
                                         input/output data blocks.
-  --read-buffer-min-size <size> (=1048576)
+  --provider-timeout <duration> (=120)  Specify Oneprovider connection timeout
+                                        in seconds.
+  --disable-read-events                 Disable reporting of file read events.
+  --force-fullblock-read                Force fullblock read mode. By
+                                        default read can return less data than
+                                        request in case it is immediately
+                                        available and consecutive blocks need
+                                        to be prefetched from remote storage.
+  --read-buffer-min-size <size> (=5242880)
                                         Specify minimum size in bytes of
                                         in-memory cache for input data blocks.
-  --read-buffer-max-size <size> (=52428800)
+  --read-buffer-max-size <size> (=104857600)
                                         Specify maximum size in bytes of
                                         in-memory cache for input data blocks.
   --read-buffer-prefetch-duration <duration> (=1)
                                         Specify read ahead period in seconds of
                                         in-memory cache for input data blocks.
-  --write-buffer-min-size <size> (=1048576)
+  --write-buffer-min-size <size> (=20971520)
                                         Specify minimum size in bytes of
                                         in-memory cache for output data blocks.
   --write-buffer-max-size <size> (=52428800)
                                         Specify maximum size in bytes of
                                         in-memory cache for output data blocks.
-  --write-buffer-flush-delay <delay> (=1)
+  --write-buffer-flush-delay <delay> (=5)
                                         Specify idle period in seconds before
                                         flush of in-memory cache for output
                                         data blocks.
   --metadata-cache-size <size> (=100000)
                                         Specify maximum number of file metadata
                                         entries which can be stored in cache.
+  --readdir-prefetch-size <size> (=2500)
+                                        Specify the size of requests made
+                                        during readdir prefetch (in number of
+                                        dir entries).
+
 FUSE options:
   -f [ --foreground ]         Foreground operation.
   -d [ --debug ]              Enable debug mode (implies -f).
   -s [ --single-thread ]      Single-threaded operation.
   -o [ --opt ] <mount_option> Pass mount arguments directly to FUSE.
+
+Monitoring options:
+  --monitoring-type <reporter>        Enables performance metrics monitoring -
+                                      allowed values are: graphite.
+  --monitoring-level-basic            Sets monitoring reporting level to basic
+                                      - default.
+  --monitoring-level-full             Sets monitoring reporting level to full.
+  --monitoring-period <seconds> (=30) Performance metrics reporting period.
+  --graphite-url <url>                Graphite url - required when
+                                      monitoring-type is 'graphite', the scheme
+                                      can be either tcp or udp and default port
+                                      is 2003
+  --graphite-namespace-prefix <name>  Graphite namespace prefix.
 ```
 
 ## Using Oneclient from Docker

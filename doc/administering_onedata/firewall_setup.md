@@ -4,15 +4,13 @@ Due to the fact that Onedata consists of several services which need to communic
 
 Below is a detailed list of ports, which need to be opened and their designation for both **Onezone** and **Oneprovider** services:
 
-| Port     | Description                              |
-| -------- | ---------------------------------------- |
-| 53/TCP   | DNS (Optional - used for load-balancing) |
-| 53/UDP   | DNS (Optional - used for load-balancing) |
+| Port     | Description                               |
+| -------- | ----------------------------------------- |
+| 53/TCP   | DNS (Optional - used for load-balancing)  |
+| 53/UDP   | DNS (Optional - used for load-balancing)  |
 | 80/TCP   | HTTP (Optional - automatically redirected to 443) |
-| 443/TCP  | HTTPS                                    |
+| 443/TCP  | HTTPS, REST, Oneclient                    |
 | 6665/TCP | Onedata data transfer channel (RTransfer) |
-| 8876/TCP | RTransfer protocol gateway               |
-| 8877/TCP | RTransfer protocol gateway               |
 | 9443/TCP | Onepanel web interface (can be limited to local network) |
 
 

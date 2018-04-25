@@ -45,5 +45,4 @@
       * [Admin REST API](doc/administering_onedata/administering_onedata_from_cli.md)
 
 * [Advanced topics](doc/advanced/README.md)
-  * [Overview](doc/advanced/README.md)
   * [CDMI API](doc/advanced/cdmi.md)
