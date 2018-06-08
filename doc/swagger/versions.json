@@ -1,10 +1,14 @@
 {
-  "default": "18.02.0-rc1",
+  "default": "18.02.0-rc7",
   "order": [
+    "18.02.0-rc7",
     "18.02.0-rc1",
     "17.06.0-rc8"
   ],
   "versions": {
+    "18.02.0-rc7": {
+      "changelog": ""
+    },
     "18.02.0-rc1": {
       "changelog": ""
     },
