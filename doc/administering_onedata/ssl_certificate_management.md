@@ -20,7 +20,7 @@ Depending on the type of services which is being installed, Onepanel will look f
   - `/etc/op_panel/certs/web_chain.pem` (optional)
   - `/etc/oz_panel/cacerts/*` (optional)
 
-By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OnedataTestCa`. There is no need to change anything if you are just testing and do not care about the browser connection to be secure. However, you must not use those certificates in production.
+By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnigngs. However, those test certificates will prevent Onezone-Oneprovider or inter-Provider communication. They must never be used in production environment.
 
 ## Onezone
 
@@ -68,13 +68,14 @@ By default, **Onepanel** ships with dummy web certificates issued for `localhost
 
 ## Let’s Encrypt support
 
-**Oneprovider** supports obtaining web certificates automatically via Let’s Encrypt, given that subdomain delegation [tu link do sekcji subdomain delegation] is enabled. This option can be enabled both during deployment via GUI or in batch mode.
+Both **Oneprovider** and **Onezone** support obtaining web certificates automatically via Let’s Encrypt. This feature can be enabled in **Onepanel** GUI, via REST or by passing `letsEncryptEnabled` flag in Docker Compose configuring the cluster.
 
-Please note that **Onezone** is subject to limits imposed by Let’s Encrypt, so the automatic generation might not always be possible, in case the limits are reached.
+Please note that Let's Encrypt imposes limits on certificates generated for each domain in a period of one week, so the automatic generation might fail temporarily in some cases. This is especially important in **Oneproviders** using __subdomain delegation__, as the limit is global for the **Onezone**'s domain.
 
 > NOTE: When deploying via GUI using this feature, your web browser will need to reload the page when new certificates are installed.
 
-
+## Let's Encrypt in private networks
+When registering **Oneproviders** using the __subdomain delegation__ feature, it is possible to use Let's Encrypt client even if **Oneprovider** is deployed on host not accessible from the pulic Internet. In this scenario only the **Onezone** needs to work in a public domain in order to support validating its subdomains in Let's Encrypt.
 
 ## Docker deployment
 

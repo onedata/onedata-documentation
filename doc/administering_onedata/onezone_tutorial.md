@@ -119,12 +119,13 @@ services:
        - "/opt/onedata/onezone/auth.config:/var/lib/oz_worker/auth.config"
        # Load balancing configuration based on DNS
        - "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
-       # Onezone certificate key
-       - "/opt/onedata/onezone/certs/key.pem:/etc/oz_panel/certs/web_key.pem"
-       # Onezone public certificate
-       - "/opt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/web_cert.pem"
-       # Certificate of public certificate signing authority
-       - "/opt/onedata/onezone/certs/cacert.pem:/etc/oz_panel/certs/web_chain.pem"
+       # Uncoment lines below if you disabled the built-in Let's Encrypt client
+       ## SSL certificate
+       #- "/ozt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/web_cert.pem"
+       ## SSL certificate key
+       #- "/ozt/onedata/onezone/certs/key.pem:/etc/oz_panel/certs/web_key.pem"
+       ## Certificate chain for the TLS certificate above
+       #- "/ozt/onedata/onezone/certs/cacert.pem:/etc/oz_panel/certs/web_chain.pem"
     # Expose the necessary ports from Onezone container to the host
     ports:
       - "53:53"
@@ -164,6 +165,8 @@ services:
           # Assign custom name to the Onezone instance
           name: "ONEZONE-DEMO"
           domainName: "onezone-demo.tk"
+          # Automatically obtain SSL certificates
+          letsEncryptEnabled: true
         onepanel:
           # Create initially 1 administrator and 1 regular user
           users:
@@ -238,75 +241,10 @@ In case of installation using Docker, create a file `/opt/onedata/onezone/auth.c
 ```
 
 ### Setting up certificates
-In order to configure certificates for **Onezone** service the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
+Since release 18.02.0, **Onedata** supports automatic certificate management backed by Let's Encrypt. To use this option, it is only necessary to enable this feature in **Oneprovider** Docker Compose configuration file (see above) or via GUI. 
 
-| Name                        | Path for Docker deployment              | Path for package deployment         |
-| :-------------------------- | :-------------------------------------- | :---------------------------------- |
-| Onezone private key         | `/opt/onedata/onezone/certs/key.pem`    | `/etc/oz_panel/certs/web_key.pem`   |
-| Onezone public certificate  | `/opt/onedata/onezone/certs/cert.pem`   | `/etc/oz_panel/certs/web_cert.pem`  |
-| Onezone certificate CA cert | `/opt/onedata/onezone/certs/cacert.pem` | `/etc/oz_panel/certs/web_chain.pem` |
+In order to obtain and install certificates for **Onezone** service manually, modify the Docker Compose file to mount PEM files inside the container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
-During deployment, **Onepanel** will install these certificates in the **Onezone** certificate directory  `/etc/oz_worker/certs`.
-
-#### Automated setup using Let's Encrypt
-These instructions show how to replace certificates in **Onezone** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar.
-
-> In your are running the following commands after the Onezone service has been
->  started or rerunning them to generate new certificates, the Onezone service has to be stopped.
-
-##### Docker based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEZONE_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEZONE_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Docker container
-$ cd /opt/onedata/onezone/certs
-$ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/fullchain.pem web_cert.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
-```
-
-##### Package based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEZONE_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEZONE_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Onepanel and Onezone services
-$ cd /etc/oz_panel/cacerts
-$ rm -rf *.pem
-$ cd /etc/oz_panel/certs
-$ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/cert.pem web_cert.pem
-
-# These are only necessary when replacing certificates in already deployed
-# Onezone service
-$ cd /etc/oz_worker/certs
-$ rm -rf *.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/chain.pem web_chain.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/privkey.pem web_key.pem
-$ ln -s /etc/letsencrypt/live/$ONEZONE_HOST/cert.pem web_cert.pem
-```
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.

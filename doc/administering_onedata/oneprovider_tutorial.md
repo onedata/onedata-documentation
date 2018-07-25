@@ -123,14 +123,15 @@ services:
        - "/opt/onedata/oneprovider/persistence:/volumes/persistence"
        # Data storage directories
        - "/mnt/nfs:/volumes/storage"
-       # Oneprovider certificate key
-       - "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
-       # Oneprovider public certificate
-       - "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
-       # Certificate of public certificate signing authority
-       - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
        # Additional, trusted CA certificates (all files from this directory will be added)
        - "/opt/onedata/oneprovider/cacerts:/etc/op_worker/cacerts"
+       # Uncoment lines below if you disabled the built-in Let's Encrypt client
+       ## SSL certificate
+       #- "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
+       ## SSL certificate key
+       #- "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
+       ## Certificate chain for the TLS certificate above
+       #- "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
     ports:
@@ -185,14 +186,16 @@ services:
           register: true
           name: "ONEPROVIDER-DEMO"
           adminEmail: "admin@example.com"
+          # Use built-in Let's Encrypt client to obtain and renew certificates
+          letsEncryptEnabled: true
           # Automatically register this Oneprovider in Onezone without subdomain delegation
           subdomainDelegation: false
           domain: "https://oneprovider-demo.tk"
-          # Automatically register this Oneprovider in Onezone without subdomain delegation
+          # Automatically register this Oneprovider in Onezone with subdomain delegation
           # subdomainDelegation: true
           # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.tk"
         onezone:
-          # Assign custom name to the Onezone instance
+          # Address of the Onezone at which this Oneprovider will register
           domainName: "onezone-demo.tk"
         onepanel:
           # Create initially 1 administrator and 1 regular user
@@ -247,77 +250,14 @@ $ sudo apt install oneprovider
 
 
 ### Setting up certificates
-Since release 18.02.0, Onedata supports automatic subdomain delegation and Let's Encrypt certificate generation for Oneprovider instances. If this options is used, it is only necessary to enable this feature in Oneprovider Docker Compose configuration file (see above) or via GUI. In such case, Onepanel will automatically create and update the Let's Encrypt certificates for Oneprovider.
+Since release 18.02.0, **Onedata** supports automatic certificate management backed by Let's Encrypt. To use this option, it is only necessary to enable this feature in **Oneprovider** Docker Compose configuration file (see above) or via GUI. 
 
-In order to configure certificates for **Oneprovider** service manually, the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
-
-| Name                           | Path for Docker deployment               | Path for package deployment         |
-| :----------------------------- | :--------------------------------------- | :---------------------------------- |
-| Oneprovider private key        | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/web_key.pem`   |
-| Oneprovider public certificate | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/web_cert.pem`  |
-| Oneprovider CA chain           | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/certs/web_chain.pem` |
-
-During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directory `/etc/op_worker/certs`.
-
-#### Automated setup using Let's Encrypt
-These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
-
-> In your are running the following commands after the Onezone service has been
->  started or rerunning them to generate new certificates, the Onezone service has to be stopped.
-
-##### Docker based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Docker container
-$ cd /opt/onedata/oneprovider/certs
-$ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem cacert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem key.pem
-```
-
-##### Package based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Onepanel and Oneprovider services
-$ cd /etc/op_panel/certs
-$ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
-$ cd /etc/op_worker/certs
-$ sudo rm -rf web_key.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
-```
+In order to obtain and install certificates for **Oneprovider** service manually, modify the Docker Compose file to mount PEM files inside the container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
 ### Security and recommended firewall settings
 **Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
 
-Furthermore, on all nodes of **Oneprovider** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+Furthermore, on all nodes of **Oneprovider** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 
 ### Cluster configuration for package based deployment
 This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-demo.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
