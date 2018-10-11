@@ -60,15 +60,15 @@ The mapping API consists of 6 operations:
   "storageName": "NFS",
   "spaceId": "c5oiB633lvdGArj-dfpQJk7Wx8wQUmHxc_3a43-P9mw",
   "userDetails": {
-    "name": "John Doe",
-    "login": "jdoe",
-    "emailList": ["jdoe@example.com"],
     "id": "d5ffe868b88f75e38f8b1e6809d093d1",
-    "connectedAccounts": [
+    "name": "John Doe",
+    "alias": "jdoe",
+    "emails": ["jdoe@example.com"],
+    "linkedAccounts": [
        {
          "idp": "github",
-         "userId": "68b88f75e38f8b1e68",
-         "emailList": ["jdoe@github.com"]
+         "subjectId": "68b88f75e38f8b1e68",
+         "emails": ["jdoe@github.com"]
        }
     ]
   }
@@ -355,16 +355,16 @@ User Id can be obtained by from the details which each user can get when authent
 {
   "userId": "a5ffe868b88f75e38f8b1e6809d093d1",
   "name": "John Doe",
-  "login": "",
-  "emailList": [
+  "alias": "john.doe",
+  "emails": [
     "jdoe@example.com"
   ],
-  "connectedAccounts": [
+  "linkedAccounts": [
     {
       "user_id": "223536c273ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
       "provider_id": "egi",
       "name": "John Doe",
-      "login": "",
+      "alias": "",
       "groups": [
         "vo:vo.indigo-datacloud.eu/tm:aai.egi.eu/user:member",
         "vo:egi.eu/tm:www.egi.eu/tm:wiki-editors/user:member",
@@ -381,7 +381,7 @@ User Id can be obtained by from the details which each user can get when authent
 Here we can see that the user has 2 Id's:
 
 * `userId` at the top level which is associated with `onedata` IdP
-* as well as `user_id` in the `connectedAccounts` section which is associated with the `egi` IdP - bot can be used in the LUMA mappings, provided they are paired with the name of the IdP
+* as well as `user_id` in the `linkedAccounts` section which is associated with the `egi` IdP - bot can be used in the LUMA mappings, provided they are paired with the name of the IdP
 
 ##### Obtaining group Id
 In order to get the Id of a specific group in Onedata, it is necessary to list through all groups associated with a user or space and find the required one, for instance:
@@ -490,7 +490,7 @@ In case it is preferred to use user Id from another IdP than Onedata, it can be 
   "users": {
     "1": {
       "userDetails": {
-      	"connectedAccounts": [ {
+      	"linkedAccounts": [ {
         	"userId": "54213ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
         	"idp": "egi"
       },
@@ -517,8 +517,8 @@ Users can be also identified by email - however this will only work for forward 
   "users": {
     "1": {
       "userDetails": {
-      	"connectedAccounts": [ {
-        	"emailList": ["jdoe@example.com"]
+      	"linkedAccounts": [ {
+        	"emails": ["jdoe@example.com"]
       },
       "credentials": [
         {
