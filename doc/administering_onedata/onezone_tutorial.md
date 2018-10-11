@@ -219,7 +219,7 @@ $ sudo apt install onezone
 TODO
  -->
 ### Configuring authentication methods
-In order to specify authentication options for the **Onezone** service, `auth.config` file has to be provided. Currently **Onezone** supports 2 general modes of authentication, i.e.: basic authentication and OpenID Connect. For all supported OpenID Provider services see [here](openid_configuration.md). The example below presents how to enable basic authentication and Google IdP. Basic authentication does not take any parameters here, and accounts can be managed via **Onepanel** REST API. The Google authentication plugin requires that special Service Key is generated in [Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
+In order to specify authentication options for the **Onezone** service, `auth.config` file has to be provided. Currently **Onezone** supports 2 general modes of authentication, i.e.: basic authentication and OpenID Connect. For all supported OpenID Provider services see [here](openid_saml_configuration.md). The example below presents how to enable basic authentication and Google IdP. Basic authentication does not take any parameters here, and accounts can be managed via **Onepanel** REST API. The Google authentication plugin requires that special Service Key is generated in [Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
 
 In case of installation using Docker, create a file `/opt/onedata/onezone/auth.config` (in case of package installation edit file `/var/lib/oz_worker/auth.config`) with the following contents:
 
@@ -541,6 +541,46 @@ cmd.log debug.log error.log info.log run_erl.log
 sudo ls /var/log/oz_worker/
 debug.log error.log info.log run_erl.log
 ```
+
+#### Enabling debug logs
+By default, logs on the debug level are disabled, as they have a heavy impact on
+system performance. However, there are cases when you might want to turn them 
+on for some time to identify problems. To do so, you need to attach to the
+Erlang console of the node and execute `logger:set_loglevel(debug).`, like this:
+```
+~$ oz_worker attach-direct
+```
+You will be attached to the console and see the following prompt:
+```
+Direct Shell: Use "Ctrl-D" to quit. "Ctrl-C" will terminate the oz_worker node.
+Attaching to /tmp/oz_worker/erlang.pipe.1 (^D to exit)
+
+(oz_worker@node1.onezone.local)11> 
+```
+Enter the command (the `.` at the end is required) and press `[Enter]`:
+```
+(oz_worker@node1.onezone.local)11> logger:set_loglevel(debug).
+ok
+```
+Detach from the console by pressing `[Ctrl + D]` - pressing `[Ctrl + C]` will 
+kill the node!
+```
+(oz_worker@node1.onezone.local)12> [Quit]
+~$ 
+```
+From now on, the debug logs will be written to the `debug.log` file as they 
+appear. Remember to turn off the debug logs when you are finished:
+```
+~$ oz_worker attach-direct
+
+(oz_worker@node1.onezone.local)13> logger:set_loglevel(info).
+ok
+
+^D
+```
+
+> You can do the same for Onepanel, just replace `oz_worker` with `oz_panel`.
+
 
 ## Upgrading
 

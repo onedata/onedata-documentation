@@ -189,11 +189,10 @@ curl -k -S -X GET -H "X-Auth-Token: ${ACCESS_TOKEN}" https://$ONEZONE_HOST/api/v
 
 {
     "userId":"6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
-    "login":"admin",
     "name":"admin",
-    "connectedAccounts":[],
     "alias":"johnd",
-    "emailList":[]
+    "emails":[],
+    "linkedAccounts":[],
 }
 ```
 

@@ -1,16 +1,16 @@
 {
     "gitbook": "~2.6",
     "plugins": [
-      "onedata-theme@file:gitbook-plugin-onedata-theme",
-      "youtube@file:gitbook-plugin-youtube",
-      "image-captions@0.4.1",
-      "toggle-chapters@0.0.3",
-      "toc@0.0.1",
-      "include",
-      "responsive-iframes@1.0.2",
-      "custom-favicon",
-      "styles-sass@file:gitbook-plugin-styles-sass",
-      "ga"
+        "onedata-theme@file:gitbook-plugin-onedata-theme",
+        "youtube@file:gitbook-plugin-youtube",
+        "image-captions@0.4.1",
+        "toggle-chapters@0.0.3",
+        "toc@0.0.1",
+        "include",
+        "responsive-iframes@1.0.2",
+        "custom-favicon",
+        "styles-sass@file:gitbook-plugin-styles-sass",
+        "ga"
     ],
     "variables": {
     },
@@ -21,12 +21,12 @@
         "website": "node_modules/gitbook-plugin-onedata-theme/book/onedata.scss"
     },
     "pluginsConfig": {
-      "image-captions": {
-          "caption": ""
-      },
-	  "ga": {
+        "image-captions": {
+            "caption": ""
+        },
+        "ga": {
             "token": "UA-63301911-1"
-      },
-      "favicon": "doc/img/onedata.ico"
+        },
+        "favicon": "doc/img/onedata.ico"
     }
 }

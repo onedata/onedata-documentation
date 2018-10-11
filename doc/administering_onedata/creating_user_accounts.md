@@ -2,16 +2,23 @@
 
 <!-- toc -->
 
-While for most cases, users should create their Onedata accounts using OpenID Connect services using their social or community logins, it is also possible to create user accounts manually, allowing users to login using HTTP basic authentication, i.e. with `username` and `password`.
+In general, accounts for users in Onedata are created using social/community login - [OpenID or SAML](openid_saml_configuration.md). 
+It is also possible to create user accounts manually in Onepanel, allowing users to log in 
+using HTTP basic authentication, i.e. with `username` and `password`. However, such accounts have
+administrator character and should be limited.
 
-This functionality can be achieved by creating manually user accounts using Onepanel service [REST interface](../advanced/rest/onepanel/overview.md).
+This functionality can be achieved by creating manually user accounts using Onepanel service 
+[REST interface](../advanced/rest/onepanel/overview.md).
 
 ## Managing manual user accounts
 
 Onepanel provides a simple REST API for management of user accounts in the Onezone service.
 
 ### Authentication
-Onepanel service supports basic authentication using usernames and passwords. After the installation of Onepanel service, the first user can be creating without providing authentication credentials and this user will be the admin. All consecutive account creation requests will create new users with either `regular` or `admin` role depending on the parameters specified in the body of request.
+Onepanel service supports basic authentication using usernames and passwords. 
+After the installation of Onepanel service, the first user can be created without providing authentication credentials 
+and this user will be the admin. All consecutive account creation requests will create new users with either 
+`regular` or `admin` role depending on the parameters specified in the body of request.
 
 ### Creating new users
 The user can be added by invoking a `POST` request to the Onepanel `/user` REST endpoint and providing user credentials, which include:
@@ -42,7 +49,8 @@ curl -X PUT -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application
 https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
 ```
 
-In order for these users to login to Onezone, basic authentication module has to be enabled in the Onezone config as described [here](./openid_configuration.md).
+In order for these users to login to Onezone, onepanel authentication has to be enabled 
+in the Onezone config as described [here](openid_saml_configuration.md).
 
 ### Removing users
 In order to remove an existing user account, simply execute `DELETE` method on the user path and provide user name, i.e.:
