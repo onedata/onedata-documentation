@@ -76,11 +76,10 @@ onezone-rest-cli getCurrentUser | jq '.'
 
 {
    "name" : "admin",
-   "alias" : "",
-   "login" : "admin",
-   "connectedAccounts" : [],
+   "alias" : "admin",
+   "linkedAccounts" : [],
    "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
-   "emailList" : []
+   "emails" : []
 }
 ```
 

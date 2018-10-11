@@ -481,6 +481,45 @@ sudo ls /var/log/op_worker/
 debug.log error.log info.log run_erl.log
 ```
 
+#### Enabling debug logs
+By default, logs on the debug level are disabled, as they have a heavy impact on
+system performance. However, there are cases when you might want to turn them 
+on for some time to identify problems. To do so, you need to attach to the
+Erlang console of the node and execute `logger:set_loglevel(debug).`, like this:
+```
+~$ op_worker attach-direct
+```
+You will be attached to the console and see the following prompt:
+```
+Direct Shell: Use "Ctrl-D" to quit. "Ctrl-C" will terminate the op_worker node.
+Attaching to /tmp/op_worker/erlang.pipe.1 (^D to exit)
+
+(op_worker@node1.oneprovider.local)11> 
+```
+Enter the command (the `.` at the end is required) and press `[Enter]`:
+```
+(op_worker@node1.oneprovider.local)11> logger:set_loglevel(debug).
+ok
+```
+Detach from the console by pressing `[Ctrl + D]` - pressing `[Ctrl + C]` will 
+kill the node!
+```
+(op_worker@node1.oneprovider.local)12> [Quit]
+~$ 
+```
+From now on, the debug logs will be written to the `debug.log` file as they 
+appear. Remember to turn off the debug logs when you are finished:
+```
+~$ op_worker attach-direct
+
+(op_worker@node1.oneprovider.local)13> logger:set_loglevel(info).
+ok
+
+^D
+```
+
+> You can do the same for Onepanel, just replace `op_worker` with `op_panel`.
+
 
 ## Upgrading
 

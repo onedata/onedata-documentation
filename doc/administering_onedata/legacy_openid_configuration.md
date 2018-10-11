@@ -1,5 +1,8 @@
 # OpenID Configuration
 
+> This section is deprecated and valid for Onezone versions `=< 18.02.0-rc11`, 
+for newer versions please refer to [OpenID & SAML Configuration](./openid_saml_configuration.md).
+
 <!-- toc -->
 
 OpenID is the main authentication method used in Onedata. It allows users to reuse their accounts from other websites such as social networks or infrastructure portals.
