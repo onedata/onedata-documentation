@@ -6281,9 +6281,9 @@
       "properties": {
         "reportEntries": {
           "type": "array",
+          "minItems": 0,
           "items": {
-            "$ref": "#/definitions/SpaceAutoCleaningReport",
-            "minItems": 0
+            "$ref": "#/definitions/SpaceAutoCleaningReport"
           }
         }
       }
