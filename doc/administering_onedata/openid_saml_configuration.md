@@ -37,7 +37,7 @@ necessary steps are:
 ### OpenID Connect
 
 1. Make sure your Onezone service is up and running on your domain, let it be
-`onezone.domain.com` for the sake of this example.
+`onezone.example.com` for the sake of this example.
 
 2. Go to the Identity Provider you want to integrate with and find out the 
 process of integration, which can be a bit different for each one. The process
@@ -48,9 +48,9 @@ the administrators.
 information such as domain, service name etc. When asked for 
 *Redirection Endpoint (URL)*, specify the following:
 ```Erlang
-https://onezone.domain.com/oidc/consume   % recommended
+https://onezone.example.com/oidc/consume   % recommended
 % or
-https://onezone.domain.com/validate_login   % deprecated, but still supported
+https://onezone.example.com/validate_login   % deprecated, but still supported
 ```
 
 4. After finishing the registration process, you will be issued a Client Id and 
@@ -63,7 +63,7 @@ the Client Id and Secret. The `protocol` attribute must be set to `openid`.
 6. Depending on the IdP, there might be more configuration options regarding the
 OpenID flow - some of them are reflected in the [pluginConfig](#openid-example).
 
-7. Put the `auth.config` on the Onezone host under in `/etc/oz_worker/auth.config` 
+7. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config` 
 and wait for up to a minute (default config caching time), or restart the 
 Onezone service for immediate effect.
 
@@ -75,7 +75,7 @@ of any errors, examine [Onezone logs](./onezone_tutorial.md#logs).
 ### SAML
 
 1. Make sure your Onezone service is up and running on your domain, let it be
-`onezone.domain.com` for the sake of this example.
+`onezone.example.com` for the sake of this example.
 
 2. Generate a strong RSA x509 key pair (can be self signed) and put them on your
 Onezone host - a tutorial can be found 
@@ -83,17 +83,17 @@ Onezone host - a tutorial can be found
 
 3. Decide on your SAML Entity Id - typically the domain is used to build it,
 and it does not have to point to an existing resource, e.g. 
-`https://onezone.domain.com/sp`.
+`https://onezone.example.com/sp`.
 
 4. Fill out the [SAML Config](#saml-config) section of the `auth.config`, 
 putting down all the required information, including the Entity Id and paths
 to the key and cert.
 
-5. Put the `auth.config` on the Onezone host under in `/etc/oz_worker/auth.config` 
+5. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config` 
 and wait for up to a minute (default config caching time), or restart the 
 Onezone service for immediate effect.
 
-6. Visit `https://onezone.domain.com/saml/sp.xml` and verify that the advertised
+6. Visit `https://onezone.example.com/saml/sp.xml` and verify that the advertised
 metadata is correct. In case of any errors, examine 
 [Onezone logs](./onezone_tutorial.md#logs).
 
@@ -120,7 +120,7 @@ of any errors, examine [Onezone logs](./onezone_tutorial.md#logs).
 ### The login page
 
 After adding your IdPs to the config file, you should see corresponding icons on
-the login page (`https://onezone.domain.com`). If there are more than 7 IdPs,
+the login page (`https://onezone.example.com`). If there are more than 7 IdPs,
 the first 6 will be shown and the rest hidden in the `...` button.
 
 <img  style="display:block;margin:0 auto;" src="../img/login-page.png">
@@ -134,7 +134,7 @@ can be found in `/etc/oz_worker/template.auth.config` or
 [at the end of this section](#complete-example).
 
 
-### general remarks
+### General remarks
 
 The `auth.config` file is written in Erlang format, quite similar to JSON:
 
@@ -148,7 +148,7 @@ specified (`null`)
 * `true` or `false` is a boolean
 
 
-### main sections
+### Main sections
 
 The config file has the following sections:
 
@@ -248,7 +248,7 @@ that will be inherited by all OpenID IdPs. Please examine this snippet from the
                 % like the following:
                 %       tokenPrefix => "my-idp/"
                 % Exemplary token usage with with such config:
-                % curl -H "X-Auth-Token: my-idp:lkj9s87rf1234SDfh6721hqd7991" ...
+                % curl -H "X-Auth-Token: my-idp/lkj9s87rf1234SDfh6721hqd7991" ...
             },
             % Defines how the attributes from OpenID user info should be mapped
             % to Onedata user attributes. Attributes must correspond to existing
@@ -304,13 +304,13 @@ Please examine this snippet from the `/etc/oz_worker/template.auth.config`:
         % Information used to build SAML SP metadata XML, refer to SAML
         % documentation for details on below attributes.
         spConfig => #{
-            entityId => "https://onezone.domain.com/sp",
+            entityId => "https://onezone.example.com/sp",
             certFile => "/etc/oz_worker/certs/saml_cert.pem",
             keyFile => "/etc/oz_worker/certs/saml_key.pem",
             organizationName => "My organization",
             organizationDisplayName => "My organization",
             techContactName => "John Doe",
-            techContactEmail => "john.doe@onezone.domain.com",
+            techContactEmail => "john.doe@onezone.example.com",
             % Should the metadata be signed with keyFile
             signMetadata => false,
             % Should the Auth Requests be signed with keyFile
@@ -366,7 +366,7 @@ More details:
 
 * `spConfig` - information put here will be used to build the SAML 
 Service Provider XML, which will be advertised under 
-`https://onezone.domain.com/saml/sp.xml`. Remember that paths provided in 
+`https://onezone.example.com/saml/sp.xml`. Remember that paths provided in 
 key / cert field must point to existing files, otherwise the XML will not be 
 generated. Refer to SAML documentation for details on certain fields. 
 
@@ -375,7 +375,7 @@ generated. Refer to SAML documentation for details on certain fields.
 * `entitlementMapping` - [see below](#entitlement-mapping)
 
 
-### supported IdPs
+### Supported IdPs
 
 This section lists all IdPs that will be available to choose from on the login 
 page. Button order on the login page corresponds to the entries order. General
@@ -793,7 +793,7 @@ Attribute mapping is used to map attributes received from Identity Providers
 into linked account objects in Onedata.
 
 
-#### merging linked accounts into Onedata user
+#### Merging linked accounts into Onedata user
 
 Every user in Onedata can have one or more linked accounts. Upon the first
 login, a new Onedata user is created based on information gathered from the IdP
@@ -889,7 +889,7 @@ when mapping Onedata users into storage users within Oneprovider.
 [REST API](/#/home/api/latest/onezone?anchor=operation/get_current_user).
 
 
-#### attribute mapping rules
+#### Attribute mapping rules
 
 Attribute mapping is performed based on the IdP configuration in  `auth.config`. 
 The section looks like the following:
@@ -905,8 +905,8 @@ attributeMapping => #{
 ```
 
 Allowed mappings are:
-* `undefined` - this attribute is not mapped at all, the same as deleting
-the attribute completely from the config.
+* `undefined` - this attribute is not mapped at all, it is equivalent to 
+deleting the attribute mapping completely from the config.
 
 * `{required, <rule>}` - this attribute will be mapped according to `<rule>`, if 
 it's not possible to resolve the attribute the login will fail.
@@ -1164,7 +1164,7 @@ Into the following Onedata user attributes:
 
 ```
 
-#### attribute mapping inheritance
+#### Attribute mapping inheritance
 If attribute mapping is specified in defaultProtocolConfig, it will be inherited
 by all IdPs using that protocol (openid or saml) - just like all other 
 attributes. It is possible to override each key in the IdP config. For example, 
@@ -1172,41 +1172,41 @@ having the following config (default and IdP specific):
 ```Erlang
 defaultProtocolConfig => #{
     attributeMapping => #{
-        subjectId => {required, eduPersonUniqueId},
-        name => {required, [displayName, surName]},
-        alias => {optional, eduPersonPrincipalName},
-        emails => {optional, mail}
+        subjectId => {required, "eduPersonUniqueID"},
+        name => {required, ["displayName", "surName"]},
+        alias => {optional, "eduPersonPrincipalName"},
+        emails => {optional, "mail"}
     }
 }
 ...
 {my_idp, #{
     protocolConfig => #{
-         attributeMapping => #{
-            subjectId => {required, eduPersonTargetedID},
-            % if not explicitly set to undefined, alias rules will be 
+        attributeMapping => #{
+            subjectId => {required, "eduPersonTargetedID"},
+            % if not explicitly set to undefined, alias rules will be
             % inherited from defaultProtocolConfig!
-            alias => undefined, 
+            alias => undefined,
             entitlements => {optional, "groups"}
+        }
     }
 }
 ```
 Is the same as having such config for the IdP:
 ```Erlang
 {my_idp, #{
-     protocolConfig => #{
-         attributeMapping => #{
-             subjectId => {required, eduPersonTargetedID},
-             name => {required, [displayName, surName]},
-             alias => undefined,
-             emails => {optional, mail},
-             entitlements => {optional, "groups"},
-             custom => undefined
-         }
-     }
+    protocolConfig => #{
+        attributeMapping => #{
+            subjectId => {required, "eduPersonTargetedID"},
+            name => {required, ["displayName", "surName"]},
+            alias => undefined,
+            emails => {optional, "mail"},
+            entitlements => {optional, "groups"}
+        }
+    }
 }
 ```
 
-#### exemplary IdP attributes
+#### Exemplary IdP attributes
 
 Bear in mind that typical attributes received via OpenID and SAML are different.
 They differ depending on the IdP - refer to their documentation to correctly
@@ -1326,6 +1326,17 @@ the following structure (example):
 
 * `voGroupName` - if specified, a special VO group will be created and all 
 groups originating from given IdP will be added as members (subgroups) to it.
+Note that if an entitlement overlaps with the `voGroupName`, it will be 
+considered the same as the VO group. See the below table for examples how 
+different entitlements would be mapped assuming that the `voGroupName` is set 
+to `myVO`:
+
+| entitlement            | group structure in Onedata |
+| ---------------------- | -------------------------- |
+| `members`              | `myVO/members`             |
+| `myVO`                 | `myVO`                     |
+| `myVO/members`         | `myVO/members`             |
+| `users/admins`         | `myVO/users/admins`        |
 
 * `adminGroup` - (fka Super Group) if specified, defines a Admin Group for given 
 IdP. It should be an existing entitlement, in the format that is the same as the 
@@ -1339,7 +1350,7 @@ group and will automatically gain admin privileges in the IdP groups.
 
 * `parser` & `parserConfig` - see below
 
-#### entitlement parsers
+#### Entitlement parsers
 
 Entitlement parsers are used to convert user entitlements from an IdP to group 
 memberships in Onedata. There are two predefined parsers that can be used to 
@@ -1468,7 +1479,7 @@ with admin privileges. The user will inherit all those privileges and will
 effectively be an admin in all those groups.
 
 
-#### group types
+#### Group types
 There are four group types in Onedata. Their purpose is to facilitate reflecting 
 existing organizational hierarchies. Apart from the visual representation in GUI 
 and intuitive meaning, the group type does not have a functional effect on the 
@@ -1487,7 +1498,7 @@ specific issue / topic, e.g. "WP5.1"
 same role/privileges should be organized in groups)
 
 
-#### privileges in entitlements
+#### Privileges in entitlements
 It is possible to specify privileges of the user towards the bottom group of the 
 nested structure or privileges of the groups in the nested chain towards their 
 parents. These privileges will be set only when creating a new membership - if a 
@@ -1514,7 +1525,7 @@ Onedata group privileges:
      group_create_handle, group_leave_handle]`
 
 
-#### custom entitlement parsers (advanced)
+#### Custom entitlement parsers (advanced)
 Entitlement parsers are Erlang modules that implement 
 `entitlement_parser_behaviour`. They are used to convert a raw entitlement 
 coming from an IdP into Onedata's internal, unified format, which looks like 
@@ -1552,7 +1563,7 @@ group structure in Onezone:
              |
              <user>
 ```
-If an admin group is specified for myIdP, let it be called `"admins"`, and
+If an `adminGroup` is specified for myIdP, let it be called `"admins"`, and
 the user has the following entitlements (after the mapping):
 ```
 [
@@ -1583,7 +1594,7 @@ The following group structure would be created:
                .---------'   |
   (admin privs>|             my-unit [unit]
                |             u   u
-               | .-----------'   |<member privs)
+               | .-----------'   |<manager privs)
                | |               |
                | |<admin privs)  my-team [team]
                | |                u   u
@@ -1608,7 +1619,7 @@ the above entitlements would yield the following group structure:
        |                .---------'   |
        |   (admin privs>|             my-unit [unit]
        |                |             u   u
-       |                | .-----------'   |<member privs)
+       |                | .-----------'   |<manager privs)
        |                | |               |
        |                | |<admin privs)  my-team [team]
        |                | |                u   u
@@ -1649,7 +1660,7 @@ callback - `type/0`, that returns the type of the plugin:
 will be evaluated upon startup and the results will be logged in Onezone logs.
 
 
-### attribute mapper
+### Attribute mapper
 This auth plugin maps IdP attributes into Onedata attributes. It must implement
 the `auth_plugin_behaviour` that returns the `attribute_mapper` atom from the 
 `type/0` callback, and the `attribute_mapper_behaviour`. Refer to the
@@ -1658,7 +1669,7 @@ behaviour module and implementation details. An exemplary custom attribute
 mapper can be found in `/etc/oz_worker/auth_plugins/custom_attribute_mapper.erl`.
 
 
-### entitlement parser
+### Entitlement parser
 This auth plugin maps IdP entitlements into Onedata entitlements 
 (group memberships). It must implement the `auth_plugin_behaviour` that returns 
 the `entitlement_parser` atom from the `type/0` callback, and the 
@@ -1791,7 +1802,7 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
                 % like the following:
                 %       tokenPrefix => "my-idp/"
                 % Exemplary token usage with with such config:
-                % curl -H "X-Auth-Token: my-idp:lkj9s87rf1234SDfh6721hqd7991" ...
+                % curl -H "X-Auth-Token: my-idp/lkj9s87rf1234SDfh6721hqd7991" ...
             },
             % Defines how the attributes from OpenID user info should be mapped
             % to Onedata user attributes. Attributes must correspond to existing
@@ -1819,13 +1830,13 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
         % Information used to build SAML SP metadata XML, refer to SAML
         % documentation for details on below attributes.
         spConfig => #{
-            entityId => "https://onezone.domain.com/sp",
+            entityId => "https://onezone.example.com/sp",
             certFile => "/etc/oz_worker/certs/saml_cert.pem",
             keyFile => "/etc/oz_worker/certs/saml_key.pem",
             organizationName => "My organization",
             organizationDisplayName => "My organization",
             techContactName => "John Doe",
-            techContactEmail => "john.doe@onezone.domain.com",
+            techContactEmail => "john.doe@onezone.example.com",
             % Should the metadata be signed with keyFile
             signMetadata => false,
             % Should the Auth Requests be signed with keyFile
@@ -2072,7 +2083,7 @@ Below are some working config examples that use predefined icons. In case of
 OpenID IdPs, it is required to insert the Client Id and Secret in the config.
 
 
-### onepanel config (onepanelAuth)
+### Onepanel config (onepanelAuth)
 ```Erlang
 {onepanel, #{
     displayName => "Onepanel account",
