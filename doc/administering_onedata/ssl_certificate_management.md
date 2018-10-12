@@ -20,7 +20,8 @@ Depending on the type of services which is being installed, Onepanel will look f
   - `/etc/op_panel/certs/web_chain.pem` (optional)
   - `/etc/oz_panel/cacerts/*` (optional)
 
-By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnigngs. However, those test certificates will prevent Onezone-Oneprovider or inter-Provider communication. They must never be used in production environment.
+By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnings. However, those test certificates will prevent Onezone-Oneprovider or inter-Provider communication in a production environment and should never be used in such cases.
+Communication using those test certificates can be enabled for test purposes by setting `ONEPANEL_TRUST_TEST_CA` environment variable during cluster deployment.
 
 ## Onezone
 
@@ -75,7 +76,7 @@ Please note that Let's Encrypt imposes limits on certificates generated for each
 > NOTE: When deploying via GUI using this feature, your web browser will need to reload the page when new certificates are installed.
 
 ## Let's Encrypt in private networks
-When registering **Oneproviders** using the __subdomain delegation__ feature, it is possible to use Let's Encrypt client even if **Oneprovider** is deployed on host not accessible from the pulic Internet. In this scenario only the **Onezone** needs to work in a public domain in order to support validating its subdomains in Let's Encrypt.
+When registering **Oneproviders** using the __subdomain delegation__ feature, it is possible to use Let's Encrypt client even if **Oneprovider** is deployed on host not accessible from the public Internet. In this scenario only the **Onezone** needs to work in a public domain in order to support validating its subdomains in Let's Encrypt. In this case the DNS method of The Let's Encrypt authorization is used, rqeuirs the Onezone domain to be [delegated (see docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at its DNS registrar.
 
 ## Docker deployment
 
