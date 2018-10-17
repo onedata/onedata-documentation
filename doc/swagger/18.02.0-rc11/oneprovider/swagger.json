@@ -796,30 +796,29 @@
         ]
       }
     },
-    "/index": {
+    "/spaces/{sid}/indexes": {
       "get": {
         "operationId": "get_space_indexes",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "metadata",
         "x-onedata-resource": "index",
         "x-onedata-method": "get_space_indexes",
-        "summary": "Get index list for space",
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns the list of user defined index functions.\n\nThe result can be limited to specific space using query parameter `space_id`.\n",
-        "description": "This method returns the list of user defined index functions.\n\nThe result can be limited to specific space using query parameter `space_id`.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/index?space_id=2e462492-a4d7-46b9-8641-abfdf50f06af\n\n[\n  {\n    \"spaceId\": \"2e462492-a4d7-46b9-8641-abfdf50f06af\",\n    \"name\": \"My index\",\n    \"indexId\": \"fdecdf35-5e18-4a9b-a01a-1702acd4d274\"\n  }\n]\n```\n",
+        "summary": "Get all space indexes",
+        "x-bash-codegen-description": "Returns the list of all index names in a space.\n",
+        "description": "Returns the list of all index names in a space.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore names to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 index names starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7/indexes?limit=3&page_token=757136151113c2f\"\n\n{\n  \"indexes\": [\n    \"index1\",\n    \"index11\",\n    \"index111\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
         "produces": [
-          "application/json",
-          "application/rdf+xml"
+          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Index list returned successfully.",
+            "description": "The list of index names, nextPageToken is present when there is more to list.",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Index"
+                "type": "string"
               }
             }
           },
@@ -836,7 +835,7 @@
             }
           },
           "404": {
-            "description": "File not found.",
+            "description": "Oneprovider REST API not available.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -850,9 +849,23 @@
         },
         "parameters": [
           {
-            "name": "space_id",
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID in which to list indexes.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "limit",
             "in": "query",
-            "description": "Id of the space to query.",
+            "description": "Allows to limit the number of returned indexes.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "page_token",
+            "in": "query",
+            "description": "Allows to start the listing from a certain point, identified by the page token.\n",
             "type": "string",
             "required": false
           }
@@ -860,94 +873,12 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getSpaceIndexes space_id=ASLDJLASKJDLADkhhasdaksdaADS"
-          }
-        ]
-      },
-      "post": {
-        "operationId": "add_space_index",
-        "x-onedata-service": "oneprovider",
-        "x-onedata-module": "metadata",
-        "x-onedata-resource": "index",
-        "x-onedata-method": "add_space_index",
-        "summary": "Create index for space",
-        "tags": [
-          "Data"
-        ],
-        "x-bash-codegen-description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching\nthrough data. Currently indexes are created per space, i.e. the `space_id`\nquery parameter is required.\n\nThe operation returns the created index ID in the response `Location`\nheader.\n",
-        "description": "This method allows to create a new index for space.\n\nIndexes allow creating custom views on data which enable efficient searching through data.\n\nCurrently indexes are created per space, i.e. the `space_id` query parameter is required.\n\nThe operation returns the created index ID in the response `Location` header.\n\n***Example cURL requests***\n\n**Set JSON metadata for file**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n-H \"Content-type: text/javascript\" \\\n-d \"@./my_index_1.js\"\nhttps://$HOST/api/v1/oneprovider/index?space_id=7f85c115-8631-4602-b7d5-47cd969280a2&name=MyIndex1\n```\n",
-        "consumes": [
-          "text/javascript"
-        ],
-        "responses": {
-          "204": {
-            "description": "Metadata document updated successfully.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The path to the index resource, including it's assigned identifier.\n"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "File not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "space_id",
-            "in": "query",
-            "description": "File or folder path or space id.",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "The user friendly name of the index (can be used to assign names to 'smart folders' in the GUI). If not provided, an auto generated name will be assigned.\n",
-            "type": "string",
-            "required": false
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The index function.\n",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli addSpaceIndex space_id=ASLDJLASKJDLADkhhasdaksdaADS name=MyIndex1 -"
+            "source": "oneprovider-rest-cli sid=ASLDKAJSD764ASDLnaAsd getSpaceIndexes limit=20 page_token=757136151113c2f"
           }
         ]
       }
     },
-    "/index/{iid}": {
+    "/spaces/{sid}/indexes/{index_name}": {
       "get": {
         "operationId": "get_space_index",
         "x-onedata-service": "oneprovider",
@@ -958,16 +889,16 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
-        "description": "This method returns a specific index source code.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Get list of indexes for space**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n\n\nfunction(x) {\n  if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {\n    return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];\n  }\n  return null;\n}\n```\n",
+        "x-bash-codegen-description": "This method returns a JSON describing specific index.\n",
+        "description": "This method returns a JSON describing specific index.\n\n***Example cURL requests***\n\n**Get information about specific index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1\n\n\n{\n    \"spatial\": false,\n    \"mapFunction\": \"function (id, meta) {\\\\n        if(meta[\\\\'onexattr\\\\']) {\\\\n            return [meta[\\\\'onexattr\\\\'], id];\\\\n        }\\\\n        return null;\\\\n    }\",\n    \"reduceFunction\": null,\n    \"indexOptions\": {\n        \"update_min_changes\": 100\n    },\n    \"providers\": [\n        \"ASIOdhxckvufysd78f9w394356yisudfsduuzxch\"\n    ]\n}\n```\n",
         "produces": [
-          "application/javascript"
+          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Index source returned successfully.",
+            "description": "Information about index.",
             "schema": {
-              "type": "string"
+              "$ref": "#/definitions/Index"
             }
           },
           "400": {
@@ -997,9 +928,16 @@
         },
         "parameters": [
           {
-            "name": "iid",
+            "name": "sid",
             "in": "path",
-            "description": "Id of the index to return.",
+            "description": "Space ID in which index exist.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
             "type": "string",
             "required": true
           }
@@ -1007,11 +945,117 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS"
+            "source": "oneprovider-rest-cli getSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
           }
         ]
       },
       "put": {
+        "operationId": "create_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "create_space_index",
+        "summary": "Create index",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method creates or replaces an existing index with a new one.\n",
+        "description": "This method creates or replaces an existing index with a new one.\n\n***Example cURL requests***\n\n**Create space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1?spatial=false&providers[]=SDUIFYIUXcyv7862873467878sdt&providers[]=ioysdfuyisdFITSDHX89754\n```\n",
+        "responses": {
+          "200": {
+            "description": "Index created successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID in which index will be created.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The index map function.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "spatial",
+            "in": "query",
+            "description": "Specifies whether index is spatial or not.",
+            "type": "boolean",
+            "default": false,
+            "required": false
+          },
+          {
+            "name": "update_min_changes",
+            "in": "query",
+            "description": "Minimum number of document changes to trigger re-indexing.",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "replica_update_min_changes",
+            "in": "query",
+            "description": "Minimum number of document changes to trigger re-indexing of a replica index.",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "providers[]",
+            "in": "query",
+            "description": "Providers which will create index.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat index.js | oneprovider-rest-cli createSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 spatial=false -"
+          }
+        ]
+      },
+      "patch": {
         "operationId": "update_space_index",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "metadata",
@@ -1021,13 +1065,13 @@
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n",
-        "description": "This method replaces an existing index code with request body content.\n\nThe indexes are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
+        "x-bash-codegen-description": "This method updates existing index definition. \n\nIt takes the same arguments as PUT. Only specified parameters will be overwritten.\n",
+        "description": "This method updates existing index definition. \n\nIt takes the same arguments as PUT. Only specified parameters will be overwritten.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PATCH \\\n-H \"Content-type: application/javascript\" \\\nhttps://$HOST/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a?update_min_changes=10\n```\n",
         "consumes": [
           "application/javascript"
         ],
         "responses": {
-          "204": {
+          "200": {
             "description": "Index updated successfully."
           },
           "400": {
@@ -1057,26 +1101,65 @@
         },
         "parameters": [
           {
-            "name": "iid",
+            "name": "sid",
             "in": "path",
-            "description": "Id of the index to update.",
+            "description": "Space ID in which index exist.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
             "type": "string",
             "required": true
           },
           {
             "name": "body",
             "in": "body",
-            "description": "The index function.",
+            "description": "The index map function.",
             "schema": {
               "type": "string"
             },
-            "required": true
+            "required": false
+          },
+          {
+            "name": "spatial",
+            "in": "query",
+            "description": "Specifies whether index is spatial or not.",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "name": "update_min_changes",
+            "in": "query",
+            "description": "Minimum number of document changes to trigger re-indexing.",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "replica_update_min_changes",
+            "in": "query",
+            "description": "Minimum number of document changes to trigger re-indexing of a replica index.",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "providers[]",
+            "in": "query",
+            "description": "Providers which will create index.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "required": false
           }
         ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS -"
+            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 -"
           }
         ]
       },
@@ -1085,16 +1168,13 @@
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "metadata",
         "x-onedata-resource": "index",
-        "x-onedata-method": "update_space_index",
+        "x-onedata-method": "remove_space_index",
         "summary": "Remove index",
         "tags": [
           "Data"
         ],
         "x-bash-codegen-description": "This method removes an existing index.\n",
-        "description": "This method removes an existing index.\n\n***Example cURL requests***\n\n**Remove existing index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v1/oneprovider/index/f209c965-e212-4149-af72-860faea4187a\n```\n",
-        "consumes": [
-          "application/javascript"
-        ],
+        "description": "This method removes an existing index.\n\n***Example cURL requests***\n\n**Remove existing index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1\n```\n",
         "responses": {
           "204": {
             "description": "Index removed successfully."
@@ -1126,9 +1206,16 @@
         },
         "parameters": [
           {
-            "name": "iid",
+            "name": "sid",
             "in": "path",
-            "description": "Id of the index to update.",
+            "description": "Space ID in which index exist.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
             "type": "string",
             "required": true
           }
@@ -1136,34 +1223,179 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli removeSpaceIndex iid=ASLDJLASKJDLADkhhasdaksdaADS"
+            "source": "oneprovider-rest-cli removeSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
           }
         ]
       }
     },
-    "/query-index/{iid}": {
-      "get": {
-        "operationId": "query_space_indexes",
+    "/spaces/{sid}/indexes/{index_name}/reduce": {
+      "put": {
+        "operationId": "update_index_reduce_function",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "metadata",
         "x-onedata-resource": "index",
-        "x-onedata-method": "query_space_indexes",
+        "x-onedata-method": "update_index_reduce_function",
+        "summary": "Update index reduce function",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method replaces the existing index reduce function code with the request body.\n\nThe reduce functions are defined as JavaScript functions which are executed\non the database backend.\n",
+        "description": "This method replaces the existing index reduce function code with the request body.\n\nThe reduce functions are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_reduce_fun.js\" \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/reduce\n```\n",
+        "consumes": [
+          "application/javascript"
+        ],
+        "responses": {
+          "200": {
+            "description": "Index reduce function updated successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID in which index exist.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The index reduce function.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat index.js | oneprovider-rest-cli updateIndexReduceFunction sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 -"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_index_reduce_function",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "remove_index_reduce_function",
+        "summary": "Remove index reduce function",
+        "tags": [
+          "Data"
+        ],
+        "x-bash-codegen-description": "This method removes the index reduce function.\n",
+        "description": "This method removes the index reduce function.\n\n***Example cURL requests***\n\n**Remove index reduce function**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/reduce\n```\n",
+        "consumes": [
+          "application/javascript"
+        ],
+        "responses": {
+          "204": {
+            "description": "Index reduce function removed successfully."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Space ID in which index exist.\n",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli removeIndexReduceFunction sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
+          }
+        ]
+      }
+    },
+    "/spaces/{sid}/indexes/{index_name}/query": {
+      "get": {
+        "operationId": "query_space_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "metadata",
+        "x-onedata-resource": "index",
+        "x-onedata-method": "query_space_index",
         "summary": "Query index",
         "tags": [
           "Data"
         ],
-        "x-bash-codegen-description": "This method returns the list of files which match the query on a\npredefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited\nto files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionaly, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\n\npossible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
-        "description": "This method returns the list of files which match the query on a predefined index.\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get list of files matching index with `value1` for `key` attribute**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?key=value1\n\n[\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"5a019a9a-cfe5-4281-8a28-8435c4716524\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\"\n]\n```\n**Get a 100 files from index skipping first 200**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?skip=200&limit=100\n\n[\n  \"30518c78-6def-40e0-9a85-c90e7efe7ffc\",\n  \"2013f807-a25e-4a55-92bb-113ab46efd12\",\n  \"1af64b02-1bbd-48ad-a9ef-25e9af593391\",\n  \"8081e12c-df3a-46b8-b27b-8627f146af4f\",\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates located in Europe**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/query-index/2e462492-a4d7-46b9-8641-abfdf50f06af?bbox=81.008797,39.869301,27.636311,-31.266001\n\n[\n  \"5145c581-af6f-4add-b3c0-d6e0253e8862\",\n  \"6c2e5abd-0495-4fec-95b7-f8601e244b45\",\n]\n```\n\n**Get file popularity for a specific space**\nIn\n```bash\ncurl --tlsv1.2 -sSk -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST/api/v3/oneprovider/query-index/file-popularity-9JO5__9nL1b01YEvwnft1r20gwgwlkIp19ND_n8hgxs?spatial=true&start_range=\\[1,0,0,0,0,0\\]&end_range=\\[null,null,null,null,null,null\\]\"\n```\n",
+        "x-bash-codegen-description": "This method returns the list of result objects for files which match the query \non a predefined index. \nThose objects contains following fields:\n- id - for use as `startkey_docid` or `endkey_docid` in following queries\n- key - the first element of list returned by user defined mapping/spatial function\n- value - the second element of list returned by user defined mapping/spatial function\n- geometry - describes geometry of data (only available in case of spatial indexes)\n\nCurrently, indexes are defined per space, i.e. the result will be limited\nto files and folders in a space for which the index was defined.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
+        "description": "This method returns the list of result objects for files which match the query on a predefined index. \nThose objects contains following fields:\n* ``id`` - for use as `startkey_docid` or `endkey_docid` in following queries\n* ``key`` - the first element of list returned by user defined mapping/spatial function\n* ``value`` - the second element of list returned by user defined mapping/spatial function\n* ``geometry`` - describes geometry of data (only available in case of spatial indexes)\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get 4 files from index skipping first 10**\n\nWith example map function used:\n```javascript\nfunction (id, meta) {\n    if(meta[\"onexattr\"]) {\n        return [meta[\"onexattr\"], id];\n    }\n    return null;    \n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/query?skip=10&limit=4\n\n[\n  {\n    \"id\": \"fd18b793d446099ae84f8bd5c054ad34\",\n    \"key\": 1,\n    \"value\": \"00000000002C45416775696423633062636533343133336336636633393238336134323333396430656461393323737061636531\"\n  },\n  {\n    \"id\": \"2785dbd91120e341265f9ee2370ccf08\",\n    \"key\": 2,\n    \"value\": \"00000000002CF7DB6775696423396261373964653764643866336432393436323262313133393738643338383323737061636531\"\n  },\n  {\n    \"id\": \"60a9e6da61e12deeb3e6c688fe861c01\",\n    \"key\": 3,\n    \"value\": \"00000000002C47916775696423336330336538623730333439353233383631313966346139343731316631656323737061636531\"\n  },\n  {\n    \"id\": \"651d696a8446e92ab55de163f9b8594d\",\n    \"key\": 4,\n    \"value\": \"00000000002CA8906775696423633835366438613139666565336337666165623538303736356465383039356223737061636531\"\n  },\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates**\n\nWith example spatial function used:\n```javascript\nfunction (id, meta) {\n    if(meta['onedata_json'] && meta['onedata_json']['loc']) {\n        return [meta['onedata_json']['loc'], id];\n    }\n    return null;\n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v1/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/query?spatial=true&stale=false\n\n[\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [0, 0]\n    },\n    \"id\": \"36cfb018c312653e65b346c421d7a678\",\n    \"key\": [[0, 0], [0, 0]],\n    \"value\": \"00000000002C5DA36775696423663535633934306564393632656530666133663330633137393362333765356223737061636531\"\n  },\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [5.1, 10.22]\n    },\n    \"id\": \"972eb78ff8e262c4bebdc11799c20f51\",\n    \"key\": [[5.1, 5.1], [10.22, 10.22]],\n    \"value\": \"00000000002C678A6775696423363030666461383130623030386333616664363637396666653334366137656623737061636531\"\n  }\n]\n```\n\n**Get file popularity for a specific space**\n```bash\ncurl --tlsv1.2 -sSk -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/file-popularity/query?spatial=true&start_range=\\[1,0,0,0,0,0\\]&end_range=\\[null,null,null,null,null,null\\]\"\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Index list returned successfully.",
+            "description": "Query results returned successfully.",
             "schema": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "object"
               }
             }
           },
@@ -1194,16 +1426,23 @@
         },
         "parameters": [
           {
-            "name": "iid",
+            "name": "sid",
             "in": "path",
-            "description": "Id of the index to query.",
+            "description": "Space ID in which index exist.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
             "type": "string",
             "required": true
           },
           {
             "name": "descending",
             "in": "query",
-            "description": "Return the documents in descending by key order.",
+            "description": "Return the documents in descending order (by key).",
             "type": "boolean",
             "required": false,
             "default": false
@@ -1317,7 +1556,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli querySpaceIndexes iid=ASJHDJHASD7132nasdlASD key=value1"
+            "source": "oneprovider-rest-cli querySpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
           }
         ]
       }
@@ -1399,20 +1638,20 @@
           "Replication"
         ],
         "summary": "Replicate file or folder by path",
-        "x-bash-codegen-description": "Replicates a file to a specified provider. This operation is asynchronous\nas it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
-        "description": "Replicates a file to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "x-bash-codegen-description": "Replicates a file specified by absolute path in `path` parameter to a specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file specified by absolute path in `path` parameter to a specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "consumes": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "description": "The replication request was accepted and the result is the transfer Id, which can be used for monitoring the transfer status.\n",
             "schema": {
               "type": "object",
               "properties": {
                 "transferId": {
                   "type": "string",
-                  "description": "Transfer ID."
+                  "description": "Transfer Id."
                 }
               }
             }
@@ -1453,14 +1692,14 @@
           {
             "name": "provider_id",
             "in": "query",
-            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "description": "The Id of the provider to which the file will be replicated. By default the file will be replicated to the provider handling this REST call.\n",
             "required": false,
             "type": "string"
           },
           {
             "name": "callback",
             "in": "body",
-            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "description": "This parameter allows the user to specify a REST callback URL which will be called when the transfer is complete\n",
             "required": false,
             "schema": {
               "$ref": "#/definitions/Callback"
@@ -1475,29 +1714,29 @@
         ]
       },
       "delete": {
-        "operationId": "delete_replica",
+        "operationId": "evict_replica",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "replicate_file",
         "x-onedata-resource": "file",
-        "x-onedata-method": "delete_replica",
+        "x-onedata-method": "evict_replica",
         "tags": [
           "Replication"
         ],
-        "summary": "Remove existing replica by file path",
-        "x-bash-codegen-description": "Removes a specific replica of a file - which is hosted by this Oneprovider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nremoved from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is removed from\nthis provider requested provider.\n",
-        "description": "Removes a specific replica of a file - which is hosted by this Oneprovider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nremoved from this provider.\n\nIf the path specifies a folder, entire folder is removed from\nthis provider requested provider.\n\n***Example cURL requests***\n\n**Remove file replica by path from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "summary": "Evict existing replica by file path",
+        "x-bash-codegen-description": "Removes a replica of a file specified by absolute path in `path` parameter \nfrom a specified provider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is evicted from\nthis provider requested provider.\n",
+        "description": "Removes a replica of a file specified by absolute path in `path` parameter \nfrom a specified provider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is evicted from\nthis provider requested provider.\n\n***Example cURL requests***\n\n**Remove file replica by path from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "The replica removal has been accepted is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "description": "The replica removal has been accepted is the transfer Id, which can be used for monitoring the transfer status.\n",
             "schema": {
               "type": "object",
               "properties": {
                 "transferId": {
                   "type": "string",
-                  "description": "Transfer ID."
+                  "description": "Transfer Id."
                 }
               }
             }
@@ -1531,14 +1770,21 @@
           {
             "name": "path",
             "in": "path",
-            "description": "ID of the file.",
+            "description": "File path (e.g. '/My Private Space/testfiles/file1.txt')",
             "type": "string",
             "required": true
           },
           {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The Id of the provider from which the replica will be evicted. By default the replica will be evicted in the provider handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "migration_provider_id",
             "in": "query",
-            "description": "The ID of the provider to which the file should be replicated before being deleted.\n",
+            "description": "The Id of the provider to which the file should be replicated before being evicted.\n",
             "required": false,
             "type": "string"
           }
@@ -1546,7 +1792,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli deleteReplica fid=ASLDKAJSD764ASDLnaAsd migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli evictReplica path='/Space 1/Folder 2/file.txt' migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
           }
         ]
       }
@@ -1561,9 +1807,9 @@
         "tags": [
           "Replication"
         ],
-        "summary": "Get replicas by ID",
+        "summary": "Get replicas by Id",
         "x-bash-codegen-description": "Returns file distribution information about a specific file replicated at\nthis provider.\n",
-        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by ID**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
+        "description": "Returns file distribution information about a specific file replicated at this provider.\n\n***Example cURL requests***\n\n**Get file distribution map by Id**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1606,7 +1852,7 @@
           {
             "name": "fid",
             "in": "path",
-            "description": "The ID of the file",
+            "description": "The Id of the file",
             "type": "string",
             "required": true
           }
@@ -1627,21 +1873,21 @@
         "tags": [
           "Replication"
         ],
-        "summary": "Replicate file or folder by ID",
-        "x-bash-codegen-description": "Replicates a file with ID to a specified provider. This operation is\nasynchronous as it can take a long time depending on the size of the data\nto move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
-        "description": "Replicates a file with ID to a specified provider. This operation is asynchronous as it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by ID to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by ID to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "summary": "Replicate file or folder by Id",
+        "x-bash-codegen-description": "Replicates a file specified by Id in `fid` parameter to a specified provider. \nThis operation is asynchronous and it can take a long time depending on \nthe size of the data to move.\n\nIf the `fid` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
+        "description": "Replicates a file specified by Id in `fid` parameter to a specified provider.  \nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `fid` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by Id to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by Id to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "The replication request was accepted and the result is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "description": "The replication request was accepted and the result is the transfer Id, which can be used for monitoring the transfer status.\n",
             "schema": {
               "type": "object",
               "properties": {
                 "transferId": {
                   "type": "string",
-                  "description": "Transfer ID."
+                  "description": "Transfer Id."
                 }
               }
             }
@@ -1675,21 +1921,21 @@
           {
             "name": "fid",
             "in": "path",
-            "description": "ID of the file.",
+            "description": "Id of the file.",
             "type": "string",
             "required": true
           },
           {
             "name": "provider_id",
             "in": "query",
-            "description": "The ID of the provider to which the file should be replicated. By default the file will be replicated to the provided handling this REST call.\n",
+            "description": "The Id of the provider to which the file will be replicated. By default the file will be replicated to the provided handling this REST call.\n",
             "required": false,
             "type": "string"
           },
           {
             "name": "callback",
             "in": "body",
-            "description": "This parameter allows the user to specify a REST callback URL, which will be called when the transfer is complete\n",
+            "description": "This parameter allows the user to specify a REST callback URL which will be called when the transfer is complete\n",
             "required": false,
             "schema": {
               "$ref": "#/definitions/Callback"
@@ -1704,29 +1950,29 @@
         ]
       },
       "delete": {
-        "operationId": "delete_replica_by_id",
+        "operationId": "evict_replica_by_id",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "replicate_file",
         "x-onedata-resource": "file",
-        "x-onedata-method": "delete_replica",
+        "x-onedata-method": "evict_replica",
         "tags": [
           "Replication"
         ],
-        "summary": "Remove existing replica by file ID",
-        "x-bash-codegen-description": "Removes a specific replica of a file - which is hosted by this Oneprovider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nremoved from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is removed from\nthis provider requested provider.\n",
-        "description": "Removes a specific replica of a file - which is hosted by this Oneprovider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nremoved from this provider.\n\nIf the path specifies a folder, entire folder is removed from\nthis provider requested provider.\n\n***Example cURL requests***\n\n**Remove file replica by ID from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "summary": "Evict existing replica by file Id",
+        "x-bash-codegen-description": "Evicts a replica of a file specified by Id in `fid` parameter.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the replica has to be replicated before being\nevicted from this provider.\n\nIf the `fid` parameter specifies a folder, entire folder is evicted.\n",
+        "description": "Evicts a replica of a file specified by file Id in `fid` parameter.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `fid` parameter specifies a folder, entire folder is evicted.\n\n***Example cURL requests***\n\n**Evict file replica by Id from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "The replica removal has been accepted is the transfer ID, which can be used for monitoring of the transfer status.\n",
+            "description": "The replica eviction has been accepted is the transfer Id, which can be used for monitoring the transfer status.\n",
             "schema": {
               "type": "object",
               "properties": {
                 "transferId": {
                   "type": "string",
-                  "description": "Transfer ID."
+                  "description": "Transfer Id."
                 }
               }
             }
@@ -1760,14 +2006,21 @@
           {
             "name": "fid",
             "in": "path",
-            "description": "ID of the file.",
+            "description": "Id of the file.",
             "type": "string",
             "required": true
           },
           {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The Id of the provider from which the replica will be evicted. By default the replica will be evicted in the provider handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "migration_provider_id",
             "in": "query",
-            "description": "The ID of the provider to which the file should be replicated before being deleted.\n",
+            "description": "The Id of the provider to which the file should be replicated before being evicted.\n",
             "required": false,
             "type": "string"
           }
@@ -1775,7 +2028,403 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli deleteReplicaByID fid=ASLDKAJSD764ASDLnaAsd migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli evictReplicaById fid=ASLDKAJSD764ASDLnaAsd migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
+          }
+        ]
+      }
+    },
+    "/replicas-index/{index_name}": {
+      "post": {
+        "operationId": "replicate_files_by_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "replicate_files_by_index",
+        "summary": "Replicate files by index",
+        "tags": [
+          "Replication"
+        ],
+        "x-bash-codegen-description": "Queries the specified index and replicates the resulting list of files to specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data\nto move.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
+        "description": "Queries the specified index and replicates the resulting list of files to specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data\nto move.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Replicate files returned by index within specified space to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/my-index?space_id=AUISyuidfysidufy8768437yu\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\"}\n```\n\n**Replicate 100 files (skipping the first 200) returned by index within specified space to any provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/my-index?space_id=AUISyuidfysidufy8768437yu&provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer Id, which can be used for monitoring the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer Id."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "space_id",
+            "in": "query",
+            "description": "Space Id in which index exist.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The Id of the provider to which the files will be replicated. By default the files will be replicated to the provided handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "callback",
+            "in": "body",
+            "description": "This parameter allows the user to specify a REST callback URL which will be called when the transfer is complete\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Callback"
+            }
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "description": "Return the documents in descending order (by key).",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Return only documents that match the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of the returned documents to the specified number.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip this number of records before starting to return the results.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "startkey",
+            "in": "query",
+            "description": "Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "startkey_docid",
+            "in": "query",
+            "description": "Return records starting with the specified document Id.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey",
+            "in": "query",
+            "description": "Stop returning records when the specified key is reached. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey_docid",
+            "in": "query",
+            "description": "Stop returning records when the specified document Id is reached.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inclusive_end",
+            "in": "query",
+            "description": "Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "stale",
+            "in": "query",
+            "description": "Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.\n",
+            "type": "string",
+            "required": false,
+            "default": "update_after",
+            "enum": [
+              "ok",
+              "update_after",
+              "false"
+            ]
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "spatial",
+            "in": "query",
+            "description": "Enable spatial type of query. When querying the file-popularity index, the `start_range` and\n`end_range` constraints should be specified as 6-dimensional arrays, with the following fields:\n`[SizeLowerLimit, LastOpenHoursEpochLowerLimit, TotalOpenLowerLimit, HoursOpenAvgLowerLimit, DayOpenAvgLowerLimit, MonthOpenAvgLowerLimit]`.\n",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "name": "start_range",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Array specifying the range in spatial queries (e.g. `start_range=[1,0,0,0,0,0]`)."
+          },
+          {
+            "name": "end_range",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Array specifying the range in spatial queries (e.g. `end_range=[null,null,null,null,null,null]`)."
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli replicateFilesByIndex space_id='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "evict_replicas_by_index",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "replicate_file",
+        "x-onedata-resource": "file",
+        "x-onedata-method": "evict_replicas_by_index",
+        "summary": "Evict existing replicas by index",
+        "tags": [
+          "Replication"
+        ],
+        "x-bash-codegen-description": "Queries the specified index and evicts the resulting list of replicas in specified provider. \nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
+        "description": "Queries the specified index and evicts the resulting list of replicas in specified provider. \nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Evicts 100 replicas (skipping the first 200) returned by index within specified space from specific provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/custom_index?space_id=AUISyuidfysidufy8768437yu&provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The replication request was accepted and the result is the transfer Id, which can be used for monitoring the transfer status.\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transferId": {
+                  "type": "string",
+                  "description": "Transfer Id."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Forbidden request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "space_id",
+            "in": "query",
+            "description": "Space Id in which index exist.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "provider_id",
+            "in": "query",
+            "description": "The Id of the provider from which the replica will be evicted. By default the replicas will be evicted in the provider handling this REST call.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "migration_provider_id",
+            "in": "query",
+            "description": "The Id of the provider to which the replicas should be synchronized before being evicted.\n",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "description": "Return the documents in descending order (by key).",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Return only documents that match the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit the number of the returned documents to the specified number.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip this number of records before starting to return the results.\n",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "startkey",
+            "in": "query",
+            "description": "Return records with a value equal to or greater than the specified key. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "startkey_docid",
+            "in": "query",
+            "description": "Return records starting with the specified document Id.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey",
+            "in": "query",
+            "description": "Stop returning records when the specified key is reached. Key must be specified as a JSON value.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endkey_docid",
+            "in": "query",
+            "description": "Stop returning records when the specified document Id is reached.\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "inclusive_end",
+            "in": "query",
+            "description": "Specifies whether the specified end key is included in the result. ***Note:*** Do not use `inclusive_end` with `key` or `keys`.\n",
+            "type": "boolean",
+            "required": false,
+            "default": false
+          },
+          {
+            "name": "stale",
+            "in": "query",
+            "description": "Allow records from a stale view to be used. Allowed values are `ok`, `update_after` or `false`.\n",
+            "type": "string",
+            "required": false,
+            "default": "update_after",
+            "enum": [
+              "ok",
+              "update_after",
+              "false"
+            ]
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Specify the bounding box for a spatial query (e.g. ?bbox=-180,-90,0,0)\n",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "spatial",
+            "in": "query",
+            "description": "Enable spatial type of query. When querying the file-popularity index, the `start_range` and\n`end_range` constraints should be specified as 6-dimensional arrays, with the following fields:\n`[SizeLowerLimit, LastOpenHoursEpochLowerLimit, TotalOpenLowerLimit, HoursOpenAvgLowerLimit, DayOpenAvgLowerLimit, MonthOpenAvgLowerLimit]`.\n",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "name": "start_range",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Array specifying the range in spatial queries (e.g. `start_range=[1,0,0,0,0,0]`)."
+          },
+          {
+            "name": "end_range",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Array specifying the range in spatial queries (e.g. `end_range=[null,null,null,null,null,null]`)."
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "oneprovider-rest-cli evictReplicasByIndex space_id='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
           }
         ]
       }
@@ -1792,7 +2441,7 @@
         ],
         "summary": "Get all transfers",
         "x-bash-codegen-description": "Returns the list of all transfer IDs in a space with given state.\n",
-        "description": "Returns the list of all transfer IDs in a space with given state.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore transfers to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 ongoing transfers starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7/transfers?state=ongoing&limit=3&page_token=757136151113c2f\"\n\n{\n  \"transfers\": [\n    \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n    \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n    \"da426f74-5770-42a1-b799-354a3c4c154b\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n\n```\n",
+        "description": "Returns the list of all transfer IDs in a space with given state.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore transfers to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 ongoing transfers starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7/transfers?state=ongoing&limit=3&page_token=757136151113c2f\"\n\n{\n  \"transfers\": [\n    \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n    \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n    \"da426f74-5770-42a1-b799-354a3c4c154b\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1892,12 +2541,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The list of transfer statuses.",
+            "description": "Transfer status.",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/FileTransferStatus"
-              }
+              "$ref": "#/definitions/FileTransferStatus"
             }
           },
           "400": {
@@ -3159,28 +3805,64 @@
       "type": "object",
       "description": "The basic index information.",
       "properties": {
-        "indexId": {
-          "description": "The unique identifier of the index.",
+        "spatial": {
+          "description": "Whether given index is spatial or not.",
+          "type": "boolean"
+        },
+        "mapFunction": {
+          "description": "Index mapping function.",
           "type": "string"
         },
-        "name": {
-          "description": "The user friendly index name.",
+        "reduceFunction": {
+          "description": "Index reduce function or null if there is none.",
           "type": "string"
         },
-        "spaceId": {
-          "description": "The space on which the index is defined.",
-          "type": "string"
+        "indexOptions": {
+          "$ref": "#/definitions/IndexOptions"
+        },
+        "providers": {
+          "description": "List of providers on which index can be queried.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
-        "indexId",
-        "name",
-        "spaceId"
+        "spatial",
+        "mapFunction",
+        "reduceFunction",
+        "indexOptions",
+        "providers"
       ],
       "example": {
-        "indexId": "c9e7a9d6-8d09-42d7-ab5e-d48b86ed645e",
-        "name": "My Index 1",
-        "spaceId": "ee4ac5df-095c-4760-bee9-a9bd2f37e508"
+        "spatial": false,
+        "mapFunction": "function (id, meta) {\\n        if(meta[\\'onexattr\\']) {\\n            return [meta[\\'onexattr\\'], id];\\n        }\\n        return null;\\n    }",
+        "spaceId": "ee4ac5df-095c-4760-bee9-a9bd2f37e508",
+        "reduceFunction": "null,",
+        "indexOptions": {
+          "update_min_changes": 100
+        },
+        "providers": [
+          "ASIOdhxckvufysd78f9w394356yisudfsduuzxch"
+        ]
+      }
+    },
+    "IndexOptions": {
+      "type": "object",
+      "description": "Options specified during creation or update of index conforming to the\n[automated index update](https://docs.couchbase.com/server/4.1/developer-guide/views-operation.html#automated-index-updates) description.\n",
+      "properties": {
+        "update_min_changes": {
+          "description": "Minimum number of document changes to trigger re-indexing.",
+          "type": "integer"
+        },
+        "replica_update_min_changes": {
+          "description": "Minimum number of document changes to trigger re-indexing of a replica index.",
+          "type": "integer"
+        }
+      },
+      "example": {
+        "update_min_changes": 100
       }
     }
   },
