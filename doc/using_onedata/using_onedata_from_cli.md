@@ -36,10 +36,10 @@ services:
 
 By default Docker is configured for the latest Onedata release, but it also
 contains clients for all previous releases, to switch to a specific release
-(for instance 17.06.0-rc2) use:
+(for instance 18.02.0-rc11) use:
 
 ```bash
-onedata-select-version 18.02.1
+onedata-select-version 18.02.0-rc11
 ```
 
 ## Authentication

@@ -1,14 +1,16 @@
 # OpenID & SAML Configuration
 
-> This section is valid for Onezone versions newer than `18.02.0-rc11`, 
-for older versions please refer to [Legacy OpenID Configuration](./legacy_openid_configuration.md).
+> This section is valid for Onezone versions from `18.02.0-rc12` upwards 
+(including `18.02.1`). For versions `18.02.0-rc11` or older, please refer to 
+[Legacy OpenID Configuration](./legacy_openid_configuration.md).
 
-> After upgrading Onezone to a version newer than `18.02.0-rc11`, during startup,
-it will attempt to automatically upgrade the config file to the latest version. 
-In such case, the old config files (`auth.config` and `saml.config`) will be 
-backed up to `{}.bak`. Information whether the upgrade was successful will be 
-present in [Onezone logs](./onezone_tutorial.md#logs). Please always examine 
-the upgraded `auth.config` file to make sure that it was correctly converted.
+> After upgrading Onezone to a version newer or equal to `18.02.0-rc12`, during 
+startup, Onezone will attempt to automatically upgrade the config file to the 
+latest version. In such case, the old config files (`auth.config` and `saml.config`) 
+will be backed up to `{}.bak`. Information whether the upgrade was successful 
+will be present in [Onezone logs](./onezone_tutorial.md#logs). Please always 
+examine the upgraded `auth.config` file to make sure that it was correctly 
+converted.
 
 <!-- toc -->
 
