@@ -7,12 +7,12 @@ Onedata provides advanced functionality in terms of replica and transfer managem
 On the low level, all files are divided into blocks which can be independently replicated between storage resources. The API's for replication and transfer management give detailed information on which blocks are replicated at which sites, which allows for custom control and optimization at the application level.
 
 ## Operations
-There are four possible operations, that can be performed by users in term of file replica management:
-* getting file replicas distribution - finds out where blocks of given file are stored,
-* replication - replicates file blocks to target provider, 
+There are four possible operations, that can be performed by users in terms of file replica management:
+* getting file replicas distribution - finds out where blocks of given file are stored
+* replication - replicates file blocks to target provider
 * replica eviction - removes file blocks from given provider. 
 The procedure checks whether file replica can be safely deleted which means that it is responsible for checking whether file blocks are not unique. 
-* replica migration - hybrid of replication and replica eviction. Replicates file blocks to target provider and evicts file replica on the source provider. Migration is performed by the same request as eviction with additional parameter `migration_provider_id`.
+* replica migration - combination of replication and replica eviction. Replicates file blocks to target provider and evicts file replica on the source provider. Migration is performed by the same request as eviction with additional parameter `migration_provider_id`
 
 ### Advanced operations using view indexes
 As a prerequisite for understanding this section we advice to get familiar with [Onedata Indexes API](metadata.md#advanced-metadata-queries).
@@ -43,8 +43,8 @@ Currently, scheduling operations on replicas works only for files. If query on a
 ## Web user interface
 
 Web interface provides visual information on the current replication of each file among the storage providers supporting the user space in which this file is located.
-The information are visible in the `Data distribution` window. It can be used to perform all of the operations mentioned in the previous [section](#operations).
-Print screen of the sample data distribution window is presented in the image below:
+The information is visible in the `Data distribution` window. It can be used to perform all of the operations mentioned in the previous [section](#operations).
+Screenshot of the sample data distribution window is presented in the image below:
 
 <img  style="display:block;margin:0 auto;" src="../img/transfers_menu.png">
 

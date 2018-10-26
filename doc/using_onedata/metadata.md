@@ -95,10 +95,10 @@ or in the future in the Graphical User Interface.
 ## Advanced metadata queries
 
 Onedata supports creation of custom view indexes on files metadata. They can be used for:
- * efficient querying for files,
- * producing tables and lists of information based on files' metadata,
- * extracting of filtering information from files'metadata,
- * calculating, summarizing or reducing the information on the stored metadata.  
+ * efficient querying for files
+ * producing tables and lists of information based on files' metadata
+ * extracting or filtering information from files' metadata
+ * calculating, summarizing or reducing the information on the stored metadata  
 
 Indexing mechanism processes documents stored in the database in order to create a view.
 Documents are mapped using user-defined mapping function. Optionally, results of 
@@ -107,18 +107,18 @@ Internally, indexes are based on [Couchbase View Indexes](https://docs.couchbase
 Please visit this site for more comprehensive explanation of concepts used among this documentation.  
 
 There are two types of views that can be created:
-* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html),
+* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html)
 * [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) - 
 spatial views are similar to map-reduce views. They are supposed to be used for querying multi-dimensional data.
-The main difference is that they don't have a reduce function. 
+The main difference is that they don't have a reduce function
 
 Currently, view indexes can be created on the following models:
- * file_meta - model used for storing filesystem attributes (except timestamps),
- * times - model used for storing filesystem timestamps,
- * custom_metadata - model used for storing [extended attributes](#extended-attributes) and [custom metadata](#custom-metadata). 
+ * `file_meta` - model used for storing filesystem attributes (except timestamps)
+ * `times` - model used for storing filesystem timestamps
+ * `custom_metadata` - model used for storing [extended attributes](#extended-attributes) and [custom metadata](#custom-metadata). 
     Currently, indexes can operate on both extended attributes as well as JSON metadata - RDF metadata backend
-    indexing is not yet supported.
- * file_popularity - model used for tracking the [file popularity](../administering_onedata/file_popularity.md).
+    indexing is not yet supported
+ * `file_popularity` - model used for tracking the [file popularity](../administering_onedata/file_popularity.md)
 
 ### Concepts
 
@@ -148,7 +148,7 @@ The mapping function should accept 4 arguments:
     * providerId,
     * spaceId.
 
-The mapping function should return (key, value) pair/s that are to be emitted
+The mapping function should return (key, value) pair or pairs that are to be emitted
  to the view via `emit()` function.
 
  If one document shall be mapped to exactly one row in the view, the mapping
@@ -213,7 +213,7 @@ are relevant. In particular:
 
 ### REST API
 
-All operations on indexes are list in the below table, with links to comprehensive description of appropriate requests and their parameters. 
+All operations on indexes are listed in the below table, with links to comprehensive description of appropriate requests and their parameters. 
 
 | Request                      | Link to API |
 |------------------------------|-------------|
