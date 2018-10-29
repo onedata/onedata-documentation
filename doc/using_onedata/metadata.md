@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-Onedata comes with extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, folders, spaces and users.
+Onedata comes with an extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, folders, spaces and users.
 
 ## Metadata types in Onedata
 Metadata in Onedata are organized into 3 levels:
@@ -21,9 +21,9 @@ This section describes typical filesystem metadata attributes. The list of attri
 | -------------------- | ---------------------------------------- | ---------------------------------------- |
 | **size**             | 1024                                     | File size in bytes                       |
 | **mode**             | 0666                                     | POSIX access mode in octal form (i.e. 4 digits starting with 0) |
-| **ctime**            | 1470304148                               | Unix creation timestamp                  |
-| **mtime**            | 1470304148                               | Unix last modification timestamp         |
 | **atime**            | 1470304148                               | Unix last access timestamp               |
+| **mtime**            | 1470304148                               | Unix last modification timestamp         |
+| **ctime**            | 1470304148                               | Unix last status change timestamp                  |
 | **storage_group_id** | 1470304148                               | Gid of the storage group owner of this file (the same Gid is displayed via `oneclient`) |
 | **storage_user_id**  | 1470304148                               | Uid of the storage owner of this file    |
 | **name**             | file.txt                                 | The name of the object (Space, folder or file) |
@@ -110,15 +110,13 @@ There are two types of views that can be created:
 * [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html)
 * [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) - 
 spatial views are similar to map-reduce views. They are supposed to be used for querying multi-dimensional data.
-The main difference is that they don't have a reduce function
+The main difference is that they don't have a reduce function.
 
 Currently, view indexes can be created on the following models:
- * `file_meta` - model used for storing filesystem attributes (except timestamps)
- * `times` - model used for storing filesystem timestamps
- * `custom_metadata` - model used for storing [extended attributes](#extended-attributes) and [custom metadata](#custom-metadata). 
-    Currently, indexes can operate on both extended attributes as well as JSON metadata - RDF metadata backend
-    indexing is not yet supported
- * `file_popularity` - model used for tracking the [file popularity](../administering_onedata/file_popularity.md)
+ * [`file_meta`](#file-meta-model)
+ * [`times`](#times-model)
+ * [`custom_metadata`](#custom-metadata-model)
+ * [`file_popularity`](#file-popularity-model)
 
 ### Concepts
 
@@ -137,16 +135,16 @@ In Onedata indexes API, the mapping function submitted by the user is wrapped by
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function should accept 4 arguments:
- * id - CDMI object id of a file,
- * type - type of the document that is being mapped by the function. One of:
-    * "file_meta"
-    * "times"
-    * "custom_metadata"
-    * "file_popularity"
- * meta - values stored in the document being mapped,
- * ctx - context object used for storing helpful information. Currently it stores:
-    * providerId,
-    * spaceId.
+ * `id` - CDMI object id of a file,
+ * `type` - type of the document that is being mapped by the function. One of:
+    * `"file_meta"`
+    * `"times"`
+    * `"custom_metadata"`
+    * `"file_popularity"`
+ * `meta` - values stored in the document being mapped,
+ * `ctx` - context object used for storing helpful information. Currently it stores:
+    * `providerId`,
+    * `spaceId`.
 
 The mapping function should return (key, value) pair or pairs that are to be emitted
  to the view via `emit()` function.
@@ -211,6 +209,54 @@ are relevant. In particular:
     * [`_stats`](https://docs.couchbase.com/server/5.5/views/views-writing-stats.html)
 * the description of writing [custom reduce functions](https://docs.couchbase.com/server/5.5/views/views-writing-custom-reduce.html)
 
+### Metadata models that can be indexed
+
+#### File meta model
+Model that stores basic file metadata, such as:
+* `name` - name of the file 
+* `type` - specifies whether the resource is a regular file (`REG`) or a directory (`DIR`)
+* `mode` - POSIX access mode in octal form (i.e. 4 digits starting with 0) 
+* `owner` - Id of an owner of the file
+* `group_owner` - Id of a group owner of the file
+* `provider_id` - Id of a provider on which the file was created
+* `shares` - list of share Id's associated with this file or folder
+* `deleted` - flag informing that file was marked to be deleted
+
+#### Times model
+This model was extracted from the `file_meta` due to efficiency reasons.
+It stores classical Unix timestamps:
+* `atime` - Unix last access timestamp
+* `mtime` - Unix last modification timestamp
+* `ctime` - Unix last status timestamp
+
+
+#### Custom metadata model
+Model used for storing [extended attributes](#extended-attributes) and [custom metadata](#custom-metadata). 
+Currently, indexes can operate on both extended attributes as well as JSON metadata, RDF metadata backend
+indexing is not yet supported.
+The model has the following fields:
+* `onedata_json` - which stores map of JSON metadata values
+* `onedata_rdf` - which stores RDF metadata
+* extended attributes set by users
+
+#### File popularity model
+
+Model used for tracking the [file popularity](../administering_onedata/file_popularity.md).
+These documents will be available only if collecting file popularity statistics is turned on in the given space.
+It can be turned on only by space admin via Onepanel. 
+`File popularity` document is available only for file which has been opened at least once on given provider.  
+It stores:
+* `size` - total sum of the file's blocks stored on given provider
+* `open_count` - number of `open` operations on the file
+* `last_open` - timestamp fo last `open` on the file
+* `hr_hist`  - hourly histogram of number of `open` operations on the file per hour, in the last 24 hours  
+* `dy_hist`  - daily histogram of number of `open` operations on the file per day, in the last 30 days
+* `mth_hist` - monthly histogram of number of `open` operations on the file per month, in the last 12 months
+* `hr_mov_avg` - moving average of number of `open` operations on the file per hour
+* `dy_mov_avg` - moving average of number of `open` operations on the file per day
+* `mth_mov_avg` - moving average of number of `open` operations on the file per month
+
+
 ### REST API
 
 All operations on indexes are listed in the below table, with links to comprehensive description of appropriate requests and their parameters. 
@@ -227,7 +273,9 @@ All operations on indexes are listed in the below table, with links to comprehen
 | Query index                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_index)|        
 
 
-### Example
+### Examples
+
+#### Index over single attribute
 
 The example below presents a simple function which creates an index over a
 `license` extended attribute.
@@ -242,6 +290,8 @@ function (id, type, meta, ctx) {
 }
 ```
 
+#### Index over multiple attributes
+
 It is possible to create custom indexes, based on multiple attribute fields, e.g.:
 
 ```javascript
@@ -254,19 +304,19 @@ function(id, type, meta, ctx) {
 }
 ```
 
-In order to register this index in the space, the following REST API call has
-to be made:
+#### Index over file name
 
-```bash
-curl --tlsv1.2 -X POST -H "X-Auth-Token: $TOKEN" \
--H 'Content-type: application/javascript' -d @license_index.js \
-"https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME"
-```
+The example below presents a function which can be used to create an index over file's name (`name`
+attribute of the `file_meta` model).
 
-Once the index is created, it can be easily queried using the REST API:
-```bash
-curl -v -k --tlsv1.2 -Ss -H "X-Auth-Token: $TOKEN" \
--X GET "https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_ID/query/?key=\"CC-0\"&stale=false"
+```javascript
+function (id, type, meta, ctx) {
+    if(type === "file_meta"){
+        if(meta['name']) {
+            return [meta['name'], id];
+        }
+    }
+}
 ```
 
 #### JSON metadata
