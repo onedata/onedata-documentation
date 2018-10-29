@@ -73,6 +73,9 @@ Onezone service for immediate effect.
 works correctly by clicking on its icon to go through the login process. In case 
 of any errors, examine [Onezone logs](./onezone_tutorial.md#logs).
 
+9. At any time, you can use the [test login page](#test-login-page) to test your 
+auth.config without interrupting the Onezone service.
+
 
 ### SAML
 
@@ -117,6 +120,9 @@ a unique identifier (e.g. `elixir`), and fill out all the information. The
 11. You should see your IdP on the [login page](#the-login-page), verify that it 
 works correctly by clicking on its icon to go through the login process. In case 
 of any errors, examine [Onezone logs](./onezone_tutorial.md#logs).
+
+12. At any time, you can use the [test login page](#test-login-page) to test your 
+auth.config without interrupting the Onezone service.
 
 
 ### The login page
@@ -430,10 +436,9 @@ internal purposes and cannot be used.
 on the login page. Some predefined icons are available under the path
 `/assets/images/auth-providers/<icon>.svg`, to see the full list visit the 
 [Onezone GUI repo](https://github.com/onedata/onezone-gui/tree/develop/src/public/assets/images/auth-providers).
-Custom icons should be put on the Onezone host under 
-`/var/www/html/custom/oz_worker/<path>` and referenced in the config like this:
-`/custom/<path>`. If not specified, `iconPath` defaults to 
-`/assets/images/auth-providers/default.svg`.
+To learn how you can add your own icons to the login page, see 
+[custom icon guidelines](#custom-icon-guidelines). If not specified, `iconPath` 
+defaults to `/assets/images/auth-providers/default.svg`.
 
 * `protocol` - one of `onepanelAuth`, `saml`, `openid`.
 
@@ -1739,7 +1744,81 @@ have gone wrong:
 ## LUMA Integration
 The attributes and entitlements collected from IdPs can be very useful for 
 mapping storage users to Onedata users - see 
-[Local User MApping (LUMA)](./luma.md). 
+[Local User MApping (LUMA)](./luma.md). Each time a provider requests LUMA to
+resolve storage credentials (uid:gid etc), it sends the attributes collected
+from IdPs. They can be used to differentiate and identify the storage users.
+
+
+## Custom icon guidelines
+
+To use your custom icon on the login page, place it on the Onezone host under 
+`/var/www/html/custom/oz_worker/<path>` and reference it in the config like this:
+`iconPath => "/custom/<path>"`. If you are using docker-compose, simply mount 
+your icon by adding a volume, for example: 
+```
+# docker-compose.yaml
+
+    ...
+    volumes:
+      - "/path/to/your/icon.svg:/var/www/html/custom/oz_worker/my-icon.svg"
+    ...
+      
+----------------------------------------------
+# test.auth.config
+
+    ...
+    iconPath => "/custom/my-icon.svg",
+    ...
+```
+
+Please follow the guidelines below for the best visual effects:
+* The preferred image format is vector graphics in SVG.
+* Avoid raster (bitmap) graphics embedded in an SVG - some browsers
+(e.g. Firefox) do not handle them well.
+* If you don't have an SVG version, PNG with transparency is preferred over JPG. 
+* It's best if your icon is placed on a square canvas (see the image below).
+* The canvas should be transparent, in such case `iconBackground` color will be
+visible underneath. You can use a custom background, but make sure you fill the
+whole canvas with it and make it a perfect square, otherwise the background 
+color might show through.
+* In case of a bitmap image (PNG, JPG), the canvas size should be 50x50 pixels,
+or any multiple of it. Consider the size of 200x200 pixels for good quality on 
+retina displays.
+* The icon canvas takes up the whole space on the login button. It means that 
+there are no automatic margins - you should introduce the desired margins on 
+the canvas (see the image below).
+* Make sure to center you icon on the image canvas (unless, of course, you want
+it to be asymmetric).
+
+<img  style="display:block;margin:0 auto;" src="../img/custom-icon.png">
+
+
+## Test login page
+
+Since version `18.02.1`, it is possible to test your `auth.config` using the 
+test login page without interrupting the Onezone service. It also serves as a
+way to diagnose problems during integration with IdPs, including attribute or
+entitlement mapping. To use the test login page, place your `auth.config` on the 
+Onezone host under the path `/etc/oz_worker/test.auth.config`. The test config
+coexists with the production `/etc/oz_worker/auth.config` with no interference. 
+It is not cached at all, so that you can introduce changes while the Onezone 
+service is online and verify the results immediately. To go through the test 
+login process, go to `https://onezone.example.com/#/test/login`. You will see 
+the IdPs that are specified in your `test.auth.config` and an indication that 
+this is a test login page (see the first image below). By choosing one of the 
+IdPs, you will go through a simulation of the login process and receive a 
+summary at the end (see the second image below). While it uses the standard flow 
+in the IdP, on the Onezone side no users or groups (resulting from entitlements) 
+are created in the process. The summary expresses what information would be 
+gathered if it were a production login flow, and includes detailed logs from the 
+whole login process. 
+
+> The SAML SP metadata XML based on `test.auth.config` can be viewed under the
+following URL: `https://onezone.example.com/saml/sp.xml?test=true`
+
+<img  style="display:block;margin:0 auto;" src="../img/test-login-page.png">
+
+<img  style="display:block;margin:0 auto;" src="../img/test-login-output.png">
 
 
 ## Complete example
