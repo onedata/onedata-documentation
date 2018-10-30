@@ -7,7 +7,7 @@ Onedata provides advanced functionality in terms of replica and transfer managem
 On the low level, all files are divided into blocks which can be independently replicated between storage resources. The API's for replication and transfer management give detailed information on which blocks are replicated at which sites, which allows for custom control and optimization at the application level.
 
 ## Operations
-There are four possible operations, that can be performed by users in terms of file replica management:
+There are four possible operations that can be performed by users in terms of file replica management:
 * getting file replicas distribution - finds out where blocks of given file are stored
 * replication - replicates file blocks to target provider
 * replica eviction - removes file blocks from given provider. 
@@ -15,15 +15,15 @@ The procedure checks whether file replica can be safely deleted which means that
 * replica migration - combination of replication and replica eviction. Replicates file blocks to target provider and evicts file replica on the source provider. Migration is performed by the same request as eviction with additional parameter `migration_provider_id`
 
 ### Advanced operations using view indexes
-As a prerequisite for understanding this section we advice to get familiar with [Onedata Indexes API](metadata.md#advanced-metadata-queries).
+As a prerequisite for understanding this section we advise to familiarize with [Onedata Indexes API](metadata.md#advanced-metadata-queries).
 
-It is possible to schedule replication, replica eviction or replica migration of files, that are included in the result of a query on a view index.
+It is possible to schedule replication, replica eviction or replica migration of files that are included in the result of a query on a view index.
 Currently, scheduling of such operations is possible only via [REST interface](#rest-interface).
 
-In order to schedule replica operations by indexes, user must ensure, that the mapping (or reduce) function returns arbitrarily nested list of file IDs as a value.
-It is important, as the result list is flattened. Not complying to the specified format will result in errors.
-Example of such mapping function is presented below. It will return list of all files, in the given space, that have an extended attribute name starting with prefix "org.onedata.jobId" set.
-The latter part of the extended attribute will be used as a key in the index view. 
+In order to schedule replica operations by indexes, user must ensure that the mapping (or reduce) function returns a list containing solely file IDs as a value. The list of IDs can be arbitrarily nested (it will be flattened).
+Failure to comply with this format will result in errors.
+Example of such mapping function is presented below. It returns the list of all files that have an extended attribute which name starts with "org.onedata.jobId.".
+The latter part of the extended attribute is used as the key in the index view. 
 ```javascript
 function (id, type, meta, ctx) {
     const JOB_PREFIX = "org.onedata.jobId.";
@@ -36,8 +36,8 @@ function (id, type, meta, ctx) {
     return {"list": results};
 }
 ```
-
-Currently, scheduling operations on replicas works only for files. If query on an index returns ID of a directory, it will be ignored.
+> **NOTE**
+> Currently, scheduling operations on replicas works only for files. Directory Ids are ignored in the results.
 
 
 ## Web user interface
@@ -50,7 +50,7 @@ Screenshot of the sample data distribution window is presented in the image belo
 
 ## REST interface
 
-For full control over transfer and replication users can directly invoke REST API of Oneprovider service.
+For full control over transfer and replication, users can directly invoke REST API of Oneprovider service.
 
 ### Replicas management
 

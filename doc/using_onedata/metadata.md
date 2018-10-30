@@ -94,7 +94,7 @@ or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
 
-Onedata supports creation of custom view indexes on files metadata. They can be used for:
+Onedata supports creation of custom view indexes on files' metadata. They can be used for:
  * efficient querying for files
  * producing tables and lists of information based on files' metadata
  * extracting or filtering information from files' metadata
@@ -109,7 +109,7 @@ Please visit this site for more comprehensive explanation of concepts used among
 There are two types of views that can be created:
 * [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html)
 * [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) - 
-spatial views are similar to map-reduce views. They are supposed to be used for querying multi-dimensional data.
+spatial views are similar to map-reduce views. They are suited for querying multi-dimensional data.
 The main difference is that they don't have a reduce function.
 
 Currently, view indexes can be created on the following models:
@@ -131,7 +131,7 @@ function. It will be used to map the data stored in the document to the value wh
 Mapping is performed by using `emit()` function. Each call to `emit()` results in a new row of data in the view result.
 More info on mapping functions concepts can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
 
-In Onedata indexes API, the mapping function submitted by the user is wrapped by
+In Onedata indexes API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function should accept 4 arguments:
@@ -157,10 +157,26 @@ The mapping function should return (key, value) pair or pairs that are to be emi
  a list of 2-element lists [key, value]. The `emit()` function will be called for
  each 2-element list in the top-level list. 
 
-**NOTE:**
-The mapping function defined for a spatial view must return key in a suitable format, described [here](https://docs.couchbase.com/server/5.5/views/sv-writing-views-keys.html).
+>**NOTE: Spatial view key format**
+>
+>The mapping function defined for a spatial view must return the key as a multidimensional bounding box.
+ There are 3 accepted ways of defining a key in a spatial function:
+> * single values - list of numerical values, which will be expaned to a collapsed range. 
+    For example, list `[1.0, 2, 3.5]` will be internally expanded to  list of ranges `[[1.0, 1.0], [2 , 2], [3.5, 3.5]]`
+> * ranges - list of ranges. For example:  `[[1.0, 2.0], [100, 1000]]`
+> * GeoJSON geometry - the following GeoJSON objects are supported: 
+>     * Point
+>     * MultiPoint
+>     * LineString
+>     * MultiLineString
+>     * MultiPolygon
+>     * GeometryCollection
+>
+> Above formats of defining keys might be combined. The only constraint is that GeoJSON object must be the first element of the list.
+>
+> Defining spatial view keys is thoroughly described [here](https://docs.couchbase.com/server/5.5/views/sv-writing-views-keys.html).
 
-Examples of the mapping function:
+Valid formats of the mapping function are presented below. `key` and `value` can be any valid JSON objects:
  * returning a single view row
     ```javascript
     function (id, type, meta, ctx) {
@@ -192,6 +208,8 @@ Examples of the mapping function:
           ]};
       }
       ```
+
+A few examples of the mapping function are presented [here](#mapping-function-examples).
 
 #### Reduce function (optional)
 
@@ -273,9 +291,9 @@ All operations on indexes are listed in the below table, with links to comprehen
 | Query index                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_index)|        
 
 
-### Examples
+### Mapping function examples
 
-#### Index over single attribute
+#### Index over a single attribute
 
 The example below presents a simple function which creates an index over a
 `license` extended attribute.
@@ -319,7 +337,7 @@ function (id, type, meta, ctx) {
 }
 ```
 
-#### JSON metadata
+#### Index over JSON metadata
 In order to create indexes over user JSON metadata, the functions attribute path
 must start from `onedata_json` key, which is a special attribute which provides
 access to user-defined JSON document attached to a resource, e.g.:
@@ -329,6 +347,61 @@ function(id, type, meta, ctx) {
     if (type === "custom_metadata"){
         if(meta['onedata_json']['title']) {
             return [meta['onedata_json']['title'], id];
+        }
+    }
+}
+```
+
+#### Spatial index with list of values as a key
+The example below presents a function which can be used to create a spatial index over
+2 extended attributes: `'jobPriority'`  and `'jobScheduleTime'`.
+Such index can be queried for files with the attributes' values within range passed to the query.
+
+```javascript
+function(id, type, meta, ctx) {
+    if(type === "custom_metadata"){
+        if (meta['jobPriority'] && meta['jobScheduleTime']){
+            return [
+                [meta['jobPriority'], meta['jobScheduleTime']], // key 
+                id                                              // value 
+            ];
+        }
+    }
+}
+```
+
+#### Spatial index with list of ranges as a key
+The example below presents a function which can be used to create a spatial index over ranges of
+2 extended attributes: `'jobMaxExecutionTime'`  and `'jobMaxIterations'`.
+Such index can be queried for files with the attributes' ranges within range passed to the query.
+
+```javascript
+function(id, type, meta, ctx) {
+    if(type === "custom_metadata"){
+        if (meta['jobMaxExecutionTime'] && meta['jobMaxIterations']){
+            return [
+                [[0, meta['jobMaxExecutionTime']], [0, meta['jobMaxIterations']]], // key
+                id                                                                 // value
+            ];
+        }
+    }
+}
+```
+
+#### Spatial index with GeoJSON as a key
+The example below presents a function which returns a GeoJSON object as a key. 
+
+```javascript
+function(id, type, meta, ctx) {
+    if(type === "custom_metadata"){
+        if (meta['latitude'] && meta['longitude']){
+            return [
+                [{
+                    "type": "Point",
+                    "coordinates": [meta['latitude'], meta['longitude']]
+                }],                                                         // key 
+                id                                                          // value
+            ];
         }
     }
 }
