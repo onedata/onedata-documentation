@@ -1,4 +1,4 @@
-# Onedatify - deploy Oneprovider and attach empty storage
+# Deploy Oneprovider and attach empty storage with Onedatify
 
 <!-- toc -->
 
