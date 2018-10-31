@@ -1,4 +1,4 @@
-# Onedatify - deploy Oneprovider and expose existing data collection
+#  Deploy Oneprovider and expose existing data collection with Onedatify
 
 <!-- toc -->
 
