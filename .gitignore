@@ -73,3 +73,6 @@ docker-compose.yml
 #onezone-static.html
 #oneprovider-static.html
 #onepanel-static.html
+
+# Generated ReDoc documentation
+**/redoc-static.html
