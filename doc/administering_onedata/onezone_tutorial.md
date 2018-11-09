@@ -249,7 +249,7 @@ In case of installation using Docker, create a file `/opt/onedata/onezone/auth.c
 ```
 
 ### Setting up certificates
-Since release 18.02.0-rc10, **Onedata** supports automatic certificate
+Since release 18.02.0-rc10, **Onezone** supports automatic certificate
 management backed by Let's Encrypt. To use this option, it is only necessary
 to enable this feature in **Onezone** Docker Compose configuration file (see
 above) or via GUI.
@@ -262,7 +262,10 @@ container using paths listed in [TLS certificate management](./ssl_certificate_m
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
-Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+Furthermore, on all nodes of **Onezone** deployment where Couchbase instance
+is deployed, it exposes several additional ports. This means that the
+Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html)
+should be also followed.
 
 <!--
 ### Load balancing setup
@@ -270,7 +273,13 @@ Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is 
 TODO -->
 
 ### Cluster configuration for package based deployment
-This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://$ONEZONE_HOST:9443` port to configure **Onezone** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+This tutorial assumed that the cluster configuration is provided directly in
+the Docker Compose file. However for package based installation the cluster
+configuration has to be performed separately. It can be done using the
+Onepanel web based interface. **Onepanel** administration service is
+automatically started after installation and can be accessed from
+`https://$ONEZONE_HOST:9443` port to configure **Onezone** instance. In case
+it was not started properly, it can be restarted using `systemctl` command:
 
 ```
 $ sudo systemctl restart oz_panel.service
