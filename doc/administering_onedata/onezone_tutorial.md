@@ -323,54 +323,31 @@ In the DNS responsible for the `onezone-example.com` domain (usually the server 
 
 This way, all queries concerning the `onezone-example.com` domain will be routed to the DNS servers running on Onezone cluster nodes.
 
-Further fine-tuning of the Onezone DNS service (e.g. adding static DNS entries) can be achieved by modifying `dns` section of the `/etc/oz_worker/app.config` file:
+Further fine-tuning of the Onezone DNS service can be achieved by modifying the `oz_worker` section of the `/etc/oz_worker/app.config` file. Available options are:
+- setting static records with predefined values. Variables:
+  - `dns_static_a_records`
+  - `dns_static_ns_records`
+  - `dns_static_txt_records`
+  - `dns_static_mx_records`
+  - `dns_static_cname_records`
+- parameters used by SOA and NS records:
+  - `dns_soa_admin_mailbox`
+  - `dns_ns_max_entries`
+  - `dns_ns_min_entries`
+  - `dns_soa_serial`
+  - `dns_soa_refresh`
+  - `dns_soa_retry`
+  - `dns_soa_expire`
+  - `dns_soa_minimum`
+- TTLs of DNS records:
+  - `a`
+  - `ns`
+  - `soa`
+  - `txt`
+  - `mx`
 
-```erlang
-        %% DNS config
-        {dns, [
-            % Static mapings from onezone subdomain to list of ips.
-            % Full domain will be based on http_domain as set in this config
-            % file.
-            % The subdomain must be a binary and must not begin or end
-            % with the dot character.
-            % Example:
-            % {static_entries, [
-            %     {<<"example-subdomain">>, [{10,0,0,1}, {10,0,0,2}]}
-            % ]}
-            {static_entries, []},
 
-            % maximum number of ips to be presented as subdomain
-            % ns1, ns2, ns3 etc. in NS records
-            {ns_max_entries, 10},
-
-            % minimum number of resolved nsX domains. If the number specified
-            % is higher than number of oz_worker nodes, some domains will resolve
-            % to the same IP address. Must not be higher than ns_max_entries
-            % Use this option if your domain registart enforces
-            % a minimum number of Nameserver addresses.
-            {ns_min_entries, 2},
-
-            %% SOA record parameters
-            % Nameserver admin mailbox
-            {soa_admin_mailbox, "dns-admin.onedata.org"},
-            % This value must be incremented on every update of this config file
-            {soa_serial, 2017090401},
-            % Time interval before the zone should be refreshed
-            {soa_refresh, 7200},
-            % Time interval that should elapse before a failed refresh should be retried
-            {soa_retry, 1800},
-            % Time value that specifies the upper limit on the time interval that
-            % can elapse before the zone is no longer authoritative
-            {soa_expire, 1209600},
-            % Time a NAME ERROR = NXDOMAIN result may be cached by any resolver
-            {soa_minimum, 120},
-
-            {a_ttl, 120},
-            {ns_ttl, 120},
-            {soa_ttl, 120},
-            {txt_ttl, 120}
-        ]},
-```
+Details about format needed in those variables can be read in comments of the [app.config file](https://github.com/onedata/oz-worker/blob/develop/rel/files/app.config).
 
 ### Advanced configuration
 
