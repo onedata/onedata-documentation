@@ -93,12 +93,12 @@ $ sudo systemctl start disable-thp.service
 ```
 
 #### Node hostname
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-demo.tk`.
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-example.com`.
 
 Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
 
 ```sh
-$ export ONEPROVIDER_HOST="onezone-demo.tk"
+$ export ONEPROVIDER_HOST="onezone-example.com"
 ```
 
 ### Docker based setup
@@ -205,13 +205,15 @@ services:
           letsEncryptEnabled: true
           # Automatically register this Oneprovider in Onezone without subdomain delegation
           subdomainDelegation: false
-          domain: "https://oneprovider-demo.tk"
-          # Automatically register this Oneprovider in Onezone with subdomain delegation
+          domain: "https://oneprovider-example.com"
+
+          # Alternatively:
+          ## Automatically register this Oneprovider in Onezone with subdomain delegation
           # subdomainDelegation: true
-          # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.tk"
+          # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.com"
         onezone:
           # Address of the Onezone at which this Oneprovider will register
-          domainName: "onezone-demo.tk"
+          domainName: "onezone-example.com"
         onepanel:
           # Create initially 1 administrator and 1 regular user
           users:
@@ -272,8 +274,7 @@ to enable this feature in **Oneprovider** Docker Compose configuration file
 
 If you prefer to obtain and install certificates for **Oneprovider** service
 manually, modify the Docker Compose file to mount PEM files inside the
-container using paths listed in [TLS certificate
-management](./ssl_certificate_management.html).
+container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
 ### Security and recommended firewall settings
 **Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
@@ -284,13 +285,13 @@ the Couchbase [security guidelines](https://developer.couchbase.com/documentatio
 should be also followed.
 
 ### Cluster configuration for package based deployment
-This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-demo.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-example.com:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
 
 ```
 $ sudo systemctl restart op_panel.service
 ```
 
-Open `https://oneprovider-demo.tk:9443` using any web browser and continue through the following steps:
+Open `https://oneprovider-example.com:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
   <p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
@@ -313,7 +314,7 @@ Open `https://oneprovider-demo.tk:9443` using any web browser and continue throu
 * Wait for registration and deployment to complete
   <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
-After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
+After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-example.com` should redirect to it's **Onezone** login page, in this case `https://onezone-example.com`.
 
 ### Advanced configuration
 After installation several **Oneprovider** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/op_worker/app.config` for package based deployment and in `/opt/onedata/oneprovider/persistence/etc/op_worker/app.config`. After modifying `app.config` file always restart **Oneprovider** service in order for changes to take effect.
@@ -323,7 +324,7 @@ Make sure that Oneprovider domain was properly set by **Onepanel**, example entr
 
 ```erlang
 ...
-    {http_domain, "oneprovider-demo.tk"},
+    {http_domain, "oneprovider-example.com"},
 ...
 ```
 
@@ -388,7 +389,7 @@ Monitoring information is available on a specific port and provides basic status
 $ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
-  <op_worker name="op_worker@oneprovider-demo.tk" status="ok">
+  <op_worker name="op_worker@oneprovider-example.com" status="ok">
     <node_manager status="ok"/>
     <request_dispatcher status="ok"/>
     <datastore_worker status="ok"/>

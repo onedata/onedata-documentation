@@ -76,12 +76,12 @@ $ sudo systemctl start disable-thp.service
 ```
 
 #### Node hostname
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `onezone-demo.tk`.
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `onezone-example.com`.
 
 Following command examples assumes an environment variable `ONEZONE_HOST` is available, for instance:
 
 ```sh
-$ export ONEZONE_HOST="onezone-demo.tk"
+$ export ONEZONE_HOST="onezone-example.com"
 ```
 
 ### Docker based setup
@@ -164,7 +164,7 @@ services:
         onezone:
           # Assign custom name to the Onezone instance
           name: "ONEZONE-DEMO"
-          domainName: "onezone-demo.tk"
+          domainName: "onezone-example.com"
           # Automatically obtain SSL certificates
           letsEncryptEnabled: true
         onepanel:
@@ -302,26 +302,26 @@ After this step succeeds, **Onezone** should be ready and accessible at `https:/
 
 Onezone has its own DNS server, automatically deployed on every node of the cluster. Its purpose is to simplify cluster scaling and allow for subdomain delegation for Oneproviders - i.e. allocating subdomains of the Onezone domain for the providers and resolving DNS queries in their name. In order for subdomain delegation to work properly, it is necessary to set up DNS zone delegation in the DNS server responsible for your domain. It should delegate management of the Onezone domain and its subdomains to the Onezone DNS server. 
 
-Assuming your Onezone domain is `onezone-demo.tk` you need to set following records at your DNS provider:
+Assuming your Onezone domain is `onezone-example.com` you need to set following records at your DNS provider:
 NS records pointing to ns1.onezone.org, ns2.onezone.org etc.. Number of those subdomains depends on the number of nodes in your Onezone cluster. If there are more than 10 nodes, only the first ten should be inserted.
 
-> NOTE: even if your installation uses a single node, subdomain `ns2.` is also available in order to comply with some registrars minimum of two NS records. This option can be configured in the `app.config` file. Glue records, i.e. A records with names `ns1.onezone-demo.tk`, `ns2.onezone-demo.tk` etc. and IPs of your cluster nodes.
+> NOTE: even if your installation uses a single node, subdomain `ns2.` is also available in order to comply with some registrars minimum of two NS records. This option can be configured in the `app.config` file. Glue records, i.e. A records with names `ns1.onezone-example.com`, `ns2.onezone-example.com` etc. and IPs of your cluster nodes.
 
-Example: your Onezone deployment (onezone.org) consists of 3 nodes:
+Example: your Onezone deployment (onezone-example.com) consists of 3 nodes:
 `150.1.0.2`, `150.1.0.3` and `150.1.0.4`
 
-In the DNS responsible for the `onezone-demo.tk` domain (usually the server is administered by the domain provider, or there is a dedicated DNS server for your organization), set the following records:
+In the DNS responsible for the `onezone-example.com` domain (usually the server is administered by the domain provider, or there is a dedicated DNS server for your organization), set the following records:
 
 | Domain           | Record | Value            |
 | ---------------- | ------ | ---------------- |
-| onedata.org.     | NS     | ns1.onedata.org. |
-| onedata.org.     | NS     | ns2.onedata.org. |
-| onedata.org.     | NS     | ns3.onedata.org. |
-| ns1.onedata.org. | A      | 150.1.0.2        |
-| ns2.onedata.org. | A      | 150.1.0.2        |
-| ns3.onedata.org. | A      | 150.1.0.2        |
+| onezone-example.com.     | NS     | ns1.onezone-example.com. |
+| onezone-example.com.     | NS     | ns2.onezone-example.com. |
+| onezone-example.com.     | NS     | ns3.onezone-example.com. |
+| ns1.onezone-example.com. | A      | 150.1.0.2        |
+| ns2.onezone-example.com. | A      | 150.1.0.2        |
+| ns3.onezone-example.com. | A      | 150.1.0.2        |
 
-This way, all queries concerning the `onezone-demo.tk` domain will be routed to the DNS servers running on Onezone cluster nodes.
+This way, all queries concerning the `onezone-example.com` domain will be routed to the DNS servers running on Onezone cluster nodes.
 
 Further fine-tuning of the Onezone DNS service (e.g. adding static DNS entries) can be achieved by modifying `dns` section of the `/etc/oz_worker/app.config` file:
 
@@ -381,9 +381,9 @@ Make sure that Onezone domain was properly set by **Onepanel**, example entries 
 
 ```erlang
 ...
-    {http_domain, "onezone-demo.tk"},
+    {http_domain, "onezone-example.com"},
     {oz_name, "ONEZONE-DEMO"},
-    {admin_emails, "admin@onezone-demo.tk"},
+    {admin_emails, "admin@onezone-example.com"},
 ...
 ```
 
@@ -450,7 +450,7 @@ Monitoring information is available on a specific port and provides basic status
 $ curl -sS http://$ONEZONE_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/26 17:52:33" status="ok">
-  <oz_worker name="oz_worker@onezone-demo.tk" status="ok">
+  <oz_worker name="oz_worker@onezone-example.com" status="ok">
     <node_manager status="ok"/>
     <request_dispatcher status="ok"/>
     <changes_worker status="ok"/>

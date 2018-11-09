@@ -89,8 +89,7 @@ deployed on host not accessible from the public Internet. In this scenario
 only the **Onezone** needs to work in a public domain in order to support
 validating its subdomains in Let's Encrypt. In this case the DNS method of
 The Let's Encrypt authorization is used, requires the Onezone domain to be
-[delegated (see
-docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at
+[delegated (see docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at
 its DNS registrar.
 
 ## Docker deployment
@@ -108,9 +107,9 @@ services:
     hostname: node1.oneprovider.
     container_name: oneprovider-1
     volumes:
-        - "/etc/letsencrypt/live/onedata-test-02.tk/privkey.pem:/etc/op_panel/certs/web_key.pem"
-        - "/etc/letsencrypt/live/onedata-test-02.tk/cert.pem:/etc/op_panel/certs/web_cert.pem"
-        - "/etc/letsencrypt/live/onedata-test-02.tk/fullchain.pem:/etc/op_panel/certs/web_chain.pem"
+        - "/etc/letsencrypt/live/oneprovider-example.com/privkey.pem:/etc/op_panel/certs/web_key.pem"
+        - "/etc/letsencrypt/live/oneprovider-example.com/cert.pem:/etc/op_panel/certs/web_cert.pem"
+        - "/etc/letsencrypt/live/oneprovider-example.com/fullchain.pem:/etc/op_panel/certs/web_chain.pem"
         ...
 
 ```
