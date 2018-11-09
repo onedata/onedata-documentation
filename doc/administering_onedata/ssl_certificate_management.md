@@ -68,19 +68,37 @@ Communication using those test certificates can be enabled for test purposes by 
 | This directory is used to add trusted certificates to Oneprovider. By default, a standard CA bundle is used, so in most cases there is no need to add additional certificates. If your environment uses its own certification, you should add your trusted CA’s here.  To add certificates, just place files in this directory. Each file can contain any number of certificates. The application will read the whole directory, no matter what the file names actually are. This directory is NOT used to add trusted chain to your web certificate, in such case please see the Web Server CA certificate section. |
 
 ## Let’s Encrypt support
+Both **Oneprovider** and **Onezone** support obtaining web certificates
+automatically via Let’s Encrypt. This feature can be enabled in **Onepanel**
+GUI, via REST or by passing `letsEncryptEnabled` flag in Docker Compose
+configuring the cluster.
 
-Both **Oneprovider** and **Onezone** support obtaining web certificates automatically via Let’s Encrypt. This feature can be enabled in **Onepanel** GUI, via REST or by passing `letsEncryptEnabled` flag in Docker Compose configuring the cluster.
+Please note that Let's Encrypt imposes limits on certificates generated for
+each domain in a period of one week, so the automatic generation might fail
+temporarily in some cases. This is especially important in **Oneproviders**
+using __subdomain delegation__, as the limit is global for the **Onezone**'s
+domain.
 
-Please note that Let's Encrypt imposes limits on certificates generated for each domain in a period of one week, so the automatic generation might fail temporarily in some cases. This is especially important in **Oneproviders** using __subdomain delegation__, as the limit is global for the **Onezone**'s domain.
-
-> NOTE: When deploying via GUI using this feature, your web browser will need to reload the page when new certificates are installed.
+> NOTE: When deploying via GUI using this feature, your web browser will need
+to reload the page when new certificates are installed.
 
 ## Let's Encrypt in private networks
-When registering **Oneproviders** using the __subdomain delegation__ feature, it is possible to use Let's Encrypt client even if **Oneprovider** is deployed on host not accessible from the public Internet. In this scenario only the **Onezone** needs to work in a public domain in order to support validating its subdomains in Let's Encrypt. In this case the DNS method of The Let's Encrypt authorization is used, rqeuirs the Onezone domain to be [delegated (see docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at its DNS registrar.
+When registering **Oneproviders** using the __subdomain delegation__ feature,
+it is possible to use Let's Encrypt client even if **Oneprovider** is
+deployed on host not accessible from the public Internet. In this scenario
+only the **Onezone** needs to work in a public domain in order to support
+validating its subdomains in Let's Encrypt. In this case the DNS method of
+The Let's Encrypt authorization is used, requires the Onezone domain to be
+[delegated (see
+docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at
+its DNS registrar.
 
 ## Docker deployment
 
-When deploying **Onedata** services using Docker, TLS certificates for Onedata services must be mounted from the host to the appropriate paths in the Docker container, for example when using Docker Compose, this can be achieved using the following configuration:
+When deploying **Onedata** services using Docker, TLS certificates for
+Onedata services must be mounted from the host to the appropriate paths in
+the Docker container, for example when using Docker Compose, this can be
+achieved using the following configuration:
 
 ```yaml
 version: '2.0'
