@@ -7,20 +7,18 @@ All Onedata components require certain X.509 certificates to be installed in spe
 Depending on the type of services which is being installed, Onepanel will look for certificates under the following paths:
 
 - **Onezone**
-
-- - `/etc/oz_panel/certs/web_key.pem`
+  - `/etc/oz_panel/certs/web_key.pem`
   - `/etc/oz_panel/certs/web_cert.pem`
   - `/etc/oz_panel/certs/web_chain.pem` (optional)
   - `/etc/oz_panel/cacerts/*` (optional)
 
 - **Oneprovider**
-
-- - `/etc/op_panel/certs/web_key.pem`
+  - `/etc/op_panel/certs/web_key.pem`
   - `/etc/op_panel/certs/web_cert.pem`
   - `/etc/op_panel/certs/web_chain.pem` (optional)
   - `/etc/oz_panel/cacerts/*` (optional)
 
-By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnings. However, those test certificates will prevent Onezone-Oneprovider or inter-Provider communication in a production environment and should never be used in such cases.
+By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnings. However, those test certificates will prevent Onezone-Oneprovider or inter-Oneprovider communication in a production environment and should never be used in such cases.
 Communication using those test certificates can be enabled for test purposes by setting `ONEPANEL_TRUST_TEST_CA` environment variable during cluster deployment.
 
 ## Onezone
@@ -88,7 +86,7 @@ it is possible to use Let's Encrypt client even if **Oneprovider** is
 deployed on host not accessible from the public Internet. In this scenario
 only the **Onezone** needs to work in a public domain in order to support
 validating its subdomains in Let's Encrypt. In this case the DNS method of
-The Let's Encrypt authorization is used, requires the Onezone domain to be
+the Let's Encrypt authorization is used, requires the Onezone domain to be
 [delegated (see docs)](./onezone_tutorial.md#dns-records-setup-for-subdomain-delegation) at
 its DNS registrar.
 
