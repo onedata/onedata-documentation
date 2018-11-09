@@ -2,17 +2,32 @@
 
 <!-- toc -->
 
-This section describes the steps needed to install and configure **Oneprovider** service in production, either using Docker images or directly using our packages. In order to deploy **Oneprovider**, it must be connected during startup to an existing **Onezone** installation.
+This section describes the steps needed to install and configure
+**Oneprovider** service in production, either using Docker images or directly
+using our packages. In order to deploy **Oneprovider**, it must be connected
+during startup to an existing **Onezone** installation.
 
-For instructions how to setup test deployments with minimal effort checkout our [Getting Started](https://github.com/onedata/getting-started) repository - this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
+For instructions how to setup test deployments with minimal effort checkout
+our [Getting Started](https://github.com/onedata/getting-started) repository
+- this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
 
 ## Installation
-**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
+**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/)
+on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms)
+or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker
+based deployment is the recommended setup due to minimal requirements and
+best portability.
 
-**Oneprovider** service can be deployed on multiple nodes for high-availability purpose, in such case either the Docker setup or the packages need to be installed on all nodes where the **Oneprovider** should be deployed. This tutorial assumes **Oneprovider** will be installed on a single node.
+**Oneprovider** service can be deployed on multiple nodes for high-availability purpose, in
+such case either the Docker setup or the packages need to be installed on all
+nodes where the **Oneprovider** should be deployed. This tutorial assumes
+**Oneprovider** will be installed on a single node.
 
 ### Prerequisites
-In order to ensure optimum performance of the **Oneprovider** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
+In order to ensure optimum performance of the **Oneprovider** service,
+several low-level settings need to be tuned on the host machine. This applies
+to both Docker based as well as package based installations, in particular to
+nodes where Couchbase database instance are deployed.
 
 After these settings are modified, the machine needs to be rebooted.
 
@@ -250,9 +265,15 @@ $ sudo apt install oneprovider
 
 
 ### Setting up certificates
-Since release 18.02.0, **Onedata** supports automatic certificate management backed by Let's Encrypt. To use this option, it is only necessary to enable this feature in **Oneprovider** Docker Compose configuration file (see above) or via GUI. 
+Since release 18.02.0-beta5, **Oneprovider** supports automatic certificate
+management backed by Let's Encrypt. To use this option, it is only necessary
+to enable this feature in **Oneprovider** Docker Compose configuration file
+(see above) or via GUI.
 
-In order to obtain and install certificates for **Oneprovider** service manually, modify the Docker Compose file to mount PEM files inside the container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
+If you prefer to obtain and install certificates for **Oneprovider** service
+manually, modify the Docker Compose file to mount PEM files inside the
+container using paths listed in [TLS certificate
+management](./ssl_certificate_management.html).
 
 ### Security and recommended firewall settings
 **Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.

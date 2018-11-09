@@ -222,7 +222,15 @@ $ sudo apt install onezone
 TODO
  -->
 ### Configuring authentication methods
-In order to specify authentication options for the **Onezone** service, `auth.config` file has to be provided. Currently **Onezone** supports 2 general modes of authentication, i.e.: basic authentication and OpenID Connect. For all supported OpenID Provider services see [here](openid_saml_configuration.md). The example below presents how to enable basic authentication and Google IdP. Basic authentication does not take any parameters here, and accounts can be managed via **Onepanel** REST API. The Google authentication plugin requires that special Service Key is generated in [Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
+In order to specify authentication options for the **Onezone** service,
+`auth.config` file has to be provided. Currently **Onezone** supports 2
+general modes of authentication, i.e.: basic authentication and OpenID
+Connect. For all supported OpenID Provider services see [here](openid_saml_configuration.md).
+The example below presents how to enable basic authentication and Google IdP.
+Basic authentication does not take any parameters here, and accounts can be
+managed via **Onepanel** REST API. The Google authentication plugin requires
+that special Service Key is generated in
+[Google account management portal](https://developers.google.com/+/web/api/rest/oauth).
 
 In case of installation using Docker, create a file `/opt/onedata/onezone/auth.config` (in case of package installation edit file `/var/lib/oz_worker/auth.config`) with the following contents:
 
@@ -241,15 +249,20 @@ In case of installation using Docker, create a file `/opt/onedata/onezone/auth.c
 ```
 
 ### Setting up certificates
-Since release 18.02.0, **Onedata** supports automatic certificate management backed by Let's Encrypt. To use this option, it is only necessary to enable this feature in **Oneprovider** Docker Compose configuration file (see above) or via GUI. 
+Since release 18.02.0-rc10, **Onedata** supports automatic certificate
+management backed by Let's Encrypt. To use this option, it is only necessary
+to enable this feature in **Onezone** Docker Compose configuration file (see
+above) or via GUI.
 
-In order to obtain and install certificates for **Onezone** service manually, modify the Docker Compose file to mount PEM files inside the container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
+If you prefer to obtain and install certificates for **Onezone** service
+manually, modify the Docker Compose file to mount PEM files inside the
+container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
-Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+Furthermore, on all nodes of **Onezone** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
 
 <!--
 ### Load balancing setup
