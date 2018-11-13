@@ -2,9 +2,11 @@
 
 <!-- toc -->
 
-All Onedata components require certain X.509 certificates to be installed in specific folders in order to properly handle TLS connections with clients.
+All Onedata components require certain X.509 certificates to be installed in
+specific folders in order to properly handle TLS connections with clients.
 
-Depending on the type of services which is being installed, Onepanel will look for certificates under the following paths:
+Depending on the type of services which is being installed, Onepanel will
+look for certificates under the following paths:
 
 - **Onezone**
   - `/etc/oz_panel/certs/web_key.pem`
@@ -18,8 +20,15 @@ Depending on the type of services which is being installed, Onepanel will look f
   - `/etc/op_panel/certs/web_chain.pem` (optional)
   - `/etc/oz_panel/cacerts/*` (optional)
 
-By default, **Onepanel** ships with dummy web certificates issued for `localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the service and access the gui by bypassing browser warnings. However, those test certificates will prevent Onezone-Oneprovider or inter-Oneprovider communication in a production environment and should never be used in such cases.
-Communication using those test certificates can be enabled for test purposes by setting `ONEPANEL_TRUST_TEST_CA` environment variable during cluster deployment.
+By default, **Onepanel** ships with dummy web certificates issued for
+`localhost`and signed by `OneDataTestWebServerCA`. It's enough to launch the
+service and access the gui by bypassing browser warnings. However, those test
+certificates will prevent Onezone-Oneprovider or inter-Oneprovider
+communication in a production environment and should never be used in such
+cases.
+Communication using those test certificates can be enabled for test purposes
+by setting `ONEPANEL_TRUST_TEST_CA` environment variable during cluster
+deployment. This variable must be set for **all clusters** that will be communicating with each other.
 
 ## Onezone
 
