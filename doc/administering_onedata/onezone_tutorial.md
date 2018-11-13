@@ -360,7 +360,7 @@ Make sure that Onezone domain was properly set by **Onepanel**, example entries 
 ...
     {http_domain, "onezone-example.com"},
     {oz_name, "ONEZONE-DEMO"},
-    {admin_emails, "admin@onezone-example.com"},
+    {admin_emails, ["admin@onezone-example.com"]},
 ...
 ```
 

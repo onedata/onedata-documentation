@@ -12,7 +12,7 @@ our [Getting Started](https://github.com/onedata/getting-started) repository
 - this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
 
 ## Installation
-**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/)
+**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/oneprovider/)
 on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms)
 or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker
 based deployment is the recommended setup due to minimal requirements and
