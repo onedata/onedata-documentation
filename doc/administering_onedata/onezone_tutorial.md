@@ -301,7 +301,9 @@ In the DNS responsible for the `onezone-example.com` domain (usually the server 
 
 This way, all queries concerning the `onezone-example.com` domain will be routed to the DNS servers running on Onezone cluster nodes.
 
-Further fine-tuning of the Onezone DNS service can be achieved by modifying the `oz_worker` section of the `/etc/oz_worker/app.config` file. Available options are:
+Further fine-tuning of the Onezone DNS service can be achieved via the `overlay.config` file (read more [here](#advanced-configuration)).
+
+Available options are:
 - setting static records with predefined values. Variables:
   - `dns_static_a_records`
   - `dns_static_ns_records`
