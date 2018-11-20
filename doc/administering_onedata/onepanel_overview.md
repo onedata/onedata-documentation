@@ -6,6 +6,6 @@ Onedata services are distributed applications which can be scaled from a single 
 * **Workers** - actual worker processes handling user requests
 * **Database instances** - [Couchbase](http://www.couchbase.com/) backend instances storing control and metadata information
 
-Onepanel eases the deployment of these components among the nodes assigned to Onedata in a site. Currently this is possible using a GUI web interface as well as [REST API](../advanced/rest/onepanel/overview.md).
+Onepanel eases the deployment of these components among the nodes assigned to Onedata in a site. Currently this is possible using a GUI web interface as well as [REST API](/#/home/api/latest/onepanel).
 
 Furthermore, Onepanel enables easy creation of user accounts allowing access to Onedata service using HTTP basic authentication.
