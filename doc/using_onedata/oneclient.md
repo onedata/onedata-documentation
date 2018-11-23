@@ -78,15 +78,17 @@ oneclient -u MOUNT_POINT
 
 ## Options
 
-### Direct IO and Proxy IO modes
+### Direct I/O and Proxy I/O modes
 By default `oneclient` will automatically try to detect if it can access storage supporting
-mounted spaces directly, which significantly improves IO performance as all read and write
+mounted spaces directly, which significantly improves I/O performance as all read and write
 operations go directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
 
-  * `--force-proxy-io` - disables Direct IO mode, all data transfers will go via Oneprovider service
-  * `--force-direct-io` - forces Direct IO mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
+  * `--force-proxy-io` - disables Direct I/O mode, all data transfers will go via Oneprovider service
+  * `--force-direct-io` - forces Direct I/O mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
+
+> NOTE: Oneclient will be able to use direct I/O to a storage only if connected to the provider which supports the space with this storage.  
 
 ### Buffering
 `oneclient` employs an in-memory buffer for input and output data blocks, which can significantly
