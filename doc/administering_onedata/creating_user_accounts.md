@@ -5,10 +5,7 @@
 In general, accounts for users in Onedata are created using social/community login - [OpenID or SAML](openid_saml_configuration.md). 
 It is also possible to create user accounts manually in Onepanel, allowing users to log in 
 using HTTP basic authentication, i.e. with `username` and `password`. However, such accounts have
-administrator character and should be limited.
-
-This functionality can be achieved by creating manually user accounts using Onepanel service 
-[REST interface](../advanced/rest/onepanel/overview.md).
+administrative character and should be limited. This type of user accounts can be created using the Onepanel service [REST interface](../advanced/rest/onepanel/overview.md).
 
 ## Managing manual user accounts
 
