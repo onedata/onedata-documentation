@@ -34,16 +34,16 @@ Now, a new user can be created using the following command line request:
 
 ```bash
 curl -X POST -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \
--d '{"username": "$USERNAME", "password": "$PASSWORD", "userRole": "regular"}' \
+-d '{"username": "'$USERNAME'", "password": "'$PASSWORD'", "userRole": "regular"}' \
 https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
 ```
 
-In order to modify the user details (currently only password can be changed) the same operation should be invoked with `PUT` HTTP method.
+In order to modify the user details (currently only password can be changed) use the following command:
 
 ```bash
-curl -X PUT -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \
--d '{"password": "$PASSWORD"}' \
-https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
+curl -X PATCH -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} -H "Content-Type: application/json" \
+-d '{"currentPassword": "'$ADMIN_PASSWORD'", "newPassword": "'$PASSWORD'"}' \
+https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/$USERNAME
 ```
 
 In order for these users to login to Onezone, onepanel authentication has to be enabled 
@@ -57,10 +57,3 @@ curl -X DELETE -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} \
 https://${ONEZONE_HOST}:9443/api/v3/onepanel/users/${USERNAME}
 ```
 
-It is also possible to remove the current user account by invoking:
-```bash
-curl -X DELETE -u ${ADMIN_USERNAME}:${ADMIN_PASSWORD} \
-https://${ONEZONE_HOST}:9443/api/v3/onepanel/users
-```
-
-without specifying the username in the path.
