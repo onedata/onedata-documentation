@@ -49,7 +49,6 @@ doc/administering_onedata/provider_overview.md
 doc/administering_onedata/provider_installation.md
 doc/administering_onedata/provider_space_support.md
 doc/administering_onedata/storage_configuration.md
-doc/administering_onedata/loadbalancing.md
 
 ## Others 
 doc/administering_onedata/ssl_certificate_management.md
