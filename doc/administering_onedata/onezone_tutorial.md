@@ -116,9 +116,9 @@ services:
        # Onezone runtime files
        - "/opt/onedata/onezone/persistence:/volumes/persistence"
        # OpenID configuration
-       - "/opt/onedata/onezone/auth.config:/var/lib/oz_worker/auth.config"
+       - "/opt/onedata/onezone/auth.config:/etc/oz_worker/auth.config"
        # Load balancing configuration based on DNS
-       - "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
+       #- "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
        # Uncoment lines below if you disabled the built-in Let's Encrypt client
        ## SSL certificate
        #- "/ozt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/web_cert.pem"

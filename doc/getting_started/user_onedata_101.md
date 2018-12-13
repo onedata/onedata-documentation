@@ -15,7 +15,7 @@ In the left panel of *Onezone* page you can find the *Data space management* men
 
 <p align="center"> <img src="../img/getsupporttoken.png"> </p>
 
-You need to send this token to one of storage providers associated with your zone and request support for your space.
+You need to send this token to one of the storage providers associated with your zone and request support for your space.
 
 After having your space supported by at least 1 provider, the provider will appear on the map on *Onezone* page.
 

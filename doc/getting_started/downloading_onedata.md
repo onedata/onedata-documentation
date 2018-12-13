@@ -2,15 +2,15 @@
 
 Onedata platform is composed of 3 basic components:
  * **Oneprovider** - service which manages actual storage resources contributed by storage providers
- * **Onezone** - service which enables federation of multiple storage providers into (*onedata.org* is an example of a zone)
+ * **Onezone** - service which enables federation of multiple storage providers into zones (*onedata.org* is an example of a zone)
  * **Oneclient** - command line tool for accessing and managing user spaces via virtual file system
 
-Selection of which components to install depends on particular requirements.
+The selection of components to install depends on the particular requirements.
 End users typically only need to install *Oneclient* command-line tool.
 
-Storage providers need to install at least one *Oneprovider* service in their datacenter on machines which have access to the storage resources. Since each *Oneprovider* service must be registered in some *Onezone* service, the storage provider has a choice to join existing zone (such as *onedata.org*) or establish their own, by setting up *Onezone* service.
+The storage providers need to install at least one *Oneprovider* service in their datacenter on machines which have access to the storage resources. Since each *Oneprovider* service must be registered in some *Onezone* service, the storage provider has a choice to join existing zone (such as *onedata.org*) or establish their own, by setting up *Onezone* service.
 
-Onedata components can be built from sources, download a pre-built release or use ready-to-go docker images. If you do not plan on developing Onedata itself, we suggest a pre-built release.
+Onedata components can be built from sources, installed from a pre-built release package or deployed by using ready-to-go docker images. If you do not plan on developing Onedata itself, we suggest using docker images.
 
 ## Download and install Onedata
 
