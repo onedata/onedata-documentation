@@ -387,7 +387,7 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
   <op_worker name="op_worker@oneprovider-example.com" status="ok">
@@ -426,7 +426,7 @@ In case of Docker based deployment, assuming the paths were set as in the tutori
 
 ```
 # Onepanel logs
-$ sudo ls /opt/onedata/onezone/persistence/var/log/op_panel/
+sudo ls /opt/onedata/onezone/persistence/var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs
@@ -439,7 +439,7 @@ In case of package based deployment, the following directories contain logs:
 
 ```
 # Onepanel logs
-$ sudo ls /var/log/op_panel/
+sudo ls /var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs

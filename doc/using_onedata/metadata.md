@@ -89,7 +89,7 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 
 In each of these backends, user can store any properly formatted metadata
 documents, which can be modified and retrieved using the
-[REST API](../advanced/rest/oneprovider/operations/get_file_metadata.md)
+[REST API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_metadata)
 or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
