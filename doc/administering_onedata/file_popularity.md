@@ -4,14 +4,17 @@
 
 ## Concept
 
-The file-popularity mechanism enables tracking usage-statistics for files in the selected space.  
-It allows to list files' IDs, sorted by increasing order of the [`popularity`](#the-popularity-function) function, so that
-the least popular files are at the beginning of the list.
+The file-popularity mechanism enables tracking usage-statistics for files in the 
+selected space. It allows to list files' IDs, sorted by increasing order of the 
+[`popularity`](#the-popularity-function) function, so that the least popular files
+are at the beginning of the list.
 
 >**NOTE:** Usage statistics can be collected only for local support of the space. 
 > It is impossible to obtain file-popularity statistics for the remote provider.
 
-The mechanism for given space can be enabled in the Onepanel, in the spaces configuration tab.
+The mechanism for given space can be enabled in the Onepanel, in the spaces
+configuration tab.
+[//]: # (TODO wstawić nowego screena)
 ![](../img/admin/op_panel_file_popularity.png)
 
 ## Querying the file-popularity view
@@ -31,10 +34,12 @@ the concept of [Onedata indexes](../using_onedata/metadata.md#advanced-metadata-
 ### Internal implementation
 
 Internally, the mechanism creates the *file-popularity* view. All notices presented in the 
-[Advanced metadata queries section](../using_onedata/metadata.md#advanced-metadata-queries) applies also to the *file-popularity* view.
+[Advanced metadata queries section](../using_onedata/metadata.md#advanced-metadata-queries)
+applies also to the *file-popularity* view.
 >**NOTE:** The file-popularity view is a special view, therefore it is forbidden to create 
 > a view index with such name. Furthermore, it is forbidden and impossible to 
-> modify or delete the view using [Onedata Indexes API](../using_onedata/metadata.md#advanced-metadata-queries).
+> modify or delete the view using 
+>[Onedata Indexes API](../using_onedata/metadata.md#advanced-metadata-queries).
 
 ### The popularity function
 The key that is emitted to the *file-popularity* view is the value of the
@@ -56,12 +61,14 @@ where:
 
 Entries in the view index are modified only when associated document
 in the database is modified. It means that entry in the *file-popularity* view
-is modified only when the [`file_popularity`](../using_onedata/metadata.md#file-popularity-model) model
+is modified only when the 
+[`file_popularity`](../using_onedata/metadata.md#file-popularity-model) model
 document is updated. It happens on each close operation on a file.
 It is possible that a file that has been intensively used will not be opened any more. 
-Therefore, it's `avgOpenCountPerDay` will not be re-calculated and it will stay on a very high value.
-If the popularity of the file was estimated only basing on this parameter such fill will stay "popular"
-forever. To cope with this issue, `lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function)function.
+Therefore, it's `avgOpenCountPerDay` will not be re-calculated and it will stay
+on a very high value. If the popularity of the file was estimated only basing on
+this parameter such fill will stay "popular" forever. To cope with this issue, 
+`lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function)function.
 The parameter is responsible for "balancing" the importance of `avgOpenCountPerDay` parameter.
 
 
@@ -70,10 +77,11 @@ The parameter is responsible for "balancing" the importance of `avgOpenCountPerD
 The three parameters of the function: `w1`, `w2` and `MAX_AVG_OPEN_COUNT_PER_DAY`
 can be modified in the file-popularity configuration panel.
 
->**NOTE:** Modification of the [`popularity`](#the-popularity-function)function parameters results in modification 
-of the mapping function of the *file-popularity* view. It means, that all already indexed
-files will be re-indexed. Such operation can be very time-consuming as it depends on
-the number of the files in the space.
+>**NOTE:** Modification of the [`popularity`](#the-popularity-function) 
+function parameters results in modification of the mapping function of the
+*file-popularity* view. It means, that all already indexed files will be 
+re-indexed. Such operation can be very time-consuming as it depends on the number 
+of the files in the space.
 >
 >**NOTE2:** The same notice applies to disabling/enabling the mechanism. 
 Disabling the view results in its deletion, therefore re-enabling the view
@@ -89,12 +97,13 @@ The default values of the file-popularity view are as follows:
 * `MAX_AVG_OPEN_COUNT_PER_DAY = 100`
 
 The default value of `MAX_AVG_OPEN_COUNT_PER_DAY` means that we assume that
-files that have `avgOpenCountPerDay > 100` have the same popularity and should be treated
-as equally popular.
+files that have `avgOpenCountPerDay > 100` have the same popularity and should 
+be treated as equally popular.
  
 Above values of `w1` and `w2` means that file that has been opened just once
-has "similar" popularity to file that was opened about 1000 times in the month preceding the last open
-and that the last open was performed month (30 days) before open on the former file.
+has "similar" popularity to file that was opened about 1000 times in the month
+preceding the last open and that the last open was performed month (30 days) before
+open on the former file.
 
 Estimations of the default values of weights are presented below.
 
@@ -102,7 +111,8 @@ Estimations of the default values of weights are presented below.
 
 In the default configuration, we would like to keep balance between `lastOpenHour` and
 `avgOpenCountPerDay` parameters in such a way, that file that has been opened just once has
-value of [`popularity`](#the-popularity-function)function equal to file that was opened for the last time a month earlier and
+value of [`popularity`](#the-popularity-function)function equal to file that was 
+opened for the last time a month earlier and
 which was opened about 1000 times in the month preceding the last open. 
 
 ```
@@ -145,3 +155,13 @@ Finally, to make it simpler, we set:
 w1 := 1.0
 w2 := 20.0
 ```
+
+### REST API
+
+All operation presented in the GUI can also be performed using REST API.
+Links to the documentation are presented below.
+
+| Request                             | Link to API |
+|-------------------------------------|-------------|
+| Get file-popularity configuration   | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration)|        
+| Update file-popularity configuration| [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity)|        
