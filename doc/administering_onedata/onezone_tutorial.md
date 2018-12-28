@@ -28,7 +28,7 @@ If necessary, increase the limit using:
 $ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
 $ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 ```
-> It might be also necessary to setup the limit in systemd.conf. For CentOS:
+> It might be also necessary to setup the limit in /etc/systemd/system.conf:
 >```sh
 $ sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
 $ sudo systemctl daemon-reexec
