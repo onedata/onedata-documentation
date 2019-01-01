@@ -44,7 +44,7 @@ Check the prerequsite list and confirm to proceed to the next step:
 
 If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
 
-After the dependency installation is complete, the script will answer several questions and suggest default setting for each one:
+After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
 
 <p align="center"> <img src="../img/admin/onedatify_step_2.png"> </p>
 
