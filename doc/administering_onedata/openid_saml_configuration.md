@@ -50,9 +50,7 @@ the administrators.
 information such as domain, service name etc. When asked for 
 *Redirection Endpoint (URL)*, specify the following:
 ```Erlang
-https://onezone.example.com/oidc/consume   % recommended
-% or
-https://onezone.example.com/validate_login   % deprecated, but still supported
+https://onezone.example.com/validate_login
 ```
 
 4. After finishing the registration process, you will be issued a Client Id and 

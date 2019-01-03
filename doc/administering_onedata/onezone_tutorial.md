@@ -26,6 +26,12 @@ If necessary, increase the limit using:
 
 ```sh
 $ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
+$ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
+```
+> It might be also necessary to setup the limit in /etc/systemd/system.conf:
+>```sh
+$ sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
+$ sudo systemctl daemon-reexec
 ```
 
 #### Swap preference settings
@@ -61,8 +67,8 @@ Description=Disable Transparent Huge Pages
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
 
 [Install]
 WantedBy=multi-user.target
@@ -84,8 +90,15 @@ Following command examples assumes an environment variable `ONEZONE_HOST` is ava
 $ export ONEZONE_HOST="onezone-example.com"
 ```
 
+#### Python
+Make sure that python 2.x is installed on the machine. For example:
+```sh
+$ python -V
+Python 2.7.12
+```
+
 ### Docker based setup
-Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
+Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started). This type of deployment requires that docker and docker-compose have been installed on your server.
 
 #### Customizing Onezone Docker Compose script
 In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the folder `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
@@ -105,7 +118,7 @@ version: '2.0'
 services:
   node1.onezone.localhost:
     # Onezone Docker image version
-    image: onedata/onezone:18.02.0
+    image: onedata/onezone:18.02.0-rc13
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.onezone.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -116,9 +129,7 @@ services:
        # Onezone runtime files
        - "/opt/onedata/onezone/persistence:/volumes/persistence"
        # OpenID configuration
-       - "/opt/onedata/onezone/auth.config:/var/lib/oz_worker/auth.config"
-       # Load balancing configuration based on DNS
-       - "/opt/onedata/onezone/dns.config:/var/lib/oz_worker/dns.config"
+       - "/opt/onedata/onezone/auth.config:/etc/oz_worker/auth.config"
        # Uncoment lines below if you disabled the built-in Let's Encrypt client
        ## SSL certificate
        #- "/ozt/onedata/onezone/certs/cert.pem:/etc/oz_panel/certs/web_cert.pem"
@@ -194,7 +205,7 @@ Now in order to install **Onezone** service, it should be enough to execute our 
 $ curl -sS  http://get.onedata.org/onezone.sh | bash
 ```
 
-Alternatively, the necessary packages can be installed manually:
+Alternatively, the necessary packages can be installed manually. For Ubuntu:
 ```sh
 # Add Onedata package repository
 $ sudo sh -c 'curl -sSL  http://packages.onedata.org/onedata.gpg.key | apt-key add -'
@@ -268,9 +279,25 @@ Open `https://$ONEZONE_HOST:9443` using any web browser and continue through the
 * Login using default credentials specified in (e.g. `admin:password`)
   <p align="center"><img src="../img/admin/oz_tutorial_panel_login.png" width="640"></p>
 
+* Click "Create new cluster"
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_create_new_cluster.png" width="640"></p>
+
 * Select hosts in the cluster which will have specific roles (leave as is)
   <p align="center"><img src="../img/admin/oz_tutorial_panel_hosts_selection.png" width="640"></p>
 
+* Check the IP address and change it if necessary. Click "Setup IP address".
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_ip_address_setup.png" width="640"></p>
+
+* Check the DNS settings and click "Perform check". If it fails then check that the DNS records, which are displayed exists. 
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_dns_setup.png" width="640"></p>
+
+* Click "Proceed" when the DNS check succeeds.
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_dns_setup_2.png" width="640"></p>
+
+* Click "Obtain certificate" to automatically obtain a web certificate from Let's encrypt.
+  <p align="center"><img src="../img/admin/oz_tutorial_panel_web_cert.png" width="640"></p>
+
+ 
 * Wait for installation to complete
   <p align="center"><img src="../img/admin/oz_tutorial_panel_success.png" width="640"></p>
 
