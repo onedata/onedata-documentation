@@ -39,7 +39,6 @@ storage supporting given space  which when exceeded will trigger run of auto-cle
 * The **low threshold** determines the amount of data which when reached will stop current run of auto-cleaning.  
 
 The thresholds can be adjusted using the GUI as shown below or using REST API:
-[//]: # (TODO wstawić nowego screena)
 ![](../img/admin/op_panel_auto_cleaning.png)
 
 

@@ -14,7 +14,6 @@ are at the beginning of the list.
 
 The mechanism for given space can be enabled in the Onepanel, in the spaces
 configuration tab.
-[//]: # (TODO wstawić nowego screena)
 ![](../img/admin/op_panel_file_popularity.png)
 
 ## Querying the file-popularity view
@@ -120,13 +119,13 @@ Assume that we have 2 files: F1 and F2.
 
 The file F1 was opened at timestamp (in hours) T1.
 F1 - lastOpenHour1 = T1
-   - number of openes in the month preceding last open: O1 = 1
-   - avgOpenCountPerDay1 = avg1 = O1/30 = 1/30
+   - number of openes in the month preceding last open: NO1 = 1
+   - avgOpenCountPerDay1 = avg1 = NO1/30 = 1/30
    
 The file F2 was opened month earlier than T1 for the last time.
 F2 - lastOpenHour2 = T2 = T1 - 30 * 24
-   - number of openes in the month preceding last open: O2 = 1000
-   - avgOpenCountPerDay2 = avg2 = O2/30 = 1000/30
+   - number of openes in the month preceding last open: NO2 = 1000
+   - avgOpenCountPerDay2 = avg2 = NO2/30 = 1000/30
 
 Lets count popularity for both files:
 
