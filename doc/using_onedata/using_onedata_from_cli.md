@@ -57,7 +57,7 @@ or using Onedata REST API (if basic authentication is available for the user
 account):
 
 ```bash
-export ONEZONE_API_KEY=`onezone-rest-cli getClientToken | jq -r '.token'`
+export ONEZONE_API_KEY=`onezone-rest-cli createClientToken | jq -r '.token'`
 ```
 
 Check if the token has been generated successfully. From now on we can use it
