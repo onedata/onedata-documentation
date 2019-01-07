@@ -33,7 +33,7 @@ For more information about *Spaces* and *Groups* see [Space Management](../using
 ### Providers
 Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service, attaching storage resources and registering it in a particular Onezone service.
 
-A user can use several providers simultaneously to manage their data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
+A user can use several providers simultaneously to manage his/her data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
 <p align="center">
 <img src="../img/overview_3d_map_with_users.png" width="580">
@@ -46,9 +46,9 @@ Users use *Onezone* web interfaces (like the one at [onedata.org](onedata.org)) 
 For more information about Onedata's provider service, check out [Oneprovider Overview](../administering_onedata/provider_overview.md) documentation.
 
 ### Zones
-Onedata is a distributed system divided into zones that are created by deploying a dedicated service called *Onezone*.Any organization, community or user group can deploy their own *Onezone* service with customized login page and either connect it to the distributed network of *Onezone* services or run it as an isolated private deployment.
+Onedata is a distributed system divided into zones that are created by deploying a dedicated service called *Onezone*. Any organization, community or user group can deploy their own *Onezone* service with customized login page and either connect it to the distributed network of *Onezone* services or run it as an isolated private deployment.
 
-*Onezone* is responsible for authentication and authorization of users, makes it possible for users from different zones to communicate with each other and share data. It allows providers from different zones to interact with each other i.e. allowing users from different zones to support their spaces regardless of the zone in which particular provider is located.
+*Onezone* is responsible for authentication and authorization of users and makes it possible for users from different zones to communicate with each other and share data. It allows providers from different zones to interact with each other, i.e., allowing users from different zones to get support for their spaces regardless of the zone in which the particular provider is located.
 
 <p align="center">
 <img src="../img/Onezone101.svg" width="580">

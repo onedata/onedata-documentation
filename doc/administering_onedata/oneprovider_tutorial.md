@@ -35,7 +35,7 @@ After these settings are modified, the machine needs to be rebooted.
 In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
 ```sh
-$ ulimit -n
+ulimit -n
 1024
 ```
 
@@ -43,6 +43,12 @@ If necessary, increase the limit using:
 
 ```sh
 $ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
+$ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
+```
+> It might be also necessary to setup the limit in /etc/systemd/system.conf:
+>```sh
+sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
+sudo systemctl daemon-reexec
 ```
 
 #### Swap preference settings
@@ -78,8 +84,8 @@ Description=Disable Transparent Huge Pages
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
 
 [Install]
 WantedBy=multi-user.target
@@ -101,8 +107,18 @@ Following command examples assumes an environment variable `ONEPROVIDER_HOST` is
 $ export ONEPROVIDER_HOST="oneprovider-example.com"
 ```
 
+#### Python
+Make sure that python 2.x is installed on the machine. For example:
+```sh
+$ python -V
+Python 2.7.12
+```
+
+### Onedatify based setup
+The easiest way to deploy **Oneprovider** is using **Onedatify**. The deployment procedure is described [here](./onedatify_deploy.md).
+
 ### Docker based setup
-**Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
+**Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).  This type of deployment requires that docker and docker-compose are installed on your server.
 
 #### Customizing Oneprovider Docker Compose script
 In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
@@ -122,7 +138,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:18.02.0
+    image: onedata/oneprovider:18.02.0-rc13
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -150,13 +166,9 @@ services:
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
     ports:
-      - "53:53"
-      - "53:53/udp"
-      - "443:443"
       - "80:80"
+      - "443:443"
       - "6665:6665"
-      - "8876:8876"
-      - "8877:8877"
       - "9443:9443"
     environment:
       # Force Onepanel to read configuration from environment variable
@@ -200,20 +212,20 @@ services:
           geoLongitude: 19.9449799
           register: true
           name: "ONEPROVIDER-DEMO"
-          adminEmail: "admin@example.com"
+          adminEmail: "admin@oneprovider-example.tk"
           # Use built-in Let's Encrypt client to obtain and renew certificates
           letsEncryptEnabled: true
           # Automatically register this Oneprovider in Onezone without subdomain delegation
           subdomainDelegation: false
-          domain: "https://oneprovider-example.com"
+          domain: "oneprovider-example.tk"
 
           # Alternatively:
           ## Automatically register this Oneprovider in Onezone with subdomain delegation
           # subdomainDelegation: true
-          # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.com"
+          # subdomain: oneprovider-example # Domain will be "oneprovider-example.onezone-example.tk"
         onezone:
           # Address of the Onezone at which this Oneprovider will register
-          domainName: "onezone-example.com"
+          domainName: "onezone-example.tk"
         onepanel:
           # Create initially 1 administrator and 1 regular user
           users:
@@ -277,7 +289,7 @@ manually, modify the Docker Compose file to mount PEM files inside the
 container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
 ### Security and recommended firewall settings
-**Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
+**Oneprovider** service requires several TCP ports (`80`,`443`,`6665`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
 
 Furthermore, on all nodes of **Oneprovider** deployment where Couchbase
 instance is deployed, it exposes several additional ports. This means that
@@ -287,13 +299,13 @@ should be also followed.
 For more information about ports setup see [Firewal setup](./firewall_setup.md)
 
 ### Cluster configuration for package based deployment
-This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-example.com:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-example.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
 
 ```
 $ sudo systemctl restart op_panel.service
 ```
 
-Open `https://oneprovider-example.com:9443` using any web browser and continue through the following steps:
+Open `https://oneprovider-example.tks:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
   <p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
@@ -316,7 +328,7 @@ Open `https://oneprovider-example.com:9443` using any web browser and continue t
 * Wait for registration and deployment to complete
   <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
-After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-example.com` should redirect to it's **Onezone** login page, in this case `https://onezone-example.com`.
+After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
 
 ### Advanced configuration
 After installation several **Oneprovider** parameters can be further fine-tuned using erlang application configuration files.
@@ -426,11 +438,11 @@ In case of Docker based deployment, assuming the paths were set as in the tutori
 
 ```
 # Onepanel logs
-sudo ls /opt/onedata/onezone/persistence/var/log/op_panel/
+sudo ls /opt/onedata/oneprovider/persistence/var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs
-sudo ls /opt/onedata/onezone/persistence/var/log/oz_worker/
+sudo ls /opt/onedata/oneprovider/persistence/var/log/oz_worker/
 debug.log error.log info.log run_erl.log
 ```
 
