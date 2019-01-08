@@ -66,7 +66,7 @@ document is updated. It happens on each close operation on a file.
 It is possible that a file that has been intensively used will not be opened any more. 
 Therefore, it's `avgOpenCountPerDay` will not be re-calculated and it will stay
 on a very high value. If the popularity of the file was estimated only basing on
-this parameter such fill will stay "popular" forever. To cope with this issue, 
+this parameter such file will stay "popular" forever. To cope with this issue, 
 `lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function)function.
 The parameter is responsible for "balancing" the importance of `avgOpenCountPerDay` parameter.
 
@@ -78,7 +78,7 @@ can be modified in the file-popularity configuration panel.
 
 >**NOTE:** Modification of the [`popularity`](#the-popularity-function) 
 function parameters results in modification of the mapping function of the
-*file-popularity* view. It means, that all already indexed files will be 
+*file-popularity* view. It means that all already indexed files will be 
 re-indexed. Such operation can be very time-consuming as it depends on the number 
 of the files in the space.
 >
@@ -157,7 +157,7 @@ w2 := 20.0
 
 ### REST API
 
-All operation presented in the GUI can also be performed using REST API.
+All operations presented in the GUI can also be performed using the REST API.
 Links to the documentation are presented below.
 
 | Request                             | Link to API |
