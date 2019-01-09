@@ -4,15 +4,15 @@
 
 ## Concept
 
-The file-popularity mechanism enables tracking usage-statistics for files in the 
-selected space. It allows to list files' IDs, sorted by increasing order of the 
+The file-popularity mechanism enables tracking of usage-statistics for files in the 
+selected space. It allows to list files' IDs sorted by increasing order of the 
 [`popularity`](#the-popularity-function) function, so that the least popular files
 are at the beginning of the list.
 
->**NOTE:** Usage statistics can be collected only for local support of the space. 
-> It is impossible to obtain file-popularity statistics for the remote provider.
+>**NOTE:** Usage statistics can be collected only for local storage supporting the space. 
+> It is impossible to obtain file-popularity statistics for a remote provider.
 
-The mechanism for given space can be enabled in the Onepanel, in the spaces
+The mechanism for given space can be enabled in Oneprovider's Onepanel, in the space
 configuration tab.
 ![](../img/admin/op_panel_file_popularity.png)
 
@@ -42,7 +42,7 @@ applies also to the *file-popularity* view.
 
 ### The popularity function
 The key that is emitted to the *file-popularity* view is the value of the
-[`popularity`](#the-popularity-function)function for given file.
+[`popularity`](#the-popularity-function) function for given file.
 The function is defined as follows:
 
 ```

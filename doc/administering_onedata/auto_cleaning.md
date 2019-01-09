@@ -1,15 +1,14 @@
 # Automatic replica cleaning
 
-As a prerequisite for understanding this section we advise to familiarize with 
+As a prerequisite for understanding this section, we advise to familiarize with 
 the mechanism of [file-popularity](../administering_onedata/file_popularity.md).
 
 <!-- toc -->
 
 ## Concept
 
-In order to automate the process of maintaining the storage usage at a certain 
-limit and ensuring that there is a space left for new replicas when performing 
-continuous computations, the *auto-cleaning* mechanism has been introduced.
+The purpose of the *auto-cleaning* mechanism is to automatically maintain storage usage at a certain 
+level and ensure that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the 
 [file-popularity](../administering_onedata/file_popularity.md) to determine
 the least popular file replicas in the space and to evict them.
@@ -25,14 +24,14 @@ bytes and number of removed replicas.
 
 ### Basic setup
 
-The mechanism can be enabled in the space configuration tab.
+The mechanism can be enabled in the space configuration tab in Oneprovider's Onepanel.
 
 > *NOTE:* 
 >The [file-popularity](../administering_onedata/file_popularity.md) mechanism 
 must be enabled to turn *auto-cleaning* on. 
 > Disabling [file-popularity](../administering_onedata/file_popularity.md), disables *auto-cleaning*.
  
-The user interface allows administrator to specify **low** and **high** thresholds,
+The user interface allows the administrator to specify **low** and **high** thresholds,
 corresponding to the amount of data stored on the local storage supporting given space:
 * **high threshold** - when exceeded, an auto-cleaning run will be triggered to evict redundant replicas. 
 * **low threshold** - when reached, the current auto-cleaning run will be stopped.  
