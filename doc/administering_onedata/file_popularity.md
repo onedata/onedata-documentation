@@ -32,7 +32,7 @@ the concept of [Onedata indexes](../using_onedata/metadata.md#advanced-metadata-
 
 ### Internal implementation
 
-Internally, the mechanism creates the *file-popularity* view. All notices presented in the 
+Internally, the mechanism creates the *file-popularity* view. All notes presented in the 
 [Advanced metadata queries section](../using_onedata/metadata.md#advanced-metadata-queries)
 applies also to the *file-popularity* view.
 >**NOTE:** The file-popularity view is a special view, therefore it is forbidden to create 
@@ -47,16 +47,16 @@ The function is defined as follows:
 
 ```
 P(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountPerDay, MAX_AVG_OPEN_COUNT_PER_DAY)
+```
 
 where:
-* lastOpenHour - parameter which is equal to timestamp (in hours since 01.01.1970)
+* `lastOpenHour` - parameter which is equal to timestamp (in hours since 01.01.1970)
   of last open operation on given file
-* w1 - weight of lastOpenHour parameter
-* avgOpenCountPerDay - parameter equal to moving average of number of open
+* `w1` - weight of lastOpenHour parameter
+* `avgOpenCountPerDay` - parameter equal to moving average of number of open
   operations on given file per day. The value is calculated over last 30 days.
-* w2 - weight of avgOpenCountPerDay parameter
-* MAX_AVG_OPEN_COUNT_PER_DAY - upper boundary for avgOpenCountPerDay parameter
-```
+* `w2` - weight of avgOpenCountPerDay parameter
+* `MAX_AVG_OPEN_COUNT_PER_DAY` - upper boundary for avgOpenCountPerDay parameter
 
 Entries in the view index are modified only when associated document
 in the database is modified. It means that entry in the *file-popularity* view
@@ -67,7 +67,7 @@ It is possible that a file that has been intensively used will not be opened any
 Therefore, it's `avgOpenCountPerDay` will not be re-calculated and it will stay
 on a very high value. If the popularity of the file was estimated only basing on
 this parameter such file will stay "popular" forever. To cope with this issue, 
-`lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function)function.
+`lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function) function.
 The parameter is responsible for "balancing" the importance of `avgOpenCountPerDay` parameter.
 
 
@@ -99,7 +99,7 @@ The default value of `MAX_AVG_OPEN_COUNT_PER_DAY` means that we assume that
 files that have `avgOpenCountPerDay > 100` have the same popularity and should 
 be treated as equally popular.
  
-Above values of `w1` and `w2` means that file that has been opened just once
+The above values of `w1` and `w2` mean that file that has been opened just once
 has "similar" popularity to file that was opened about 1000 times in the month
 preceding the last open and that the last open was performed month (30 days) before
 open on the former file.
@@ -110,7 +110,7 @@ Estimations of the default values of weights are presented below.
 
 In the default configuration, we would like to keep balance between `lastOpenHour` and
 `avgOpenCountPerDay` parameters in such a way, that file that has been opened just once has
-value of [`popularity`](#the-popularity-function)function equal to file that was 
+value of [`popularity`](#the-popularity-function) function equal to file that was 
 opened for the last time a month earlier and
 which was opened about 1000 times in the month preceding the last open. 
 

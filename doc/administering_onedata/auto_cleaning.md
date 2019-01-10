@@ -46,22 +46,22 @@ It is possible to filter the list of files obtained from the
 [file-popularity](../administering_onedata/file_popularity.md) by enabling *selective-rules*.
 
 There are six rules for which ranges might be provided:
-* `maxOpenCount` - Files that have been opened less than `maxOpenCount` times may be cleaned.
+* `maxOpenCount` - Files that have been opened less than or equal to `maxOpenCount` times may be cleaned.
   The default value is `9007199254740991 (2^53-1)`.
 * `minHoursSinceLastOpen` - Files that haven't been opened for longer than or equal
   to given period (in hours) may be cleaned. The default value is `0`.
-* `minFileSize` - Only files which size (in bytes) is greater than given value may be cleaned.
+* `minFileSize` - Only files which size (in bytes) is greater than or equal to given value may be cleaned.
   The default value is `1`.
-* `maxFileSize` - Only files which size (in bytes) is less than given value may be cleaned.
+* `maxFileSize` - Only files which size (in bytes) is less than or equal to given value may be cleaned.
   The default value is `1125899906842624 (1 PiB)`.
 * `maxHourlyMovingAverage` - Files that have moving average of open operations
-  count per hour less than given value may be cleaned. The average is calculated
+  count per hour less than or equal to given value may be cleaned. The average is calculated
   in 24 hours window. The default value is `9007199254740991 (2^53-1)`.
 * `maxDailyMovingAverage` - Files that have moving average of open operations
-  count per day less than given value may be cleaned. The average is calculated in 
+  count per day less or equal to than given value may be cleaned. The average is calculated in 
   30 days window. The default value is `9007199254740991 (2^53-1)`.
 * `maxMonthlyMovingAverage` - Files that have moving average of open operations
-  count per month less than given value may be cleaned. The average is calculated
+  count per month less than or equal to given value may be cleaned. The average is calculated
   in 12 months window. The default value is `9007199254740991 (2^53-1)`.
 
 If a rule is disabled it is ignored.
