@@ -101,7 +101,7 @@ be treated as equally popular.
  
 The above values of `w1` and `w2` mean that file that has been opened just once
 has "similar" popularity to file that was opened about 1000 times in the month
-preceding the last open and that the last open was performed month (30 days) before
+preceding the last open and that the last open was performed a month (30 days) before
 open on the former file.
 
 Estimations of the default values of weights are presented below.
