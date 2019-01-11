@@ -18,7 +18,7 @@ Onedata REST API provides comprehensive means for managing permissions for users
 
 ### Space privileges
 
-Space privileges can be assigned either to individual users as well as groups of users.
+Space privileges can be assigned either to individual users or groups of users as well.
 
 The following space privileges are available:
 
@@ -40,7 +40,7 @@ The following space privileges are available:
 
 
 These privileges can be changed using the REST API, depending on whether they are assigned to an invdividual user or a group of users. Below are some examples:
-* List user 'ABC123' permissions to space 'QWE789':
+* List the permisions of user 'ABC123' for space 'QWE789':
 ```bash
 curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEZONE_HOST/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
@@ -51,14 +51,14 @@ which should return something similar to:
 ```
 * Limit user 'ABC123' to only browse contents of space 'QWE789':
 ```bash
-curl -X PUT -H "X-Auth-Token: $ACCESS_TOKEN" \
+curl -X PATCH -H "X-Auth-Token: $ACCESS_TOKEN" \
 -d '{"privileges": ["space_view"]}' -H 'Content-type: application/json' \
 https://$ONEZONE_HOST/api/v3/onezone/spaces/QWE789/users/ABC123/privileges
 ```
-* Allow group 'IOP567' to change privileges of space 'QWE789':
+* Allow group 'IOP567' to only change privileges of space 'QWE789':
 ```bash
-curl -X PUT -H "X-Auth-Token: $ACCESS_TOKEN" \
--d '{"privileges": ["space_set_privileges"]}' \
+curl -X PATCH -H "X-Auth-Token: $ACCESS_TOKEN" \
+-d '{"privileges": ["space_set_privileges"]}' -H 'Content-type: application/json'\
 https://$ONEZONE_HOST/api/v3/onezone/spaces/QWE789/groups/IOP567/privileges
 ```
 

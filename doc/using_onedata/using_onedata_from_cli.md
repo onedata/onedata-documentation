@@ -57,7 +57,7 @@ or using Onedata REST API (if basic authentication is available for the user
 account):
 
 ```bash
-export ONEZONE_API_KEY=`onezone-rest-cli createClientToken | jq -r '.token'`
+export ONEZONE_API_KEY=`onezone-rest-cli listClientTokens | jq -r '.tokens[0]'`
 ```
 
 Check if the token has been generated successfully. From now on we can use it
@@ -85,7 +85,7 @@ onezone-rest-cli getCurrentUser | jq '.'
 
 and modify some of the properties, for instance user alias to `administrator`:
 ```bash
-onezone-rest-cli modifyUser alias==administrator
+onezone-rest-cli modifyCurrentUser alias==administrator
 ```
 
 ## Space management
@@ -104,7 +104,7 @@ onezone-rest-cli listUserSpaces | jq '.'
    ]
 }
 ```
-which returns the list of GUID's of spaces to which the user belongs and the
+which returns the list of GUIDs of spaces to which the user belongs and the
 ID of the default space.
 
 In order to get more information about a specific space use:
@@ -148,7 +148,7 @@ Now we can check the properties of the space, in particular see if there are any
 providers supporting the space:
 
 ```bash
-onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providersSupports | length'
+onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providers | length'
 
 1
 ```
@@ -158,7 +158,7 @@ storage support must be requested from some provider. The request token can be
 generated using this command:
 
 ```bash
-onezone-rest-cli getSpaceProviderToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq -r '.token'
+onezone-rest-cli createSpaceSupportToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq -r '.token'
 
 MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDZhMnhxVEhxcHdEcXpMSWMzVk500TldLb3hGeWY4Rkw00dFd6TlJwTHZYbEUKMDAyOGNpZCB00b2tlblR5cGUgPSBzcGFjZV9zdXBwb3J00X3Rva2VuCjAwMmZzaWduYXR1cmUgdFo02YRFqN7Xr201P6h01rgIZsT2yO02qQTgZqs00itL9AFwK
 ```
@@ -174,8 +174,8 @@ Onedata provides several means for accessing the data including Web GUI
 First, let's select a space on which we'll be working on. For that we need to
 extract the ID of the space "Personal files":
 ```bash
-onezone-rest-cli listUserSpaces | jq '.spaces | join(" ")' \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq "if .name == \"Personal files\" then .spaceId else \"\" end"'
+onezone-rest-cli listUserSpaces | jq -r '.spaces | join("\n")' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq -r "if .name == \"Personal files\" then .spaceId else empty end"'
 
 gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
 ```
@@ -186,13 +186,13 @@ export ONEDATA_SPACE=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
 ```
 
 Since this is a new space, it is empty. We can mount this space directly to the
-local filesystem, but first we need to find an IP of the provider who supports
+local filesystem, but first we need to find the address of the provider that supports
 our space:
 ```bash
-onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jq '.providersSupports | keys[0]' \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getOtherProvider pid={} | jq ".urls[0]"'
+onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jq -r '.providers | keys[0]' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getProviderDetails pid={} | jq -r ".domain"'
 
-192.168.1.4
+example-provider.tk
 ```
 
 Now we can setup environment variables for accessing the Oneprovider and actual
@@ -200,7 +200,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash onedata/oneclient:18.02.1
+docker run -it --privileged --entrypoint=/bin/bash onedata/oneclient:18.02.1
 ```
 
 ```bash
@@ -327,7 +327,7 @@ function(meta) {
 Now to add this index to the space, use the following command:
 
 ```bash
-cat index1.js | oneprovider-rest-cli -ct js addSpaceIndex name=MyIndex1 space_id=$ONEDATA_SPACE -
+cat index1.js | oneprovider-rest-cli -ct js createSpaceIndex index_name=MyIndex1 sid=$ONEDATA_SPACE -
 ```
 
 We can now get the ID of the index using the following command:
