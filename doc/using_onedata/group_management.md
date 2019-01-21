@@ -4,18 +4,18 @@
 
 You can create or join existing groups to easily manage and collaborate using your data. A group is an abstract entity with a name and at least one user assigned to it, who has sufficient permissions to manage it. You can manage your groups from a **Manage groups** page, accessible using **Group** button on the top menu.
 
-## Create a new group
+## Creating a new group
 In order to create a new  group:
 
 1. In the Onedata Web Interface click **Groups** button located on the left menubar.
-2. On the **Groups** page, click **Create** button.
-3. On the bottom of the screen set the name of the new group and click **OK** button.
+2. On the **Groups** page, click **Create**.
+3. Enter the name of the new group and click the **Create** button.
 
 <img  style="display:block;margin:0 auto;" src="../img/groupcreate.png">
 
 New group will appear on the list of groups designated with a unique ID.
 
-## Invite another user to your group
+## Inviting another user to your group
 To invite another user to join your group:
 
 1. Navigate to **Groups** page.
@@ -25,11 +25,11 @@ To invite another user to join your group:
 
 After another user joins your group you will be able to see him in the detailed group view.
 
-## Join existing group
-To join a group, you must request from them a token. After receiving the token:
+## Joining an existing group
+In order to join a group, you must request from them a token. After receiving the token:
 
-1. Navigate to **Groups** page.
-2. Click the **Join** button.
+1. Navigate to the **Groups** page and click **Join**.
+2. Paste the token and click the **Join** button.
 
 You should be able to see a group on the Manage groups page immediately.
 
@@ -45,10 +45,10 @@ All information regarding your group is presented here, including:
 You can control actions and the level of access to your group by setting dedicated permissions. In order to edit permissions:
 
 1. Navigate to **Groups** page.
-2. Click on your **group**, to show detailed view.
+2. Click on your **group** to show detailed view.
 3. To set a permission click on an **empty box** in the relevant column.
-4. To unset a permission click on the **box with a tick**.
-5. To save or discard changes use **Save** or **Discard** buttons.
+4. To unset a permission click on a **box with a tick**.
+5. To save or discard changes use the buttons **Save** or **Discard**.
 
 <img style="display:block;margin:0 auto;" src="../img/grouppermissions.png">
 
@@ -83,15 +83,15 @@ It allows you to:
 |:-----------------------|:-----------------------------------------------------|
 | Leave this group            | Remove this group from the list of your groups       |
 | Rename                 | Rename this group                                    |
-| Invite user            | Add a user to this group                             |
-| Invite group            | Add a subgroup to this group                             |
+| Invite user            | Generate a user invitation token                             |
+| Invite group            | Generate a subgroup invitation token                             |
 | Join as subgroup | Join another group |
 | Join space             | Join existing space                                  |
 | Request space creation | Create a space for this group                        |
 | Remove                 | Remove this group and leave all spaces it has joined |
 
 
-### Remove your group
+### Removing your group
 In order to remove your group:
 1. Navigate to **Groups** page.
 2. On your group, click the **Settings** button.

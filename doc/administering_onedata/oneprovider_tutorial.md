@@ -319,16 +319,28 @@ Open `https://oneprovider-example.tks:9443` using any web browser and continue t
 * Provide Onezone details including subdomain delegation request
   <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
+* Provide the external IP address of the Oneprovider cluster and click "Setup IP address".
+  <p align="center"><img src="../img/admin/op_tutorial_panel_ip_address.png" width="720"></p>
+
+* Check the DNS settings and click "Perform check". If it fails then check that the DNS records, which are displayed exists. 
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup.png" width="640"></p>
+
+* Click "Proceed" when the DNS check succeeds.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup_2.png" width="640"></p>
+
+* Click "Obtain certificate" to automatically obtain a web certificate from Let's encrypt.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_web_cert.png" width="640"></p>
+
 * Add storage
   <p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
 
-* Verify the storage was added successfully
+* Verify the storage was added successfully and click "Finish".
   <p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
 
 * Wait for registration and deployment to complete
   <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
-After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
+After this step succeeds, **Oneprovider** should be running and opening `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
 
 ### Advanced configuration
 After installation several **Oneprovider** parameters can be further fine-tuned using erlang application configuration files.

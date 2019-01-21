@@ -20,23 +20,23 @@ You can select one of the spaces as you **Home** space. This will be the space
 which is opened by default when logging into Oneprovider data management
 interface.
 
-## Manage your spaces
+## Managing your spaces
 You can manage your spaces from the **Data space management** tab located in the web user interface.
-To navigate to **Spaces** page, click on the **Spaces** in the left menubar, there you can see the list of all your spaces with one of them denoted as the home space.
+Click on **Spaces** in the left menubar to navigate to the **Spaces** page where you can see the list of all your spaces with one of them denoted as the home space.
 
-### Create new space
+### Creating new spaces
 <img style="float:right;margin: 0px 15px;max-width:300px" src="../img/spacestabhome.png">
-The first space is created for you automatically during the first login. In order to create more spaces:
+In order to create a new space:
 
 1. In the Onezone Web Interface unfold **Data space management** tab located on the left menubar.
 2. Click **Create new space** button.
-3. Provide new space name in the text edit field and confirm.
+3. Provide a space name in the text edit field and confirm.
 
-New space will appear in the list of spaces designated with a unique ID.
+The new space will appear in the list of spaces designated with a unique ID.
 
-In order to be able to store data in the newly created space, it is necessary to [add storage support](#add-storage-support) from some provider.
+In order to be able to store data in the newly created space, it is necessary to [get storage support](#add-storage-support) from some provider.
 
-### Join existing space
+### Joining an existing space
 In addition to creating new spaces, it is also possible to join existing spaces created by other users.
 
 In order to do that it is necessary to request a **Space join** token from the owner of such space or other user, who has privileges to share the space with others.
@@ -55,7 +55,7 @@ For more information about groups, see [Group Management](group_management.md).
 For more information about permissions, see [Access Control](file_management.md#access-control-lists).
 
 ### Spaces management
-On the **Spaces** page, each listed space has an **Settings** button, which allows you to manage the space.
+On the **Spaces** page, each listed space has a **Settings** button, which allows you to manage the space.
 
 <img  style="display:block;margin:0 auto;max-width:250px" src="../img/space_menu.png">
 
@@ -64,16 +64,16 @@ On the **Spaces** page, each listed space has an **Settings** button, which allo
 | Set as home  | Set this space to be your home space                                    |
 | Leave space  | Remove this space from the list of your spaces                          |
 | Rename       | Rename this space                                                       |
-| Invite user  | Add a user to this space                                                |
-| Invite group | Add a group to this space                                               |
-| Get support  | Generate a unique token for this space that can be sent to the provider |
+| Invite user  | Generate a user invitation token which can be used by another user to join this space |
+| Invite group | Generate a group invitation token which can be used to add a group to this space |
+| Get support  | Generate a unique token for this space which can be sent to the provider |
 
-### Get storage support
+### Getting storage support
 In order to increase your space quota:
-1. Navigate to **Spaces** page.
+1. Navigate to the **Spaces** page.
 2. On your space, click the **Settings** button.
 3. Select **Get support** from the drop down menu.
-4. Copy the token and send it to your provider asking for required amount of storage space.
+4. Copy the token and send it to your provider asking for the required amount of storage space.
 
 The last step can be performed by email or by other means depending on the policies adopted by the provider. After the provider supports your space with more storage you will be able to see it in the detailed space view.
 

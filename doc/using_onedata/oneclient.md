@@ -19,9 +19,9 @@ curl -sS  http://get.onedata.org/oneclient.sh | bash
 
 >After installing ensure that you are able to access `fusermount` tool, by
 >running `fusermount -h`. In case you are not allowed to execute `fusermount`,
->ask your administrator to make you a member of a `fuse` group. If you have
+>ask your administrator to make you a member of the `fuse` group. If you have
 >administrator rights to your machine, use command `gpasswd -a <username> fuse`
->to add your account to `fuse` group.
+>to add your account to the `fuse` group.
 
 ### macOS
 An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
@@ -234,7 +234,7 @@ ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN>
 ONECLIENT_MOUNT=/mnt/oneclient
 ```
 
-After that the systemd service script `` can look like this:
+After that the systemd service script `/etc/systemd/system/oneclient.service` can look like this:
 
 ```ini
 [Unit]

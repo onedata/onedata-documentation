@@ -8,9 +8,9 @@ On the low level, all files are divided into blocks which can be independently r
 
 ## Operations
 There are four possible operations that can be performed by users in terms of file replica management:
-* getting file replicas distribution - finds out where blocks of given file are stored
+* getting file replicas distribution - finds out where blocks of a given file are stored
 * replication - replicates file blocks to target provider
-* replica eviction - removes file blocks from given provider. 
+* replica eviction - removes file blocks from a given provider. 
 The procedure checks whether file replica can be safely deleted which means that it is responsible for checking whether file blocks are not unique. 
 * replica migration - combination of replication and replica eviction. Replicates file blocks to target provider and evicts file replica on the source provider. Migration is performed by the same request as eviction with additional parameter `migration_provider_id`
 
@@ -20,7 +20,7 @@ As a prerequisite for understanding this section we advise to familiarize with [
 It is possible to schedule replication, replica eviction or replica migration of files that are included in the result of a query on a view index.
 Currently, scheduling of such operations is possible only via [REST interface](#rest-interface).
 
-In order to schedule replica operations by indexes, user must ensure that the mapping (or reduce) function returns a list containing solely file IDs as a value. The list of IDs can be arbitrarily nested (it will be flattened).
+In order to schedule replica operations by indexes, the user must ensure that the mapping (or reduce) function returns a list containing solely file IDs as a value. The list of IDs can be arbitrarily nested (it will be flattened).
 Failure to comply with this format will result in errors.
 Example of such mapping function is presented below. It returns the list of all files that have an extended attribute which name starts with "org.onedata.jobId.".
 The latter part of the extended attribute is used as the key in the index view. 
@@ -107,7 +107,7 @@ curl -X GET -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST/api/v3/oneprovider/transfers
 ```
 
-Each transfer can be cancelled using `DELETE` method:
+Each transfer can be cancelled using the HTTP `DELETE` method:
 ```bash
 curl -X DELETE -H "X-Auth-Token: $ACCESS_TOKEN" \
 https://$ONEPROVIDER_HOST/api/v3/oneprovider/transfers/<TRANSFER_ID>
