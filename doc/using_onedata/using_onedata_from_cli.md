@@ -150,7 +150,7 @@ providers supporting the space:
 ```bash
 onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providers | length'
 
-1
+0
 ```
 
 Since by default all newly created spaces in Onedata have no storage support, a
@@ -312,15 +312,16 @@ function in some text editor:
 vi index1.js
 ```
 
-and paste there the following code, which creates an index over `key1` and `key2`
-attributes of the files' metadata:
+and paste there the following code, which creates an index over the `key1`
+attribute of the files' metadata:
 
 ```js
-function(meta) {
-        if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {
-                return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];
-        }
-        return null;
+function(id, type, meta, ctx) {
+    if (type === 'custom_metadata') {
+        if(meta['onedata_json'] && meta['onedata_json']['key1']) {
+	        return [meta['onedata_json']['key1'], id];
+	}
+    }
 }
 ```
 
@@ -330,30 +331,34 @@ Now to add this index to the space, use the following command:
 cat index1.js | oneprovider-rest-cli -ct js createSpaceIndex index_name=MyIndex1 sid=$ONEDATA_SPACE -
 ```
 
-We can now get the ID of the index using the following command:
+We can now list indexes using the following command:
 
 ```bash
 oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | jq '.'
 
-[
-  {
-     "indexId" : "0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE",
-     "spaceId" : "gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o",
-     "name" : "MyIndex1",
-     "spatial" : false
-  }
-]
+{
+  "indexes": [
+      "MyIndex1"
+  ]
+}
 ```
 
 Now the files which match the specified index can be queried using the
 following command:
 ```bash
-oneprovider-rest-cli -g querySpaceIndexes iid=0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE key='["value1", 5]'
+oneprovider-rest-cli querySpaceIndex sid=$ONEDATA_SPACE index_name=MyIndex1| jq '.'
 
-["0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F"]
+[
+  {
+      "value": "000000000046288867756964233964383034643730316136636530353837626433386336323062343039653533233733363938653539633432313466623662363066356330313635386232663362",
+      "key": "value1",
+      "id": "3d4a1da785bdda1fd205aae8fcc092ce"
+  }
+]
 ```
 
-The returned result is the list file ID's which match the index.
+The returned JSON objects describe the files which match match the index. The
+attribute "value" contains the given file identifier.
 
 > The format and length of the file identifiers is compatible with CDMI standard.
 
@@ -361,10 +366,10 @@ Currently the path to the file can be resolved only using CDMI API:
 
 ```bash
 curl -H "X-Auth-Token: $ONEPROVIDER_API_KEY" -H "X-CDMI-Specification-Version: 1.1.1" \
-$ONEPROVIDER_HOST/cdmi/cdmi_objectid/0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F \
+$ONEPROVIDER_HOST/cdmi/cdmi_objectid/000000000046288867756964233964383034643730316136636530353837626433386336323062343039653533233733363938653539633432313466623662363066356330313635386232663362 \
 | jq '.parentURI+.objectName'
 
-/Personal files/file1.txt
+"/Personal files/file1.txt"
 ```
 
 #### RDF
@@ -373,6 +378,7 @@ Custom RDF documents can also be attached to any data object:
 curl -Ssk https://www.w3.org/2000/10/rdf-tests/Miscellaneous/animals.rdf \
 | oneprovider-rest-cli -ct rdf setFileMetadata path="Personal files/file1.txt" -
 ```
+
 
 and then retrieved:
 ```bash
