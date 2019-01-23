@@ -12,17 +12,10 @@ The storage providers need to install at least one *Oneprovider* service in thei
 
 Onedata components can be built from sources, installed from a pre-built release package or deployed by using ready-to-go docker images. If you do not plan on developing Onedata itself, we suggest using docker images.
 
-## Download and install Onedata
-
-### Docker
+## Docker images
 Currently the best way to install Onedata services is using Docker. We provide a complete set of [Docker images](https://hub.docker.com/u/onedata/) covering all Onedata services.
 
-We prepared an [Administrator quickstart](admin_onedata_101.md) tutorial, which explains how to quickly setup a complete Onedata installation on a local machine.
-
-For more advanced tutorials on running Onedata with Docker, see our [Getting Started](https://github.com/onedata/getting-started) repository on GitHub, which contains sample configuration files for various deployment types.
-
-
-### Pre-built Linux packages
+## Pre-built Linux packages
 
 We provide packages *Oneprovider* and *Onezone* for:
 - Ubuntu 16.04
@@ -50,6 +43,6 @@ For detailed instructions on installing Oneclient see [here](../using_onedata/on
 
 For detailed instructions on installing Onezone see [here](../administering_onedata/onezone_tutorial.md) and for Oneprovider see [here](../administering_onedata/oneprovider_tutorial.md).
 
-### Building from source
+## Building from source
 
 Onedata is composed of several components, to find instruction on building each of them from source please checkout our main README at our [GitHub repository](https://github.com/onedata/onedata).
