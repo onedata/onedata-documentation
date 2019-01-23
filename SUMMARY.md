@@ -6,7 +6,7 @@
   * [User Quickstart](doc/getting_started/user_onedata_101.md)
   * [Admin Quickstart](doc/getting_started/admin_onedata_101.md)
       * [Onezone deploy](doc/administering_onedata/onezone_quick_tutorial.md)
-      * [Oneprovider deploy](doc/administering_onedata/onedatify_deploy.md)
+      * [Oneprovider deploy](doc/administering_onedata/oneprovider_quick_tutorial.md)
 
 * [Onedata for users]()
    * [Overview](doc/user_guide.md)
