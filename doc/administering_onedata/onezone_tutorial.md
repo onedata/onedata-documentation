@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-This section describes the steps needed to install and configure Onezone service in production, either using Docker images or directly using our packages. For instructions how to setup test deployments with minimal effort checkout our [Getting Started](https://github.com/onedata/getting-started) repository - this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
+This section describes the steps needed to install and configure Onezone service in production, either using Docker images or directly using our packages. 
 
 ## Installation
 Onezone can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
@@ -98,7 +98,7 @@ Python 2.7.12
 ```
 
 ### Docker based setup
-Onezone installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started). This type of deployment requires that docker and docker-compose have been installed on your server.
+Onezone installation using Docker is very straightforward. This type of deployment requires that docker and docker-compose have been installed on your server.
 
 #### Customizing Onezone Docker Compose script
 In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the folder `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.

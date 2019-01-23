@@ -7,10 +7,6 @@ This section describes the steps needed to install and configure
 using our packages. In order to deploy **Oneprovider**, it must be connected
 during startup to an existing **Onezone** installation.
 
-For instructions how to setup test deployments with minimal effort checkout
-our [Getting Started](https://github.com/onedata/getting-started) repository
-- this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
-
 ## Installation
 **Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/oneprovider/)
 on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms)
@@ -118,7 +114,7 @@ Python 2.7.12
 The easiest way to deploy **Oneprovider** is using **Onedatify**. The deployment procedure is described [here](./onedatify_deploy.md).
 
 ### Docker based setup
-**Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).  This type of deployment requires that docker and docker-compose are installed on your server.
+**Oneprovider** installation using Docker is very straightforward. This type of deployment requires that docker and docker-compose are installed on your server.
 
 #### Customizing Oneprovider Docker Compose script
 In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
