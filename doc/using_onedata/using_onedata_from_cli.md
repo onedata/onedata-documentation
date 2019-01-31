@@ -36,10 +36,10 @@ services:
 
 By default Docker is configured for the latest Onedata release, but it also
 contains clients for all previous releases, to switch to a specific release
-(for instance 17.06.0-rc2) use:
+(for instance 18.02.0-rc11) use:
 
 ```bash
-onedata-select-version 18.02.1
+onedata-select-version 18.02.0-rc11
 ```
 
 ## Authentication
@@ -57,7 +57,7 @@ or using Onedata REST API (if basic authentication is available for the user
 account):
 
 ```bash
-export ONEZONE_API_KEY=`onezone-rest-cli getClientToken | jq -r '.token'`
+export ONEZONE_API_KEY=`onezone-rest-cli listClientTokens | jq -r '.tokens[0]'`
 ```
 
 Check if the token has been generated successfully. From now on we can use it
@@ -76,17 +76,16 @@ onezone-rest-cli getCurrentUser | jq '.'
 
 {
    "name" : "admin",
-   "alias" : "",
-   "login" : "admin",
-   "connectedAccounts" : [],
+   "alias" : "admin",
+   "linkedAccounts" : [],
    "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
-   "emailList" : []
+   "emails" : []
 }
 ```
 
 and modify some of the properties, for instance user alias to `administrator`:
 ```bash
-onezone-rest-cli modifyUser alias==administrator
+onezone-rest-cli modifyCurrentUser alias==administrator
 ```
 
 ## Space management
@@ -105,7 +104,7 @@ onezone-rest-cli listUserSpaces | jq '.'
    ]
 }
 ```
-which returns the list of GUID's of spaces to which the user belongs and the
+which returns the list of GUIDs of spaces to which the user belongs and the
 ID of the default space.
 
 In order to get more information about a specific space use:
@@ -149,9 +148,9 @@ Now we can check the properties of the space, in particular see if there are any
 providers supporting the space:
 
 ```bash
-onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providersSupports | length'
+onezone-rest-cli getUserSpace sid=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq '.providers | length'
 
-1
+0
 ```
 
 Since by default all newly created spaces in Onedata have no storage support, a
@@ -159,7 +158,7 @@ storage support must be requested from some provider. The request token can be
 generated using this command:
 
 ```bash
-onezone-rest-cli getSpaceProviderToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq -r '.token'
+onezone-rest-cli createSpaceSupportToken id=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o | jq -r '.token'
 
 MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIDZhMnhxVEhxcHdEcXpMSWMzVk500TldLb3hGeWY4Rkw00dFd6TlJwTHZYbEUKMDAyOGNpZCB00b2tlblR5cGUgPSBzcGFjZV9zdXBwb3J00X3Rva2VuCjAwMmZzaWduYXR1cmUgdFo02YRFqN7Xr201P6h01rgIZsT2yO02qQTgZqs00itL9AFwK
 ```
@@ -175,8 +174,8 @@ Onedata provides several means for accessing the data including Web GUI
 First, let's select a space on which we'll be working on. For that we need to
 extract the ID of the space "Personal files":
 ```bash
-onezone-rest-cli listUserSpaces | jq '.spaces | join(" ")' \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq "if .name == \"Personal files\" then .spaceId else \"\" end"'
+onezone-rest-cli listUserSpaces | jq -r '.spaces | join("\n")' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getUserSpace sid={} | jq -r "if .name == \"Personal files\" then .spaceId else empty end"'
 
 gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
 ```
@@ -187,13 +186,13 @@ export ONEDATA_SPACE=gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o
 ```
 
 Since this is a new space, it is empty. We can mount this space directly to the
-local filesystem, but first we need to find an IP of the provider who supports
+local filesystem, but first we need to find the address of the provider that supports
 our space:
 ```bash
-onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jq '.providersSupports | keys[0]' \
-| xargs -n1 -I{} sh -c 'onezone-rest-cli getOtherProvider pid={} | jq ".urls[0]"'
+onezone-rest-cli getUserSpace sid=$ONEDATA_SPACE | jq -r '.providers | keys[0]' \
+| xargs -n1 -I{} sh -c 'onezone-rest-cli getProviderDetails pid={} | jq -r ".domain"'
 
-192.168.1.4
+example-provider.tk
 ```
 
 Now we can setup environment variables for accessing the Oneprovider and actual
@@ -201,7 +200,7 @@ data using Oneclient. Oneclient can be also started in a separate session using
 Docker in a separate terminal:
 
 ```bash
-docker run -it --entrypoint=/bin/bash onedata/oneclient:18.02.1
+docker run -it --privileged --entrypoint=/bin/bash onedata/oneclient:18.02.1
 ```
 
 ```bash
@@ -313,48 +312,53 @@ function in some text editor:
 vi index1.js
 ```
 
-and paste there the following code, which creates an index over `key1` and `key2`
-attributes of the files' metadata:
+and paste there the following code, which creates an index over the `key1`
+attribute of the files' metadata:
 
 ```js
-function(meta) {
-        if(meta['onedata_json']['key1'] && meta['onedata_json']['key2']) {
-                return [meta['onedata_json']['key1'], meta['onedata_json']['key2']];
-        }
-        return null;
+function(id, type, meta, ctx) {
+    if (type === 'custom_metadata') {
+        if(meta['onedata_json'] && meta['onedata_json']['key1']) {
+	        return [meta['onedata_json']['key1'], id];
+	}
+    }
 }
 ```
 
 Now to add this index to the space, use the following command:
 
 ```bash
-cat index1.js | oneprovider-rest-cli -ct js addSpaceIndex name=MyIndex1 space_id=$ONEDATA_SPACE -
+cat index1.js | oneprovider-rest-cli -ct js createSpaceIndex index_name=MyIndex1 sid=$ONEDATA_SPACE -
 ```
 
-We can now get the ID of the index using the following command:
+We can now list indexes using the following command:
 
 ```bash
 oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | jq '.'
 
-[
-  {
-     "indexId" : "0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE",
-     "spaceId" : "gTE6vt5h7bVSeXE1UDt9m6xAurkBwn58Od5YpaHbL_o",
-     "name" : "MyIndex1",
-     "spatial" : false
-  }
-]
+{
+  "indexes": [
+      "MyIndex1"
+  ]
+}
 ```
 
 Now the files which match the specified index can be queried using the
 following command:
 ```bash
-oneprovider-rest-cli -g querySpaceIndexes iid=0EIpeIrygRCLRGwIUjW1DWlClPEibhCXDIbYjudINRE key='["value1", 5]'
+oneprovider-rest-cli querySpaceIndex sid=$ONEDATA_SPACE index_name=MyIndex1| jq '.'
 
-["0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F"]
+[
+  {
+      "value": "000000000046288867756964233964383034643730316136636530353837626433386336323062343039653533233733363938653539633432313466623662363066356330313635386232663362",
+      "key": "value1",
+      "id": "3d4a1da785bdda1fd205aae8fcc092ce"
+  }
+]
 ```
 
-The returned result is the list file ID's which match the index.
+The returned JSON objects describe the files which match match the index. The
+attribute "value" contains the given file identifier.
 
 > The format and length of the file identifiers is compatible with CDMI standard.
 
@@ -362,10 +366,10 @@ Currently the path to the file can be resolved only using CDMI API:
 
 ```bash
 curl -H "X-Auth-Token: $ONEPROVIDER_API_KEY" -H "X-CDMI-Specification-Version: 1.1.1" \
-$ONEPROVIDER_HOST/cdmi/cdmi_objectid/0000000000919115836803640004677569646D000000526148686D54554E58625846316355464A616B6378523256484D6D566157546878646E4D3461564A4A626A413553487071513070706247355452534D6A2D394B756665783048455233304D4D36455A773078776D0000002B67544536767435683762565365584531554474396D36784175726B42776E35384F643559706148624C5F6F \
+$ONEPROVIDER_HOST/cdmi/cdmi_objectid/000000000046288867756964233964383034643730316136636530353837626433386336323062343039653533233733363938653539633432313466623662363066356330313635386232663362 \
 | jq '.parentURI+.objectName'
 
-/Personal files/file1.txt
+"/Personal files/file1.txt"
 ```
 
 #### RDF
@@ -374,6 +378,7 @@ Custom RDF documents can also be attached to any data object:
 curl -Ssk https://www.w3.org/2000/10/rdf-tests/Miscellaneous/animals.rdf \
 | oneprovider-rest-cli -ct rdf setFileMetadata path="Personal files/file1.txt" -
 ```
+
 
 and then retrieved:
 ```bash

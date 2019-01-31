@@ -1,81 +1,53 @@
 {
-  "default": "18.02.0-beta1",
-  "order": [
-    "18.02.0-beta1",
-    "17.06.0-rc8",
-    "17.06.0-rc7",
-    "17.06.0-rc6",
-    "17.06.0-rc3",
-    "17.06.0-rc2",
-    "17.06.0-beta6",
-    "17.06.0-beta2",
-    "3.0.0-rc15",
-    "3.0.0-rc14",
-    "3.0.0-rc11",
-    "3.0.0-rc10",
-    "3.0.0-rc9"
-  ],
-  "versions": {
-    "18.02.0-beta1": {
-      "changelog": ""
+    "default": "18.02.0-rc13",
+    "order": [
+        "18.02.0-rc13",
+        "18.02.0-rc12",
+        "18.02.0-rc11",
+        "18.02.0-rc7",
+        "18.02.0-rc1",
+        "17.06.0-rc8"
+    ],
+    "versions": {
+        "18.02.0-rc13": {
+            "changelog": ""
+        },
+        "18.02.0-rc12": {
+            "changelog": ""
+        },
+        "18.02.0-rc11": {
+            "changelog": ""
+        },
+        "18.02.0-rc7": {
+            "changelog": ""
+        },
+        "18.02.0-rc1": {
+            "changelog": ""
+        },
+        "17.06.0-rc8": {
+            "changelog": ""
+        }
     },
-    "17.06.0-rc8": {
-      "changelog": ""
-    },
-    "17.06.0-rc7": {
-      "changelog": ""
-    },
-    "17.06.0-rc6": {
-      "changelog": ""
-    },
-    "17.06.0-rc3": {
-      "changelog": ""
-    },
-    "17.06.0-rc2": {
-      "changelog": ""
-    },
-    "17.06.0-beta6": {
-      "changelog": ""
-    },
-    "17.06.0-beta2": {
-      "changelog": ""
-    },
-    "3.0.0-rc15": {
-      "changelog": ""
-    },
-    "3.0.0-rc14": {
-      "changelog": ""
-    },
-    "3.0.0-rc11": {
-      "changelog": ""
-    },
-    "3.0.0-rc10": {
-      "changelog": ""
-    },
-    "3.0.0-rc9": {
-      "changelog": ""
-    }
-  },
-  "components": [
-    {
-      "id": "onezone",
-      "name": "Onezone",
-      "description": "Onezone API allows to control all aspects of a Onedata zone, including user, group, space and provider management."
-    },
-    {
-      "id": "oneprovider",
-      "name": "Oneprovider",
-      "description": "Oneprovider API allows to access data and control data transfers and provides extensive metadata functionality."
-    },
-    {
-      "id": "onepanel",
-      "name": "Onepanel",
-      "description": "Onepanel API provides administration interface for managing Onezone and Oneprovider instances, it is available on each host where either of these service is running."
-    },
-    {
-      "id": "luma",
-      "name": "LUMA",
-      "description": "LUMA API allows mapping of local user names on storage resources to global users ID's in Onedata"
-    }
-  ]
+    "components": [
+        {
+            "id": "onezone",
+            "name": "Onezone",
+            "description": "Onezone API allows to control all aspects of a Onedata zone, including user, group, space and provider management."
+        },
+        {
+            "id": "oneprovider",
+            "name": "Oneprovider",
+            "description": "Oneprovider API allows to access data and control data transfers and provides extensive metadata functionality."
+        },
+        {
+            "id": "onepanel",
+            "name": "Onepanel",
+            "description": "Onepanel API provides administration interface for managing Onezone and Oneprovider instances, it is available on each host where either of these service is running."
+        },
+        {
+            "id": "luma",
+            "name": "LUMA",
+            "description": "LUMA API allows mapping of local user names on storage resources to global users ID's in Onedata"
+        }
+    ]
 }

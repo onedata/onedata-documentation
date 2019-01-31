@@ -2,17 +2,28 @@
 
 <!-- toc -->
 
-This section describes the steps needed to install and configure **Oneprovider** service in production, either using Docker images or directly using our packages. In order to deploy **Oneprovider**, it must be connected during startup to an existing **Onezone** installation.
-
-For instructions how to setup test deployments with minimal effort checkout our [Getting Started](https://github.com/onedata/getting-started) repository - this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
+This section describes the steps needed to install and configure
+**Oneprovider** service in production, either using Docker images or directly
+using our packages. In order to deploy **Oneprovider**, it must be connected
+during startup to an existing **Onezone** installation.
 
 ## Installation
-**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/onezone/) on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms) or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker based deployment is the recommended setup due to minimal requirements and best portability.
+**Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/oneprovider/)
+on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms)
+or using packages that we provide for *Ubuntu Xenial* and *CentOS 7*). Docker
+based deployment is the recommended setup due to minimal requirements and
+best portability.
 
-**Oneprovider** service can be deployed on multiple nodes for high-availability purpose, in such case either the Docker setup or the packages need to be installed on all nodes where the **Oneprovider** should be deployed. This tutorial assumes **Oneprovider** will be installed on a single node.
+**Oneprovider** service can be deployed on multiple nodes for high-availability purpose, in
+such case either the Docker setup or the packages need to be installed on all
+nodes where the **Oneprovider** should be deployed. This tutorial assumes
+**Oneprovider** will be installed on a single node.
 
 ### Prerequisites
-In order to ensure optimum performance of the **Oneprovider** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.
+In order to ensure optimum performance of the **Oneprovider** service,
+several low-level settings need to be tuned on the host machine. This applies
+to both Docker based as well as package based installations, in particular to
+nodes where Couchbase database instance are deployed.
 
 After these settings are modified, the machine needs to be rebooted.
 
@@ -20,7 +31,7 @@ After these settings are modified, the machine needs to be rebooted.
 In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
 ```sh
-$ ulimit -n
+ulimit -n
 1024
 ```
 
@@ -28,6 +39,12 @@ If necessary, increase the limit using:
 
 ```sh
 $ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
+$ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
+```
+> It might be also necessary to setup the limit in /etc/systemd/system.conf:
+>```sh
+sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
+sudo systemctl daemon-reexec
 ```
 
 #### Swap preference settings
@@ -63,8 +80,8 @@ Description=Disable Transparent Huge Pages
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
-ExecStart=/bin/sh -c "/bin/echo "never" | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
+ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
 
 [Install]
 WantedBy=multi-user.target
@@ -78,16 +95,26 @@ $ sudo systemctl start disable-thp.service
 ```
 
 #### Node hostname
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-demo.tk`.
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-example.com`.
 
 Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
 
 ```sh
-$ export ONEPROVIDER_HOST="onezone-demo.tk"
+$ export ONEPROVIDER_HOST="oneprovider-example.com"
 ```
 
+#### Python
+Make sure that python 2.x is installed on the machine. For example:
+```sh
+$ python -V
+Python 2.7.12
+```
+
+### Onedatify based setup
+The easiest way to deploy **Oneprovider** is using **Onedatify**. The deployment procedure is described [here](./onedatify_deploy.md).
+
 ### Docker based setup
-**Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).
+**Oneprovider** installation using Docker is very straightforward. This type of deployment requires that docker and docker-compose are installed on your server.
 
 #### Customizing Oneprovider Docker Compose script
 In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
@@ -107,7 +134,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:18.02.0
+    image: onedata/oneprovider:18.02.0-rc13
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -123,24 +150,21 @@ services:
        - "/opt/onedata/oneprovider/persistence:/volumes/persistence"
        # Data storage directories
        - "/mnt/nfs:/volumes/storage"
-       # Oneprovider certificate key
-       - "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
-       # Oneprovider public certificate
-       - "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
-       # Certificate of public certificate signing authority
-       - "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
        # Additional, trusted CA certificates (all files from this directory will be added)
        - "/opt/onedata/oneprovider/cacerts:/etc/op_worker/cacerts"
+       # Uncoment lines below if you disabled the built-in Let's Encrypt client
+       ## SSL certificate
+       #- "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
+       ## SSL certificate key
+       #- "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
+       ## Certificate chain for the TLS certificate above
+       #- "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
     ports:
-      - "53:53"
-      - "53:53/udp"
-      - "443:443"
       - "80:80"
+      - "443:443"
       - "6665:6665"
-      - "8876:8876"
-      - "8877:8877"
       - "9443:9443"
     environment:
       # Force Onepanel to read configuration from environment variable
@@ -184,16 +208,20 @@ services:
           geoLongitude: 19.9449799
           register: true
           name: "ONEPROVIDER-DEMO"
-          adminEmail: "admin@example.com"
+          adminEmail: "admin@oneprovider-example.tk"
+          # Use built-in Let's Encrypt client to obtain and renew certificates
+          letsEncryptEnabled: true
           # Automatically register this Oneprovider in Onezone without subdomain delegation
           subdomainDelegation: false
-          domain: "https://oneprovider-demo.tk"
-          # Automatically register this Oneprovider in Onezone without subdomain delegation
+          domain: "oneprovider-example.tk"
+
+          # Alternatively:
+          ## Automatically register this Oneprovider in Onezone with subdomain delegation
           # subdomainDelegation: true
-          # subdomain: oneprovider-demo # Domain will be "oneprovider-demo.onezone-demo.tk"
+          # subdomain: oneprovider-example # Domain will be "oneprovider-example.onezone-example.tk"
         onezone:
-          # Assign custom name to the Onezone instance
-          domainName: "onezone-demo.tk"
+          # Address of the Onezone at which this Oneprovider will register
+          domainName: "onezone-example.tk"
         onepanel:
           # Create initially 1 administrator and 1 regular user
           users:
@@ -247,86 +275,33 @@ $ sudo apt install oneprovider
 
 
 ### Setting up certificates
-Since release 18.02.0, Onedata supports automatic subdomain delegation and Let's Encrypt certificate generation for Oneprovider instances. If this options is used, it is only necessary to enable this feature in Oneprovider Docker Compose configuration file (see above) or via GUI. In such case, Onepanel will automatically create and update the Let's Encrypt certificates for Oneprovider.
+Since release 18.02.0-beta5, **Oneprovider** supports automatic certificate
+management backed by Let's Encrypt. To use this option, it is only necessary
+to enable this feature in **Oneprovider** Docker Compose configuration file
+(see above) or via GUI.
 
-In order to configure certificates for **Oneprovider** service manually, the following certificates are necessary (in PEM format) and should be placed under specified below paths depending on type of installation:
-
-| Name                           | Path for Docker deployment               | Path for package deployment         |
-| :----------------------------- | :--------------------------------------- | :---------------------------------- |
-| Oneprovider private key        | `/opt/onedata/oneprovider/certs/key.pem` | `/etc/op_panel/certs/web_key.pem`   |
-| Oneprovider public certificate | `/opt/onedata/oneprovider/certs/cert.pem` | `/etc/op_panel/certs/web_cert.pem`  |
-| Oneprovider CA chain           | `/opt/onedata/oneprovider/certs/cacert.pem` | `/etc/op_panel/certs/web_chain.pem` |
-
-During deployment, Onepanel will install these certificates in the **Oneprovider** certificate directory `/etc/op_worker/certs`.
-
-#### Automated setup using Let's Encrypt
-These instructions show how to replace certificates in **Oneprovider** service with [Let's Encrypt](https://letsencrypt.org/) signed certificates using [certbot](https://certbot.eff.org/) utility. In case the certificates were obtained from another CA, the steps are similar. Please note, that the certificates should be replaced before the **Oneprovider** is registered in the **Onezone** service.
-
-> In your are running the following commands after the Onezone service has been
->  started or rerunning them to generate new certificates, the Onezone service has to be stopped.
-
-##### Docker based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Docker container
-$ cd /opt/onedata/oneprovider/certs
-$ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem cacert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem key.pem
-```
-
-##### Package based deployment
-
-```sh
-# Install certbot tool (https://certbot.eff.org/#ubuntuxenial-other)
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install certbot
-$ sudo certbot certonly --standalone -d $ONEPROVIDER_HOST
-
-# The certificates should be in:
-$ sudo ls /etc/letsencrypt/live/$ONEPROVIDER_HOST
-cert.pem  chain.pem  fullchain.pem  privkey.pem  README
-
-# Link the files to the certificates in Onepanel and Oneprovider services
-$ cd /etc/op_panel/certs
-$ sudo rm -rf *.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
-$ cd /etc/op_worker/certs
-$ sudo rm -rf web_key.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/fullchain.pem web_cert.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/privkey.pem web_key.pem
-$ sudo ln -s /etc/letsencrypt/live/$ONEPROVIDER_HOST/chain.pem web_chain.pem
-```
+If you prefer to obtain and install certificates for **Oneprovider** service
+manually, modify the Docker Compose file to mount PEM files inside the
+container using paths listed in [TLS certificate management](./ssl_certificate_management.html).
 
 ### Security and recommended firewall settings
-**Oneprovider** service requires several ports (`53`,`53/UDP`,`80`,`443`,`6665`,`8876`,`8877`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
+**Oneprovider** service requires several TCP ports (`80`,`443`,`6665`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface. For more details on these ports see here.
 
-Furthermore, on all nodes of **Oneprovider** deployment where Couchbase instance is deployed, it exposes several additional ports. This means that the Couchbase [security guidelines](should be also followed.https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html) should be also followed.
+Furthermore, on all nodes of **Oneprovider** deployment where Couchbase
+instance is deployed, it exposes several additional ports. This means that
+the Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html)
+should be also followed.
+
+For more information about ports setup see [Firewal setup](./firewall_setup.md)
 
 ### Cluster configuration for package based deployment
-This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-demo.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
+This tutorial assumed that the cluster configuration is provided directly in the Docker Compose file. However for package based installation the cluster configuration has to be performed separately. It can be done using the Onepanel web based interface. **Onepanel** administration service is automatically started after installation and can be accessed from `https://oneprovider-example.tk:9443` port to configure **Oneprovider** instance. In case it was not started properly, it can be restarted using `systemctl` command:
 
 ```
 $ sudo systemctl restart op_panel.service
 ```
 
-Open `https://oneprovider-demo.tk:9443` using any web browser and continue through the following steps:
+Open `https://oneprovider-example.tks:9443` using any web browser and continue through the following steps:
 
 * Login using default credentials specified in (e.g. `admin:password`)
   <p align="center"><img src="../img/admin/op_tutorial_panel_login.png" width="720"></p>
@@ -340,28 +315,39 @@ Open `https://oneprovider-demo.tk:9443` using any web browser and continue throu
 * Provide Onezone details including subdomain delegation request
   <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
+* Provide the external IP address of the Oneprovider cluster and click "Setup IP address".
+  <p align="center"><img src="../img/admin/op_tutorial_panel_ip_address.png" width="720"></p>
+
+* Check the DNS settings and click "Perform check". If it fails then check that the DNS records, which are displayed exists. 
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup.png" width="640"></p>
+
+* Click "Proceed" when the DNS check succeeds.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup_2.png" width="640"></p>
+
+* Click "Obtain certificate" to automatically obtain a web certificate from Let's encrypt.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_web_cert.png" width="640"></p>
+
 * Add storage
   <p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
 
-* Verify the storage was added successfully
+* Verify the storage was added successfully and click "Finish".
   <p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
 
 * Wait for registration and deployment to complete
   <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
-After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-demo.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-demo.tk`.
+After this step succeeds, **Oneprovider** should be running and opening `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
 
 ### Advanced configuration
-After installation several **Oneprovider** parameters can be further fine-tuned and checked in `app.config` file located in `/etc/op_worker/app.config` for package based deployment and in `/opt/onedata/oneprovider/persistence/etc/op_worker/app.config`. After modifying `app.config` file always restart **Oneprovider** service in order for changes to take effect.
+After installation several **Oneprovider** parameters can be further fine-tuned using erlang application configuration files.
 
-#### Oneprovider domain, name and administrator email
-Make sure that Oneprovider domain was properly set by **Onepanel**, example entries for this tutorial:
+The basis for configuration are read-only files located at `/var/lib/op_worker/app.config` and `/var/lib/op_panel/app.config`. They can be used for reference for defaults in use and extensive comments explaining containted variables, but should not be modified.
 
-```erlang
-...
-    {http_domain, "oneprovider-demo.tk"},
-...
-```
+Settings contained in the `app.config` files are overriden by configuration written by Onepanel during deployment in `autogenerated.config` files and by option custom user config file `overlay.config`.
+
+The autogenerated file is located at `/etc/op_worker/autogenerated.config` and should not by modified by hand.
+
+For custom configuration a new file `/etc/op_worker/overlay.config` or `/etc/op_panel/overlay.config` should be created. Variables set there will override those from `app.config` and `autogenerated.config` files.
 
 ## Running
 
@@ -421,10 +407,10 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
-  <op_worker name="op_worker@oneprovider-demo.tk" status="ok">
+  <op_worker name="op_worker@oneprovider-example.com" status="ok">
     <node_manager status="ok"/>
     <request_dispatcher status="ok"/>
     <datastore_worker status="ok"/>
@@ -460,11 +446,11 @@ In case of Docker based deployment, assuming the paths were set as in the tutori
 
 ```
 # Onepanel logs
-$ sudo ls /opt/onedata/onezone/persistence/var/log/op_panel/
+sudo ls /opt/onedata/oneprovider/persistence/var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs
-sudo ls /opt/onedata/onezone/persistence/var/log/oz_worker/
+sudo ls /opt/onedata/oneprovider/persistence/var/log/oz_worker/
 debug.log error.log info.log run_erl.log
 ```
 
@@ -473,13 +459,52 @@ In case of package based deployment, the following directories contain logs:
 
 ```
 # Onepanel logs
-$ sudo ls /var/log/op_panel/
+sudo ls /var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs
 sudo ls /var/log/op_worker/
 debug.log error.log info.log run_erl.log
 ```
+
+#### Enabling debug logs
+By default, logs on the debug level are disabled, as they have a heavy impact on
+system performance. However, there are cases when you might want to turn them 
+on for some time to identify problems. To do so, you need to attach to the
+Erlang console of the node and execute `logger:set_loglevel(debug).`, like this:
+```
+~$ op_worker attach-direct
+```
+You will be attached to the console and see the following prompt:
+```
+Direct Shell: Use "Ctrl-D" to quit. "Ctrl-C" will terminate the op_worker node.
+Attaching to /tmp/op_worker/erlang.pipe.1 (^D to exit)
+
+(op_worker@node1.oneprovider.local)11> 
+```
+Enter the command (the `.` at the end is required) and press `[Enter]`:
+```
+(op_worker@node1.oneprovider.local)11> logger:set_loglevel(debug).
+ok
+```
+Detach from the console by pressing `[Ctrl + D]` - pressing `[Ctrl + C]` will 
+kill the node!
+```
+(op_worker@node1.oneprovider.local)12> [Quit]
+~$ 
+```
+From now on, the debug logs will be written to the `debug.log` file as they 
+appear. Remember to turn off the debug logs when you are finished:
+```
+~$ op_worker attach-direct
+
+(op_worker@node1.oneprovider.local)13> logger:set_loglevel(info).
+ok
+
+^D
+```
+
+> You can do the same for Onepanel, just replace `op_worker` with `op_panel`.
 
 
 ## Upgrading

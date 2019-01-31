@@ -68,12 +68,11 @@ Then we can check that the user account was created properly by using Onezone RE
 onezone-rest-cli -u alice:secret getCurrentUser | jq .
 
 {
-   "connectedAccounts" : [],
    "userId" : "HVR2bLYDzl2jA1eCboJcdC5oNeY8xjlfCsI58sdshEA",
-   "name" : "alice",
-   "emailList" : [],
-   "alias" : "",
-   "login" : "alice"
+   "name" : "Alice",
+   "alias" : "alice",
+   "emails" : [],
+   "linkedAccounts" : []
 }
 ```
 

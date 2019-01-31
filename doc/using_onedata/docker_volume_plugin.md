@@ -53,15 +53,15 @@ managed using `systemctl` command. After installation is complete it should
 be enabled and started as follows:
 
 ```
-$ systemctl enable docker-volume-onedata.service
-$ systemctl start docker-volume-onedata.service
+$ sudo systemctl enable docker-volume-onedata.service
+$ sudo systemctl start docker-volume-onedata.service
 ```
 
 In order to check that the service is running properly, the following command
 can be used and the expected output should look similar to this example:
 
 ```
-$ systemctl status docker-volume-onedata.service
+$ sudo systemctl status docker-volume-onedata.service
 
 ● docker-volume-onedata.service - Onedata Docker volume plugin
    Loaded: loaded (/usr/lib/systemd/system/docker-volume-onedata.service; disabled; vendor preset: enabled)

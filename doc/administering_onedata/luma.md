@@ -60,15 +60,15 @@ The mapping API consists of 6 operations:
   "storageName": "NFS",
   "spaceId": "c5oiB633lvdGArj-dfpQJk7Wx8wQUmHxc_3a43-P9mw",
   "userDetails": {
-    "name": "John Doe",
-    "login": "jdoe",
-    "emailList": ["jdoe@example.com"],
     "id": "d5ffe868b88f75e38f8b1e6809d093d1",
-    "connectedAccounts": [
+    "name": "John Doe",
+    "alias": "jdoe",
+    "emails": ["jdoe@example.com"],
+    "linkedAccounts": [
        {
          "idp": "github",
-         "userId": "68b88f75e38f8b1e68",
-         "emailList": ["jdoe@github.com"]
+         "subjectId": "68b88f75e38f8b1e68",
+         "emails": ["jdoe@github.com"]
        }
     ]
   }
@@ -249,7 +249,10 @@ Each of the above operations' arguments depend on the type of storage for which 
 
 ## LUMA deployment
 
-This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and [TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from [onedata/luma](https://github.com/onedata/luma/tree/release/17.06.0-rc8) GitHub repository.
+This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. 
+LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and 
+[TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from 
+[onedata/luma](https://github.com/onedata/luma/tree/release/18.02.0-rc13) GitHub repository.
 
 ### Add Oneprovider storage with LUMA support
 
@@ -271,7 +274,7 @@ Latest LUMA container can be found on our [Dockerhub repository](https://hub.doc
 
 ```bash
 $ touch db.json # Only the first time
-$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:18.02.0-beta1
+$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:18.02.0-rc13
 ```
 
 Flask server will by default log all requests to the stdout, so it should be easy to see whether the Oneprovider requests are handled properly.
@@ -283,7 +286,7 @@ LUMA can be also started directly without Docker:
 ```bash
 $ git clone https://github.com/onedata/luma
 $ cd luma
-$ git checkout release/18.02.0-beta1
+$ git checkout release/18.02.0-rc13
 $ cd luma
 $ vim db.json # Define the mappings manually or leave empty
 $ python app.py # Make sure that the service will run persistently
@@ -321,10 +324,10 @@ The following command line examples assume they are executed inside this contain
 Although LUMA mappings can be defined using local storage name (LUMA is always associated with only a single Oneprovider), the mappings can also be defined using storage ID. The storage Id can be obtained from the Onepanel REST interface of the Oneprovider to which the storage is attached.
 
 ```bash
-[Onedata REST CLI - 17.06.0-rc6]$ export ONEPANEL_HOST=https://<ONEPROVIDER_IP>:9443
-[Onedata REST CLI - 17.06.0-rc6]$ export ONEPANEL_BASIC_AUTH=admin:<ADMIN_PASSWORD>
+[Onedata REST CLI - 18.02.0-rc13]$ export ONEPANEL_HOST=https://<ONEPROVIDER_IP>:9443
+[Onedata REST CLI - 18.02.0-rc13]$ export ONEPANEL_BASIC_AUTH=admin:<ADMIN_PASSWORD>
 # First get the list of storage ids attached to this Oneprovider
-[Onedata REST CLI - 17.06.0-rc6]$ onepanel-rest-cli getStorages | jq .
+[Onedata REST CLI - 18.02.0-rc13]$ onepanel-rest-cli getStorages | jq .
 {
   "ids": [
     "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
@@ -332,7 +335,7 @@ Although LUMA mappings can be defined using local storage name (LUMA is always a
   ]
 }
 # Now find which storage is the required one
-[Onedata REST CLI - 17.06.0-rc6]$ onepanel-rest-cli getStorageDetails id=sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM | jq .
+[Onedata REST CLI - 18.02.0-rc13]$ onepanel-rest-cli getStorageDetails id=sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM | jq .
 {
   "id": "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
   "name": "LUMATEST",
@@ -351,25 +354,25 @@ Although LUMA mappings can be defined using local storage name (LUMA is always a
 User Id can be obtained by from the details which each user can get when authenticated to the Onezone REST API using the following operation.
 
 ```bash
-[Onedata REST CLI - 17.06.0-rc6]$ onezone-rest-cli getCurrentUser
+[Onedata REST CLI - 18.02.0-rc13]$ onezone-rest-cli getCurrentUser
 {
   "userId": "a5ffe868b88f75e38f8b1e6809d093d1",
   "name": "John Doe",
-  "login": "",
-  "emailList": [
+  "alias": "john.doe",
+  "emails": [
     "jdoe@example.com"
   ],
-  "connectedAccounts": [
+  "linkedAccounts": [
     {
-      "user_id": "223536c273ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
-      "provider_id": "egi",
+      "idp": "egi",
+      "subjectId": "223536c273ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
       "name": "John Doe",
-      "login": "",
-      "groups": [
-        "vo:vo.indigo-datacloud.eu/tm:aai.egi.eu/user:member",
-        "vo:egi.eu/tm:www.egi.eu/tm:wiki-editors/user:member",
+      "alias": "",
+      "entitlements": [
+        "vo.indigo-datacloud.eu/aai.egi.eu",
+        "egi.eu/www.egi.eu/wiki-editors"
       ],
-      "email_list": [
+      "emails": [
         "jdoe@example.com"
       ]
     }
@@ -381,14 +384,14 @@ User Id can be obtained by from the details which each user can get when authent
 Here we can see that the user has 2 Id's:
 
 * `userId` at the top level which is associated with `onedata` IdP
-* as well as `user_id` in the `connectedAccounts` section which is associated with the `egi` IdP - bot can be used in the LUMA mappings, provided they are paired with the name of the IdP
+* as well as `subjectId` in the `linkedAccounts` section which is associated with the `egi` IdP - bot can be used in the LUMA mappings, provided they are paired with the name of the IdP
 
 ##### Obtaining group Id
 In order to get the Id of a specific group in Onedata, it is necessary to list through all groups associated with a user or space and find the required one, for instance:
 
 ```bash
 # First list the user groups Id's
-[Onedata REST CLI - 17.06.0-rc6]$ onezone-rest-cli getUserGroups | jq .
+[Onedata REST CLI - 18.02.0-rc13]$ onezone-rest-cli getUserGroups | jq .
 {
   "groups": [
     "wZTuAqxmm8ntFhCY5NpbjAKzAjokHqs2Ehj9SdqMJCk",
@@ -398,7 +401,7 @@ In order to get the Id of a specific group in Onedata, it is necessary to list t
   ]
 }
 # Then search for the interesting group
-[Onedata REST CLI - 17.06.0-rc6]$ onezone-rest-cli getUserGroup gid=zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8 | jq .
+[Onedata REST CLI - 18.02.0-rc13]$ onezone-rest-cli getUserGroup gid=zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8 | jq .
 {
   "type": "role",
   "name": "GroupA",
@@ -490,7 +493,7 @@ In case it is preferred to use user Id from another IdP than Onedata, it can be 
   "users": {
     "1": {
       "userDetails": {
-      	"connectedAccounts": [ {
+      	"linkedAccounts": [ {
         	"userId": "54213ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
         	"idp": "egi"
       },
@@ -517,8 +520,8 @@ Users can be also identified by email - however this will only work for forward 
   "users": {
     "1": {
       "userDetails": {
-      	"connectedAccounts": [ {
-        	"emailList": ["jdoe@example.com"]
+      	"linkedAccounts": [ {
+        	"emails": ["jdoe@example.com"]
       },
       "credentials": [
         {

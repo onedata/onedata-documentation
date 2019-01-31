@@ -19,9 +19,9 @@ curl -sS  http://get.onedata.org/oneclient.sh | bash
 
 >After installing ensure that you are able to access `fusermount` tool, by
 >running `fusermount -h`. In case you are not allowed to execute `fusermount`,
->ask your administrator to make you a member of a `fuse` group. If you have
+>ask your administrator to make you a member of the `fuse` group. If you have
 >administrator rights to your machine, use command `gpasswd -a <username> fuse`
->to add your account to `fuse` group.
+>to add your account to the `fuse` group.
 
 ### macOS
 An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
@@ -78,15 +78,17 @@ oneclient -u MOUNT_POINT
 
 ## Options
 
-### Direct IO and Proxy IO modes
+### Direct I/O and Proxy I/O modes
 By default `oneclient` will automatically try to detect if it can access storage supporting
-mounted spaces directly, which significantly improves IO performance as all read and write
+mounted spaces directly, which significantly improves I/O performance as all read and write
 operations go directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
 
-  * `--force-proxy-io` - disables Direct IO mode, all data transfers will go via Oneprovider service
-  * `--force-direct-io` - forces Direct IO mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
+  * `--force-proxy-io` - disables Direct I/O mode, all data transfers will go via Oneprovider service
+  * `--force-direct-io` - forces Direct I/O mode, if it is not available for any of mounted spaces, `oneclient` will fail to mount
+
+> NOTE: Oneclient will be able to use direct I/O to a storage only if connected to the provider which supports the space with this storage.  
 
 ### Buffering
 `oneclient` employs an in-memory buffer for input and output data blocks, which can significantly
@@ -115,14 +117,14 @@ General options:
   -H [ --host ] <host>                  Specify the hostname of the Oneprovider
                                         instance to which the Oneclient should
                                         connect.
-  -P [ --port ] <port> (=5555)          Specify the port to which the Oneclient
+  -P [ --port ] <port> (=443)           Specify the port to which the Oneclient
                                         should connect on the Oneprovider.
   -i [ --insecure ]                     Disable verification of server
                                         certificate, allows to connect to
                                         servers without valid certificate.
   -t [ --token ] <token>                Specify Onedata access token for
                                         authentication and authorization.
-  -l [ --log-dir ] <path> (=/tmp/oneclient/501)
+  -l [ --log-dir ] <path> (=/tmp/oneclient/0)
                                         Specify custom path for Oneclient logs.
 
 Advanced options:
@@ -133,7 +135,10 @@ Advanced options:
   --buffer-scheduler-thread-count <threads> (=1)
                                         Specify number of parallel buffer
                                         scheduler threads.
-  --communicator-thread-count <threads> (=3)
+  --communicator-pool-size <connections> (=10)
+                                        Specify number of connections in
+                                        communicator pool.
+  --communicator-thread-count <threads> (=4)
                                         Specify number of parallel communicator
                                         threads.
   --scheduler-thread-count <threads> (=1)
@@ -144,33 +149,59 @@ Advanced options:
                                         helper threads.
   --no-buffer                           Disable in-memory cache for
                                         input/output data blocks.
-  --read-buffer-min-size <size> (=1048576)
+  --provider-timeout <duration> (=120)  Specify Oneprovider connection timeout
+                                        in seconds.
+  --disable-read-events                 Disable reporting of file read events.
+  --force-fullblock-read                Force fullblock read mode. By
+                                        default read can return less data than
+                                        request in case it is immediately
+                                        available and consecutive blocks need
+                                        to be prefetched from remote storage.
+  --read-buffer-min-size <size> (=5242880)
                                         Specify minimum size in bytes of
                                         in-memory cache for input data blocks.
-  --read-buffer-max-size <size> (=52428800)
+  --read-buffer-max-size <size> (=104857600)
                                         Specify maximum size in bytes of
                                         in-memory cache for input data blocks.
   --read-buffer-prefetch-duration <duration> (=1)
                                         Specify read ahead period in seconds of
                                         in-memory cache for input data blocks.
-  --write-buffer-min-size <size> (=1048576)
+  --write-buffer-min-size <size> (=20971520)
                                         Specify minimum size in bytes of
                                         in-memory cache for output data blocks.
   --write-buffer-max-size <size> (=52428800)
                                         Specify maximum size in bytes of
                                         in-memory cache for output data blocks.
-  --write-buffer-flush-delay <delay> (=1)
+  --write-buffer-flush-delay <delay> (=5)
                                         Specify idle period in seconds before
                                         flush of in-memory cache for output
                                         data blocks.
   --metadata-cache-size <size> (=100000)
                                         Specify maximum number of file metadata
                                         entries which can be stored in cache.
+  --readdir-prefetch-size <size> (=2500)
+                                        Specify the size of requests made
+                                        during readdir prefetch (in number of
+                                        dir entries).
+
 FUSE options:
   -f [ --foreground ]         Foreground operation.
   -d [ --debug ]              Enable debug mode (implies -f).
   -s [ --single-thread ]      Single-threaded operation.
   -o [ --opt ] <mount_option> Pass mount arguments directly to FUSE.
+
+Monitoring options:
+  --monitoring-type <reporter>        Enables performance metrics monitoring -
+                                      allowed values are: graphite.
+  --monitoring-level-basic            Sets monitoring reporting level to basic
+                                      - default.
+  --monitoring-level-full             Sets monitoring reporting level to full.
+  --monitoring-period <seconds> (=30) Performance metrics reporting period.
+  --graphite-url <url>                Graphite url - required when
+                                      monitoring-type is 'graphite', the scheme
+                                      can be either tcp or udp and default port
+                                      is 2003
+  --graphite-namespace-prefix <name>  Graphite namespace prefix.
 ```
 
 ## Using Oneclient from Docker
@@ -203,7 +234,7 @@ ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN>
 ONECLIENT_MOUNT=/mnt/oneclient
 ```
 
-After that the systemd service script `` can look like this:
+After that the systemd service script `/etc/systemd/system/oneclient.service` can look like this:
 
 ```ini
 [Unit]
