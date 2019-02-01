@@ -5,6 +5,8 @@
   * [Downloading Onedata](doc/getting_started/downloading_onedata.md)
   * [User Quickstart](doc/getting_started/user_onedata_101.md)
   * [Admin Quickstart](doc/getting_started/admin_onedata_101.md)
+      * [Onezone deploy](doc/administering_onedata/onezone_quick_tutorial.md)
+      * [Oneprovider deploy](doc/administering_onedata/oneprovider_quick_tutorial.md)
 
 * [Onedata for users]()
    * [Overview](doc/user_guide.md)
@@ -43,7 +45,8 @@
       * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
       * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
       * [Local User MApping](doc/administering_onedata/luma.md)
-      * [File popularity](doc/administering_onedata/file_popularity.md)
+      * [File-popularity](doc/administering_onedata/file_popularity.md)
+      * [Auto-cleaning](doc/administering_onedata/auto_cleaning.md)
       * [Admin REST API](doc/administering_onedata/administering_onedata_from_cli.md)
 
 * [Advanced topics](doc/advanced/README.md)

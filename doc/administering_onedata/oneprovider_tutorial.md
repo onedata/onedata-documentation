@@ -7,10 +7,6 @@ This section describes the steps needed to install and configure
 using our packages. In order to deploy **Oneprovider**, it must be connected
 during startup to an existing **Onezone** installation.
 
-For instructions how to setup test deployments with minimal effort checkout
-our [Getting Started](https://github.com/onedata/getting-started) repository
-- this tutorial is roughly equivalent to [scenario 3.0](https://github.com/onedata/getting-started/tree/master/scenarios/3_0_oneprovider_onezone_multihost).
-
 ## Installation
 **Oneprovider** can be deployed using our [official Docker images](https://hub.docker.com/r/onedata/oneprovider/)
 on any [Linux OS supporting Docker](https://docs.docker.com/engine/installation/#supported-platforms)
@@ -35,7 +31,7 @@ After these settings are modified, the machine needs to be rebooted.
 In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
 
 ```sh
-$ ulimit -n
+ulimit -n
 1024
 ```
 
@@ -47,8 +43,8 @@ $ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 ```
 > It might be also necessary to setup the limit in /etc/systemd/system.conf:
 >```sh
-$ sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
-$ sudo systemctl daemon-reexec
+sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
+sudo systemctl daemon-reexec
 ```
 
 #### Swap preference settings
@@ -118,7 +114,7 @@ Python 2.7.12
 The easiest way to deploy **Oneprovider** is using **Onedatify**. The deployment procedure is described [here](./onedatify_deploy.md).
 
 ### Docker based setup
-**Oneprovider** installation using Docker is very straightforward, the best way is to use and customize our example [Docker Compose scripts](https://github.com/onedata/getting-started).  This type of deployment requires that docker and docker-compose are installed on your server.
+**Oneprovider** installation using Docker is very straightforward. This type of deployment requires that docker and docker-compose are installed on your server.
 
 #### Customizing Oneprovider Docker Compose script
 In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
@@ -138,7 +134,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:18.02.0-rc13
+    image: onedata/oneprovider:18.02.1
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
@@ -319,16 +315,28 @@ Open `https://oneprovider-example.tks:9443` using any web browser and continue t
 * Provide Onezone details including subdomain delegation request
   <p align="center"><img src="../img/admin/op_tutorial_panel_registration.png" width="720"></p>
 
+* Provide the external IP address of the Oneprovider cluster and click "Setup IP address".
+  <p align="center"><img src="../img/admin/op_tutorial_panel_ip_address.png" width="720"></p>
+
+* Check the DNS settings and click "Perform check". If it fails then check that the DNS records, which are displayed exists. 
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup.png" width="640"></p>
+
+* Click "Proceed" when the DNS check succeeds.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_dns_setup_2.png" width="640"></p>
+
+* Click "Obtain certificate" to automatically obtain a web certificate from Let's encrypt.
+  <p align="center"><img src="../img/admin/op_tutorial_panel_web_cert.png" width="640"></p>
+
 * Add storage
   <p align="center"><img src="../img/admin/op_tutorial_add_storage.png" width="720"></p>
 
-* Verify the storage was added successfully
+* Verify the storage was added successfully and click "Finish".
   <p align="center"><img src="../img/admin/op_tutorial_storage_added.png" width="720"></p>
 
 * Wait for registration and deployment to complete
   <p align="center"><img src="../img/admin/op_tutorial_panel_success.png" width="720"></p>
 
-After this step succeeds, **Oneprovider** should be running and opening a `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
+After this step succeeds, **Oneprovider** should be running and opening `https://oneprovider-example.tk` should redirect to it's **Onezone** login page, in this case `https://onezone-example.tk`.
 
 ### Advanced configuration
 After installation several **Oneprovider** parameters can be further fine-tuned using erlang application configuration files.
@@ -399,7 +407,7 @@ After web based Onepanel setup is complete, **Oneprovider** service should be op
 Monitoring information is available on a specific port and provides basic status of all **Oneprovider** service functional components. The service status can be monitored using a simple script like below or using our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata):
 
 ```xml
-$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 <?xml version="1.0"?>
 <healthdata date="2017/05/27 22:48:16" status="ok">
   <op_worker name="op_worker@oneprovider-example.com" status="ok">
@@ -438,7 +446,7 @@ In case of Docker based deployment, assuming the paths were set as in the tutori
 
 ```
 # Onepanel logs
-$ sudo ls /opt/onedata/oneprovider/persistence/var/log/op_panel/
+sudo ls /opt/onedata/oneprovider/persistence/var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs
@@ -451,7 +459,7 @@ In case of package based deployment, the following directories contain logs:
 
 ```
 # Onepanel logs
-$ sudo ls /var/log/op_panel/
+sudo ls /var/log/op_panel/
 cmd.log debug.log error.log info.log run_erl.log
 
 # Oneprovider logs

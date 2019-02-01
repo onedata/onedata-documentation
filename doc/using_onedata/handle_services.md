@@ -53,4 +53,4 @@ https://$ONEZONE_HOST/api/v3/handle_services/${HANDLE_SERVICE_ID}/users/${USER_I
 
 where `HANDLE_SERVICE_ID` is the ID of the Handle service returned during registration and `USER_ID` is the ID of the user who should have permission to register identifiers for shares using this service.
 
-More operations on the Handle service are possible using the [REST API](../advanced/rest/onezone/overview.md).
+More operations on the Handle service are possible using the [REST API](https://onedata.org/#/home/api/latest/onezone?anchor=tag/Handle-Service).

@@ -29,7 +29,7 @@ This section describes typical filesystem metadata attributes. The list of attri
 | **name**             | file.txt                                 | The name of the object (Space, folder or file) |
 | **owner_id**         | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9     | ID of the file owner                     |
 | **shares**           | ["b3-a87f-76a588c9b279c0ed35-f32e-4db", ...] | Array of share Id's associated with this file or folder |
-| **type**             | 'reg'                                    | Specifies whether the reource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
+| **type**             | 'reg'                                    | Specifies whether the resource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
 
 
 ## Extended attributes
@@ -51,7 +51,7 @@ The extended metadata values can be assigned to either files or folders.
 
 Extended attributes can be modified either from the Graphical User Interface, from the command line as well as via the REST API. Below are some examples:
 
-**Set file creators list using REST API**
+**Set the extended attribute "license" to "CC-0" using REST API**
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 -H 'Content-type: application/json' -d '{ "license": "CC-0" }'
@@ -73,15 +73,24 @@ Oneclient mounted spaces have support for extended attribute (xattr) feature, wh
 File2.txt
 
 [/mnt/oneclient/MySpace1]$ xattr -l File2.txt
-license
+license: CC-0
+org.onedata.uuid: Z3VpZCM1NzMwZjNjNjRjYmI0Y2M1MjllZjRlYWVhNDJkNDY4MyNmNzMzMzA1Zj
+dhMGE4MWRjZTM5NjY2NzEzYTUxNmYwYg
+org.onedata.space_id: f733305f7a0a81dce39666713a516f0b
+org.onedata.file_id: /f733305f7a0a81dce39666713a516f0b/5/7/3/5730f3c64cbb4cc529e
+f4eaea42d4683
+org.onedata.storage_id: 55e4475e8dc60dc3ebd070f8dd424f24
+org.onedata.access_type: unknown
+org.onedata.file_blocks: [##################################################]
+org.onedata.file_blocks_count: 1
+org.onedata.replication_progress: 100%
 
-[/mnt/oneclient/MySpace1]$ xattr -p license File2.txt
-CC-0
+[/mnt/oneclient/MySpace1]$ xattr -w license CC-1 File2.txt
 ```
 
 ## Custom metadata
 
-In addition to filesystem level and extended attributes, Onedata supports arbitrary metadata documents to be assigned to each resource, which are stored in separate metadata backends supported. Currently supported backends include:
+In addition to filesystem level and extended attributes, Onedata supports arbitrary metadata documents to be assigned to each resource, which are stored in separate metadata backends. Currently supported backends include:
 * JSON
 * RDF
 
@@ -89,7 +98,7 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 
 In each of these backends, user can store any properly formatted metadata
 documents, which can be modified and retrieved using the
-[REST API](../advanced/rest/oneprovider/operations/get_file_metadata.md)
+[REST API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_metadata)
 or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
@@ -259,10 +268,10 @@ The model has the following fields:
 
 #### File popularity model
 
-Model used for tracking the [file popularity](../administering_onedata/file_popularity.md).
+Model used for tracking [file popularity](../administering_onedata/file_popularity.md).
 These documents will be available only if collecting file popularity statistics is turned on in the given space.
 It can be turned on only by space admin via Onepanel. 
-`File popularity` document is available only for file which has been opened at least once on given provider.  
+The `File popularity` document is available only for a file which has been opened at least once on a given provider.  
 It stores:
 * `size` - total sum of the file's blocks stored on given provider
 * `open_count` - number of `open` operations on the file
