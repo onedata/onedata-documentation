@@ -252,7 +252,7 @@ Each of the above operations' arguments depend on the type of storage for which 
 This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. 
 LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and 
 [TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from 
-[onedata/luma](https://github.com/onedata/luma/tree/release/18.02.1) GitHub repository.
+[onedata/luma](https://github.com/onedata/luma/tree/release/__ONEDATA_RELEASE__) GitHub repository.
 
 ### Add Oneprovider storage with LUMA support
 
@@ -274,7 +274,7 @@ Latest LUMA container can be found on our [Dockerhub repository](https://hub.doc
 
 ```bash
 $ touch db.json # Only the first time
-$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:18.02.1
+$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:__ONEDATA_RELEASE__
 ```
 
 Flask server will by default log all requests to the stdout, so it should be easy to see whether the Oneprovider requests are handled properly.
@@ -286,7 +286,7 @@ LUMA can be also started directly without Docker:
 ```bash
 $ git clone https://github.com/onedata/luma
 $ cd luma
-$ git checkout release/18.02.1
+$ git checkout release/__ONEDATA_RELEASE__
 $ cd luma
 $ vim db.json # Define the mappings manually or leave empty
 $ python app.py # Make sure that the service will run persistently
@@ -324,10 +324,10 @@ The following command line examples assume they are executed inside this contain
 Although LUMA mappings can be defined using local storage name (LUMA is always associated with only a single Oneprovider), the mappings can also be defined using storage ID. The storage Id can be obtained from the Onepanel REST interface of the Oneprovider to which the storage is attached.
 
 ```bash
-[Onedata REST CLI - 18.02.1]$ export ONEPANEL_HOST=https://<ONEPROVIDER_IP>:9443
-[Onedata REST CLI - 18.02.1]$ export ONEPANEL_BASIC_AUTH=admin:<ADMIN_PASSWORD>
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ export ONEPANEL_HOST=https://<ONEPROVIDER_IP>:9443
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ export ONEPANEL_BASIC_AUTH=admin:<ADMIN_PASSWORD>
 # First get the list of storage ids attached to this Oneprovider
-[Onedata REST CLI - 18.02.1]$ onepanel-rest-cli getStorages | jq .
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ onepanel-rest-cli getStorages | jq .
 {
   "ids": [
     "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
@@ -335,7 +335,7 @@ Although LUMA mappings can be defined using local storage name (LUMA is always a
   ]
 }
 # Now find which storage is the required one
-[Onedata REST CLI - 18.02.1]$ onepanel-rest-cli getStorageDetails id=sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM | jq .
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ onepanel-rest-cli getStorageDetails id=sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM | jq .
 {
   "id": "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
   "name": "LUMATEST",
@@ -354,7 +354,7 @@ Although LUMA mappings can be defined using local storage name (LUMA is always a
 User Id can be obtained by from the details which each user can get when authenticated to the Onezone REST API using the following operation.
 
 ```bash
-[Onedata REST CLI - 18.02.1]$ onezone-rest-cli getCurrentUser
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getCurrentUser
 {
   "userId": "a5ffe868b88f75e38f8b1e6809d093d1",
   "name": "John Doe",
@@ -391,7 +391,7 @@ In order to get the Id of a specific group in Onedata, it is necessary to list t
 
 ```bash
 # First list the user groups Id's
-[Onedata REST CLI - 18.02.1]$ onezone-rest-cli getUserGroups | jq .
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getUserGroups | jq .
 {
   "groups": [
     "wZTuAqxmm8ntFhCY5NpbjAKzAjokHqs2Ehj9SdqMJCk",
@@ -401,7 +401,7 @@ In order to get the Id of a specific group in Onedata, it is necessary to list t
   ]
 }
 # Then search for the interesting group
-[Onedata REST CLI - 18.02.1]$ onezone-rest-cli getUserGroup gid=zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8 | jq .
+[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getUserGroup gid=zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8 | jq .
 {
   "type": "role",
   "name": "GroupA",
