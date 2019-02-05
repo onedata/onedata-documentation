@@ -44,7 +44,7 @@ installed on the host, which can be verified using:
 
 ```
 $ oneclient -V
-Oneclient: 18.02.0
+Oneclient: __ONEDATA_RELEASE__
 FUSE library: 2.9
 ```
 
