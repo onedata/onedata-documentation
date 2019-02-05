@@ -110,7 +110,7 @@ achieved using the following configuration:
 version: '2.0'
 services:
   node1.oneprovider:
-    image: onedata/oneprovider:18.02.0
+    image: onedata/oneprovider:__ONEDATA_RELEASE__
     hostname: node1.oneprovider.
     container_name: oneprovider-1
     volumes:
