@@ -256,6 +256,10 @@ that will be inherited by all OpenID IdPs. Please examine this snippet from the
                 % Exemplary token usage with with such config:
                 % curl -H "X-Auth-Token: my-idp/lkj9s87rf1234SDfh6721hqd7991" ...
             },
+            % If enabled, Onezone will ask for refresh tokens and store them so
+            % that it is later possible to acquire user's access token issued by 
+            % given IdP without him being logged in. Only OIDC IdPs are supported.
+            offlineAccess => true,
             % Defines how the attributes from OpenID user info should be mapped
             % to Onedata user attributes. Attributes must correspond to existing
             % OpenID attributes.
@@ -289,6 +293,8 @@ see [this example](#plgrid-config-openid-20).
 [see below](#openid-example)
 
 * `authorityDelegation` - [see below](#authority-delegation)
+
+* `offlineAccess` - [see below](#offline-access)
 
 * `attributeMapping` - [see below](#attribute-mapping)
 
@@ -551,6 +557,10 @@ from the login screen.
                     % curl -H "X-Auth-Token: google:lkj9s87rf1234SDfh6721hqd7991" ...
                     tokenPrefix => "google:"
                 },
+                % If enabled, Onezone will ask for refresh tokens and store them so
+                % that it is later possible to acquire user's access token issued by 
+                % given IdP without him being logged in. Only OIDC IdPs are supported.
+                offlineAccess => true,
                 % Defines how the attributes from OpenID user info should be mapped
                 % to Onedata user attributes. Attributes must correspond to existing
                 % OpenID attributes.
@@ -722,7 +732,7 @@ protocols are syntactically and functionally the same:
 * `entitlementMapping` - [see below](#entitlement-mapping)
 
 However, only the `openid` protocol supports 
-[authorityDelegation](#authority-delegation).
+[authorityDelegation](#authority-delegation) and [offlineAccess](#offline-access).
 
 
 ### Authority Delegation
@@ -732,7 +742,7 @@ providers. When enabled, it allows users to directly use their access tokens
 (e.g. from GitHub) to authorize operations in Onezone.
 
 In order to enable this feature for specific IdP, an `authorityDelegation` 
-section has to be added to the IdP config, for instance:
+section has to be added to the IdP's protocol config, for instance:
 
 ```Erlang
 authorityDelegation => #{
@@ -747,15 +757,44 @@ authorityDelegation => #{
 
 In such case, users can directly access the Onezone API using access tokens
 obtained from the IdP by prefixing the access token and placing it in the 
-`X-Auth-Token` header:
+`X-Auth-Token` or `Authorization: Bearer <token>` header:
 ```
 X-Auth-Token: github/e72e16c7e42f292c6912e7710c838347ae178b4a
+Authorization: Bearer github/e72e16c7e42f292c6912e7710c838347ae178b4a
 ```
 where `e72e16c7e42f292c6912e7710c838347ae178b4a` is the actual GitHub access 
 token.
 
-> Note: support for `Authorization: Bearer <token>` header is planned in near 
-future.
+
+### Offline access
+
+Onezone service can act as a dispenser for access tokens issued by IdPs that 
+users are logging in with. If offline access is enabled in config, Onezone will
+ask for refresh tokens and store them so that it is later possible to acquire
+user's access token issued by given IdP without him being logged in. Only OIDC 
+IdPs are supported.
+
+Offline access must be supported by given IdP for this to work.
+
+In order to enable this feature for specific IdP, an `offlineAccess` 
+field has to be added to the IdP's protocol config, for instance:
+
+```Erlang
+offlineAccess => true,
+```
+
+> NOTE: enabling `offlineAccess` will cause Onezone to add the 
+`access_type=offline` parameter to OIDC authorization request. Some IdPs might
+also require adding the `offline_access` scope, in which case you must add it
+manually in the `scope` field of the plugin config. 
+
+> NOTE: when combined with enabled authorityDelegation, this
+introduces some security considerations. Every provider which is
+actively used by a user will be able to acquire his IdP access token and hence 
+be able to gain his full authorization using authority delegation.
+
+IdP access tokens can be acquired using the Onezone 
+[REST API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/acquire_idp_access_token).
 
 
 ### Attribute Mapping
@@ -1688,7 +1727,7 @@ parser that supports EGI group format can be found in
 ### OpenID plugin
 This auth plugin handles the Open ID login process. It must implement the 
 `onezone_plugin_behaviour` that returns the `openid_plugin` atom from the `type/0` 
-callback, and the `openid_onezone_plugin_behaviour`. Refer to the
+callback, and the `openid_plugin_behaviour`. Refer to the
 [oz-worker source code](https://github.com/onedata/oz-worker) for the
 behaviour module and implementation details. 
 
