@@ -401,7 +401,9 @@ structure of this section looks like the following:
             displayName => "My IdP",
             % Some predefined icons are built-in into the GUI app.
             % Their paths start with /assets/images/auth-providers.
-            % For a custom icon, put it in: /var/www/html/custom/oz_worker/<path>
+            % For a custom icon, put it in:
+            %   /var/www/html/custom/oz_worker/<path>   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/<path>   - for versions 19.02.* or higher
             % And reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/default.svg",
             % Background color is useful for icons with transparency. Moreover,
@@ -464,7 +466,9 @@ from the login screen.
             displayName => "Onepanel account",
             % Some predefined icons are built-in into the GUI app.
             % Their paths start with /assets/images/auth-providers.
-            % For a custom icon, put it in: /var/www/html/custom/oz_worker/<path>
+            % For a custom icon, put it in:
+            %   /var/www/html/custom/oz_worker/<path>   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/<path>   - for versions 19.02.* or higher
             % And reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/onepanel.svg",
             % Background color is useful for icons with transparency. Moreover,
@@ -488,7 +492,9 @@ from the login screen.
             displayName => "Google",
             % Some predefined icons are built-in into the GUI app.
             % Their paths start with /assets/images/auth-providers.
-            % For a custom icon, put it in: /var/www/html/custom/oz_worker/<path>
+            % For a custom icon, put it in:
+            %   /var/www/html/custom/oz_worker/<path>   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/<path>   - for versions 19.02.* or higher
             % And reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/google.svg",
             % Background color is useful for icons with transparency. Moreover,
@@ -653,8 +659,9 @@ Note that some of them can be configurable on the IdP side too.
         {elixir, #{
             % Configuration of the login page button
             displayName => "Elixir",
-            % To use the icon like below, put it in
-            % /var/www/html/custom/oz_worker/images/elixir.svg
+            % To use the icon like below, put it in:
+            %   /var/www/html/custom/oz_worker/images/elixir.svg   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/images/elixir.svg   - for versions 19.02.* or higher
             iconPath => "/custom/images/elixir.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is
@@ -1696,7 +1703,7 @@ modules. Please refer to the oz-worker source code for the behaviours and
 implementation guide.
 
 Each plugin must implement the `onezone_plugin_behaviour`, which has one
-callback - `type/0`, that returns the type of the plugin: 
+callback - `type/0`, that returns the type of the plugin:
 `attribute_mapper | entitlement_parser | openid_plugin`.
 
 > See the corresponding behaviours for more info.
@@ -1788,8 +1795,11 @@ from IdPs. They can be used to differentiate and identify the storage users.
 
 ## Custom icon guidelines
 
-To use your custom icon on the login page, place it on the Onezone host under 
-`/var/www/html/custom/oz_worker/<path>` and reference it in the config like this:
+To use your custom icon on the login page, place it on the Onezone host under: 
+* `/var/www/html/custom/oz_worker/<path>` - for versions `18.02.*` 
+* `/var/www/html/oz_worker/custom/<path>` - for versions `19.02.*` or higher
+
+and reference it in the config like this:
 `iconPath => "/custom/<path>"`. If you are using docker-compose, simply mount 
 your icon by adding a volume, for example: 
 ```
@@ -1797,7 +1807,8 @@ your icon by adding a volume, for example:
 
     ...
     volumes:
-      - "/path/to/your/icon.svg:/var/www/html/custom/oz_worker/my-icon.svg"
+      - "/path/to/your/icon.svg:/var/www/html/custom/oz_worker/my-icon.svg"  # for versions `18.02.*` 
+      - "/path/to/your/icon.svg:/var/www/html/oz_worker/custom/my-icon.svg"  # for versions `19.02.*` or higher
     ...
       
 ----------------------------------------------
@@ -2014,7 +2025,9 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
             displayName => "Onepanel account",
             % Some predefined icons are built-in into the GUI app.
             % Their paths start with /assets/images/auth-providers.
-            % For a custom icon, put it in: /var/www/html/custom/oz_worker/<path>
+            % For a custom icon, put it in:
+            %   /var/www/html/custom/oz_worker/<path>   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/<path>   - for versions 19.02.* or higher
             % And reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/onepanel.svg",
             % Background color is useful for icons with transparency. Moreover,
@@ -2033,7 +2046,9 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
             displayName => "Google",
             % Some predefined icons are built-in into the GUI app.
             % Their paths start with /assets/images/auth-providers.
-            % For a custom icon, put it in: /var/www/html/custom/oz_worker/<path>
+            % For a custom icon, put it in:
+            %   /var/www/html/custom/oz_worker/<path>   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/<path>   - for versions 19.02.* or higher
             % And reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/google.svg",
             % Background color is useful for icons with transparency. Moreover,
@@ -2135,8 +2150,9 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
         {elixir, #{
             % Configuration of the login page button
             displayName => "Elixir",
-            % To use the icon like below, put it in
-            % /var/www/html/custom/oz_worker/images/elixir.svg
+            % To use the icon like below, put it in:
+            %   /var/www/html/custom/oz_worker/images/elixir.svg   - for versions 18.02.*
+            %   /var/www/html/oz_worker/custom/images/elixir.svg   - for versions 19.02.* or higher
             iconPath => "/custom/images/elixir.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is
