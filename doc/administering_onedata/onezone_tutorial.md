@@ -323,8 +323,8 @@ In the DNS responsible for the `onezone-example.com` domain (usually the server 
 | onezone-example.com.     | NS     | ns2.onezone-example.com. |
 | onezone-example.com.     | NS     | ns3.onezone-example.com. |
 | ns1.onezone-example.com. | A      | 150.1.0.2        |
-| ns2.onezone-example.com. | A      | 150.1.0.2        |
-| ns3.onezone-example.com. | A      | 150.1.0.2        |
+| ns2.onezone-example.com. | A      | 150.1.0.3        |
+| ns3.onezone-example.com. | A      | 150.1.0.4        |
 
 This way, all queries concerning the `onezone-example.com` domain will be routed to the DNS servers running on Onezone cluster nodes.
 
