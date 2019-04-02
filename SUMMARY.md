@@ -27,6 +27,7 @@
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
    * [System requirements](doc/system_requirements.md)
+   * [Compatibility reference](doc/compatibility_reference.md)
    * [Services overview](Services overview)
       * [Onezone overview](doc/administering_onedata/onezone_overview.md)
       * [Oneprovider overview](doc/administering_onedata/provider_overview.md)

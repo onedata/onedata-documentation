@@ -1,0 +1,12 @@
+.row-heading, .row-version-string {
+  font-weight: bold;
+}
+.row-version .cell-check, .row-heading .col-version-string  {
+  text-align: center;
+}
+.cell-check.true {
+  background-image: url('./checked.svg');
+  background-position: center center;
+  background-size: 26px;
+  background-repeat: no-repeat;
+}

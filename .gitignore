@@ -76,3 +76,6 @@ docker-compose.yml
 
 # Generated ReDoc documentation
 **/redoc-static.html
+
+# VSCode
+.vscode

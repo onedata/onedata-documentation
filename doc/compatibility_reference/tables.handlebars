@@ -1,0 +1,30 @@
+<table id="compatibility-table" class="compatibility-table {{tableId}}">
+  <thead>
+    <tr class="row-heading">
+      <td class="row-service-string">
+        <span class="row-service-string-name">{{@root.serviceInRows}}</span>
+        <br>
+        <span>version</span>
+      </td>
+      {{#each columns as |colVersion|}}
+        <td class="col-version-string">
+          <span class="col-version-string-name">{{@root.serviceInColumns}}</span>
+          <br>
+          <span class="col-version-string-number">{{colVersion}}</span>
+        </td>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rows as |row|}}
+      <tr class="row-version" data-version={{row.version}}>
+        <td class="row-version-string">
+          <span class="row-version-string-number">{{row.version}}</span>
+        </td>
+        {{#each row.cells as |checked|}}
+          <td class="cell-check {{checked}}"></td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
