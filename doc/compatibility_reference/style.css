@@ -10,3 +10,37 @@
   background-size: 26px;
   background-repeat: no-repeat;
 }
+.template-target-table {
+  position: relative;
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.template-target-table::before {
+  position: absolute;
+  content: ' ';
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(to left, transparent 0%, white 70%);
+}
+.template-target-table::after {
+  position: absolute;
+  content: ' ';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(to right, transparent 0%, white 70%);
+}
+.compatibility-table-container {
+  width: calc(100%);
+  overflow-x: auto;
+  padding-left: 20px;
+  /* TODO: don't know why it is not working*/
+  padding-right: 20px;
+}
+.compatibility-table {
+  min-width: 550px;
+}
