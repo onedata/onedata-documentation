@@ -1,6 +1,9 @@
 .row-heading, .row-version-string {
   font-weight: bold;
 }
+.row-heading td, .row-version-string {
+  min-width: 155px;
+}
 .row-version .cell-check, .row-heading .col-version-string  {
   text-align: center;
 }
@@ -12,48 +15,69 @@
 }
 .template-target-table {
   position: relative;
-  width: calc(100% + 40px);
-  margin-left: -20px;
-  margin-right: -20px;
+  width: 100%;
 }
-.template-target-table::before {
+.col-invisible {
+  position: relative !important;
+  min-width: 20px !important;
+  width: 20px !important;
+  border: none !important;
+}
+.col-invisible::before {
   position: absolute;
   content: ' ';
-  top: 0;
+  top: -1px;
   left: 0;
+  right: 0;
   bottom: 0;
-  width: 20px;
-  background: linear-gradient(to left, transparent 0%, white 70%);
+  background-color: white;
 }
-.template-target-table::after {
+.compatibility-table-container::after {
   position: absolute;
   content: ' ';
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
   width: 20px;
-  background: linear-gradient(to right, transparent 0%, white 70%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 70%);
+}
+.book .book-body .page-wrapper .page-inner section.normal table tr:nth-child(2n) td {
+  background-color: #f8f8f8;
+}
+.compatibility-table thead td.row-service-string {
+  /* special pull up because we use border-collapse: collapse */
+  margin-top: -1px;
+  height: 68px;
+}
+.sticky-col {
+  left: 0;
+  position: absolute;
+  top: auto;
+  width: 155px;
 }
 .compatibility-table-container {
-  width: calc(100%);
-  overflow-x: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.compatibility-table {
   position: relative;
-  min-width: 550px;
 }
-/*
- * A hack to add padding on the right of table:
- * https://blog.alexandergottlieb.com/overflow-scroll-and-the-right-padding-problem-a-css-only-solution-6d442915b3f4
- */
-.compatibility-table::after {
-  content: '';
-  display: block;
-  position: absolute;
-  right: -20px;
-  width: 20px;
-  height: 1px;
-  top: 0;
+.compatibility-table-scroller {
+  margin-left: 155px;
+  overflow-x: auto;
+  width: calc(100% - 155px);
+}
+.book .book-body .page-wrapper .page-inner section.normal table.compatibility-table {
+  z-index: 0;
+  min-width: 550px;
+  width: calc(100% - 1px);
+}
+.compatibility-table td {
+  height: 40px;
+}
+.compatibility-table thead td {
+  height: 67px;
+}
+.book .book-body .page-wrapper .page-inner section.normal table td.sticky-col.row-version-string {
+  border-top: none;
+}
+.book .book-body .page-wrapper .page-inner section.normal table td.content-col-0 {
+  border-left: none;
 }
