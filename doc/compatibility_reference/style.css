@@ -38,9 +38,22 @@
   width: calc(100%);
   overflow-x: auto;
   padding-left: 20px;
-  /* TODO: don't know why it is not working*/
   padding-right: 20px;
 }
 .compatibility-table {
+  position: relative;
   min-width: 550px;
+}
+/*
+ * A hack to add padding on the right of table:
+ * https://blog.alexandergottlieb.com/overflow-scroll-and-the-right-padding-problem-a-css-only-solution-6d442915b3f4
+ */
+.compatibility-table::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -20px;
+  width: 20px;
+  height: 1px;
+  top: 0;
 }
