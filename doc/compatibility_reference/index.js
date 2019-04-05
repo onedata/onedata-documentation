@@ -25,30 +25,31 @@ function fetchCompatibilityJson(onSuccess, onError) {
 }
 
 function generateTableData(compatData) {
-  var allOpVersions = [];
+  var allSecondaryVersions = [];
   var rows = [];
-  Object.keys(compatData).forEach(function collectOpVersions(ozVersion) {
-    var opVersions = compatData[ozVersion];
-    Array.prototype.push.apply(allOpVersions, opVersions);
+  var allPrimaryVersions = Object.keys(compatData);
+  allPrimaryVersions.sort(compareVersionsDesc);
+
+  allPrimaryVersions.forEach(function collectSecondaryVersions(secondaryVersion) {
+    var secondaryVersions = compatData[secondaryVersion];
+    Array.prototype.push.apply(allSecondaryVersions, secondaryVersions);
   });
-  allOpVersions = uniqueArray(allOpVersions);
-  allOpVersions.sort(compareVersionsDesc);
 
-  var allOzVersions = Object.keys(compatData);
-  allOzVersions.sort(compareVersionsDesc);
+  allSecondaryVersions = uniqueArray(allSecondaryVersions);
+  allSecondaryVersions.sort(compareVersionsDesc);
 
-  allOzVersions.forEach(function generateRow(ozVersion) {
-    compatData[ozVersion].sort(compareVersionsDesc);
-    var compatibleOpVersions = compatData[ozVersion];
+  allPrimaryVersions.forEach(function generateRow(primaryVersion) {
+    compatData[primaryVersion].sort(compareVersionsDesc);
+    var compatibleSecondaryVersions = compatData[primaryVersion];
     rows.push({
-      version: ozVersion,
-      cells: allOpVersions.map(function isCompatible(opVersion) {
-        return compatibleOpVersions.indexOf(opVersion) !== -1;
+      version: primaryVersion,
+      cells: allSecondaryVersions.map(function isCompatible(secondaryVersion) {
+        return compatibleSecondaryVersions.indexOf(secondaryVersion) !== -1;
       })
     });
   });
   return {
-    columns: allOpVersions,
+    columns: allSecondaryVersions,
     rows: rows
   };
 }
