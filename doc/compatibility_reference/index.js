@@ -1,32 +1,14 @@
 /* global Handlebars */
 
+function compareVersionsDesc(a, b) {
+  return window.compareVersions(b, a);
+}
+
 function uniqueArray(arrArg) {
   return arrArg.filter(function findDuplicate(elem, pos, arr) {
     return arr.indexOf(elem) === pos;
   });
 }
-
-// example maybe to delete
-// var mockJson = {
-//   'oz-op': {
-//     '18.02.0-rc11': ['18.02.0-rc11'],
-//     '18.02.0-rc12': ['18.02.0-rc11', '18.02.0-rc12'],
-//     '18.02.0-rc13': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13'],
-//     '18.02.1': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13', '18.02.1']
-//   },
-//   'op-op': {
-//     '18.02.0-rc11': ['18.02.0-rc11'],
-//     '18.02.0-rc12': ['18.02.0-rc11', '18.02.0-rc12'],
-//     '18.02.0-rc13': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13'],
-//     '18.02.1': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13', '18.02.1']
-//   },
-//   'op-oc': {
-//     '18.02.0-rc11': ['18.02.0-rc11'],
-//     '18.02.0-rc12': ['18.02.0-rc11', '18.02.0-rc12'],
-//     '18.02.0-rc13': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13'],
-//     '18.02.1': ['18.02.0-rc11', '18.02.0-rc12', '18.02.0-rc13', '18.02.1']
-//   }
-// };
 
 function fetchCompatibilityJson(onSuccess, onError) {
   var xhr = new XMLHttpRequest();
@@ -50,8 +32,13 @@ function generateTableData(compatData) {
     Array.prototype.push.apply(allOpVersions, opVersions);
   });
   allOpVersions = uniqueArray(allOpVersions);
+  allOpVersions.sort(compareVersionsDesc);
 
-  Object.keys(compatData).forEach(function generateRow(ozVersion) {
+  var allOzVersions = Object.keys(compatData);
+  allOzVersions.sort(compareVersionsDesc);
+
+  allOzVersions.forEach(function generateRow(ozVersion) {
+    compatData[ozVersion].sort(compareVersionsDesc);
     var compatibleOpVersions = compatData[ozVersion];
     rows.push({
       version: ozVersion,

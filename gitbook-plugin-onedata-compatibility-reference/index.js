@@ -25,19 +25,27 @@ module.exports = {
       return new Promise(function (resolve, reject) {
         try {
           Precompiler.loadTemplates(handlebarsOptions, function(err, opts) {
-            if (err) {
-              throw err;
+            try {
+              if (err) {
+                throw err;
+              }
+              
+              Precompiler.cli(opts);
+              
+              book.log.info.ln('copying compatibility tables assets...');
+              fs.copySync(
+                path.resolve(__dirname, 'node_modules/handlebars/dist/handlebars.runtime.min.js'),
+                path.resolve(book.options.output, compatibilityReferenceDir, 'handlebars.runtime.min.js')
+              );
+              fs.copySync(
+                path.resolve(__dirname, 'node_modules/compare-versions/index.js'),
+                path.resolve(book.options.output, compatibilityReferenceDir, 'compare-versions.js')
+              );
+              
+              resolve();
+            } catch (error) {
+              reject(error);
             }
-            
-            Precompiler.cli(opts);
-            
-            book.log.info.ln('copying compatibility tables assets...');
-            fs.copySync(
-              path.resolve(__dirname, 'node_modules/handlebars/dist/handlebars.runtime.min.js'),
-              path.resolve(book.options.output, compatibilityReferenceDir, 'handlebars.runtime.min.js')
-            );
-            
-            resolve();
           });
         } catch (error) {
           reject(error);

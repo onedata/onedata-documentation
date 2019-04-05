@@ -2,7 +2,7 @@
   font-weight: bold;
 }
 .row-heading td, .row-version-string {
-  min-width: 155px;
+  min-width: 160px;
 }
 .row-version .cell-check, .row-heading .col-version-string  {
   text-align: center;
@@ -26,10 +26,10 @@
 .col-invisible::before {
   position: absolute;
   content: ' ';
-  top: -1px;
+  top: -2px;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 2px;
   background-color: white;
 }
 .compatibility-table-container::after {
@@ -54,15 +54,15 @@
   left: 0;
   position: absolute;
   top: auto;
-  width: 155px;
+  width: 160px;
 }
 .compatibility-table-container {
   position: relative;
 }
 .compatibility-table-scroller {
-  margin-left: 155px;
+  margin-left: 160px;
   overflow-x: auto;
-  width: calc(100% - 155px);
+  width: calc(100% - 160px);
 }
 .book .book-body .page-wrapper .page-inner section.normal table.compatibility-table {
   z-index: 0;
