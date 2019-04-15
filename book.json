@@ -3,6 +3,7 @@
     "plugins": [
         "onedata-theme@file:gitbook-plugin-onedata-theme",
         "youtube@file:gitbook-plugin-youtube",
+        "onedata-compatibility-reference@file:gitbook-plugin-onedata-compatibility-reference",
         "image-captions@0.4.1",
         "toggle-chapters@0.0.3",
         "toc@0.0.1",
@@ -10,7 +11,8 @@
         "responsive-iframes@1.0.2",
         "custom-favicon",
         "styles-sass@file:gitbook-plugin-styles-sass",
-        "ga"
+        "ga",
+        "include-html@0.2.0"
     ],
     "variables": {
     },
