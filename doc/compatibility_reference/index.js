@@ -1,5 +1,9 @@
 /* global Handlebars */
 
+function cloneObjectDeep(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function compareVersionsDesc(a, b) {
   return window.compareVersions(b, a);
 }
@@ -66,13 +70,64 @@ function generateContext(data) {
       serviceInRows: 'Oneprovider',
       serviceInColumns: 'Oneprovider',
       tableId: 'pp'
-    }, generateTableData(data['op-op'])),
+    }, generateTableData(makeSymmetric(data['op-op']))),
     pc: Object.assign({
       serviceInRows: 'Oneprovider',
       serviceInColumns: 'Oneclient',
       tableId: 'pc'
     }, generateTableData(data['op-oc']))
   };
+}
+
+/**
+ * ```
+ * {
+ *   "18.02.0-rc13": [
+ *     "18.02.0-rc13"
+ *   ],
+ *   "18.02.1": [
+ *     "18.02.0-rc13",
+ *     "18.02.1"
+ *   ]
+ * }
+ * ```
+ *
+ * should result in:
+ *
+ * ```
+ * {
+ *   "18.02.0-rc13": [
+ *     "18.02.0-rc13",
+ *     "18.02.1"
+ *   ],
+ *   "18.02.1": [
+ *     "18.02.0-rc13",
+ *     "18.02.1"
+ *   ]
+ * }
+ * ```
+ *
+ * @param {object} data single compat data
+ * @returns {object} data with ensured symmetric relations
+ */
+function makeSymmetric(data) {
+  const compatData = cloneObjectDeep(data);
+  /* eslint-disable guard-for-in */
+  for (var primaryVersion in compatData) {
+    var currentList = compatData[primaryVersion];
+    for (var i = 0; i < currentList.length; ++i) {
+      var version = currentList[i];
+      var correlatedVersions = compatData[version];
+      if (!correlatedVersions) {
+        correlatedVersions = compatData[version] = [];
+      }
+      if (correlatedVersions.indexOf(primaryVersion) === -1) {
+        correlatedVersions.push(primaryVersion);
+      }
+    }
+  }
+  /* eslint-enable guard-for-in */
+  return compatData;
 }
 
 function renderCompatibilityTables(data) {
