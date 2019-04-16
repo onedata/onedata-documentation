@@ -17,7 +17,6 @@ function uniqueArray(arrArg) {
 function fetchCompatibilityJson(onSuccess, onError) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'compatibility_reference/compatibility.json', true);
-  xhr.setRequestHeader('Accept', 'application/json');
   xhr.onreadystatechange = function handleResponse() {
     if (xhr.status >= 200 && xhr.status < 300) {
       onSuccess && onSuccess(JSON.parse(xhr.responseText));
