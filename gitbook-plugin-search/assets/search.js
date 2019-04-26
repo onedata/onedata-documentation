@@ -86,17 +86,21 @@ require([
                 toggleSearch();
             }
             gitbook.sidebar.filter(_.pluck(search(keyword), "path"));
+        } else {
+            gitbook.sidebar.filter(null);
         }
     };
 
 
     gitbook.events.bind("start", function(config) {
         // Pre-fetch search index and create the form
+        gitbook.sidebar.filter([])
         var fetchIndexPromise = fetchIndex();
         createForm();
 
         gitbook.events.bind("page.change", function() {
-            fetchIndexPromise.then(recoverSearch);
+            fetchIndexPromise
+            .then(recoverSearch);
         });
         
         // Type in search bar
