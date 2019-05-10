@@ -69,8 +69,8 @@ onezone-rest-cli -u alice:secret getCurrentUser | jq .
 
 {
    "userId" : "HVR2bLYDzl2jA1eCboJcdC5oNeY8xjlfCsI58sdshEA",
-   "name" : "Alice",
-   "alias" : "alice",
+   "fullName" : "Alice",
+   "username" : "alice",
    "emails" : [],
    "linkedAccounts" : []
 }

@@ -188,9 +188,9 @@ Onedata user ID can be easily extracted using Onezone REST API:
 curl -k -S -X GET -H "X-Auth-Token: ${ACCESS_TOKEN}" https://$ONEZONE_HOST/api/v3/onezone/user
 
 {
-    "userId":"6vLIkkTRQKGzzZs-ZNRF1vcTfC_NekD4ucSg18cnt7A",
-    "name":"admin",
-    "alias":"johnd",
+    "userId":"a4d3bc73aada63052310652d421609f1",
+    "fullName":"John Doe",
+    "username":"johnd",
     "emails":[],
     "linkedAccounts":[],
 }

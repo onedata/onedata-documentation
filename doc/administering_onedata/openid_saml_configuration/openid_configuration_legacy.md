@@ -1,7 +1,10 @@
 # OpenID Configuration
 
-> This section is deprecated and valid for Onezone versions `=< 18.02.0-rc11`, 
-for newer versions please refer to [OpenID & SAML Configuration](./openid_saml_configuration.md).
+**Config version 1**
+
+This documentation is deprecated and valid for Onezone versions `18.02.0-rc11` or older.
+Other versions can be found [here](../openid_saml_configuration.md).
+
 
 <!-- toc -->
 
@@ -27,7 +30,7 @@ In order to support HTTP basic authentication, it is necessary to add the follow
     {basicAuth, [ ]},
 ```
 
-The actual user accounts need to be creating using [Onepanel API](./creating_user_accounts.md).
+The actual user accounts need to be creating using [Onepanel API](../creating_user_accounts.md).
 
 ### Google
 The configuration entry for Google authentication service is presented below.
