@@ -30,7 +30,7 @@ In order to support HTTP basic authentication, it is necessary to add the follow
     {basicAuth, [ ]},
 ```
 
-The actual user accounts need to be creating using [Onepanel API](../creating_user_accounts.md).
+The actual user accounts need to be created using [Onepanel API](../creating_user_accounts.md).
 
 ### Google
 The configuration entry for Google authentication service is presented below.

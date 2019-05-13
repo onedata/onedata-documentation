@@ -460,8 +460,8 @@ from the login screen.
 #### onepanelAuth example
 
 ```Erlang
-        % onepanel is a special IdP id reserved for onepanel login (onepanelAuth),
-        % there can be only one entry using this protocol.
+        % onepanel is a special IdP id reserved for onepanel login and the
+        % only valid config entry using the onepanelAuth protocol.
         {onepanel, #{
             % Configuration of the login page button
             displayName => "Onepanel account",
@@ -2016,8 +2016,8 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
 
     supportedIdps => [
 
-        % onepanel is a special IdP id reserved for onepanel login (onepanelAuth),
-        % there can be only one entry using this protocol.
+        % onepanel is a special IdP id reserved for onepanel login and the
+        % only valid config entry using the onepanelAuth protocol.
         {onepanel, #{
             % Configuration of the login page button
             displayName => "Onepanel account",

@@ -476,8 +476,8 @@ from the login screen.
 #### basicAuth example
 
 ```Erlang
-        % basicAuth is a special IdP id reserved for signing in with
-        % username & password (basicAuth), there can be only one entry using this protocol.
+        % basicAuth is a special IdP id reserved for signing in with username & password 
+        % and the only valid config entry using the basicAuth protocol.
         {basicAuth, #{
             % Configuration of the login page button
             displayName => "username & password",
@@ -2033,8 +2033,8 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
 
     supportedIdps => [
 
-        % basicAuth is a special IdP id reserved for signing in with
-        % username & password (basicAuth), there can be only one entry using this protocol.
+        % basicAuth is a special IdP id reserved for signing in with username & password 
+        % and the only valid config entry using the basicAuth protocol.
         {basicAuth, #{
             % Configuration of the login page button
             displayName => "username & password",
