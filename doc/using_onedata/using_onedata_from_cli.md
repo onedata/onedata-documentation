@@ -75,17 +75,17 @@ First of all, we can retrieve basic user account information using REST API:
 onezone-rest-cli getCurrentUser | jq '.'
 
 {
-   "name" : "admin",
-   "alias" : "admin",
+   "userId" : "a4d3bc73aada63052310652d421609f1",
+   "fullName" : "admin",
+   "username" : "admin",
    "linkedAccounts" : [],
-   "userId" : "njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo",
    "emails" : []
 }
 ```
 
-and modify some of the properties, for instance user alias to `administrator`:
+and modify some of the properties, for instance user's username to `administrator`:
 ```bash
-onezone-rest-cli modifyCurrentUser alias==administrator
+onezone-rest-cli modifyCurrentUser username==administrator
 ```
 
 ## Space management
