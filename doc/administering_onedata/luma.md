@@ -61,8 +61,10 @@ The mapping API consists of 6 operations:
   "spaceId": "c5oiB633lvdGArj-dfpQJk7Wx8wQUmHxc_3a43-P9mw",
   "userDetails": {
     "id": "d5ffe868b88f75e38f8b1e6809d093d1",
-    "name": "John Doe",
-    "alias": "jdoe",
+    "name": "John Doe",    
+    "fullName": "John Doe",   # Since 19.02.*
+    "login": "jdoe",       
+    "username": "jdoe",       # Since 19.02.*
     "emails": ["jdoe@example.com"],
     "linkedAccounts": [
        {
@@ -74,6 +76,9 @@ The mapping API consists of 6 operations:
   }
 }
 ```
+> NOTE: Since versions 19.02.*, fields `name` and `login` are deprecated and 
+marked for removal in future versions - use `fullName` and `username` that carry
+the same values.
 
 **Example response**
 
@@ -357,8 +362,10 @@ User Id can be obtained by from the details which each user can get when authent
 [Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getCurrentUser
 {
   "userId": "a5ffe868b88f75e38f8b1e6809d093d1",
-  "name": "John Doe",
-  "alias": "john.doe",
+  "fullName": "John Doe",    # Since 19.02.*
+  "name": "John Doe", 
+  "username": "john.doe",    # Since 19.02.*
+  "login": "john.doe",      
   "emails": [
     "jdoe@example.com"
   ],
@@ -366,8 +373,10 @@ User Id can be obtained by from the details which each user can get when authent
     {
       "idp": "egi",
       "subjectId": "223536c273ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
+      "fullName": "John Doe",    # Since 19.02.*
       "name": "John Doe",
-      "alias": "",
+      "username": "",            # Since 19.02.*
+      "login": "",
       "entitlements": [
         "vo.indigo-datacloud.eu/aai.egi.eu",
         "egi.eu/www.egi.eu/wiki-editors"
@@ -376,10 +385,12 @@ User Id can be obtained by from the details which each user can get when authent
         "jdoe@example.com"
       ]
     }
-  ],
-  "alias": ""
+  ]
 }
 ```
+> NOTE: Since versions 19.02.*, fields `name` and `login` are deprecated and 
+marked for removal in future versions - use `fullName` and `username` that carry
+the same values.
 
 Here we can see that the user has 2 Id's:
 

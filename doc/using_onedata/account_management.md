@@ -22,10 +22,10 @@ to the same Onedata account.
 <img style="max-width: 300px;" src="../img/connectaccount.png">
 </p>
 
-## Setting user alias
+## Setting user username
 In order to ease the use and discovery of Onedata service and to enable
 identification for collaboration with other users, it is preferred to set a user
-alias after the first login.
+username after the first sign-in.
 
-This alias can be used to make it easier to find you by other users for
+This username can be used to make it easier to find you by other users for
 collaboration (e.g. inviting to join spaces or groups).
