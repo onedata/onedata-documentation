@@ -1,5 +1,5 @@
 {
-    "revision": 1,
+    "revision": 2019060700,
 
     "compatibility": {
         "onezone:oneprovider": {
@@ -45,7 +45,8 @@
             ],
             "18.02.1": [
                 "18.02.0-rc13",
-                "18.02.1"
+                "18.02.1",
+                "18.02.2"
             ],
             "18.02.2": [
                 "18.02.0-rc13",
@@ -75,9 +76,9 @@
             ]
         },
         "harvester": {
-            "19.02.0-beta1": [
-                "1a29258ad50dff4c1fa18c7fc8e745811a44d576835317fb7fb37cd5a8f0de06"
-            ]
+            "19.02.0-beta1": {
+                "ecrin": ["1a29258ad50dff4c1fa18c7fc8e745811a44d576835317fb7fb37cd5a8f0de06"]
+            }
         }
     }
 }
