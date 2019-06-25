@@ -8135,11 +8135,27 @@
   "securityDefinitions": {
     "basic": {
       "type": "basic"
+    },
+    "api_key1": {
+      "type": "apiKey",
+      "name": "X-Auth-Token",
+      "in": "header"
+    },
+    "api_key2": {
+      "type": "apiKey",
+      "name": "Authorization: Bearer",
+      "in": "header"
     }
   },
   "security": [
     {
       "basic": []
+    },
+    {
+      "api_key1": []
+    },
+    {
+      "api_key2": []
     }
   ]
 }
