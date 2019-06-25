@@ -33,8 +33,8 @@
         },
         "x-onedata-permissions": [],
         "summary": "Returns public configuration of Onezone service.",
-        "x-bash-codegen-description": "Returns public configuration of Onezone service.\n",
-        "description": "Returns public information about the Onezone service. This endpoint does not require authentication.\n",
+        "x-bash-codegen-description": "Returns public information about the Onezone service.\n\nThis endpoint does not require authentication.\n",
+        "description": "Returns public information about the Onezone service.\n\nThis endpoint does not require authentication.\n\n***Example cURL requests***\n\n**Get public information about the Onezone service**\n```bash\n curl https://$HOST/api/v3/onezone/configuration\n```\n",
         "produces": [
           "application/json"
         ],
@@ -29150,6 +29150,9 @@
     }
   ],
   "securityDefinitions": {
+    "basic": {
+      "type": "basic"
+    },
     "api_key1": {
       "type": "apiKey",
       "name": "X-Auth-Token",
@@ -29157,16 +29160,8 @@
     },
     "api_key2": {
       "type": "apiKey",
-      "name": "Macaroon",
-      "in": "header"
-    },
-    "api_key3": {
-      "type": "apiKey",
       "name": "Authorization: Bearer",
       "in": "header"
-    },
-    "basic": {
-      "type": "basic"
     }
   },
   "security": [
@@ -29174,7 +29169,10 @@
       "basic": []
     },
     {
-      "api_key": []
+      "api_key1": []
+    },
+    {
+      "api_key2": []
     }
   ]
 }

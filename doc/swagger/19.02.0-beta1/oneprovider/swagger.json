@@ -32,8 +32,8 @@
         "tags": [
           "Oneprovider"
         ],
-        "x-bash-codegen-description": "Returns public information about the Oneprovider service.\n",
-        "description": "Returns public information about the Oneprovider service. This endpoint does not require authentication.\n",
+        "x-bash-codegen-description": "Returns public information about the Oneprovider service.\n\nThis endpoint does not require authentication.\n",
+        "description": "Returns public information about the Oneprovider service.\n\nThis endpoint does not require authentication.\n\n***Example cURL requests***\n\n**Get public information about the Oneprovider service**\n```bash\n curl https://$HOST/api/v3/oneprovider/configuration\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5059,21 +5059,23 @@
     }
   ],
   "securityDefinitions": {
-    "api_key": {
+    "api_key1": {
       "type": "apiKey",
       "name": "X-Auth-Token",
       "in": "header"
     },
-    "basic": {
-      "type": "basic"
+    "api_key2": {
+      "type": "apiKey",
+      "name": "Authorization: Bearer",
+      "in": "header"
     }
   },
   "security": [
     {
-      "basic": []
+      "api_key1": []
     },
     {
-      "api_key": []
+      "api_key2": []
     }
   ]
 }
