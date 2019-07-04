@@ -3,7 +3,7 @@
 <!-- toc -->
 
 Onedata can be easily integrated with Jupyter Notebooks via the OnedataFS Python library
-and OnedataFS-Jupyter plugin. The integration can involve 2 separate aspects:
+and OnedataFS-Jupyter plugin. The integration can involve 2 separate scenarios:
 
 * Storing the notebooks directly in Onedata data spaces
 * Accessing Onedata spaces from within the notebooks
@@ -20,7 +20,8 @@ Jupyter instance.
 ## Installation
 
 OnedataFS-Jupyter extension can be installed from our provided packages for both
-Python 2 and Python 3, depending the Python version which is used to start the Jupter server.
+Python 2 and Python 3, depending on the Python version which is used to start
+the Jupyter server.
 
 ### Ubuntu
 
@@ -38,8 +39,8 @@ sh oneclient.sh python3-onedatafs-jupyter
 
 ### CentOS
 
-Please note that CentOS version, as all Onedata CentOS packages are distributed
-according to the [Software Collections](https://www.softwarecollections.org/en/) standard.
+Please note that CentOS packages are distributed according to the
+[Software Collections](https://www.softwarecollections.org/en/) standard.
 
 ```
 wget https://get.onedata.org/oneclient.sh

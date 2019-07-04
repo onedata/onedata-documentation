@@ -31,8 +31,8 @@ sh oneclient.sh python3-fs-plugin-onedatafs
 
 ### CentOS
 
-Please note that CentOS version, as all Onedata CentOS packages are distributed
-according to the [Software Collections](https://www.softwarecollections.org/en/) standard.
+Please note that CentOS packages are distributed according to the
+[Software Collections](https://www.softwarecollections.org/en/) standard.
 
 ```
 wget https://get.onedata.org/oneclient.sh
@@ -86,8 +86,8 @@ are as follows (only `host` and `token` are required):
 * `force_direct_io` - when `True`, forces all data transfers to go directly via the target storage API. If storage is not available, for instance due to network firewalls, error will be returned for all `read` and `write` operations
 * `no_buffer` - when `True`, disable all internal buffering in the OnedataFS
 * `io_trace_log` - when `True`, the OnedataFS will log all requests in a CSV file in the directory specified by `log_dir`
-* `provider_timeout` - Specifies the timeout for waiting for Oneprovider responses, in seconds
-* `log_dir` - Path in the filesystem, where internal OnedataFS logs should be stored. When `None`, no logging will be generated
+* `provider_timeout` - specifies the timeout for waiting for Oneprovider responses, in seconds
+* `log_dir` - path in the filesystem, where internal OnedataFS logs should be stored. When `None`, no logging will be generated
 
 
 ### Advanced usage
@@ -97,14 +97,15 @@ for using it's advanced features.
 
 #### File location information
 
-In order to get information about the distribution of data blocks of a specific
-file among the Oneprovider instances supporting user's space use the `location` method:
+In Onedata, each file can be distributed among different Oneprovider instances,
+in blocks of various size.  In order to get information about the distribution
+of these blocks, use the `location` method:
 
 ```
 space.location("file.txt")
 ```
 
-will give the following output:
+This will give the following output:
 
 ```
 {'e0e49ac3d9b058c4839f8fb7ccc02d72': [[0, 1615273]]}
@@ -155,7 +156,7 @@ To create a new extended attribute:
 ```
 space.setxattr("file.txt", "license", '"CC-0"') 
 ```
-Please not that the extended attribute values are by default parsed as JSON values,
+Please note that the extended attribute values are by default parsed as JSON values,
 thus in order to insert a string, it has to have additional `"` qoutes.
 
 This allows to add numeric constants as values like this:
@@ -167,8 +168,8 @@ space.setxattr("file.txt", "priority", "2500")
 which then will be indexed by Onedata as numbers not strings, and thus enable
 more efficient data discovery in some cases.
 
-It is also possible to attach entire JSON document with a key, by simply rendering
-the JSON into a string for the value parameter:
+It is also possible to attach entire JSON document with a key, by simply encoding
+JSON as string for the value parameter:
 
 ```
 space.setxattr("file.txt", "origin", '{"continent": "Europe"}') 
