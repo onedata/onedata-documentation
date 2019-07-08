@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onezone",
   "info": {
-    "version": "18.02.0-beta1",
+    "version": "18.02.2",
     "title": "Onezone",
     "x-bash-codegen-description": "This is the RESTful API definition of Onezone component of Onedata data\nmanagement system [onedata.org].\n\nThis API allows control and configuration of local Onezone service deployment,\nin particular management of users, spaces, groups and providers.\n\n\nREST API operations from the permissions perspective in Onezone service can\nbe divided into 2 groups, depending on the actor making the request:\n**User requests**\nRegular end user requests are authenticated based on the `X-Auth-Token` header,\nwhich must include valid client access token, and authorization is made based\non the privileges assigned to the user in the system. Each operation in this\nAPI that is available to end users, has a list of required privileges, except\nfor the operations which are related to user account management, i.e.each user\ncan perform any operation on his account, the `X-Auth-Token` header example:\n ```\n   X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHJHBASD...\n ```\nIn case the Onezone deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n ```\n   X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n ```\n\n**Provider requests**\nWhen a Oneprovider service needs to request some action from the Onezone\nservice, it must authenticate using the peer certificate which was assigned to\nthis provider when registering in the Onezone service.\n\n\n## Effective users and effective groups\nOnedata supports creation of arbitrary nested group tree structures. In order\nto allow identification if a given user belongs to the group directly or\nindirectly by belonging to a subgroup of a group, separate API calls are\nprovided for getting information about group users (direct group members) and\neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and\noperations on them are mapped to most appropriate HTTP methods.\n\n## Space management\nThe space management operations of this API provide means for accessing\ninformation about spaces and their management.\n\n## Share management\nThe share management operations of this API provide means for accessing\ninformation about shares and their management.\n\n## Group management\nThe group management operations allow for creation of user groups, assigning\ntheir authorization rights, adding and removing users from groups.\n\n## User management\nThe user management methods enable for creation of users, managing their\nauthorization credentials as well as space and group membership.\n\n## Provider management\nProvider specific calls enable for getting global information about the\nspaces managed by the provider, and some administrative operations which can\nbe used for monitoring or accounting.\n\n## Handle API\nOnezone provides extensive support for integration with Handle system\nregistration services, including support for DOI and PID identifier assignment\nservices. The API provides methods for adding new Handle services to the\nsystem, managing which users can use which registration services and complete\nAPI for registering identifiers to users data sets which are made public.\n\n## Handle service management\nThe handle service management operations of this API provide means for accessing\ninformation about handle services and their management.\n",
-    "description": "# Overview\nThis is the RESTful API definition of Onezone component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onezone/swagger.json).\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups, shares and providers.\n\n## Authentication and permissions\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nREST API operations from the permissions perspective in Onezone service can be divided into 2 groups,\ndepending on the actor making the request:\n * **User requests** - regular end user requests are authenticated based on the `X-Auth-Token` header, which\n must include valid client access token, and authorization is made based on the privileges assigned\n to the user in the system. Each operation in this API that is available to end users, has a list of\n required privileges, except for the operations which are related to user account management, i.e.\n each user can perform any operation on his account, the `X-Auth-Token` header example:\n ```\n   X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\nIn case the Onezone deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n ```\n   X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n ```\n\n * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,\n it must authenticate using the peer certificate which was assigned to this provider when registering\n in the Onezone service. In such case the `X-Auth-Token` header is not necessary.\n\nSome special administrative operations do not require authentication:\n * `POST /user/authorize` - authorizes user with authentication token through\n Onezone web interface.This interface is called typically by providers,\n * `POST /provider` - registers a Oneprovider in Onezone service\n (however a valid CSR in the body is required),\n * `POST /provider/test/check_my_ports` - checks if all given ports\n are reachable from Onezone,\n * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).\n\nAll other operations can be invoked by a user assuming he has valid privileges in the system,\neach operation description lists required permissions, if any.\n\n## Effective users and effective groups and spaces\nOnedata supports creation of arbitrary nested group and space membership tree structures. In order to determine\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and\neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n**Space management**\nThe space management operations of this API provide means for accessing information about spaces\nand their management.\n\n**Share management**\nThe share management operations of this API provide means for accessing\ninformation about shares and their management.\n\n**Group management**\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n**User management**\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n**Provider management**\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n**Handle API**\nOnezone provides extensive support for integration with Handle system registration\nservices, including support for DOI and PID identifier assignment services. The API\nprovides methods for adding new Handle services to the system, managing which users\ncan use which registration services and complete API for registering identifiers to\nusers data sets which are made public.\n\n**Handle service management**\nThe handle service management operations of this API provide means for accessing\ninformation about handle services and their management.\n\n## Using the API\nOnezone API is quite complex and thus it might be difficult to quickly figure out how\nto perform specific action, however the following guidelines might be useful:\n  * Operations performed by a regular users on their resources are grouped under\n    `/user` path (**USER** group in the menu)\n  * Operations performed by administrators of specific resources (e.g. groups,\n    spaces, shares) start with specific resource (e.g. `/groups`)\n  * By default the operations which list resource membership\n    (e.g. `/spaces/SPACE_ID/groups/`) will list explicit resource membership.\n    To get list of effective resource membership (i.e. including indirect\n    membership), special paths are provided\n    (e.g. `/spaces/SPACE_ID/effective_groups/`)\n\nFurthermore, we have prepared a command-line client environment based on Docker\nwhich gives easy access to each of Onedata services via command-line clients,\nwith pre-configured shell with full help on the APIs and autocomplete for\noperations and attributes.\n\n```\ndocker run -it onedata/rest-cli:18.02.0-beta1\n```\n\nWe have also prepared tutorials which show how to use this API in practice:\n  * [User oriented tutorial](https://onedata.org/docs/doc/using_onedata/using_onedata_from_cli.html)\n  * [Administrator oriented tutorial](https://onedata.org/docs/doc/administering_onedata/administering_onedata_from_cli.html)\n\n\n## Examples\n\n**Generate new authentication token**\n```bash\ncurl -u user:password -X POST -H 'Content-type: application/json' -d '{}' \\\nhttps://$ONEZONE_HOST/api/v3/onezone/user/client_tokens\n```\n\n**Get user details**\n```bash\ncurl -H 'X-Auth-Token: MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk' -X GET \\\nhttps://$ONEZONE_HOST/api/v3/onezone/user \\\n```\n",
+    "description": "# Overview\nThis is the RESTful API definition of Onezone component of Onedata data management system [onedata.org](http://onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/onezone/swagger.json).\n\nThis API allows control and configuration of local Onezone service deployment, in particular management\nof users, spaces, groups, shares and providers.\n\n## Authentication and permissions\nIn order to be able to use this API the REST client must be able to authenticate with the Onezone service.\n\nREST API operations from the permissions perspective in Onezone service can be divided into 2 groups,\ndepending on the actor making the request:\n * **User requests** - regular end user requests are authenticated based on the `X-Auth-Token` header, which\n must include valid client access token, and authorization is made based on the privileges assigned\n to the user in the system. Each operation in this API that is available to end users, has a list of\n required privileges, except for the operations which are related to user account management, i.e.\n each user can perform any operation on his account, the `X-Auth-Token` header example:\n ```\n   X-Auth-Token: IAUYCGOUASGDJHASDJKVAHSDJHASDKJHABSDKJHBASKJHDBKJHASBDKJHBASDKJHBASD...\n ```\nIn case the Onezone deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n ```\n   X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n ```\n\n * **Provider requests** - when a Oneprovider service needs to request some action from the Onezone service,\n it must authenticate using the peer certificate which was assigned to this provider when registering\n in the Onezone service. In such case the `X-Auth-Token` header is not necessary.\n\nSome special administrative operations do not require authentication:\n * `POST /user/authorize` - authorizes user with authentication token through\n Onezone web interface.This interface is called typically by providers,\n * `POST /provider` - registers a Oneprovider in Onezone service\n (however a valid CSR in the body is required),\n * `POST /provider/test/check_my_ports` - checks if all given ports\n are reachable from Onezone,\n * `GET /provider/test/check_my_ip` - returns the external IP of the request peer (as seen by the Onezone).\n\nAll other operations can be invoked by a user assuming he has valid privileges in the system,\neach operation description lists required permissions, if any.\n\n## Effective users and effective groups and spaces\nOnedata supports creation of arbitrary nested group and space membership tree structures. In order to determine\nif a given user belongs to the group directly or indirectly by belonging to a subgroup of a group,\nseparate API calls are provided for getting information about group users (direct group members) and\neffective users (indirect group members).\n\n## API structure\nMost operations are RESTful, i.e. paths reflect the actual resource mode and operations on them are mapped to\nmost appropriate HTTP methods.\n\n**Space management**\nThe space management operations of this API provide means for accessing information about spaces\nand their management.\n\n**Share management**\nThe share management operations of this API provide means for accessing\ninformation about shares and their management.\n\n**Group management**\nThe group management operations allow for creation of user groups, assigning their authorization rights,\nadding and removing users from groups.\n\n**User management**\nThe user management methods enable for creation of users, managing their authorization\ncredentials as well as space and group membership.\n\n**Provider management**\nProvider specific calls enable for getting global information about the spaces managed by the provider,\nand some administrative operations which can be used for monitoring or accounting.\n\n**Handle API**\nOnezone provides extensive support for integration with Handle system registration\nservices, including support for DOI and PID identifier assignment services. The API\nprovides methods for adding new Handle services to the system, managing which users\ncan use which registration services and complete API for registering identifiers to\nusers data sets which are made public.\n\n**Handle service management**\nThe handle service management operations of this API provide means for accessing\ninformation about handle services and their management.\n\n## Using the API\nOnezone API is quite complex and thus it might be difficult to quickly figure out how\nto perform specific action, however the following guidelines might be useful:\n  * Operations performed by a regular users on their resources are grouped under\n    `/user` path (**USER** group in the menu)\n  * Operations performed by administrators of specific resources (e.g. groups,\n    spaces, shares) start with specific resource (e.g. `/groups`)\n  * By default the operations which list resource membership\n    (e.g. `/spaces/SPACE_ID/groups/`) will list explicit resource membership.\n    To get list of effective resource membership (i.e. including indirect\n    membership), special paths are provided\n    (e.g. `/spaces/SPACE_ID/effective_groups/`)\n\nFurthermore, we have prepared a command-line client environment based on Docker\nwhich gives easy access to each of Onedata services via command-line clients,\nwith pre-configured shell with full help on the APIs and autocomplete for\noperations and attributes.\n\n```\ndocker run -it onedata/rest-cli:18.02.2\n```\n\nWe have also prepared tutorials which show how to use this API in practice:\n  * [User oriented tutorial](https://onedata.org/docs/doc/using_onedata/using_onedata_from_cli.html)\n  * [Administrator oriented tutorial](https://onedata.org/docs/doc/administering_onedata/administering_onedata_from_cli.html)\n\n\n## Examples\n\n**Generate new authentication token**\n```bash\ncurl -u user:password -X POST -H 'Content-type: application/json' -d '{}' \\\nhttps://$ONEZONE_HOST/api/v3/onezone/user/client_tokens\n```\n\n**Get user details**\n```bash\ncurl -H 'X-Auth-Token: MDAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlk' -X GET \\\nhttps://$ONEZONE_HOST/api/v3/onezone/user \\\n```\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -21,6 +21,45 @@
     }
   },
   "paths": {
+    "/configuration": {
+      "get": {
+        "operationId": "get_configuration",
+        "tags": [
+          "Zone"
+        ],
+        "x-onedata-gri": {
+          "type": "oz_worker",
+          "aspect": "configuration"
+        },
+        "x-onedata-permissions": [],
+        "summary": "Returns public configuration of Onezone service.",
+        "x-bash-codegen-description": "Returns public configuration of Onezone service.\n",
+        "description": "Returns public information about the Onezone service. This endpoint does not require authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuration returned successfully.",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli getConfiguration"
+          }
+        ]
+      }
+    },
     "/users": {
       "get": {
         "operationId": "oz_users_list",
@@ -103,7 +142,7 @@
         ],
         "summary": "Get user details",
         "x-bash-codegen-description": "Returns the information about a specific user.\n\nThis operation requires `oz_users_list` administrator privilege.\n",
-        "description": "Returns the information about a specific user.\n\nThis operation requires `oz_users_list` administrator privilege.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\",\n  \"linkedAccounts\": []\n  \"emailList\": []\n}\n```\n",
+        "description": "Returns the information about a specific user.\n\nThis operation requires `oz_users_list` administrator privilege.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"alias\": \"admin\",\n  \"name\": \"admin\",\n  \"linkedAccounts\": []\n  \"emails\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -535,7 +574,7 @@
         },
         "summary": "Get current user details",
         "x-bash-codegen-description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n",
-        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -u username:password -X GET https://$HOST/api/v3/onezone/user\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\",\n  \"linkedAccounts\": [],\n  \"emailList\": []\n}\n```\n",
+        "description": "Returns details about currently authenticated user.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user details**\n```bash\ncurl -u username:password -X GET https://$HOST/api/v3/onezone/user\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"alias\": \"admin\",\n  \"name\": \"admin\",\n  \"linkedAccounts\": [],\n  \"emails\": []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1153,17 +1192,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "options",
-            "description": "Optional token parameters",
-            "in": "body",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "x-code-samples": [
           {
             "lang": "Shell",
@@ -1621,6 +1649,78 @@
         ]
       }
     },
+    "/user/idp_access_token/{idp}": {
+      "post": {
+        "operationId": "acquire_idp_access_token",
+        "tags": [
+          "User"
+        ],
+        "x-onedata-gri": {
+          "type": "od_user",
+          "id": "?CLIENT_ID",
+          "aspect": "{idp_access_token, ?BINDING(idp)}"
+        },
+        "summary": "Acquire IdP access token",
+        "x-bash-codegen-description": "Acquires an access token issued by given IdP for the current user. This\noperation requires that the IdP is configured to support offline access -\nissues refresh tokens upon user's login to Onezone, which are later used\nto acquire new access tokens when they expire. Offline access can be\nconfigured by the Onezone admin.\n\nThe user must first log in to Onezone using given IdP,\notherwise the operation will return a 404 error.\n\nThis operation can be invoked on behalf of current user only.\n",
+        "description": "Acquires an access token issued by given IdP for the current user. This\noperation requires that the IdP is configured to support offline access -\nissues refresh tokens upon user's login to Onezone, which are later used\nto acquire new access tokens when they expire. Offline access can be\nconfigured by the Onezone admin.\n\nThe user must first log in to Onezone using given IdP,\notherwise the operation will return a 404 error.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Acquire IdP access token**\n```bash\ncurl -u username:password -X POST \\\nhttps://$HOST/api/v3/onezone/user/idp_access_token/github\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The access token issued by given IdP.",
+            "schema": {
+              "$ref": "#/definitions/IdPAccessToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idp",
+            "in": "path",
+            "description": "IdP identifier.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli acquireIdpAccessToken idp=github"
+          }
+        ]
+      }
+    },
     "/user/groups": {
       "get": {
         "operationId": "list_user_groups",
@@ -1695,7 +1795,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Create new group for the current user",
         "x-bash-codegen-description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n",
-        "description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"role\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups\n```\n",
+        "description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1851,7 +1951,7 @@
         "x-onedata-auth-hint": "?THROUGH_USER(?CLIENT_ID)",
         "summary": "Get group details",
         "x-bash-codegen-description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n",
-        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/groups/LKJGHASDJHAJKLSHDLJKASD\n\n{\n  \"groupId\": \"LKJGHASDJHAJKLSHDLJKASD\",\n  \"name\": \"admins\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns information about a specific group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/groups/LKJGHASDJHAJKLSHDLJKASD\n\n{\n  \"groupId\": \"LKJGHASDJHAJKLSHDLJKASD\",\n  \"name\": \"admins\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2055,7 +2155,7 @@
         "x-onedata-auth-hint": "?THROUGH_USER(?CLIENT_ID)",
         "summary": "Get effective group details",
         "x-bash-codegen-description": "Returns information about a specific effective group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n",
-        "description": "Returns information about a specific effective group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user effective group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_groups/LKJGHASDJHAJKLSHDLJKASD\n\n{\n  \"groupId\": \"LKJGHASDJHAJKLSHDLJKASD\",\n  \"name\": \"admins\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns information about a specific effective group to which the user belongs.\n\nThis operation can be invoked on behalf of current user only.\n\n***Example cURL requests***\n\n**Get user effective group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_groups/LKJGHASDJHAJKLSHDLJKASD\n\n{\n  \"groupId\": \"LKJGHASDJHAJKLSHDLJKASD\",\n  \"name\": \"admins\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3888,7 +3988,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Create new group",
         "x-bash-codegen-description": "Creates a new group.\n\nThis operation does not require any specific privileges.\n",
-        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n\n***Example cURL requests***\n\n**Create new group of type `role`**\n```bash\n curl -u username:password  -H \"Content-type: application/json\" \\\n -X POST -d '{ \"name\":\"new_group\" , \"type\":\"role\" }' \\\n https://$HOST/api/v3/onezone/groups/\n```\n",
+        "description": "Creates a new group.\n\nThis operation does require any specific privileges.\n\n***Example cURL requests***\n\n**Create new group of type `team`**\n```bash\n curl -u username:password  -H \"Content-type: application/json\" \\\n -X POST -d '{ \"name\":\"new_group\" , \"type\":\"team\" }' \\\n https://$HOST/api/v3/onezone/groups/\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -3947,7 +4047,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli createGroup name==Group2 type==role"
+            "source": "onezone-rest-cli createGroup name==Group2 type==team"
           }
         ]
       }
@@ -3969,7 +4069,7 @@
         ],
         "summary": "Get group details",
         "x-bash-codegen-description": "Returns the information about a specific group.\n\nThis operation requires `oz_groups_list` administrator privilege or group membership.\n",
-        "description": "Returns the information about a specific group.\n\nThis operation requires `oz_groups_list` administrator privilege or group membership.\n\n***Example cURL requests***\n\n**Get group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Returns the information about a specific group.\n\nThis operation requires `oz_groups_list` administrator privilege or group membership.\n\n***Example cURL requests***\n\n**Get group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"new_group\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4610,14 +4710,6 @@
             "description": "Group ID.",
             "type": "string",
             "required": true
-          },
-          {
-            "name": "data",
-            "in": "body",
-            "description": "Group invite token attributes.",
-            "schema": {
-              "$ref": "#/definitions/GroupInviteTokenRequest"
-            }
           }
         ],
         "x-code-samples": [
@@ -4647,7 +4739,7 @@
         ],
         "summary": "Get group user details",
         "x-bash-codegen-description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n",
-        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n\n***Example cURL requests***\n\n**Generate user group invite token**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\"\n}\n```\n",
+        "description": "Returns the public information about a user {uid} in group {id}.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n\n***Example cURL requests***\n\n**Generate user group invite token**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"alias\": \"admin\",\n  \"name\": \"admin\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5143,7 +5235,7 @@
         ],
         "summary": "Get effective group user details",
         "x-bash-codegen-description": "Returns information about a specific effective group user.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n",
-        "description": "Returns information about a specific effective group user.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"login\": \"admin\",\n  \"name\": \"admin\"\n}\n```\n",
+        "description": "Returns information about a specific effective group user.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_users' privilege is required.\n\n***Example cURL requests***\n\n**Get group user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC1lKEasj4q253sptVqF8/effective_users/lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\n\n{\n  \"userId\": \"lb0NvUXIVguzjQ3dBOXAyd1c61fWKB5dKJDQ6YvB7a0\",\n  \"alias\": \"admin\",\n  \"name\": \"admin\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5377,7 +5469,7 @@
         "x-onedata-auth-hint": "?AS_GROUP(?BINDING(id))",
         "summary": "Create new group for the current group",
         "x-bash-codegen-description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n",
-        "description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"role\" }' \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/parents\n```\n",
+        "description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/parents\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -5995,15 +6087,6 @@
             "description": "Group ID.",
             "type": "string",
             "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Group token request.",
-            "schema": {
-              "$ref": "#/definitions/GroupInviteTokenRequest"
-            },
-            "required": false
           }
         ],
         "x-code-samples": [
@@ -6033,7 +6116,7 @@
         ],
         "summary": "Get subgroup details",
         "x-bash-codegen-description": "Returns information about a specific child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n 'oz_groups_list_groups' privilege is required.\n",
-        "description": "Returns information about a specific child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n 'oz_groups_list_groups' privilege is required.\n\n***Example cURL requests***\n\n**Get child group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_group1\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns information about a specific child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n 'oz_groups_list_groups' privilege is required.\n\n***Example cURL requests***\n\n**Get child group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_group1\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -6517,7 +6600,7 @@
         ],
         "summary": "Get effective child group details",
         "x-bash-codegen-description": "Returns information about a specific effective child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_groups' privilege is required.\n",
-        "description": "Returns information about a specific effective child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_groups' privilege is required.\n\n***Example cURL requests***\n\n**Get effective child details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_group1\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns information about a specific effective child group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n'oz_groups_list_groups' privilege is required.\n\n***Example cURL requests***\n\n**Get effective child details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/HwUpk8jrwxKOe45uzLFX2GVC8lKEasj4q253sptVqF8/effective_children/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_group1\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -8858,15 +8941,6 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
-          },
-          {
-            "name": "options",
-            "description": "Optional token parameters.",
-            "in": "body",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "x-code-samples": [
@@ -8896,7 +8970,7 @@
         ],
         "summary": "Get space user details",
         "x-bash-codegen-description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_users` privilege is required.\n",
-        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_users` privilege is required.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\"\n}\n```\n",
+        "description": "Returns the public information about a specific user in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_users` privilege is required.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -9380,7 +9454,7 @@
         ],
         "summary": "Get effective space user details",
         "x-bash-codegen-description": "Returns details about a specific effective user in a space.\n\nThis operation requires `space_view` privilege.\n",
-        "description": "Returns details about a specific effective user in a space.\n\nThis operation requires `space_view` privilege.\n\n***Example cURL requests***\n\n**Get effective space user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_users/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"userId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"login\": \"username\",\n  \"name\": \"John Doe\"\n}\n```\n",
+        "description": "Returns details about a specific effective user in a space.\n\nThis operation requires `space_view` privilege.\n\n***Example cURL requests***\n\n**Get effective space user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_users/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"userId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"alias\": \"username\",\n  \"name\": \"John Doe\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -9619,7 +9693,7 @@
         ],
         "summary": "Create space invite token for group",
         "x-bash-codegen-description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n",
-        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n\n***Example cURL requests***\n\n**Create space invitation token for group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups/token\n\n{\n  \"token\": \"MDAxNmxvY0cGUgKWsjcpnrLE00RtOd2F00cGUgKWsjcpnrLE00RtOdhmnQycSICwMsugo\"\n}\n```\n",
+        "description": "Creates a token allowing to add a group to a specific space.\n\nThis operation requires `space_invite_group` privilege.\n\n***Example cURL requests***\n\n**Create space invitation token for group**\n```bash\ncurl -u username:password -X POST \\\nhttps://$HOST/api/v3/onezone/spaces/56ID6lRxcbz4OEbrr7vPI52UA7E6WwkqQ6bJCtW5PLE/groups/token\n\n{\n  \"token\": \"MDAxNmxvY0cGUgKWsjcpnrLE00RtOd2F00cGUgKWsjcpnrLE00RtOdhmnQycSICwMsugo\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -9697,7 +9771,7 @@
         ],
         "summary": "Get group details",
         "x-bash-codegen-description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_groups` privilege is required.\n",
-        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_groups` privilege is required.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_groupX\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_groups` privilege is required.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -10180,7 +10254,7 @@
         ],
         "summary": "Get effective space group details",
         "x-bash-codegen-description": "Returns details about a specific effective group in a space.\n\nThis operation requires `space_view` privilege.\n",
-        "description": "Returns details about a specific effective group in a space.\n\nThis operation requires `space_view` privilege.\n\n***Example cURL requests***\n\n**Get effective space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_groupX\",\n  \"type\": \"role\"\n}\n```\n",
+        "description": "Returns details about a specific effective group in a space.\n\nThis operation requires `space_view` privilege.\n\n***Example cURL requests***\n\n**Get effective space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/9ueUeoZA6KXxNgzlvqmmrbzqE_BQiaHEEDC21sY1Kuc/effective_groups/T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\n\n{\n  \"groupId\": \"T5x_HhFYOnILOCUf9OqgExw00RwaU2MXT5122oWk_sM\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -10625,15 +10699,6 @@
             "description": "Space ID.",
             "type": "string",
             "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Token parameters.",
-            "schema": {
-              "type": "string"
-            },
-            "required": false
           }
         ],
         "x-code-samples": [
@@ -11306,6 +11371,74 @@
         ]
       }
     },
+    "/providers/token": {
+      "post": {
+        "operationId": "create_provider_registration_token",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-gri": {
+          "type": "od_provider",
+          "aspect": "provider_registration_token"
+        },
+        "x-onedata-permissions": [
+          "oz_providers_invite"
+        ],
+        "summary": "Create provider registration token",
+        "x-bash-codegen-description": "Creates a token allowing new provider to register in Onezone.\n\nThis operation requires `oz_providers_invite` privilege.\n",
+        "description": "Creates a token allowing new provider to register in Onezone.\n\nThis operation requires `oz_providers_invite` privilege.\n\n***Example cURL requests***\n\n**Create space user invite token**\n```bash\ncurl -u username:password -X POST \\\nhttps://$HOST:8443/api/v3/onezone/providers/token\n\n{\n  \"token\": \"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaWVyIG00zcEJ2UDVuOHhkQUNhdk9hbTlyNnIwNldPSzVhc\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The token for registering in Onezone.",
+            "schema": {
+              "$ref": "#/definitions/SpaceInviteToken"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli createProviderRegistrationToken"
+          }
+        ]
+      }
+    },
     "/providers/{pid}": {
       "get": {
         "operationId": "get_provider_details",
@@ -11545,7 +11678,7 @@
         ],
         "summary": "Get effective user of provider",
         "x-bash-codegen-description": "Returns the details of an effective user of a specific provider.\n\nThis operation requires `oz_providers_list_users` administrator privilege.\n",
-        "description": "Returns the details of an effective user of a specific provider.\n\nThis operation requires `oz_providers_list_users` administrator privilege.\n\n***Example cURL requests***\n\n**Get effective user of a provider**\n```bash\ncurl -u username:password -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\",\n   \"linkedAccounts\" : [],\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"emailList\" : []\n}\n```\n",
+        "description": "Returns the details of an effective user of a specific provider.\n\nThis operation requires `oz_providers_list_users` administrator privilege.\n\n***Example cURL requests***\n\n**Get effective user of a provider**\n```bash\ncurl -u username:password -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\",\n   \"emails\" : [],\n   \"linkedAccounts\" : []\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -11704,7 +11837,7 @@
         ],
         "summary": "Get group of provider",
         "x-bash-codegen-description": "Returns the details of an effective group of a specific provider.\n\nThis operation requires `oz_providers_list_groups` administrator privilege.\n",
-        "description": "Returns the details of an effective group of a specific provider.\n\nThis operation requires `oz_providers_list_groups` administrator privilege.\n\n***Example cURL requests***\n\n**Get group of a provider**\n```bash\ncurl -u username:password -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"groupId\":\"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\":\"new_group\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Returns the details of an effective group of a specific provider.\n\nThis operation requires `oz_providers_list_groups` administrator privilege.\n\n***Example cURL requests***\n\n**Get group of a provider**\n```bash\ncurl -u username:password -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/ASDJKHASDASD5465asdvASDasd/groups/KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\n\n{\n  \"groupId\":\"KJHAGSDJKHGASJKHDGAKJHSDGKHJASD\",\n  \"name\":\"new_group\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13317,7 +13450,7 @@
         ],
         "summary": "Get handle service user",
         "x-bash-codegen-description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n",
-        "description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Add handle service user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\"\n}\n```\n",
+        "description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Add handle service user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13795,7 +13928,7 @@
         ],
         "summary": "Get effective handle service user",
         "x-bash-codegen-description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n",
-        "description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle service user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\"\n}\n```\n",
+        "description": "Allows to get a user to a handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle service user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\",\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14036,7 +14169,7 @@
         ],
         "summary": "Get handle service group details",
         "x-bash-codegen-description": "Get details of a group with access to handle service.\n\nThis operation requires `handle_service_view` administrator privilege.\n",
-        "description": "Get details of a group with access to handle service.\n\nThis operation requires `handle_service_view` administrator privilege.\n\n***Example cURL requests***\n\n**Get group handle service**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Get details of a group with access to handle service.\n\nThis operation requires `handle_service_view` administrator privilege.\n\n***Example cURL requests***\n\n**Get group handle service**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14520,7 +14653,7 @@
         ],
         "summary": "Get effective handle service group",
         "x-bash-codegen-description": "Get details of a group with effective access to handle service.\n\nThis operation requires `handle_service_view` privilege.\n",
-        "description": "Get details of a group with effective access to handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle service group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Get details of a group with effective access to handle service.\n\nThis operation requires `handle_service_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle service group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handle_services/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -15287,7 +15420,7 @@
         ],
         "summary": "Get handle user",
         "x-bash-codegen-description": "Allows to add a user to a handle.\n\nThis operation requires `handle_view` privilege.\n",
-        "description": "Allows to add a user to a handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Get handle user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\",\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\"\n}\n```\n",
+        "description": "Allows to add a user to a handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Get handle user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\",\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -15771,7 +15904,7 @@
         ],
         "summary": "Get effective handle user",
         "x-bash-codegen-description": "Returns effective handle user details.\n\nThis operation requires `handle_view` privilege.\n",
-        "description": "Returns effective handle user details.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Add handle user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"name\" : \"John Doe\",\n   \"login\" : \"username\",\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\"\n}\n```\n",
+        "description": "Returns effective handle user details.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Add handle user**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_users/njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\n\n{\n   \"name\" : \"John Doe\",\n   \"alias\" : \"username\",\n   \"userId\" : \"njOzyvXybAYvki10HXRCeJd_IlLHS4XEklgghmJjDpo\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16012,7 +16145,7 @@
         ],
         "summary": "Get handle group",
         "x-bash-codegen-description": "Returns the details of a group with access to handle.\n\nThis operation requires `handle_view` privilege.\n",
-        "description": "Returns the details of a group with access to handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Add handle group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Returns the details of a group with access to handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Add handle group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16496,7 +16629,7 @@
         ],
         "summary": "Get effective handle group",
         "x-bash-codegen-description": "Returns the details of an effective group with access to handle.\n\nThis operation requires `handle_view` privilege.\n",
-        "description": "Returns the details of an effective group with access to handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"role\"\n}\n```\n",
+        "description": "Returns the details of an effective group with access to handle.\n\nThis operation requires `handle_view` privilege.\n\n***Example cURL requests***\n\n**Get effective handle group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/handles/SADHLKJhlkASHDLAKSHDLKJHJjLH/effective_groups/HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\n\n{\n  \"groupId\":\"HwUpk8jrwxKOe45uzLFX2GVa8lKEasj4q253sptVqF8\",\n  \"name\":\"Group name\",\n  \"type\":\"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16646,6 +16779,64 @@
     }
   },
   "definitions": {
+    "Configuration": {
+      "description": "Public information about Onezone configuration and version.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Onezone's name"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Onezone's cluster domain"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of this Onezone service"
+        },
+        "build": {
+          "type": "string",
+          "description": "Build number of this Onezone service"
+        },
+        "subdomainDelegationSupported": {
+          "type": "boolean",
+          "description": "If true, registering Oneproviders are allowed to request subdomains of the Onezone domain for use as their domains."
+        },
+        "compatibleOneproviderVersions": {
+          "type": "array",
+          "description": "List of compatible Oneprovider versions",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supportedIdPs": {
+          "type": "array",
+          "description": "List of IdPs supported by Onezone",
+          "items": {
+            "type": "object",
+            "description": "IdP details",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The identifier of the IdP"
+              },
+              "offlineAccess": {
+                "type": "boolean",
+                "description": "Determines whether given IdP can be used in the offline access flow, i.e. Onezone can acquire access tokens in the IdP without the user being logged in."
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "build",
+        "subdomainDelegationSupported",
+        "compatibleOneproviderVersions"
+      ]
+    },
     "Error": {
       "type": "object",
       "description": "Generic error model for REST requests.",
@@ -16656,7 +16847,7 @@
         }
       },
       "example": {
-        "error": "Provided data could not be understood by the server"
+        "error": "Error description"
       }
     },
     "User": {
@@ -16669,11 +16860,11 @@
         },
         "name": {
           "type": "string",
-          "description": "The user friendly name of storage resource."
+          "description": "The user friendly account name."
         },
-        "login": {
+        "alias": {
           "type": "string",
-          "description": "User login"
+          "description": "User alias (unique identifier, similar to login)."
         }
       },
       "required": [
@@ -16683,7 +16874,7 @@
       "example": {
         "userId": "ALKJSDH77i79ASDKJA-ASDBAS9-87",
         "name": "Rudolf Lingens",
-        "login": "Rudolf Lingens"
+        "alias": "r.lingens"
       }
     },
     "UserProtectedInfo": {
@@ -16705,11 +16896,11 @@
             "$ref": "#/definitions/LinkedAccount"
           }
         },
-        "login": {
+        "alias": {
           "type": "string",
-          "description": "User login"
+          "description": "User alias (unique identifier, similar to login)."
         },
-        "emailList": {
+        "emails": {
           "type": "array",
           "items": {
             "type": "string"
@@ -16723,7 +16914,7 @@
       "example": {
         "userId": "ALKJSDH77i79ASDKJA-ASDBAS9-87",
         "name": "Rudolf Lingens",
-        "login": "Rudolf_Lingens",
+        "alias": "r.lingens",
         "linkedAccounts": [
           {
             "subjectId": "ASD879ASD-7SADASFSsa0831",
@@ -16734,7 +16925,7 @@
             "idp": "elixir"
           }
         ],
-        "emailList": [
+        "emails": [
           "rudolf.linges@example.com",
           "john.doe@example.com"
         ]
@@ -16748,13 +16939,35 @@
           "type": "string",
           "description": "User full name."
         },
-        "login": {
+        "alias": {
           "type": "string",
-          "description": "User login, must be unique."
+          "description": "User alias (unique identifier, similar to login)."
         }
       },
       "example": {
         "name": "Rudolf Lingens"
+      }
+    },
+    "IdPAccessToken": {
+      "type": "object",
+      "description": "IdP Access token.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The access token."
+        },
+        "ttl": {
+          "type": "integer",
+          "description": "Time to live of the token (in seconds)."
+        }
+      },
+      "required": [
+        "token",
+        "ttl"
+      ],
+      "example": {
+        "token": "5fc7f98122413e93fc9acbc2cd804961a24501b5820ca6cd3e35b844da9e73b1",
+        "ttl": 3597
       }
     },
     "Users": {
@@ -16830,6 +17043,10 @@
         "name": {
           "type": "string",
           "description": "Provider name."
+        },
+        "token": {
+          "type": "string",
+          "description": "Token for registering provider. May be required depending on provider registration policy in given Onezone.\n"
         },
         "subdomainDelegation": {
           "type": "boolean",
@@ -17153,7 +17370,7 @@
             "organization",
             "unit",
             "team",
-            "role"
+            "role_holders"
           ]
         }
       },
@@ -17165,7 +17382,7 @@
       "example": {
         "groupId": "ALSKDHLASD8ASDNjasd99",
         "name": "Test group",
-        "type": "role"
+        "type": "team"
       }
     },
     "GroupCreateRequest": {
@@ -17178,12 +17395,12 @@
         },
         "type": {
           "type": "string",
-          "description": "The type of the group. If not specified, `role` is assumed.",
+          "description": "The type of the group. If not specified, `team` is assumed.",
           "enum": [
             "organization",
             "unit",
             "team",
-            "role"
+            "role_holders"
           ]
         }
       },
@@ -17192,7 +17409,7 @@
       ],
       "example": {
         "name": "Test group",
-        "type": "role"
+        "type": "team"
       }
     },
     "GroupUpdateRequest": {
@@ -17210,7 +17427,7 @@
             "organization",
             "unit",
             "team",
-            "role"
+            "role_holders"
           ]
         }
       },
@@ -17234,10 +17451,6 @@
         "token": "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OIBmav38YI0Z2-dw-fvrZ3XP-J0HjCN0taT3_WungK"
       }
     },
-    "GroupInviteTokenRequest": {
-      "type": "object",
-      "description": "Group invitation token request."
-    },
     "LinkedAccount": {
       "type": "object",
       "description": "User linked account.",
@@ -17250,22 +17463,22 @@
           "type": "string",
           "description": "User ID assigned in identity provider."
         },
-        "login": {
+        "alias": {
           "type": "string",
-          "description": "User login name."
+          "description": "User alias (unique identifier, similar to login)."
         },
         "name": {
           "type": "string",
           "description": "User full name."
         },
-        "emailList": {
+        "emails": {
           "type": "array",
           "description": "The list of user email accounts.",
           "items": {
             "type": "string"
           }
         },
-        "groups": {
+        "entitlements": {
           "type": "array",
           "description": "A list of strings denoting user group memberships as acquired from the\nidentity provider. Memberships are in Onedata normalized form.\n",
           "items": {
@@ -17280,16 +17493,16 @@
       "example": {
         "idp": "github",
         "subjectId": "ASDJH65675ASD765ASD890ASD6",
-        "login": "user1",
+        "alias": "user1",
         "name": "User One",
-        "emailList": [
+        "emails": [
           "user.1@example.com",
           "user.one@example.com",
           "user.i@example.com"
         ],
-        "groups": [
-          "vo:example-org.eu/tm:members/member",
-          "vo:example-org.eu/rl:administration/admin"
+        "entitlements": [
+          "elixir_test:members",
+          "elixir_test:administration"
         ]
       }
     },
@@ -18305,6 +18518,10 @@
   },
   "tags": [
     {
+      "name": "Zone",
+      "description": "Information about the Onezone service"
+    },
+    {
       "name": "User",
       "description": "User management operations"
     },
@@ -18334,6 +18551,12 @@
     }
   ],
   "x-tagGroups": [
+    {
+      "name": "Service information",
+      "tags": [
+        "Zone"
+      ]
+    },
     {
       "name": "User management",
       "tags": [

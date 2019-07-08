@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "18.02.0-rc12",
+    "version": "18.02.2",
     "title": "Onepanel",
-    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://www.onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
-    "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\nOnepanel supports only HTTP basic authentication, i.e. using `username` and\n`password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators\n    and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using\n    which users can login to Onezone service using HTTP Basic authentication\n    without OpenID. This role makes sense only on Onepanel which manages\n    Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin`\naccount.\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
+    "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\nOnepanel supports only HTTP basic authentication, i.e. using `username` and\n`password`, which were set when creating users.\n\nOnepanel users can have 2 roles:\n  * **admin** - Onepanel administrator, there can be multiple administrators\n    and all have equal rights in terms of Onedata deployment management,\n  * **regular** - this role allows manual creation of user accounts, using\n    which users can login to Onezone service using HTTP Basic authentication\n    without OpenID. This role makes sense only on Onepanel which manages\n    Onezone deployment.\n\nThe first user account which is created in Onepanel is always an `admin`\naccount.\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Create new user**\n```bash\ncurl -X POST -k -vvv -H \"content-type: application/json\" \\\n-d '{\"username\": \"admin\", \"password\": \"Password1\", \"userRole\": \"admin\"}' \\\nhttps://172.17.0.6:9443/api/v3/onepanel/users\n```\n\n**Add storage resource to provider**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X PUT -u admin:Password1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -21,6 +21,37 @@
     }
   },
   "paths": {
+    "/configuration": {
+      "get": {
+        "operationId": "get_configuration",
+        "summary": "Get public configuration",
+        "description": "Returns public configuration details.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel",
+        "x-onedata-resource": "configuration",
+        "x-onedata-noauth": true,
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuration details.",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/session": {
       "post": {
         "operationId": "create_session",
@@ -61,7 +92,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret createSession --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret createSession --host https://$HOST:9443"
           }
         ]
       },
@@ -186,7 +217,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret addUser username==bob password==secret userRole==regular --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret addUser username==bob password==secret userRole==regular --host https://$HOST:9443"
           }
         ]
       }
@@ -240,7 +271,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getUser username==bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getUser username=bob --host https://$HOST:9443"
           }
         ]
       },
@@ -303,7 +334,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret modifyUser password==new_secret --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:alices_secret modifyUser newPassword==new_bobs_secret currentPassword==alices_secret username=bob --host https://$HOST:9443"
           }
         ]
       },
@@ -349,7 +380,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeUser username==bob --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret removeUser username=bob --host https://$HOST:9443"
           }
         ]
       }
@@ -391,7 +422,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getClusterCookie --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getClusterCookie --host https://$HOST:9443"
           }
         ]
       }
@@ -437,7 +468,7 @@
           {
             "name": "forceCheck",
             "in": "query",
-            "description": "If true the DNS check cache is overriden and check is performed during handling of the request.",
+            "description": "If true the DNS check cache is overridden and check is performed during handling of the request.",
             "type": "boolean",
             "default": false,
             "required": false
@@ -601,7 +632,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getClusterHosts discovered=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getClusterHosts discovered=true --host https://$HOST:9443"
           }
         ]
       },
@@ -653,7 +684,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=cluster.example.com cookie==AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret createCluster clusterHost=$CLUSTER_HOST cookie==AS2KLJH1231AJSHDKJBC12KS578A3SDA --host https://$HOST:9443"
           }
         ]
       }
@@ -698,7 +729,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret removeClusterHost discovered=true host=cluster.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret removeClusterHost discovered=true host=$CLUSTER_HOST --host https://$HOST:9443"
           }
         ]
       }
@@ -753,7 +784,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getTaskStatus id=ASLDJLAKSJDASD --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getTaskStatus id=$TASK_ID --host https://$HOST:9443"
           }
         ]
       }
@@ -795,7 +826,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getWebCert --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getWebCert --host https://$HOST:9443"
           }
         ]
       },
@@ -1075,7 +1106,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderNagiosReport --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderNagiosReport --host https://$HOST:9443"
           }
         ]
       }
@@ -1225,7 +1256,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderSpaces --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderSpaces --host https://$HOST:9443"
           }
         ]
       },
@@ -1285,7 +1316,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret supportSpace token==ASDKJASKJDHKAJSHD size:=1073741824 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret supportSpace token==ASDKJASKJDHKAJSHD size:=1073741824 --host https://$HOST:9443"
           }
         ]
       }
@@ -1332,14 +1363,14 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a space which details should be returned.",
+            "description": "The Id of a space which details should be returned.",
             "required": true
           }
         ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getSpaceDetails id=ASLKDJHAKJSDH --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getSpaceDetails id=$SPACE_ID --host https://$HOST:9443"
           }
         ]
       },
@@ -1358,7 +1389,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The space details has been successfully changed. Returns object with ID of the space.",
+            "description": "The space details has been successfully changed. Returns object with Id of the space.",
             "schema": {
               "$ref": "#/definitions/SpaceId"
             }
@@ -1390,7 +1421,7 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a space which details should be modified.",
+            "description": "The Id of a space which details should be modified.",
             "required": true
           },
           {
@@ -1438,14 +1469,480 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a space to be removed.",
+            "description": "The Id of a space to be removed.",
             "required": true
           }
         ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret revokeSpaceSupport id=ASLKDJHAKJSDH --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret revokeSpaceSupport id=$SPACE_ID --host https://$HOST:9443"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto-cleaning/configuration": {
+      "get": {
+        "operationId": "get_space_auto_cleaning_configuration",
+        "summary": "Get space auto-cleaning configuration",
+        "description": "Returns configuration of auto-cleaning mechanism in the space specified by space Id in the path.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_configuration",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The space auto-cleaning configuration.",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningConfiguration"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Space does not exist or is not supported by the provider."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space of which auto-cleaning configuration should be returned.",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret getSpaceAutoCleaningConfiguration id=$SPACE_ID --host https://$HOST:9443"
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "configure_space_auto_cleaning",
+        "summary": "Configure space auto-cleaning mechanism",
+        "description": "Configures space auto-cleaning mechanism in the space.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_configuration",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Auto-cleaning configuration has been updated"
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space",
+            "required": true
+          },
+          {
+            "name": "spaceAutoCleaningConfiguration",
+            "in": "body",
+            "description": "New configuration of space auto-cleaning mechanism.\n",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningConfiguration"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "cat new_auto_cleaning_config.json | onepanel-rest-cli -u alice:secret --host https://$HOST:9443 configureSpaceAutoCleaning id=$SPACE_ID -\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto-cleaning/reports": {
+      "get": {
+        "operationId": "get_provider_space_auto_cleaning_reports",
+        "summary": "Get Ids of of the space auto-cleaning reports",
+        "description": "Returns the list of Ids of space auto-cleaning reports. The list is sorted descending by start time of an auto-cleaning run (the newest report is first).\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_reports",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Ids of space auto-cleaning reports.",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningReports"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space",
+            "required": true
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "description": "Allows to skip N first report Ids.",
+            "required": false,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "description": "Allows to limit the number of returned report Ids up to N last reports. By default, all report Ids will be returned.\n",
+            "required": false
+          },
+          {
+            "name": "index",
+            "in": "query",
+            "type": "string",
+            "description": "Allows to list the report Ids starting from the specific report.\n",
+            "required": false
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 getProviderSpaceAutoCleaningReports id=$SPACE_ID offset=5 limit=10 index=1234148561abcdef\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto-cleaning/reports/{report_id}": {
+      "get": {
+        "operationId": "get_provider_space_auto_cleaning_report",
+        "summary": "Get the report from a space auto-cleaning run",
+        "description": "Returns the details of a specific auto-cleaning run.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_report",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The report from a space auto-cleaning run.",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningReport"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space",
+            "required": true
+          },
+          {
+            "name": "report_id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of an auto-cleaning report.",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 getProviderSpaceAutoCleaningReports id=$SPACE_ID report_id=$REPORT_ID\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto-cleaning/start": {
+      "post": {
+        "operationId": "trigger_auto_cleaning",
+        "summary": "Triggers space auto-cleaning",
+        "description": "Triggers one run of auto-cleaning mechanism for given space.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_start",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Cleaning of given space has started."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret triggerAutoCleaning --host https://$HOST:9443"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/auto-cleaning/status": {
+      "get": {
+        "operationId": "get_provider_space_auto_cleaning_status",
+        "summary": "Get status of space auto-cleaning mechanism",
+        "description": "Returns status of current process of auto-cleaning for the space.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "space_auto_cleaning_status",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information about current auto-cleaning process for the space.",
+            "schema": {
+              "$ref": "#/definitions/SpaceAutoCleaningStatus"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 getProviderSpaceAutoCleaningStatus id=$SPACE_ID\n"
+          }
+        ]
+      }
+    },
+    "/provider/spaces/{id}/file-popularity/configuration": {
+      "get": {
+        "operationId": "get_file_popularity_configuration",
+        "summary": "Get file-popularity configuration",
+        "description": "Returns configuration of file-popularity mechanism in the space specified by space Id in the path.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "file_popularity_configuration",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The file-popularity configuration.",
+            "schema": {
+              "$ref": "#/definitions/SpaceFilePopularityConfiguration"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Space does not exist or is not supported by the provider."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space of which file-popularity configuration should be returned.",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret getFilePopularityConfiguration id=$SPACE_ID --host https://$HOST:9443"
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "configure_file_popularity",
+        "summary": "Configure file-popularity mechanism in the space.",
+        "description": "Configures the file-popularity mechanism in the space.\nThe mechanism is responsible for collecting file-popularity usage statistics per space support.\nCreates a view index which can be queried to fetch the least popular files.\nThe view is sorted in an increasing order by the popularity function value.\nThe popularity function is defined as\n\n```\nP(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountPerDay, MAX_AVG_OPEN_COUNT_PER_DAY)\nwhere:\n* lastOpenHour - parameter which is equal to timestamp (in hours since 01.01.1970) of last open operation on given file\n* w1 - weight of lastOpenHour parameter\n* avgOpenCountPerDay - parameter equal to moving average of number of open operations on given file per day. Value is calculated over last 30 days.\n* w2 - weight of avgOpenCountPerDay parameter\n* MAX_AVG_OPEN_COUNT_PER_DAY - upper boundary for avgOpenCountPerDay parameter\n```\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "file_popularity_configuration",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Configuration process successfully started.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The path to the task resource, which can be queried to check operation status.\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of a space.",
+            "required": true
+          },
+          {
+            "name": "spaceFilePopularityConfiguration",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SpaceFilePopularityConfiguration"
+            },
+            "description": "Configuration of the file-popularity mechanism in the space.",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u alice:secret configureFilePopularity --host https://$HOST:9443 enabled:=true"
           }
         ]
       }
@@ -1489,7 +1986,7 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a space for which sync stats should be returned.",
+            "description": "The Id of a space for which sync stats should be returned.",
             "required": true
           },
           {
@@ -1515,170 +2012,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceSyncStats id=JaHSGDJHG12312aassdCXX09 started_after=\"2017-10-20T21:39:37\"\n"
-          }
-        ]
-      }
-    },
-    "/provider/spaces/{id}/auto_cleaning_status": {
-      "get": {
-        "operationId": "get_provider_space_auto_cleaning_status",
-        "summary": "Get status of space auto cleaning",
-        "description": "Returns status of current process of auto cleaning for the space\n",
-        "x-onedata-version": 3,
-        "x-onedata-module": "rest_oneprovider",
-        "x-onedata-resource": "space_auto_cleaning_status",
-        "tags": [
-          "Oneprovider"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Information about current auto cleaning process for the space",
-            "schema": {
-              "$ref": "#/definitions/SpaceAutoCleaningStatus"
-            }
-          },
-          "401": {
-            "description": "Unauthorized request."
-          },
-          "403": {
-            "description": "Forbidden request."
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "description": "The ID of a space",
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceAutoCleaningStatus id=JaHSGDJHG12312aassdCXX09\n"
-          }
-        ]
-      }
-    },
-    "/provider/spaces/{id}/auto_cleaning_reports": {
-      "get": {
-        "operationId": "get_provider_space_auto_cleaning_reports",
-        "summary": "Get reports of space auto cleaning",
-        "description": "Returns collection of reports of auto cleaning for the space\n",
-        "x-onedata-version": 3,
-        "x-onedata-module": "rest_oneprovider",
-        "x-onedata-resource": "space_auto_cleaning_report_collection",
-        "tags": [
-          "Oneprovider"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Collection of space auto cleaning reports",
-            "schema": {
-              "$ref": "#/definitions/SpaceAutoCleaningReportCollection"
-            }
-          },
-          "401": {
-            "description": "Unauthorized request."
-          },
-          "403": {
-            "description": "Forbidden request."
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "description": "The ID of a space",
-            "required": true
-          },
-          {
-            "name": "started_after",
-            "in": "query",
-            "type": "string",
-            "description": "Fetch only reports that started after this date (ISO 8601)",
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 getProviderSpaceAutoCleaningReports id=JaHSGDJHG12312aassdCXX09 started_after=\"2017-10-20T21:39:37\"\n"
-          }
-        ]
-      }
-    },
-    "/provider/spaces/{id}/start_cleaning": {
-      "post": {
-        "operationId": "provider_space_start_cleaning",
-        "summary": "Start space cleaning",
-        "description": "Starts cleaning of space with current configuration.",
-        "x-onedata-version": 3,
-        "x-onedata-module": "rest_oneprovider",
-        "x-onedata-resource": "start_cleaning",
-        "tags": [
-          "Oneprovider"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "Cleaning of given space has started."
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized request."
-          },
-          "403": {
-            "description": "Forbidden request."
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "description": "The ID of a space",
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret providerSpaceStartCleaning --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 getProviderSpaceSyncStats id=$SPACE_ID started_after=\"2017-10-20T21:39:37\"\n"
           }
         ]
       }
@@ -1720,7 +2054,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getStorages --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getStorages --host https://$HOST:9443"
           }
         ]
       },
@@ -1774,7 +2108,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat storages.json | onepanel-rest-cli -u alice:secret addStorage --host https://op.example.com:9443"
+            "source": "cat storages.json | onepanel-rest-cli -u alice:secret addStorage --host https://$HOST:9443"
           }
         ]
       }
@@ -1821,14 +2155,14 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a storage resource, which details should be returned.\n",
+            "description": "The Id of a storage resource, which details should be returned.\n",
             "required": true
           }
         ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getStorageDetails name=S3 --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getStorageDetails name=S3 --host https://$HOST:9443"
           }
         ]
       },
@@ -1867,7 +2201,7 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a storage resource, which details should be modified.\n",
+            "description": "The Id of a storage resource, which details should be modified.\n",
             "required": true
           },
           {
@@ -1883,7 +2217,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 modifyStorage name=S3 timeout==10000"
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 modifyStorage name=S3 timeout==10000"
           }
         ]
       }
@@ -1924,14 +2258,14 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The ID of a storage resource, which details should be modified.\n",
+            "description": "The Id of a storage resource, which details should be modified.\n",
             "required": true
           }
         ],
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret --host https://op.example.com:9443 invalidateLumaCache id=HJgs7dfFGV789T1asdG"
+            "source": "onepanel-rest-cli -u alice:secret --host https://$HOST:9443 invalidateLumaCache id=$STORAGE_ID"
           }
         ]
       }
@@ -2137,7 +2471,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderDatabaseStatus host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderDatabaseStatus host=db1.example.com --host https://$HOST:9443"
           }
         ]
       },
@@ -2191,7 +2525,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderDatabase host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopProviderDatabase host=db1.example.com --host https://$HOST:9443"
           }
         ]
       }
@@ -2236,7 +2570,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderManagersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderManagersStatus --host https://$HOST:9443"
           }
         ]
       },
@@ -2296,7 +2630,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat mng_hosts.json | onepanel-rest-cli -u alice:secret -ct json addProviderManagers --host https://op.example.com:9443"
+            "source": "cat mng_hosts.json | onepanel-rest-cli -u alice:secret -ct json addProviderManagers --host https://$HOST:9443"
           }
         ]
       },
@@ -2343,7 +2677,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderManagers started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopProviderManagers started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -2397,7 +2731,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderManagerStatus host=mng.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderManagerStatus host=mng.example.com --host https://$HOST:9443"
           }
         ]
       },
@@ -2451,7 +2785,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderManager started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopProviderManager started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -2496,7 +2830,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderWorkersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderWorkersStatus --host https://$HOST:9443"
           }
         ]
       },
@@ -2556,7 +2890,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addProviderWorkers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addProviderWorkers --host https://$HOST:9443"
           }
         ]
       },
@@ -2603,7 +2937,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorkers started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorkers started=true --host https://$HOST:9443"
           }
         ]
       }
@@ -2657,7 +2991,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getProviderWorkerStatus host=work.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getProviderWorkerStatus host=work.example.com --host https://$HOST:9443"
           }
         ]
       },
@@ -2711,7 +3045,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorker host=work.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopProviderWorker host=work.example.com started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -2847,7 +3181,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneNagiosReport --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneNagiosReport --host https://$HOST:9443"
           }
         ]
       }
@@ -2896,7 +3230,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneConfiguration --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneConfiguration --host https://$HOST:9443"
           }
         ]
       },
@@ -2955,7 +3289,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat zone_config.json | onepanel-rest-cli -u alice:secret configureZone --host https://op.example.com:9443"
+            "source": "cat zone_config.json | onepanel-rest-cli -u alice:secret configureZone --host https://$HOST:9443"
           }
         ]
       }
@@ -3000,7 +3334,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneDatabasesStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneDatabasesStatus --host https://$HOST:9443"
           }
         ]
       },
@@ -3060,7 +3394,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneDatabases --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneDatabases --host https://$HOST:9443"
           }
         ]
       },
@@ -3107,7 +3441,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabases started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabases started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -3161,7 +3495,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneDatabaseStatus host=db1.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneDatabaseStatus host=db1.example.com --host https://$HOST:9443"
           }
         ]
       },
@@ -3215,7 +3549,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabasesHost host=db1.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneDatabasesHost host=db1.example.com started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -3260,7 +3594,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneManagersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneManagersStatus --host https://$HOST:9443"
           }
         ]
       },
@@ -3320,7 +3654,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneManagers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneManagers --host https://$HOST:9443"
           }
         ]
       },
@@ -3367,7 +3701,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneManagers started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneManagers started=true --host https://$HOST:9443"
           }
         ]
       }
@@ -3421,7 +3755,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneManagerStatus host=mng.example.com started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneManagerStatus host=mng.example.com started=true --host https://$HOST:9443"
           }
         ]
       },
@@ -3475,7 +3809,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneManager host=mng.example.com started=true --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneManager host=mng.example.com started=true --host https://$HOST:9443"
           }
         ]
       }
@@ -3520,7 +3854,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneWorkersStatus --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneWorkersStatus --host https://$HOST:9443"
           }
         ]
       },
@@ -3580,7 +3914,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneWorkers --host https://op.example.com:9443"
+            "source": "cat hosts.json | onepanel-rest-cli -u alice:secret addZoneWorkers --host https://$HOST:9443"
           }
         ]
       },
@@ -3627,7 +3961,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorkers started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorkers started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -3681,7 +4015,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret getZoneWorkerStatus host=work.example.com --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret getZoneWorkerStatus host=work.example.com --host https://$HOST:9443"
           }
         ]
       },
@@ -3735,7 +4069,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorker host=work.example.com started=false --host https://op.example.com:9443"
+            "source": "onepanel-rest-cli -u alice:secret startStopZoneWorker host=work.example.com started=false --host https://$HOST:9443"
           }
         ]
       }
@@ -3935,6 +4269,130 @@
     }
   },
   "definitions": {
+    "Configuration": {
+      "type": "object",
+      "description": "Public service configuration details",
+      "discriminator": "serviceType",
+      "x-onedata-oneof": true,
+      "x-onedata-subclasses": [
+        "op_configuration",
+        "oz_configuration"
+      ],
+      "properties": {
+        "serviceType": {
+          "description": "Indicates whether this is Onezone's or Oneprovider's panel.",
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of this Onepanel"
+        },
+        "build": {
+          "type": "string",
+          "description": "Build number of this Onepanel"
+        },
+        "deployed": {
+          "type": "boolean",
+          "default": true,
+          "description": "True when cluster deployment is finished"
+        }
+      },
+      "required": [
+        "version",
+        "build",
+        "deployed"
+      ]
+    },
+    "op_configuration": {
+      "type": "object",
+      "description": "Public Oneprovider configuration details",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Configuration"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "serviceType": {
+              "description": "Indicates that this is Oneprovider's panel.",
+              "type": "string",
+              "enum": [
+                "oneprovider"
+              ],
+              "x-discriminator-value": "oneprovider"
+            },
+            "providerId": {
+              "type": "string",
+              "description": "This cluster's Oneprovider Id. Null if the Oneprovider is not registered or Oneprovider worker is down.\n"
+            },
+            "zoneDomain": {
+              "type": "string",
+              "description": "The domain of the Onezone where this Oneprovider is registered. Null if the Oneprovider is not registered.\n"
+            },
+            "isRegistered": {
+              "type": "boolean",
+              "description": "True if the Oneprovider has been registered at a Onezone.\n"
+            }
+          },
+          "required": [
+            "serviceType",
+            "providerId",
+            "zoneDomain"
+          ]
+        }
+      ],
+      "example": {
+        "serviceType": "oneprovider",
+        "providerId": "b4ceb5c9ac793e6b8b36c813b9068757",
+        "zoneDomain": "onedata.org",
+        "build": "155-gdf98e0f",
+        "version": "18.02.2",
+        "deployed": true,
+        "isRegistered": true
+      }
+    },
+    "oz_configuration": {
+      "type": "object",
+      "description": "Public Onezone configuration details",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Configuration"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "serviceType": {
+              "description": "Indicates that this is Onezone's panel.",
+              "type": "string",
+              "enum": [
+                "onezone"
+              ],
+              "x-discriminator-value": "onezone"
+            },
+            "zoneDomain": {
+              "type": "string",
+              "description": "The domain of this Onezone cluster. Null before cluster is configured.\n"
+            },
+            "zoneName": {
+              "type": "string",
+              "description": "The name of this Onezone cluster. Null before cluster is configured.\n"
+            }
+          },
+          "required": [
+            "serviceType",
+            "zoneDomain"
+          ]
+        }
+      ],
+      "example": {
+        "serviceType": "onezone",
+        "zoneDomain": "onedata.org",
+        "zoneName": "OnedataZone",
+        "build": "155-gdf98e0f",
+        "version": "18.02.2",
+        "deployed": true
+      }
+    },
     "Cookie": {
       "type": "object",
       "description": "The cookie is a character sequence that is common for all the cluster nodes. If this parameter is not provided, in case of a cluster initialization request, it will be generated, and in case of a cluster extension request the current cookie value will be used. However, if the cluster cookie and the cookie of the host that is about to join the cluster doesn't match there will be a connection error.\n",
@@ -3994,7 +4452,7 @@
       "description": "Describes results obtained from a DNS check. DNS check involves querying DNS servers to ensure publicly visible records match expected values.",
       "properties": {
         "summary": {
-          "description": "An interpreation of results obtained from DNS check. Possible values are: 'unresolvable' - query returned empty results; 'missing_records' - only some of the expected results were returned; 'bad_records' - none of the expected results were returned; 'ok' - all of expected values were present in obtained results.\n",
+          "description": "An interpretation of results obtained from DNS check.\nPossible values are:\n'unresolvable' - query returned empty results;\n'missing_records' - only some of the expected results were returned;\n'bad_records' - none of the expected results were returned;\n'ok' - all of expected values were present in obtained results.\n",
           "type": "string",
           "enum": [
             "unresolvable",
@@ -4004,21 +4462,21 @@
           ]
         },
         "expected": {
-          "description": "List of expected query results.\n",
+          "description": "List of expected query results.",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "got": {
-          "description": "List of obtained query results.\n",
+          "description": "List of obtained query results.",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "recommended": {
-          "description": "List of suggested DNS records to set at your DNS provider to fulfill this check. Each record is provided in the format of BIND server.",
+          "description": "List of suggested DNS records to set at your DNS provider to fulfill this check.\nEach record is provided in the format of BIND server.",
           "type": "array",
           "items": {
             "type": "string"
@@ -4075,11 +4533,11 @@
           "items": {
             "type": "string"
           },
-          "description": "A collection of IP addresses for DNS servers used in checking DNS."
+          "description": "A collection of IP addresses for DNS servers used in checking DNS. If empty, local system configuration will be used."
         },
         "builtInDnsServer": {
           "type": "boolean",
-          "description": "If true, DNS check will verify that control of DNS zone of Onezone's domain was delegated to the DNS server built into Onezone service.\nThis option is available only in Onezone service.\n"
+          "description": "If true, DNS check will verify that control of DNS zone for Onezone's domain was delegated to the DNS server built into Onezone service.\nThis option is available only in Onezone service.\n"
         },
         "dnsCheckAcknowledged": {
           "type": "boolean",
@@ -4115,7 +4573,7 @@
       ],
       "example": {
         "error": "Invalid Request",
-        "description": "User role must be one of 'admin' or 'regular'."
+        "description": "Error description"
       }
     },
     "SessionDetails": {
@@ -4124,7 +4582,7 @@
       "properties": {
         "sessionId": {
           "type": "string",
-          "description": "The session ID."
+          "description": "The session Id."
         },
         "username": {
           "type": "string",
@@ -4146,7 +4604,7 @@
       "properties": {
         "userId": {
           "type": "string",
-          "description": "The user ID."
+          "description": "The user Id."
         },
         "userRole": {
           "type": "string",
@@ -4375,9 +4833,13 @@
         "webdav"
       ],
       "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of storage."
+        },
         "id": {
           "type": "string",
-          "description": "The ID of storage."
+          "description": "The Id of storage."
         },
         "name": {
           "type": "string",
@@ -4393,21 +4855,6 @@
           "default": false,
           "description": "Defines whether storage is readonly."
         },
-        "type": {
-          "type": "string",
-          "description": "The type of storage.",
-          "x-discriminator": true,
-          "enum": [
-            "posix",
-            "s3",
-            "ceph",
-            "cephrados",
-            "swift",
-            "glusterfs",
-            "nulldevice",
-            "webdav"
-          ]
-        },
         "lumaEnabled": {
           "type": "boolean",
           "description": "If true LUMA and reverse LUMA services will be enabled.",
@@ -4421,10 +4868,7 @@
           "type": "string",
           "description": "LUMA API Key, must be identical with API Key in external LUMA service."
         }
-      },
-      "required": [
-        "type"
-      ]
+      }
     },
     "posix": {
       "description": "The POSIX storage configuration.",
@@ -4434,8 +4878,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "posix",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "posix"
+            },
             "mountPoint": {
               "type": "string",
               "description": "The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.\n"
@@ -4456,6 +4904,7 @@
             }
           },
           "required": [
+            "type",
             "mountPoint"
           ]
         }
@@ -4474,8 +4923,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "s3",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "s3"
+            },
             "hostname": {
               "type": "string",
               "description": "The hostname of a machine where S3 storage is installed."
@@ -4522,6 +4975,7 @@
             }
           },
           "required": [
+            "type",
             "hostname",
             "bucketName",
             "accessKey",
@@ -4546,8 +5000,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "ceph",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "ceph"
+            },
             "username": {
               "type": "string",
               "description": "The username of the Ceph cluster administrator."
@@ -4589,6 +5047,7 @@
             }
           },
           "required": [
+            "type",
             "username",
             "key",
             "monitorHostname",
@@ -4616,8 +5075,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "cephrados",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "cephrados"
+            },
             "username": {
               "type": "string",
               "description": "The username of the Ceph cluster administrator."
@@ -4664,6 +5127,7 @@
             }
           },
           "required": [
+            "type",
             "username",
             "key",
             "monitorHostname",
@@ -4692,8 +5156,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "swift",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "swift"
+            },
             "authUrl": {
               "type": "string",
               "description": "The URL to OpenStack Keystone identity service."
@@ -4739,6 +5207,7 @@
             }
           },
           "required": [
+            "type",
             "authUrl",
             "tenantName",
             "containerName",
@@ -4766,8 +5235,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "glusterfs",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "glusterfs"
+            },
             "volume": {
               "type": "string",
               "description": "The name of the volume to use as a storage backend."
@@ -4822,6 +5295,7 @@
             }
           },
           "required": [
+            "type",
             "volume",
             "hostname"
           ]
@@ -4847,8 +5321,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "nulldevice",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "nulldevice"
+            },
             "latencyMin": {
               "type": "integer",
               "description": "Minimum latency in milliseconds, which should be simulated for\nselected operations.\n",
@@ -4895,7 +5373,10 @@
               "default": 0,
               "description": "Determines the simulated filesystem grow rate. Default 0.0 value\nwill cause all the files and directories defined by the\n`simulatedFilesystemParameters` specification to be visible immediately.\nFor example value of 0.01 will increase the number of the visible\nfilesystem entries by 1 file per 100 seconds, while 100.0 will increase it\nby 100 files per second.\n"
             }
-          }
+          },
+          "required": [
+            "type"
+          ]
         }
       ],
       "example": {
@@ -4918,8 +5399,12 @@
         },
         {
           "type": "object",
-          "x-discriminator-value": "webdav",
           "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of storage.",
+              "x-discriminator-value": "webdav"
+            },
             "endpoint": {
               "type": "string",
               "description": "Full URL of the WebDAV server, including scheme (http or https) and path.\n"
@@ -4927,7 +5412,8 @@
             "verifyServerCertificate": {
               "type": "boolean",
               "description": "Determines whether Oneprovider should verify the certificate of the WebDAV server.\n",
-              "default": true
+              "default": true,
+              "x-onedata-default-value": true
             },
             "credentialsType": {
               "type": "string",
@@ -4935,13 +5421,23 @@
               "enum": [
                 "none",
                 "basic",
-                "token"
+                "token",
+                "oauth2"
               ],
-              "default": "none"
+              "default": "none",
+              "x-onedata-default-value": "none"
             },
             "credentials": {
               "type": "string",
-              "description": "The credentials to authenticate with the WebDAV server. `basic` credentials should be provided in the form `username:password`, for `token` just the token. For `none` this field is ignored.\n"
+              "description": "The credentials to authenticate with the WebDAV server. `basic` credentials should be provided in the form `username:password`, for `token` just the token. In case of `oauth2`, this field should contain the username for the WebDAV, while the token will be obtained and refreshed automatically in the background. For `none` this field is ignored.\n"
+            },
+            "oauth2IdP": {
+              "type": "string",
+              "description": "In case `oauth2` credential type is selected and Onezone is configured with support for multiple external IdP's, this field must contain the name of the IdP which authenticates requests to the WebDAV endpoint. If Onezone has only one external IdP, it will be selected automatically.\n"
+            },
+            "onedataAccessToken": {
+              "type": "string",
+              "description": "When registering storage in `insecure` mode with `oauth2` external IdP, this field must contain a valid Onedata access token of the user on whose behalf the WebDAV storage will be accessed by all users with access to any space supported by this storage.\n"
             },
             "authorizationHeader": {
               "type": "string",
@@ -4956,17 +5452,30 @@
                 "moddav",
                 "sabredav"
               ],
-              "default": "none"
+              "default": "none",
+              "x-onedata-default-value": "none"
             },
             "connectionPoolSize": {
               "type": "integer",
               "description": "Defines the maximum number of parallel connections for a single WebDAV storage.\n",
-              "default": 10
+              "default": 25,
+              "x-onedata-default-value": 25
             },
             "maximumUploadSize": {
               "type": "integer",
               "description": "Defines the maximum upload size for a single `PUT` or `PATCH` request. If set to 0, assumes that the WebDAV server has no upload limit.\n",
-              "default": 0
+              "default": 0,
+              "x-onedata-default-value": 0
+            },
+            "fileMode": {
+              "type": "string",
+              "description": "Defines the file permissions, which files imported from WebDAV storage will have in Onedata. Values should be provided in octal format e.g. `0644`.\n",
+              "default": 420
+            },
+            "dirMode": {
+              "type": "string",
+              "description": "Defines the directory mode which directories imported from WebDAV storage will have in Onedata. Values should be provided in octal format e.g. `0775`.\n",
+              "default": 509
             },
             "timeout": {
               "type": "integer",
@@ -4989,6 +5498,7 @@
             }
           },
           "required": [
+            "type",
             "endpoint"
           ]
         }
@@ -4998,12 +5508,14 @@
         "name": "SomeWebDAV",
         "endoint": "https://192.168.1.2:8080/webdav",
         "verifyServerCertificate": false,
-        "credentialsType": "basic",
-        "credentials": "admin:password",
+        "credentialsType": "oauth2",
+        "credentials": "eudat",
+        "oauth2IdP": "b2access",
         "rangeWriteSupport": "moddav",
         "connectionPoolSize": 25,
         "maximumUploadSize": 0,
-        "insecure": true
+        "insecure": false,
+        "readonly": false
       }
     },
     "StorageCreateRequest": {
@@ -5102,27 +5614,31 @@
     },
     "ZoneConfiguration": {
       "type": "object",
-      "description": "The zone deployment configuration.",
+      "description": "The Onezone deployment configuration.",
       "properties": {
         "cluster": {
           "$ref": "#/definitions/ZoneClusterConfiguration"
         },
         "onezone": {
           "type": "object",
-          "description": "The zone custom configuration.",
+          "description": "The Onezone custom configuration.",
           "properties": {
             "domainName": {
-              "description": "The name of a HTTP domain.",
+              "description": "The domain of Onezone cluster.",
               "type": "string"
             },
             "name": {
-              "description": "The name of a zone.",
+              "description": "The Onezone cluster name.",
               "type": "string"
             },
             "letsEncryptEnabled": {
               "type": "boolean",
               "default": false,
-              "description": "If enabled the zone will use Let's Encrypt service to obtain SSL certificates. Otherwise certificates must be manually provided. By enabling this option you agree to the Let's Encrypt Subscriber Agreement.\n"
+              "description": "If enabled the zone will use Let's Encrypt service to obtain SSL certificates. Otherwise certificates must be manually provided.\nBy enabling this option you agree to the Let's Encrypt Subscriber Agreement.\n"
+            },
+            "builtInDnsServer": {
+              "type": "boolean",
+              "description": "If true, DNS check will verify that control of DNS zone for Onezone's domain was delegated to the DNS server built into Onezone service.\n"
             },
             "policies": {
               "$ref": "#/definitions/ZonePolicies"
@@ -5511,7 +6027,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The ID assigned by a zone."
+          "description": "The Id assigned by a zone."
         },
         "name": {
           "type": "string",
@@ -5596,7 +6112,7 @@
       "properties": {
         "ids": {
           "type": "array",
-          "description": "The list of IDs of cluster storage resources.",
+          "description": "The list of Ids of cluster storage resources.",
           "items": {
             "type": "string"
           }
@@ -5992,7 +6508,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The ID of the space."
+          "description": "The Id of the space."
         },
         "name": {
           "type": "string",
@@ -6028,14 +6544,6 @@
         "storageUpdate": {
           "$ref": "#/definitions/StorageUpdateDetails"
         },
-        "filesPopularity": {
-          "description": "Configuration of files popularity feature for this space",
-          "$ref": "#/definitions/SpaceFilesPopularity"
-        },
-        "autoCleaning": {
-          "description": "Configuration of auto cleaning feature for this space",
-          "$ref": "#/definitions/SpaceAutoCleaning"
-        },
         "spaceOccupancy": {
           "type": "integer",
           "description": "Amount of storage [b] used by data from given space on that storage."
@@ -6064,7 +6572,7 @@
         },
         "storageId": {
           "type": "string",
-          "description": "The ID of the storage resource where the space data should be stored.\n"
+          "description": "The Id of the storage resource where the space data should be stored.\n"
         },
         "mountInRoot": {
           "type": "boolean",
@@ -6102,14 +6610,6 @@
         },
         "storageUpdate": {
           "$ref": "#/definitions/StorageUpdateDetails"
-        },
-        "filesPopularity": {
-          "description": "Configuration of files popularity feature for this space",
-          "$ref": "#/definitions/SpaceFilesPopularity"
-        },
-        "autoCleaning": {
-          "description": "Configuration of auto cleaning feature for this space",
-          "$ref": "#/definitions/SpaceAutoCleaning"
         }
       }
     },
@@ -6268,91 +6768,165 @@
         }
       }
     },
-    "SpaceFilesPopularity": {
+    "SpaceFilePopularityConfiguration": {
       "type": "object",
-      "description": "Settings of files popularity feature of space",
+      "description": "Configuration of the file-popularity mechanism in the space.",
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "If true, files popularity feature for the space is enabled"
+          "description": "If true, collecting file-popularity mechanism in the space is enabled"
         },
-        "restUrl": {
+        "exampleQuery": {
           "type": "string",
-          "description": "REST endpoint to view file popularity statistics\n"
+          "description": "Example `curl` command that can be executed to query the file-popularity view in the space.\n"
+        },
+        "lastOpenHourWeight": {
+          "type": "number",
+          "format": "float",
+          "description": "Weight of `lastOpenHour` parameter.\n",
+          "default": 1
+        },
+        "avgOpenCountPerDayWeight": {
+          "type": "number",
+          "format": "float",
+          "description": "Weight of `avgOpenCountPerDayWeight` parameter.\n",
+          "default": 20
+        },
+        "maxAvgOpenCountPerDay": {
+          "type": "number",
+          "format": "float",
+          "description": "Maximal value of average open count per day taken to calculate the value of popularity function.\n",
+          "default": 100
         }
       },
-      "required": [
-        "enabled"
-      ],
       "example": {
         "enabled": true,
-        "restUrl": "https://example.com/some_api/some_method"
+        "exampleQuery": "curl -sS -k -H 'X-Auth-Token: $TOKEN' -X GET https://$HOST/api/v3/oneprovider/spaces/example_space_id/indexes/file-popularity?limit=10&stale=false",
+        "lastOpenHourWeight": 1,
+        "avgOpenCountPerDayWeight": 20,
+        "maxAvgOpenCountPerDay": 100
       }
     },
-    "SpaceAutoCleaning": {
+    "SpaceAutoCleaningConfiguration": {
       "type": "object",
-      "description": "Space auto cleaning settings",
+      "description": "Settings for space auto-cleaning mechanism. Setting enabled to `false` disables given parameter. It will be ignored by auto-cleaning mechanism. All presented parameters' ranges are inclusive.\n",
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "If true, auto cleaning feature for the space is enabled"
-        },
-        "settings": {
-          "description": "Settings when and what files auto cleaning should clean",
-          "$ref": "#/definitions/SpaceAutoCleaningSettings"
-        }
-      },
-      "example": {
-        "enabled": true,
-        "settings": {
-          "lowerFileSizeLimit": 1000,
-          "upperFileSizeLimit": 1000000,
-          "maxFileNotOpenedHours": 60000,
-          "target": 5000000000,
-          "threshold": 6000000000
-        }
-      }
-    },
-    "SpaceAutoCleaningSettings": {
-      "type": "object",
-      "description": "Settings for auto cleaning algorithms - for what files and when it should be started. If parameter is not set in the request, previous value will be used.\n",
-      "properties": {
-        "lowerFileSizeLimit": {
-          "type": "integer",
-          "description": "Only files which size [b] is greater than or equal to given value should be cleaned. Set to null to disable this parameter.\n"
-        },
-        "upperFileSizeLimit": {
-          "type": "integer",
-          "description": "Only files which size [b] is less than or equal to given value should be cleaned Set to null to disable this parameter.\n"
-        },
-        "maxFileNotOpenedHours": {
-          "type": "integer",
-          "description": "Files that haven't been opened for longer than or equal to given period [h] will be cleaned. Set to null to disable this parameter.\n"
+          "description": "If true, auto-cleaning mechanism is enabled in the space."
         },
         "threshold": {
           "type": "integer",
-          "description": "Amount of data [b], which should trigger the auto cleaning in the space. Only replicas maintained by this storage provider will be removed. If not specified, the auto cleaning will not start automatically.\n"
+          "description": "Amount of data [b], which should trigger the auto-cleaning in the space. Only replicas maintained by this storage provider will be removed.  This parameter is required to enable auto-cleaning.\n"
         },
         "target": {
           "type": "integer",
-          "description": "Amount of data [b], at which the auto cleaning process should stop. This parameter is required to enale auto cleaning.\n"
+          "description": "Amount of data [b], at which the auto-cleaning process should stop. This parameter is required to enable auto-cleaning.\n"
+        },
+        "rules": {
+          "description": "Rules used to select certain list of file replicas that can be evicted by auto-cleaning mechanism.\n",
+          "$ref": "#/definitions/SpaceAutoCleaningRules"
         }
       },
       "example": {
-        "lowerFileSizeLimit": 1000,
-        "upperFileSizeLimit": 1000000,
-        "maxFileNotOpenedHours": 60000,
-        "target": 5000000000,
-        "threshold": 6000000000
+        "enabled": true,
+        "target": 1073741824,
+        "threshold": 1099511627776,
+        "rules": {
+          "enabled": true,
+          "maxOpenCount": {
+            "enabled": true,
+            "value": 1000
+          },
+          "minHoursSinceLastOpen": {
+            "enabled": true,
+            "value": 10
+          },
+          "minFileSize": {
+            "enabled": true,
+            "value": 1
+          },
+          "maxFileSize": {
+            "enabled": true,
+            "value": 1024
+          },
+          "maxHourlyMovingAverage": {
+            "enabled": true,
+            "value": 10
+          },
+          "maxDailyMovingAverage": {
+            "enabled": false,
+            "value": 100
+          },
+          "maxMonthlyMovingAverage": {
+            "enabled": false
+          }
+        }
+      }
+    },
+    "SpaceAutoCleaningRules": {
+      "type": "object",
+      "description": "Rules used to select certain list of file replicas that can be evicted by auto-cleaning mechanism. A rule is enabled by setting its `enabled` field to `true`. By default all rules are disabled (ignored). A rule can be enabled without specifying its value. In that case previous value is used. If the rule is enabled for the first time a default value will be used. All rules' values are inclusive.\n",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Informs whether selective rules should be used by auto-cleaning mechanism.\n"
+        },
+        "maxOpenCount": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Files that have been opened less than `maxOpenCount` times may be cleaned. The default value is `9007199254740991 (2^53-1)`.\n"
+        },
+        "minHoursSinceLastOpen": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Files that haven't been opened for longer than or equal to given period [h] may be cleaned. The default value is `0`.\n"
+        },
+        "minFileSize": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Only files which size [b] is greater than given value may be cleaned. The default value is `1`.\n"
+        },
+        "maxFileSize": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Only files which size [b] is less than given value may be cleaned. The default value is `1125899906842624 (1 PiB)`.\n"
+        },
+        "maxHourlyMovingAverage": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Files that have moving average of open operations count per hour less than given value may be cleaned. The average is calculated in 24 hours window. The default value is `9007199254740991 (2^53-1)`.\n"
+        },
+        "maxDailyMovingAverage": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Files that have moving average of open operations count per day less than given value may be cleaned. The average is calculated in 30 days window. The default value is `9007199254740991 (2^53-1)`.\n"
+        },
+        "maxMonthlyMovingAverage": {
+          "$ref": "#/definitions/SpaceAutoCleaningRuleSetting",
+          "description": "Files that have moving average of open operations count per month less than given value may be cleaned. The average is calculated in 12 months window. The default value is `9007199254740991 (2^53-1)`."
+        }
+      }
+    },
+    "SpaceAutoCleaningRuleSetting": {
+      "type": "object",
+      "description": "Rule setting for a space auto-cleaning mechanism. Setting field `enabled` to `false` disables the rule.\n",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Informs whether given setting is enabled.\n"
+        },
+        "value": {
+          "type": "integer",
+          "description": "Integer value of a given setting."
+        }
+      },
+      "example": {
+        "enabled": true,
+        "value": 1024
       }
     },
     "SpaceAutoCleaningStatus": {
       "type": "object",
-      "description": "Status of current auto cleaning process for given space",
+      "description": "Status of current auto-cleaning process for given space",
       "properties": {
         "inProgress": {
           "type": "boolean",
-          "description": "Flag which indicates whether auto cleaning process is currently in progress\n"
+          "description": "Flag which indicates whether auto-cleaning process is currently in progress\n"
         },
         "spaceOccupancy": {
           "type": "integer",
@@ -6368,34 +6942,51 @@
         "spaceOccupancy": 100200
       }
     },
-    "SpaceAutoCleaningReportCollection": {
+    "SpaceAutoCleaningReports": {
       "type": "object",
-      "description": "List of auto cleaning report entries",
+      "description": "The space auto-cleaning reports.",
       "properties": {
-        "reportEntries": {
+        "ids": {
           "type": "array",
-          "minItems": 0,
+          "description": "The list of Ids of space auto-cleaning reports.",
           "items": {
-            "$ref": "#/definitions/SpaceAutoCleaningReport"
+            "type": "string"
           }
         }
+      },
+      "required": [
+        "ids"
+      ],
+      "example": {
+        "ids": [
+          "x7It3cpgNgLZ8RwOrOoW",
+          "Q1boCClpCS5mUNhM7YCy"
+        ]
       }
     },
     "SpaceAutoCleaningReport": {
       "type": "object",
-      "description": "Autocleaning report",
+      "description": "Report from an auto-cleaning run.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of an auto-cleaning report."
+        },
+        "index": {
+          "type": "string",
+          "description": "Index of an auto-cleaning report. It can be used to list report Ids starting from given report.\n"
+        },
         "startedAt": {
           "type": "string",
-          "description": "Start time of autocleaning procedure in ISO 8601 format"
+          "description": "Start time of an auto-cleaning run in ISO 8601 format"
         },
         "stoppedAt": {
           "type": "string",
-          "description": "Finish time of autocleaning procedure in ISO 8601 format"
+          "description": "Finish time of an auto-cleaning run in ISO 8601 format"
         },
         "releasedBytes": {
           "type": "integer",
-          "description": "Number of bytes deleted during autocleaning procedure."
+          "description": "Number of bytes deleted during an auto-cleaning run."
         },
         "bytesToRelease": {
           "type": "integer",
@@ -6407,6 +6998,8 @@
         }
       },
       "required": [
+        "id",
+        "index",
         "startedAt",
         "stoppedAt",
         "releasedBytes",
@@ -6414,6 +7007,8 @@
         "filesNumber"
       ],
       "example": {
+        "id": "asdfhLfgPDGSDFASDHgI",
+        "index": "1290736458asdfhL",
         "startedAt": "2017-06-22T13:29:39.654Z",
         "stoppedAt": "2017-06-22T15:57:41.958Z",
         "releasedBytes": 60000,
@@ -6423,11 +7018,11 @@
     },
     "SpaceId": {
       "type": "object",
-      "description": "Provides ID of a space.",
+      "description": "Provides Id of a space.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "The ID of the space."
+          "description": "The Id of the space."
         }
       },
       "required": [
