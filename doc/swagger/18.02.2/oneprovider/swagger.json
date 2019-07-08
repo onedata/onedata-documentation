@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "basePath": "/api/v3/oneprovider",
   "info": {
-    "version": "18.02.0-rc13",
+    "version": "18.02.2",
     "title": "Oneprovider",
-    "description": "# Overview\n\nThis is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://www.onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n```\nhttps://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n```\nPlease note that currently the default port for Oneprovider instances is `443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](../../cdmi.html) protocol,\nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface.\nThe token must be added to the request header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n```\nIn case this Onedata deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n```\n  X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n```\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation.\n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/)\ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n\"https://$PROVIDER/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$PROVIDER/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
-    "x-bash-codegen-description": "This is the RESTful API definition of Oneprovider component of Onedata data\nmanagement system [onedata.org](http://www.onedata.org).\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to\nauthenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be\ngenerate using the Onedata user interface. The token must be added to the\nrequest header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\nor exported as an environment variable:\n```\nexport ONEPROVIDER_API_KEY=LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\n\nIn addition please take into account, that depending on your account\nauthorization rights, not all operations may be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly\nwith virtual file paths relative to user spaces, which are provided as part\nof the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\nBasic data management including getting information about data objects (\nfiles or folders).\n\n### Replication\n\nData transfer management.\n\n### Monitoring\n\nMonitoring of changes performed in folders and files and getting metrics\nhistory.\n",
+    "description": "# Overview\n\nThis is the RESTful API definition of Oneprovider component of Onedata data management system [onedata.org](http://onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON specification can be used to automatically generate\n> client libraries - [swagger.json](../../../swagger/oneprovider/swagger.json).\n\nAll paths below are relative to a common Oneprovider basepath which is `/api/v3/oneprovider`, thus a complete example\nquery for 'mode' file attributes would be:\n```\nhttps://ONEPROVIDER_HOSTNAME/api/v3/oneprovider/attributes/Space1/directory1/file1.txt?attribute=mode\n```\nPlease note that currently the default port for Oneprovider instances is `443`.\n\nIn addition to REST API, Oneprovider also provides support for [CDMI](http://onedata.org/#/home/documentation/doc/advanced/cdmi.html) protocol,\nand some of data management operations are currently only possible via CDMI.\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to authenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be generate using the Onedata user interface.\nThe token must be added to the request header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK...\n```\nIn case this Onedata deployment supports authentication delegation other IdP's,\nthe `X-Auth-Token` field can contain token from such IdP with appropriate prefix,\nas configured by Onezone administrators, e.g.:\n```\n  X-Auth-Token: github:GST5aasdA7asdAASFG7asdasaAS\n```\nIn addition please take into account, that depending on your account authorization rights, not all operations\nmay be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly with virtual file paths relative to\nuser spaces, which are provided as part of the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\n#### File attributes\nThe `/attributes/` operation group provides GET and PUT methods enable querying\nfor file attributes, such as 'mode' file permissions and updating them.\n\n#### File browser\nThe `/files/` path methods provide basic capability for browsing files in spaces and folders.\nCurrently no wildcards are possible, thus paths must be complete up to a folder whose\ncontents are needed and start with the name of the space containing the requested folders and files.\n\n#### Space information\nFor convenience, `/space/` methods provider means for getting basic information about\nspaces directly from the Oneprovider service. For more comprehensive operations\non spaces please use the Onezone API.\n\n#### Metadata\nOneprovider exposes an advanced metadata management mechanism allowing to attach\narbitrary JSON or RDF documents to any files or folders (under `/metata` path)\nas well as create indexes (`/index`) and query them based on the metadata (`/query-index`).\n\n### Replication\n\n#### Replica management\nThe `/replicas/` methods allow retrieving of information about file replica distribution\namong Onedata providers as well as requesting specific file replication to selected\nproviders.\n\n#### Transfer management\nThe `/transfer/` operations provide basic transfer management functionality based on the ID of transfer\nreturned by `/replicas/{path} [POST]` operation.\n\n### Monitoring\n\n#### Changes subscription\nThe `/changes/` method group provides means for subscribing (through HTTP long-polling technique) for\nfile related events such as reads, writes or deletes which are returned as complete file metadata\nrecords with sequence numbers representing their current version.\n\n#### Monitoring metrics\nThe `/metrics/` operations enable retrieval of internal Oneprovider monitoring data.\nAll monitoring data is returned in the form of [RRD](http://oss.oetiker.ch/rrdtool/)\ndatabase files, with resolution determined by the `step` query parameter.\n\n## Examples\n\n**Create replica of file at specific storage provider**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X POST \\\n\"https://$PROVIDER/api/v3/oneprovider/replicas/MySpace1/MyFile2.txt?provider_id=ASDNKJASF\"\n```\n\n**Get space storage qouta metric**\n```bash\ncurl -v --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\n\"https://$PROVIDER/api/v3/oneprovider/metrics/space/MySpace1?metric=storage_qouta\"\n```\n\nMore detailed examples are available in the documentation of each operation.\n",
+    "x-bash-codegen-description": "This is the RESTful API definition of Oneprovider component of Onedata data\nmanagement system [onedata.org](http://onedata.org).\n\n\n## Authentication\nIn order to be able to use this API the REST client must be able to\nauthenticate with the Oneprovider service.\n\nCurrently this is supported through authentication token which can be\ngenerate using the Onedata user interface. The token must be added to the\nrequest header like this:\n```\nX-Auth-Token: LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\nor exported as an environment variable:\n```\nexport ONEPROVIDER_API_KEY=LAKSJHDLKJAHSDKLJHASKLCBBASKLCBLHABSCBALKSBCK\n```\n\nIn addition please take into account, that depending on your account\nauthorization rights, not all operations may be possible.\n\n## API structure\nThe Oneprovider API reflects the fact that most operations deal directly\nwith virtual file paths relative to user spaces, which are provided as part\nof the paths in the REST calls.\n\nThe API provides the following functionality:\n\n### Data\n\nBasic data management including getting information about data objects (\nfiles or folders).\n\n### Replication\n\nData transfer management.\n\n### Monitoring\n\nMonitoring of changes performed in folders and files and getting metrics\nhistory.\n",
     "contact": {
       "name": "Onedata support",
       "url": "https://onedata.org/support",
@@ -21,6 +21,38 @@
     }
   },
   "paths": {
+    "/configuration": {
+      "get": {
+        "operationId": "get_configuration",
+        "x-onedata-service": "oneprovider",
+        "x-onedata-module": "configuration",
+        "x-onedata-resource": "configuration",
+        "x-onedata-method": "get_configuration",
+        "summary": "Get public information",
+        "tags": [
+          "Oneprovider"
+        ],
+        "x-bash-codegen-description": "Returns public information about the Oneprovider service.\n",
+        "description": "Returns public information about the Oneprovider service. This endpoint does not require authentication.\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuration returned successfully.",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/spaces": {
       "get": {
         "operationId": "get_all_spaces",
@@ -102,7 +134,7 @@
         ],
         "summary": "Get basic space information",
         "x-bash-codegen-description": "Returns the basic information about space with given ID.\n",
-        "description": "Returns the basic information about space with given ID.\n\n***Example cURL requests***\n\n**Get information about a specific space**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n\n{\n    \"name\": \"My Space 1\",\n    \"providers\": [\n        {\n            \"providerId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n            \"providerName\": \"MyPrivateCloud\"\n        },\n        {\n            \"providerId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n            \"providerName\": \"PublicCloud1\"\n        }\n    ],\n    \"spaceId\": \"8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n}\n```\n",
+        "description": "Returns the basic information about space with given ID.\n\n***Example cURL requests***\n\n**Get information about a specific space**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID\"\n\n{\n    \"name\": \"My Space 1\",\n    \"providers\": [\n        {\n            \"providerId\": \"51306215-674a-47b7-afd1-54fa45bcaff7\",\n            \"providerName\": \"MyPrivateCloud\"\n        },\n        {\n            \"providerId\": \"0a568302-0f5e-454d-a6bc-7da7e1bfb985\",\n            \"providerName\": \"PublicCloud1\"\n        }\n    ],\n    \"spaceId\": \"8f4b1e94-fdf8-4754-9962-edb01b2ee0f7\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -150,7 +182,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getSpace sid=ASLDKAJSD764ASDLnaAsd"
+            "source": "oneprovider-rest-cli getSpace sid=$SPACE_ID"
           }
         ]
       }
@@ -808,7 +840,7 @@
         ],
         "summary": "Get all space indexes",
         "x-bash-codegen-description": "Returns the list of all index names in a space.\n",
-        "description": "Returns the list of all index names in a space.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore names to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 index names starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7/indexes?limit=3&page_token=757136151113c2f\"\n\n{\n  \"indexes\": [\n    \"index1\",\n    \"index11\",\n    \"index111\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
+        "description": "Returns the list of all index names in a space.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore names to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 index names starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes?limit=3&page_token=757136151113c2f\"\n\n{\n  \"indexes\": [\n    \"index1\",\n    \"index11\",\n    \"index111\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -873,7 +905,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli sid=ASLDKAJSD764ASDLnaAsd getSpaceIndexes limit=20 page_token=757136151113c2f"
+            "source": "oneprovider-rest-cli sid=$SPACE_ID getSpaceIndexes limit=20 page_token=757136151113c2f"
           }
         ]
       }
@@ -890,7 +922,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method returns a JSON describing specific index.\n",
-        "description": "This method returns a JSON describing specific index.\n\n***Example cURL requests***\n\n**Get information about specific index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1\n\n\n{\n    \"spatial\": false,\n    \"mapFunction\": \"function (id, type, meta, ctx) {\\\\n        if(type == \\\\'custom_metadata\\\\' && meta[\\\\'onexattr\\\\']) {\\\\n            return [meta[\\\\'onexattr\\\\'], id];\\\\n        }\\\\n        return null;\\\\n    }\"\n    \"reduceFunction\": null,\n    \"indexOptions\": {\n        \"update_min_changes\": 100\n    },\n    \"providers\": [\n        \"ASIOdhxckvufysd78f9w394356yisudfsduuzxch\"\n    ]\n}\n```\n",
+        "description": "This method returns a JSON describing specific index.\n\n***Example cURL requests***\n\n**Get information about specific index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME\n\n\n{\n    \"spatial\": false,\n    \"mapFunction\": \"function (id, type, meta, ctx) {\\\\n        if(type == \\\\'custom_metadata\\\\' && meta[\\\\'onexattr\\\\']) {\\\\n            return [meta[\\\\'onexattr\\\\'], id];\\\\n        }\\\\n        return null;\\\\n    }\"\n    \"reduceFunction\": null,\n    \"indexOptions\": {\n        \"update_min_changes\": 100\n    },\n    \"providers\": [\n        \"ASIOdhxckvufysd78f9w394356yisudfsduuzxch\"\n    ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -945,7 +977,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
+            "source": "oneprovider-rest-cli getSpaceIndex sid=$SPACE_ID index_name=$INDEX_NAME"
           }
         ]
       },
@@ -960,7 +992,10 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method creates or replaces an existing index with a new one.\n",
-        "description": "This method creates or replaces an existing index with a new one.\n\n***Example cURL requests***\n\n**Create space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1?spatial=false&providers[]=SDUIFYIUXcyv7862873467878sdt&providers[]=ioysdfuyisdFITSDHX89754\n```\n",
+        "description": "This method creates or replaces an existing index with a new one.\n\n***Example cURL requests***\n\n**Create space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_index1.js\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME?spatial=false&providers[]=$PROVIDER_ID_1&providers[]=$PROVIDER_ID_2\n```\n",
+        "consumes": [
+          "application/javascript"
+        ],
         "responses": {
           "200": {
             "description": "Index created successfully."
@@ -1051,7 +1086,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli createSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 spatial=false -"
+            "source": "cat index.js | oneprovider-rest-cli createSpaceIndex sid=$SPACE_ID index_name=$INDEX_NAME 'providers[]=$PROVIDER_ID_1' 'providers[]=$PROVIDER_ID_2' -"
           }
         ]
       },
@@ -1066,7 +1101,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method updates existing index definition. \n\nIt takes the same arguments as PUT. Only specified parameters will be overwritten.\n",
-        "description": "This method updates existing index definition. \n\nIt takes the same arguments as PUT. Only specified parameters will be overwritten.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PATCH \\\n-H \"Content-type: application/javascript\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1?update_min_changes=10\n```\n",
+        "description": "This method updates existing index definition. \n\nIt takes the same arguments as PUT. Only specified parameters will be overwritten.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PATCH \\\n-H \"Content-type: application/javascript\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME?update_min_changes=10\n```\n",
         "consumes": [
           "application/javascript"
         ],
@@ -1159,7 +1194,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 -"
+            "source": "cat index.js | oneprovider-rest-cli updateSpaceIndex sid=$SPACE_ID index_name=$INDEX_NAME 'providers[]=$PROVIDER_ID' -"
           }
         ]
       },
@@ -1174,7 +1209,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method removes an existing index.\n",
-        "description": "This method removes an existing index.\n\n***Example cURL requests***\n\n**Remove existing index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1\n```\n",
+        "description": "This method removes an existing index.\n\n***Example cURL requests***\n\n**Remove existing index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME\n```\n",
         "responses": {
           "204": {
             "description": "Index removed successfully."
@@ -1223,7 +1258,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli removeSpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
+            "source": "oneprovider-rest-cli removeSpaceIndex sid=$SPACE_ID index_name=$INDEX_NAME"
           }
         ]
       }
@@ -1240,7 +1275,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method replaces the existing index reduce function code with the request body.\n\nThe reduce functions are defined as JavaScript functions which are executed\non the database backend.\n",
-        "description": "This method replaces the existing index reduce function code with the request body.\n\nThe reduce functions are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_reduce_fun.js\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/reduce\n```\n",
+        "description": "This method replaces the existing index reduce function code with the request body.\n\nThe reduce functions are defined as JavaScript functions which are executed\non the database backend.\n\n***Example cURL requests***\n\n**Update space index**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X PUT \\\n-H \"Content-type: application/javascript\" \\\n-d \"@./my_improved_reduce_fun.js\" \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME/reduce\n```\n",
         "consumes": [
           "application/javascript"
         ],
@@ -1301,7 +1336,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "cat index.js | oneprovider-rest-cli updateIndexReduceFunction sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 -"
+            "source": "cat index.js | oneprovider-rest-cli updateIndexReduceFunction sid=$SPACE_ID index_name=$INDEX_NAME -"
           }
         ]
       },
@@ -1316,7 +1351,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method removes the index reduce function.\n",
-        "description": "This method removes the index reduce function.\n\n***Example cURL requests***\n\n**Remove index reduce function**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/reduce\n```\n",
+        "description": "This method removes the index reduce function.\n\n***Example cURL requests***\n\n**Remove index reduce function**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X DELETE \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME/reduce\n```\n",
         "consumes": [
           "application/javascript"
         ],
@@ -1368,7 +1403,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli removeIndexReduceFunction sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1"
+            "source": "oneprovider-rest-cli removeIndexReduceFunction sid=$SPACE_ID index_name=$INDEX_NAME"
           }
         ]
       }
@@ -1385,7 +1420,7 @@
           "Data"
         ],
         "x-bash-codegen-description": "This method returns the list of result objects for files which match the query \non a predefined index. \nThose objects contains following fields:\n- id - for use as `startkey_docid` or `endkey_docid` in following queries\n- key - the first element of list returned by user defined mapping/spatial function\n- value - the second element of list returned by user defined mapping/spatial function\n- geometry - describes geometry of data (only available in case of spatial indexes)\n\nCurrently, indexes are defined per space, i.e. the result will be limited\nto files and folders in a space for which the index was defined.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
-        "description": "This method returns the list of result objects for files which match the query on a predefined index. \nThose objects contains following fields:\n* ``id`` - for use as `startkey_docid` or `endkey_docid` in following queries\n* ``key`` - the first element of list returned by user defined mapping/spatial function\n* ``value`` - the second element of list returned by user defined mapping/spatial function\n* ``geometry`` - describes geometry of data (only available in case of spatial indexes)\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get 4 files from index skipping first 10**\n\nWith example map function used:\n```javascript\nfunction (id, type, meta, ctx) {\n  if(type == 'custom_metadata' && meta['onexattr']) {\n    return [meta['onexattr'], id];\n  }\n  return null;\n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/query?skip=10&limit=4\n\n[\n  {\n    \"id\": \"fd18b793d446099ae84f8bd5c054ad34\",\n    \"key\": 1,\n    \"value\": \"00000000002C45416775696423633062636533343133336336636633393238336134323333396430656461393323737061636531\"\n  },\n  {\n    \"id\": \"2785dbd91120e341265f9ee2370ccf08\",\n    \"key\": 2,\n    \"value\": \"00000000002CF7DB6775696423396261373964653764643866336432393436323262313133393738643338383323737061636531\"\n  },\n  {\n    \"id\": \"60a9e6da61e12deeb3e6c688fe861c01\",\n    \"key\": 3,\n    \"value\": \"00000000002C47916775696423336330336538623730333439353233383631313966346139343731316631656323737061636531\"\n  },\n  {\n    \"id\": \"651d696a8446e92ab55de163f9b8594d\",\n    \"key\": 4,\n    \"value\": \"00000000002CA8906775696423633835366438613139666565336337666165623538303736356465383039356223737061636531\"\n  },\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates**\n\nWith example spatial function used:\n```javascript\nfunction (id, type, meta, ctx) {\n  if(type == 'custom_metadata' && meta['onexattr']) {\n    return [meta['onexattr'], id];\n  }\n  return null;\n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/index1/query?spatial=true&stale=false\n\n[\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [0, 0]\n    },\n    \"id\": \"36cfb018c312653e65b346c421d7a678\",\n    \"key\": [[0, 0], [0, 0]],\n    \"value\": \"00000000002C5DA36775696423663535633934306564393632656530666133663330633137393362333765356223737061636531\"\n  },\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [5.1, 10.22]\n    },\n    \"id\": \"972eb78ff8e262c4bebdc11799c20f51\",\n    \"key\": [[5.1, 5.1], [10.22, 10.22]],\n    \"value\": \"00000000002C678A6775696423363030666461383130623030386333616664363637396666653334366137656623737061636531\"\n  }\n]\n```\n\n**Get file popularity for a specific space**\n```bash\ncurl --tlsv1.2 -sSk -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST/api/v3/oneprovider/spaces/f209c965-e212-4149-af72-860faea4187a/indexes/file-popularity/query?spatial=true&start_range=\\[1,0,0,0,0,0\\]&end_range=\\[null,null,null,null,null,null\\]\"\n```\n",
+        "description": "This method returns the list of result objects for files which match the query on a predefined index. \nThose objects contains following fields:\n* ``id`` - for use as `startkey_docid` or `endkey_docid` in following queries\n* ``key`` - the first element of list returned by user defined mapping/spatial function\n* ``value`` - the second element of list returned by user defined mapping/spatial function\n* ``geometry`` - describes geometry of data (only available in case of spatial indexes)\n\nCurrently, indexes are defined per space, i.e. the result will be limited to files and folders in a space for which the index was defined.\n\nThis operation supports also custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionaly, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Get 4 files from index skipping first 10**\n\nWith example map function used:\n```javascript\nfunction (id, type, meta, ctx) {\n  if(type == 'custom_metadata' && meta['onexattr']) {\n    return [meta['onexattr'], id];\n  }\n  return null;\n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME/query?skip=10&limit=4\n\n[\n  {\n    \"id\": \"fd18b793d446099ae84f8bd5c054ad34\",\n    \"key\": 1,\n    \"value\": \"00000000002C45416775696423633062636533343133336336636633393238336134323333396430656461393323737061636531\"\n  },\n  {\n    \"id\": \"2785dbd91120e341265f9ee2370ccf08\",\n    \"key\": 2,\n    \"value\": \"00000000002CF7DB6775696423396261373964653764643866336432393436323262313133393738643338383323737061636531\"\n  },\n  {\n    \"id\": \"60a9e6da61e12deeb3e6c688fe861c01\",\n    \"key\": 3,\n    \"value\": \"00000000002C47916775696423336330336538623730333439353233383631313966346139343731316631656323737061636531\"\n  },\n  {\n    \"id\": \"651d696a8446e92ab55de163f9b8594d\",\n    \"key\": 4,\n    \"value\": \"00000000002CA8906775696423633835366438613139666565336337666165623538303736356465383039356223737061636531\"\n  },\n  ...\n]\n```\n\n**Get list of files associated with geospatial coordinates**\n\nWith example spatial function used:\n```javascript\nfunction (id, type, meta, ctx) {\n  if(type == 'custom_metadata' && meta['onexattr']) {\n    return [meta['onexattr'], id];\n  }\n  return null;\n}\n```\n\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET \\\nhttps://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/$INDEX_NAME/query?spatial=true&stale=false\n\n[\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [0, 0]\n    },\n    \"id\": \"36cfb018c312653e65b346c421d7a678\",\n    \"key\": [[0, 0], [0, 0]],\n    \"value\": \"00000000002C5DA36775696423663535633934306564393632656530666133663330633137393362333765356223737061636531\"\n  },\n  {\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [5.1, 10.22]\n    },\n    \"id\": \"972eb78ff8e262c4bebdc11799c20f51\",\n    \"key\": [[5.1, 5.1], [10.22, 10.22]],\n    \"value\": \"00000000002C678A6775696423363030666461383130623030386333616664363637396666653334366137656623737061636531\"\n  }\n]\n```\n\n**Get file popularity for a specific space**\n```bash\ncurl --tlsv1.2 -sSk -X GET -H \"X-Auth-Token: $TOKEN\" \"https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/file-popularity/query?spatial=true&start_range=\\[1,0,0,0,0,0\\]&end_range=\\[null,null,null,null,null,null\\]\"\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1556,7 +1591,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli querySpaceIndex sid='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
+            "source": "oneprovider-rest-cli querySpaceIndex sid=$SPACE_ID index_name=$INDEX_NAME key=value1"
           }
         ]
       }
@@ -1639,7 +1674,7 @@
         ],
         "summary": "Replicate file or folder by path",
         "x-bash-codegen-description": "Replicates a file specified by absolute path in `path` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
-        "description": "Replicates a file specified by absolute path in `path` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Replicates a file specified by absolute path in `path` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `path` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by path to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by path to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=$PROVIDER_ID\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1709,7 +1744,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli replicateFile path='/Space 1/Folder 2/file.txt' provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli replicateFile path='/Space 1/Folder 2/file.txt' provider_id=$PROVIDER_ID"
           }
         ]
       },
@@ -1724,7 +1759,7 @@
         ],
         "summary": "Evict existing replica by file path",
         "x-bash-codegen-description": "Removes a replica of a file specified by absolute path in `path` parameter\nfrom a specified provider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is evicted from\nthis provider requested provider.\n",
-        "description": "Removes a replica of a file specified by absolute path in `path` parameter\nfrom a specified provider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is evicted from\nthis provider requested provider.\n\n***Example cURL requests***\n\n**Remove file replica by path from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Removes a replica of a file specified by absolute path in `path` parameter\nfrom a specified provider.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `path` parameter specifies a folder, entire folder is evicted from\nthis provider requested provider.\n\n***Example cURL requests***\n\n**Remove file replica by path from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas/MySpace1/MyFile1.txt?provider_id=$PROVIDER_ID\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1792,7 +1827,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli evictReplica path='/Space 1/Folder 2/file.txt' migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli evictReplica path='/Space 1/Folder 2/file.txt' migration_provider_id=$MIGRATION_PROVIDER_ID"
           }
         ]
       }
@@ -1809,7 +1844,7 @@
         ],
         "summary": "Get replicas by Id",
         "x-bash-codegen-description": "Returns file distribution information about a specific file.\n",
-        "description": "Returns file distribution information about a specific file.\n\n***Example cURL requests***\n\n**Get file distribution map by Id**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/63aaab32-f5b0-41e6-b5f4-5a902ccf9c77\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
+        "description": "Returns file distribution information about a specific file.\n\n***Example cURL requests***\n\n**Get file distribution map by Id**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/$FILE_ID\"\n\n[\n  {\n    \"blocks\": [ [ 0, 4 ], [ 10, 20 ] ],\n    \"providerId\": \"57ecb305-a097-4243-bd03-a995e78ab206\"\n  },\n  {\n    \"blocks\": [ [ 5, 9 ] ],\n    \"providerId\": \"7dedd2c7-dc58-4e62-925e-94663faa70fc\"\n  }\n]\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1860,7 +1895,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getFileReplicasById fid=ASLDKAJSD764ASDLnaAsd"
+            "source": "oneprovider-rest-cli getFileReplicasById fid=$FILE_ID"
           }
         ]
       },
@@ -1875,7 +1910,7 @@
         ],
         "summary": "Replicate file or folder by Id",
         "x-bash-codegen-description": "Replicates a file specified by Id in `fid` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on\nthe size of the data to move.\n\nIf the `fid` parameter specifies a folder, entire folder is replicated to\nrequested provider.\n",
-        "description": "Replicates a file specified by Id in `fid` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `fid` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by Id to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/da426f74-5770-42a1-b799-354a3c4c154b\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by Id to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Replicates a file specified by Id in `fid` parameter to a specified provider.\nThis operation is asynchronous and it can take a long time depending on the size of the data to move.\n\nIf the `fid` parameter specifies a folder, entire folder is replicated to requested provider.\n\n***Example cURL requests***\n\n**Replicate file by Id to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/$FILE_ID\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\" }\n```\n\n**Replicate file by Id to specific storage provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/$FILE_ID?provider_id=$PROVIDER_ID\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -1945,7 +1980,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli replicateFileById fid=ASLDKAJSD764ASDLnaAsd provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli replicateFileById fid=$FILE_ID provider_id=$PROVIDER_ID"
           }
         ]
       },
@@ -1960,7 +1995,7 @@
         ],
         "summary": "Evict existing replica by file Id",
         "x-bash-codegen-description": "Evicts a replica of a file specified by Id in `fid` parameter.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the replica has to be replicated before being\nevicted from this provider.\n\nIf the `fid` parameter specifies a folder, entire folder is evicted.\n",
-        "description": "Evicts a replica of a file specified by file Id in `fid` parameter.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `fid` parameter specifies a folder, entire folder is evicted.\n\n***Example cURL requests***\n\n**Evict file replica by Id from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/5d071d11-d355-4918-ade3-dd255b91547d?provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Evicts a replica of a file specified by file Id in `fid` parameter.\nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nIf the `fid` parameter specifies a folder, entire folder is evicted.\n\n***Example cURL requests***\n\n**Evict file replica by Id from specific storage provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-id/$FILE_ID?provider_id=$PROVIDER_ID\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2028,7 +2063,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli evictReplicaById fid=ASLDKAJSD764ASDLnaAsd migration_provider_id=SADLKJHALSKDH88ASDLKJASD"
+            "source": "oneprovider-rest-cli evictReplicaById fid=$FILE_ID migration_provider_id=$MIGRATION_PROVIDER_ID"
           }
         ]
       }
@@ -2045,7 +2080,7 @@
           "Replication"
         ],
         "x-bash-codegen-description": "Queries the specified index and replicates the resulting list of files to specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data\nto move.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
-        "description": "Queries the specified index and replicates the resulting list of files to specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data\nto move.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Replicate files returned by index within specified space to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/my-index?space_id=AUISyuidfysidufy8768437yu\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\"}\n```\n\n**Replicate 100 files (skipping the first 200) returned by index within specified space to any provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/my-index?space_id=AUISyuidfysidufy8768437yu&provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Queries the specified index and replicates the resulting list of files to specified provider. \nThis operation is asynchronous and it can take a long time depending on the size of the data\nto move.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Replicate files returned by index within specified space to any provider**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/$INDEX_NAME?space_id=$SPACE_ID\"\n\n\n{ \"transferId\": \"4f674576-4c63-443b-b3d5-2f74a40724a0\"}\n```\n\n**Replicate 100 files (skipping the first 200) returned by index within specified space to any provider with URL callback**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n-H 'Content-type: application/json' -d '{ \"url\": \"http://example.com/transfer_complete\" }' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/$INDEX_NAME?space_id=$SPACE_ID&provider_id=$PROVIDER_ID&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2228,7 +2263,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli replicateFilesByIndex space_id='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
+            "source": "oneprovider-rest-cli replicateFilesByIndex space_id=$SPACE_ID index_name=$INDEX_NAME key=value1"
           }
         ]
       },
@@ -2243,7 +2278,7 @@
           "Replication"
         ],
         "x-bash-codegen-description": "Queries the specified index and evicts the resulting list of replicas in specified provider. \nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nThis operation supports custom index query attributes as provided by\nCouchbase:\n  [http://docs.couchbase.com/admin/admin/Views/views-querying.html].\n\nAdditionally, Couchbase spatial queries:\n  [http://docs.couchbase.com/admin/admin/Views/views-geospatial.html] are\npossible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the\n[http://geojson.org/] format.\n",
-        "description": "Queries the specified index and evicts the resulting list of replicas in specified provider. \nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Evicts 100 replicas (skipping the first 200) returned by index within specified space from specific provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/custom_index?space_id=AUISyuidfysidufy8768437yu&provider_id=7a0d2c4d-aa00-43df-9e96-cac98b2816bb&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
+        "description": "Queries the specified index and evicts the resulting list of replicas in specified provider. \nThis operation is asynchronous. Optional argument `migration_provider_id`\ncan be used to specify where the repliace has to be replicated before being\nevicted from this provider.\n\nThis operation supports custom index query attributes as provided by [Couchbase](http://docs.couchbase.com/admin/admin/Views/views-querying.html).\n\nAdditionally, Couchbase [spatial queries](http://docs.couchbase.com/admin/admin/Views/views-geospatial.html) are possible using the `bbox` query parameter.\nThese queries are possible on indexes which emit values conforming to the [GeoJSON](http://geojson.org/) format.\n\n***Example cURL requests***\n\n**Evicts 100 replicas (skipping the first 200) returned by index within specified space from specific provider**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" -H 'Content-type: application/json' \\\n\"https://$HOST/api/v3/oneprovider/replicas-index/$INDEX_NAME?space_id=$SPACE_ID&provider_id=$PROVIDER_ID&skip=200&limit=100\"\n\n\n{ \"transferId\": \"b3c85b99-44db-4277-8c66-2ccd50888565\" }\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2424,7 +2459,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli evictReplicasByIndex space_id='f209c965-e212-4149-af72-860faea4187a' index_name=name1 key=value1"
+            "source": "oneprovider-rest-cli evictReplicasByIndex space_id=$SPACE_ID index_name=$INDEX_NAME key=value1"
           }
         ]
       }
@@ -2441,7 +2476,7 @@
         ],
         "summary": "Get all transfers",
         "x-bash-codegen-description": "Returns the list of all transfer IDs in a space with given state.\n",
-        "description": "Returns the list of all transfer IDs in a space with given state.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore transfers to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 ongoing transfers starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/8f4b1e94-fdf8-4754-9962-edb01b2ee0f7/transfers?state=ongoing&limit=3&page_token=757136151113c2f\"\n\n{\n  \"transfers\": [\n    \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n    \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n    \"da426f74-5770-42a1-b799-354a3c4c154b\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
+        "description": "Returns the list of all transfer IDs in a space with given state.\nThe list is broken down into pages, each with length less or equal to the\nlimit parameter. If the nextPageToken is present in the response, there are\nmore transfers to list - provide the token in the page_token parameter in\nthe following request.\n\n***Example cURL requests***\n\n**List at most 3 ongoing transfers starting from page id 757136151113c2f**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/transfers?state=ongoing&limit=3&page_token=757136151113c2f\"\n\n{\n  \"transfers\": [\n    \"3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\",\n    \"29fa94de-33ad-4347-9cbe-3d8faa9422dd\",\n    \"da426f74-5770-42a1-b799-354a3c4c154b\"\n  ],\n  \"nextPageToken\": \"8471726779817b3a\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2518,7 +2553,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli sid=ASLDKAJSD764ASDLnaAsd getAllTransfers state=ongoing limit=20 page_token=757136151113c2f"
+            "source": "oneprovider-rest-cli sid=$SPACE_ID getAllTransfers state=ongoing limit=20 page_token=757136151113c2f"
           }
         ]
       }
@@ -2535,7 +2570,7 @@
         ],
         "summary": "Get transfer status",
         "x-bash-codegen-description": "Returns status of specific transfer. In case the transfer has been\nscheduled for entire folder, the result is a list of transfer statuses\nfor each item in the folder.\n",
-        "description": "Returns status of specific transfer.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n\n{\n  \"fileId\": \"00000000005CF4706775696423745F772D67686431633765446F4D76546D6F2D67575F3361737A7670486B477A7936587734507265584A7723394A4F355F5F396E4C31623031594576776E667431723230677767776C6B497031394E445F6E3868677873\",\n  \"userId\": \"admin\",\n  \"rerunId\": null,\n  \"path\":\"/space/tmp\",\n  \"transferStatus\": \"completed\",\n  \"replicationStatus\": \"completed\",\n  \"invalidationStatus\": \"skipped\",\n  \"replicaEvictionStatus\": \"skipped\",\n  \"targetProviderId\": \"HICATChd8wzbFmB6qfGby9VN7MfdXgI1qC4pULGVm8Q\",\n  \"replicatingProviderId\": \"HICATChd8wzbFmB6qfGby9VN7MfdXgI1qC4pULGVm8Q\",\n  \"evictingProviderId\": null,\n  \"callback\":null,\n  \"filesToProcess\": 1,\n  \"filesProcessed\": 1,\n  \"filesTransferred\": 1,\n  \"filesReplicated\": 1,\n  \"failedFiles\": 0,\n  \"filesInvalidated\": 0,\n  \"fileReplicasEvicted\": 0,\n  \"filesProcessed\": 1,\n  \"bytesTransferred\": 10485760000,\n  \"bytesReplicated\": 10485760000,\n  \"scheduleTime\": 1504688800,\n  \"startTime\": 15046888765,\n  \"finishTime\": 1504688814,\n  \"lastUpdate\": 1504988814,\n  \"minHist\": {\n    \"ASDxicvuisodr78w979879wer\": [419430400, 1153433600, 1258291200, 1468006400, 1048576000, 1048576000, 1048576000, 1153433600, 629145600, 1258291200, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"hrHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"dyHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"mthHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  }\n}\n```\n",
+        "description": "Returns status of specific transfer.\n\n***Example cURL requests***\n\n**Get status of specific transfer**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/$TRANSFER_ID\"\n\n{\n  \"fileId\": \"00000000005CF4706775696423745F772D67686431633765446F4D76546D6F2D67575F3361737A7670486B477A7936587734507265584A7723394A4F355F5F396E4C31623031594576776E667431723230677767776C6B497031394E445F6E3868677873\",\n  \"userId\": \"admin\",\n  \"rerunId\": null,\n  \"path\":\"/space/tmp\",\n  \"transferStatus\": \"completed\",\n  \"replicationStatus\": \"completed\",\n  \"invalidationStatus\": \"skipped\",\n  \"replicaEvictionStatus\": \"skipped\",\n  \"targetProviderId\": \"HICATChd8wzbFmB6qfGby9VN7MfdXgI1qC4pULGVm8Q\",\n  \"replicatingProviderId\": \"HICATChd8wzbFmB6qfGby9VN7MfdXgI1qC4pULGVm8Q\",\n  \"evictingProviderId\": null,\n  \"callback\":null,\n  \"filesToProcess\": 1,\n  \"filesProcessed\": 1,\n  \"filesTransferred\": 1,\n  \"filesReplicated\": 1,\n  \"failedFiles\": 0,\n  \"filesInvalidated\": 0,\n  \"fileReplicasEvicted\": 0,\n  \"filesProcessed\": 1,\n  \"bytesTransferred\": 10485760000,\n  \"bytesReplicated\": 10485760000,\n  \"scheduleTime\": 1504688800,\n  \"startTime\": 15046888765,\n  \"finishTime\": 1504688814,\n  \"lastUpdate\": 1504988814,\n  \"minHist\": {\n    \"ASDxicvuisodr78w979879wer\": [419430400, 1153433600, 1258291200, 1468006400, 1048576000, 1048576000, 1048576000, 1153433600, 629145600, 1258291200, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"hrHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"dyHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  },\n  \"mthHist\": {\n    \"ASDxicvuisodr78w979879wer\": [10485760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n  }\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2583,7 +2618,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli getTransferStatus tid=ASLDKAJSD764ASDLnaAsd"
+            "source": "oneprovider-rest-cli getTransferStatus tid=$TRANSFER_ID"
           }
         ]
       },
@@ -2598,7 +2633,7 @@
         ],
         "summary": "Cancel specific transfer",
         "x-bash-codegen-description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer\nis already completed, canceled or failed.\n",
-        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69\"\n```\n",
+        "description": "Cancels a scheduled or active transfer. Returns 400 in case the transfer is already completed, canceled or failed.\n\n***Example cURL requests***\n\n**Cancel specific transfer**\n```bash\ncurl --tlsv1.2 -X DELETE -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/$TRANSFER_ID\"\n```\n",
         "responses": {
           "204": {
             "description": "The transfer has been canceled."
@@ -2640,7 +2675,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli cancelTransfer tid=ASLDKAJSD764ASDLnaAsd"
+            "source": "oneprovider-rest-cli cancelTransfer tid=$TRANSFER_ID"
           }
         ]
       }
@@ -2657,7 +2692,7 @@
         ],
         "summary": "Rerun ended transfer",
         "x-bash-codegen-description": "Reruns ended transfer by creating a new, identical transfer.\n",
-        "description": "Reruns ended transfer by creating a new, identical transfer.\n\n***Example cURL requests***\n\n**Rerun finished transfer**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/3b6a31fb-ca87-4ea6-8526-fbf5a0773d69/rerun\"\n```\n",
+        "description": "Reruns ended transfer by creating a new, identical transfer.\n\n***Example cURL requests***\n\n**Rerun finished transfer**\n```bash\ncurl --tlsv1.2 -X POST -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/transfers/$TRANSFER_ID/rerun\"\n```\n",
         "produces": [
           "application/json"
         ],
@@ -2708,7 +2743,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli rerunTransfer tid=ASLDKAJSD764ASDLnaAsd"
+            "source": "oneprovider-rest-cli rerunTransfer tid=$TRANSFER_ID"
           }
         ]
       }
@@ -2725,7 +2760,7 @@
           "Monitoring"
         ],
         "x-bash-codegen-description": "Returns space related metrics of specified type.\n",
-        "description": "Returns space related metrics of specified type.\n\n***Example cURL requests***\n\n**Get storage space used metrics**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/metrics/space/f4f1799f-4954-4d7a-bc31-630998883296?metric=storage_used\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space f4f1799f-4954-4d7a-bc31-630998883296; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 300\n      }\n    }\n}\n```\n",
+        "description": "Returns space related metrics of specified type.\n\n***Example cURL requests***\n\n**Get storage space used metrics**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/metrics/space/$SPACE_ID?metric=storage_used\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space f4f1799f-4954-4d7a-bc31-630998883296; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 300\n      }\n    }\n}\n```\n",
         "produces": [
           "application/json",
           "application/xml"
@@ -2804,7 +2839,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli -ac json getSpaceMetrics sid=ASJHDJHASD7132nasdlASD metric=storage_quota step=5m"
+            "source": "oneprovider-rest-cli -ac json getSpaceMetrics sid=$SPACE_ID metric=storage_quota step=5m"
           }
         ]
       }
@@ -2821,7 +2856,7 @@
           "Monitoring"
         ],
         "x-bash-codegen-description": "Returns space related metrics of specified type for specific user.\n",
-        "description": "Returns space related metrics of specified type for specific user.\n\n***Example cURL requests***\n\n**Get user storage block access metrics with 1 hour resolution**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/metrics/space/fe14b4cc-bce0-4220-8394-a911d11a0a53/user/8fd85f71-3290-411d-ae3e-a65d48b5229c?metric=block_access&step=1h\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 3600\n      }\n    }\n}\n```\n",
+        "description": "Returns space related metrics of specified type for specific user.\n\n***Example cURL requests***\n\n**Get user storage block access metrics with 1 hour resolution**\n```bash\ncurl --tlsv1.2 -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/metrics/space/$SPACE_ID/user/$USER_ID?metric=block_access&step=1h\"\n\n{\n  \"providerId\": \"4efc4a0c-0a61-4766-8fe9-c3d7fb414da8\",\n  \"rrd\": {\n      \"about\": \"RRDtool graph JSON output\",\n      \"data\": [[ 5.6435528434 ], [ 2.6435528434 ], [ 4.6435528434 ] ],\n      \"meta\": {\n          \"start\": 1465466700,\n          \"end\": 1465553100,\n          \"legend\": [\"space fe14b4cc-bce0-4220-8394-a911d11a0a53; metric storage_used; oneprovider ID 4efc4a0c-0a61-4766-8fe9-c3d7fb414da8; storage_used[bytes]\"],\n          \"step\": 3600\n      }\n    }\n}\n```\n",
         "produces": [
           "application/json",
           "application/xml"
@@ -2905,24 +2940,27 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli -ac xml getSpaceUserMetrics sid=ASJHDJHASD7132nasdlASD uid=ASD66ASDASDn7nasd metric=metadata_access_ops step=1h"
+            "source": "oneprovider-rest-cli -ac xml getSpaceUserMetrics sid=$SPACE_ID uid=$USER_ID metric=metadata_access_ops step=1h"
           }
         ]
       }
     },
     "/changes/metadata/{sid}": {
-      "get": {
+      "post": {
         "operationId": "get_space_changes",
         "x-onedata-service": "oneprovider",
         "x-onedata-module": "events",
         "x-onedata-resource": "space",
-        "x-onedata-method": "get_space_changes",
+        "x-onedata-method": "stream_space_changes",
         "tags": [
           "Monitoring"
         ],
         "summary": "Subscribe to file events",
-        "x-bash-codegen-description": "This method subscribes through HTTP streaming on events of specific type\nfor a given space.\n\nUntil the connection is kept alive, the events will be streamed to\nsubscribers as soon as they are occur. The optional `timeout` parameter\ncan be used to automatically disconnect  when no events occur in a\ngiven time window.\n",
-        "description": "This method subscribes through HTTP streaming on events of specific type for a given space.\n\nUntil the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.\n\n***Example cURL requests***\n\n**Listen to space change events**\n```bash\ncurl --tlsv1.2 -N -X GET -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/changes/metadata/MySpace1\"\n```\n",
+        "x-bash-codegen-description": "This method subscribes through HTTP streaming on events of specific type\nfor a given space.\n\nUntil the connection is kept alive, the events will be streamed to\nsubscribers as soon as they occur. The optional `timeout` parameter\ncan be used to automatically disconnect  when no events occur in a\ngiven time window.\n",
+        "description": "This method subscribes through HTTP streaming on events of specific type for a given space.\n\nUntil the connection is kept alive, the events will be streamed to subscribers as soon as they are occur. The optional `timeout` parameter can be used to automatically disconnect  when no events occur in a given time window.\n\n***Example cURL requests***\n\n**Listen to space change events**\n```bash\ncurl --tlsv1.2 -N -X POST -d \"@./changes_req.json\" -H \"X-Auth-Token: $TOKEN\" \\\n\"https://$HOST/api/v3/oneprovider/changes/metadata/$SPACE_ID\"\n```\n",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -2967,6 +3005,15 @@
             "required": true
           },
           {
+            "name": "body",
+            "in": "body",
+            "description": "Specification of metadata changes to observe.",
+            "schema": {
+              "$ref": "#/definitions/MetadataChangesStreamRequest"
+            },
+            "required": true
+          },
+          {
             "name": "timeout",
             "in": "query",
             "description": "Optional timeout in milliseconds, which allows to automatically break connection when no event occured in specified time. By default the timeout is unlimited.\n",
@@ -2984,13 +3031,64 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "oneprovider-rest-cli setSpaceChanges sid=ASLJDJASHD timeout=10000 last_seq=124721"
+            "source": "cat changes_req.json | oneprovider-rest-cli streamSpaceChanges sid=$SPACE_ID timeout=10000 last_seq=124721 -"
           }
         ]
       }
     }
   },
   "definitions": {
+    "Configuration": {
+      "description": "Public information about Oneprovider configuration and version.",
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "Id of the Oneprovider"
+        },
+        "name": {
+          "type": "string",
+          "description": "Oneprovider's name"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Oneprovider's domain"
+        },
+        "onezoneDomain": {
+          "type": "string",
+          "description": "Domain of the Onezone where this Oneprovider is registered"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of this Oneprovider"
+        },
+        "build": {
+          "type": "string",
+          "description": "Build number of this Oneprovider"
+        },
+        "compatibleOnezoneVersions": {
+          "type": "array",
+          "description": "List of compatible Onezone versions",
+          "items": {
+            "type": "string"
+          }
+        },
+        "compatibleOneproviderVersions": {
+          "type": "array",
+          "description": "List of compatible Oneprovider versions",
+          "items": {
+            "type": "string"
+          }
+        },
+        "compatibleOneclientVersions": {
+          "type": "array",
+          "description": "List of compatible Oneclient versions",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "Error": {
       "type": "object",
       "description": "Generic error model for REST requests.",
@@ -3566,66 +3664,354 @@
     },
     "FileMetadataChange": {
       "type": "object",
-      "description": "File metadata record",
+      "description": "Metadata changes.",
       "properties": {
+        "fileId": {
+          "type": "string",
+          "description": "Unique ID of the file."
+        },
+        "filePath": {
+          "type": "string",
+          "description": "Absolute path to the file (starting with the Space name)."
+        },
         "seq": {
           "type": "string",
           "description": "Sequence number (version) of the metadata document."
         },
-        "file_id": {
-          "type": "string",
-          "description": "Unique ID of the file."
+        "fileMeta": {
+          "type": "object",
+          "description": "Requested fileMeta fields and additional information.",
+          "properties": {
+            "rev": {
+              "type": "string",
+              "description": "Last revision of fileMeta."
+            },
+            "mutators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Providers that changed this metadata."
+              }
+            },
+            "deleted": {
+              "type": "boolean",
+              "description": "Indicates whether this metadata was deleted or not."
+            },
+            "changed": {
+              "type": "boolean",
+              "description": "Indicates whether changes occured to this metadata or not."
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "File name."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "File type.",
+                  "enum": [
+                    "REG",
+                    "DIR"
+                  ]
+                },
+                "mode": {
+                  "type": "integer",
+                  "description": "POSIX file permissions."
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "File owner."
+                },
+                "group_owner": {
+                  "type": "string",
+                  "description": "File group owner."
+                },
+                "provider_id": {
+                  "type": "string",
+                  "description": "Id of provider which created this file."
+                },
+                "shares": {
+                  "type": "array",
+                  "description": "Array of this file shares Ids.",
+                  "items": {
+                    "type": "string",
+                    "description": "Share Id."
+                  }
+                },
+                "deleted": {
+                  "type": "boolean",
+                  "description": "Set to 'true' when file itself was deleted but file metadata must remain for some time. Otherwise false."
+                }
+              }
+            }
+          }
         },
-        "file_path": {
-          "type": "string",
-          "description": "Absolute path to the file (starting with the Space name)."
+        "fileLocation": {
+          "type": "object",
+          "description": "Requested fileLocation fields and additional information.",
+          "properties": {
+            "rev": {
+              "type": "string",
+              "description": "Last revision of fileLocation."
+            },
+            "mutators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Providers that changed this metadata."
+              }
+            },
+            "deleted": {
+              "type": "boolean",
+              "description": "Indicates whether this metadata was deleted or not."
+            },
+            "changed": {
+              "type": "boolean",
+              "description": "Indicates whether changes occured to this metadata or not."
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "provider_id": {
+                  "type": "string",
+                  "description": "Provider Id in which change occured."
+                },
+                "storage_id": {
+                  "type": "string",
+                  "description": "Storage Id in which file exists."
+                },
+                "size": {
+                  "type": "integer",
+                  "description": "File size."
+                },
+                "space_id": {
+                  "type": "string",
+                  "description": "Space Id in which space exists."
+                },
+                "storage_file_created": {
+                  "type": "boolean",
+                  "description": "Indicates whether file was created on storage or only metadata exists."
+                }
+              }
+            }
+          }
         },
-        "deleted": {
-          "type": "boolean",
-          "description": "If true, it means the file has been already deleted."
+        "times": {
+          "type": "object",
+          "description": "Requested times fields and additional information.",
+          "properties": {
+            "rev": {
+              "type": "string",
+              "description": "Last revision of times."
+            },
+            "mutators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Providers that changed this metadata."
+              }
+            },
+            "deleted": {
+              "type": "boolean",
+              "description": "Indicates whether this metadata was deleted or not."
+            },
+            "changed": {
+              "type": "boolean",
+              "description": "Indicates whether changes occured to this metadata or not."
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "atime": {
+                  "type": "integer",
+                  "description": "POSIX atime."
+                },
+                "mtime": {
+                  "type": "integer",
+                  "description": "POSIX mtime."
+                },
+                "ctime": {
+                  "type": "integer",
+                  "description": "POSIX ctime."
+                }
+              }
+            }
+          }
         },
-        "changes": {
-          "type": "array",
-          "description": "The list of changes representing current status of the file metadata. If only 1 change is in the list, then it represents the current metadata state. If more than 1 change is present, it means there is a conflict which needs to be resolved.\n",
-          "items": {
-            "$ref": "#/definitions/FileMetadata"
+        "customMetadata": {
+          "type": "object",
+          "description": "Requested customMetadata fields and additional information.",
+          "properties": {
+            "rev": {
+              "type": "string",
+              "description": "Last revision of customMetadata."
+            },
+            "mutators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Providers that changed this metadata."
+              }
+            },
+            "deleted": {
+              "type": "boolean",
+              "description": "Indicates whether this metadata was deleted or not."
+            },
+            "changed": {
+              "type": "boolean",
+              "description": "Indicates whether changes occured to this metadata or not."
+            },
+            "fields": {
+              "type": "object",
+              "description": "Retrieved xattr values. In case of missing fields `null` values are returned.\n"
+            },
+            "exists": {
+              "type": "object",
+              "description": "Map indicating whether given xattrs exists or not.\n"
+            }
           }
         }
       },
+      "required": [
+        "fileId",
+        "filePath",
+        "seq"
+      ],
       "example": {
+        "fileId": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
+        "filePath": "/Space1/folder2/file1.txt",
         "seq": 123,
-        "file_id": "4efc4a0c-0a61-4766-8fe9-c3d7fb414da8",
-        "file_path": "/Space1/folder2/file1.txt",
-        "name": "file1.txt",
-        "deleted": false,
-        "changes": [
-          {
-            "type": "reg",
-            "mode": 511,
-            "atime": 1464958683054,
-            "mtime": 1464958683051,
-            "ctime": 1464958681054,
-            "uid": "f986246a-4d95-46ae-b3b9-e00172767e88",
-            "size": 1024,
-            "version": 1,
-            "is_scope": false,
-            "scope": "a0274289-6f8a-482f-86f8-4a518760749c",
-            "xattrs": [
-              {
-                "name": "mime_type",
-                "value": "application/text"
-              },
-              {
-                "name": "dc.language",
-                "value": "en"
-              },
-              {
-                "name": "dc.identifier",
-                "value": "doi:10.1002/0470123"
-              }
-            ]
+        "fileMeta": {
+          "rev": "2-c500a5eb026d9474429903d47841f9c5",
+          "mutators": [
+            "<<\"p1.1542789098.test\">>"
+          ],
+          "changed": true,
+          "deleted": false,
+          "fields": {
+            "owner": "john"
           }
-        ]
+        },
+        "customMetadata": {
+          "rev": "1-09f941b4e8452ef6a244c5181d894814",
+          "mutators": [
+            "<<\"p1.1542789098.test\">>"
+          ],
+          "changed": false,
+          "deleted": false,
+          "exists": {
+            "onedata_json": true
+          },
+          "fields": {
+            "key1": "value1"
+          }
+        }
+      }
+    },
+    "MetadataChangesStreamRequest": {
+      "type": "object",
+      "description": "Specification of metadata changes to observe and stream.",
+      "properties": {
+        "fileMeta": {
+          "type": "object",
+          "description": "Specification of fileMeta fields to observe.",
+          "properties": {
+            "always": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether specified fileMeta fields should be sent on other metadata changes."
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "name",
+                  "type",
+                  "mode",
+                  "owner",
+                  "group_owner",
+                  "provider_id",
+                  "shares",
+                  "deleted"
+                ]
+              }
+            }
+          }
+        },
+        "fileLocation": {
+          "type": "object",
+          "description": "Specification of fileLocation fields to observe.",
+          "properties": {
+            "always": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether specified fileLocation fields should be sent on other metadata changes."
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "provider_id",
+                  "storage_id",
+                  "size",
+                  "space_id",
+                  "storage_file_created"
+                ]
+              }
+            }
+          }
+        },
+        "times": {
+          "type": "object",
+          "description": "Specification of times fields to observe.",
+          "properties": {
+            "always": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether specified times fields should be sent on other metadata changes."
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "atime",
+                  "mtime",
+                  "ctime"
+                ]
+              }
+            }
+          }
+        },
+        "customMetadata": {
+          "type": "object",
+          "description": "Specification of customMetadata fields to observe.",
+          "properties": {
+            "always": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether specified customMetadata fields should be sent on other metadata changes."
+            },
+            "fields": {
+              "type": "array",
+              "description": "Xattrs names to retrieve. In case of missing fields `null` values are returned. In order to fetch special attributes additional keys can be specified, namely  `onedata_json`, `onedata_rdf` or `onedata_keyvalue` (fetches all fields beside special ones).\n",
+              "items": {
+                "type": "string"
+              }
+            },
+            "exists": {
+              "type": "array",
+              "description": "Xattrs names to check for existence. Existence of special attributes can also be checked by specifying `onedata_json`, `onedata_rdf` or `onedata_keyvalue`  (checks if any normal attribute exists).\n",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     },
     "Space": {
@@ -3868,6 +4254,10 @@
   },
   "tags": [
     {
+      "name": "Oneprovider",
+      "description": "Information about the Oneprovider service"
+    },
+    {
       "name": "Data",
       "description": "Space and file related operations"
     },
@@ -3881,6 +4271,12 @@
     }
   ],
   "x-tagGroups": [
+    {
+      "name": "Service information",
+      "tags": [
+        "Oneprovider"
+      ]
+    },
     {
       "name": "Data access and management",
       "tags": [
