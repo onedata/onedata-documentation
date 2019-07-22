@@ -59,11 +59,6 @@
     },
 
     "gui-sha256": {
-        "oz-worker": {
-            "19.02.0-beta1": [
-                "5b48b1885d6f03e689093b2d30efbd7f7c7152fbdc02ab009aafac21d734eec5"
-            ]
-        },
         "op-worker": {
             "19.02.0-beta1": [
                 "bd47689bd7ef220d73ef4a61672b9f43dc60ae5815ce2aa5f2c8673f3eaafc85"
