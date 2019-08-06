@@ -103,16 +103,16 @@ or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
 
-Onedata supports creation of custom view indexes on files' metadata. They can be used for:
+Onedata supports creation of custom views on files' metadata. They can be used for:
  * efficient querying for files
  * producing tables and lists of information based on files' metadata
  * extracting or filtering information from files' metadata
  * calculating, summarizing or reducing the information on the stored metadata  
 
-Indexing mechanism processes documents stored in the database in order to create a view.
+Views are a result of continuous indexing of documents.
 Documents are mapped using user-defined mapping function. Optionally, results of 
 the mapping can also be reduced using a reduce function if it is provided by the user.
-Internally, indexes are based on [Couchbase View Indexes](https://docs.couchbase.com/server/5.5/views/views-intro.html).
+Internally, views are based on [Couchbase Views](https://docs.couchbase.com/server/5.5/views/views-intro.html).
 Please visit this site for more comprehensive explanation of concepts used among this documentation.  
 
 There are two types of views that can be created:
@@ -121,7 +121,7 @@ There are two types of views that can be created:
 spatial views are similar to map-reduce views. They are suited for querying multi-dimensional data.
 The main difference is that they don't have a reduce function.
 
-Currently, view indexes can be created on the following models:
+Currently, views can be created on the following models:
  * [`file_meta`](#file-meta-model)
  * [`times`](#times-model)
  * [`custom_metadata`](#custom-metadata-model)
@@ -135,12 +135,12 @@ All information presented in this section is relevant to both map-reduce and spa
 Function used by spatial views is called as a *spatial* in Couchbase documentation. For simplicity, in this documentation, 
 the *mapping* name will be used for both terms, as they must comply to the same rules (with one exception, emphasised below).
 
-In order to create an index, it is necessary to write a simple Javascript mapping
+In order to create a view, it is necessary to write a simple Javascript mapping
 function. It will be used to map the data stored in the document to the value which should be indexed.
 Mapping is performed by using `emit()` function. Each call to `emit()` results in a new row of data in the view result.
 More info on mapping functions concepts can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
 
-In Onedata indexes API, the mapping function submitted by the user is wrapped inside
+In Onedata views API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function should accept 4 arguments:
@@ -259,7 +259,7 @@ It stores classical Unix timestamps:
 
 #### Custom metadata model
 Model used for storing [extended attributes](#extended-attributes) and [custom metadata](#custom-metadata). 
-Currently, indexes can operate on both extended attributes as well as JSON metadata, RDF metadata backend
+Currently, views can operate on both extended attributes as well as JSON metadata, RDF metadata backend
 indexing is not yet supported.
 The model has the following fields:
 * `onedata_json` - which stores map of JSON metadata values
@@ -286,25 +286,25 @@ It stores:
 
 ### REST API
 
-All operations on indexes are listed in the below table, with links to comprehensive description of appropriate requests and their parameters. 
+All operations on views are listed in the below table, with links to comprehensive description of appropriate requests and their parameters. 
 
 | Request                      | Link to API |
 |------------------------------|-------------|
-| Create index                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_index)|        
-| Get index                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_index)|        
-| Update index                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_index)|        
-| Remove index                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_index)|        
-| Update index reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_index_reduce_function)|        
-| Remove index reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_index_reduce_function)|        
-| List indexes                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_indexes)|        
-| Query index                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_index)|        
+| Create view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)|        
+| Get view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)|        
+| Update view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)|        
+| Remove view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)|        
+| Update view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function)|        
+| Remove view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function)|        
+| List views                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)|        
+| Query view                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)|        
 
 
 ### Mapping function examples
 
-#### Index over a single attribute
+#### View based on single attribute
 
-The example below presents a simple function which creates an index over a
+The example below presents a simple function which creates a view over a
 `license` extended attribute.
 
 ```javascript
@@ -317,9 +317,9 @@ function (id, type, meta, ctx) {
 }
 ```
 
-#### Index over multiple attributes
+#### View based on multiple attributes
 
-It is possible to create custom indexes, based on multiple attribute fields, e.g.:
+It is possible to create custom views, based on multiple attribute fields, e.g.:
 
 ```javascript
 function(id, type, meta, ctx) {
@@ -331,9 +331,9 @@ function(id, type, meta, ctx) {
 }
 ```
 
-#### Index over file name
+#### View based on file name
 
-The example below presents a function which can be used to create an index over file's name (`name`
+The example below presents a function which can be used to create a view over file's name (`name`
 attribute of the `file_meta` model).
 
 ```javascript
@@ -346,8 +346,8 @@ function (id, type, meta, ctx) {
 }
 ```
 
-#### Index over JSON metadata
-In order to create indexes over user JSON metadata, the functions attribute path
+#### View based on JSON metadata
+In order to create views over user JSON metadata, the functions attribute path
 must start from `onedata_json` key, which is a special attribute which provides
 access to user-defined JSON document attached to a resource, e.g.:
 
@@ -361,10 +361,10 @@ function(id, type, meta, ctx) {
 }
 ```
 
-#### Spatial index with list of values as a key
-The example below presents a function which can be used to create a spatial index over
+#### Spatial view with list of values as a key
+The example below presents a function which can be used to create a spatial view over
 2 extended attributes: `'jobPriority'`  and `'jobScheduleTime'`.
-Such index can be queried for files with the attributes' values within range passed to the query.
+Such view can be queried for files with the attributes' values within range passed to the query.
 
 ```javascript
 function(id, type, meta, ctx) {
@@ -379,10 +379,10 @@ function(id, type, meta, ctx) {
 }
 ```
 
-#### Spatial index with list of ranges as a key
-The example below presents a function which can be used to create a spatial index over ranges of
+#### Spatial view with list of ranges as a key
+The example below presents a function which can be used to create a spatial view over ranges of
 2 extended attributes: `'jobMaxExecutionTime'`  and `'jobMaxIterations'`.
-Such index can be queried for files with the attributes' ranges within range passed to the query.
+Such view can be queried for files with the attributes' ranges within range passed to the query.
 
 ```javascript
 function(id, type, meta, ctx) {
@@ -397,7 +397,7 @@ function(id, type, meta, ctx) {
 }
 ```
 
-#### Spatial index with GeoJSON as a key
+#### Spatial view with GeoJSON as a key
 The example below presents a function which returns a GeoJSON object as a key. 
 
 ```javascript
