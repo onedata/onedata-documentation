@@ -20,7 +20,7 @@ configuration tab.
 
 The file-popularity view can be queried using the following request:
 ```bash
-curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/indexes/file-popularity/query
+curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/views/file-popularity/query
 ```
 An example of such request is presented in the file-popularity configuration tab.
 The example request returns 10 least popular files in the space.
@@ -28,7 +28,7 @@ The example request returns 10 least popular files in the space.
 ## Advanced topics
 
 As a prerequisite for understanding this section we advise to familiarize with 
-the concept of [Onedata indexes](../using_onedata/metadata.md#advanced-metadata-queries).
+the concept of [Onedata views](../using_onedata/metadata.md#advanced-metadata-queries).
 
 ### Internal implementation
 
@@ -36,9 +36,9 @@ Internally, the mechanism creates the *file-popularity* view. All notes presente
 [Advanced metadata queries section](../using_onedata/metadata.md#advanced-metadata-queries)
 applies also to the *file-popularity* view.
 >**NOTE:** The file-popularity view is a special view, therefore it is forbidden to create 
-> a view index with such name. Furthermore, it is forbidden and impossible to 
+> a view with such name. Furthermore, it is forbidden and impossible to 
 > modify or delete the view using 
->[Onedata Indexes API](../using_onedata/metadata.md#advanced-metadata-queries).
+>[Onedata Views API](../using_onedata/metadata.md#advanced-metadata-queries).
 
 ### The popularity function
 The key that is emitted to the *file-popularity* view is the value of the
@@ -58,7 +58,7 @@ where:
 * `w2` - weight of avgOpenCountPerDay parameter
 * `MAX_AVG_OPEN_COUNT_PER_DAY` - upper boundary for avgOpenCountPerDay parameter
 
-Entries in the view index are modified only when associated document
+Entries in the views are modified only when associated document
 in the database is modified. It means that entry in the *file-popularity* view
 is modified only when the 
 [`file_popularity`](../using_onedata/metadata.md#file-popularity-model) model

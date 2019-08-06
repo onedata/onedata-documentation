@@ -275,7 +275,7 @@ oneprovider-rest-cli getFileAttributes path="Personal files/file1.txt" extended=
 ### User metadata
 The last type of metadata, allows users to store any JSON or RDF documents.
 Currently, JSON metadata backend supports complete querying and indexes, while
-RDF only allows storage of valie RDF documents attached to data objects.
+RDF only allows storage of valid RDF documents attached to data objects.
 
 #### JSON
 In order to add custom JSON document to a file, simply provide on an input pipe
@@ -302,17 +302,17 @@ In a similar vein, we can modify only a selected key in the JSON metadata docume
 echo 5 | oneprovider-rest-cli -ct json setFileMetadata path="Personal files/file1.txt" filter_type=keypath filter=key2 -
 ```
 
-For larger data sets, it might be necessary to create an index, which enables
+For larger data sets, it might be necessary to create a view, which enables
 efficient data discovery based on JSON metadata.
 
-An index can be created using REST API, but first we have to prepare an index
+A view can be created using REST API, but first we have to prepare an view
 function in some text editor:
 
 ```bash
-vi index1.js
+vi view1.js
 ```
 
-and paste there the following code, which creates an index over the `key1`
+and paste there the following code, which creates an view based on the `key1`
 attribute of the files' metadata:
 
 ```js
@@ -325,28 +325,28 @@ function(id, type, meta, ctx) {
 }
 ```
 
-Now to add this index to the space, use the following command:
+Now to add this view to the space, use the following command:
 
 ```bash
-cat index1.js | oneprovider-rest-cli -ct js createSpaceIndex index_name=MyIndex1 sid=$ONEDATA_SPACE -
+cat view1.js | oneprovider-rest-cli -ct js createSpaceView view_name=MyView1 sid=$ONEDATA_SPACE -
 ```
 
-We can now list indexes using the following command:
+We can now list views using the following command:
 
 ```bash
-oneprovider-rest-cli getSpaceIndexes space_id=$ONEDATA_SPACE | jq '.'
+oneprovider-rest-cli getSpaceViews space_id=$ONEDATA_SPACE | jq '.'
 
 {
-  "indexes": [
-      "MyIndex1"
+  "views": [
+      "MyView1"
   ]
 }
 ```
 
-Now the files which match the specified index can be queried using the
+Now the files which match the specified view can be queried using the
 following command:
 ```bash
-oneprovider-rest-cli querySpaceIndex sid=$ONEDATA_SPACE index_name=MyIndex1| jq '.'
+oneprovider-rest-cli querySpaceView sid=$ONEDATA_SPACE view_name=MyView1| jq '.'
 
 [
   {
@@ -357,7 +357,7 @@ oneprovider-rest-cli querySpaceIndex sid=$ONEDATA_SPACE index_name=MyIndex1| jq 
 ]
 ```
 
-The returned JSON objects describe the files which match match the index. The
+The returned JSON objects describe the files which match match the view. The
 attribute "value" contains the given file identifier.
 
 > The format and length of the file identifiers is compatible with CDMI standard.
