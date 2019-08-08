@@ -1,5 +1,5 @@
 {
-    "revision": 2019060700,
+    "revision": 2019080800,
 
     "compatibility": {
         "onezone:oneprovider": {
@@ -20,6 +20,11 @@
                 "18.02.1",
                 "18.02.2",
                 "19.02.0-beta1"
+            ],
+            "19.02.0-rc1": [
+                "18.02.1",
+                "18.02.2",
+                "19.02.0-rc1"
             ]
         },
         "oneprovider:oneprovider": {
@@ -37,6 +42,9 @@
             ],
             "19.02.0-beta1": [
                 "19.02.0-beta1"
+            ],
+            "19.02.0-rc1": [
+                "19.02.0-rc1"
             ]
         },
         "oneprovider:oneclient": {
@@ -54,23 +62,26 @@
             ],
             "19.02.0-beta1": [
                 "19.02.0-beta1"
+            ],
+            "19.02.0-rc1": [
+                "19.02.0-rc1"
             ]
         }
     },
 
     "gui-sha256": {
         "op-worker": {
-            "19.02.0-beta1": [
-                "bd47689bd7ef220d73ef4a61672b9f43dc60ae5815ce2aa5f2c8673f3eaafc85"
+            "19.02.0-rc1": [
+                "9c98ec93c33375bc177c2ed59ffb7cf1ca95f8248c2d6d017ea13b70a7ff1749"
             ]
         },
         "onepanel": {
-            "19.02.0-beta1": [
-                "c5f9a1009588f3ae1407dc978b0c057213dd3753abb9d224acdbfc209ffadadd"
+            "19.02.0-rc1": [
+                "34e78c638fe4bcdbcc88e50e395e95ad69db33175e9cb3648724a104bd7658ad"
             ]
         },
         "harvester": {
-            "19.02.0-beta1": {
+            "19.02.0-rc1": {
                 "ecrin": ["1a29258ad50dff4c1fa18c7fc8e745811a44d576835317fb7fb37cd5a8f0de06"]
             }
         }
