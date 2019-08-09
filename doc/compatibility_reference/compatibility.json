@@ -82,7 +82,7 @@
         },
         "harvester": {
             "19.02.0-rc1": {
-                "ecrin": ["1a29258ad50dff4c1fa18c7fc8e745811a44d576835317fb7fb37cd5a8f0de06"]
+                "ecrin": ["e4a2fe06a4a70f83d06b2558605eb77207da0449e86da057d2d9280e6816f470"]
             }
         }
     }
