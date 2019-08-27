@@ -48,6 +48,29 @@ sh oneclient.sh onedata1802-python3-fs-onedatafs
 scl enable onedata1802 bash
 ```
 
+### Anaconda
+
+Since version `18.02.2` and `19.02.0-rc1` Oneclient can be installed using
+[Anaconda](https://anaconda.org), from the official
+[Onedata conda repository](https://anaconda.org/onedata):
+
+```bash
+conda install -c onedata fs.onedatafs
+```
+
+or to install a specific version of `fs.onedatafs`
+
+```bash
+conda install -c onedata fs.onedatafs=18.02.2
+```
+
+Furthermore, to ensure that conda will not upgrade Python in a given environment,
+it is possible to provide the exact build number of the OnedataFS packages, which
+includes the Python version, e.g.:
+
+```bash
+conda install -c onedata fs.onedatafs=18.02.2=py36_0
+```
 
 ## Usage
 

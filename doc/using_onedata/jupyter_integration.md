@@ -56,6 +56,30 @@ sh oneclient.sh onedata1802-python3-onedatafs-jupyter
 scl enable onedata1802 bash
 ```
 
+### Anaconda
+
+Since version `18.02.2` and `19.02.0-rc1` Onedata Jupyter plugin can be installed
+using [Anaconda](https://anaconda.org), from the official
+[Onedata conda repository](https://anaconda.org/onedata):
+
+```bash
+conda install -c onedata onedatafs-jupyter
+```
+
+or to install a specific version of `onedatafs-jupyter`
+
+```bash
+conda install -c onedata onedatafs-jupyter=18.02.2
+```
+
+Furthermore, to ensure that conda will not upgrade Python in a given environment,
+it is possible to provide the exact build number of the Onedata Jupyter packages,
+which includes the Python version, e.g.:
+
+```bash
+conda install -c onedata onedatafs-jupyter=18.02.2=py36_0
+```
+
 ## Usage
 
 In order to configure Jupyter Notebook to work directly in a Onedata Space,
