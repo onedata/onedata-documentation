@@ -23,6 +23,20 @@ curl -sS  http://get.onedata.org/oneclient.sh | bash
 >administrator rights to your machine, use command `gpasswd -a <username> fuse`
 >to add your account to the `fuse` group.
 
+### Anaconda
+Since version `18.02.2` and `19.02.0-rc1` Oneclient can be installed using [Anaconda](https://anaconda.org),
+from the official [Onedata conda repository](https://anaconda.org/onedata):
+
+```bash
+conda install -c onedata oneclient
+```
+
+or to install a specific version of oneclient
+
+```bash
+conda install -c onedata oneclient=18.02.2
+```
+
 ### macOS
 An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
 
