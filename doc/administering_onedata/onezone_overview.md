@@ -16,6 +16,6 @@ It allows users to:
 **Onezone** is a cluster solution that is composed of 3 types of services:
 * **Cluster Manager** - an administrative service that monitors the health of the cluster, performs load balancing and manages other cluster nodes
 * **Worker** - a service for data management
-* **Database** - a service providing persistent storage for metadata and tranfer control
+* **Database** - a service providing persistent storage for metadata and transfer control
 
 Each service can be scaled to any number of nodes in a site, depending on the performance and reliability requirements. The cluster can be administered from any node, thanks to *Onepanel* web application that runs on every Onedata node.
