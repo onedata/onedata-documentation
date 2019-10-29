@@ -7,7 +7,7 @@ Onedata supports several storage backends which can be used by storage providers
 The currently supported storage backends include:
 * **posix** - any POSIX based storage, typically attached over high-throughput local network, such as Lustre,
 * **s3** - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage,
-* **ceph** - storage backend allowing to support user spaces on storage resources managed by [Ceph](http://ceph.com/ceph-storage/) object storage,
+* **cephrados** - storage backend allowing to support user spaces on storage resources managed by [Ceph](http://ceph.com/ceph-storage/) object storage,
 * **swift** - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
 * **glusterfs** - [GlusterFS](https://www.gluster.org/) volumes can be directly attached to the Oneprovider.
 * **nulldevice** - storage helper which emulates behavior of `/dev/null` on local filesystem, allowing running various performance tests which are not impacted by actual storage latency.
@@ -44,7 +44,7 @@ The sections below describe how to attach each of these storage types to a Oneda
           secretKey: ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK
           insecure: true
         Ceph-deployment:
-          type: "ceph"
+          type: "cephrados"
           username: user1
           key: LKJASHD6876ASDBJHV65765ASD
           monitorHostname: test.example.com
@@ -117,7 +117,7 @@ Ceph storage attributes are:
 
 | Attribute       | Type       | Description                              |
 | --------------- | ---------- | ---------------------------------------- |
-| type            | **string** | Must be equal to 'ceph'                  |
+| type            | **string** | Must be equal to 'cephrados'                  |
 | username        | **string** | The username on behalf of which the Ceph storage will be accessed |
 | key             | **string** | The key for the selected username        |
 | monitorHostname | **string** | The host where the Ceph monitoring deamon `ceph-mon` is running |
