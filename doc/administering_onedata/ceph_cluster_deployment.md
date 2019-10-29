@@ -61,7 +61,7 @@ For more information about the Ceph monitors see
 [Ceph documentation](https://docs.ceph.com/docs/nautilus/rados/configuration/mon-config-ref/#).
 
 
-### Using REST APIs
+### Using REST API
 
 All operations presented in the GUI can also be performed using the REST API.
 Ceph configuration can either be triggered by a POST request on a
@@ -97,9 +97,27 @@ Fields in the dialog configure the Oneprovider behaviour and underlying Ceph poo
 - **Minimal number of copies** - if there are fewer OSDs than this number, writes to the pool are rejected by Ceph. This may happen if some of the OSDs experience failure.
 
 
+### Using REST API
+
+Storages backed by the local Ceph are deployed in the same way as other storage types. Use the [Add storage](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage) endpoint with storage type `localceph`.
+
 
 ## Monitoring Ceph cluster
+
+### Using Onepanel GUI
 
 When a local Ceph cluster is present, a _Ceph_ tab appears in Onepanel. It can be used to see Ceph status notifications and monitor OSD disk space usage.
 
 ![](../img/ceph/ceph-dashboard.png)
+
+
+### Using REST API
+
+There are endpoints available for monitoring Ceph cluster status:
+
+| Request                                 | Link to API |
+|---------------------------------------- |-------------|
+| Get cluster status report               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_status)|
+| Get disk usage for all OSDs and pools   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_usage)|
+| Get disk usage for a specific pool      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_pool_usage)|
+| Get disk usage for a specific OSD      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_osd_usage)|
