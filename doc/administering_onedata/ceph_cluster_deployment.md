@@ -20,7 +20,9 @@ are always deployed on the same nodes as Ceph monitors when configured via Onepa
 
 ### Prerequisites
 
-Ceph deployment involves formatting and mounting host's block devices and/or creation of loop devices. Consequently, the Onedata docker containers have to be run in **privileged** mode:
+Ceph deployment involves formatting and mounting host's block devices and/or
+creation of loop devices. Consequently, the Onedata docker containers have to
+be run in **privileged** mode:
 - when using docker-compose file, add `privileged: true` service property
 - when using `docker run` command, add `--privileged=true` argument
 - when using Kubernetes, specify `privileged: true` in pod's security context
@@ -67,20 +69,32 @@ All operations presented in the GUI can also be performed using the REST API.
 Ceph configuration can either be triggered by a POST request on a
 [dedicated endpoint](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/configure_ceph).
 
-Configuration in the format used by the above endpoint can also be embedded in the config map [provided in docker-compose](../oneprovider_tutorial[customizing-oneprovider-docker-compose-script].md). In which case it should be provided under the key `ceph`, along with `cluster` and `oneprovider`. See relevant [API documentation](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/configure_provider).
+Configuration in the format used by the above endpoint can also be embedded
+in the config map [provided in docker-compose](../oneprovider_tutorial[customizing-oneprovider-docker-compose-script].md).
+In which case it should be provided under the key `ceph`, along with
+`cluster` and `oneprovider`. See relevant
+[API documentation](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/configure_provider).
+
+
+The Ceph cluster can also be added or extended after Onedata deployment, by sending 
+requests to the `configureCeph` endpoint with configuration of additional services.
 
 
 #### OSDs configuration
 
-An OSD has to be configured for each storage device to be used by Ceph. E.g. a host with 3 hard drives will need 3 OSDs.
+An OSD has to be configured for each storage device to be used by Ceph. E.g.
+a host with 3 hard drives will need 3 OSDs.
 
 ##### OSD types
-- It is most recommended to have disks/partitions dedicated to storing Ceph data. In this case, **block device** OSD type should be used.
+- It is most recommended to have disks/partitions dedicated to storing Ceph
+  data. In this case, **block device** OSD type should be used.
 
   **WARNING** Device selected for use by a block device OSD will be **wiped and formatted**.
 
 - Alternatively, you can select the **loop device** OSD type. This will cause
-  Onepanel to allocate a file of specified size and create a virtual block device backed by this file. This enables deployment on a host without dedicated storage, at the cost of performance and stability.
+  Onepanel to allocate a file of specified size and create a virtual block
+  device backed by this file. This enables deployment on a host without
+  dedicated storage, at the cost of performance and stability.
 
 
 ## Using the Ceph cluster as Oneprovider's storage backend
@@ -92,21 +106,29 @@ When a local Ceph cluster is present, a new storage type - `local ceph` - appear
 
 ![](../img/ceph/local-ceph-storage.png)
 
-Fields in the dialog configure the Oneprovider behaviour and underlying Ceph pool which is created for each storage. Options specific to Ceph are:
-- **Number of copies** - number of redundant data copies, which are distributed among the OSDs.
-- **Minimal number of copies** - if there are fewer OSDs than this number, writes to the pool are rejected by Ceph. This may happen if some of the OSDs experience failure.
+Fields in the dialog configure the Oneprovider behaviour and underlying Ceph
+pool which is created for each storage. Options specific to Ceph are:
+- **Number of copies** - number of redundant data copies, which are
+  distributed among the OSDs.
+- **Minimal number of copies** - if there are fewer OSDs than this number,
+  writes to the pool are rejected by Ceph. This may happen if some of the OSDs
+  experience failure.
 
 
 ### Using REST API
 
-Storages backed by the local Ceph are deployed in the same way as other storage types. Use the [Add storage](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage) endpoint with storage type `localceph`.
+Storages backed by the local Ceph are deployed in the same way as other
+storage types. Use the [Add storage](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)
+endpoint with storage type `localceph`.
 
 
 ## Monitoring Ceph cluster
 
 ### Using Onepanel GUI
 
-When a local Ceph cluster is present, a _Ceph_ tab appears in Onepanel. It can be used to see Ceph status notifications and monitor OSD disk space usage.
+When a local Ceph cluster is present, a _Ceph_ tab appears in Onepanel. It
+can be used to see Ceph status notifications and monitor OSD disk space
+usage.
 
 ![](../img/ceph/ceph-dashboard.png)
 
@@ -120,4 +142,4 @@ There are endpoints available for monitoring Ceph cluster status:
 | Get cluster status report               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_status)|
 | Get disk usage for all OSDs and pools   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_usage)|
 | Get disk usage for a specific pool      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_pool_usage)|
-| Get disk usage for a specific OSD      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_osd_usage)|
+| Get disk usage for a specific OSD       | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_ceph_osd_usage)|
