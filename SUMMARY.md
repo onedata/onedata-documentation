@@ -47,6 +47,7 @@
         * [19.02.* or newer](doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.md)
       * [Space Support](doc/administering_onedata/provider_space_support.md)
       * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
+      * [Ceph cluster deployment](doc/administering_onedata/ceph_cluster_deployment.md)
       * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
       * [Firewall Setup](doc/administering_onedata/firewall_setup.md)
       * [Local User MApping](doc/administering_onedata/luma.md)

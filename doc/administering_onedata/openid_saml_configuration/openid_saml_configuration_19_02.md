@@ -201,8 +201,8 @@ The config file has the following sections:
         
 ```
 
-`version` - obligatory field that defines the version of the config file, 
-currently the newest is `2`. If no version field is found, version `1` is 
+`version` - obligatory field that defines the version of the config file,
+currently the newest is `3`. If no version field is found, version `1` is
 assumed. Used by Onezone to determine if an upgrade is required.
 
 ### basicAuth Config
