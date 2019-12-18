@@ -33,7 +33,7 @@
           "Oneprovider"
         ],
         "x-bash-codegen-description": "Returns public information about the Oneprovider service.\n\nThis endpoint does not require authentication.\n",
-        "description": "Returns public information about the Oneprovider service.\n\nThis endpoint does not require authentication.\n\n***Example cURL requests***\n\n**Get public information about the Oneprovider service**\n```bash\ncurl \"https://$HOST/api/v3/oneprovider/configuration\"\n\n{\n  \"providerId\": \"c4798eb2dbd2486fae940e6fa0a5071d\",\n  \"name\": \"ProviderName\",\n  \"domain\": \"zone.domain.org\",\n  \"onezoneDomain\": \"example.domain.org\",\n  \"version\": \"19.02.1\",\n  \"build\": \"19-g0d0fd5b\",\n  \"compatibleOnezoneVersions\": [\"19.02.0-rc2, 19.02.1\"],\n  \"compatibleOneproviderVersions\": [\"19.02.1\"],\n  \"compatibleOneclientVersions\": [\"19.02.1\"]\n}\n```\n",
+        "description": "Returns public information about the Oneprovider service.\n\nThis endpoint does not require authentication.\n\n***Example cURL requests***\n\n**Get public information about the Oneprovider service**\n```bash\ncurl \"https://$HOST/api/v3/oneprovider/configuration\"\n\n{\n  \"providerId\": \"c4798eb2dbd2486fae940e6fa0a5071d\",\n  \"name\": \"ProviderName\",\n  \"domain\": \"zone.domain.org\",\n  \"onezoneDomain\": \"example.domain.org\",\n  \"version\": \"R14B04\",\n  \"build\": \"14-g0d0fd5b\",\n  \"compatibleOnezoneVersions\": [\"R13B04, R14B04\"],\n  \"compatibleOneproviderVersions\": [\"R14B04\"],\n  \"compatibleOneclientVersions\": [\"R14B04\"]\n}\n```\n",
         "produces": [
           "application/json"
         ],
