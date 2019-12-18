@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/api/v3/onepanel",
   "info": {
-    "version": "19.02.0-beta1",
+    "version": "19.02.1",
     "title": "Onepanel",
     "x-bash-codegen-description": "This is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [http://onedata.org].\n\nThis API allows control and configuration of local Onedata deployment,\nin particular full control over the **Onezone** and **Oneprovider** services\nand their distribution and monitoring on the local resources.\n\nEach of these components is composed of the following services:\n\n**Worker services** - these are available under `/zone/workers` and\n                      `/provider/workers` paths,\n\n**Databases services** - each Onedata component stores it's metadata in a\n                         Couchbase backend, which can be distributed on any\n                         number of nodes, these are available under\n                         `/zone/databases` and `/provider/databases` paths,\n\n**Cluster manager services** - this is a service which controls other\n                               deployed processes in one site, these are\n                               availables under these are available under\n                               `/zone/managers` and `/provider/managers`\n                               paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context of\neither **Onezone** or **Oneprovider** service.\n",
     "description": "# Overview\n\nThis is the RESTful API definition of **Onepanel** component of Onedata data\nmanagement system [onedata.org](http://onedata.org).\n\n> This API is defined using [Swagger](http://swagger.io/), the JSON\nspecification can be used to automatically generate client libraries -\n  [swagger.json](../../../swagger/onepanel/swagger.json).\n\nThis API allows control and configuration of local Onedata deployment, in\nparticular full control over the **Onezone** and **Oneprovider** services and\ntheir distribution and monitoring on the local resources.\n\nThe API is group into 3 categories of operations:\n  * **Onepanel** - for common operations\n  * **Oneprovider** - for Oneprovider specific administrative operations\n  * **Onezone** - for Onezone specific administrative operations\n\nEach of these components is composed of the following services:\n  * **Worker services** - these are available under `/zone/workers` and\n    `/provider/workers` paths,\n  * **Databases services** - each Onedata component stores it's metadata in a\n    Couchbase backend, which can be distributed on any number of nodes, these\n    are available under `/zone/databases` and `/provider/databases` paths,\n  * **Cluster manager services** - this is a service which controls other\n    deployed processes in one site, these are availables under these are\n    available under `/zone/managers` and `/provider/managers` paths.\n\n**Onezone** and **Oneprovider** components are composed of 3 types of\nservices: **managers**, **databases** and **workers**.\n\nUsing this API each of these components can be deployed, configured,\nstarted and stopped on a specified host in the local site, in the context\nof either **Onezone** or **Oneprovider** service.\n\nAll paths listed in this documentation are relative to the base Onepanel\nREST API which is `/api/v3/onepanel`, so complete URL for a request to\nOnepanel service is:\n\n```\nhttp://HOSTNAME:PORT/api/v3/onepanel/...\n```\n\n## Authentication\n\n### Token authentication\n\nThe recommended, safest way of authenticating requests to Onepanel API is using\nthe **Onedata access tokens**. The token should be present in `X-Auth-Token` or\n`Authorization: Bearer` header.\nSee [Onezone documentation](/#/home/api/latest/onezone?anchor=section/Overview/Authentication-and-authorization)\nfor detailed explanation of the token concepts.\n\nCurl examples:\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" [...]\ncurl -H \"Authorization: Bearer $TOKEN\" [...]\ncurl -H \"Macaroon: $TOKEN\" [...]   # DEPRECATED\n```\n\n\n### Passphrase authentication\n\nThe token authentication dependes on the Onezone service.\nIn special cases - during Onezone deployment or its outage -\nit is necessary to use the local **emergency passphrase**.\n\nThe passphrase should be provided in a Basic authentication header\nwith username `onepanel`. For curl users this means\n```bash\ncurl -u onepanel:TheEmergencyPassphrase\n```\n\nThe passphrase can also be sent without any username, as the whole\ncontent of base64-encoded string in Basic authorization header, e.g.\n```bash\ncurl -H \"Authorization: Basic $(echo -n TheEmergencyPassphrase | base64)\"\n```\n\nThe passphrase is set during deployment. It can be changed in the Onepanel GUI\nor with an API request:\n```bash\ncurl -X PUT 'https://$HOST:9443/api/v3/onepanel/emergency_passphrase' \\\n-u onepanel:TheEmergencyPassphrase -H 'Content-Type: application/json' \\\n-d '{\"currentPassphrase\": \"TheEmergencyPassphrase\", \"newPassphrase\": \"TheNewPassphrase\"}'\n```\n\n## API structure\n\nThe Onepanel API is structured to reflect that it can either be used to\ncontrol **Onezone** or **Oneprovider** deployment, each Onedata component\ndeployment has a separate Onepanel instance. In order to make the API calls\nexplicit, **Onezone** or **Oneprovider** specific requests have different\npaths, i.e.:\n  * Onezone specific operations start with `/api/v3/onepanel/zone/`\n  * Oneprovider specific operations start with `/api/v3/onepanel/provider/`\n  * Common operations paths include `/api/v3/onepanel/users`,\n    `/api/v3/onepanel/hosts` and `/api/v3/onepanel/tasks`\n\nThe overall configuration of each component can be controlled by updating\n`/api/v3/onepanel/zone/configuration` and\n`/api/v3/onepanel/provider/configuration` resources.\n\n## Examples\n\nBelow are some example requests to Onepanel using cURL:\n\n**Add storage resource to provider**\n```bash\ncurl -X POST -u onepanel:Passphrase1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"NFS\": {\"type\": \"posix\", \"mountPoint\": \"/mnt/vfs\"}}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/provider/storages\n```\n\n**Add a new Onezone worker**\n```bash\ncurl -X POST -u onepanel:Passphrase1 -k -vvv -H \"content-type: application/json\" \\\n-d '{\"hosts\": [\"node1.p1.1.dev\"]}' \\\nhttps://172.17.0.4:9443/api/v3/onepanel/zone/workers\n```\n",
@@ -42,6 +42,34 @@
             "schema": {
               "$ref": "#/definitions/Configuration"
             }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/test_image": {
+      "get": {
+        "operationId": "test_image",
+        "summary": "Get test image",
+        "description": "This endpoint returns a dummy image in `.png` format. It is used internally by web applications across Onedata to check connectivity with certain services. This endpoint does not require authentication.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onepanel",
+        "x-onedata-resource": "test_image",
+        "x-onedata-noauth": true,
+        "tags": [
+          "Onepanel"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "responses": {
+          "200": {
+            "description": "Test image."
           },
           "500": {
             "description": "Internal server error.",
@@ -2204,7 +2232,7 @@
       "patch": {
         "operationId": "configure_file_popularity",
         "summary": "Configure file-popularity mechanism in the space.",
-        "description": "Configures the file-popularity mechanism in the space.\nThe mechanism is responsible for collecting file-popularity usage statistics per space support.\nCreates a view index which can be queried to fetch the least popular files.\nThe view is sorted in an increasing order by the popularity function value.\nThe popularity function is defined as\n\n```\nP(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountPerDay, MAX_AVG_OPEN_COUNT_PER_DAY)\nwhere:\n* lastOpenHour - parameter which is equal to timestamp (in hours since 01.01.1970) of last open operation on given file\n* w1 - weight of lastOpenHour parameter\n* avgOpenCountPerDay - parameter equal to moving average of number of open operations on given file per day. Value is calculated over last 30 days.\n* w2 - weight of avgOpenCountPerDay parameter\n* MAX_AVG_OPEN_COUNT_PER_DAY - upper boundary for avgOpenCountPerDay parameter\n```\n",
+        "description": "Configures the file-popularity mechanism in the space.\nThe mechanism is responsible for collecting file-popularity usage statistics per space support.\nCreates a view which can be queried to fetch the least popular files.\nThe view is sorted in an increasing order by the popularity function value.\nThe popularity function is defined as\n\n```\nP(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountPerDay, MAX_AVG_OPEN_COUNT_PER_DAY)\nwhere:\n* lastOpenHour - parameter which is equal to timestamp (in hours since 01.01.1970) of last open operation on given file\n* w1 - weight of lastOpenHour parameter\n* avgOpenCountPerDay - parameter equal to moving average of number of open operations on given file per day. Value is calculated over last 30 days.\n* w2 - weight of avgOpenCountPerDay parameter\n* MAX_AVG_OPEN_COUNT_PER_DAY - upper boundary for avgOpenCountPerDay parameter\n```\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "file_popularity_configuration",
@@ -2496,14 +2524,14 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE getStorageDetails name=S3 --host https://$HOST:9443"
+            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE getStorageDetails id=$STORAGE_ID --host https://$HOST:9443\n"
           }
         ]
       },
       "patch": {
         "operationId": "modify_storage",
-        "summary": "Modify storage details",
-        "description": "Modifies basic storage details, such as operation timeout.",
+        "summary": "Modify storage config",
+        "description": "Modifies storage configuration.",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_oneprovider",
         "x-onedata-resource": "storage",
@@ -2514,8 +2542,11 @@
           "application/json"
         ],
         "responses": {
-          "204": {
-            "description": "Storage details have been successfully modified."
+          "200": {
+            "description": "The storage resources have been successfully modified.\nResponse contains current storage params and report of file creation test.\n",
+            "schema": {
+              "$ref": "#/definitions/StorageDetails"
+            }
           },
           "401": {
             "description": "Unauthorized request."
@@ -2538,13 +2569,13 @@
             "name": "id",
             "in": "path",
             "type": "string",
-            "description": "The Id of a storage resource, which details should be modified.\n",
+            "description": "The Id of the storage resource which details should be modified.\n",
             "required": true
           },
           {
             "name": "storageModifyRequest",
             "in": "body",
-            "description": "New values for storage configuration parameters which should be changed.\n",
+            "description": "New values for storage configuration parameters which should be changed. Must contain the current type of the storage.\n",
             "schema": {
               "$ref": "#/definitions/StorageModifyRequest"
             },
@@ -2554,7 +2585,59 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE --host https://$HOST:9443 modifyStorage name=S3 timeout==10000"
+            "source": "onepanel-rest-cli id=$STORAGE_ID timeout==10000 -u onepanel:$PASSPHRASE --host https://$HOST:9443 modifyStorage\n"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "remove_storage",
+        "summary": "Remove storage",
+        "description": "Removes storage from the cluster. Only storage not supporting any spaces can be removed.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "storage",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Storage has been succesfully removed."
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Storage does not exist."
+          },
+          "409": {
+            "description": "Storage supports a space and cannot be removed."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The Id of the storage to remove.",
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE id=$STORAGE_ID removeStorage --host https://op.example.com:9443\n"
           }
         ]
       }
@@ -3534,6 +3617,105 @@
           {
             "lang": "Shell",
             "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE getOnezoneInfo --host https://$HOST:9443"
+          }
+        ]
+      }
+    },
+    "/provider/debug/transfers_mock": {
+      "get": {
+        "operationId": "get_transfers_mock",
+        "summary": "Get transfers mock status",
+        "description": "Returns information whether transfers mocking is enabled.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "transfers_mock",
+        "tags": [
+          "Oneprovider"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Transfers mock configuration.",
+            "schema": {
+              "$ref": "#/definitions/TransfersMock"
+            }
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Oneprovider cluster is not registered."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE getTransfersMock --host https://oz.example.com:9443"
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_transfers_mock",
+        "summary": "Modify transfers mock",
+        "description": "Toggle transfers mock. When enabled, all transfers finish successfully without actually transferring data. WARNING: this is a debugging feature disrupting normal Oneprovider operation.\n",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_oneprovider",
+        "x-onedata-resource": "transfers_mock",
+        "tags": [
+          "Oneprovider"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Mock has been successfully set"
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "404": {
+            "description": "Oneprovider is not registered."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "TransfersMock",
+            "in": "body",
+            "description": "New value for the mock setting.",
+            "schema": {
+              "$ref": "#/definitions/TransfersMock"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE modifyTransfersMock transfersMock==true --host https://oz.example.org:9443"
           }
         ]
       }
@@ -4780,7 +4962,7 @@
       "get": {
         "operationId": "get_zone_policies",
         "summary": "Get Onezone policies.",
-        "description": "Returns restrictions placed on Onezone functionality such as registering Oneproviders.\n",
+        "description": "Returns restrictions placed on Onezone operations such as registering Oneproviders.\n",
         "x-onedata-version": 3,
         "x-onedata-module": "rest_onezone",
         "x-onedata-resource": "policies",
@@ -4874,6 +5056,127 @@
           }
         ]
       }
+    },
+    "/zone/gui_messages/{id}": {
+      "get": {
+        "operationId": "get_gui_message",
+        "summary": "Get settings of a Onezone GUI message.",
+        "description": "Returns settings of a message displayed in Onezone GUI.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onezone",
+        "x-onedata-resource": "gui_message",
+        "tags": [
+          "Onezone"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The message settings.",
+            "schema": {
+              "$ref": "#/definitions/GuiMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Possible values are:\n  - cookie_consent_notification - for the contents of cookie consent popup\n  - privacy_policy - for the privacy policy\n  - signin_notification - for the message displayed on the Onezone sign in screen\n",
+            "enum": [
+              "cookie_consent_notification",
+              "privacy_policy",
+              "signin_notification"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "modify_gui_message",
+        "summary": "Modify settings of a Onezone GUI message.",
+        "description": "Enables, disables or modifies a message displayed in Onezone GUI.",
+        "x-onedata-version": 3,
+        "x-onedata-module": "rest_onezone",
+        "x-onedata-resource": "gui_message",
+        "tags": [
+          "Onezone"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Changes successfully saved."
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized request."
+          },
+          "403": {
+            "description": "Forbidden request."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "Possible values are:\n  - cookie_consent_notification - for the contents of cookie consent popup\n  - privacy_policy - for the privacy policy\n  - signin_notification - for the message displayed on the Onezone sign in screen\n",
+            "enum": [
+              "cookie_consent_notification",
+              "privacy_policy",
+              "signin_notification"
+            ]
+          },
+          {
+            "name": "MessageChange",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GuiMessage"
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onepanel-rest-cli -u onepanel:$PASSPHRASE modifyGuiMessage id=signin_notification enabled==true --host https://$HOST:9443"
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -4955,7 +5258,7 @@
         "providerId": "b4ceb5c9ac793e6b8b36c813b9068757",
         "zoneDomain": "onedata.org",
         "build": "155-gdf98e0f",
-        "version": "19.02.0-beta1",
+        "version": "19.02.1",
         "deployed": true,
         "isRegistered": true
       }
@@ -4998,7 +5301,7 @@
         "zoneDomain": "onedata.org",
         "zoneName": "OnedataZone",
         "build": "155-gdf98e0f",
-        "version": "19.02.0-beta1",
+        "version": "19.02.1",
         "deployed": true
       }
     },
@@ -5025,7 +5328,7 @@
         "gui"
       ],
       "example": {
-        "release": "19.02.0-beta1",
+        "release": "19.02.1",
         "build": "1-gfabf02d",
         "gui": "68e7e1472adb719ddf2d88908775091dfb10e5d0b916f06125ea1af4056044e3"
       }
@@ -5197,6 +5500,20 @@
       "example": {
         "error": "Invalid Request",
         "description": "Error description"
+      }
+    },
+    "GuiMessage": {
+      "type": "object",
+      "description": "Settings of a message displayed in Onezone GUI.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "True if the message should be displayed."
+        },
+        "body": {
+          "type": "string",
+          "description": "HTML content of the message to display."
+        }
       }
     },
     "Ids": {
@@ -5722,10 +6039,14 @@
           "type": "string",
           "description": "The name of storage."
         },
-        "insecure": {
+        "verificationPassed": {
           "type": "boolean",
-          "default": false,
-          "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
+          "readOnly": true,
+          "description": "Result of storage verification (reading and writing a file). Returned only on PATCH requests for read-write storages."
+        },
+        "timeout": {
+          "type": "integer",
+          "description": "Storage operation timeout in milliseconds."
         },
         "readonly": {
           "type": "boolean",
@@ -5747,7 +6068,49 @@
         }
       }
     },
-    "posix": {
+    "StorageDetailsModify": {
+      "type": "object",
+      "description": "The part of storage configuration which can be modified after storage creation.",
+      "discriminator": "type",
+      "x-onedata-oneof": true,
+      "x-onedata-subclasses": [
+        "posix_modify",
+        "s3_modify",
+        "ceph_modify",
+        "cephrados_modify",
+        "swift_modify",
+        "glusterfs_modify",
+        "nulldevice_modify",
+        "webdav_modify"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of storage."
+        },
+        "timeout": {
+          "type": "integer",
+          "description": "Storage operation timeout in milliseconds."
+        },
+        "readonly": {
+          "type": "boolean",
+          "description": "Defines whether storage is readonly."
+        },
+        "lumaEnabled": {
+          "type": "boolean",
+          "description": "If true LUMA and reverse LUMA services will be enabled."
+        },
+        "lumaUrl": {
+          "type": "string",
+          "description": "URL of external LUMA service"
+        },
+        "lumaApiKey": {
+          "type": "string",
+          "description": "LUMA API Key, must be identical with API Key in external LUMA service."
+        }
+      }
+    },
+    "Posix": {
       "description": "The POSIX storage configuration.",
       "allOf": [
         {
@@ -5759,24 +6122,19 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "posix"
+              ],
               "x-discriminator-value": "posix"
             },
             "mountPoint": {
               "type": "string",
               "description": "The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.\n"
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "canonical",
+              "x-onedata-default-value": "<<\"canonical\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -5792,7 +6150,39 @@
         "mountPoint": "/mnt/nfs"
       }
     },
-    "s3": {
+    "PosixModify": {
+      "description": "The POSIX storage configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "posix"
+              ],
+              "x-discriminator-value": "posix"
+            },
+            "mountPoint": {
+              "type": "string",
+              "description": "The absolute path to the directory where the POSIX storage is mounted on the cluster nodes.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "posix",
+        "timeout": 500
+      }
+    },
+    "S3": {
       "description": "The Simple Storage Service configuration.",
       "allOf": [
         {
@@ -5804,6 +6194,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "s3"
+              ],
               "x-discriminator-value": "s3"
             },
             "hostname": {
@@ -5825,29 +6218,41 @@
             "signatureVersion": {
               "type": "integer",
               "default": 4,
+              "enum": [
+                2,
+                4
+              ],
               "description": "The version of signature used to sign requests. One of: 2, 4. Default: 4.\n"
-            },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
             },
             "blockSize": {
               "type": "integer",
-              "description": "Storage block size in bytes."
+              "description": "Storage block size in bytes. In case the block size is `0` and `canonical` path type is selected, each file is stored in a single S3 object. This value must be set to `0` to enable data import from an existing S3 bucket.\n"
+            },
+            "maximumCanonicalObjectSize": {
+              "type": "integer",
+              "description": "Defines the maximum size for objects, which can be modified on the S3 storage in `canonical` path mode. In this mode, entire file needs to be downloaded to memory, modified and uploaded back, which is impractical for large files (default 64 MiB).\n",
+              "default": 67108864,
+              "x-onedata-default-value": 67108864
+            },
+            "fileMode": {
+              "type": "string",
+              "description": "Defines the file permissions, which files imported from S3 storage will have in Onedata. Values should be provided in octal format e.g. `0644`.\n",
+              "default": "0644"
+            },
+            "dirMode": {
+              "type": "string",
+              "description": "Defines the directory mode which directories imported from S3 storage will have in Onedata. Values should be provided in octal format e.g. `0775`.\n",
+              "default": "0775"
             },
             "insecure": {
               "type": "boolean",
               "default": false,
               "description": "Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode.\n"
             },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "flat",
+              "x-onedata-default-value": "<<\"flat\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -5869,7 +6274,79 @@
         "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK"
       }
     },
-    "ceph": {
+    "S3Modify": {
+      "description": "The Simple Storage Service configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "s3"
+              ],
+              "x-discriminator-value": "s3"
+            },
+            "hostname": {
+              "type": "string",
+              "description": "The hostname of a machine where S3 storage is installed."
+            },
+            "bucketName": {
+              "type": "string",
+              "description": "The storage bucket name."
+            },
+            "accessKey": {
+              "type": "string",
+              "description": "The access key to the S3 storage."
+            },
+            "secretKey": {
+              "type": "string",
+              "description": "The secret key to the S3 storage."
+            },
+            "signatureVersion": {
+              "type": "integer",
+              "description": "The version of signature used to sign requests. One of: 2, 4. Default: 4.\n",
+              "enum": [
+                2,
+                4
+              ]
+            },
+            "maximumCanonicalObjectSize": {
+              "type": "integer",
+              "description": "Defines the maximum size for objects, which can be modified on the S3 storage in `canonical` path mode. In this mode, entire file needs to be downloaded to memory, modified and uploaded back, which is impractical for large files (default 64 MiB).\n"
+            },
+            "fileMode": {
+              "type": "string",
+              "description": "Defines the file permissions, which files imported from S3 storage will have in Onedata. Values should be provided in octal format e.g. `0644`.\n"
+            },
+            "dirMode": {
+              "type": "string",
+              "description": "Defines the directory mode which directories imported from S3 storage will have in Onedata. Values should be provided in octal format e.g. `0775`.\n"
+            },
+            "insecure": {
+              "type": "boolean",
+              "description": "Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "s3",
+        "name": "SomeS3",
+        "hostname": "s3.example.com",
+        "bucketName": "bucket1.iam.example.com",
+        "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD",
+        "secretKey": "ASASDLLASD89798&LKJHLAKJSHD887678678ASDKNJK"
+      }
+    },
+    "Ceph": {
       "description": "The Ceph storage configuration (uses libradosstriper).",
       "allOf": [
         {
@@ -5881,6 +6358,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "ceph"
+              ],
               "x-discriminator-value": "ceph"
             },
             "username": {
@@ -5903,23 +6383,15 @@
               "type": "string",
               "description": "The Ceph pool name."
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
             "insecure": {
               "type": "boolean",
               "default": false,
               "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
             },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "flat",
+              "x-onedata-default-value": "<<\"flat\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -5944,7 +6416,61 @@
         "insecure": true
       }
     },
-    "cephrados": {
+    "CephModify": {
+      "description": "The Ceph storage configuration (uses libradosstriper).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "ceph"
+              ],
+              "x-discriminator-value": "ceph"
+            },
+            "username": {
+              "type": "string",
+              "description": "The username of the Ceph cluster administrator."
+            },
+            "key": {
+              "type": "string",
+              "description": "The admin key to access the Ceph cluster."
+            },
+            "monitorHostname": {
+              "type": "string",
+              "description": "The monitor host name."
+            },
+            "clusterName": {
+              "type": "string",
+              "description": "The Ceph cluster name."
+            },
+            "poolName": {
+              "type": "string",
+              "description": "The Ceph pool name."
+            },
+            "insecure": {
+              "type": "boolean",
+              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "ceph",
+        "username": "user1",
+        "key": "LKJASHD6876ASDBJHV65765ASD",
+        "insecure": true
+      }
+    },
+    "Cephrados": {
       "description": "The Ceph storage configuration (uses librados).",
       "allOf": [
         {
@@ -5956,6 +6482,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "cephrados"
+              ],
               "x-discriminator-value": "cephrados"
             },
             "username": {
@@ -5978,10 +6507,6 @@
               "type": "string",
               "description": "The Ceph pool name."
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
             "blockSize": {
               "type": "integer",
               "description": "Storage block size in bytes.",
@@ -5992,14 +6517,10 @@
               "default": false,
               "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
             },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "flat",
+              "x-onedata-default-value": "<<\"flat\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -6025,7 +6546,65 @@
         "blockSize": 10485760
       }
     },
-    "swift": {
+    "CephradosModify": {
+      "description": "The Ceph storage configuration (uses librados).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "cephrados"
+              ],
+              "x-discriminator-value": "cephrados"
+            },
+            "username": {
+              "type": "string",
+              "description": "The username of the Ceph cluster administrator."
+            },
+            "key": {
+              "type": "string",
+              "description": "The admin key to access the Ceph cluster."
+            },
+            "monitorHostname": {
+              "type": "string",
+              "description": "The monitor host name."
+            },
+            "clusterName": {
+              "type": "string",
+              "description": "The Ceph cluster name."
+            },
+            "poolName": {
+              "type": "string",
+              "description": "The Ceph pool name."
+            },
+            "insecure": {
+              "type": "boolean",
+              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "cephrados",
+        "name": "SomeCeph",
+        "username": "user1",
+        "key": "LKJASHD6876ASDBJHV65765ASD",
+        "monitorHostname": "test.example.com",
+        "clusterName": "CephCluster1",
+        "poolName": "data",
+        "insecure": true
+      }
+    },
+    "Swift": {
       "description": "The OpenStack Swift configuration.",
       "allOf": [
         {
@@ -6037,6 +6616,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "swift"
+              ],
               "x-discriminator-value": "swift"
             },
             "authUrl": {
@@ -6059,10 +6641,6 @@
               "type": "string",
               "description": "The Keystone authentication password."
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
             "blockSize": {
               "type": "integer",
               "description": "Storage block size in bytes."
@@ -6072,14 +6650,10 @@
               "default": false,
               "description": "Defines whether storage administrator credentials (username and password) may be used by users without storage accounts to access storage in direct IO mode.\n"
             },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "flat",
+              "x-onedata-default-value": "<<\"flat\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -6104,7 +6678,65 @@
         "insecure": true
       }
     },
-    "glusterfs": {
+    "SwiftModify": {
+      "description": "The OpenStack Swift configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "swift"
+              ],
+              "x-discriminator-value": "swift"
+            },
+            "authUrl": {
+              "type": "string",
+              "description": "The URL to OpenStack Keystone identity service."
+            },
+            "tenantName": {
+              "type": "string",
+              "description": "The name of the tenant to which the user belongs."
+            },
+            "containerName": {
+              "type": "string",
+              "description": "The name of the Swift storage container."
+            },
+            "username": {
+              "type": "string",
+              "description": "The Keystone authentication username."
+            },
+            "password": {
+              "type": "string",
+              "description": "The Keystone authentication password."
+            },
+            "insecure": {
+              "type": "boolean",
+              "description": "Defines whether storage administrator credentials (username and password) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "swift",
+        "name": "SomeSwift",
+        "authUrl": "http://keystone2.example.com",
+        "tenantName": "Project1",
+        "containerName": "Container1",
+        "username": "user",
+        "password": "p@$$w0rd",
+        "insecure": true
+      }
+    },
+    "Glusterfs": {
       "description": "The GlusterFS storage configuration.",
       "allOf": [
         {
@@ -6116,6 +6748,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "glusterfs"
+              ],
               "x-discriminator-value": "glusterfs"
             },
             "volume": {
@@ -6151,23 +6786,10 @@
               "description": "Volume specific GlusterFS translator options, in the format:\n  TRANSLATOR1.OPTION1=VALUE1;TRANSLATOR2.OPTION2=VALUE2;...\n",
               "default": ""
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
-            "insecure": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
-            },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "canonical",
+              "x-onedata-default-value": "<<\"canonical\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -6186,11 +6808,73 @@
         "transport": "tcp",
         "port": 24007,
         "mountPoint": "",
-        "xlatorOptions": "transport.socket.ssl-enabled=on",
-        "insecure": true
+        "xlatorOptions": "transport.socket.ssl-enabled=on"
       }
     },
-    "nulldevice": {
+    "GlusterfsModify": {
+      "description": "The GlusterFS storage configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "glusterfs"
+              ],
+              "x-discriminator-value": "glusterfs"
+            },
+            "volume": {
+              "type": "string",
+              "description": "The name of the volume to use as a storage backend."
+            },
+            "hostname": {
+              "type": "string",
+              "description": "The hostname (IP address or FQDN) of GlusterFS volume server."
+            },
+            "port": {
+              "type": "integer",
+              "description": "The GlusterFS port on volume server."
+            },
+            "transport": {
+              "type": "string",
+              "description": "The transport protocol to use to connect to the volume server.",
+              "enum": [
+                "tcp",
+                "rdma",
+                "socket"
+              ]
+            },
+            "mountPoint": {
+              "type": "string",
+              "description": "Relative mountpoint within the volume which should be used by Oneprovider."
+            },
+            "xlatorOptions": {
+              "type": "string",
+              "description": "Volume specific GlusterFS translator options, in the format:\n  TRANSLATOR1.OPTION1=VALUE1;TRANSLATOR2.OPTION2=VALUE2;...\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "glusterfs",
+        "name": "LocalGluster",
+        "volume": "Volume1",
+        "hostname": "volfileserver.example.com",
+        "transport": "tcp",
+        "port": 24007,
+        "mountPoint": "",
+        "xlatorOptions": "transport.socket.ssl-enabled=on"
+      }
+    },
+    "Nulldevice": {
       "description": "The Null Device storage configuration.",
       "allOf": [
         {
@@ -6202,6 +6886,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "nulldevice"
+              ],
               "x-discriminator-value": "nulldevice"
             },
             "latencyMin": {
@@ -6225,18 +6912,10 @@
               "description": "Comma-separated list of filesystem operations, for which latency\nand timeout should be simulated. Empty or '*' mean all operations\nwill be affected.\n",
               "default": "*"
             },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
-            },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "canonical",
+              "x-onedata-default-value": "<<\"canonical\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             },
             "simulatedFilesystemParameters": {
@@ -6264,11 +6943,70 @@
         "timeoutProbability": 0.1,
         "filter": "read,write,open",
         "simulatedFilesystemParameters": "2-2:2-2:0-3",
-        "simulatedFilesystemGrowSpeed": 5,
-        "insecure": true
+        "simulatedFilesystemGrowSpeed": 5
       }
     },
-    "webdav": {
+    "NulldeviceModify": {
+      "description": "The Null Device storage configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "nulldevice"
+              ],
+              "x-discriminator-value": "nulldevice"
+            },
+            "latencyMin": {
+              "type": "integer",
+              "description": "Minimum latency in milliseconds, which should be simulated for\nselected operations.\n"
+            },
+            "latencyMax": {
+              "type": "integer",
+              "description": "Maximum latency in milliseconds, which should be simulated for\nselected operations.\n"
+            },
+            "timeoutProbability": {
+              "type": "number",
+              "format": "float",
+              "description": "Probability (0.0, 1.0), with which an operation should return\na timeout error.\n"
+            },
+            "filter": {
+              "type": "string",
+              "description": "Comma-separated list of filesystem operations, for which latency\nand timeout should be simulated. Empty or '*' mean all operations\nwill be affected.\n"
+            },
+            "simulatedFilesystemParameters": {
+              "type": "string",
+              "description": "Specifies the parameters for a simulated null device filesystem.\nFor example `2-2:2-2:0-1` will generate a filesystem tree which has 2\ndirectories (`0` and `1`) and 2 files (`2` and `3`) in the root of\nthe filesystem, each of these directories will have 2 subdirectories\n(`0` and `1`) and 2 files (`2` and `3`) and each of these\nsubdirectories has only a single file (`0`).\nDefault empty string disables the simulated filesystem feature.\n"
+            },
+            "simulatedFilesystemGrowSpeed": {
+              "type": "number",
+              "format": "float",
+              "description": "Determines the simulated filesystem grow rate. Default 0.0 value\nwill cause all the files and directories defined by the\n`simulatedFilesystemParameters` specification to be visible immediately.\nFor example value of 0.01 will increase the number of the visible\nfilesystem entries by 1 file per 100 seconds, while 100.0 will increase it\nby 100 files per second.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "nulldevice",
+        "name": "Slow storage",
+        "latencyMin": 250,
+        "latencyMax": 750,
+        "timeoutProbability": 0.1,
+        "filter": "read,write,open",
+        "simulatedFilesystemParameters": "2-2:2-2:0-3",
+        "simulatedFilesystemGrowSpeed": 5
+      }
+    },
+    "Webdav": {
       "description": "The WebDAV storage configuration.",
       "allOf": [
         {
@@ -6280,6 +7018,9 @@
             "type": {
               "type": "string",
               "description": "The type of storage.",
+              "enum": [
+                "webdav"
+              ],
               "x-discriminator-value": "webdav"
             },
             "endpoint": {
@@ -6347,30 +7088,22 @@
             "fileMode": {
               "type": "string",
               "description": "Defines the file permissions, which files imported from WebDAV storage will have in Onedata. Values should be provided in octal format e.g. `0644`.\n",
-              "default": 420
+              "default": "0644"
             },
             "dirMode": {
               "type": "string",
               "description": "Defines the directory mode which directories imported from WebDAV storage will have in Onedata. Values should be provided in octal format e.g. `0775`.\n",
-              "default": 509
-            },
-            "timeout": {
-              "type": "integer",
-              "description": "Storage operation timeout in milliseconds."
+              "default": "0775"
             },
             "insecure": {
               "type": "boolean",
               "default": false,
               "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
             },
-            "readonly": {
-              "type": "boolean",
-              "default": false,
-              "description": "Defines whether storage is readonly."
-            },
             "storagePathType": {
               "type": "string",
               "default": "canonical",
+              "x-onedata-default-value": "<<\"canonical\">>",
               "description": "Determines how the logical file paths will be mapped on the storage.\n'canonical' paths reflect the logical file names and directory structure,\nhowever each rename operation will require renaming the files on the storage.\n'flat' paths are based on unique file UUID's and do not require on-storage\nrename when logical file name is changed.\n"
             }
           },
@@ -6393,6 +7126,88 @@
         "maximumUploadSize": 0,
         "insecure": false,
         "readonly": false
+      }
+    },
+    "WebdavModify": {
+      "description": "The WebDAV storage configuration.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageDetailsModify"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of the modified storage. Must match the type of existing storage, needed only for OpenAPI polymorphism disambiguation.",
+              "enum": [
+                "webdav"
+              ],
+              "x-discriminator-value": "webdav"
+            },
+            "endpoint": {
+              "type": "string",
+              "description": "Full URL of the WebDAV server, including scheme (http or https) and path.\n"
+            },
+            "verifyServerCertificate": {
+              "type": "boolean",
+              "description": "Determines whether Oneprovider should verify the certificate of the WebDAV server.\n"
+            },
+            "credentialsType": {
+              "type": "string",
+              "description": "Determines the types of credentials provided in the credentials field.\n",
+              "enum": [
+                "none",
+                "basic",
+                "token"
+              ]
+            },
+            "credentials": {
+              "type": "string",
+              "description": "The credentials to authenticate with the WebDAV server. `basic` credentials should be provided in the form `username:password`, for `token` just the token. For `none` this field is ignored.\n"
+            },
+            "authorizationHeader": {
+              "type": "string",
+              "description": "The authorization header to be used for passing the access token. This field can contain any prefix that should be added to the header value. Default is `Authorization: Bearer {}`. The token will placed where `{}` is provided.\n"
+            },
+            "rangeWriteSupport": {
+              "type": "string",
+              "description": "The type of partial write support enabled in the WebDAV server. Currently 2 types are supported `sabredav` which assumes the server supports the SabreDAV PartialUpdate extension via `PATCH` method, and `moddav` which assumes server supports partial `PUT` requests with `Content-Range` header. If `none` is selected no write support is available for this WebDAV storage.\n",
+              "enum": [
+                "none",
+                "moddav",
+                "sabredav"
+              ]
+            },
+            "connectionPoolSize": {
+              "type": "integer",
+              "description": "Defines the maximum number of parallel connections for a single WebDAV storage.\n"
+            },
+            "maximumUploadSize": {
+              "type": "integer",
+              "description": "Defines the maximum upload size for a single `PUT` or `PATCH` request. If set to 0, assumes that the WebDAV server has no upload limit.\n"
+            },
+            "insecure": {
+              "type": "boolean",
+              "description": "Defines whether storage administrator credentials (username and key) may be used by users without storage accounts to access storage in direct IO mode.\n"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      ],
+      "example": {
+        "type": "webdav",
+        "name": "SomeWebDAV",
+        "endoint": "https://192.168.1.2:8080/webdav",
+        "verifyServerCertificate": false,
+        "credentialsType": "basic",
+        "credentials": "admin:password",
+        "rangeWriteSupport": "moddav",
+        "connectionPoolSize": 25,
+        "maximumUploadSize": 0,
+        "insecure": true
       }
     },
     "StorageCreateRequest": {
@@ -6424,15 +7239,17 @@
     },
     "StorageModifyRequest": {
       "type": "object",
-      "description": "The storage configuration details that can be modified.",
-      "properties": {
-        "timeout": {
-          "type": "integer",
-          "description": "Storage operation timeout in milliseconds."
-        }
+      "description": "The storage parameters to be changed. Should be a single-valued dictionary with storage name as the key and parameters to be changed as the value. If changing the storage name, use old name as dictionary key and provide new name among the changed params.",
+      "x-onedata-dictionary": true,
+      "x-onedata-dictionary-value-type": "storage_details_modify",
+      "additionalProperties": {
+        "$ref": "#/definitions/StorageDetailsModify"
       },
       "example": {
-        "timeout": 10000
+        "s3storage": {
+          "type": "s3",
+          "accessKey": "LKJHLAKJSHD887678678ASDKNJKASD9898789ASD"
+        }
       }
     },
     "StorageImportDetails": {
@@ -7725,6 +8542,19 @@
         }
       }
     },
+    "TransfersMock": {
+      "type": "object",
+      "description": "State of transfers mock.",
+      "properties": {
+        "transfersMock": {
+          "type": "boolean",
+          "description": "If true, transfers are marked as successful without actually transmiting any data."
+        }
+      },
+      "example": {
+        "transfersMock": true
+      }
+    },
     "SpaceFilePopularityConfiguration": {
       "type": "object",
       "description": "Configuration of the file-popularity mechanism in the space.",
@@ -7758,7 +8588,7 @@
       },
       "example": {
         "enabled": true,
-        "exampleQuery": "curl -sS -k -H 'X-Auth-Token: $TOKEN' -X GET https://$HOST/api/v3/oneprovider/spaces/example_space_id/indexes/file-popularity?limit=10&stale=false",
+        "exampleQuery": "curl -sS -k -H 'X-Auth-Token: $TOKEN' -X GET https://$HOST/api/v3/oneprovider/spaces/example_space_id/views/file-popularity?limit=10&stale=false",
         "lastOpenHourWeight": 1,
         "avgOpenCountPerDayWeight": 20,
         "maxAvgOpenCountPerDay": 100
@@ -8096,6 +8926,14 @@
       "type": "object",
       "description": "State of Onezone operation policies.",
       "properties": {
+        "oneproviderRegistration": {
+          "type": "string",
+          "enum": [
+            "open",
+            "restricted"
+          ],
+          "description": "Indicates policy enforced during provider registration. Possible options are:\nopen - anyone can acquire a registration token and register a new Oneprovider\nrestricted - requires an administrative privilege 'oz_providers_invite'\n             to generate a Oneprovider registration token. The token\n             can be issued for someone else.\n"
+        },
         "subdomainDelegation": {
           "type": "boolean",
           "description": "If true, Oneproviders are allowed to request subdomains of the Onezone domain for use as their domains."
