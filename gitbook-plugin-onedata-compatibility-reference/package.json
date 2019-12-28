@@ -7,7 +7,7 @@
       "gitbook": ">=2.5.0"
   },
   "dependencies": {
-      "handlebars": "4.1.1",
+      "handlebars": "4.5.3",
       "fs-extra": "7.0.1",
       "compare-versions": "3.4.0"
   },
