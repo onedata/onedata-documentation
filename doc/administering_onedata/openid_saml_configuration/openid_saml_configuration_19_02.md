@@ -47,6 +47,22 @@ However, you may want to manually adjust the config afterwards.
 > NOTE: [Custom files](#custom-icon-guidelines) location must be adjusted manually.
 
 
+## Quickstart
+
+By default, Onezone is packaged with config that enables only basic
+authentication, placed in `/etc/oz_worker/auth.config`. After deploying Onezone,
+a default user `admin` will be created, with password equal to the emergency 
+passphrase provided in Onepanel during deployment - this way you can log in to a 
+fresh Onezone installation without further setup.
+
+> NOTE that deployment examples using docker-compose overwrite the `auth.config`
+file with a mount from host. Simply remove this mount to use the default config 
+(especially when you are not sure how to fill it out, because mounting an 
+incorrect config will disable all login methods). 
+
+[Here](#minimal-config) is the minimal `auth.config`, installed by default. 
+
+
 ## Prerequisites 
 
 To integrate with an OpenID or SAML Identity Provider, you need to have 
@@ -1568,26 +1584,45 @@ same role/privileges should be organized in groups)
 #### Privileges in entitlements
 It is possible to specify privileges of the user towards the bottom group of the 
 nested structure or privileges of the groups in the nested chain towards their 
-parents. These privileges will be set only when creating a new membership - if a 
-membership already exists, the privileges are not accounted. It means that any 
-changes in privileges introduced by users in an existing structure will never be 
-overwritten by the entitlements mapping. There are three possible sets of 
-privileges: `member`, `manager`, `admin`. They expand to a certain set of 
-Onedata group privileges:
+parents. 
+
+User privileges in the bottom group are set when the membership is created
+and each time the privileges resulting from the entitlement mapping change.
+They can be changed manually, but the changes will be overwritten by
+entitlement mapping changes received from an IdP. Example:
+
+1) User logs in with entitlement "developers" and "manager" privileges.
+2) User is manually granted "admin" privileges in the "developers" group.
+3) User logs in again with "developers:manager" but his privileges are not
+   changed because no difference since the last login is detected; he still
+   has "admin" privileges.
+4) User logs in again with "developers:member", which causes his privileges
+   to be changed down to "member" - manual changes have been overwritten.
+   
+For child groups, the privileges are set only when creating a new
+membership - later changes in the corresponding entitlement will NOT be
+taken into account. The privileges can be changed manually without the risk
+of being overwritten by the entitlement mapping.
+
+There are three possible sets of privileges: `member`, `manager`, `admin`. 
+They expand to a certain set of Onedata group privileges:
 * member -> `[group_view]`
 
 * manager -> `[group_view,
-     group_invite_user, group_remove_user,
-     group_add_parent, group_leave_parent,
-     group_add_child, group_remove_child]`
-     
-* admin -> `[group_view,
-     group_invite_user, group_remove_user,
+     group_add_user, group_remove_user,
      group_add_parent, group_leave_parent,
      group_add_child, group_remove_child,
+     group_add_harvester, group_remove_harvester]`
+     
+* admin -> `[group_view, group_view_privileges,
+     group_add_user, group_remove_user,
+     group_add_parent, group_leave_parent,
+     group_add_child, group_remove_child,
+     group_add_harvester, group_remove_harvester,
      group_update, group_delete,
-     group_view_privileges, group_set_privileges,
+     group_set_privileges,
      group_add_space, group_leave_space,
+     group_add_cluster, group_leave_cluster,
      group_create_handle_service, group_leave_handle_service,
      group_create_handle, group_leave_handle]`
 
@@ -2223,11 +2258,44 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
 }.
 ```
 
+## Minimal config
+
+Minimal config that enables only basic auth (username & password login) - 
+included by default in Onezone installation.
+
+```Erlang
+#{
+    version => 3,
+
+    basicAuthConfig => #{
+        enabled => true
+    },
+
+    samlConfig => #{
+        enabled => false
+    },
+
+    openidConfig => #{
+        enabled => false
+    },
+
+    supportedIdps => [
+        {basicAuth, #{
+            displayName => "username & password",
+            iconPath => "/assets/images/auth-providers/basicauth.svg",
+            iconBackgroundColor => "#4BD187",
+            protocol => basicAuth
+        }}
+    ]
+}.
+```
+
 
 ## Exemplary entries for selected IdPs
 
-Below are some working config examples that use predefined icons. In case of 
-OpenID IdPs, it is required to insert the Client Id and Secret in the config.
+Below are some working config examples that use predefined icons, to be placed
+in the `supportedIdps` section of the config. In case of OpenID IdPs, it is 
+required to insert the Client Id and Secret in the config.
 
 
 ### username & password login

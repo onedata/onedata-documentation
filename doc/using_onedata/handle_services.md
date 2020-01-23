@@ -18,7 +18,7 @@ curl -k -u username:password -X POST  -H "Content-type: application/json" \
     -d @datacite.json https://$ONEZONE_HOST/api/v3/handle_services
 ```
 
-where `datacite.json` in the current folder contains the following content:
+where `datacite.json` in the current directory contains the following content:
 
 ```json
 {

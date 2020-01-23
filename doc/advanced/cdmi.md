@@ -10,7 +10,7 @@ CDMI uses certain terms such as dataobject or container to refer to various elem
 | CDMI concept | Onedata concept                                                                                                                                |
 |:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
 | Data object  | Data objects in Onedata are basic files stored in user's Spaces                                                                                |
-| Container    | Both spaces and folders in Onedata are referred to as containers in CDMI                                                                   |
+| Container    | Both spaces and directories in Onedata are referred to as containers in CDMI                                                                   |
 | ACL          | Onedata currently supports setting permissions for users and groups for read, write and execute access. ACL inheritance is also not supported. |
 
 
@@ -22,7 +22,7 @@ The list of currently supported operations is presented below:
 | Basic container GET, PUT, DELETE | *cdmi_list_children, cdmi_create_container, cdmi_delete_container*|
 | Metadata (container&dataobject)  | *cdmi_read_metadata, cdmi_modify_metadata, cdmi_size, cdmi_atime, cdmi_mtime, cdmi_ctime* |
 | Access control lists (rwx*)      | *cdmi_acl*    |
-| Big folders                      | *cdmi_list_children_range* |
+| Big directories                  | *cdmi_list_children_range* |
 | Move and copy                    | *cdmi_move_dataobject_by_ID*, *cdmi_copy_dataobject_by_ID*|
 | File System Export               | CDMI filesystem export is not supported. Instead, Onedata provides a custom Fuse client which is more efficient and reliable. |
 | Big files                        | *cdmi_read_value_range, cdmi_modify_value_range* |
@@ -285,7 +285,7 @@ ABCD
 ### Access by ObjectID
 Every object has unique id, and can be accessed by URI `/cdmi_objectid/OBJECT_ID`.
 
-Get CDMI ID of `dirtest` folder:
+Get CDMI ID of `dirtest` directory:
 ```bash
 curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/test/dirtest/?objectID
 
@@ -293,7 +293,7 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -X GET $ENDPOINT/test/dirtest/?obje
 {"objectID":"000000000055B7D1836803640004677569646D000000165F7647654E5A50676438555061434575484567712D516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D"}
 ```
 
-Add new file to the `dirtest` folder using ID:
+Add new file to the `dirtest` directory using ID:
 ```bash
 curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-object' \
 -X PUT -d '{"value": "val"}' "$ENDPOINT/cdmi_objectid/000000000055B7D1836803640004677569646D000000165F7647654E5A50676438555061434575484567712D516D0000002B43592D347247454C535F6638574B2D616B4E305F6F6D556164636F6B336E745443673471686E787172594D/test10.txt"
