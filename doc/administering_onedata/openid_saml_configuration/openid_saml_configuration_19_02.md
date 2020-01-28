@@ -2263,7 +2263,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => urlencoded,
             accessTokenPassMethod => inAuthHeader,
-            customData => undefined
+            customData => #{}
         },
     
         authorityDelegation => #{
@@ -2321,7 +2321,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => urlencoded,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
         
         authorityDelegation => #{
@@ -2473,7 +2473,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => inAuthHeader,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
         
         authorityDelegation => #{
@@ -2530,7 +2530,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => inAuthHeader,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
 
         authorityDelegation => #{
