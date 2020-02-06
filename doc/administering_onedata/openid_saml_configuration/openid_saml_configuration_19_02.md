@@ -164,7 +164,7 @@ After adding your IdPs to the config file, you should see corresponding icons on
 the login page (`https://onezone.example.com`). If there are more than 7 IdPs,
 the first 6 will be shown and the rest hidden in the `...` button.
 
-<img  style="display:block;margin:0 auto;" src="../img/login-page.png">
+<img  style="display:block;margin:0 auto;" src="../../img/login-page.png">
 
 
 ## Config file structure
@@ -1591,12 +1591,12 @@ and each time the privileges resulting from the entitlement mapping change.
 They can be changed manually, but the changes will be overwritten by
 entitlement mapping changes received from an IdP. Example:
 
-1) User logs in with entitlement "developers" and "manager" privileges.
-2) User is manually granted "admin" privileges in the "developers" group.
-3) User logs in again with "developers:manager" but his privileges are not
+1. User logs in with entitlement "developers" and "manager" privileges.
+2. User is manually granted "admin" privileges in the "developers" group.
+3. User logs in again with "developers:manager" but his privileges are not
    changed because no difference since the last login is detected; he still
    has "admin" privileges.
-4) User logs in again with "developers:member", which causes his privileges
+4. User logs in again with "developers:member", which causes his privileges
    to be changed down to "member" - manual changes have been overwritten.
    
 For child groups, the privileges are set only when creating a new
@@ -1815,7 +1815,7 @@ on:
     problem, copy the request state identifier from the error page and check the 
     logs - see the next point.
     
-    <img  style="display:block;margin:0 auto;" src="../img/login-page-error.png">
+    <img style="display:block;margin:0 auto;" src="../../img/login-page-error.png">
 
 * Check [Onezone logs](../onezone_tutorial.md#logs) for any hints what might 
 have gone wrong:
@@ -1888,7 +1888,7 @@ the canvas (see the image below).
 * Make sure to center you icon on the image canvas (unless, of course, you want
 it to be asymmetric).
 
-<img  style="display:block;margin:0 auto;" src="../img/custom-icon.png">
+<img  style="display:block;margin:0 auto;" src="../../img/custom-icon.png">
 
 
 ## Test login page
@@ -1914,9 +1914,9 @@ whole login process.
 > The SAML SP metadata XML based on `test.auth.config` can be viewed under the
 following URL: `https://onezone.example.com/saml/sp.xml?test=true`
 
-<img  style="display:block;margin:0 auto;" src="../img/test-login-page.png">
+<img  style="display:block;margin:0 auto;" src="../../img/test-login-page.png">
 
-<img  style="display:block;margin:0 auto;" src="../img/test-login-output.png">
+<img  style="display:block;margin:0 auto;" src="../../img/test-login-output.png">
 
 
 ## Complete example

@@ -11,7 +11,8 @@ information about legacy tokens for versions up to `19.02.*` can be found
 There are three types of tokens in Onedata: access tokens, invite tokens and 
 GUI access tokens. The latter are reserved for internal use in the web 
 applications and are invalid when used outside of this scope. Access and invite
-tokens are available for the end user to create, manage and utilize.
+tokens are available for the end user to create, manage and utilize. Access 
+tokens can also serve as identity tokens, as described [later on](#identity-tokens). 
 
 Regardless of the above-mentioned type, each token can be 
 [named or temporary](#named-and-temporary-tokens).
@@ -26,6 +27,9 @@ support for [caveats](#token-caveats) - contextual confinements.
 All tokens are created in Onezone and can only be verified by Onezone.
 
 Tokens can be created using the wizard in Onezone web GUI or the [REST API].
+
+Tokens must be kept secret - unless they are safely confined with caveats, then
+passing a token to another party or publishing it is possible.
 
 
 ## Access tokens
@@ -49,12 +53,12 @@ Consider this example:
    the request in this context, operating on Bob's data. It does not matter if
    the requesting client (token bearer) was Alice or Bob.
 
-Access tokens are a powerful tool for authority delegation, but at the same time
-require caution - they must be kept secret, similarly to user passwords. However,
-thanks to support for [caveats](#token-caveats) (contextual confinements), 
-tokens can be limited with fine granularity, making it safer to delegate them to 
-other users or services. Nevertheless, you should never disclose your tokens to 
-a party that is not trusted.
+Apart from the identity, the token carries authorization to perform operations
+in the system. The authorization can be limited by caveats. If there are no
+caveats, the token carries absolute power to perform any operation on behalf of 
+the subject, similar to user's password. It is possible to nullify the 
+authorization using the `scope` caveat, in such case the access token can 
+only be used as an [identity token](#identity-tokens).
    
 Authorization in Onedata depends on the identity of the requesting party 
 (token's subject), subject's relations and privileges (e.g. space membership and
@@ -71,14 +75,41 @@ need to be satisfied:
 4. The access token must allow writing in space `My experiment` 
    (or to be accurate, token caveats must not forbid writing in the space)
 
+Access tokens are a powerful tool for authority delegation, but at the same time
+require caution - they must be kept secret, similarly to user passwords. However,
+thanks to support for [caveats](#token-caveats) (contextual confinements), 
+tokens can be limited with fine granularity, making it safer to delegate them to 
+other users or services. Nevertheless, you should never disclose your tokens to 
+a party that is not trusted.
+
+
+### Identity tokens
+
+Access tokens can be used to prove the subject's identity, in such case they can
+be perceived as identity tokens. Proving identity might be required to satisfy a
+[`consumer` caveat](#token-caveats). Some access tokens can be used as 
+identity tokens and the other way around, but they allow different types of
+caveats (see [caveats compatibility](#caveats-compatibility)). What's most 
+relevant, an identity token can have the `scope` caveat, which completely
+nullifies the authorization carried by the token and makes it suitable only for
+identity verification (the token cannot be used as an access token to perform
+any operation). It is strongly recommended to always add the `scope` caveat
+whenever the token is used as an identity token, especially when sending it to 
+an untrusted party.
+
 
 ## Invite tokens
 
 Invite tokens in Onedata are used to create relations in the system. They can be 
-consumed by anyone who possesses the token. Typical scenario is that the 
-inviting user generates a token and passes it to somebody that he wishes to 
-invite, and the other user consumes the token and is added to the target 
-entity (e.g. group or space).
+consumed by anyone who possesses the token (unless the token has a `consumer` 
+caveat). Typical scenario is that the inviting user generates a token and passes 
+it to somebody that they wish to invite, and the other user consumes the token 
+and is added to the target entity (e.g. group or space).
+
+Each token has inscribed information about the target entity of the invitation
+which is chosen by the inviting user. It means that the token consumer does not 
+choose where they are joining and does not need to know the target group, space
+etc. - the token itself is enough to join it.
 
 The Onezone Web GUI provides a comprehensive wizard for creating invite tokens
 with different parameters. Below is some technical information about the invite
@@ -118,10 +149,7 @@ Invite tokens can have one of the following types:
                            
 * `spaceJoinHarvester` - can be consumed to join the target harvester of the 
     invitation as a space, so that the space becomes a
-    metadata source for the harvester.                            
-
-The invite token type must be coupled with the target entity id of the 
-invitation (e.g. the space Id for which the token was created).
+    metadata source for the harvester.
 
 Invite tokens can be created by authorized users, for example a `userJoinSpace` 
 token can be created by a member of the target space that has the 
@@ -150,25 +178,25 @@ in below table.
 |------------------------------------------------------------------|------------------------------------------------------------------|
 | no identification in the system                                  | must have a unique name                                          |
 | not persisted                                                    | persisted                                                        |
-| cannot be retrieved <br/> _you must store the token right when you create it_ | linked to subject's account                         |
+| cannot be retrieved <br/> _you must store the token upon creation_ | linked to subject's account                                    |
 | shared secret <br/> _the secret can be regenerated, in this case all subject's temporary tokens become invalid_ | individual secret |
 | cannot be deleted individually <br/> _see shared secret above_   | can be deleted <br/> _(the token immediately becomes invalid_    |
 | non-revocable individually <br/> _see shared secret above_       | revocable <br/> _revocation can be undone at will_               |
-| must have limited lifespan <br/> _max permitted lifespan is configurable by Onezone admin_ | can have infinite lifespan             |
+| must have limited lifespan <br/> _max permitted lifespan is configurable by the Onezone admin_ | can have infinite lifespan         |
 | no accounting, cannot be listed                                  | can be listed in [REST API] or viewed in web GUI                 |
 | useful for automated software / middleware / scripting           | require more management but ensure full control                  |
   
   
 ## Token caveats
 
-Each token can have any number of caveats (including 0). Caveats are a 
+Each token can have any number of caveats (including none). Caveats are a 
 fundamental concept of [Google's macaroons] (which are used for token 
 implementation in Onedata). Caveats are contextual confinements - they limit the
 context in which a token is valid. They are inscribed in the token itself,
 which enables powerful delegation features. Thanks to cryptographic signatures,
 caveats cannot be removed from a token. However, they can be added to any token
 by any party that possesses the token. Such operation further limits the token,
-making it carry less power that the original one. Such limited token can be
+making it carry less power that the original one. The limited token can be
 safely passed to another party, which won't be able to overcome the limitations
 without knowing the original token. Consider this example:
 
@@ -176,22 +204,23 @@ without knowing the original token. Consider this example:
     space `My experiment` - using the `data.path` caveat.
 
 2. Bob confines the token `Alpha` - adds the `data.readonly` caveat - and 
-    obtains token `Beta` with different signature.
+    obtains token `Alpha*` with different signature.
 
-3. Bob passes the token `Beta` to Alice. Alice is able to read the space 
+3. Bob passes the token `Alpha*` to Alice. Alice is able to read the space 
     `My experiment`, but cannot modify any files. The space is accessed on 
     behalf of Bob - from the system's point of view, whoever bears the token is
     recognized as Bob. Cryptography ensures that it is computationally 
-    implausible to infer token `Alpha` knowing only `Beta`. If Bob wishes to 
-    publish his experiment data online, he can safely make the token `Beta` 
+    implausible to infer token `Alpha` knowing only `Alpha*`. If Bob wishes to 
+    publish his experiment data online, he can safely make the token `Alpha*` 
     public (see [safely publishing tokens](#safely-publishing-tokens)) - nobody 
     will be able to use it in other way than to read the `My experiment` data. 
-    Bob can temporarily revoke or completely delete the token `Beta` at any 
-    time, which will immediately disable the published token. 
+    Bob can temporarily revoke or completely delete the token `Alpha` at any 
+    time, which will immediately disable the original token `Alpha` and all
+    tokens derived from it - including the published `Alpha*` token. 
     
 4. In the meantime, Bob still uses the original token `Alpha` to write data in 
     the `My experiment` space, which becomes immediately visible for the users
-    that have the `Beta` token.
+    that have the `Alpha*` token.
     
 The Onezone Web GUI offers a convenient wizard for adding caveats to tokens.
 Further, you will find technical details and considerations about token caveats.
@@ -201,7 +230,7 @@ caveats are in JSON format, recognized by the [REST API] (consult for more
 information about allowed values and usage). 
 
 * `time` - limits the validity of the token to a certain point in time, 
-    specified as an absolute timestamp in seconds (UNIX epoch). If no such 
+    specified as an absolute timestamp in seconds (UNIX Epoch time). If no such 
     caveat is included in a token, it is valid infinitely. Note, however, that 
     temporary tokens **require** a time caveat, in contrary to named tokens. 
     ```json
@@ -210,43 +239,6 @@ information about allowed values and usage).
       "validUntil": 1571147494
     }
     ```
-    
-* `authorizationNone` - nullifies the authorization carried by the token. Such 
-    token does not allow to perform any operation in the system, can be used 
-    solely for identity verification. A token with such caveat can be referred to
-    as an *identity token* (although any access token is a valid identity token).
-    ```json
-    {
-      "type": "authorizationNone"
-    }
-    ```
-    > NOTE: in tables that follow the `authorizationNone` is presented as always
-    *rejected*, which is in fact how it works (nullifies the authorization 
-    carried by the token).
-    
-* `audience` - limits the [audiences](#audience) that can utilize the token. If
-    the caveat is present, the party that utilizes the token (bearer) must 
-    include its access token in the `x-onedata-audience-token` header to prove 
-    its identity. The audiences must be encoded using the proper 
-    [audience format](#audience-types). If no such caveat is included in a token, 
-    it can be used by any bearer.
-    ```json
-    {
-        "type": "audience",
-        "whitelist": [
-            "usr-d4f5876dbe7f1e7e8a511de6dd31144c",
-            "grp-0921135ee61fe53a3df449365228e9b4",
-            "ozw-onezone",
-            "ozp-onezone",
-            "opw-01c4455bef059353c9dfb35ba93a24f3",
-            "opp-01c4455bef059353c9dfb35ba93a24f3"
-        ]
-    }
-    ```
-    > NOTE: when adding `audience` caveats, keep in mind that if your requests 
-    need to be proxied to another Oneprovider, it must also be whitelisted. 
-    Proxying happens when the Oneprovider that you requested does not support 
-    the concerned space.
     
 * `ip` - limits the allowed client IPs to a certain whitelist. Supports IP 
     masks. If no such caveat is included in a token, it can be used from any IP.
@@ -262,7 +254,7 @@ information about allowed values and usage).
     ```
     > NOTE: when adding `ip` caveats, keep in mind that if your requests need to
     be proxied to another Oneprovider, its IP must also be whitelisted. Proxying
-    happens when the Oneprovider that you requested does not support the 
+    happens when the Oneprovider that received your request does not support the 
     concerned space.
     
 * `asn` - limits the ASNs (Autonomous System Number) from which the token can be 
@@ -277,8 +269,8 @@ information about allowed values and usage).
         ]
     }
     ```
-    > NOTE: as the client's ASN depends on client's IP, this caveat has the same
-    considerations as the `ip` caveat when requests are proxied.
+    > NOTE: as the client ASN detection depends on client's IP, this caveat 
+    has the same considerations as the `ip` caveat when requests are proxied.
   
 * `geo.country` - limits the countries from which the token can be utilized. 
     Supports whitelists and blacklist. The client's country is resolved based on
@@ -293,8 +285,8 @@ information about allowed values and usage).
         ]
     }
     ```  
-    > NOTE: as the client country depends on client's IP, this caveat has the same
-    considerations as the `ip` caveat when requests are proxied.
+    > NOTE: as the client country detection depends on client's IP, this caveat
+    has the same considerations as the `ip` caveat when requests are proxied.
     
 * `geo.region` - limits the geographical regions from which the token can be 
     utilized. The available values are the 7 continents (`"Oceania"` covers 
@@ -318,8 +310,59 @@ information about allowed values and usage).
         ]
     }
     ```
-    > NOTE: as the client region depends on client's IP, this caveat has the same
-    considerations as the `ip` caveat when requests are proxied.
+    > NOTE: as the client region detection depends on client's IP, this caveat
+    has the same considerations as the `ip` caveat when requests are proxied.
+    
+* `scope` - limits the authorization carried by the token. Currently only 
+    `identityToken` scope is allowed, which nullifies the authorization. Such 
+    token does not allow to perform any operation in the system, can be used 
+    only for identity verification (a.k.a. [identity token](#identity-tokens)).
+    ```json
+    {
+      "type": "scope",
+      "scope": "identityToken"
+    }
+    ```
+    > NOTE: in tables concerning access tokens the `scope` caveat is presented 
+    as always *rejected*, which is in fact how it works (nullifies the 
+    authorization carried by the token).  
+    
+* `service` - limits the [services](#service) that can process the token.
+    If the caveat is present, the service must prove its identity by sending 
+    its identity token in the `x-onedata-service-token` header. The services 
+    must be encoded using the proper [service format](#service-types).
+    If no such caveat is included in a token, it can be used in any service.
+    ```json
+    {
+        "type": "service",
+        "whitelist": [
+            "ozw-onezone",
+            "ozp-onezone",
+            "opw-*",
+            "opp-01c4455bef059353c9dfb35ba93a24f3"
+        ]
+    }
+    ```
+    > NOTE: when adding `service` caveats, keep in mind that if your requests 
+    need to be proxied to another Oneprovider, it must also be whitelisted. 
+    Proxying happens when the Oneprovider that received your request does not 
+    support the concerned space.
+    
+* `consumer` - limits the [consumers](#consumer) that can utilize the token.
+    If the caveat is present, the consumer must prove their identity by sending 
+    their identity token in the `x-onedata-consumer-token` header. The consumers 
+    must be encoded using the proper [consumer format](#consumer-types). 
+    If no such caveat is included in a token, it can be used by any bearer.
+    ```json
+    {
+        "type": "consumer",
+        "whitelist": [
+            "usr-d4f5876dbe7f1e7e8a511de6dd31144c",
+            "grp-0921135ee61fe53a3df449365228e9b4",
+            "prv-*"
+        ]
+    }
+    ```
     
 * `interface` - limits the available interfaces on which the token can be used 
     to a certain one - `rest`, `oneclient` or `graphsync`. If the `oneclient` 
@@ -401,32 +444,42 @@ information about allowed values and usage).
     reasons. Nevertheless, `data.objectid` have the advantage that they remain
     valid even if the target file is moved / renamed (given that the file id 
     does not change in the process) - contrary to `data.path` caveats.
+
+
+### Caveats compatibility
     
-    
-Below table shows compatibility of caveats with access and invite tokens. Note 
-that adding an unrecognized or incompatible caveat causes the token to always 
-fail verification (renders it unusable in practice).
+Below table shows compatibility of caveats with access, identity and invite 
+tokens. Note that adding an unrecognized or incompatible caveat causes the token 
+to always fail verification (renders it unusable in practice).
 
 * <span style="color:#480"> allowed </span> - the caveat is recognized and will
     be checked against the request context
 * <span style="color:red"> rejected </span> - presence of this caveat will cause
     immediate token verification failure
 
-| Caveat            |               Access tokens               |               Invite tokens               |
-|-------------------|:-----------------------------------------:|:-----------------------------------------:|
-| time              | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| authorizationNone | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| audience          | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| ip                | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| asn               | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.country       | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.region        | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| interface         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| api               | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.readonly     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
+| Caveat            |               Access tokens               |              Identity tokens              |               Invite tokens               |
+|-------------------|:-----------------------------------------:|:-----------------------------------------:|:-----------------------------------------:|
+| time              | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| ip                | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| asn               | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| geo.country       | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| geo.region        | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| scope             | <span style="color:red"> rejected </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
+| service           | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| consumer          | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| interface         | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
+| api               | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.readonly     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 
+> Identity tokens do not allow service caveats as service is only relevant when
+requesting an API operation. They also forbid `api` or data access caveats,
+otherwise somebody who holds a strongly limited, publicly available token would
+be able to easily impersonate the subject.
+
+> Invite tokens are specialized for one operation and always used in the Onezone
+service, hence they allow only suitable caveats.
 
 ### Data access caveats
 
@@ -483,12 +536,13 @@ summarized in the below tables.
 | Interface         |                    REST                    |                GraphSync[^1] (GUI)              |           GraphSync[^1] (Oneprovider)            |
 |-------------------|:------------------------------------------:|:-----------------------------------------------:|:------------------------------------------------:|
 | time              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| authorizationNone | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:red">  rejected       </span> | 
-| audience          | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | ip                | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | asn               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | geo.country       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | geo.region        | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
+| scope             | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:red">  rejected       </span> | 
+| service           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
+| consumer          | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | interface[^2]     | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted[^3] </span> |
 | api               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | data.readonly     | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted[^3] </span> |
@@ -508,7 +562,7 @@ to Oneproviders, but the included caveats can impose further restrictions
 
 [^3]: 
 Oneprovider service uses the GraphSync channel to fetch user data from Onezone. 
-It uses the token that was passed to it by the user, either when he made a call
+It uses the token that was passed to it by the user, either when they made a call
 to the REST/CDMI API, mounted a Oneclient, or visited the Oneprovider GUI (which
 utilizes a gui access token in the background). If the token contains any of the
 *data access caveats*, Onezone will allow to fetch only the basic user info, 
@@ -522,12 +576,13 @@ it will not be able to cause any damage with such token.
 | Interface         |                    Oneclient                    |CDMI & REST<br/>(data access operations)[^1]|        REST<br/>(other operations)[^2]     |
 |-------------------|:-----------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
 | time              | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| authorizationNone | <span style="color:red">  rejected </span>      | <span style="color:red">  rejected </span> | <span style="color:red">  rejected </span> | 
-| audience          | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | ip                | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | asn               | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | geo.country       | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | geo.region        | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| scope             | <span style="color:red">  rejected      </span> | <span style="color:red">  rejected </span> | <span style="color:red">  rejected </span> | 
+| service           | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| consumer          | <span style="color:red">  rejected[^3] </span>  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | interface         | <span style="color:#aa0"> `"oneclient"` </span> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"rest"` </span> |
 | api               | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | data.readonly     | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
@@ -544,20 +599,25 @@ Other REST operations include the API for: shares, spaces, views,
 replicas & transfers, QoS, monitoring and datastore changes stream.
 These endpoints are forbidden when the token includes a *data access caveat*.
 
+[^3]: 
+Currently it is not possible to provide a consumer token when mounting Oneclient, 
+which makes it impossible to verify consumer caveats on this interface.
+
 
 #### Onepanel
 
 | Interface         |             REST (Onezone panel)              |           REST (Oneprovider panel)            |
 |-------------------|:---------------------------------------------:|:---------------------------------------------:|
 | time              | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
-| authorizationNone | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> | 
-| audience          | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
 | ip                | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
 | asn               | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
 | geo.country       | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
 | geo.region        | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
+| scope             | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> | 
+| service           | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
+| consumer          | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
 | interface         | <span style="color:red"> rejected[^2] </span> | <span style="color:red"> rejected[^2] </span> |
-| api               | <span style="color:red"> rejected[^2] </span> | <span style="color:red"> rejected[^2] </span> | 
+| api               | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
 | data.readonly     | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
 | data.path         | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
 | data.objectid     | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
@@ -569,117 +629,89 @@ support in Oneprovider panel is under implementation. For that time, tokens
 with such caveats are immediately rejected.
 
 [^2]: 
-Currently, the support for `api` and `interface` caveats in both Onepanels
-is under implementation. For that time, tokens with such caveats are immediately 
-rejected.
+Currently, the support for `interface` caveat in both Onepanels is under 
+implementation. For that time, tokens with such caveats are immediately rejected.
 
 
-## Audience
+## Service
 
-Audience is the party that consumes the token in the context of a request. 
-Consider Bob, who uses his token to access the Oneprovider API - in this case, 
-the requested Oneprovider service is the audience. When verifying the token, 
-Onezone checks if the token allows the audience, and only then authorizes the 
-request. If the token has no `audience` caveats, any audience is allowed, 
-otherwise the request's audience must be whitelisted.
+Service is the Onedata service that received the client's request and is 
+handling their access token. For example, the Oneprovider service chosen by a 
+user to mount a Oneclient or make a CDMI request. 
 
-Bob can issue a token with an `audience` caveat that says that only Alice can
-consume the token. In such case, Alice has to prove her identity by adding her
-[audience token](#audience-tokens) to the request:
-```bash
-~$ curl -H "x-auth-token: ${BOBS_ACCESS_TOKEN}" \
-        -H "x-onedata-audience-token: ${ALICES_ACCESS_TOKEN}" \
-        -X GET ...
-```
+It is possible to limit the allowed services using the `service` caveat. In such
+case, the service that received the request must be whitelisted, otherwise the
+operation will not be authorized. Behind the scenes, the service must prove its
+identity by sending its identity token to Onezone.            
+            
+### Service types
 
-If Alice performs such request to a Oneprovider service, the request is
-considered to have two audiences: the Oneprovider and Alice. In such case,
-both audiences must be whitelisted in `audience` caveats (if any) for the
-request to be authorized.
-
-
-### Audience tokens
-
-Audience tokens are regular access tokens, but with restricted range of allowed
-caveats, as shown in the table that follows. In the above example, Alice could
-use any of her own access tokens that do not include disallowed caveats.
-
-| Caveat            |               Access tokens               |               Audience tokens             |
-|-------------------|:-----------------------------------------:|:-----------------------------------------:|
-| time              | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| authorizationNone | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| audience          | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| ip                | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| asn               | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.country       | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.region        | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| interface         | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| api               | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.readonly     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-
-
-### Audience types
-
-There are 6 audience types in Onedata. Note the serialized format in the table
-below if you wish to use the [REST API] for creating tokens with `audience` 
+There are 4 service types in Onedata. Note the serialized format in the table
+below if you wish to use the [REST API] for creating tokens with `service` 
 caveats - the first three letters denote the type, and the rest after the
-hyphen is the `id` of the corresponding user / group / Oneprovider (or special
-`onezone` keyword for the Onezone service). 
+hyphen is the `id` of the corresponding Oneprovider or special `onezone` keyword 
+for the Onezone service. 
 
-| Audience                       |               Examples (serialized format)              | 
+| Service                        |               Examples (serialized format)              | 
 |--------------------------------|:-------------------------------------------------------:|
-| user                           | `usr-d4f5876dbe7f1e7e8a511de6dd31144c` <br/> `usr-*`    |
-| group                          | `grp-0921135ee61fe53a3df449365228e9b4` <br/> `grp-*`    |
 | Onezone                        | `ozw-onezone`                                           |
 | Onezone panel (for admins)     | `ozp-onezone`                                           |
 | Oneprovider                    | `opw-01c4455bef059353c9dfb35ba93a24f3` <br/> `opw-*`    |
 | Oneprovider panel (for admins) | `opp-01c4455bef059353c9dfb35ba93a24f3` <br/> `opp-*`    |
 
-> Note: group audience is a special audience that can be put into the `audience`
-caveat's whitelist. It will be successfully verified if the request's audience
-is a user that belongs to the specified group.
-
-> Note: the special `*` audience `id` can be used to allow any audience of given
-type (e.g. any user or any Oneprovider).
+> Note: the special `*` service `id` can be used to allow any service of given
+type (e.g. any Oneprovider service).
 
 
-In the previous example with Bob and Alice, Bob's token would have the following
-caveat:
+## Consumer
+
+Consumer is the token bearer that utilizes the token - performs a request with 
+an access token or attempts to consume an invite token. It is possible to create
+a token that will only be consumable by whitelisted subjects. Consider Bob, who
+creates an access token allowing to access his space and adds a `consumer` 
+caveat that limits the allowed consumers to Alice:
 
 ```json
 {
-    "type": "audience",
+    "type": "consumer",
     "whitelist": [
-        "usr-5c9dfb35db55bef7e8a51dfb35ba93a2",
-        "opw-228e9ba93ab4b3a3d353c9dfb35ba93a"
+        "usr-5c9dfb35db55bef7e8a51dfb35ba93a2"
     ]
 }
 ```
 * `5c9dfb35db55bef7e8a51dfb35ba93a2` - Alice's user `id`
-* `228e9ba93ab4b3a3d353c9dfb35ba93a` - Oneprovider's `id`
 
+Then, Bob passes the confined token to Alice. In such case, Alice has to prove 
+her identity by adding her [identity token](#identity-tokens) to the request:
+```bash
+~$ curl -H "x-auth-token: ${BOBS_ACCESS_TOKEN}" \
+        -H "x-onedata-consumer-token: ${ALICES_IDENTITY_TOKEN}" \
+        -X GET ...
+```
+Without a valid `x-onedata-consumer-token`, the request will fail with
+unverified caveat error. 
+            
+### Consumer types
 
-### Request audiences in different services
+There are 3 consumer types in Onedata. Note the serialized format in the table
+below if you wish to use the [REST API] for creating tokens with `consumer` 
+caveats - the first three letters denote the type, and the rest after the
+hyphen is the `id` of the corresponding user / group / Oneprovider. 
 
-Below table shows all possible request audiences depending on the service that
-was requested and if the client used an access token alone or along with an 
-audience token. 
+| Consumer                       |               Examples (serialized format)              | 
+|--------------------------------|:-------------------------------------------------------:|
+| user                           | `usr-d4f5876dbe7f1e7e8a511de6dd31144c` <br/> `usr-*`    |
+| group                          | `grp-0921135ee61fe53a3df449365228e9b4` <br/> `grp-*`    |
+| Oneprovider                    | `prv-01c4455bef059353c9dfb35ba93a24f3` <br/> `prv-*`    |
 
-| Tokens sent           | access token  | access token & audience token of user `abcd` |
-|-----------------------|:-------------:|:--------------------------------------------:|
-| Onezone               | `ozw-onezone` | `ozw-onezone` & `usr-abcd`                   |
-| Onezone panel         | `ozp-onezone` | `ozp-oenzone` & `usr-abcd`                   |
-| Oneprovider           | `opw-provId`  | `opw-provId` & `usr-abcd`                    |
-| Oneprovider panel     | `opp-provId`  | `opp-provId` & `usr-abcd`                    |
+> Note: group is a special consumer that can be put into the `consumer` caveat's 
+whitelist. It will be successfully verified if the request's consumer is a user 
+that belongs to the specified group.
 
-The access token must allow the above audiences for the request to be
-authorized; in other words, eligible access tokens are:
-* a token without any `audience` caveats
-* a token in which all `audience` caveats whitelist all the above audiences.
+> Note: the special `*` consumer `id` can be used to allow any consumer of given
+type (e.g. any user or any Oneprovider).
 
-  
+ 
 ## Safely publishing tokens
 
 It is possible to create a token with very limited rights and safely publish it
@@ -702,8 +734,8 @@ on which the token will be exclusively accepted. For example, if `oneclient`
 interface is specified, the token bearer will not be able to perform any API
 operations via REST, which increases security.
 
-* Consider using `audience` caveats to limit the available consumers of the 
-token to certain Oneproviders or users.
+* Consider using `consumer` caveats to limit the available consumers of the 
+token and `service` caveats to make the token usable only in chosen services.
 
 * Make sure to create a `named` token to be able to revoke or delete it at any 
 time.
@@ -719,18 +751,23 @@ passwords or certificates / private keys. The exceptions are 1) when passing an
 invite token to somebody you wish to invite or 2) when delegating an access 
 token that has been properly limited by caveats.
 
-* When a Oneprovider or Oneprovider panel service is requested using an access 
-token, it is required that the Oneprovider supports the token's subject user, 
-otherwise authorization is declined. This is checked by Onezone when releasing 
-user data. It is not possible to utilize the token in an untrusted Oneprovider,
- which protects from data exfiltration.
+* When a Oneprovider or Oneprovider panel service receives a request along with
+an access token, it is required that the token's subject user trust the service
+and is entitled to use it. In case of Oneprovider, the user must be supported 
+by the Oneprovider - must have access to at least one space that is supported by
+the provider, which implies bidirectional trust between the user and the 
+Oneprovider. To use a Oneprovider panel service, the user must be a member of
+the cluster corresponding to the Oneprovider. If above conditions are not met,
+authorization is declined. This is checked by Onezone when releasing user data. 
+It is not possible to utilize the token in an untrusted Oneprovider, which 
+protects from data exfiltration.
 
-* Tokens with [data access caveats](#data-access-caveats) can be used solely on 
-Oneprovider interfaces (oneclient / REST / CDMI). When using such token, the 
-bearer is not able to learn any of subject's data. The data is processed by the 
-Oneprovider to handle the request, but never disclosed to the client. As stated 
-in previous point, the Oneprovider must be supporting the subject user, which 
-implies that it is trusted.
+* Tokens with [data access caveats](#data-access-caveats) can be used only on 
+Oneprovider interfaces (Oneclient / REST / CDMI). When using such token, the 
+bearer is not able to learn token subject's account information or private data.
+The information is processed by the Oneprovider to handle the request, but never 
+disclosed to the client. As stated in previous point, the Oneprovider must be 
+supporting the subject user, which implies that it is trusted.
 
 * *Data access caveats* [implicitly limit the available APIs](#data-access-caveats)
 to a minimum so that the token bearer cannot perform any modifications to 

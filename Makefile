@@ -1,15 +1,18 @@
+install-gitbook:
+	@bash ./bin/build-docs.sh install-gitbook
+
 build-gitbook:
-	@bash ./bin/build-gitbook.sh
+	@bash ./bin/build-docs.sh build-gitbook
 
 build-swagger-api-docs:
-	@bash ./bin/build-swagger-api-docs.sh
+	@bash ./bin/build-docs.sh build-redoc
 
-build: build-gitbook build-swagger-api-docs
+build: install-gitbook build-gitbook build-swagger-api-docs
 
 all: build
 
 clean:
 	@rm -rf node_modules _book package-lock.json
 
-preview: build-gitbook
+preview: install-gitbook build-gitbook
 	@bash ./bin/serve-gitbook.sh
