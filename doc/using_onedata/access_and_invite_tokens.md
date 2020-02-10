@@ -153,7 +153,9 @@ Invite tokens can have one of the following types:
 
 Invite tokens can be created by authorized users, for example a `userJoinSpace` 
 token can be created by a member of the target space that has the 
-`space_add_user` privilege. 
+`space_add_user` privilege. The privilege is also checked when the token is
+being consumed - if the creator has lost the right to invite, the token cannot
+be consumed.
 
 [Named](#named-and-temporary-tokens) invite tokens can have additional parameters, 
 which are optional:
@@ -253,9 +255,10 @@ information about allowed values and usage).
     }
     ```
     > NOTE: when adding `ip` caveats, keep in mind that if your requests need to
-    be proxied to another Oneprovider, its IP must also be whitelisted. Proxying
-    happens when the Oneprovider that received your request does not support the 
-    concerned space.
+    be proxied to another Oneprovider, the IP of the Oneprovider that received
+    the original request must also be whitelisted (as it is perceived as the
+    new request's client). Proxying happens when the Oneprovider that received 
+    your request does not support the concerned space.
     
 * `asn` - limits the ASNs (Autonomous System Number) from which the token can be 
     utilized. The client's ASN is resolved based on client's IP and MaxMind's 
@@ -552,6 +555,8 @@ summarized in the below tables.
 [^1]: 
 The GraphSync interface is used internally for communication between services 
 and is not used directly by users, but is included in the table for reference.
+The information in the table is the same for the GraphSync interfaces of
+Oneprovider and Onepanel and omitted in tables that follow.
 
 [^2]: 
 The interface caveat must match the interface on which the request has been 
@@ -726,7 +731,7 @@ When creating a token for public use, consider the following:
 in the token (`data_readonly`, `data_path`, `data_objectid`). In a typical scenario, 
 you may want to allow readonly access to a certain subset of your data. In rare 
 cases, you can use an `api` caveat to enable a very specific API operation 
-that you want to be publicly available in your name. Remember than `api` and
+that you want to be publicly available in your name. Remember that `api` and
 *data access caveats* [do not go together](#data-access-caveats).
 
 * It may be reasonable to use an `interface` caveat and specify the interface
@@ -769,7 +774,7 @@ The information is processed by the Oneprovider to handle the request, but never
 disclosed to the client. As stated in previous point, the Oneprovider must be 
 supporting the subject user, which implies that it is trusted.
 
-* *Data access caveats* [implicitly limit the available APIs](#data-access-caveats)
+* *Data access caveats* [implicitly limit the available APIs](#caveats-impact-on-services)
 to a minimum so that the token bearer cannot perform any modifications to 
 subject's account or read private information.
 
