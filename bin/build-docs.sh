@@ -7,11 +7,11 @@ test -t 1 && TTY="-t"
 
 case "${1}" in
     install-gitbook)
-        docker run --rm -i ${TTY} -v `pwd`:/docs:delegated -v `pwd`/gitbook_cache:/root/.npm:delegated ${GITBOOK_IMG} install || exit $?
+        docker run --rm -i ${TTY} -v `pwd`:/docs:delegated -v gitbook_cache:/root/.npm:delegated ${GITBOOK_IMG} install || exit $?
         ;;
 
     build-gitbook)
-        docker run --rm -i ${TTY} -v `pwd`:/docs:delegated -v `pwd`/gitbook_cache:/root/.npm:delegated ${GITBOOK_IMG} build || exit $?
+        docker run --rm -i ${TTY} -v `pwd`:/docs:delegated -v gitbook_cache:/root/.npm:delegated ${GITBOOK_IMG} build || exit $?
         ;;
 
     build-redoc)
