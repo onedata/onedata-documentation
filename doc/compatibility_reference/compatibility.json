@@ -1,5 +1,5 @@
 {
-    "revision": 2020020600,
+    "revision": 2020021200,
 
     "compatibility": {
         "onezone:oneprovider": {
@@ -157,7 +157,7 @@
                 "7c7c3aa91c703bf38397f42fd51f2b0a73d992160be2c92e65a2d24546900a9a"
             ],
             "19.02.1": [
-                "b909b1b48a14aa5287f0924f17afe20928138b51d5e86704c841ce1f4f736cff"
+                "2c4bec5dcd19bb900ea5f63fcdd39e359ef6e18cd064b20016d52fcde337cab0"
             ]
         },
         "harvester": {
