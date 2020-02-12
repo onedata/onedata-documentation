@@ -53,7 +53,7 @@ fi
 
 
 
-bin/build.sh
+make
 
 CURRNET_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 CURRNET_BRANCH="${CURRNET_BRANCH#*/}"
