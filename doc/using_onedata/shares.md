@@ -2,12 +2,12 @@
 
 <!-- toc -->
 
-Onedata provides a feature which allows any folder to be seamlessly shared with other people, either already Onedata users or even users who do not yet have a Onedata account.
+Onedata provides a feature which allows any directory to be seamlessly shared with other people, either already Onedata users or even users who do not yet have a Onedata account.
 
 **Shares** functionality allows to generate a unique URL which can be easily shared with other users.
 
 ## Creating a share
-In order to create shares, simply select the appropriate folder and press the **Share** icon in the top menu of Onedata data browser.
+In order to create shares, simply select the appropriate directory and press the **Share** icon in the top menu of Onedata data browser.
 
 <img  style="display:block;margin:0 auto;" src="../img/create_share_name.png">
 

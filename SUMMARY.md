@@ -18,6 +18,7 @@
    * [File Management](doc/using_onedata/file_management.md)
    * [Replication and Transfer Management](doc/using_onedata/replication_management.md)
    * [Metadata](doc/using_onedata/metadata.md)
+   * [Access & Invite Tokens](doc/using_onedata/access_and_invite_tokens.md)
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
    * [Docker volume plugin](doc/using_onedata/docker_volume_plugin.md)
    * [Shares](doc/using_onedata/shares.md)

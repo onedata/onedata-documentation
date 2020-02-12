@@ -14,7 +14,7 @@ The most important concepts of the platform to understand at the beginning inclu
  - **Zones** - federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
 
 ### Spaces
-All data stored in Onedata is organized into *Spaces*. Spaces can be seen as virtual folders or volumes, which can contain an arbitrary directory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one provider, which means that this provider reserved certain storage quota for this particular space. In case a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
+All data stored in Onedata is organized into *Spaces*. Spaces can be seen as virtual directories or volumes, which can contain an arbitrary directory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one provider, which means that this provider reserved certain storage quota for this particular space. In case a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
 
 After registering in a specific zone using Onezone web interface, a new space has to be created. Onedata is not a storage provider, and it does not provide any free or paid storage resources. That is why, the newly created *space* has a quota size set to 0. In order to be able to use this *space*, you have to request storage from some provider.
 

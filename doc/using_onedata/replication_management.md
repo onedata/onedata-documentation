@@ -61,8 +61,8 @@ Requests are listed in the table below, with attached links to their comprehensi
 |:--------------------------------------------|:-------------------------------------------------------------------------------------------:|
 | Get replicas by path                        | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_replicas) |
 | Get replicas by ID                          | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_replicas_by_id)|
-| Replicate file or folder by path            | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file)         |
-| Replicate file or folder by ID              | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_id)   |
+| Replicate file or directory by path         | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file)         |
+| Replicate file or directory by ID           | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_id)   |
 | Replicate files by view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_view)|
 | Evict/migrate existing replica by file path | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica)|
 | Evict/migrate existing replica by file ID   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica_by_id)|

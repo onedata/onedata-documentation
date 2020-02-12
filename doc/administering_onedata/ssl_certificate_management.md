@@ -3,7 +3,7 @@
 <!-- toc -->
 
 All Onedata components require certain X.509 certificates to be installed in
-specific folders in order to properly handle TLS connections with clients.
+specific directory in order to properly handle TLS connections with clients.
 
 Depending on the type of services which is being installed, Onepanel will
 look for certificates under the following paths:

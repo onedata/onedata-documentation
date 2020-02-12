@@ -343,7 +343,7 @@ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
-folder (inside container). They can be accessed from another terminal,
+directory (inside container). They can be accessed from another terminal,
 for instance using:
 ```bash
 docker exec -it oneclient-1 /bin/bash

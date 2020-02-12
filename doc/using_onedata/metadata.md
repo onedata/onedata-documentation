@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-Onedata comes with an extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, folders, spaces and users.
+Onedata comes with an extensive support for metadata management, which can be used to describe all kinds of resources in Onedata including files, directories, spaces and users.
 
 ## Metadata types in Onedata
 Metadata in Onedata are organized into 3 levels:
@@ -26,9 +26,9 @@ This section describes typical filesystem metadata attributes. The list of attri
 | **ctime**            | 1470304148                               | Unix last status change timestamp                  |
 | **storage_group_id** | 1470304148                               | Gid of the storage group owner of this file (the same Gid is displayed via `oneclient`) |
 | **storage_user_id**  | 1470304148                               | Uid of the storage owner of this file    |
-| **name**             | file.txt                                 | The name of the object (Space, folder or file) |
-| **owner_id**         | 79c0ed35-f32e-4db3-a87f-76a588c9b2f9     | ID of the file owner                     |
-| **shares**           | ["b3-a87f-76a588c9b279c0ed35-f32e-4db", ...] | Array of share Id's associated with this file or folder |
+| **name**             | file.txt                                 | The name of the object (Space, directory or file) |
+| **owner_id**         | 79c0ed35f32e43db3a87f76a588c9b2f9        | ID of the file owner                     |
+| **shares**           | ["b3a87f76a588c9b279c0ed35f32e4db", ...] | Array of share Id's associated with this file or directory |
 | **type**             | 'reg'                                    | Specifies whether the resource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
 
 
@@ -45,7 +45,7 @@ Graphical user interface provides means for editing extended attributes in the f
 
 <img  style="display:block;margin:0 auto;" src="../img/edit_metadata_extended.png">
 
-The extended metadata values can be assigned to either files or folders.
+The extended metadata values can be assigned to either files or directories.
 
 ### Setting extended attributes using REST API
 
@@ -246,7 +246,7 @@ Model that stores basic file metadata, such as:
 * `owner` - Id of an owner of the file
 * `group_owner` - Id of a group owner of the file
 * `provider_id` - Id of a provider on which the file was created
-* `shares` - list of share Id's associated with this file or folder
+* `shares` - list of share Id's associated with this file or directory
 * `deleted` - flag informing that file was marked to be deleted
 
 #### Times model

@@ -32,7 +32,7 @@ You can disable the link to the file you previously shared:
 ### Web interface
 All files in Onedata are organized in spaces. The Web User interface allows for uploading new files as well as opening existing files.
 
-In order to upload a file simply open the folder in which the file should be placed and drag the file into the browser window:
+In order to upload a file simply open the directory in which the file should be placed and drag the file into the browser window:
 
 <img  style="display:block;margin:0 auto;" src="../img/draganddrop.png">
 
