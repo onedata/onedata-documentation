@@ -221,7 +221,7 @@
         ],
         "summary": "Create new user",
         "x-bash-codegen-description": "Creates a new user.\n\nThis operation requires `oz_users_create` admin privilege.\n",
-        "description": "Creates a new user.\n\nThis operation requires `oz_users_create` admin privilege.\n\n***Example cURL requests***\n\n**Create new user**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"username\" : \"new_user\", \"password\": \"lS1c6FD2mxB2ff\" }' \\\nhttps://$HOST/api/v3/onezone/users\n```\n",
+        "description": "Creates a new user.\n\nThis operation requires `oz_users_create` admin privilege.\n\n***Example cURL requests***\n\n**Create new user**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"username\" : \"new_user\", \"password\": \"lS1c6FD2mxB2ff\" }' \\\nhttps://$HOST/api/v3/onezone/users\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -441,7 +441,7 @@
         },
         "summary": "Change user's basic auth settings",
         "x-bash-codegen-description": "Changes user's basic auth settings - the ability to authenticate with\nusername & password, and/or the password itself.\n\nThis operation requires `oz_users_manage_passwords` admin privilege.\n",
-        "description": "Changes user's basic auth settings - the ability to authenticate with\nusername & password, and/or the password itself.\n\nThis operation requires `oz_users_manage_passwords` admin privilege.\n\n***Example cURL requests***\n\n**Change user's basic auth settings**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"basicAuthEnabled\": true, \"newPassword\": \"password123\"}' \\\nhttps://$HOST/api/v3/onezone/users/c5cb69ce45940468596ed16310a45e49/basic_auth\n```\n",
+        "description": "Changes user's basic auth settings - the ability to authenticate with\nusername & password, and/or the password itself.\n\nThis operation requires `oz_users_manage_passwords` admin privilege.\n\n***Example cURL requests***\n\n**Change user's basic auth settings**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"basicAuthEnabled\": true, \"newPassword\": \"password123\"}' \\\nhttps://$HOST/api/v3/onezone/users/c5cb69ce45940468596ed16310a45e49/basic_auth\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -618,7 +618,7 @@
         ],
         "summary": "Update user's admin privileges",
         "x-bash-codegen-description": "Updates user's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n",
-        "description": "Updates user's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n\n***Example cURL requests***\n\n**Updates user's admin privileges in Onezone**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"oz_spaces_list\"], \"revoke\": [\"oz_groups_update\"]}' \\\nhttps://$HOST/api/v3/onezone/users/$USER_ID/privileges\n```\n",
+        "description": "Updates user's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n\n***Example cURL requests***\n\n**Updates user's admin privileges in Onezone**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"oz_spaces_list\"], \"revoke\": [\"oz_groups_update\"]}' \\\nhttps://$HOST/api/v3/onezone/users/$USER_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -988,7 +988,7 @@
         },
         "summary": "Modify current user",
         "x-bash-codegen-description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Change user fullName**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"fullName\": \"John Doe\"}' \\\nhttps://$HOST/api/v3/onezone/user\n```\n",
+        "description": "Modifies user account details based on information provided in the request body.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Change user fullName**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"fullName\": \"John Doe\"}' \\\nhttps://$HOST/api/v3/onezone/user\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1114,7 +1114,7 @@
         },
         "summary": "Change user's password",
         "x-bash-codegen-description": "Changes user's password, the old password must be given.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Changes user's password, the old password must be given.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Change user's password**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"oldPassword\": \"password\", \"newPassword\": \"password123\"}' \\\nhttps://$HOST/api/v3/onezone/user/password\n```\n",
+        "description": "Changes user's password, the old password must be given.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Change user's password**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PATCH  \\\n-d '{\"oldPassword\": \"password\", \"newPassword\": \"password123\"}' \\\nhttps://$HOST/api/v3/onezone/user/password\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -1345,7 +1345,7 @@
         ],
         "summary": "Update current user's admin privileges",
         "x-bash-codegen-description": "Updates currently authenticated user's admin privileges in Onezone.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_set_privileges` admin privilege.\n",
-        "description": "Updates currently authenticated user's admin privileges in Onezone.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Updates current user's admin privileges in Onezone**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"oz_spaces_list\"], \"revoke\": [\"oz_groups_update\"]}' \\\nhttps://$HOST/api/v3/onezone/user/privileges\n```\n",
+        "description": "Updates currently authenticated user's admin privileges in Onezone.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Updates current user's admin privileges in Onezone**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"oz_spaces_list\"], \"revoke\": [\"oz_groups_update\"]}' \\\nhttps://$HOST/api/v3/onezone/user/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -1739,386 +1739,6 @@
         ]
       }
     },
-    "/user/default_space": {
-      "get": {
-        "operationId": "get_default_space",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_space"
-        },
-        "summary": "Get default space",
-        "x-bash-codegen-description": "Returns the Id of the default users space.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the Id of the default users space.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user default space**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/default_space\n\n{\n  \"spaceId\": \"undefined\"\n}\n```\n",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the Id of the default user space or 'undefined' in case no space is selected as default.",
-            "schema": {
-              "$ref": "#/definitions/DefaultSpace"
-            }
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli getDefaultSpace"
-          }
-        ]
-      },
-      "put": {
-        "operationId": "set_default_space",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_space"
-        },
-        "summary": "Set default space",
-        "x-bash-codegen-description": "Sets default space for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Sets default space for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set user default space**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{ \"spaceId\" : \"S0Y9FSeSrVTXCTmCpgqfH4-_Dw3Uc9TFJFFzzLtBEs8\" }' \\\nhttps://$HOST/api/v3/onezone/user/default_space\n```\n",
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "Default space set successfully."
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "defaultspace",
-            "in": "body",
-            "description": "Default Space Id.",
-            "schema": {
-              "$ref": "#/definitions/DefaultSpace"
-            },
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli setDefaultSpace spaceId==135043853efbfb34b892b30545ab4d81"
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "remove_default_space",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_space"
-        },
-        "summary": "Unset default space",
-        "x-bash-codegen-description": "Removes default space setting for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Removes default space setting for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set user default space**\n```bash\ncurl -u username:password  -X DELETE \\\nhttps://$HOST/api/v3/onezone/user/default_space\n```\n",
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "Default space was removed."
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli removeDefaultSpace"
-          }
-        ]
-      }
-    },
-    "/user/default_provider": {
-      "get": {
-        "operationId": "get_default_provider",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_provider"
-        },
-        "summary": "Get default provider",
-        "x-bash-codegen-description": "Returns the Id of the default provider.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the Id of the default provider.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user default provider**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/default_provider\n\n{\n  \"providerId\": \"95b663a6467c72ab1256865efef9e387\"\n}\n```\n",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the Id of the default user provider or '404'.",
-            "schema": {
-              "$ref": "#/definitions/DefaultProvider"
-            }
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli getDefaultProvider"
-          }
-        ]
-      },
-      "put": {
-        "operationId": "set_default_provider",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_provider"
-        },
-        "summary": "Set default provider",
-        "x-bash-codegen-description": "Sets default provider for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Sets default provider for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set user default provider**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n-d '{ \"providerId\" : \"S0Y9FSeSrVTXCTmCpgqfH4-_Dw3Uc9TFJFFzzLtBEs8\" }' \\\nhttps://$HOST/api/v3/onezone/user/default_provider\n```\n",
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "Default provider set successfully."
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "defaultprovider",
-            "in": "body",
-            "description": "Default provider Id.",
-            "schema": {
-              "$ref": "#/definitions/DefaultProvider"
-            },
-            "required": true
-          }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli setDefaultProvider providerId==135043853efbfb34b892b30545ab4d81"
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "remove_default_provider",
-        "tags": [
-          "User"
-        ],
-        "x-onedata-gri": {
-          "type": "od_user",
-          "id": "?CLIENT_ID",
-          "aspect": "default_provider"
-        },
-        "summary": "Unset default provider",
-        "x-bash-codegen-description": "Removes default provider setting for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Removes default provider setting for the current user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set user default space**\n```bash\ncurl -u username:password  -X DELETE \\\nhttps://$HOST/api/v3/onezone/user/default_provider\n```\n",
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "204": {
-            "description": "Default provider removed successfully."
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Authentication error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Authorization error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Resource not found.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal server Error.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "Shell",
-            "source": "onezone-rest-cli removeDefaultProvider"
-          }
-        ]
-      }
-    },
     "/user/idp_access_token/{idp}": {
       "post": {
         "operationId": "acquire_idp_access_token",
@@ -2265,7 +1885,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Create a new group for the current user",
         "x-bash-codegen-description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups\n```\n",
+        "description": "Creates a new group for the current user.\nThe user automatically becomes a member of this group.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2342,7 +1962,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Join group",
         "x-bash-codegen-description": "Join existing group using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Join existing group using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join group**\n\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"token\": \"9ef3973a007d616cb6b3e95829dec18a\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups/join\n```\n",
+        "description": "Join existing group using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join group**\n\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"token\": \"9ef3973a007d616cb6b3e95829dec18a\" }' \\\nhttps://$HOST/api/v3/onezone/user/groups/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2697,13 +2317,13 @@
         },
         "summary": "List user spaces",
         "x-bash-codegen-description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user spaces**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/spaces\n\n{\n  \"spaces\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ],\n  \"default\": \"undefined\"\n}\n```\n",
+        "description": "Returns the list of users' spaces.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user spaces**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/spaces\n\n{\n  \"spaces\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Returns the list of user spaces, including information which space is default.\n",
+            "description": "Returns the list of user spaces.\n",
             "schema": {
               "type": "object",
               "properties": {
@@ -2713,10 +2333,6 @@
                   "items": {
                     "type": "string"
                   }
-                },
-                "default": {
-                  "description": "The Id of the default user space.",
-                  "type": "string"
                 }
               }
             }
@@ -2771,7 +2387,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Create a new space for the current user",
         "x-bash-codegen-description": "Creates a new space as current user. The user automaticaly becomes\nthe spaces' member.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Creates a new space as current user. The user automaticaly becomes\nthe spaces' member.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new user space**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"name\" : \"test_space\"}' https://$HOST/api/v3/onezone/user/spaces\n```\n",
+        "description": "Creates a new space as current user. The user automaticaly becomes\nthe spaces' member.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new user space**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"name\" : \"test_space\"}' https://$HOST/api/v3/onezone/user/spaces\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -2848,7 +2464,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Join space",
         "x-bash-codegen-description": "Join existing space using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Join existing space using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join an existing space**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/spaces/join\n```\n",
+        "description": "Join existing space using an invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join an existing space**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/spaces/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -3055,6 +2671,7 @@
     },
     "/user/spaces/{sid}/alias": {
       "get": {
+        "deprecated": true,
         "operationId": "get_user_space_alias",
         "tags": [
           "User"
@@ -3065,8 +2682,8 @@
           "aspect": "{space_alias, ?BINDING(sid)}"
         },
         "summary": "Get user space alias",
-        "x-bash-codegen-description": "Returns the alias of a specific space.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the alias of a specific space.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get space alias**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n\n{\n  \"alias\": \"Test space 2\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns the alias (user defined name) for a specific space. Will return\n404 NOT FOUND if no alias is defined for the space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n",
+        "description": "Returns the alias (user defined name) for a specific space. Will return\n404 NOT FOUND if no alias is defined for the space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get space alias**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n\n{\n  \"alias\": \"Test space 2\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3125,6 +2742,7 @@
         ]
       },
       "put": {
+        "deprecated": true,
         "operationId": "set_user_space_alias",
         "tags": [
           "User"
@@ -3135,8 +2753,8 @@
           "aspect": "{space_alias, ?BINDING(sid)}"
         },
         "summary": "Set user space alias",
-        "x-bash-codegen-description": "Sets the alias of a specific space.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Sets the alias of a specific space.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set space alias**\n```bash\ncurl -u username:password -X PUT -d '{\"alias\": \"Space alias\"}' \\\n-H 'Content-type: application/json' \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n```\n",
+        "x-bash-codegen-description": "Sets the alias (user defined name) for a specific space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n",
+        "description": "Sets the alias (user defined name) for a specific space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Set space alias**\n```bash\ncurl -u username:password -X PUT -d '{\"alias\": \"Space alias\"}' \\\n-H 'Content-type: application/json' \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -3204,6 +2822,7 @@
         ]
       },
       "delete": {
+        "deprecated": true,
         "operationId": "remove_user_space_alias",
         "tags": [
           "User"
@@ -3214,8 +2833,8 @@
           "aspect": "{space_alias, ?BINDING(sid)}"
         },
         "summary": "Remove space alias",
-        "x-bash-codegen-description": "Removes the space alias.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Removes the space alias.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Remove user space alias**\n```bash\ncurl -u username:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n```\n",
+        "x-bash-codegen-description": "Removes the alias (user defined name) for a specific space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n",
+        "description": "Removes the alias (user defined name) for a specific space.\n\nNOTE: Space aliases are not yet implemented - setting an alias is possible\nbut will have no effect.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Remove user space alias**\n```bash\ncurl -u username:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/user/spaces/$SPACE_ID/alias\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3486,7 +3105,7 @@
         "x-onedata-auth-hint": "?THROUGH_USER(?CLIENT_ID)",
         "summary": "Get user's effective provider details",
         "x-bash-codegen-description": "Returns information about a specific effective provider for the user.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns information about a specific effective provider for the user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user effective provider**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_providers/$PROVIDER_ID\n\n{\n  \"providerId\":\"95b663a6467c72ab1256865efef9e387\",\n  \"name\": \"provider2\",\n  \"domain\": \"provider2.beta.onedata.org\",\n  \"latitude\": 50.0647,\n  \"longitude\": 19.9450\n}\n```\n",
+        "description": "Returns information about a specific effective provider for the user.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user effective provider**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_providers/$PROVIDER_ID\n\n{\n  \"providerId\":\"95b663a6467c72ab1256865efef9e387\",\n  \"name\": \"provider2\",\n  \"domain\": \"provider2.onezone.example.com\",\n  \"latitude\": 50.0647,\n  \"longitude\": 19.9450\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -3695,7 +3314,7 @@
         ],
         "summary": "Create a new handle service for the current user",
         "x-bash-codegen-description": "Allows to register a new handle service.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_handle_service_create` admin privilege.\n",
-        "description": "Allows to register a new handle service.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_handle_service_create` admin privilege.\n\n***Example cURL requests***\n\n**Add user handle services**\n```bash\ncurl -u username:password -X POST  -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/user/handle_services\n```\n",
+        "description": "Allows to register a new handle service.\n\nThis operation can be invoked on behalf of the current user only and requires\n`oz_handle_service_create` admin privilege.\n\n***Example cURL requests***\n\n**Add user handle services**\n```bash\ncurl -u username:password -X POST -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/user/handle_services\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4049,7 +3668,7 @@
         },
         "summary": "List user handles",
         "x-bash-codegen-description": "Returns the list of users' handles.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the list of users' handles.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/handles\n\n{\n  \"handles\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of users' handles.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/handles\n\n{\n  \"handles\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -4113,7 +3732,7 @@
         ],
         "summary": "Create a new handle for the current user",
         "x-bash-codegen-description": "Creates a new handle as current user.\n\nThis operation can be invoked on behalf of the current user only and requires\n'handle_service_register_handle' privilege in the handle service\nwhere the new handle is to be registered\n",
-        "description": "Creates a new handle as current user.\n\nThis operation can be invoked on behalf of the current user only and requires\n'handle_service_register_handle' privilege in the handle service\nwhere the new handle is to be registered\n\n***Example cURL requests***\n\n**Create new user handle**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"handleServiceId\": \"ddb06ed993bae95f2f430664fff122f7\", \"resourceType\": \"Share\", \"resourceId\": \"4fa683cbda8d8f686d15d42720af431d\", \"metadata\": \"<?xml version=\\'1.0\\'?>...\" }'\nhttps://$HOST/api/v3/onezone/user/handles\n```\n",
+        "description": "Creates a new handle as current user.\n\nThis operation can be invoked on behalf of the current user only and requires\n'handle_service_register_handle' privilege in the handle service\nwhere the new handle is to be registered\n\n***Example cURL requests***\n\n**Create new user handle**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"handleServiceId\": \"ddb06ed993bae95f2f430664fff122f7\", \"resourceType\": \"Share\", \"resourceId\": \"4fa683cbda8d8f686d15d42720af431d\", \"metadata\": \"<?xml version=\\'1.0\\'?>...\" }'\nhttps://$HOST/api/v3/onezone/user/handles\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4468,13 +4087,13 @@
         },
         "summary": "List user harvesters",
         "x-bash-codegen-description": "Returns the list of users' harvesters.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the list of users' harvesters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user harvesters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/harvesters\n\n{\n  \"harvesters\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ],\n  \"default\": \"undefined\"\n}\n```\n",
+        "description": "Returns the list of users' harvesters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user harvesters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/harvesters\n\n{\n  \"harvesters\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Returns the list of user harvesters, including information which harvester is default.\n",
+            "description": "Returns the list of user harvesters.\n",
             "schema": {
               "type": "object",
               "properties": {
@@ -4484,10 +4103,6 @@
                   "items": {
                     "type": "string"
                   }
-                },
-                "default": {
-                  "description": "The Id of the default user harvester.",
-                  "type": "string"
                 }
               }
             }
@@ -4542,7 +4157,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Create a new harvester for the current user",
         "x-bash-codegen-description": "Creates a new harvester as current user. The user automaticaly becomes\nthe harvesters' member.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Creates a new harvester as current user. The user automaticaly becomes\nthe harvesters' member.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new user harvester**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"config\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n             \"externalHelpLink\": \"http://example.com/some_help_page\",\n             \"refreshDataTimeout\": 1000 }, \\\nhttps://$HOST/api/v3/onezone/user/harvesters\n```\n",
+        "description": "Creates a new harvester as current user. The user automaticaly becomes\nthe harvesters' member.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Create new user harvester**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"config\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n             \"externalHelpLink\": \"http://example.com/some_help_page\",\n             \"refreshDataTimeout\": 1000 }, \\\nhttps://$HOST/api/v3/onezone/user/harvesters\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4619,7 +4234,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Join harvester",
         "x-bash-codegen-description": "Join existing harvester using invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Join existing harvester using invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join existing harvester**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/harvesters/join\n```\n",
+        "description": "Join existing harvester using invitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join existing harvester**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/harvesters/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -4974,7 +4589,7 @@
         },
         "summary": "List user's clusters",
         "x-bash-codegen-description": "Returns the list of user's clusters.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the list of user's clusters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user's clusters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/clusters\n\n{\n  \"clusters\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of user's clusters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user's clusters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/clusters\n\n{\n  \"clusters\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5103,7 +4718,7 @@
         "x-onedata-auth-hint": "?AS_USER(?CLIENT_ID)",
         "summary": "Join cluster",
         "x-bash-codegen-description": "Join an existing cluster using an inivitation token.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Join an existing cluster using an inivitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join an existing cluster**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/clusters/join\n```\n",
+        "description": "Join an existing cluster using an inivitation token.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Join an existing cluster**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/user/clusters/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -5321,7 +4936,7 @@
         },
         "summary": "List user's effective clusters",
         "x-bash-codegen-description": "Returns the list of user's effective clusters.\n\nThis operation can be invoked on behalf of the current user only.\n",
-        "description": "Returns the list of user's effective clusters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user's effective clusters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_clusters\n\n{\n  \"clusters\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of user's effective clusters.\n\nThis operation can be invoked on behalf of the current user only.\n\n***Example cURL requests***\n\n**Get user's effective clusters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/user/effective_clusters\n\n{\n  \"clusters\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -5523,7 +5138,7 @@
         ],
         "summary": "Create new group",
         "x-bash-codegen-description": "Creates a new group.\n\nThis operation requires `oz_groups_create` privilege.\n",
-        "description": "Creates a new group.\n\nThis operation requires `oz_groups_create` privilege.  \n\nSee also:  \n[Create a new group for the current user](#operation/create_group_for_user)  \n[Create a new parent group for given group](#operation/create_parent_group)  \n\n***Example cURL requests***\n\n**Create new group of type `team`**\n```bash\n curl -u username:password  -H \"Content-type: application/json\" \\\n -X POST -d '{ \"name\":\"new_group\" , \"type\":\"team\" }' \\\n https://$HOST/api/v3/onezone/groups/$GROUP_ID\n```\n",
+        "description": "Creates a new group.\n\nThis operation requires `oz_groups_create` privilege.  \n\nSee also:  \n[Create a new group for the current user](#operation/create_group_for_user)  \n[Create a new parent group for given group](#operation/create_parent_group)  \n\n***Example cURL requests***\n\n**Create new group of type `team`**\n```bash\n curl -u username:password -H \"Content-type: application/json\" \\\n -X POST -d '{ \"name\":\"new_group\" , \"type\":\"team\" }' \\\n https://$HOST/api/v3/onezone/groups/$GROUP_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -5728,7 +5343,7 @@
         ],
         "summary": "Modify group details",
         "x-bash-codegen-description": "Updates the details about a group.\n\nThis operation requires `group_update` privilege.\nFor administrator who does not belong to this group\n`oz_groups_update` privilege is required.\n",
-        "description": "Updates the details about a group.\n\nThis operation requires `group_update` privilege.\nFor administrator who does not belong to this group\n`oz_groups_update` privilege is required.\n\n***Example cURL requests***\n\n**Modify group name**\n```bash\ncurl -i -u admin:password  -H \"Content-type: application/json\" \\\n-X PATCH -d '{\"name\": \"new_group_name\"}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID\n```\n",
+        "description": "Updates the details about a group.\n\nThis operation requires `group_update` privilege.\nFor administrator who does not belong to this group\n`oz_groups_update` privilege is required.\n\n***Example cURL requests***\n\n**Modify group name**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" \\\n-X PATCH -d '{\"name\": \"new_group_name\"}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -6049,7 +5664,7 @@
         ],
         "summary": "Remove group's admin privileges",
         "x-bash-codegen-description": "Removes all group's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n",
-        "description": "Removes all group's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n\n***Example cURL requests***\n\n**Remove all group's admin privileges in Onezone**\n```bash\ncurl -i -u username:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/privileges\n```\n",
+        "description": "Removes all group's (`{id}`) admin privileges in Onezone.\n\nThis operation requires `oz_set_privileges` admin privilege.\n\n***Example cURL requests***\n\n**Remove all group's admin privileges in Onezone**\n```bash\ncurl -u username:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The group admin privileges have been removed."
@@ -6973,7 +6588,7 @@
         ],
         "summary": "List effective user's group privileges",
         "x-bash-codegen-description": "Returns the list of effective user's (`{uid}`) privileges in a group (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires `group_view_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_view_privileges` privilege is required.\n",
-        "description": "Returns the list of effective user's (`{uid}`) privileges in a group (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires `group_view_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_view_privileges` privilege is required.\n\n***Example cURL requests***\n\n**List effective user's privileges in a group**\n```bash\ncurl -i -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"group_view\",\n    \"group_update\",\n    \"group_delete\",\n    \"group_view_privileges\",\n    \"group_set_privileges\"\n  ]\n}\n```\n",
+        "description": "Returns the list of effective user's (`{uid}`) privileges in a group (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires `group_view_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_view_privileges` privilege is required.\n\n***Example cURL requests***\n\n**List effective user's privileges in a group**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"group_view\",\n    \"group_update\",\n    \"group_delete\",\n    \"group_view_privileges\",\n    \"group_set_privileges\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -7069,7 +6684,7 @@
         ],
         "summary": "Get effective user's group membership intermediaries",
         "x-bash-codegen-description": "Returns the effective user's (`{uid}`) group membership intermediaries -\nentities from which the user inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the group (`{id}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n",
-        "description": "Returns the effective user's (`{uid}`) group membership intermediaries -\nentities from which the user inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the group (`{id}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's group membership intermediaries**\n```bash\ncurl -i -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"group\", \"id\": \"self\"}\n  ]\n}\n```\n",
+        "description": "Returns the effective user's (`{uid}`) group membership intermediaries -\nentities from which the user inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the group (`{id}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's group membership intermediaries**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"group\", \"id\": \"self\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -7227,7 +6842,7 @@
         ],
         "summary": "Create a new parent group for given group",
         "x-bash-codegen-description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_groups_create` privileges are required.\n",
-        "description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_groups_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/parents\n```\n",
+        "description": "Creates a new group for the current group.\nThe group automatically becomes a member of this group.\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_groups_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new group**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"test_group\" , \"type\" : \"team\" }' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/parents\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -7315,7 +6930,7 @@
         ],
         "summary": "Join parent group",
         "x-bash-codegen-description": "Adds given group as a child group of a specific group based on provided token.\n\nThe parent group to which the group will be added is identified from the\ntoken (the token is issued in the context of a group).\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` privilege is required.\n",
-        "description": "Adds given group as a child group of a specific group based on provided token.\n\nThe parent group to which the group will be added is identified from the token\n(the token is issued in the context of a group).\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Join parent group**\n\n```bash\ncurl  -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d  '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\"}'  \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/parents/join\n```\n",
+        "description": "Adds given group as a child group of a specific group based on provided token.\n\nThe parent group to which the group will be added is identified from the token\n(the token is issued in the context of a group).\n\nThis operation requires `group_add_parent` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Join parent group**\n\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d  '{\"token\":\"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\"}'  \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/parents/join\n```\n",
         "responses": {
           "201": {
             "description": "URI of the joined group in form https://$HOST/api/onezone/v3/groups/{id}/parents/{pid} is returned in the response `Location` header.\n",
@@ -8303,7 +7918,7 @@
         ],
         "summary": "Update child's group privileges",
         "x-bash-codegen-description": "Updates child group's (`{cid}`) privileges in a group (`{id}`).\n\nThis operation requires `group_set_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_set_privileges` privilege is required.\n",
-        "description": "Updates child group's (`{cid}`) privileges in a group (`{id}`).\n\nThis operation requires `group_set_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update child group's privileges in a group**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"group_view\", \"group_update\"], \"revoke\": [\"group_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/children/$CHILD_GROUP_ID/privileges\n```\n",
+        "description": "Updates child group's (`{cid}`) privileges in a group (`{id}`).\n\nThis operation requires `group_set_privileges` privilege.\nFor administrator who does not belong to this group\n`oz_groups_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update child group's privileges in a group**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PATCH \\\n-d '{\"grant\": [\"group_view\", \"group_update\"], \"revoke\": [\"group_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/children/$CHILD_GROUP_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -8646,7 +8261,7 @@
         ],
         "summary": "Get effective child's group membership intermediaries",
         "x-bash-codegen-description": "Returns the effective child's (`{cid}`) group membership intermediaries -\nentities from which the child inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the child (`{cid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the child group (`{cid}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n",
-        "description": "Returns the effective child's (`{cid}`) group membership intermediaries -\nentities from which the child inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the child (`{cid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the child group (`{cid}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective child's group membership intermediaries**\n```bash\ncurl -i -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_children/$CHILD_GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"group\", \"id\": \"self\"}\n  ]\n}\n```\n",
+        "description": "Returns the effective child's (`{cid}`) group membership intermediaries -\nentities from which the child inherits access to the group (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the child (`{cid}`)\nhas a direct access to the group (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the child group (`{cid}`),\n* as user who has `group_view` privilege in the group (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective child's group membership intermediaries**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_children/$CHILD_GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"group\", \"id\": \"self\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -8804,7 +8419,7 @@
         ],
         "summary": "Create a new space for given group",
         "x-bash-codegen-description": "Creates a new space for a specific group.\n\nThis operation requires `group_add_space` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_spaces_create` privileges are required.\n",
-        "description": "Creates a new space for a specific group.\n\nThis operation requires `group_add_space` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_spaces_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new space for group**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" \\\n-X POST -d '{\"name\": \"new_space\"}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/spaces\n```\n",
+        "description": "Creates a new space for a specific group.\n\nThis operation requires `group_add_space` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_spaces_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new space for group**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" \\\n-X POST -d '{\"name\": \"new_space\"}' \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/spaces\n```\n",
         "produces": [
           "application/json"
         ],
@@ -9381,7 +8996,7 @@
         ],
         "summary": "Get group's effective provider details",
         "x-bash-codegen-description": "Returns information about a specific effective provider for the group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_providers_view` privilege is required.\n",
-        "description": "Returns information about a specific effective provider for the group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_providers_view` privilege is required.\n\n***Example cURL requests***\n\n**Get group's effective provider details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_providers/$PROVIDER_ID\n\n{\n  \"name\": \"provider1\",\n  \"providerId\": \"7e1af0c5f0bfdfe9d2e7edb731247f5f\",\n  \"domain\": \"provider1.beta.onedata.org\",\n  \"latitude\": 50.0647,\n  \"longitude\": 19.9450\n}\n```\n",
+        "description": "Returns information about a specific effective provider for the group.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_providers_view` privilege is required.\n\n***Example cURL requests***\n\n**Get group's effective provider details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_providers/$PROVIDER_ID\n\n{\n  \"name\": \"provider1\",\n  \"providerId\": \"7e1af0c5f0bfdfe9d2e7edb731247f5f\",\n  \"domain\": \"provider1.onezone.example.com\",\n  \"latitude\": 50.0647,\n  \"longitude\": 19.9450\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -9622,7 +9237,7 @@
         ],
         "summary": "Create a new handle service for given group.",
         "x-bash-codegen-description": "Creates a new handle service for given group.\n\nThis operation requires `group_create_handle_service` privilege and\n`oz_handle_services_create` admin privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_create` and `oz_groups_add_relationships` privileges are required.\n",
-        "description": "Creates a new handle service for group.\n\nThis operation requires `group_create_handle_service` privilege and\n`oz_handle_services_create` admin privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_create` and `oz_groups_add_relationships` privileges are required.\n\n***Example cURL requests***\n\n**Add group handle services**\n```bash\ncurl -u username:password -X POST  -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/groups/4ebd9efd1e67f6c18695db1d762a914a/handle_services\n```\n",
+        "description": "Creates a new handle service for group.\n\nThis operation requires `group_create_handle_service` privilege and\n`oz_handle_services_create` admin privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_create` and `oz_groups_add_relationships` privileges are required.\n\n***Example cURL requests***\n\n**Add group handle services**\n```bash\ncurl -u username:password -X POST -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/groups/4ebd9efd1e67f6c18695db1d762a914a/handle_services\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -10034,7 +9649,7 @@
         ],
         "summary": "List group handles",
         "x-bash-codegen-description": "Returns the list of groups handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n",
-        "description": "Returns the list of groups handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Get group handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/handles\n\n{\n  \"handles\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of groups handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Get group handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/handles\n\n{\n  \"handles\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -10110,7 +9725,7 @@
         ],
         "summary": "Create a new handle for given group",
         "x-bash-codegen-description": "Creates a new handle on behalf of a group.\n\nThis operation requires `group_create_handle` privilege in the group and\n`handle_service_register_handle` privilege in the handle service specified\nin the `handleServiceId` field.  \nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_handles_create` privilege is required.\n",
-        "description": "Creates a new handle on behalf of a group.\n\nThis operation requires `group_create_handle` privilege in the group and\n`handle_service_register_handle` privilege in the handle service specified\nin the `handleServiceId` field.  \nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_handles_create` privilege is required.\n\n\n***Example cURL requests***\n\n**Create new group handle**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"handleServiceId\": \"ddb06ed993bae95f2f430664fff122f7\", \"resourceType\": \"Share\", \"resourceId\": \"4fa683cbda8d8f686d15d42720af431d\", \"metadata\": \"<?xml version=\\'1.0\\'?>...\" }'\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/handles\n```\n",
+        "description": "Creates a new handle on behalf of a group.\n\nThis operation requires `group_create_handle` privilege in the group and\n`handle_service_register_handle` privilege in the handle service specified\nin the `handleServiceId` field.  \nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_handles_create` privilege is required.\n\n\n***Example cURL requests***\n\n**Create new group handle**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"handleServiceId\": \"ddb06ed993bae95f2f430664fff122f7\", \"resourceType\": \"Share\", \"resourceId\": \"4fa683cbda8d8f686d15d42720af431d\", \"metadata\": \"<?xml version=\\'1.0\\'?>...\" }'\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/handles\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -10362,7 +9977,7 @@
         ],
         "summary": "List effective group handles",
         "x-bash-codegen-description": "Returns the list of effective groups' handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n",
-        "description": "Returns the list of effective groups' handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**List effective group handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_handles\n\n{\n  \"handles\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of effective groups' handles.\n\nThis operation requires `group_view` privilege.\nFor administrator who does not belong to this group\n`oz_groups_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**List effective group handles**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_handles\n\n{\n  \"handles\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -10598,7 +10213,7 @@
         ],
         "summary": "Create a new harvester for given group",
         "x-bash-codegen-description": "Creates a new harvester for a specific group.\n\nThis operation requires `group_add_harvester` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_harvesters_create` privileges are required.\n",
-        "description": "Creates a new harvester for a specific group.\n\nThis operation requires `group_add_harvester` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_harvesters_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new harvester for group**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"config\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n             \"externalHelpLink\": \"http://example.com/some_help_page\",\n             \"refreshDataTimeout\": 1000 }, \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/harvesters\n```\n",
+        "description": "Creates a new harvester for a specific group.\n\nThis operation requires `group_add_harvester` privilege.\nFor administrator who does not belong to this group\n`oz_groups_add_relationships` and `oz_harvesters_create` privileges are required.\n\n***Example cURL requests***\n\n**Create new harvester for group**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"config\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n             \"externalHelpLink\": \"http://example.com/some_help_page\",\n             \"refreshDataTimeout\": 1000 }, \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/harvesters\n```\n",
         "produces": [
           "application/json"
         ],
@@ -11086,7 +10701,7 @@
         },
         "summary": "List group's clusters",
         "x-bash-codegen-description": "Returns the list of clusters to which the group has access.\n",
-        "description": "Returns the list of clusters to which the group has access.\n\n***Example cURL requests***\n\n**Get group's clusters**\n```bash\ncurl -u groupname:password -X GET \\\nhttps://$HOST/api/v3/onezone/group/GVC8lKEasj4q253sptVqF8HwUpk8j/clusters\n\n{\n  \"clusters\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of clusters to which the group has access.\n\n***Example cURL requests***\n\n**Get group's clusters**\n```bash\ncurl -u groupname:password -X GET \\\nhttps://$HOST/api/v3/onezone/group/GVC8lKEasj4q253sptVqF8HwUpk8j/clusters\n\n{\n  \"clusters\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -11158,7 +10773,7 @@
         "x-onedata-auth-hint": "?AS_GROUP(?BINDING(id))",
         "summary": "Join group to a cluster",
         "x-bash-codegen-description": "Join an existing cluster using an inivitation token.\n",
-        "description": "Join an existing cluster using an inivitation token.\n\n***Example cURL requests***\n\n**Join group to an existing cluster**\n```bash\ncurl -u admin:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/clusters/join\n```\n",
+        "description": "Join an existing cluster using an inivitation token.\n\n***Example cURL requests***\n\n**Join group to an existing cluster**\n```bash\ncurl -u admin:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"token\" : \"MDAxNmxvY2F00aW9uRVM2TVo5UlZ5cGFjZV9jcmLciFsOgyUkPI3f02le6PM01IX8go\" }'  \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/clusters/join\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -11397,7 +11012,7 @@
         },
         "summary": "List group's effective clusters",
         "x-bash-codegen-description": "Returns the list of effective clusters to which the group has access.\n",
-        "description": "Returns the list of effective clusters to which the group has access.\n\n***Example cURL requests***\n\n**Get group's effective clusters**\n```bash\ncurl -u groupname:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_clusters\n\n{\n  \"clusters\": [\n    \"IkHB2CCoAFm5FCswhAJynbFU4fj26yiE1lhpK3p-0Y8\"\n  ]\n}\n```\n",
+        "description": "Returns the list of effective clusters to which the group has access.\n\n***Example cURL requests***\n\n**Get group's effective clusters**\n```bash\ncurl -u groupname:password -X GET \\\nhttps://$HOST/api/v3/onezone/groups/$GROUP_ID/effective_clusters\n\n{\n  \"clusters\": [\n    \"c45fb16186931e6c2b44648cedd6b878ed1f6931\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -11615,7 +11230,7 @@
         ],
         "summary": "Create new space",
         "x-bash-codegen-description": "Creates new space.\n\nThis operation requires `oz_spaces_create` admin privilege.\n",
-        "description": "Creates new space.\n\nThis operation requires `oz_spaces_create` admin privilege.\n\nSee also:  \n[Create a new space for the current user](#operation/create_user_space)  \n[Create a new space for given group](#operation/create_space_for_group)  \n\n***Example cURL requests***\n\n**Create new space**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_space\" }' \\\nhttps://$HOST/api/v3/onezone/spaces\n```\n",
+        "description": "Creates new space.\n\nThis operation requires `oz_spaces_create` admin privilege.\n\nSee also:  \n[Create a new space for the current user](#operation/create_user_space)  \n[Create a new space for given group](#operation/create_space_for_group)  \n\n***Example cURL requests***\n\n**Create new space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_space\" }' \\\nhttps://$HOST/api/v3/onezone/spaces\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -11750,8 +11365,8 @@
           "oz_spaces_view"
         ],
         "summary": "Get space details",
-        "x-bash-codegen-description": "Returns the details about a specific space.\n\nThis operation requires membership in the space or\n`oz_spaces_view` admin privilege.\n",
-        "description": "Returns the details about a specific space.\n\nThis operation requires membership in the space or\n`oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space details**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID\n\n{\n  \"spaceId\": \"803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\",\n  \"name\": \"new_space1\",\n  \"providers\": {\n    \"296ebe3c20e9666dc489b647f8647f12\" : 5368709120\n  }\n}\n```\n",
+        "x-bash-codegen-description": "Returns the details about a specific space.\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n",
+        "description": "Returns the details about a specific space.\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space details**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID\n\n{\n  \"spaceId\": \"803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\",\n  \"name\": \"new_space1\",\n  \"providers\": {\n    \"296ebe3c20e9666dc489b647f8647f12\" : 5368709120\n  }\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -11980,8 +11595,8 @@
           "oz_spaces_list_relationships"
         ],
         "summary": "List space users",
-        "x-bash-codegen-description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_relationships` privilege is required.\n",
-        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Get space users**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users\n\n{\n  \"users\": [\n    \"a5b469a2b0516b662a49da74d6d7d7bc\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of users belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of users belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space users**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users\n\n{\n  \"users\": [\n    \"a5b469a2b0516b662a49da74d6d7d7bc\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12137,8 +11752,8 @@
           "oz_users_view"
         ],
         "summary": "Get space user details",
-        "x-bash-codegen-description": "Returns basic information about a specific user in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_users_view` privilege is required.\n",
-        "description": "Returns basic information about a specific user in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_users_view` privilege is required.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n\n{\n   \"userId\" : \"f1c8b1a37aa7447b22eb65a742d40524\",\n   \"fullName\" : \"John Doe\",\n   \"username\" : \"jodoe\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns basic information about a specific user in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view` admin privilege.\n",
+        "description": "Returns basic information about a specific user in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n\n{\n   \"userId\" : \"f1c8b1a37aa7447b22eb65a742d40524\",\n   \"fullName\" : \"John Doe\",\n   \"username\" : \"jodoe\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12222,7 +11837,7 @@
         ],
         "summary": "Add user to space",
         "x-bash-codegen-description": "Adds user {uid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this space.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nspace (if he is not a member already) and requires `space_add_user`\nprivilege in the space. If `privileges` are specified in the request,\n`space_set_privileges` privilege is also required.\n\nAdministrators having the `oz_spaces_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any space,\nthough `oz_spaces_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n",
-        "description": "Adds user {uid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this space.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nspace (if he is not a member already) and requires `space_add_user`\nprivilege in the space. If `privileges` are specified in the request,\n`space_set_privileges` privilege is also required.\n\nAdministrators having the `oz_spaces_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any space,\nthough `oz_spaces_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n```\n",
+        "description": "Adds user {uid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this space.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nspace (if he is not a member already) and requires `space_add_user`\nprivilege in the space. If `privileges` are specified in the request,\n`space_set_privileges` privilege is also required.\n\nAdministrators having the `oz_spaces_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any space,\nthough `oz_spaces_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -12309,7 +11924,7 @@
         ],
         "summary": "Remove user from space",
         "x-bash-codegen-description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or\nrequires `oz_spaces_add_relationships` and `oz_users_add_relationships` admin privilege.\n",
-        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or\nrequires `oz_spaces_add_relationships` and `oz_users_add_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl  -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n```\n",
+        "description": "Removes user from specific space.\n\nThis operation requires `space_remove_user` or\nrequires `oz_spaces_add_relationships` and `oz_users_add_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space user data**\n```bash\ncurl -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -12388,8 +12003,8 @@
           "oz_spaces_view_privileges"
         ],
         "summary": "List user's space privileges",
-        "x-bash-codegen-description": "Returns the list of user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_view_privileges` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_view_privileges` privilege is required.\n",
-        "description": "Returns the list of user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_view_privileges` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_view_privileges` privilege is required.\n\n***Example cURL requests***\n\n**List user's privileges in a space**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view_privileges` admin privilege.\n",
+        "description": "Returns the list of user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List user's privileges in a space**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12483,7 +12098,7 @@
         ],
         "summary": "Update user's space privileges",
         "x-bash-codegen-description": "Updates user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_set_privileges` privilege is required.\n",
-        "description": "Updates user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a space**\n```bash\ncurl -i -k -u admin:password -X PATCH \\\n-d '{\"grant\": [\"space_view\", \"space_update\"], \"revoke\": [\"space_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID/privileges\n```\n",
+        "description": "Updates user's (`{uid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege.\nFor administrators who do not have to be members of this space,\n`oz_spaces_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a space**\n```bash\ncurl -u admin:password -X PATCH \\\n-d '{\"grant\": [\"space_view\", \"space_update\"], \"revoke\": [\"space_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/users/$USER_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -12568,8 +12183,8 @@
           "space_view",
           "oz_spaces_list_relationships"
         ],
-        "x-bash-codegen-description": "Returns the list of effective users belonging to a specific space.\n\nThis operation requires `space_view` privilege\nor `oz_spaces_list_relationships` admin privilege.\n",
-        "description": "Returns the list of effective users belonging to a specific space.\n\nThis operation requires `space_view` privilege\nor `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space effective users**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users\n\n{\n  \"users\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of effective users belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of effective users belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space effective users**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users\n\n{\n  \"users\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12646,8 +12261,8 @@
           "oz_users_view"
         ],
         "summary": "Get effective space user details",
-        "x-bash-codegen-description": "Returns details about a specific effective user in a space.\n\nThis operation requires `space_view` privilege\nor `oz_users_view` admin privilege.\n",
-        "description": "Returns details about a specific effective user in a space.\n\nThis operation requires `space_view` privilege\nor `oz_users_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective space user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID\n\n{\n  \"userId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"fullName\" : \"John Doe\",\n  \"username\" : \"jodoe\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns details about a specific effective user in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view` admin privilege.\n",
+        "description": "Returns details about a specific effective user in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective space user details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID\n\n{\n  \"userId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"fullName\" : \"John Doe\",\n  \"username\" : \"jodoe\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12729,8 +12344,8 @@
           "oz_spaces_view_privileges"
         ],
         "summary": "List effective user's space privileges",
-        "x-bash-codegen-description": "Returns the list of effective user's (`{uid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n",
-        "description": "Returns the list of effective user's (`{uid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List effective user's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of effective user's (`{uid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view_privileges` admin privilege.\n",
+        "description": "Returns the list of effective user's (`{uid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of user's privileges and privileges\ninherited from his group memberships.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_users_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List effective user's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12825,8 +12440,8 @@
           "oz_spaces_view"
         ],
         "summary": "Get effective user's space membership intermediaries",
-        "x-bash-codegen-description": "Returns the effective user's (`{uid}`) space membership intermediaries -\nentities from which the user inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the space (`{id}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n",
-        "description": "Returns the effective user's (`{uid}`) space membership intermediaries -\nentities from which the user inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the space (`{id}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's space membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"space\", \"id\": \"self\"}\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the effective user's (`{uid}`) space membership intermediaries -\nentities from which the user inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the space (`{id}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n",
+        "description": "Returns the effective user's (`{uid}`) space membership intermediaries -\nentities from which the user inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the user (`{uid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user (`{uid}`) who is an effective member of the space (`{id}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's space membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"space\", \"id\": \"self\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -12908,8 +12523,8 @@
           "space_view",
           "oz_spaces_list_relationships"
         ],
-        "x-bash-codegen-description": "Returns the list of groups belonging to a specific space.\n\nThis operation requires `space_view` privilege.\nFor administrator who does not belong to this space\n`oz_spaces_list_relationships` privilege is required.\n",
-        "description": "Returns the list of groups belonging to a specific space.\n\nThis operation requires `space_view` privilege.\nFor administrator who does not belong to this space\n`oz_spaces_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Get space groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups\n\n{\n  \"groups\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of groups belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of groups belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups\n\n{\n  \"groups\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13150,8 +12765,8 @@
           "oz_groups_view"
         ],
         "summary": "Get space's group details",
-        "x-bash-codegen-description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_groups_view` privilege is required.\n",
-        "description": "Returns details about a specific group in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_groups_view` privilege is required.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID\n\n{\n  \"groupId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns details about a specific group in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n",
+        "description": "Returns details about a specific group in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID\n\n{\n  \"groupId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13235,7 +12850,7 @@
         ],
         "summary": "Add group to space",
         "x-bash-codegen-description": "Adds group {gid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this space.\n\nThis operation requires `space_add_group` privilege in the space and\n`group_add_space` privilege in the group. If `privileges` are\nspecified in the request, `space_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / space,\n`oz_groups_add_relationships` and `oz_spaces_add_relationships` privileges\nare required, and `oz_spaces_set_privileges` if `privileges` are specified\nin the request.\n",
-        "description": "Adds group {gid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this space.\n\nThis operation requires `space_add_group` privilege in the space and\n`group_add_space` privilege in the group. If `privileges` are\nspecified in the request, `space_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / space,\n`oz_groups_add_relationships` and `oz_spaces_add_relationships` privileges\nare required, and `oz_spaces_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to space**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID\n```\n",
+        "description": "Adds group {gid} as member of space {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this space.\n\nThis operation requires `space_add_group` privilege in the space and\n`group_add_space` privilege in the group. If `privileges` are\nspecified in the request, `space_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / space,\n`oz_groups_add_relationships` and `oz_spaces_add_relationships` privileges\nare required, and `oz_spaces_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -13397,8 +13012,8 @@
           "oz_spaces_view_privileges"
         ],
         "summary": "List group's space privileges",
-        "x-bash-codegen-description": "Returns the list of group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n",
-        "description": "Returns the list of group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List groups's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view_privileges` admin privilege.\n",
+        "description": "Returns the list of group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List groups's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13492,7 +13107,7 @@
         ],
         "summary": "Update group privileges to space",
         "x-bash-codegen-description": "Updates group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege\nor `oz_spaces_set_privileges` admin privilege.\n",
-        "description": "Updates group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege\nor `oz_spaces_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a space**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"space_view\", \"space_update\"], \"revoke\": [\"space_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID/privileges\n```\n",
+        "description": "Updates group's (`{gid}`) privileges in a space (`{id}`).\n\nThis operation requires `space_set_privileges` privilege\nor `oz_spaces_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"space_view\", \"space_update\"], \"revoke\": [\"space_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/groups/$GROUP_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -13577,8 +13192,8 @@
           "oz_spaces_list_relationships"
         ],
         "summary": "List effective space groups",
-        "x-bash-codegen-description": "Returns the list of effective groups belonging to a specific space.\n\nThis operation requires `space_view` privilege\nor `oz_spaces_list_relationships` admin privilege.\n",
-        "description": "Returns the list of effective groups belonging to a specific space.\n\nThis operation requires `space_view` privilege\nor `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space effective groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups\n\n{\n  \"groups\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of effective groups belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of effective groups belonging to a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space effective groups**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups\n\n{\n  \"groups\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13655,8 +13270,8 @@
           "oz_groups_view"
         ],
         "summary": "Get effective space group details",
-        "x-bash-codegen-description": "Returns details about a specific effective group in a space.\n\nThis operation requires `space_view` privilege\nor `oz_groups_view` admin privilege.\n",
-        "description": "Returns details about a specific effective group in a space.\n\nThis operation requires `space_view` privilege\nor `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID\n\n{\n  \"groupId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns details about a specific effective group in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n",
+        "description": "Returns details about a specific effective group in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective space group details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID\n\n{\n  \"groupId\": \"f1c8b1a37aa7447b22eb65a742d40524\",\n  \"name\": \"new_groupX\",\n  \"type\": \"team\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13738,8 +13353,8 @@
           "oz_spaces_view_privileges"
         ],
         "summary": "List effective group's space privileges",
-        "x-bash-codegen-description": "Returns the list of effective group's (`{gid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of group's privileges and privileges\ninherited from its parent group memberships.\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n",
-        "description": "Returns the list of effective group's (`{gid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of group's privileges and privileges\ninherited from its parent group memberships.\n\nThis operation requires `space_view_privileges` privilege\nor `oz_spaces_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List effective groups's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of effective group's (`{gid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of group's privileges and privileges\ninherited from its parent group memberships.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view_privileges` admin privilege.\n",
+        "description": "Returns the list of effective group's (`{gid}`) privileges in a space (`{id}`).\n\nEffective privileges are a sum of group's privileges and privileges\ninherited from its parent group memberships.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view_privileges` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_groups_view_privileges` admin privilege.\n\n***Example cURL requests***\n\n**List effective groups's privileges in a space**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID/privileges\n\n{\n  \"privileges\": [\n    \"space_view\",\n    \"space_update\",\n    \"space_delete\",\n    \"space_view_privileges\",\n    \"space_set_privileges\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13834,8 +13449,8 @@
           "oz_spaces_view"
         ],
         "summary": "Get effective group's space membership intermediaries",
-        "x-bash-codegen-description": "Returns the effective group's (`{gid}`) space membership intermediaries -\nentities from which the group inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the group (`{gid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the group (`{gid}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n",
-        "description": "Returns the effective group's (`{gid}`) space membership intermediaries -\nentities from which the group inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the group (`{gid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the group (`{gid}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as user who has `oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective group's space membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"space\", \"id\": \"self\"}\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the effective group's (`{gid}`) space membership intermediaries -\nentities from which the group inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the group (`{gid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the group (`{gid}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space,\n* as user who has `oz_spaces_view` admin privilege.\n",
+        "description": "Returns the effective group's (`{gid}`) space membership intermediaries -\nentities from which the group inherits access to the space (`{id}`).\nSpecial keyword `\"self\"` in entity id indicates that the group (`{gid}`)\nhas a direct access to the space (`{id}`).\n\nThis operation requires any of the following authentication:\n* as user who is an effective member of the group (`{gid}`),\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space,\n* as user who has `oz_spaces_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective group's space membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/effective_groups/$GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"group\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"group\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"},\n    {\"type\": \"space\", \"id\": \"self\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13917,8 +13532,8 @@
           "oz_spaces_list_relationships"
         ],
         "summary": "List space shares",
-        "x-bash-codegen-description": "Returns the list of shares from specific space.\n\nThis operation requires `space_view` privilege.\nThis operation requires membership of given space\nor `oz_spaces_list_relationships` admin privilege.\n",
-        "description": "Returns the list of shares from specific space.\n\nThis operation requires `space_view` privilege.\nThis operation requires membership of given space\nor `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**List space shares**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/shares\n\n{\n  \"shares\": [\n    \"MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of shares from specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of shares from specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**List space shares**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/shares\n\n{\n  \"shares\": [\n    \"MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -13995,8 +13610,8 @@
           "oz_shares_view"
         ],
         "summary": "Get space share",
-        "x-bash-codegen-description": "Get share from specific space.\n\nThe `rootFileId` is not an actual file or folder Id, but\nhas to be generated by Oneprovider first as a file share Id.\n\nThis operation requires `space_view` privilege.\nFor users that are not members of given space\n`oz_shares_view` admin privilege is required.\n",
-        "description": "Get share from specific space.\n\nThe `rootFileId` is not an actual file or folder Id, but\nhas to be generated by Oneprovider first as a file share Id.\n\nThis operation requires `space_view` privilege.\nFor users that are not members of given space\n`oz_shares_view` admin privilege is required.\n\n***Example cURL requests***\n\n**Add group to space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/shares/$SHARE_ID\n\n{\n  \"shareId\": \"31502ffabdbd95a227aef81d152ddfdc\",\n  \"name\": \"MyNewShare\",\n  \"publicUrl\": \"https://onedata.org/shares/c30c9e2bf1d5bf63f46c0d0cc47d21e5\",\n  \"rootFileId\": \"89337a3686892e6e5419d77a69d4e707\",\n  \"spaceId\": \"b45d02d01066b8794ad7f927becf4bde\"\n}\n```\n",
+        "x-bash-codegen-description": "Get share from specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_shares_view` admin privilege.\n",
+        "description": "Get share from specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_shares_view` admin privilege.\n\n***Example cURL requests***\n\n**Add group to space**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/shares/$SHARE_ID\n\n{\n  \"shareId\": \"31502ffabdbd95a227aef81d152ddfdc\",\n  \"name\": \"MyNewShare\",\n  \"publicUrl\": \"https://onezone.example.com/shares/31502ffabdbd95a227aef81d152ddfdc\",\n  \"rootFileId\": \"46D00000016726D75766662565765386857595139592D594E736C676D0000002B43592D347247454C53\",\n  \"spaceId\": \"b45d02d01066b8794ad7f927becf4bde\",\n  \"handleId\": null\n}\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -14078,8 +13693,8 @@
           "oz_spaces_list_relationships"
         ],
         "summary": "List space providers",
-        "x-bash-codegen-description": "Returns the list of providers supporting specific space.\n\nFor users who are members of space it requires `space_view`.\n\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_relationships` privilege is required.\n",
-        "description": "Returns the list of providers supporting specific space.\n\nFor users who are members of space it requires `space_view`.\n\nFor administrators who do not have to be members of this space,\n`oz_spaces_list_relationships` privilege is required.\n\n***Example cURL requests***\n\n**Get space support token**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/providers\n\n{\n  \"providers\": [\n    \"MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of providers supporting specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of providers supporting specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space support token**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/providers\n\n{\n  \"providers\": [\n    \"MDAxNmxvYZjUGlIcGkweGZta1ZOdEp00eUNINVNvR2001Wl\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14235,8 +13850,8 @@
           "oz_providers_view"
         ],
         "summary": "Get space provider details",
-        "x-bash-codegen-description": "Returns details about a specific provider supporting the space.\n\nFor users who are members of space it requires `space_view`.\nFor administrators who do not have to be members of this space,\n`oz_providers_view` privilege is required.\n",
-        "description": "Returns details about a specific provider supporting the space.\n\nFor users who are members of space it requires `space_view`.\nFor administrators who do not have to be members of this space,\n`oz_providers_view` privilege is required.\n\n***Example cURL requests***\n\n**Get space provider details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/providers/$PROVIDER_ID\n\n{\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0-upGkf9tk\",\n  \"name\": \"example\",\n  \"domain\": \"195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\": 19.909444\n}\n```\n",
+        "x-bash-codegen-description": "Returns details about a specific provider supporting the space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n",
+        "description": "Returns details about a specific provider supporting the space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space provider details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/providers/$PROVIDER_ID\n\n{\n  \"providerId\": \"H8ez0CwDZ7JMYRWn1ipmBpgJHPXzIXj0-upGkf9tk\",\n  \"name\": \"example\",\n  \"domain\": \"195.216.97.151\",\n  \"latitude\": 50.068968,\n  \"longitude\": 19.909444\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14393,8 +14008,8 @@
           "space_view",
           "oz_spaces_list_relationships"
         ],
-        "x-bash-codegen-description": "Returns the list of harvesters of a specific space.\n\nThis operation requires `space_view` privilege.\nIf called by user who is not member of the space, requires  \n`oz_spaces_list_relationships` admin privilege.\n",
-        "description": "Returns the list of harvesters of a specific space.\n\nThis operation requires `space_view` privilege.\nIf called by user who is not member of the space, requires  \n`oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space harvesters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/harvesters\n\n{\n  \"harvesters\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the list of harvesters of a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n",
+        "description": "Returns the list of harvesters of a specific space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_spaces_list_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get space harvesters**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/harvesters\n\n{\n  \"harvesters\": [\n    \"f1c8b1a37aa7447b22eb65a742d40524\",\n    \"8e1cea0b379e3683257c32f896d55115\"\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14559,8 +14174,8 @@
           "oz_harvesters_view"
         ],
         "summary": "Get harvester details",
-        "x-bash-codegen-description": "Returns details about a specific harvester in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_harvesters_view` privilege is required.\n",
-        "description": "Returns details about a specific harvester in a space.\n\nThis operation requires `space_view` privilege.\nFor administrators who do not have to be members of this space,\n`oz_harvesters_view` privilege is required.\n\n***Example cURL requests***\n\n**Get space harvester details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/harvesters/$HARVESTER_ID\n\n{\n  \"harvesterId\": \"803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\",\n  \"name\": \"new_harvester1\",\n  \"public\" : true,\n  \"plugin\" : \"elasticsearch_plugin\",\n  \"endpoint\" : \"https://example.elastic.com\"\n}\n```\n",
+        "x-bash-codegen-description": "Returns details about a specific harvester in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_harvesters_view` admin privilege.\n",
+        "description": "Returns details about a specific harvester in a space.\n\nThis operation requires any of the following authentication:\n* as user who has `space_view` privilege in the space (`{id}`),\n* as provider that supports the space (`{id}`),\n* as user who has `oz_harvesters_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space harvester details**\n```bash\ncurl -u username:password -X GET \\\nhttps://$HOST/api/v3/onezone/spaces/$SPACE_ID/harvesters/$HARVESTER_ID\n\n{\n  \"harvesterId\": \"803ZirkUfdiWDd4W3bI4QaPBog_0kCdUddUIsgAxi5I\",\n  \"name\": \"new_harvester1\",\n  \"public\" : true,\n  \"plugin\" : \"elasticsearch_plugin\",\n  \"endpoint\" : \"https://example.elastic.com\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14785,7 +14400,7 @@
         ],
         "summary": "Get share details",
         "x-bash-codegen-description": "Returns the details about a specific share.\n\nNOTE: Only Oneprovider API supports creating / deleting shares and is\npreferred for all share operations. Onezone API is limited to retrieving\nshare details and updating share names.\n\nThis operation requires `space_view` privilege in space where share is created or\n`oz_shares_view` admin privilege.\n",
-        "description": "Returns the details about a specific share.\n\nNOTE: Only Oneprovider API supports creating / deleting shares and is\npreferred for all share operations. Onezone API is limited to retrieving\nshare details and updating share names.\n\nThis operation requires `space_view` privilege in space where share is created or\n`oz_shares_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space details**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/shares/$SHARE_ID\n\n{\n  \"shareId\": \"303884afb761d91a7362b2841647bc08\",\n  \"name\": \"MyShare\",\n  \"publicUrl\": \"http://onedata.org/shares/303884afb761d91a7362b2841647bc08\",\n  \"rootFileId\": \"46D00000016726D75766662565765386857595139592D594E736C676D0000002B43592D347247454C53\",\n  \"spaceId\": \"04b0d63bdaa15cc600212082e50e5e25\",\n  \"handleId\": \"doi:10.15911/MyShare.726855\"\n}\n```\n",
+        "description": "Returns the details about a specific share.\n\nNOTE: Only Oneprovider API supports creating / deleting shares and is\npreferred for all share operations. Onezone API is limited to retrieving\nshare details and updating share names.\n\nThis operation requires `space_view` privilege in space where share is created or\n`oz_shares_view` admin privilege.\n\n***Example cURL requests***\n\n**Get space details**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/shares/$SHARE_ID\n\n{\n  \"shareId\": \"303884afb761d91a7362b2841647bc08\",\n  \"name\": \"MyShare\",\n  \"publicUrl\": \"http://onezone.example.com/shares/303884afb761d91a7362b2841647bc08\",\n  \"rootFileId\": \"46D00000016726D75766662565765386857595139592D594E736C676D0000002B43592D347247454C53\",\n  \"spaceId\": \"04b0d63bdaa15cc600212082e50e5e25\",\n  \"handleId\": \"doi:10.15911/MyShare.726855\"\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -15005,7 +14620,7 @@
         },
         "summary": "Register provider",
         "x-bash-codegen-description": "Registers a Oneprovider in Onezone service. Upon success, a new cluster is\ncreated, with the registering user linked to it. The cluster Id is the same\nas Oneprovider Id.\n\nRequires a valid provider registration token - see:\n  * [Create provider registration token for self](#operation/user_create_provider_registration_token_for_self)\n  * [Create provider registration token for a user](#operation/user_create_provider_registration_token)\n\nThis operation has public access.\n",
-        "description": "Registers a Oneprovider in Onezone service. Upon success, a new cluster is\ncreated, with the registering user linked to it. The cluster Id is the same\nas Oneprovider Id.\n\nRequires a valid provider registration token - see:\n  * [Create provider registration token for self](#operation/user_create_provider_registration_token_for_self)\n  * [Create provider registration token for a user](#operation/user_create_provider_registration_token)\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Register provider**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{\n  \"token\" : \"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\",\n  \"name\" : \"My provider\",\n  \"subdomainDelegation\" : \"false\",\n  \"domain\" : \"provider2.beta.onedata.org\",\n  \"latitude\" : \"50.0647\",\n  \"longitude\" : \"19.9450\",\n}' \\\nhttps://$HOST/api/v3/onezone/provider\n```\n",
+        "description": "Registers a Oneprovider in Onezone service. Upon success, a new cluster is\ncreated, with the registering user linked to it. The cluster Id is the same\nas Oneprovider Id.\n\nRequires a valid provider registration token - see:\n  * [Create provider registration token for self](#operation/user_create_provider_registration_token_for_self)\n  * [Create provider registration token for a user](#operation/user_create_provider_registration_token)\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Register provider**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{\n  \"token\" : \"MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW\",\n  \"name\" : \"My provider\",\n  \"subdomainDelegation\" : \"false\",\n  \"domain\" : \"my-provider.example.com\",\n  \"latitude\" : \"50.0647\",\n  \"longitude\" : \"19.9450\",\n}' \\\nhttps://$HOST/api/v3/onezone/provider\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -15387,8 +15002,8 @@
           "oz_providers_view"
         ],
         "summary": "Get effective user's provider membership intermediaries",
-        "x-bash-codegen-description": "Returns the effective user's (`{uid}`) provider membership intermediaries -\nspaces from which the user inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user (`{uid}`) who is an effective member of the provider (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n",
-        "description": "Returns the effective user's (`{uid}`) provider membership intermediaries -\nspaces from which the user inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user (`{uid}`) who is an effective member of the provider (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's provider membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"space\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"space\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"}\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the effective user's (`{uid}`) provider membership intermediaries -\nspaces from which the user inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `cluster_view` privilege in the cluster corresponding to\n  the subject provider,\n* as user (`{uid}`) who is an effective member of the provider (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n",
+        "description": "Returns the effective user's (`{uid}`) provider membership intermediaries -\nspaces from which the user inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `cluster_view` privilege in the cluster corresponding to\n  the subject provider,\n* as user (`{uid}`) who is an effective member of the provider (`{id}`),\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective user's provider membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID/effective_users/$USER_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"space\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"space\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -15629,8 +15244,8 @@
           "oz_providers_view"
         ],
         "summary": "Get effective group's provider membership intermediaries",
-        "x-bash-codegen-description": "Returns the effective group's (`{gid}`) provider membership intermediaries -\nspaces from which the group inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user (`{uid}`) who is an effective member of the group (`{gid}`),\n* as user who has `oz_providers_view` admin privilege.\n",
-        "description": "Returns the effective group's (`{gid}`) provider membership intermediaries -\nspaces from which the group inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user (`{uid}`) who is an effective member of the group (`{gid}`),\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective group's provider membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID/effective_groups/$GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"space\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"space\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"}\n  ]\n}\n```\n",
+        "x-bash-codegen-description": "Returns the effective group's (`{gid}`) provider membership intermediaries -\nspaces from which the group inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `cluster_view` privilege in the cluster corresponding to\n the subject provider,\n* as user (`{uid}`) who is an effective member of the group (`{gid}`),\n* as user who has `oz_providers_view` admin privilege.\n",
+        "description": "Returns the effective group's (`{gid}`) provider membership intermediaries -\nspaces from which the group inherits access to the provider (`{id}`).\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `cluster_view` privilege in the cluster corresponding to\n  the subject provider,\n* as user (`{uid}`) who is an effective member of the group (`{gid}`),\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get effective group's provider membership intermediaries**\n```bash\ncurl -u admin:password -X GET \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID/effective_groups/$GROUP_ID/membership\n\n{\n  \"intermediaries\": [\n    {\"type\": \"space\", \"id\": \"95527367966a95639e93a88718450b36\"},\n    {\"type\": \"space\", \"id\": \"2ef3de15fd49b3d6420f58428a6ad219\"}\n  ]\n}\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16480,7 +16095,7 @@
         },
         "summary": "Show client IP address",
         "x-bash-codegen-description": "Returns the IP of the request peer. Will return the external IP (as seen\nby the Onezone).\n\nThis operation has public access.\n",
-        "description": "Returns the IP of the request peer. Will return the external IP (as seen\nby the Onezone).\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET https://beta.onedata.org/api/v3/onezone/provider/public/check_my_ip\n```\n",
+        "description": "Returns the IP of the request peer. Will return the external IP (as seen\nby the Onezone).\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" -X GET https://onezone.example.com/api/v3/onezone/provider/public/check_my_ip\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16542,7 +16157,7 @@
         },
         "summary": "Check ports availability",
         "x-bash-codegen-description": "Checks if all given ports are reachable from Onezone.\n\nThis operation has public access.\n",
-        "description": "Checks if all given ports are reachable from Onezone.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider ports**\n```bash\ncurl -i --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" \\\n-X POST -H 'Content-type: application/json' \\\n-d '[ \"https://provider1.com:80\", \"https://provider1.com:443\" ]' https://$HOST/api/v3/onezone/provider/test/check_my_ports\n```\n",
+        "description": "Checks if all given ports are reachable from Onezone.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider ports**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" \\\n-X POST -H 'Content-type: application/json' \\\n-d '[ \"https://provider1.com:80\", \"https://provider1.com:443\" ]' https://$HOST/api/v3/onezone/provider/test/check_my_ports\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16636,8 +16251,8 @@
           "aspect": "current_time"
         },
         "summary": "Show current clock time",
-        "x-bash-codegen-description": "Returns current clock time of this OneZone instance,\nin milliseconds since epoch.\n\nThis operation has public access.\n",
-        "description": "Returns current clock time of this OneZone instance,\nin milliseconds since epoch.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" -X GET https://beta.onedata.org/api/v3/onezone/provider/public/get_current_time\n```\n",
+        "x-bash-codegen-description": "Returns current clock time of this Onezone instance,\nin milliseconds since epoch.\n\nThis operation has public access.\n",
+        "description": "Returns current clock time of this Onezone instance,\nin milliseconds since epoch.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" -X GET https://onezone.example.com/api/v3/onezone/provider/public/get_current_time\n```\n",
         "produces": [
           "application/json"
         ],
@@ -16687,6 +16302,104 @@
         ]
       }
     },
+    "/provider/public/map_idp_user": {
+      "post": {
+        "operationId": "map_idp_user",
+        "tags": [
+          "Provider"
+        ],
+        "x-onedata-gri": {
+          "type": "od_provider",
+          "aspect": "map_idp_user"
+        },
+        "summary": "Map IdP user to Onezone user",
+        "x-bash-codegen-description": "Maps external IdP user id into internal user id in Onezone.\n\nThe user does not have to exist in Onezone or the IdP - this method merely\ntransforms the Id using a deterministic procedure. It can be used to\npredict the user Id in Onezone before it is created.\n\nThis operation has public access.\n",
+        "description": "Maps external IdP user id into internal user id in Onezone.\n\nThe user does not have to exist in Onezone or the IdP - this method merely\ntransforms the Id using a deterministic procedure. It can be used to\npredict the user Id in Onezone before it is created.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Map IdP user to Onezone user**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" \\\n-d '{\"idp\": \"elixir\", \"userId\": \"dqs1ew2afn9q28rnweu8fb23r9jqwtfg\"}' \\\n-X POST https://onezone.example.com/api/v3/onezone/provider/public/map_idp_user\n\n{\n  \"userId\": \"0fe7c8a20ffdf07480c46f084bc3b8d5\"\n}\n```\n",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The user Id in external IdP.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "description": "Internal user Id in Onezone.",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "userId": "0fe7c8a20ffdf07480c46f084bc3b8d5"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Authentication error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Authorization error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server Error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Mapping parameters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ipd": {
+                  "type": "string",
+                  "description": "External IdP (identity provider)."
+                },
+                "userId": {
+                  "type": "string",
+                  "description": "UserId in given IdP."
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "onezone-rest-cli mapIdpUser ipd==elixir userId==elixir:members"
+          }
+        ]
+      }
+    },
     "/provider/public/map_idp_group": {
       "post": {
         "operationId": "map_idp_group",
@@ -16697,10 +16410,13 @@
           "type": "od_provider",
           "aspect": "map_idp_group"
         },
-        "summary": "Maps external IdP group id into internal group id in OneZone",
-        "x-bash-codegen-description": "Maps external IdP group id into internal group id in OneZone.\nThe IdP must have group mapping enabled.\n\nThis operation has public access.\n",
-        "description": "Maps external IdP group id into internal group id in OneZone.\nThe IdP must have group mapping enabled.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" \\\n-d '{\"idp\": \"elixir\", \"groupId\": \"elixir:members\"}' \\\n-X GET https://beta.onedata.org/api/v3/onezone/provider/public/map_idp_group\n\n{\n  \"groupId\": \"dqs1ew2afn9q28rnweu8fb23r9jqwtfg\"\n}\n```\n",
+        "summary": "Map IdP group to Onezone group",
+        "x-bash-codegen-description": "Maps external IdP group Id into internal group Id in Onezone.\nThe IdP must have group mapping enabled.\n\nThe group does not have to exist in Onezone or the IdP - this method merely\ntransforms the Id using a deterministic procedure. It can be used to\npredict the group Id in Onezone before it is created.\n\nThis operation has public access.\n",
+        "description": "Maps external IdP group Id into internal group Id in Onezone.\nThe IdP must have group mapping enabled.\n\nThe group does not have to exist in Onezone or the IdP - this method merely\ntransforms the Id using a deterministic procedure. It can be used to\npredict the group Id in Onezone before it is created.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Map IdP group to Onezone group**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" \\\n-d '{\"idp\": \"elixir\", \"groupId\": \"elixir:members\"}' \\\n-X POST https://onezone.example.com/api/v3/onezone/provider/public/map_idp_group\n\n{\n  \"groupId\": \"302da048de67e2ea05f0af1d0fe7c8a2\"\n}\n```\n",
         "produces": [
+          "application/json"
+        ],
+        "consumes": [
           "application/json"
         ],
         "responses": {
@@ -16711,14 +16427,14 @@
               "properties": {
                 "groupId": {
                   "type": "string",
-                  "description": "Internal group Id in OneZone.",
+                  "description": "Internal group Id in Onezone.",
                   "items": {
                     "type": "string"
                   }
                 }
               },
               "example": {
-                "groupId": "dqs1ew2afn9q28rnweu8fb23r9jqwtfg"
+                "groupId": "302da048de67e2ea05f0af1d0fe7c8a2"
               }
             }
           },
@@ -16777,7 +16493,7 @@
         "x-code-samples": [
           {
             "lang": "Shell",
-            "source": "onezone-rest-cli mapIdpGroup ipd==\"elixir\" groupId==\"elixir:members\" "
+            "source": "onezone-rest-cli mapIdpGroup ipd==elixir groupId==elixir:members"
           }
         ]
       }
@@ -16792,10 +16508,13 @@
           "type": "od_provider",
           "aspect": "verify_provider_identity"
         },
-        "summary": "Verifies the identity of given provider",
+        "summary": "Verify the identity of given provider",
         "x-bash-codegen-description": "Verifies the identity of given provider based on its identity macaroon.\n\nThis operation has public access.\n",
-        "description": "Verifies the identity of given provider based on its identity macaroon.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl --tlsv1.2 -H \"X-Auth-Token: $TOKEN\" \\\n-d '{\"providerId\": \"dqs1ew2afn9q28rnweu8fb23r9jqwtfg\", \"macaroon\": \"JKAxNWxvY2F0aW9uIG9uZXp...\"}' \\\n-X GET https://beta.onedata.org/api/v3/onezone/provider/public/verify_provider_identity\n```\n",
+        "description": "Verifies the identity of given provider based on its identity macaroon.\n\nThis operation has public access.\n\n***Example cURL requests***\n\n**Check provider IP**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" \\\n-d '{\"providerId\": \"dqs1ew2afn9q28rnweu8fb23r9jqwtfg\", \"macaroon\": \"JKAxNWxvY2F0aW9uIG9uZXp...\"}' \\\n-X POST https://onezone.example.com/api/v3/onezone/provider/public/verify_provider_identity\n```\n",
         "produces": [
+          "application/json"
+        ],
+        "consumes": [
           "application/json"
         ],
         "responses": {
@@ -17006,7 +16725,7 @@
         ],
         "summary": "Add handle service",
         "x-bash-codegen-description": "Allows to register a new handle service.\n\nThis operation requires `oz_handle_services_create` admin privilege.\n",
-        "description": "Allows to register a new handle service.\n\nThis operation requires `oz_handle_services_create` admin privilege.\n\nSee also:  \n[Create a new handle service for the current user](#operation/add_user_handle_service)  \n[Create a new handle service for given group](#operation/add_group_handle_service)  \n\n***Example cURL requests***\n\n**Add handle services**\n```bash\ncurl -u username:password -X POST  -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/handle_services\n```\n",
+        "description": "Allows to register a new handle service.\n\nThis operation requires `oz_handle_services_create` admin privilege.\n\nSee also:  \n[Create a new handle service for the current user](#operation/add_user_handle_service)  \n[Create a new handle service for given group](#operation/add_group_handle_service)  \n\n***Example cURL requests***\n\n**Add handle services**\n```bash\ncurl -u username:password -X POST -H \"Content-type: application/json\" \\\n-d '{ ... }' https://$HOST/api/v3/handle_services\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -17207,7 +16926,7 @@
         ],
         "summary": "Modify handle service",
         "x-bash-codegen-description": "Allows to update a registered handle service.\n\nThis operation requires `handle_service_update` privilege or\n`oz_handle_services_update` admin privilege.\n",
-        "description": "Allows to update a registered handle service.\n\nThis operation requires `handle_service_update` privilege or\n`oz_handle_services_update` admin privilege.\n\n***Example cURL requests***\n\n**Modify handle service password**\n```bash\ncurl -u username:password -X PATCH  -H \"Content-type: application/json\" \\\n-d '{\"name\": \"New handle service name\"}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID\n```\n",
+        "description": "Allows to update a registered handle service.\n\nThis operation requires `handle_service_update` privilege or\n`oz_handle_services_update` admin privilege.\n\n***Example cURL requests***\n\n**Modify handle service password**\n```bash\ncurl -u username:password -X PATCH -H \"Content-type: application/json\" \\\n-d '{\"name\": \"New handle service name\"}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -17764,7 +17483,7 @@
         ],
         "summary": "Update user's handle service privileges",
         "x-bash-codegen-description": "Updates user's (`{uid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege\nor `oz_handle_services_set_privileges` admin privilege.\n",
-        "description": "Updates user's (`{uid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege\nor `oz_handle_services_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a handle service**\n```bash\ncurl -u username:password -X PATCH  -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"handle_service_register_handle\"], \"revoke\": [\"handle_service_update\"]}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID/users/$USER_ID/privileges\n```\n",
+        "description": "Updates user's (`{uid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege\nor `oz_handle_services_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a handle service**\n```bash\ncurl -u username:password -X PATCH -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"handle_service_register_handle\"], \"revoke\": [\"handle_service_update\"]}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID/users/$USER_ID/privileges\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -18522,7 +18241,7 @@
         ],
         "summary": "Update group's handle service privileges",
         "x-bash-codegen-description": "Updates group's (`{gid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_set_privileges` privilege is required.\n",
-        "description": "Updates group's (`{gid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a handle service**\n```bash\ncurl -u username:password -X PATCH  -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"handle_service_register_handle\"], \"revoke\": [\"handle_service_update\"]}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID/groups/$GROUP_ID/privileges\n```\n",
+        "description": "Updates group's (`{gid}`) privileges in a handle service (`{id}`).\n\nThis operation requires `handle_service_update` privilege.\nFor administrator who does not belong to this group\n`oz_handle_services_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a handle service**\n```bash\ncurl -u username:password -X PATCH -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"handle_service_register_handle\"], \"revoke\": [\"handle_service_update\"]}' \\\nhttps://$HOST/api/v3/handle_services/$HANDLE_SERVICE_ID/groups/$GROUP_ID/privileges\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -19291,7 +19010,7 @@
         ],
         "summary": "Modify handle",
         "x-bash-codegen-description": "Allows to update a registered handle, currently it only allows\nto modify the handle metadata property.\n\nThis operation requires `handle_update` privilege\nor `oz_handles_update` admin privilege.\n",
-        "description": "Allows to update a registered handle, currently it only allows\nto modify the handle metadata property.\n\nThis operation requires `handle_update` privilege\nor `oz_handles_update` admin privilege.\n\n***Example cURL requests***\n\n**Modify handle resource**\n```bash\ncurl -u username:password -X PATCH  -H \"Content-type: application/json\" \\\n-d '{\"metadata\": \"<?xml...\"}' \\\nhttps://$HOST/api/v3/handles/$HANDLE_ID\n```\n",
+        "description": "Allows to update a registered handle, currently it only allows\nto modify the handle metadata property.\n\nThis operation requires `handle_update` privilege\nor `oz_handles_update` admin privilege.\n\n***Example cURL requests***\n\n**Modify handle resource**\n```bash\ncurl -u username:password -X PATCH -H \"Content-type: application/json\" \\\n-d '{\"metadata\": \"<?xml...\"}' \\\nhttps://$HOST/api/v3/handles/$HANDLE_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -21021,7 +20740,7 @@
         ],
         "summary": "Create new harvester",
         "x-bash-codegen-description": "Creates new harvester.\n\nThis operation requires `oz_harvesters_create` admin privilege.\n",
-        "description": "Creates new harvester.\n\nThis operation requires `oz_harvesters_create` admin privilege.\n\nSee also:  \n[Create a new harvester for the current user](#operation/create_user_harvester)  \n[Create a new harvester for given group](#operation/create_harvester_for_group)  \n\n***Example cURL requests***\n\n**Create new harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"guiPluginConfig\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n                       \"externalHelpLink\": \"http://example.com/some_help_page\",\n                       \"refreshDataTimeout\": 1000 }\n                    }' \\\nhttps://$HOST/api/v3/onezone/harvesters\n```\n",
+        "description": "Creates new harvester.\n\nThis operation requires `oz_harvesters_create` admin privilege.\n\nSee also:  \n[Create a new harvester for the current user](#operation/create_user_harvester)  \n[Create a new harvester for given group](#operation/create_harvester_for_group)  \n\n***Example cURL requests***\n\n**Create new harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"new_harvester\", \"endpoint\" : \"https://example.elastic.com\", \"plugin\" : \"elasticsearch_plugin\"  \\\n\"guiPluginConfig\" : { \"typeMapping\": [ { \"id\": 0, \"name\": \"Type 1\" }, { \"id\": 1, \"name\": \"Type 1\" } ],\n                       \"externalHelpLink\": \"http://example.com/some_help_page\",\n                       \"refreshDataTimeout\": 1000 }\n                    }' \\\nhttps://$HOST/api/v3/onezone/harvesters\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -21687,7 +21406,7 @@
         ],
         "summary": "Add user to harvester",
         "x-bash-codegen-description": "Adds user {uid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this harvester.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nharvester (if he is not a member already) and requires `harvester_invite_user`\nprivilege in the harvester. If `privileges` are specified in the request,\n`harvester_set_privileges` privilege is also required.\n\nAdministrators having the `oz_harvesters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any harvester,\nthough `oz_harvesters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n",
-        "description": "Adds user {uid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this harvester.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nharvester (if he is not a member already) and requires `harvester_invite_user`\nprivilege in the harvester. If `privileges` are specified in the request,\n`harvester_set_privileges` privilege is also required.\n\nAdministrators having the `oz_harvesters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any harvester,\nthough `oz_harvesters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID\n```\n",
+        "description": "Adds user {uid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this harvester.\n\nThis operation can only be invoked by the user {uid} to add himself to the\nharvester (if he is not a member already) and requires `harvester_invite_user`\nprivilege in the harvester. If `privileges` are specified in the request,\n`harvester_set_privileges` privilege is also required.\n\nAdministrators having the `oz_harvesters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any harvester,\nthough `oz_harvesters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -21774,7 +21493,7 @@
         ],
         "summary": "Remove user from harvester",
         "x-bash-codegen-description": "Removes user from specific harvester.\n\nThis operation requires `harvester_remove_user` or\nrequires `oz_harvesters_add_relationships` and `oz_users_add_relationships` admin privilege.\n",
-        "description": "Removes user from specific harvester.\n\nThis operation requires `harvester_remove_user` or\nrequires `oz_harvesters_add_relationships` and `oz_users_add_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get harvester user data**\n```bash\ncurl  -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID\n```\n",
+        "description": "Removes user from specific harvester.\n\nThis operation requires `harvester_remove_user` or\nrequires `oz_harvesters_add_relationships` and `oz_users_add_relationships` admin privilege.\n\n***Example cURL requests***\n\n**Get harvester user data**\n```bash\ncurl -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -21948,7 +21667,7 @@
         ],
         "summary": "Update user's harvester privileges",
         "x-bash-codegen-description": "Updates user's (`{uid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_set_privileges` privilege is required.\n",
-        "description": "Updates user's (`{uid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a harvester**\n```bash\ncurl -i -k -u admin:password -X PATCH \\\n-d '{\"grant\": [\"harvester_view\", \"harvester_update\"], \"revoke\": [\"harvester_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID/privileges\n```\n",
+        "description": "Updates user's (`{uid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a harvester**\n```bash\ncurl -u admin:password -X PATCH \\\n-d '{\"grant\": [\"harvester_view\", \"harvester_update\"], \"revoke\": [\"harvester_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/users/$USER_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -22700,7 +22419,7 @@
         ],
         "summary": "Add group to harvester",
         "x-bash-codegen-description": "Adds group {gid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this harvester.\n\nThis operation requires `harvester_add_group` privilege in the harvester and\n`group_add_harvester` privilege in the group. If `privileges` are\nspecified in the request, `harvester_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / harvester,\n`oz_groups_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required, and `oz_harvesters_set_privileges` if `privileges` are specified\nin the request.\n",
-        "description": "Adds group {gid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this harvester.\n\nThis operation requires `harvester_add_group` privilege in the harvester and\n`group_add_harvester` privilege in the group. If `privileges` are\nspecified in the request, `harvester_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / harvester,\n`oz_groups_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required, and `oz_harvesters_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/groups/$GROUP_ID\n```\n",
+        "description": "Adds group {gid} as member of harvester {id}. Optional privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this harvester.\n\nThis operation requires `harvester_add_group` privilege in the harvester and\n`group_add_harvester` privilege in the group. If `privileges` are\nspecified in the request, `harvester_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / harvester,\n`oz_groups_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required, and `oz_harvesters_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/groups/$GROUP_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -22957,7 +22676,7 @@
         ],
         "summary": "Update group privileges to harvester",
         "x-bash-codegen-description": "Updates group's (`{gid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege\nor `oz_harvesters_set_privileges` admin privilege.\n",
-        "description": "Updates group's (`{gid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege\nor `oz_harvesters_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"harvester_view\", \"harvester_update\"], \"revoke\": [\"harvester_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/groups/$GROUP_ID/privileges\n```\n",
+        "description": "Updates group's (`{gid}`) privileges in a harvester (`{id}`).\n\nThis operation requires `harvester_set_privileges` privilege\nor `oz_harvesters_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"harvester_view\", \"harvester_update\"], \"revoke\": [\"harvester_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/groups/$GROUP_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -23622,7 +23341,7 @@
         ],
         "summary": "Add space to harvester",
         "x-bash-codegen-description": "Adds space {sid} as member of harvester {id}.\n\nThis operation requires `harvester_add_space` privilege in the harvester and\n`space_add_harvester` privilege in the space.\n\nFor administrator who does not belong to the space / harvester,\n`oz_spaces_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required.\n",
-        "description": "Adds space {sid} as member of harvester {id}.\n\nThis operation requires `harvester_add_space` privilege in the harvester and\n`space_add_harvester` privilege in the space.\n\nFor administrator who does not belong to the space / harvester,\n`oz_spaces_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required.\n\n***Example cURL requests***\n\n**Add space to harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/spaces/$SPACE_ID\n```\n",
+        "description": "Adds space {sid} as member of harvester {id}.\n\nThis operation requires `harvester_add_space` privilege in the harvester and\n`space_add_harvester` privilege in the space.\n\nFor administrator who does not belong to the space / harvester,\n`oz_spaces_add_relationships` and `oz_harvesters_add_relationships` privileges\nare required.\n\n***Example cURL requests***\n\n**Add space to harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/spaces/$SPACE_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -24014,7 +23733,7 @@
         ],
         "summary": "Create new index in harvester",
         "x-bash-codegen-description": "Creates new index in given harvester.\n\nThis operation requires `oz_harvesters_update` admin privilege.\n",
-        "description": "Creates new index in given harvester.\n\nThis operation requires `oz_harvesters_update` admin privilege.\n\n***Example cURL requests***\n\n**Create new index in harvester**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"My study index\", \"guiPluginName\" : \"study\"}\\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/indices\n```\n",
+        "description": "Creates new index in given harvester.\n\nThis operation requires `oz_harvesters_update` admin privilege.\n\n***Example cURL requests***\n\n**Create new index in harvester**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-X POST -d '{ \"name\" : \"My study index\", \"guiPluginName\" : \"study\"}\\\nhttps://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/indices\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -24101,7 +23820,7 @@
         ],
         "summary": "Query harvester index",
         "x-bash-codegen-description": "Performs query to index {idx} in harvester {id}.\n\nThis operation does not require any privileges when the harvester is public \notherwise being member of the harvester is required.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_view` privilege is required.\n\nRequest body depends on selected `harvester_plugin`. This is example for `elasticsearch_plugin`.\n",
-        "description": "Performs query to index {idx} in harvester {id}.\n\nThis operation does not require any privileges when the harvester is public \notherwise being member of the harvester is required.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_view` privilege is required.\n\nRequest body and response depend on selected `harvester_plugin`. Below examples are for `elasticsearch_plugin`.\n\n***Example cURL requests***\n\n**query harvester index**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X POST \\\n-d '{ \"method\" : \"get\", \"path\" : \"resource_id\"}'\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/indices/$INDEX_ID/query\n```\n",
+        "description": "Performs query to index {idx} in harvester {id}.\n\nThis operation does not require any privileges when the harvester is public \notherwise being member of the harvester is required.\nFor administrators who do not have to be members of this harvester,\n`oz_harvesters_view` privilege is required.\n\nRequest body and response depend on selected `harvester_plugin`. Below examples are for `elasticsearch_plugin`.\n\n***Example cURL requests***\n\n**query harvester index**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X POST \\\n-d '{ \"method\" : \"get\", \"path\" : \"resource_id\"}'\n https://$HOST/api/v3/onezone/harvesters/$HARVESTER_ID/indices/$INDEX_ID/query\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -25121,7 +24840,7 @@
         ],
         "summary": "Add user to cluster",
         "x-bash-codegen-description": "Adds user {uid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this cluster.\n\nThis operation can only be invoked by the user {uid} to add himself to the\ncluster (if he is not a member already) and requires `cluster_add_user`\nprivilege in the cluster. If `privileges` are specified in the request,\n`cluster_set_privileges` privilege is also required.\n\nAdministrators having the `oz_clusters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any cluster,\nthough `oz_clusters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n",
-        "description": "Adds user {uid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this cluster.\n\nThis operation can only be invoked by the user {uid} to add himself to the\ncluster (if he is not a member already) and requires `cluster_add_user`\nprivilege in the cluster. If `privileges` are specified in the request,\n`cluster_set_privileges` privilege is also required.\n\nAdministrators having the `oz_clusters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any cluster,\nthough `oz_clusters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to cluster**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID\n```\n",
+        "description": "Adds user {uid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the user in this cluster.\n\nThis operation can only be invoked by the user {uid} to add himself to the\ncluster (if he is not a member already) and requires `cluster_add_user`\nprivilege in the cluster. If `privileges` are specified in the request,\n`cluster_set_privileges` privilege is also required.\n\nAdministrators having the `oz_clusters_add_relationships` and\n`oz_users_add_relationships` admin privileges can add any user to any cluster,\nthough `oz_clusters_set_privileges` privilege is required if `privileges` are\nspecified in the request.\n\n***Example cURL requests***\n\n**Add user to cluster**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -25208,7 +24927,7 @@
         ],
         "summary": "Remove user from cluster",
         "x-bash-codegen-description": "Removes user from specific cluster.\n\nThis operation requires `cluster_remove_user` privilege in the cluster or\n`oz_clusters_remove_relationships` and `oz_users_remove_relationships` admin privilege.\n",
-        "description": "Removes user from specific cluster.\n\nThis operation requires `cluster_remove_user` privilege in the cluster or\n`oz_clusters_remove_relationships` and `oz_users_remove_relationships` admin privileges.\n\n***Example cURL requests***\n\n**Get cluster user data**\n```bash\ncurl  -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID\n```\n",
+        "description": "Removes user from specific cluster.\n\nThis operation requires `cluster_remove_user` privilege in the cluster or\n`oz_clusters_remove_relationships` and `oz_users_remove_relationships` admin privileges.\n\n***Example cURL requests***\n\n**Get cluster user data**\n```bash\ncurl -u admin:password -X DELETE \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -25382,7 +25101,7 @@
         ],
         "summary": "Update user's cluster privileges",
         "x-bash-codegen-description": "Updates user's (`{uid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege.\nFor administrators who do not have to be members of this cluster,\n`oz_clusters_set_privileges` privilege is required.\n",
-        "description": "Updates user's (`{uid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege.\nFor administrators who do not have to be members of this cluster,\n`oz_clusters_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a cluster**\n```bash\ncurl -i -k -u admin:password -X PATCH \\\n-d '{\"grant\": [\"cluster_view\", \"cluster_update\"], \"revoke\": [\"cluster_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID/privileges\n```\n",
+        "description": "Updates user's (`{uid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege.\nFor administrators who do not have to be members of this cluster,\n`oz_clusters_set_privileges` privilege is required.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update user's privileges in a cluster**\n```bash\ncurl -u admin:password -X PATCH \\\n-d '{\"grant\": [\"cluster_view\", \"cluster_update\"], \"revoke\": [\"cluster_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/users/$USER_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -26134,7 +25853,7 @@
         ],
         "summary": "Add group to cluster",
         "x-bash-codegen-description": "Adds group {gid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this cluster.\n\nThis operation requires `cluster_add_group` privilege in the cluster and\n`group_add_cluster` privilege in the group. If `privileges` are\nspecified in the request, `cluster_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / cluster,\n`oz_groups_add_relationships` and `oz_clusters_add_relationships` privileges\nare required, and `oz_clusters_set_privileges` if `privileges` are specified\nin the request.\n",
-        "description": "Adds group {gid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this cluster.\n\nThis operation requires `cluster_add_group` privilege in the cluster and\n`group_add_cluster` privilege in the group. If `privileges` are\nspecified in the request, `cluster_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / cluster,\n`oz_groups_add_relationships` and `oz_clusters_add_relationships` privileges\nare required, and `oz_clusters_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to cluster**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/groups/$GROUP_ID\n```\n",
+        "description": "Adds group {gid} as member of cluster {id}. Optionally, privileges\ncan be passed in the request body, otherwise default\nprivileges will be set for the group in this cluster.\n\nThis operation requires `cluster_add_group` privilege in the cluster and\n`group_add_cluster` privilege in the group. If `privileges` are\nspecified in the request, `cluster_set_privileges` privilege is also required.\n\nFor administrator who does not belong to the group / cluster,\n`oz_groups_add_relationships` and `oz_clusters_add_relationships` privileges\nare required, and `oz_clusters_set_privileges` if `privileges` are specified\nin the request.\n\n***Example cURL requests***\n\n**Add group to cluster**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" -X PUT \\\n https://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/groups/$GROUP_ID\n```\n",
         "consumes": [
           "application/json"
         ],
@@ -26391,7 +26110,7 @@
         ],
         "summary": "Update group's privileges in a cluster",
         "x-bash-codegen-description": "Updates group's (`{gid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege\nor `oz_clusters_set_privileges` admin privilege.\n",
-        "description": "Updates group's (`{gid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege\nor `oz_clusters_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a cluster**\n```bash\ncurl -u username:password  -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"cluster_view\", \"cluster_update\"], \"revoke\": [\"cluster_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/groups/$GROUP_ID/privileges\n```\n",
+        "description": "Updates group's (`{gid}`) privileges in a cluster (`{id}`).\n\nThis operation requires `cluster_set_privileges` privilege\nor `oz_clusters_set_privileges` admin privilege.\n\nThe `grant` field specifies a list of privileges to be granted. The `revoke`\nfield specifies a list of privileges to be revoked. At least one of those\nfields must be given.\n\n***Example cURL requests***\n\n**Update group's privileges in a cluster**\n```bash\ncurl -u username:password -H \"Content-type: application/json\" \\\n-d '{\"grant\": [\"cluster_view\", \"cluster_update\"], \"revoke\": [\"cluster_delete\"]}' \\\nhttps://$HOST/api/v3/onezone/clusters/$CLUSTER_ID/groups/$GROUP_ID/privileges\n```\n",
         "responses": {
           "204": {
             "description": "The privileges have been updated."
@@ -27212,7 +26931,7 @@
         "token": "MDAxNmxvY2F00aW9uIHJlZ2lzdHJ5CjAwM2JpZGVudGlmaW",
         "name": "Example provider",
         "subdomainDelegation": false,
-        "domain": "provider2.beta.onedata.org",
+        "domain": "provider2.example.com",
         "latitude": 50.0647,
         "longitude": 19.945
       }
@@ -27479,38 +27198,6 @@
           "JKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTRsNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OI1d24c36707d99197c6cd995810a43aca",
           "sNk1CVHZTU3Z0OThwcHA2OTQ4czhRN1NPawowMDFhY2lkIHRpbWUgPCAxNDk2MTQwMTQ0CjAwMmZzaWduYXR1cmUg88OI1d24c36707d99197c6cd995810a43acaJKAxNWxvY2F0aW9uIG9uZXpvbmUKMDAzYmlkZW50aWZpZXIgOEhmSEFSSGdrbHFCa1pWSTR"
         ]
-      }
-    },
-    "DefaultSpace": {
-      "type": "object",
-      "description": "Default space Id.",
-      "properties": {
-        "spaceId": {
-          "type": "string",
-          "description": "The Id of the default user space."
-        }
-      },
-      "required": [
-        "spaceId"
-      ],
-      "example": {
-        "spaceId": "eafc6eaec7bdb5be8671c1ab2e70e980"
-      }
-    },
-    "DefaultProvider": {
-      "type": "object",
-      "description": "Default provider Id.",
-      "properties": {
-        "providerId": {
-          "type": "string",
-          "description": "The Id of the default user provider."
-        }
-      },
-      "required": [
-        "providerId"
-      ],
-      "example": {
-        "providerId": "1acaede6eec99d5722a5ea06dbf37a3c"
       }
     },
     "SpaceInviteToken": {
@@ -27876,14 +27563,14 @@
       "properties": {
         "alias": {
           "type": "string",
-          "description": "Unique Id of the space."
+          "description": "User defined name for the space."
         }
       },
       "required": [
         "alias"
       ],
       "example": {
-        "alias": "Another name."
+        "alias": "My space name"
       }
     },
     "GroupPrivileges": {
