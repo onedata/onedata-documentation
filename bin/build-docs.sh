@@ -22,9 +22,3 @@ case "${1}" in
         echo "usage: build-docs.sh install-gitbook | build-gitbook | build-redoc"
         ;;
 esac
-
-
-
-
-
-
