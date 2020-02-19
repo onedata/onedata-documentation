@@ -782,8 +782,10 @@ CT="content-type: application/json"
 Find out current time in Onezone:
 ```bash
 curl ${REST_API}/provider/public/get_current_time
+```
 
-> {"timeMillis":1582046102940}
+```bash
+{"timeMillis":1582046102940}
 ```
 
 Divide by 1000 to get time in seconds, add 3600 (1 hour validity) and use in
@@ -800,8 +802,10 @@ curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary -d '{
     }
   ]
 }'
+```
 
-> {"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
+```bash
+{"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
 ```
 
 
@@ -827,8 +831,13 @@ curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
     }
   ]
 }'
+```
 
-> {"tokenId":"4c71496ba3dff0052c04c697b12fe157ch9a1f","token":"MDAyMGxvY2F00aW9uIG96LjE1OIwND..."}
+```bash
+{
+  "tokenId":"4c71496ba3dff0052c04c697b12fe157ch9a1f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
 ```
 
 This token can be used only in the Oneprovider with specified Id and only for
@@ -858,8 +867,13 @@ curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
     }
   ]
 }'
+```
 
-> {"tokenId":"0052c06ba3d7ch9a1ff2fe154c697b14c7149f","token":"MDAyMGxvY2F00aW9uIG96LjE1OIwND..."}
+```bash
+{
+  "tokenId":"0052c06ba3d7ch9a1ff2fe154c697b14c7149f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
 ```
 
 Such token can be used only for readonly access to files in the specified 
@@ -874,8 +888,10 @@ that would allow data access in whole space `e8df04bb7a8f9a644a773daf24fe631bchd
 Note: 
 ```bash
 echo "/e8df04bb7a8f9a644a773daf24fe631bchd5c2" | base64
+```
 
-> L2U4ZGYwNGJiN2E4ZjlhNjQ0YTc3M2RhZjI0ZmU2MzFiY2hkNWMyCg==
+```bash
+L2U4ZGYwNGJiN2E4ZjlhNjQ0YTc3M2RhZjI0ZmU2MzFiY2hkNWMyCg==
 ```
 
 Bob's token (note `${BOBS_AUTH_HEADER}`):
@@ -898,8 +914,13 @@ curl -H ${BOBS_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
     }
   ]
 }'
+```
 
-> {"tokenId":"61ff25052c04c7ba3d7ch94c697b10afe1149f","token":"MDAyMGxvY2F00aW9uIG96LjE1OIwND..."}
+```bash
+{
+  "tokenId":"61ff25052c04c7ba3d7ch94c697b10afe1149f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
 # BOBS_ACCESS_TOKEN
 ```
 
@@ -916,8 +937,10 @@ curl -H ${ALICES_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary
     }
   ]
 }'
+```
 
-> {"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
+```bash
+{"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
 # ALICES_IDENTITY_TOKEN
 ```
 
@@ -945,8 +968,13 @@ curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
   },
   "usageLimit": 4
 }'
+```
 
-> {"tokenId":"28a45b0ce12fefe8e098e9d8c238d74fch4f69","token":"MDAyMGxvY2F00aW9uIG96LjE1OIwND..."}
+```bash
+{
+  "tokenId":"28a45b0ce12fefe8e098e9d8c238d74fch4f69",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
 ```
 
 The token can be used 4 times (only successful attempts count). You can pass the
@@ -969,8 +997,13 @@ curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
   },
   "privileges": ["space_view", "space_read_data", "space_write_data"]
 }'
+```
 
-> {"tokenId":"ce3cec620a003576b279ddd533777ec1ch34dd","token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY..."}
+```bash
+{
+  "tokenId":"ce3cec620a003576b279ddd533777ec1ch34dd",
+  "token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY..."
+}
 ```
 
 Whoever consumes the token will join the space with privileges: 
