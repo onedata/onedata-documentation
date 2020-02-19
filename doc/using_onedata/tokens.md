@@ -1,4 +1,4 @@
-# Access & Invite Tokens
+# Tokens
 
 This documentation is valid for system versions `20.02.*` or newer. Basic 
 information about legacy tokens for versions up to `19.02.*` can be found 
@@ -8,11 +8,8 @@ information about legacy tokens for versions up to `19.02.*` can be found
 
 ## Basics
 
-There are three types of tokens in Onedata: access tokens, invite tokens and 
-GUI access tokens. The latter are reserved for internal use in the web 
-applications and are invalid when used outside of this scope. Access and invite
-tokens are available for the end user to create, manage and utilize. Access 
-tokens can also serve as identity tokens, as described [later on](#identity-tokens). 
+There are three types of tokens in Onedata: [access tokens](#access-tokens), 
+[identity tokens](#identity-tokens) and [invite tokens](#invite-tokens).
 
 Regardless of the above-mentioned type, each token can be 
 [named or temporary](#named-and-temporary-tokens).
@@ -26,7 +23,7 @@ support for [caveats](#token-caveats) - contextual confinements.
 
 All tokens are created in Onezone and can only be verified by Onezone.
 
-Tokens can be created using the wizard in Onezone web GUI or the [REST API].
+Tokens can be created using the wizard in Onezone web GUI or the [REST API](#using-rest-api).
 
 Tokens must be kept secret - unless they are safely confined with caveats, then
 passing a token to another party or publishing it is possible.
@@ -41,9 +38,9 @@ to perform operations on behalf of the token subject (creator). The subject can
 be either a user or a Oneprovider service. For clarity, this documentation talks 
 about user tokens, but all the aspects are symmetrical for Oneproviders.
 
-Access tokens carry the identity of the subject that created the token. From the
-system's point of view, the token bearer is indistinguishable from the subject. 
-Consider this example:
+Access tokens are tied to the subject that created the token. From the system's 
+point of view, the token bearer is indistinguishable from the subject. Consider 
+this example:
 
 1. Bob creates a token and gives it to Alice
 
@@ -53,18 +50,15 @@ Consider this example:
    the request in this context, operating on Bob's data. It does not matter if
    the requesting client (token bearer) was Alice or Bob.
 
-Apart from the identity, the token carries authorization to perform operations
-in the system. The authorization can be limited by caveats. If there are no
+Access tokens carry authorization to perform operations in the system on behalf
+of the subject. The authorization can be limited by caveats. If there are no
 caveats, the token carries absolute power to perform any operation on behalf of 
-the subject, similar to user's password. It is possible to nullify the 
-authorization using the `scope` caveat, in such case the access token can 
-only be used as an [identity token](#identity-tokens).
+the subject, similar to user's password.
    
-Authorization in Onedata depends on the identity of the requesting party 
-(token's subject), subject's relations and privileges (e.g. space membership and
-the privileges in the space), as well as token's caveats. For example, for Bob
-to be able to create a file in space `My experiment`, all below requirements 
-need to be satisfied:
+Authorization in Onedata depends on the token's subject, their relations and
+privileges (e.g. space membership and the privileges in the space), as well as 
+token's caveats. For example, for Bob to be able to create a file in space 
+`My experiment`, all below requirements need to be satisfied:
 
 1. Requesting party must present a valid token with `subject = Bob`
 
@@ -83,28 +77,28 @@ other users or services. Nevertheless, you should never disclose your tokens to
 a party that is not trusted.
 
 
-### Identity tokens
+## Identity tokens
 
-Access tokens can be used to prove the subject's identity, in such case they can
-be perceived as identity tokens. Proving identity might be required to satisfy a
-[`consumer` caveat](#token-caveats). Some access tokens can be used as 
-identity tokens and the other way around, but they allow different types of
-caveats (see [caveats compatibility](#caveats-compatibility)). What's most 
-relevant, an identity token can have the `scope` caveat, which completely
-nullifies the authorization carried by the token and makes it suitable only for
-identity verification (the token cannot be used as an access token to perform
-any operation). It is strongly recommended to always add the `scope` caveat
-whenever the token is used as an identity token, especially when sending it to 
-an untrusted party.
+Identity tokens are a proof of subject's identity. Other than that, they carry 
+no authorization to perform any operation in the system. Proving identity with
+an identity token is required to satisfy a [`consumer` caveat](#consumer) in 
+another token. An identity token can have [caveats](#token-caveats), which limit
+the context in which the token is accepted (e.g. shortlisting the allowed IP 
+addresses from which the token can be used).
+> Identity tokens must not be disclosed to other users or untrusted services,
+as whoever possesses such token can impersonate the subject. They can be safely 
+sent to the Onezone service. When using such token in a Oneprovider service, it 
+is strongly recommended to add a short TTL for the token with a 
+[`time` caveat](#token-caveats).
 
 
 ## Invite tokens
 
 Invite tokens in Onedata are used to create relations in the system. They can be 
 consumed by anyone who possesses the token (unless the token has a `consumer` 
-caveat). Typical scenario is that the inviting user generates a token and passes 
-it to somebody that they wish to invite, and the other user consumes the token 
-and is added to the target entity (e.g. group or space).
+caveat). Typical scenario is that the inviting user (token subject) generates a 
+token and passes it to somebody that they wish to invite, and the other user 
+consumes the token and is added to the target entity (e.g. group or space).
 
 Each token has inscribed information about the target entity of the invitation
 which is chosen by the inviting user. It means that the token consumer does not 
@@ -113,7 +107,7 @@ etc. - the token itself is enough to join it.
 
 The Onezone Web GUI provides a comprehensive wizard for creating invite tokens
 with different parameters. Below is some technical information about the invite
-tokens which might be useful for [REST API] users.
+tokens which might be useful for [REST API](#using-rest-api) users.
 
 Invite tokens can have one of the following types:
 
@@ -131,6 +125,10 @@ Invite tokens can have one of the following types:
                     
 * `supportSpace` - can be consumed by a Oneprovider to grant support 
     (storage space) to the target space of the invitation
+                           
+* `harvesterJoinSpace` - can be consumed to join the target space of the 
+    invitation as a harvester, so that the space becomes a
+    metadata source for the harvester.
     
 * `registerOneprovider` - can be consumed to register a new Oneprovider and link
     it to the target user (who becomes an admin of the 
@@ -157,6 +155,9 @@ token can be created by a member of the target space that has the
 being consumed - if the creator has lost the right to invite, the token cannot
 be consumed.
 
+An invite token can have [caveats](#token-caveats), which limit the context in
+which the token can be consumed.
+
 [Named](#named-and-temporary-tokens) invite tokens can have additional parameters, 
 which are optional:
 
@@ -176,17 +177,17 @@ tokens are linked to user's account and retrievable. All differences are shown
 in below table.
 
 
-| Temporary tokens                                                 | Named tokens                                                     |
-|------------------------------------------------------------------|------------------------------------------------------------------|
-| no identification in the system                                  | must have a unique name                                          |
-| not persisted                                                    | persisted                                                        |
-| cannot be retrieved <br/> _you must store the token upon creation_ | linked to subject's account                                    |
-| shared secret <br/> _the secret can be regenerated, in this case all subject's temporary tokens become invalid_ | individual secret |
-| cannot be deleted individually <br/> _see shared secret above_   | can be deleted <br/> _(the token immediately becomes invalid_    |
-| non-revocable individually <br/> _see shared secret above_       | revocable <br/> _revocation can be undone at will_               |
-| must have limited lifespan <br/> _max permitted lifespan is configurable by the Onezone admin_ | can have infinite lifespan         |
-| no accounting, cannot be listed                                  | can be listed in [REST API] or viewed in web GUI                 |
-| useful for automated software / middleware / scripting           | require more management but ensure full control                  |
+| Temporary tokens                                                 | Named tokens                                                      |
+|------------------------------------------------------------------|-------------------------------------------------------------------|
+| no identification in the system                                  | must have a unique name                                           |
+| not persisted                                                    | persisted                                                         |
+| cannot be retrieved <br/> _you must store the token upon creation_ | linked to subject's account                                     |
+| shared secret <br/> _the secret can be regenerated, in this case all subject's temporary tokens become invalid_ | individual secret  |
+| cannot be deleted individually <br/> _see shared secret above_   | can be deleted <br/> _(the token immediately becomes invalid_     |
+| non-revocable individually <br/> _see shared secret above_       | revocable <br/> _revocation can be undone at will_                |
+| must have limited lifespan <br/> _max permitted lifespan is configurable by the Onezone admin_ | can have infinite lifespan          |
+| no accounting, cannot be listed                                  | can be listed in [REST API](#using-rest-api) or viewed in web GUI |
+| useful for automated software / middleware / scripting           | require more management but ensure full control                   |
   
   
 ## Token caveats
@@ -228,8 +229,8 @@ The Onezone Web GUI offers a convenient wizard for adding caveats to tokens.
 Further, you will find technical details and considerations about token caveats.
 
 Below is the list of all recognized caveats in Onedata. Provided examples of 
-caveats are in JSON format, recognized by the [REST API] (consult for more 
-information about allowed values and usage). 
+caveats are in JSON format, recognized by the [REST API](#using-rest-api)
+(consult for more information about allowed values and usage). 
 
 * `time` - limits the validity of the token to a certain point in time, 
     specified as an absolute timestamp in seconds (UNIX Epoch time). If no such 
@@ -315,20 +316,6 @@ information about allowed values and usage).
     ```
     > NOTE: as the client region detection depends on client's IP, this caveat
     has the same considerations as the `ip` caveat when requests are proxied.
-    
-* `scope` - limits the authorization carried by the token. Currently only 
-    `identityToken` scope is allowed, which nullifies the authorization. Such 
-    token does not allow to perform any operation in the system, can be used 
-    only for identity verification (a.k.a. [identity token](#identity-tokens)).
-    ```json
-    {
-      "type": "scope",
-      "scope": "identityToken"
-    }
-    ```
-    > NOTE: in tables concerning access tokens the `scope` caveat is presented 
-    as always *rejected*, which is in fact how it works (nullifies the 
-    authorization carried by the token).  
     
 * `service` - limits the [services](#service) that can process the token.
     If the caveat is present, the service must prove its identity by sending 
@@ -467,7 +454,6 @@ to always fail verification (renders it unusable in practice).
 | asn               | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
 | geo.country       | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
 | geo.region        | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| scope             | <span style="color:red"> rejected </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
 | service           | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 | consumer          | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
 | interface         | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
@@ -476,10 +462,8 @@ to always fail verification (renders it unusable in practice).
 | data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 | data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 
-> Identity tokens do not allow service caveats as service is only relevant when
-requesting an API operation. They also forbid `api` or data access caveats,
-otherwise somebody who holds a strongly limited, publicly available token would
-be able to easily impersonate the subject.
+> Identity tokens do not allow `service`, `api` or data access caveats as they
+are only relevant when requesting an API operation or in data access context.
 
 > Invite tokens are specialized for one operation and always used in the Onezone
 service, hence they allow only suitable caveats.
@@ -543,7 +527,6 @@ summarized in the below tables.
 | asn               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | geo.country       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | geo.region        | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| scope             | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:red">  rejected       </span> | 
 | service           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | consumer          | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
 | interface[^2]     | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted[^3] </span> |
@@ -585,7 +568,6 @@ it will not be able to cause any damage with such token.
 | asn               | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | geo.country       | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | geo.region        | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| scope             | <span style="color:red">  rejected      </span> | <span style="color:red">  rejected </span> | <span style="color:red">  rejected </span> | 
 | service           | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | consumer          | <span style="color:red">  rejected[^3] </span>  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
 | interface         | <span style="color:#aa0"> `"oneclient"` </span> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"rest"` </span> |
@@ -618,7 +600,6 @@ which makes it impossible to verify consumer caveats on this interface.
 | asn               | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
 | geo.country       | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
 | geo.region        | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[^1] </span> | 
-| scope             | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> | 
 | service           | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
 | consumer          | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
 | interface         | <span style="color:red"> rejected[^2] </span> | <span style="color:red"> rejected[^2] </span> |
@@ -652,10 +633,10 @@ identity by sending its identity token to Onezone.
 ### Service types
 
 There are 4 service types in Onedata. Note the serialized format in the table
-below if you wish to use the [REST API] for creating tokens with `service` 
-caveats - the first three letters denote the type, and the rest after the
-hyphen is the `id` of the corresponding Oneprovider or special `onezone` keyword 
-for the Onezone service. 
+below if you wish to use the [REST API](#using-rest-api) for creating tokens 
+with `service` caveats - the first three letters denote the type, and the rest 
+after the hyphen is the `id` of the corresponding Oneprovider or special 
+`onezone` keyword for the Onezone service. 
 
 | Service                        |               Examples (serialized format)              | 
 |--------------------------------|:-------------------------------------------------------:|
@@ -693,15 +674,15 @@ her identity by adding her [identity token](#identity-tokens) to the request:
         -H "x-onedata-consumer-token: ${ALICES_IDENTITY_TOKEN}" \
         -X GET ...
 ```
-Without a valid `x-onedata-consumer-token`, the request will fail with
-unverified caveat error. 
+Without a valid `x-onedata-consumer-token` belonging specifically to Alice, the
+request will fail with unverified caveat error. 
             
 ### Consumer types
 
 There are 3 consumer types in Onedata. Note the serialized format in the table
-below if you wish to use the [REST API] for creating tokens with `consumer` 
-caveats - the first three letters denote the type, and the rest after the
-hyphen is the `id` of the corresponding user / group / Oneprovider. 
+below if you wish to use the [REST API](#using-rest-api) for creating tokens 
+with `consumer` caveats - the first three letters denote the type, and the rest 
+after the hyphen is the `id` of the corresponding user / group / Oneprovider. 
 
 | Consumer                       |               Examples (serialized format)              | 
 |--------------------------------|:-------------------------------------------------------:|
@@ -729,10 +710,11 @@ When creating a token for public use, consider the following:
 
 * Make sure to include carefully chosen [data access caveats](#data-access-caveats) 
 in the token (`data_readonly`, `data_path`, `data_objectid`). In a typical scenario, 
-you may want to allow readonly access to a certain subset of your data. In rare 
-cases, you can use an `api` caveat to enable a very specific API operation 
-that you want to be publicly available in your name. Remember that `api` and
-*data access caveats* [do not go together](#data-access-caveats).
+you may want to allow readonly access to a certain subset of your data.
+
+* In rare cases, you can use an `api` caveat to enable a very specific API 
+operation that you want to be publicly available in your name. Remember that 
+`api` and *data access caveats* [do not go together](#data-access-caveats).
 
 * It may be reasonable to use an `interface` caveat and specify the interface
 on which the token will be exclusively accepted. For example, if `oneclient`
@@ -760,7 +742,7 @@ token that has been properly limited by caveats.
 an access token, it is required that the token's subject user trust the service
 and is entitled to use it. In case of Oneprovider, the user must be supported 
 by the Oneprovider - must have access to at least one space that is supported by
-the provider, which implies bidirectional trust between the user and the 
+the Oneprovider, which implies bidirectional trust between the user and the 
 Oneprovider. To use a Oneprovider panel service, the user must be a member of
 the cluster corresponding to the Oneprovider. If above conditions are not met,
 authorization is declined. This is checked by Onezone when releasing user data. 
@@ -782,5 +764,274 @@ subject's account or read private information.
 used - other spaces are completely invisible and inaccessible to the token bearer.
 
 
+## Using REST API
+
+Below are some examples how the REST API can be used to manage user tokens. For
+detailed documentation of all endpoints, please refer to the 
+[API documentation](https://onedata.org/#/home/api/latest/onezone?anchor=tag/Token).
+
+Below examples assume that the following envs are exported:
+
+```bash
+REST_API="https://<onezone-domain>/api/v3/onezone"
+AUTH_HEADER="x-auth-token: <your-access-token>"
+CT="content-type: application/json"
+```
+
+#### Create a temporary access token valid for 1 hour
+Find out current time in Onezone:
+```bash
+curl ${REST_API}/provider/public/get_current_time
+```
+
+```bash
+{"timeMillis":1582046102940}
+```
+
+Divide by 1000 to get time in seconds, add 3600 (1 hour validity) and use in
+a `time` caveat:
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary -d '{
+  "type": {
+    "accessToken": {}
+  },
+  "caveats": [
+    {
+      "type": "time",
+      "validUntil": 1582049702
+    }
+  ]
+}'
+```
+
+```bash
+{"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
+```
+
+
+#### Create a named access token for mounting Oneclient in specific Oneprovider
+
+Identify the Id of the desired Oneprovider - you can visit the web GUI and go to
+the Overview tab in the Oneprovider. Assume the Id is `3fe8f8eafb53c7205eeffde461a50348chfaf0`.
+
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+  "name": "Oneclient access token",
+  "type": {
+    "accessToken": {}
+  },
+  "caveats": [
+    {
+      "type": "interface",
+      "interface": "oneclient"
+    },
+    {
+      "type": "service",
+      "whitelist": ["opw-3fe8f8eafb53c7205eeffde461a50348chfaf0"]
+    }
+  ]
+}'
+```
+
+```bash
+{
+  "tokenId":"4c71496ba3dff0052c04c697b12fe157ch9a1f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
+```
+
+This token can be used only in the Oneprovider with specified Id and only for
+mounting Oneclient.
+
+
+#### Create a named token for readonly access in a specific directory
+
+Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the fileId of 
+the directory that is to be available with the token.
+
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+  "name": "Readonly access to experiment data",
+  "type": {
+    "accessToken": {}
+  },
+  "caveats": [
+    {
+      "type": "data.readonly"
+    },
+    {
+      "type": "data.objectid",
+      "whitelist": [
+        "39592D594E736C676D0000002B43592D347247454C535F6"
+      ]
+    }
+  ]
+}'
+```
+
+```bash
+{
+  "tokenId":"0052c06ba3d7ch9a1ff2fe154c697b14c7149f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
+```
+
+Such token can be used only for readonly access to files in the specified 
+directory (and its subdirectories).
+
+
+#### Create a named token valid only for a colleague
+
+Please refer to the scenario [described before](#consumer). Assume that Bob 
+wishes to create a token for Alice (user Id `461698917aa4c176fd86a111b6e7231ca998f1`) 
+that would allow data access in whole space `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
+Note: 
+```bash
+echo "/e8df04bb7a8f9a644a773daf24fe631bchd5c2" | base64
+```
+
+```bash
+L2U4ZGYwNGJiN2E4ZjlhNjQ0YTc3M2RhZjI0ZmU2MzFiY2hkNWMyCg==
+```
+
+Bob's token (note `${BOBS_AUTH_HEADER}`):
+```bash
+curl -H ${BOBS_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+  "name": "Access token for Alice",
+  "type": {
+    "accessToken": {}
+  },
+  "caveats": [
+    {
+      "type": "consumer",
+      "whitelist": ["usr-461698917aa4c176fd86a111b6e7231ca998f1"]
+    },
+    {
+      "type": "data.path",
+      "whitelist": [
+        "L2U4ZGYwNGJiN2E4ZjlhNjQ0YTc3M2RhZjI0ZmU2MzFiY2hkNWMyCg=="
+      ]
+    }
+  ]
+}'
+```
+
+```bash
+{
+  "tokenId":"61ff25052c04c7ba3d7ch94c697b10afe1149f",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
+# BOBS_ACCESS_TOKEN
+```
+
+Alice needs to create an identity token to be able to use Bob's token (note `${ALICES_AUTH_HEADER}`):
+```bash
+curl -H ${ALICES_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary -d '{
+  "type": {
+    "identityToken": {}
+  },
+  "caveats": [
+    {
+      "type": "time",
+      "validUntil": 1582049702
+    }
+  ]
+}'
+```
+
+```bash
+{"token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY1MzcudGVzdAowMDRjciAyL3Rt..."}
+# ALICES_IDENTITY_TOKEN
+```
+
+Now, Alice can use the tokens like below for accessing the data in the space:
+```bash
+~$ curl -H "x-auth-token: ${BOBS_ACCESS_TOKEN}" \
+        -H "x-onedata-consumer-token: ${ALICES_IDENTITY_TOKEN}" \
+        -X GET ...
+```
+
+
+#### Create a named invite token for requesting space support with 4 uses
+
+Identify the Id of the desired space - you can visit the web GUI and go to
+the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
+
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+  "name": "Support token for My Experiment",
+  "type": {
+    "inviteToken": {
+      "inviteType": "supportSpace",
+      "spaceId": "e8df04bb7a8f9a644a773daf24fe631bchd5c2"
+    }
+  },
+  "usageLimit": 4
+}'
+```
+
+```bash
+{
+  "tokenId":"28a45b0ce12fefe8e098e9d8c238d74fch4f69",
+  "token":"MDAyMGxvY2F00aW91MzcudGVzdAowMuIGF00aW9uIG9696LjEA1OIwND..."
+}
+```
+
+The token can be used 4 times (only successful attempts count). You can pass the
+token to four different Oneproviders and ask for support.
+
+
+#### Create a named invite token for inviting space members with certain privileges
+
+Identify the Id of the desired space - you can visit the web GUI and go to
+the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
+
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+  "name": "User invite for My Experiment",
+  "type": {
+    "inviteToken": {
+      "inviteType": "userJoinSpace",
+      "spaceId": "e8df04bb7a8f9a644a773daf24fe631bchd5c2"
+    }
+  },
+  "privileges": ["space_view", "space_read_data", "space_write_data"]
+}'
+```
+
+```bash
+{
+  "tokenId":"ce3cec620a003576b279ddd533777ec1ch34dd",
+  "token":"MDAyMGxvY2F00aW9uIG96LjE1ODIwNDY..."
+}
+```
+
+Whoever consumes the token will join the space with privileges: 
+`["space_view", "space_read_data", "space_write_data"]`. The token has no usage
+limit.
+
+
+#### Revoke the previously created invite token for inviting space members
+
+Named token create operation returns the `tokenId`, which can be used to refer
+to the named token. Note the Id returned in the previous example. The token can
+be revoked like this:
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X PATCH \
+${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
+  "revoked": true
+}'
+```
+
+From now on, the invite token will not work. Revocation can be toggled at will:
+```bash
+curl -H ${AUTH_HEADER} -H ${CT} -X PATCH \
+${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
+  "revoked": false
+}'
+```
+
+The token can be used again.
+
+
 [Google's macaroons]: https://ai.google/research/pubs/pub41892
-[REST API]: https://onedata.org/#/home/api/latest/onezone?anchor=tag/Token
