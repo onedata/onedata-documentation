@@ -791,7 +791,7 @@ curl ${REST_API}/provider/public/get_current_time
 Divide by 1000 to get time in seconds, add 3600 (1 hour validity) and use in
 a `time` caveat:
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/temporary -d '{
   "type": {
     "accessToken": {}
   },
@@ -815,7 +815,7 @@ Identify the Id of the desired Oneprovider - you can visit the web GUI and go to
 the Overview tab in the Oneprovider. Assume the Id is `3fe8f8eafb53c7205eeffde461a50348chfaf0`.
 
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
   "name": "Oneclient access token",
   "type": {
     "accessToken": {}
@@ -850,7 +850,7 @@ Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the fileId of
 the directory that is to be available with the token.
 
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
   "name": "Readonly access to experiment data",
   "type": {
     "accessToken": {}
@@ -894,9 +894,9 @@ echo "/e8df04bb7a8f9a644a773daf24fe631bchd5c2" | base64
 L2U4ZGYwNGJiN2E4ZjlhNjQ0YTc3M2RhZjI0ZmU2MzFiY2hkNWMyCg==
 ```
 
-Bob's token (note `${BOBS_AUTH_HEADER}`):
+Bob's token (note `${BOBS_AUTH_HDR}`):
 ```bash
-curl -H ${BOBS_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+curl -H "${BOBS_AUTH_HDR}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
   "name": "Access token for Alice",
   "type": {
     "accessToken": {}
@@ -924,9 +924,9 @@ curl -H ${BOBS_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
 # BOBS_ACCESS_TOKEN
 ```
 
-Alice needs to create an identity token to be able to use Bob's token (note `${ALICES_AUTH_HEADER}`):
+Alice needs to create an identity token to be able to use Bob's token (note `${ALICES_AUTH_HDR}`):
 ```bash
-curl -H ${ALICES_AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/temporary -d '{
+curl -H "${ALICES_AUTH_HDR}" -H "${CT}" -X POST ${REST_API}/user/tokens/temporary -d '{
   "type": {
     "identityToken": {}
   },
@@ -958,7 +958,7 @@ Identify the Id of the desired space - you can visit the web GUI and go to
 the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
   "name": "Support token for My Experiment",
   "type": {
     "inviteToken": {
@@ -987,7 +987,7 @@ Identify the Id of the desired space - you can visit the web GUI and go to
 the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X POST ${REST_API}/user/tokens/named -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
   "name": "User invite for My Experiment",
   "type": {
     "inviteToken": {
@@ -1017,7 +1017,7 @@ Named token create operation returns the `tokenId`, which can be used to refer
 to the named token. Note the Id returned in the previous example. The token can
 be revoked like this:
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X PATCH \
+curl -H "${AUTH_HEADER}" -H "${CT}" -X PATCH \
 ${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
   "revoked": true
 }'
@@ -1025,7 +1025,7 @@ ${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
 
 From now on, the invite token will not work. Revocation can be toggled at will:
 ```bash
-curl -H ${AUTH_HEADER} -H ${CT} -X PATCH \
+curl -H "${AUTH_HEADER}" -H "${CT}" -X PATCH \
 ${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
   "revoked": false
 }'
