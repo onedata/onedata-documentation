@@ -7,7 +7,7 @@
   * [Admin Quickstart](doc/getting_started/admin_onedata_101.md)
       * [Onezone deploy](doc/administering_onedata/onezone_quick_tutorial.md)
       * [Oneprovider deploy](doc/administering_onedata/oneprovider_quick_tutorial.md)
-
+      * [Google IdP tutorial](doc/administering_onedata/google_idp_tutorial.md)
 * [Onedata for users]()
    * [Overview](doc/user_guide.md)
    * [Account Management](doc/using_onedata/account_management.md)
