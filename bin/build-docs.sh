@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GITBOOK_IMG='docker.onedata.org/gitbook-compiler:ID-a2746a377f'
-REDOC_IMG='onedata/redoc-cli:v1'
+REDOC_IMG='onedata/redoc-cli:v2'
 
 test -t 1 && TTY="-t"
 
