@@ -1002,9 +1002,8 @@ it's not possible to resolve the attribute the mapped value will be empty
 `Module:map_attribute(Attr, IdPAttributes)` will be called and should return the 
 resolved attribute value as `{ok, Value}`, or `{error, Reason}` if it could not 
 be found. IdPAttributes is an Erlang map (keys are binaries). Module must be 
-placed in the auth plugins directory (/etc/oz_worker/plugins) to be loaded 
-during Onezone startup. For more info, refer to 
-[attribute mapper](#attribute-mapper) Example:
+placed in the auth [plugins directory](#auth-plugins). For more info, refer to 
+[attribute mapper](#attribute-mapper). Example:
 ```Erlang
 fullName => {plugin, my_attr_mapper}
 % would call my_attr_mapper:map_attribute(fullName, IdPAttributes)
@@ -1740,10 +1739,15 @@ To implement your own entitlement parser, see
 ## Auth plugins
 Auth plugins are user-defined Erlang modules that can be injected into the
 Onezone service and used to customize OIDC / SAML sing-on procedure. All plugins 
-are expected to be found in the directory `/etc/oz_worker/plugins`, and 
-must be Erlang files with `".erl"` extension. They will be loaded upon Onezone 
-startup. When using a deployment with more than one node, the same plugins must 
-be provisioned on all nodes.
+must be Erlang files with `".erl"` extension and are expected to be found in the 
+plugins directory: 
+
+* versions `19.02.*`: `/etc/oz_worker/plugins`
+* versions `20.02.*`: `/var/lib/oz_worker/plugins`
+
+The plugins are loaded upon Onezone startup. When using a deployment with more 
+than one node, the same plugins must be provisioned on all nodes.
+
 
 > If you wish to implement your own auth plugin, we recommend to contact us 
 (e.g. create an issue on [GitHub](https://github.com/onedata/)) to make the
@@ -1768,7 +1772,8 @@ the `onezone_plugin_behaviour` that returns the `attribute_mapper` atom from the
 `type/0` callback, and the `attribute_mapper_behaviour`. Refer to the
 [oz-worker source code](https://github.com/onedata/oz-worker) for the
 behaviour module and implementation details. An exemplary custom attribute 
-mapper can be found in `/etc/oz_worker/plugins/custom_attribute_mapper.erl`.
+mapper (`custom_attribute_mapper.erl`) can be found in the 
+[plugins directory](#auth-plugins).
 
 
 ### Entitlement parser
@@ -1778,8 +1783,8 @@ the `entitlement_parser` atom from the `type/0` callback, and the
 `entitlement_parser_behaviour`. Refer to the
 [oz-worker source code](https://github.com/onedata/oz-worker) for the
 behaviour module and implementation details. An exemplary custom entitlement 
-parser that supports EGI group format can be found in 
-`/etc/oz_worker/plugins/custom_entitlement_parser.erl`.
+parser that supports EGI group format (`custom_entitlement_parser.erl`) can be 
+found in the [plugins directory](#auth-plugins).
 
 
 ### OpenID plugin

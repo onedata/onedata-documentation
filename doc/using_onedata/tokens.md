@@ -318,6 +318,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     has the same considerations as the `ip` caveat when requests are proxied.
     
 * `service` - limits the [services](#service) that can process the token.
+    Imposes implicit [API limitations](#service-caveat-considerations).
     If the caveat is present, the service must prove its identity by sending 
     its identity token in the `x-onedata-service-token` header. The services 
     must be encoded using the proper [service format](#service-types).
@@ -467,6 +468,7 @@ are only relevant when requesting an API operation or in data access context.
 
 > Invite tokens are specialized for one operation and always used in the Onezone
 service, hence they allow only suitable caveats.
+
 
 ### Data access caveats
 
@@ -648,6 +650,17 @@ after the hyphen is the `id` of the corresponding Oneprovider or special
 > Note: the special `*` service `id` can be used to allow any service of given
 type (e.g. any Oneprovider service).
 
+### Service caveat considerations
+
+Service caveats impose implicit API limitations depending on the whitelisted
+services. It is *strongly recommended* to include a service caveat in all tokens
+that are used to access services other than Onezone - this way, the service
+is given limited power to perform operations on behalf of the user, restricted
+to the necessary minimum. For example, a token used to mount a Oneclient should
+be confined with a service token that whitelists the Oneprovider service. Such
+token cannot be used in Onezone API for any (possibly malicious) operations, 
+which ensures security even if the Oneprovider service is not fully trusted.
+
 
 ## Consumer
 
@@ -737,6 +750,10 @@ or delegating access tokens:
 passwords or certificates / private keys. The exceptions are 1) when passing an 
 invite token to somebody you wish to invite or 2) when delegating an access 
 token that has been properly limited by caveats.
+
+* It is strongly recommended to include a 
+[service caveat](#service-caveat-considerations) in all tokens that are used
+outside of Onezone service.
 
 * When a Oneprovider or Oneprovider panel service receives a request along with
 an access token, it is required that the token's subject user trust the service

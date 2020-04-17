@@ -37,21 +37,6 @@ or to install a specific version of oneclient
 conda install -c onedata oneclient=18.02.2
 ```
 
-### macOS
-An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
-
-```bash
-# OSXFuse must be installed separately, at least version 3.5.4
-brew cask install osxfuse
-brew tap onedata/onedata
-brew install oneclient
-```
-
-In order to enable Desktop icon for the mounted Onedata volume, it is necessary to enable this feature in the system settings:
-
-```bash
-defaults write com.apple.finder ShowMountedServersOnDesktop 1
-```
 
 ## Authentication
 
@@ -64,7 +49,6 @@ a specific Onezone service and obtain an access token. Access token can be gener
 
 If you are connecting to a provider service which does not have a
 globally trusted certificate, you will have to use `-i` or `--insecure` on every `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable .
-
 
 
 ### Mounting spaces
