@@ -657,8 +657,8 @@ services. It is *strongly recommended* to include a service caveat in all tokens
 that are used to access services other than Onezone - this way, the service
 is given limited power to perform operations on behalf of the user, restricted
 to the necessary minimum. For example, a token used to mount a Oneclient should
-be confined with a service token that whitelists the Oneprovider service. Such
-token cannot be used in Onezone API for any (possibly malicious) operations, 
+be confined with a service caveat that whitelists just the Oneprovider service. 
+Such token cannot be used in Onezone API for any (possibly malicious) operations, 
 which ensures security even if the Oneprovider service is not fully trusted.
 
 
