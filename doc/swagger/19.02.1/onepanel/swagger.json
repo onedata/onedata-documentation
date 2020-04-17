@@ -8976,12 +8976,12 @@
     },
     "api_key1": {
       "type": "apiKey",
-      "name": "X-Auth-Token",
+      "name": "Authorization",
       "in": "header"
     },
     "api_key2": {
       "type": "apiKey",
-      "name": "Authorization: Bearer",
+      "name": "X-Auth-Token",
       "in": "header"
     }
   },
