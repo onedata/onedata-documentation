@@ -28,6 +28,7 @@ This section describes typical filesystem metadata attributes. The list of attri
 | **storage_user_id**  | 1470304148                               | Uid of the storage owner of this file    |
 | **name**             | file.txt                                 | The name of the object (Space, directory or file) |
 | **owner_id**         | 79c0ed35f32e43db3a87f76a588c9b2f9        | ID of the file owner                     |
+| **provider_id**      | 79c0ed35f32e43db3a87f76a588c9b2f9        | ID of the provider on which file was created      |
 | **shares**           | ["b3a87f76a588c9b279c0ed35f32e4db", ...] | Array of share Id's associated with this file or directory |
 | **type**             | 'reg'                                    | Specifies whether the resource is a regular file (`reg`), a directory (`dir`) or a link (`lnk`) |
 
@@ -55,13 +56,13 @@ Extended attributes can be modified either from the Graphical User Interface, fr
 ```bash
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $TOKEN" \
 -H 'Content-type: application/json' -d '{ "license": "CC-0" }'
-"https://$HOST/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
+"https://$HOST/api/v3/oneprovider/data/$FILE_ID/metadata/xattrs"
 ```
 
 **List all extended attributes using REST API**
 ```bash
 curl --tlsv1.2 -X GET -H "X-Auth-Token: $TOKEN" \
-"https://$HOST/api/v3/oneprovider/attributes/MySpace1/File2.txt?extended=true"
+"https://$HOST/api/v3/oneprovider/data/$FILE_ID/metadata/xattrs"
 ```
 
 ### Setting extended attributes using command line
@@ -98,7 +99,7 @@ In addition to filesystem level and extended attributes, Onedata supports arbitr
 
 In each of these backends, user can store any properly formatted metadata
 documents, which can be modified and retrieved using the
-[REST API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_metadata)
+[REST API](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/File-Metadata)
 or in the future in the Graphical User Interface.
 
 ## Advanced metadata queries
