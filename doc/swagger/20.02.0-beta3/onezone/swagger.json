@@ -14718,7 +14718,7 @@
         ],
         "summary": "Get provider details",
         "x-bash-codegen-description": "Returns the information about a specific Oneprovider service that is\nregistered in Onezone.\n\nThis operation requires any of the following authentication:\n* as any provider (providers are allowed to view each other's data),\n* as user who is an effective member in a space supported by the subject provider,\n* as user who has `oz_providers_view` admin privilege.\n",
-        "description": "Returns the information about a specific Oneprovider service that is\nregistered in Onezone.\n\nThis operation requires any of the following authentication:\n* as any provider (providers are allowed to view each other's data),\n* as user who is an effective member in a space supported by the subject provider,\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -H \"x-auth-token: $TOKEN\" -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID\n```\n",
+        "description": "Returns the information about a specific Oneprovider service that is\nregistered in Onezone.\n\nThis operation requires any of the following authentication:\n* as any provider (providers are allowed to view each other's data),\n* as user who is an effective member in a space supported by the subject provider,\n* as user who has `oz_providers_view` admin privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" -X GET  \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID\n```\n",
         "produces": [
           "application/json"
         ],
@@ -14791,7 +14791,7 @@
           "oz_providers_delete"
         ],
         "x-bash-codegen-description": "Removes (unregisters) given Oneprovider from Onezone.\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `oz_providers_delete` admin privilege.\n",
-        "description": "Removes (unregisters) given Oneprovider from Onezone.\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `oz_providers_delete` admin privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -H \"x-auth-token: $TOKEN\" -X DELETE  \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID\n```\n",
+        "description": "Removes (unregisters) given Oneprovider from Onezone.\n\nThis operation requires any of the following authentication:\n* as the subject provider (`{id}`),\n* as user who has `oz_providers_delete` admin privilege.\n\n***Example cURL requests***\n\n**Get specific provider details**\n```bash\ncurl -H \"X-Auth-Token: $TOKEN\" -X DELETE  \\\nhttps://$HOST/api/v3/onezone/providers/$PROVIDER_ID\n```\n",
         "produces": [
           "application/json"
         ],
@@ -33928,12 +33928,12 @@
     },
     "api_key1": {
       "type": "apiKey",
-      "name": "Authorization",
+      "name": "X-Auth-Token",
       "in": "header"
     },
     "api_key2": {
       "type": "apiKey",
-      "name": "X-Auth-Token",
+      "name": "Authorization",
       "in": "header"
     }
   },
