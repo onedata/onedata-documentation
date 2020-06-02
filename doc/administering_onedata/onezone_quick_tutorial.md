@@ -195,7 +195,7 @@ $ docker-compose -f /opt/onedata/onezone/docker-compose.yml pull
 Currently **Onezone** supports 2
 general modes of authentication, i.e.: basic authentication and OpenID
 Connect. Default configuration supports only basic authentication using Onepanel accounts.
-For configuring authentication using OpenID Providers see [here](openid_saml_configuration.md).
+For configuring authentication using OpenID Providers see [here](openid_saml_configuration.md). For configuring Google IdP see this [tutorial](openid_saml_configuration/google_idp_tutorial.md).
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.

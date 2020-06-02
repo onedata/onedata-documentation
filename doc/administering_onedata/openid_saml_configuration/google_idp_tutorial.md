@@ -3,7 +3,7 @@
 <!-- toc -->
 
 ## Prerequisites
-* Already deployed onezone instance is required for this tutorial. See [here](onezone_quick_tutorial.md) if onezone is not installed yet.
+* Already deployed onezone instance is required for this tutorial. See [here](../onezone_quick_tutorial.md) if onezone is not installed yet.
 * Access to a google account.
 
 ## Procedure
