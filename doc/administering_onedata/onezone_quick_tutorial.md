@@ -192,10 +192,9 @@ $ docker-compose -f /opt/onedata/onezone/docker-compose.yml pull
 
 ### Configuring authentication methods
 
-Currently **Onezone** supports 2
-general modes of authentication, i.e.: basic authentication and OpenID
-Connect. Default configuration supports only basic authentication using Onepanel accounts.
-For configuring authentication using OpenID Providers see [here](openid_saml_configuration.md). For configuring Google IdP see this [tutorial](openid_saml_configuration/google_idp_tutorial.md).
+Currently Onezone supports 3 general modes of authentication, i.e.: basic authentication, OpenID Connect and SAML. Default configuration supports only basic authentication using admin accounts. It is recommended to deploy the service with default auth configuration, and then proceed with configuring other methods:
+* [Configuring OpenID Connect & SAML authentication](openid_saml_configuration.md)
+* [Configuring Google IdP client (OpenID Connect)](openid_saml_configuration/google_idp_tutorial.md)
 
 ### Security and recommended firewall settings
 **Onezone** service requires several ports (`53`,`53/UDP`,`80`,`443`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
@@ -205,7 +204,7 @@ is deployed, it exposes several additional ports. This means that the
 Couchbase [security guidelines](https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html)
 should be also followed.
 
-For more information about ports setup see [Firewal setup](./firewall_setup.md)
+For more information about ports setup see [Firewal setup](./firewall_setup.md).
 
 
 ### DNS records setup for subdomain delegation

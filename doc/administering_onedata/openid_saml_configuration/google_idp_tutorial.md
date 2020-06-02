@@ -31,7 +31,7 @@
 7. Add your domain: API->domain verification->add domain->enter domain->add domain
 8. Configure consent screen: API-->oauth consent screen->external->create->fill(application name, logo, email, authorized domain)->Save.
 9. Create credentials: API->Credentials->CREATE CREDENTIALS->OAuth Client ID->Web Application->fill(name: "onedata", Authorized JavaScript origins: `https://example.com`, Authorized redirect URIs: `https://example.com/validate_login`)->Create.
-10. Place the credentials (client id and secret) in auth.conf. For example:
+10. Place the credentials (client id and secret) in auth.conf (see [here](openid_saml_configuration_19_02.md#config-file-structure) for more datails). For example:
 ```
 ...
         {google, #{
