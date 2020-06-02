@@ -234,10 +234,9 @@ TODO
  -->
 ### Configuring authentication methods
 
-Currently **Onezone** supports 2
-general modes of authentication, i.e.: basic authentication and OpenID
-Connect. Default configuration supports only basic authentication using Onepanel accounts.
-For configuring authentication using OpenID Providers see [here](openid_saml_configuration.md).
+Currently Onezone supports 3 general modes of authentication, i.e.: basic authentication, OpenID Connect and SAML. Default configuration supports only basic authentication using admin accounts. It is recommended to deploy the service with default auth configuration, and then proceed with configuring other methods:
+* [Configuring OpenID Connect & SAML authentication](openid_saml_configuration.md)
+* [Configuring Google IdP client (OpenID Connect)](openid_saml_configuration/google_idp_tutorial.md)
 
 
 ### Setting up certificates
