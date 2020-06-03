@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "lunr": "0.5.12",
-        "lodash": "3.10.1"
+        "lodash": "4.17.15"
     },
     "homepage": "https://github.com/kliput/plugin-search",
     "repository": {
