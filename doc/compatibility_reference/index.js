@@ -64,17 +64,17 @@ function generateContext(data) {
       serviceInRows: 'Onezone',
       serviceInColumns: 'Oneprovider',
       tableId: 'zp'
-    }, generateTableData(data['oz-op'])),
+    }, generateTableData(data['compatibility']['onezone:oneprovider'])),
     pp: Object.assign({
       serviceInRows: 'Oneprovider',
       serviceInColumns: 'Oneprovider',
       tableId: 'pp'
-    }, generateTableData(makeSymmetric(data['op-op']))),
+    }, generateTableData(makeSymmetric(data['compatibility']['oneprovider:oneprovider']))),
     pc: Object.assign({
       serviceInRows: 'Oneprovider',
       serviceInColumns: 'Oneclient',
       tableId: 'pc'
-    }, generateTableData(data['op-oc']))
+    }, generateTableData(data['compatibility']['oneprovider:oneclient']))
   };
 }
 

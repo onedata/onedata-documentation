@@ -14,16 +14,16 @@ There are four possible operations that can be performed by users in terms of fi
 The procedure checks whether file replica can be safely deleted which means that it is responsible for checking whether file blocks are not unique. 
 * replica migration - combination of replication and replica eviction. Replicates file blocks to target provider and evicts file replica on the source provider. Migration is performed by the same request as eviction with additional parameter `migration_provider_id`
 
-### Advanced operations using view indexes
-As a prerequisite for understanding this section we advise to familiarize with [Onedata Indexes API](metadata.md#advanced-metadata-queries).
+### Advanced operations using views
+As a prerequisite for understanding this section we advise to familiarize with [Onedata Views API](metadata.md#advanced-metadata-queries).
 
-It is possible to schedule replication, replica eviction or replica migration of files that are included in the result of a query on a view index.
+It is possible to schedule replication, replica eviction or replica migration of files that are included in the result of a query on a view.
 Currently, scheduling of such operations is possible only via [REST interface](#rest-interface).
 
-In order to schedule replica operations by indexes, the user must ensure that the mapping (or reduce) function returns a list containing solely file IDs as a value. The list of IDs can be arbitrarily nested (it will be flattened).
+In order to schedule replica operations by view, the user must ensure that the mapping (or reduce) function returns a list containing solely file IDs as a value. The list of IDs can be arbitrarily nested (it will be flattened).
 Failure to comply with this format will result in errors.
 Example of such mapping function is presented below. It returns the list of all files that have an extended attribute which name starts with "org.onedata.jobId.".
-The latter part of the extended attribute is used as the key in the index view. 
+The latter part of the extended attribute is used as the key in the view. 
 ```javascript
 function (id, type, meta, ctx) {
     const JOB_PREFIX = "org.onedata.jobId.";
@@ -61,12 +61,12 @@ Requests are listed in the table below, with attached links to their comprehensi
 |:--------------------------------------------|:-------------------------------------------------------------------------------------------:|
 | Get replicas by path                        | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_replicas) |
 | Get replicas by ID                          | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_replicas_by_id)|
-| Replicate file or folder by path            | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file)         |
-| Replicate file or folder by ID              | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_id)   |
-| Replicate files by index                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_id)|
+| Replicate file or directory by path         | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file)         |
+| Replicate file or directory by ID           | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_id)   |
+| Replicate files by view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/replicate_file_by_view)|
 | Evict/migrate existing replica by file path | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica)|
 | Evict/migrate existing replica by file ID   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica_by_id)|
-| Evict/migrate existing replicas by index    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica_by_id)|
+| Evict/migrate existing replicas by view     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/evict_replica_by_view)|
  
 ### Transfer control and monitoring
 

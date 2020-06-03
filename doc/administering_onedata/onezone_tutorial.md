@@ -101,7 +101,7 @@ Python 2.7.12
 Onezone installation using Docker is very straightforward. This type of deployment requires that docker and docker-compose have been installed on your server.
 
 #### Customizing Onezone Docker Compose script
-In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the folder `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
+In case of Docker based deployment all configuration information needed to install **Onezone** can be included directly in the Docker Compose script. This tutorial assumes that all **Onezone** configuration and log files will be stored in the directory `/opt/onedata/onezone` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files.
 
 The following assumes you have prepared the following directory structure:
 
@@ -234,10 +234,9 @@ TODO
  -->
 ### Configuring authentication methods
 
-Currently **Onezone** supports 2
-general modes of authentication, i.e.: basic authentication and OpenID
-Connect. Default configuration supports only basic authentication using Onepanel accounts.
-For configuring authentication using OpenID Providers see [here](openid_saml_configuration.md).
+Currently Onezone supports 3 general modes of authentication, i.e.: basic authentication, OpenID Connect and SAML. Default configuration supports only basic authentication using admin accounts. It is recommended to deploy the service with default auth configuration, and then proceed with configuring other methods:
+* [Configuring OpenID Connect & SAML authentication](openid_saml_configuration.md)
+* [Configuring Google IdP client (OpenID Connect)](openid_saml_configuration/google_idp_tutorial.md)
 
 
 ### Setting up certificates

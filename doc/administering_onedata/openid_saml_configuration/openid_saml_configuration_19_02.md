@@ -47,6 +47,22 @@ However, you may want to manually adjust the config afterwards.
 > NOTE: [Custom files](#custom-icon-guidelines) location must be adjusted manually.
 
 
+## Quickstart
+
+By default, Onezone is packaged with config that enables only basic
+authentication, placed in `/etc/oz_worker/auth.config`. After deploying Onezone,
+a default user `admin` will be created, with password equal to the emergency 
+passphrase provided in Onepanel during deployment - this way you can log in to a 
+fresh Onezone installation without further setup.
+
+> NOTE that deployment examples using docker-compose overwrite the `auth.config`
+file with a mount from host. Simply remove this mount to use the default config 
+(especially when you are not sure how to fill it out, because mounting an 
+incorrect config will disable all login methods). 
+
+[Here](#minimal-config) is the minimal `auth.config`, installed by default. 
+
+
 ## Prerequisites 
 
 To integrate with an OpenID or SAML Identity Provider, you need to have 
@@ -148,7 +164,7 @@ After adding your IdPs to the config file, you should see corresponding icons on
 the login page (`https://onezone.example.com`). If there are more than 7 IdPs,
 the first 6 will be shown and the rest hidden in the `...` button.
 
-<img  style="display:block;margin:0 auto;" src="../img/login-page.png">
+<img  style="display:block;margin:0 auto;" src="../../img/login-page.png">
 
 
 ## Config file structure
@@ -201,8 +217,8 @@ The config file has the following sections:
         
 ```
 
-`version` - obligatory field that defines the version of the config file, 
-currently the newest is `2`. If no version field is found, version `1` is 
+`version` - obligatory field that defines the version of the config file,
+currently the newest is `3`. If no version field is found, version `1` is
 assumed. Used by Onezone to determine if an upgrade is required.
 
 ### basicAuth Config
@@ -986,9 +1002,8 @@ it's not possible to resolve the attribute the mapped value will be empty
 `Module:map_attribute(Attr, IdPAttributes)` will be called and should return the 
 resolved attribute value as `{ok, Value}`, or `{error, Reason}` if it could not 
 be found. IdPAttributes is an Erlang map (keys are binaries). Module must be 
-placed in the auth plugins directory (/etc/oz_worker/plugins) to be loaded 
-during Onezone startup. For more info, refer to 
-[attribute mapper](#attribute-mapper) Example:
+placed in the auth [plugins directory](#auth-plugins). For more info, refer to 
+[attribute mapper](#attribute-mapper). Example:
 ```Erlang
 fullName => {plugin, my_attr_mapper}
 % would call my_attr_mapper:map_attribute(fullName, IdPAttributes)
@@ -1568,26 +1583,45 @@ same role/privileges should be organized in groups)
 #### Privileges in entitlements
 It is possible to specify privileges of the user towards the bottom group of the 
 nested structure or privileges of the groups in the nested chain towards their 
-parents. These privileges will be set only when creating a new membership - if a 
-membership already exists, the privileges are not accounted. It means that any 
-changes in privileges introduced by users in an existing structure will never be 
-overwritten by the entitlements mapping. There are three possible sets of 
-privileges: `member`, `manager`, `admin`. They expand to a certain set of 
-Onedata group privileges:
+parents. 
+
+User privileges in the bottom group are set when the membership is created
+and each time the privileges resulting from the entitlement mapping change.
+They can be changed manually, but the changes will be overwritten by
+entitlement mapping changes received from an IdP. Example:
+
+1. User logs in with entitlement "developers" and "manager" privileges.
+2. User is manually granted "admin" privileges in the "developers" group.
+3. User logs in again with "developers:manager" but his privileges are not
+   changed because no difference since the last login is detected; he still
+   has "admin" privileges.
+4. User logs in again with "developers:member", which causes his privileges
+   to be changed down to "member" - manual changes have been overwritten.
+   
+For child groups, the privileges are set only when creating a new
+membership - later changes in the corresponding entitlement will NOT be
+taken into account. The privileges can be changed manually without the risk
+of being overwritten by the entitlement mapping.
+
+There are three possible sets of privileges: `member`, `manager`, `admin`. 
+They expand to a certain set of Onedata group privileges:
 * member -> `[group_view]`
 
 * manager -> `[group_view,
-     group_invite_user, group_remove_user,
-     group_add_parent, group_leave_parent,
-     group_add_child, group_remove_child]`
-     
-* admin -> `[group_view,
-     group_invite_user, group_remove_user,
+     group_add_user, group_remove_user,
      group_add_parent, group_leave_parent,
      group_add_child, group_remove_child,
+     group_add_harvester, group_remove_harvester]`
+     
+* admin -> `[group_view, group_view_privileges,
+     group_add_user, group_remove_user,
+     group_add_parent, group_leave_parent,
+     group_add_child, group_remove_child,
+     group_add_harvester, group_remove_harvester,
      group_update, group_delete,
-     group_view_privileges, group_set_privileges,
+     group_set_privileges,
      group_add_space, group_leave_space,
+     group_add_cluster, group_leave_cluster,
      group_create_handle_service, group_leave_handle_service,
      group_create_handle, group_leave_handle]`
 
@@ -1705,10 +1739,15 @@ To implement your own entitlement parser, see
 ## Auth plugins
 Auth plugins are user-defined Erlang modules that can be injected into the
 Onezone service and used to customize OIDC / SAML sing-on procedure. All plugins 
-are expected to be found in the directory `/etc/oz_worker/plugins`, and 
-must be Erlang files with `".erl"` extension. They will be loaded upon Onezone 
-startup. When using a deployment with more than one node, the same plugins must 
-be provisioned on all nodes.
+must be Erlang files with `".erl"` extension and are expected to be found in the 
+plugins directory: 
+
+* versions `19.02.*`: `/etc/oz_worker/plugins`
+* versions `20.02.*`: `/var/lib/oz_worker/plugins`
+
+The plugins are loaded upon Onezone startup. When using a deployment with more 
+than one node, the same plugins must be provisioned on all nodes.
+
 
 > If you wish to implement your own auth plugin, we recommend to contact us 
 (e.g. create an issue on [GitHub](https://github.com/onedata/)) to make the
@@ -1733,7 +1772,8 @@ the `onezone_plugin_behaviour` that returns the `attribute_mapper` atom from the
 `type/0` callback, and the `attribute_mapper_behaviour`. Refer to the
 [oz-worker source code](https://github.com/onedata/oz-worker) for the
 behaviour module and implementation details. An exemplary custom attribute 
-mapper can be found in `/etc/oz_worker/plugins/custom_attribute_mapper.erl`.
+mapper (`custom_attribute_mapper.erl`) can be found in the 
+[plugins directory](#auth-plugins).
 
 
 ### Entitlement parser
@@ -1743,8 +1783,8 @@ the `entitlement_parser` atom from the `type/0` callback, and the
 `entitlement_parser_behaviour`. Refer to the
 [oz-worker source code](https://github.com/onedata/oz-worker) for the
 behaviour module and implementation details. An exemplary custom entitlement 
-parser that supports EGI group format can be found in 
-`/etc/oz_worker/plugins/custom_entitlement_parser.erl`.
+parser that supports EGI group format (`custom_entitlement_parser.erl`) can be 
+found in the [plugins directory](#auth-plugins).
 
 
 ### OpenID plugin
@@ -1780,7 +1820,7 @@ on:
     problem, copy the request state identifier from the error page and check the 
     logs - see the next point.
     
-    <img  style="display:block;margin:0 auto;" src="../img/login-page-error.png">
+    <img style="display:block;margin:0 auto;" src="../../img/login-page-error.png">
 
 * Check [Onezone logs](../onezone_tutorial.md#logs) for any hints what might 
 have gone wrong:
@@ -1853,7 +1893,7 @@ the canvas (see the image below).
 * Make sure to center you icon on the image canvas (unless, of course, you want
 it to be asymmetric).
 
-<img  style="display:block;margin:0 auto;" src="../img/custom-icon.png">
+<img  style="display:block;margin:0 auto;" src="../../img/custom-icon.png">
 
 
 ## Test login page
@@ -1879,9 +1919,9 @@ whole login process.
 > The SAML SP metadata XML based on `test.auth.config` can be viewed under the
 following URL: `https://onezone.example.com/saml/sp.xml?test=true`
 
-<img  style="display:block;margin:0 auto;" src="../img/test-login-page.png">
+<img  style="display:block;margin:0 auto;" src="../../img/test-login-page.png">
 
-<img  style="display:block;margin:0 auto;" src="../img/test-login-output.png">
+<img  style="display:block;margin:0 auto;" src="../../img/test-login-output.png">
 
 
 ## Complete example
@@ -2223,11 +2263,44 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
 }.
 ```
 
+## Minimal config
+
+Minimal config that enables only basic auth (username & password login) - 
+included by default in Onezone installation.
+
+```Erlang
+#{
+    version => 3,
+
+    basicAuthConfig => #{
+        enabled => true
+    },
+
+    samlConfig => #{
+        enabled => false
+    },
+
+    openidConfig => #{
+        enabled => false
+    },
+
+    supportedIdps => [
+        {basicAuth, #{
+            displayName => "username & password",
+            iconPath => "/assets/images/auth-providers/basicauth.svg",
+            iconBackgroundColor => "#4BD187",
+            protocol => basicAuth
+        }}
+    ]
+}.
+```
+
 
 ## Exemplary entries for selected IdPs
 
-Below are some working config examples that use predefined icons. In case of 
-OpenID IdPs, it is required to insert the Client Id and Secret in the config.
+Below are some working config examples that use predefined icons, to be placed
+in the `supportedIdps` section of the config. In case of OpenID IdPs, it is 
+required to insert the Client Id and Secret in the config.
 
 
 ### username & password login
@@ -2263,7 +2336,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => urlencoded,
             accessTokenPassMethod => inAuthHeader,
-            customData => undefined
+            customData => #{}
         },
     
         authorityDelegation => #{
@@ -2321,7 +2394,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => urlencoded,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
         
         authorityDelegation => #{
@@ -2473,7 +2546,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => inAuthHeader,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
         
         authorityDelegation => #{
@@ -2530,7 +2603,7 @@ OpenID IdPs, it is required to insert the Client Id and Secret in the config.
             accessTokenAcquireMethod => post,
             clientSecretPassMethod => inAuthHeader,
             accessTokenPassMethod => urlencoded,
-            customData => undefined
+            customData => #{}
         },
 
         authorityDelegation => #{

@@ -56,8 +56,8 @@ A complete list of available permissions:
 
 | Permission Name | Description                                                                  |
 |:----------------|:-----------------------------------------------------------------------------|
-| View Group      | User can see files and folders in your group                                 |
-| Modify Group    | User can modify files and folders in your group                              |
+| View Group      | User can see files and directories in your group                             |
+| Modify Group    | User can modify files and directories in your group                          |
 | Set privileges  | User can modify group privileges                                             |
 | Remove Group    | User can delete your group                                                   |
 | Invite user     | User can invite new users to your group                                      |

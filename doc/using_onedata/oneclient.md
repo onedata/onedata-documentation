@@ -23,21 +23,20 @@ curl -sS  http://get.onedata.org/oneclient.sh | bash
 >administrator rights to your machine, use command `gpasswd -a <username> fuse`
 >to add your account to the `fuse` group.
 
-### macOS
-An experimental version of oneclient is available for macOS (Sierra or higher), and can be installed using Homebrew:
+### Anaconda
+Since version `18.02.2` and `19.02.0-rc1` Oneclient can be installed using [Anaconda](https://anaconda.org),
+from the official [Onedata conda repository](https://anaconda.org/onedata):
 
 ```bash
-# OSXFuse must be installed separately, at least version 3.5.4
-brew cask install osxfuse
-brew tap onedata/onedata
-brew install oneclient
+conda install -c onedata oneclient
 ```
 
-In order to enable Desktop icon for the mounted Onedata volume, it is necessary to enable this feature in the system settings:
+or to install a specific version of oneclient
 
 ```bash
-defaults write com.apple.finder ShowMountedServersOnDesktop 1
+conda install -c onedata oneclient=18.02.2
 ```
+
 
 ## Authentication
 
@@ -50,7 +49,6 @@ a specific Onezone service and obtain an access token. Access token can be gener
 
 If you are connecting to a provider service which does not have a
 globally trusted certificate, you will have to use `-i` or `--insecure` on every `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable .
-
 
 
 ### Mounting spaces
@@ -329,7 +327,7 @@ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
-folder (inside container). They can be accessed from another terminal,
+directory (inside container). They can be accessed from another terminal,
 for instance using:
 ```bash
 docker exec -it oneclient-1 /bin/bash
