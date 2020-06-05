@@ -2,8 +2,17 @@
 
 <!-- toc -->
 
-Quality of Service functionality in Onedata allows you to choose storages 
-(and by this providers) where your data should be kept. 
+Quality of Service functionality in Onedata is used to manage file replica distribution and redundancy 
+between supporting Oneproviders. Users can define any number of QoS requirements for a file or directory. 
+Each requirement consists of target replicas number and an expression that is used to select storages 
+where the replicas should be placed ‐ it is matched against parameters that were assigned to storages 
+by Oneprovider admins.
+
+If required, data transfers are automatically triggered to satisfy the QoS requirements, and remote 
+changes made to file content are automatically reconciled. File replicas corresponding to QoS requirements 
+are protected from eviction.
+
+Removing a QoS requirement does not automatically remove the replicas that were created during its lifetime, but they are no longer protected. 
 
 ## QoS parameters
 QoS management is based on QoS parameters. These parameters are in form `key=value`. 
@@ -27,34 +36,23 @@ For example:
 Expressions can be combined into more complex one, e.g:  
 `geo=FR | (geo=PL & type=disc)` - storages in France or disc storages located in Poland
 
-## QoS entries
-QoS expression can be added to a file and it means that a file replica
-is required on a storage that matches given expression.  
-Adding QoS expression to a directory means that replicas of all 
-files in a directory subtree are required.
+## QoS requirements
+QoS requirement is used to specify a desired number of replicas for the subject file/directory 
+and an QoS expression used to select matching storages where the replicas will be placed. 
+The replicas will be automatically managed ‐ protected from eviction and reconciled upon changes 
+to the file content.  
 
-Amount of required replicas can also be provided. Together expression and number 
-of replicas make up a **QoS entry**.
-
-After QoS entry is added to a file/directory required number of storages is selected 
-from those matching given expression and one replica is created on each one of them. 
-Created replicas are from this moment protected from being evicted manually or by auto-cleaning.
-Also replicas will be automatically updated after every remote change to file.
-
-When there is not enough storages to satisfy QoS entry it is marked as impossible. 
-
-## QoS status
-QoS entry can be in one of three possible states:
+QoS requirement can be in one of three possible states:
  - `pending`
  - `fulfilled`
  - `impossible`
  
-When QoS entry is `impossible` it means that there are not enough storages with 
-required QoS parameters so entry cannot be satisfied.
+When QoS requirement is `impossible` it means that there are not enough storages with 
+required QoS parameters so requirement cannot be satisfied.
 
-Entry is `fulfilled` when all required replicas have been created and all remote changes have been reconciled.
+Requirement is `fulfilled` when all required replicas have been created and all remote changes have been reconciled.
 
-Entry is `pending` when it is possible but not yet fulfilled.
+Requirement is `pending` when it is possible but not yet fulfilled.
 
 
 ## Using REST API
@@ -72,9 +70,9 @@ AUTH_HEADER="x-auth-token: <your-access-token>"
 CT="content-type: application/json"
 ```
 
-#### Adding new QoS entry
+#### Adding new QoS requirement
 
-First ensure that you have id of file that you want to add your QoS entry to. 
+First ensure that you have id of file that you want to add your QoS requirement to. 
 One can be easily obtained using [lookup file id endpoint](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/lookup_file_id):
 
 ```bash
@@ -85,55 +83,53 @@ curl -H "${AUTH_HEADER}" -X POST {$REST_API}/lookup-file-id/PathToFile
 {"fileId":"000000000052732467756964236431303233303132616362346233373463306263626339666535303630343135636861356536236334613030626466613534643064636666656335633430313039633762663635636861356536"}
 ```
 
-Once you have id of your file id(e.g in FILE_ID variable) you can add QoS entry:
+Once you have id of your file id(e.g in FILE_ID variable) you can add QoS requirement:
 
 ```bash
-curl -H "${AUTH_HEADER}" -H "${CT}" -X POST {$REST_API}/qos_entry/ -d '{
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST {$REST_API}/qos_requirement/ -d '{
 "expression": "geo=FR | (geo=PL & type=disc)", 
 "replicasNum": 2, 
 "fileId": "$FILE_ID"
 }'
 ```
 
-In response you will receive id of your newly created QoS entry:
+In response you will receive id of your newly created QoS requirement:
 
 ```bash
 {
-    "qosEntryId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5"
+    "qosRequirementId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5"
 }
 ```
 
-#### Getting QoS entry details
+#### Getting QoS requirement details
 
-Getting details of a QoS entry can be achieved with following endpoint:
-
-when `$QOS_ENTRY_ID` is id of a QoS entry.
+Getting details of a QoS requirement can be achieved with querying following endpoint:
 
 ```bash
-curl -H "${AUTH_HEADER}" -X GET {$REST_API}/qos_entry/$QOS_ENTRY_ID
+curl -H "${AUTH_HEADER}" -X GET {$REST_API}/qos_requirement/$QOS_REQ_ID
 ```
 
 ```bash
 {
   "status": "pending",
   "replicasNum": 2,
-  "qosEntryId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5",
+  "qosRequirementId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5",
   "fileId": "000000000052732467756964236431303233303132616362346233373463306263626339666535303630343135636861356536236334613030626466613534643064636666656335633430313039633762663635636861356536",
   "expression": "geo=FR|(geo=PL&type=disc)"
 }
 ```
 
-#### Deleting QoS entry
+#### Deleting QoS requirement
 
-QoS entry can be deleted like this:
+QoS requirement can be deleted like this:
 
 ```bash
-curl -H "${AUTH_HEADER}" -X DELETE {$REST_API}/qos_entry/$QOS_ENTRY_ID
+curl -H "${AUTH_HEADER}" -X DELETE {$REST_API}/qos_requirement/$QOS_REQ_ID
 ```
 
 #### QoS summary for a file
 
-QoS summary contains information of all entries (added directly or inherited from ancestors) for given file.
+QoS summary contains information of all requirements (added directly or to any ancestor directory) for given file.
 
 ```bash
 curl -H "${AUTH_HEADER}" -X GET {$REST_API}/data/$FILE_ID/qos_summary
@@ -142,11 +138,11 @@ curl -H "${AUTH_HEADER}" -X GET {$REST_API}/data/$FILE_ID/qos_summary
 ```bash
 {
   "status": "pending",
-  "entries": {
+  "requirements": {
     "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5": "pending",
     "a77d55692d4b0216ceccc4b83e47cca3ch08f5": "fulfilled"
   },
-  "assignedEntries": {
+  "assignedRequirements": {
     "40852d6e487167c003065e0d3d8f4c08ch98e2": [
       "a77d55692d4b0216ceccc4b83e47cca3ch08f5",
       "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5"
