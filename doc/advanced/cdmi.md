@@ -179,7 +179,7 @@ A single Access Control Entry contains:
  * Type – **ALLOW** | **DENY**
  * Identifier – **[USERNAME#]IDENTIFIER**
  * Flags – **NO_FLAGS** | **IDENTIFIER_GROUP**
- * Mask – **READ_OBJECT** | **LIST_CONTAINER** | **WRITE_OBJECT** | **ADD_OBJECT** | **ADD_SUBCONTAINER** | **READ_METADATA** | **WRITE_METADATA** | **EXECUTE** | **TRAVERSE_CONTAINER** | **DELETE_OBJECT** | **DELETE_SUBCONTAINER** | **READ_ATTRIBUTES** | **WRITE_ATTRIBUTES** | **WRITE_RETENTION** | **DELETE** | **READ_ACL** | **WRITE_ACL** | **WRITE_OWNER**
+ * Mask – **READ_OBJECT** | **LIST_CONTAINER** | **WRITE_OBJECT** | **ADD_OBJECT** | **ADD_SUBCONTAINER** | **READ_METADATA** | **WRITE_METADATA** | **TRAVERSE_CONTAINER** | **DELETE_OBJECT** | **DELETE_SUBCONTAINER** | **READ_ATTRIBUTES** | **WRITE_ATTRIBUTES** | **DELETE** | **READ_ACL** | **WRITE_ACL**
 
 Identifier must contain the full Onedata user ID. Optionally the **USERNAME** can be provided before the `#`, but this is only for informational purposes.
 
