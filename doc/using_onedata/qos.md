@@ -2,6 +2,8 @@
 
 <!-- toc -->
 
+## Basics
+
 Quality of Service functionality in Onedata is used to manage file replica distribution and redundancy 
 between supporting Oneproviders. Users can define any number of QoS requirements for a file or directory. 
 Each requirement consists of target replicas number and an expression that is used to select storages 
@@ -12,82 +14,98 @@ If required, data transfers are automatically triggered to satisfy the QoS requi
 changes made to file content are automatically reconciled. File replicas corresponding to QoS requirements 
 are protected from eviction.
 
-Removing a QoS requirement does not automatically remove the replicas that were created during its lifetime, but they are no longer protected. 
+Removing a QoS requirement does not automatically remove the replicas that were created during its 
+lifetime, but they are no longer protected. 
 
 ## QoS parameters
-QoS management is based on QoS parameters. These parameters are in form `key=value`. 
-Storage QoS parameters can be managed by an administrator of a Oneprovider.
+QoS management is based on QoS parameters that are assigned to storages by Oneprovider admins. 
+All parameters are in form `key=value`. 
 
 Each storage has implicit parameters representing its id and id of its Oneprovider: 
 `storageId=$STORAGE_ID` and `providerId=$PROVIDER_ID`.
 
-Adding new QoS parameters and removing existing ones is managed 
-in `Modify Storage Details` by Oneprovider administrator in Onepanel.  
+Adding new QoS parameters and removing existing ones can be done using the Modify Storage Details operation in Onepanel.  
 [See more in REST API examples](#qos-parameters-management).
 
 ## QoS expression
-With use of QoS parameters one can easily describe desired storages. 
+QoS expressions are a declarative way of specifying desired storage parameters in a unified format.
 
-For example:  
-`geo=PL & type=disc` - disc storages located in Poland  
-`geo=PL | type=disc` - storages located in Poland or disc storages anywhere  
-`geo=PL - type=disc` - storages located in Poland that are not of disc type  
+Operands in expression must be in form `key=value`. One exception from this is operand `anyStorage`. 
+Operands can be combined with the use of one of supported operators:
+- `&` - results in storages that match expressions on both sides of this operator
+- `|` - results in storages that match at least one expression on both sides of this operator
+- `-` - results in storages that match expression on left side of this operator and do not match expression on the right side of operator
 
-Expressions can be combined into more complex one, e.g:  
-`geo=FR | (geo=PL & type=disc)` - storages in France or disc storages located in Poland
+Example QoS expressions:  
+- `geo=PL` - any storages in Poland  
+- `geo=PL & type=disk` - disk storages located in Poland  
+- `geo=PL | type=disk` - storages located in Poland or disk storages anywhere  
+- `anyStorage - type=disk` - any storages that are not of disk type  
+
+
+Operands and nesting can be used to combine simple expressions into complex ones, e.g:  
+- `geo=FR | (geo=PL & type=disk)` - any storages in France or disk storages located in Poland  
+- `(geo=PL - type=disk) | (geo=FR & type=disk)` - storages in Poland that are not of disk type or storages in France that are of disk type
 
 ## QoS requirements
-QoS requirement is used to specify a desired number of replicas for the subject file/directory 
-and an QoS expression used to select matching storages where the replicas will be placed. 
-The replicas will be automatically managed ‐ protected from eviction and reconciled upon changes 
-to the file content.  
+QoS requirement consists of a [Qos expression](#qos-expression) and a desired number of replicas. 
+It can be added for a single file or a whole directory (in such case all nested subfiles and 
+subdirectories are affected). The QoS expression is used to select matching storages where the 
+replicas will be placed - until the specified target number of replicas is satisfied. 
+The replicas are automatically managed ‐ protected from eviction and reconciled upon changes 
+to the file content.
 
-QoS requirement can be in one of three possible states:
- - `pending`
- - `fulfilled`
- - `impossible`
- 
-When QoS requirement is `impossible` it means that there are not enough storages with 
-required QoS parameters so requirement cannot be satisfied.
+Fulfillment of a QoS requirement is indicated by its `status`:
+ - `impossible` - there are not enough storages matching the expression to meet the required number 
+ of replicas, hence the requirement cannot be satisfied - unless the list of supporting storages 
+ or their parameters change.
+ - `fulfilled` - desired number of replicas have been created on matching storages and their contents 
+ are up-to-date (remote changes have been reconciled).
+ - `pending` - the requirement is not yet fulfilled - data replication is still ongoing.
 
-Requirement is `fulfilled` when all required replicas have been created and all remote changes have been reconciled.
+## Using web GUI
 
-Requirement is `pending` when it is possible but not yet fulfilled.
-
+Quality of Service can be managed in the web GUI. Look for the Quality of Service in the file/directory's context menu. 
 
 ## Using REST API
 
-Below are some examples how the REST API can be used to manage user tokens. For
+Below are some examples how the REST API can be used to manage QoS requirements. For
 detailed documentation of all endpoints, please refer to the 
-[API documentation](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/QoS).
+[API documentation](https://onedata.org/#/home/API/latest/oneprovider?anchor=tag/QoS).
 
 Below examples assume that the following envs are exported:
 
 ```bash
-REST_API="https://<oneprovider-domain>/api/v3/oneprovider"
-PANEL_API="https://<onepanel-domain>/api/v3/onepanel"
+REST_API="https://<oneprovider-domain>/API/v3/oneprovider"
+PANEL_API="https://<oneprovider-domain>/api/v3/onepanel"
+# or
+PANEL_API="https://<oneprovider-domain>:9443/api/v3/onepanel"  # if you have access to the onepanel's emergency interface
 AUTH_HEADER="x-auth-token: <your-access-token>"
 CT="content-type: application/json"
 ```
 
+###API for space users
+These endpoints can be used by a space member with manage QoS privileges to manage desired requirements.
+
 #### Adding new QoS requirement
 
-First ensure that you have id of file that you want to add your QoS requirement to. 
-One can be easily obtained using [lookup file id endpoint](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/lookup_file_id):
+Prepare the ID of the file/directory to which you want to add your QoS requirement.
+It can be found in the file browser GUI (`Information` in file/directory's context menu)  or 
+using the [lookup file id endpoint](https://onedata.org/#/home/API/latest/oneprovider?anchor=operation/lookup_file_id):
 
 ```bash
-curl -H "${AUTH_HEADER}" -X POST {$REST_API}/lookup-file-id/PathToFile
+curl -H "${AUTH_HEADER}" -X POST {$REST_API}/lookup-file-id/test-space/directory/file.txt
 ```
 
 ```bash
 {"fileId":"000000000052732467756964236431303233303132616362346233373463306263626339666535303630343135636861356536236334613030626466613534643064636666656335633430313039633762663635636861356536"}
 ```
 
-Once you have id of your file id(e.g in FILE_ID variable) you can add QoS requirement:
+Assuming that the file id is stored in $FILE_ID, you can add a QoS requirement: 
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST {$REST_API}/qos_requirement/ -d '{
-"expression": "geo=FR | (geo=PL & type=disc)", 
+"expression": "geo=FR | (geo=PL & type=disk)", 
 "replicasNum": 2, 
 "fileId": "$FILE_ID"
 }'
@@ -115,7 +133,7 @@ curl -H "${AUTH_HEADER}" -X GET {$REST_API}/qos_requirement/$QOS_REQ_ID
   "replicasNum": 2,
   "qosRequirementId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5",
   "fileId": "000000000052732467756964236431303233303132616362346233373463306263626339666535303630343135636861356536236334613030626466613534643064636666656335633430313039633762663635636861356536",
-  "expression": "geo=FR|(geo=PL&type=disc)"
+  "expression": "geo=FR|(geo=PL&type=disk)"
 }
 ```
 
@@ -137,25 +155,19 @@ curl -H "${AUTH_HEADER}" -X GET {$REST_API}/data/$FILE_ID/qos_summary
 
 ```bash
 {
-  "status": "pending",
   "requirements": {
     "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5": "pending",
     "a77d55692d4b0216ceccc4b83e47cca3ch08f5": "fulfilled"
   },
-  "assignedRequirements": {
-    "40852d6e487167c003065e0d3d8f4c08ch98e2": [
-      "a77d55692d4b0216ceccc4b83e47cca3ch08f5",
-      "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5"
-    ]
-  }
+  "status": "pending"
 }
 ```
-Fields of response are explained [here](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_file_qos_summary)
+Response fields are explained [here](https://onedata.org/#/home/API/latest/oneprovider?anchor=operation/get_file_qos_summary).
 
-### QoS parameters management
+### API for Oneprovider admins
 
 Below are some examples for Oneprovider administrators concerning management of storage 
-QoS parameters with the use of [REST api](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_storage_details).
+QoS parameters with the use of [REST API](https://onedata.org/#/home/API/latest/onepanel?anchor=operation/get_storage_details).
 
 #### Listing QoS parameters
 
@@ -172,7 +184,7 @@ curl -H "${AUTH_HEADER}" -X GET {$PANEL_API}/provider/storages/$STORAGE_ID
       "storageId": "b1b9174674b951305831d55b42c6ae22ch975f",
       "providerId": "7b052ee78cb4fa0263d3bebeab1da7f3ch255b",
       "geo": "PL",
-      "type": "disc"
+      "type": "disk"
     }
     ...
 }
