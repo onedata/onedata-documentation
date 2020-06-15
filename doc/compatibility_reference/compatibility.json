@@ -1,5 +1,5 @@
 {
-    "revision": 2020060400,
+    "revision": 2020061500,
     "compatibility": {
         "onezone:oneprovider": {
             "18.02.0-rc13": [
@@ -239,37 +239,37 @@
         "harvester": {
             "19.02.0-rc1": {
                 "ecrin": [
-                    "e4a2fe06a4a70f83d06b2558605eb77207da0449e86da057d2d9280e6816f470"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "19.02.0-rc2": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "19.02.1": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "19.02.2": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "19.02.3": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "20.02.0-beta3": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             },
             "20.02.0-beta4": {
                 "ecrin": [
-                    "7881a1f9ac92c04f416828114ea3059667ebec5e288655ac58e44d42cd6501c7"
+                    "aaa503646813ba00a9995b1c928f66200e87ffa24a65482c1b2d22d2cf1f30ad"
                 ]
             }
         }
