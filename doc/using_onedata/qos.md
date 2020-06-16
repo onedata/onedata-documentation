@@ -87,6 +87,8 @@ CT="content-type: application/json"
 ###API for space users
 These endpoints can be used by a space member with manage QoS privileges to manage desired requirements.
 
+<!-- @TODO VFS-6428 Add examples of retrieving storage qos parameters -->
+
 #### Adding new QoS requirement
 
 Prepare the ID of the file/directory to which you want to add your QoS requirement.
@@ -192,8 +194,10 @@ curl -H "${AUTH_HEADER}" -X GET {$PANEL_API}/provider/storages/$STORAGE_ID
 
 #### Modifying QoS parameters
 
+<!-- @TODO VFS-6429 Update example after storage modify endpoint is reworked -->
+
 Adding new parameters, removing and modifying existing ones is done with the use of the 
-same REST endpoint. It can be achieved by submitting QoS parameters that are expected after all changes.  
+same REST endpoint. Submitted QoS parameters overwrite previous ones.  
 In below example (assuming that QoS parameters before modifications are as in previous 
 example) parameter `geo` is removed, value of parameter `type` is changed 
 and new parameter `new_key` is added.
