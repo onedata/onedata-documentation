@@ -25,6 +25,7 @@
    * [Using REST API](doc/using_onedata/using_onedata_from_cli.md)
    * [OnedataFS Python interface](doc/using_onedata/onedatafs.md)
    * [Jupyter integration](doc/using_onedata/jupyter_integration.md)
+   * [Quality of Service](doc/using_onedata/qos.md)
 
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)

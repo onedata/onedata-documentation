@@ -21,3 +21,4 @@ This section provides detailed Onedata documentation necessary from the users pe
 * [Using Onedata REST from command line](using_onedata/using_onedata_from_cli.md)
 * [OnedataFS Python interface](using_onedata/onedatafs.md)
 * [Jupyter integration](using_onedata/jupyter_integration.md)
+* [Quality of Service](using_onedata/qos.md)
