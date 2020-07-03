@@ -126,7 +126,7 @@ fi
 
 if [ "$DOCKER_USER" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then
     echo "Performing docker login -u "$DOCKER_USER"...."
-    docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" -e "bamboo@onedata.org" $DOCKER_REPOSITORY
+    docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" $DOCKER_REPOSITORY
     exit_on_error $? "Can't login to the remote repo"
 fi
 
