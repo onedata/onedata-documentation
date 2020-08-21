@@ -25,27 +25,31 @@ Each storage has implicit parameters representing its id and id of its Oneprovid
 `storageId=$STORAGE_ID` and `providerId=$PROVIDER_ID`.
 
 Adding new QoS parameters and removing existing ones can be done using the Modify Storage Details operation in Onepanel.  
-[See more in REST API examples](#qos-parameters-management).
+[See more in REST API examples](#api-for-oneprovider-admins).
 
 ## QoS expression
 QoS expressions are a declarative way of specifying desired storage parameters in a unified format.
 
-Operands in expression must be in form `key=value`. One exception from this is operand `anyStorage`. 
+Operands in expression must be in form `key {comparator} value`, where `{comparator}` is one of `<, >, <=, >=, =`, e.g. `key = value`.
+One exception from this is operand `anyStorage`. If any comparator other than `=` is used, only numeric values are allowed.
+
 Operands can be combined with the use of one of supported operators:
 - `&` - results in storages that match expressions on both sides of this operator
 - `|` - results in storages that match at least one expression on both sides of this operator
-- `-` - results in storages that match expression on left side of this operator and do not match expression on the right side of operator
+- `\ ` - results in storages that match expression on left side of this operator and do not match expression on the right side of operator
 
 Example QoS expressions:  
 - `geo=PL` - any storages in Poland  
+- `timeout < 8` - storages with timeout parameter set to less than 8
+- `timeout = 8` - storages with timeout parameter set to exactly 8
 - `geo=PL & type=disk` - disk storages located in Poland  
 - `geo=PL | type=disk` - storages located in Poland or disk storages anywhere  
-- `anyStorage - type=disk` - any storages that are not of disk type  
+- `anyStorage \ type=disk` - any storages that are not of disk type  
 
 
 Operands and nesting can be used to combine simple expressions into complex ones, e.g:  
 - `geo=FR | (geo=PL & type=disk)` - any storages in France or disk storages located in Poland  
-- `(geo=PL - type=disk) | (geo=FR & type=disk)` - storages in Poland that are not of disk type or storages in France that are of disk type
+- `(geo=PL \ type=disk) | (geo=FR & type=disk)` - storages in Poland that are not of disk type or storages in France that are of disk type
 
 ## QoS requirements
 QoS requirement consists of a [Qos expression](#qos-expression) and a desired number of replicas. 
@@ -119,6 +123,16 @@ In response you will receive id of your newly created QoS requirement:
 {
     "qosRequirementId": "c4bb03e7ae90d9886cbb68e6a08312c7ch08f5"
 }
+```
+
+Note that `\ ` is a special character and it needs to be escaped, so request to add expression like `anyStorage \ type=disk` looks like this:
+
+```bash
+curl -H "${AUTH_HEADER}" -H "${CT}" -X POST {$REST_API}/qos_requirement/ -d '{
+"expression": "anyStorage \\ type=disk", 
+"replicasNum": 2, 
+"fileId": "$FILE_ID"
+}'
 ```
 
 #### Getting QoS requirement details
