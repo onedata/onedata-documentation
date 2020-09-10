@@ -1,25 +1,31 @@
-.PHONY: all build install-gitbook build-gitbook build-swagger-api-docs package
+.PHONY: all build preview clean
+
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v1
 
 all: build
 
-build: install-gitbook build-gitbook 
+build:
+	docker run --rm -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} build
 
-preview: install-gitbook build-gitbook
-	@bash ./bin/serve-gitbook.sh
+package:
+	cd docs/.vuepress/dist &&\
+	tar zcf ../../../onedata-documentation.tar.gz .
 
-install-gitbook:
-	@bash ./bin/build-docs.sh install-gitbook
-
-build-gitbook:
-	@bash ./bin/build-docs.sh build-gitbook
-	@bash ./bin/put-release-html.sh
+preview:
+	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} preview
 
 submodules:
 	git submodule sync --recursive ${submodule}
 	git submodule update --init --recursive ${submodule}
 
-package:
-	cd _book && tar zcf ../onedata-documentation.tar.gz .
+build-native:
+	yarn docs:build
+
+preview-native:
+	yarn docs:dev
+
+install-native:
+	yarn add -D vuepress
 
 clean:
-	@rm -rf node_modules _book package-lock.json
+	@rm -rf node_modules package-lock.json yarn-cache docs/.vuepress/dist yarn.lock
