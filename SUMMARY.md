@@ -7,7 +7,6 @@
   * [Admin Quickstart](doc/getting_started/admin_onedata_101.md)
       * [Onezone deploy](doc/administering_onedata/onezone_quick_tutorial.md)
       * [Oneprovider deploy](doc/administering_onedata/oneprovider_quick_tutorial.md)
-
 * [Onedata for users]()
    * [Overview](doc/user_guide.md)
    * [Account Management](doc/using_onedata/account_management.md)
@@ -26,6 +25,7 @@
    * [Using REST API](doc/using_onedata/using_onedata_from_cli.md)
    * [OnedataFS Python interface](doc/using_onedata/onedatafs.md)
    * [Jupyter integration](doc/using_onedata/jupyter_integration.md)
+   * [Quality of Service](doc/using_onedata/qos.md)
 
 * [Onedata for administrators]()
    * [Overview](doc/admin_guide.md)
@@ -46,6 +46,7 @@
         * [18.02.0-rc11 or older](doc/administering_onedata/openid_saml_configuration/openid_configuration_legacy.md)
         * [18.02.0-rc12 - 18.02.*](doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_18_02.md)
         * [19.02.* or newer](doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.md)
+        * [Google IdP tutorial](doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.md)
       * [Space Support](doc/administering_onedata/provider_space_support.md)
       * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
       * [Ceph cluster deployment](doc/administering_onedata/ceph_cluster_deployment.md)
