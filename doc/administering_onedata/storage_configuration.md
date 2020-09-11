@@ -1,7 +1,42 @@
 # Storage Configuration
+<!---TODO VFS-6776 update storage configuration docs -->
+
+This section thoroughly describes available options of storage configuration.
 
 <!-- toc -->
 
+## Configuration of generic options
+### Imported storage
+Option `imported storage` allows to determine that [Storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+mechanism shall be enabled in the space that will be supported with such storage.
+Storage that is marked as `imported storage` can be used to support just one space.
+Moreover, currently only one out of supporting providers can support the space with `imported storage`.
+<!---TODO update link to storage import after completing VFS-6384 -->
+
+### LUMA DB feed
+Option `LUMA feed` allows to determine type of feed for Local User Mapping Database [LUMA DB](luma.md).
+There are 3 possible values:
+ * `auto`
+ * `local`
+ * `external`
+
+For more information on configuration of LUMA DB feed please look [here](luma.md#feed).
+
+### Skipping storage detection
+Option `skip storage detection` shall be enabled when adding storage on which detecting whether Oneclient application
+has direct access to storage should be skipped. This is a case in particular when storage is readonly because creating 
+test files during detection would fail. Please remember that in such case, `--force-direct-io` option has to be passed
+to Oneclient application to enable `direct-io` mode.
+
+### Storage path type 
+Determines how the logical file paths will be mapped on the storage. 'canonical' paths reflect the logical file names and 
+directory structure, however each rename operation will require renaming the files on the storage. 
+'flat' paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
+
+### Timeout
+Storage operation timeout in milliseconds. This parameter is optional.
+
+## Configuration of specific storage backends
 Onedata supports several storage backends which can be used by storage providers to support users spaces.
 
 The currently supported storage backends include:
@@ -12,7 +47,9 @@ The currently supported storage backends include:
 * **glusterfs** - [GlusterFS](https://www.gluster.org/) volumes can be directly attached to the Oneprovider.
 * **nulldevice** - storage helper which emulates behavior of `/dev/null` on local filesystem, allowing running various performance tests which are not impacted by actual storage latency.
 
-The sections below describe how to attach each of these storage types to a Onedata deployment on a local site. Storage can be attached using Oneprovider REST API, by updating the configuration. Example YAML configuration with multiple storage backends is presented below:
+The sections below describe how to attach each of these storage types to a Onedata deployment on a local site. 
+Storage can be attached using Oneprovider REST API, by updating the configuration. 
+Example YAML configuration with multiple storage backends is presented below:
 
 ```yaml
     cluster:
@@ -79,8 +116,7 @@ The sections below describe how to attach each of these storage types to a Oneda
       domainName: onedata.example.com
 ```
 
-
-## POSIX
+### POSIX
 
 POSIX attributes for configuration are:
 
@@ -93,7 +129,7 @@ POSIX attributes for configuration are:
 
 Please note that Oneprovider will not automatically mount or unmount this storage from the nodes, this must be ensured by administrators.
 
-## S3
+### S3
 
 S3 attributes for configuration are:
 
@@ -110,7 +146,7 @@ S3 attributes for configuration are:
 | readonly   | **bool**   | **(Optional)** Defines whether storage is readonly |
 
 
-## Ceph
+### Ceph
 
 Ceph storage attributes are:
 
@@ -132,7 +168,7 @@ More information about these attributes can be found in the official Ceph [docum
 > Ceph client requires among others, 'x' permission on the OSD in order to enable striped object layout.
 
 
-## OpenStack Swift
+### OpenStack Swift
 
 Swift storage attributes are:
 
@@ -151,7 +187,7 @@ Swift storage attributes are:
 More information about these attributes can be found in the official OpenStack Swift [documentation](http://docs.openstack.org/developer/swift/).
 
 
-## GlusterFS
+### GlusterFS
 
 GlusterFS storage attributes are:
 
@@ -167,7 +203,7 @@ GlusterFS storage attributes are:
 | insecure      | **bool**    | **(Optional)** Defines whether storage administrator credentials (accessKey and secretKey) may be used by users without storage accounts to access storage in direct IO mode. |
 | readonly      | **bool**    | **(Optional)** Defines whether storage is readonly |
 
-## NullDevice
+### NullDevice
 
 NullDevice storage attributes are:
 
@@ -182,3 +218,16 @@ NullDevice storage attributes are:
 | simulatedFilesystemGrowSpeed | **float** | Determines the simulated filesystem grow rate. Default 0.0 value will cause all the files and directories defined by the `simulatedFilesystemParameters` specification to be visible immediately.  For example value of 0.01 will increase the number of the visible filesystem entries by 1 file per 100 seconds, while 100.0 will increase it by 100 files per second. |
 | insecure           | **bool**   | Must be set to `true`                    |
 | readonly           | **bool**   | Must be set to `true`                    |
+
+## REST API
+
+Comprehensive description of requests and their parameters considering administration of storage resources can be
+found in the REST API documentation. 
+
+| Request                      | Link to API |
+|------------------------------|-------------|
+| Create storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)|        
+| Get storage details          | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details)|        
+| Update storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage)|             
+| Remove storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage)|             
+| List storage resources       | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages)|        

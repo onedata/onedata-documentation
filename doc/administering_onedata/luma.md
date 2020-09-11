@@ -1,618 +1,437 @@
-# LUMA - Local User MApping
+# Local User Mapping - LUMA
 
 <!-- toc -->
 
 ## Overview
 
-LUMA is a Onedata service that allows custom mapping between local user accounts or credential on storage resources (e.g. POSIX user ID/group ID, LDAP DN, Ceph username, GlusterFS UID/GID, etc.) to Onedata user accounts.
+LUMA is a database that stores information used for acquiring mappings between local user accounts or credentials on
+storage resources (e.g. POSIX UID/GID, Ceph username, GlusterFS UID/GID, etc.) to Onedata user accounts.
+LUMA DB can be set up for each storage registered in Oneprovider separately, with different credentials for users on 
+each storage.
 
-LUMA can be enabled for each storage registered in Oneprovider separately, with different credentials for users on each storage.
+## Use cases
 
-LUMA defines an API which can be used by Oneprovider to request credentials for specific federated user to a specific storage. Actual implementation of the mapping logic can vary from between data centers as it can be based on a simple configuration file or integrated with for instance an LDAP identity service.
+LUMA DB use cases are divided into 2 groups: basic and advanced.
 
-We provide a simple reference implementation suitable for basic deployments and testing.
+### Basic
 
-The following sections provide overview of LUMA API and describe how to deploy and configure our reference LUMA implementation. A custom implementation stub can be generated automatically from [LUMA Swagger specification](https://onedata.org/#/home/api/latest/luma) using [Swagger Codegen](https://github.com/swagger-api/swagger-codegen) tool in mulitple programming frameworks.
+Basic LUMA DB use cases are as follows:
+* mapping Onedata user to storage credentials - used to perform operations on storage in context of a specific user.
+* mapping Onedata user to display credentials - used to present POSIX credentials (UID & GID) of a file owner in the
+ file's attributes. e. g. they are displayed in the result of `ls` operation in Oneclient or when fetching file
+ attributes using REST API.
 
-### Onedata file permissions model and LUMA
+### Advanced
 
-In order to understand LUMA and how mappings should be defined it is necessary to understand how file ownership and permissions work in Onedata.
+Advanced LUMA DB use cases are associated with the concept of [storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+and should only be considered when corresponding storage is an imported storage.                                                     
+* mapping storage user to Onedata user - used in case of importing files from storage.
+ It allows to map owner of the storage file to a specific Onedata user who will become owner of the file imported
+ to the space. Storage user is identified by the value of UID field returned from `stat` operation or equivalent on
+ given storage backend.  
+* mapping storage NFSv4 ACL principal to Onedata user/group - used in case of importing files from storage that
+supports [NFSv4 ACLs](https://www.osc.edu/book/export/html/4523), with `syncAcl` option enabled.
+It allows to map ACE principal to a specific user/group in the Onedata. If `syncAcl` option is disabled this mapping 
+does not have to be defined. 
+  
+## Onedata file permissions model and LUMA DB
 
-By default, when LUMA is not configured for storage, Onedata ownership and permissions follow these rules:
+ In order to understand LUMA DB and how mappings should be defined it is necessary to understand how POSIX-like file
+ ownership and permissions work in Onedata. Please read about it [here](../using_onedata/file_management.md#posix-permissions).
 
-* Each space has an automatically generated GID, which is common for all files in that space, each file created in that space will have that GID assigned, unless it has an explicit group ownership which at the moment can only be assigned when file was imported from storage with LUMA configured
-* Each file has UID automatically generated based on the user who is the owner of the file
-* When a new file is created in the space it will have UID assigned based on the user who created it and GID assigned based on the space in which it was created
-* The file will have by default assigned the following permissions: `rw-rw-r--`, where the *owner* is the creator of the file, the *group* is everyone who is the member of a given space and *others* are external users who get access to the space via **Share** URL
-* In case multiple Oneproviders support the same space, Oneclient will show the files with the same UID's and GID's independently of which provider it is connected to
-* When files are imported from a storage where no LUMA is configured, they will be assigned UID and GID's based on the user who requested support for this space and thus initiated the import of files
+## Database
 
-When LUMA is configured for storage, the situation is slightly different, as in this case LUMA is responsible for providing user and group mapping between federated id's and storage id's, and in case a user or group has no mapping for this storage file operations will fail:
+### Tables
+LUMA DB consists of 5 tables, presented in the table below. 
+Records stored in these tables are described in the following [section](#records).
 
-* When a file is created, Oneprovider queries LUMA for UID of a user identified by Onedata or some external IdP identifier (example of request and mappings are presented later) and this UID is assigned as the owner of the file on the storage
-* The GID is assigned to be the default for the space as without LUMA (in the next release we will provide a mechanism to enable custom default GID for a space)
-* When Oneclient is connected to Oneprovider with LUMA configured, it will present the UID's and GID's consistently with the LUMA mappings
-* When files are imported from the legacy storage, the UID's and GID's of the files will be converted to user Id's and group Id's based on the mappings defined in LUMA
+| Table                        | Key                       | Record                                 | 
+|------------------------------|---------------------------|----------------------------------------|
+| Storage users                | `(StorageId, UserId)`     | [`StorageUser`](#storageuser)          |        
+| Spaces posix storage defaults| `(StorageId, SpaceId)`    | [`PosixCredentials`](#posixcredentials)|        
+| Spaces display defaults      | `(StorageId, SpaceId)`    | [`PosixCredentials`](#posixcredentials)|        
+| Onedata users                | `(StorageId, UID/AclUser)`| [`OnedataUser`](#onedatauser)          |        
+| Onedata groups               | `(StorageId, AclGroup)`   | [`OnedataGroup`](#onedatagroup)        |        
 
-The diagram below presents an example of a complex deployment with multiple providers, where **OneproviderA** imported `file1.txt` and `file2.txt` from legacy storage using LUMA, **OneproviderB** has no LUMA configured and **OneproviderC** has a different LUMA configured for the same space. `file3.txt` was created by UserB via **OneproviderB**. The diagram presents the ownership and permissions as visible on the storage and in Oneclients connected to different Oneproviders.
+### Records
+This section describes records stored in the tables mentioned in the previous section.
 
-![LUMA and multiple provider deployment](../../doc/img/luma-multiprovider.png)
+#### `StorageUser`
+This record is used to represent user on the specific storage backend and consists of two fields:
+* `storageCredentials` is a map storing credentials relevant for given storage backend,
+* `displayUid` is a field used to present corresponding user as owner of a file (UID) in Oneclient or GUI
 
-One important issue to remember, is that LUMA uid and gid mappings only make sense for POSIX and GlusterFS storages, as Ceph, S3 and Swift do not have a concept of UID and GID, and accesses to these storages is performed based on passwords and access tokens, thus in case of these storages Oneclient will display UID and GID values as in the case of **OneproviderB**.
+```JSON
+{
+    "storageCredentials": JSON, // Map storing credentials relevant for given storage backend
+    "displayUid": Integer
+}
+```
 
-## LUMA API
+#### `PosixCredentials`
+This record stores standard POSIX-like user Id and group Id.
+```JSON
+{
+    "uid": Integer,
+    "gid": Integer
+}
+```
 
-The LUMA API has 2 groups of endpoints:
- - **Mapping** - *[required]* provide operations to map users and groups to their respective storage counterparts,
- - **Admin** - *[optional]* allow to add credentials to a running LUMA service  using REST API. These operations are not used directly by the provider, thus can be ommited if the mapping information is provided in another way.
+#### `OnedataUser`
+These record represents credentials identifying user in the Onedata system.
+The record can have 2 schemes:
+* `"onedataUser"` - user's Id is stored directly in the record
+* `"idpUser"` - the record stores Id of an external identity provider (Idp) and Id of the user understood by the Idp
+```JSON
+{
+    "mappingScheme": "onedataUser" | "idpUser",
+    // fields for "onedataUser" scheme
+    "onedataUserId": String,     
+    // fields for "idpUser" scheme
+    "idp": String,
+    "subjectId": String
+}
+```
 
-### Mapping operations
-The mapping API consists of 6 operations:
+#### `OnedataGroup`
+These record represents credentials identifying group in the Onedata system.
+The record can have 2 schemes:
+* `"onedataGroup"` - group's Id is stored directly in the record
+* `"idpEntitlement"` - the record stores Id of an external identity provider (Idp) and Id of the group understood by the Idp
+```JSON
+{
+    "mappingScheme": "onedataGroup" | "idpEntitlement",
+    // fields for "onedataGroup" scheme
+    "onedataGroupId": String,
+    // fields for "idpEntitlement" scheme
+    "idp": String,
+    "idpEntitlement": String
+}
+```
 
-#### Get user credentials
-`[POST] /api/v3/luma/map_user_credentials` - returns user credentials to a specific storage based on users federated identity:
+## How mappings are acquired?
 
-**Example request**
+In order to better understand how to configure LUMA DB it is important to learn how each of the mappings is acquired.
+Below sections are divided according to basic and advanced mappings.
 
+>**NOTE:**
+> 
+> This sections assumes that LUMA DB has already been populated.
+> Section [Populating LUMA DB](#populating-luma-db-with-feeds) is intentionally located 
+> after this section as we recommend to first understand how LUMA DB is used by the Oneprovider
+> and only then learn how to populate it.
+>
+> Understanding these two concepts is much more complicated the other way round.
+
+### Basic mappings
+
+#### Onedata user to storage credentials mapping
+
+Storage credentials are acquired differently depending on the storage type.
+
+On POSIX incompatible storages, field `storageCredentials` from [`StorageUser`](#storageuser) record stored in 
+[Storage users table](#tables) is basically returned.
+
+On POSIX compatible storages (currently POSIX, GLUSTERFS, NULLDEVICE), credentials consist of 2 integers: UID and GID.
+Only UID field is stored in the [`StorageUser`](#storageuser) record. That is because all space members are treated as belonging
+to a virtual space group which is group owner of all the files in the spaces (read more [here](../using_onedata/file_management.md#posix-permissions)).
+For consistency, it is vital to ensure, that all files created in the space have the same GID owner.
+
+Due to above reasons, GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) record stored in [Spaces posix storage defaults table](#tables).
+
+#### Onedata user to display credentials mapping
+Display credentials are POSIX compatible credentials that consist of 2 integers: UID and GID.
+
+UID is acquired from field `displayUid` from [`StorageUser`](#storageuser) record stored in [Storage users table](#tables).
+
+GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) record stored in [Spaces display defaults table](#tables).
+
+### Advanced mappings
+
+#### Storage user to Onedata user mapping
+
+UID returned from `stat` operation or equivalent on given storage backend is mapped to [`OnedataUser`](#onedatauser) record
+stored in the [Onedata users table](#tables). Information stored in the record allow to identify corresponding Onedata user.
+If the mapping is not defined, virtual space user becomes owner of the imported file.
+ >**NOTE:** This mapping is used only in case of enabled auto storage import. 
+
+#### Storage ACL user to Onedata user mapping
+
+ACE principal is mapped to [`OnedataUser`](#onedatauser) record stored in the [Onedata users table](#tables).
+Information stored in the record allow to identify corresponding Onedata user.
+If the mapping is not defined, importing the file will return error. 
+ >**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
+
+#### Storage ACL group to Onedata group mapping
+
+ACE group principal is mapped to [`OnedataGroup`](#onedatagroup) record stored in the [Onedata groups table](#tables).
+Information stored in the record allow to identify corresponding Onedata group.
+If the mapping is not defined, importing the file will return error. 
+>**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
+
+## Populating LUMA DB with feeds
+ 
+LUMA DB can be filled with mapping in 3 different ways, called feeds, which are:
+* `auto` - LUMA DB will be filled automatically
+* `local` -  custom mappings in LUMA DB can be set using REST API. Mappings must be set before supporting space with the storage
+* `external` - external HTTP server, that implements required API ([see below](#external-feed)), is lazily queried for
+custom mappings which are then stored in the LUMA DB
+ 
+### Auto Feed 
+
+Auto feed populates LUMA DB using an automatic algorithm. 
+This sections describes the algorithm for each [table](#tables).
+
+#### Auto feed for [Storage users table](#tables)
+
+This table is populated differently depending on the storage type for which it is configured.
+In case of POSIX compatible storages, UID is generated basing on the Onedata user Id.
+The same UID is used as user's `displayUid`.
+
+In case of POSIX incompatible storages, storage credentials of the storage admin are used as user's storage credentials.
+`displayUid` is generated the same way as UID in case of POSIX compatible storage.
+
+#### Auto feed for [Spaces posix storage defaults table](#tables)
+This table is populated only for POSIX compatible storages.
+UID and GID of owner of the storage mountpoint, as presented in the result of `stat` operation, are used.
+ 
+#### Auto feed for [Spaces display defaults table](#tables)
+This table is populated differently depending on the storage type for which it is configured.
+In case of POSIX compatible storages, the same credentials as stored in [Spaces posix storage defaults table](#tables) are used.
+
+In case of POSIX incompatible storages, UID and GID are generated basing on the Id of the space for which the table is populated. 
+
+
+#### Auto feed for [Onedata users table](#tables)
+This table can be populated automatically only with entries that associate storage user, identified by UID with Onedata user.
+Entries for NFSv4 ACL users cannot be populated automatically, they can only by populated by [local](#local-feed) or [external](#external-feed).
+feeds. The table is used only in case of auto storage import enabled. Moreover, mappings for NFSv4 ACL users are used
+only if `syncAcl` option is enabled.
+
+#### Auto feed for [Onedata groups table](#tables)
+This table cannot be populated automatically, it can only be populated by [local](#local-feed) or [external](#external-feed)
+feeds. The table is used only in case of case of auto storage import enabled with `syncAcl option enabled.  
+
+### Local Feed 
+
+Comprehensive description of requests and their parameters considering configuration of local feed 
+can be found in the [REST API documentation](https://onedata.org/#/home/api/stable/onepanel?anchor=tag/LUMA-DB-local-feed).    
+
+>**NOTE:**
+> 
+> In order to use [Basic mappings](#basic-mappings), only setting Onedata user to credentials mappings is required.
+> Other mappings, if not set, are acquired the same way it is done in case of auto feed. 
+
+
+| Request                                                    | Link to API |
+|------------------------------------------------------------|-------------|
+| Lookup Onedata user to credentials mapping in local feed   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_onedata_user_to_credentials_mapping)|
+| Remove Onedata user to credentials mapping in local feed   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_onedata_user_to_credentials_mapping)|
+| Insert Onedata user to credentials mapping into local feed | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_add_onedata_user_to_credentials_mapping)|
+| Modify Onedata user to credentials mapping in local feed   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_modify_onedata_user_to_credentials_mapping)|
+| Lookup default display credentials in local feed           | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_display_credentials)|
+| Remove default display credentials in local feed           | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_display_credentials)|
+| Insert default display credentials into local feed         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_display_credentials)|
+| Lookup default posix credentials in local feed             | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_default_posix_credentials)|
+| Remove default posix credentials in local feed             | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_default_posix_credentials)|
+| Insert default posix credentials into local feed           | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_default_posix_credentials)|
+| Lookup mapping of UID in local feed                        | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_UID_to_onedata_user_mapping)|
+| Remove mapping of UID in local feed                        | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_UID_to_onedata_user_mapping)|
+| Insert mapping of UID into local feed                      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_UID_to_onedata_user_mapping)|
+| Lookup mapping of ACL user in local feed                   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_acl_user_to_onedata_user_mapping)|
+| Remove mapping of ACL user in local feed                   | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_acl_user_to_onedata_user_mapping)|
+| Insert mapping of ACL user into local feed                 | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_acl_user_to_onedata_user_mapping)|
+| Lookup mapping of ACL group in local feed                  | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_acl_group_to_onedata_group_mapping)|
+| Remove mapping of ACL group in local feed                  | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_acl_group_to_onedata_group_mapping)|
+| Insert mapping of ACL group into local feed                | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_acl_group_to_onedata_group_mapping)|
+
+### External Feed
+
+
+>**NOTE:**
+> 
+> It is compulsory to configure URL of external feed. Please have a look at [Configuration](#configuration) section.
+
+This section describes REST API that should be implemented by an external server that shall be used as an
+lazy feed for LUMA DB.
+
+>**NOTE:**
+> 
+> In order to use [Basic mappings](#basic-mappings), only implementing callback for acquiring [Onedata user to credentials
+> mappings](#endpoint-for-mapping-onedata-user-to-storage-credentials) is required.
+> Other mappings, if not set, are acquired the same way it is done in case of auto feed. 
+
+#### Endpoint for mapping Onedata user to storage credentials
+
+* URL: `/storage_access/all/onedata_user_to_credentials`
+* HTTP method: `POST`
+* accepted body: 
 ```json
 {
-  "storageId": "nl75Tyj0Ef0DRT9pEhKkMCpxcAIjkAEJTUz3Kp9jTcM",
-  "storageName": "NFS",
-  "spaceId": "c5oiB633lvdGArj-dfpQJk7Wx8wQUmHxc_3a43-P9mw",
-  "userDetails": {
-    "id": "d5ffe868b88f75e38f8b1e6809d093d1",
-    "name": "John Doe",    
-    "fullName": "John Doe",   # Since 19.02.*
-    "login": "jdoe",       
-    "username": "jdoe",       # Since 19.02.*
-    "emails": ["jdoe@example.com"],
-    "linkedAccounts": [
-       {
-         "idp": "github",
-         "subjectId": "68b88f75e38f8b1e68",
-         "emails": ["jdoe@github.com"]
-       }
-    ]
-  }
-}
-```
-> NOTE: Since versions 19.02.*, fields `name` and `login` are deprecated and 
-marked for removal in future versions - use `fullName` and `username` that carry
-the same values.
-
-**Example response**
-
-```json
-{
-  "type": "posix",
-  "uid": 1001,
-  "gid": 1001
-}
-```
-
-
-
-#### Resolve user identity
-`[POST] /api/v3/luma/resolve_user` - reverse of the above, returns user federated identity based on storage credentials, it is used for automatic data import
-
-**Example request**
-
-```json
-{
-  "storageName": "NFS",
-  "type": "posix",
-  "uid": 1001,
-  "gid": 1001
-}
-```
-
-**Example response**
-
-```json
-{
-  "idp": "onedata",
-  "userId": "SDASDBNASDLKAJHFLKJHASD9879A"
-}
-```
-
-#### Get group storage id
-`[POST] /api/v3/luma/map_group` - returns group GID for specific Onedata or IdP group
-
-**Example request**
-
-```json
-{
-  "groupId": "HFLKJHASD9879ASDASDBNASDLKAJ"
-}
-```
-
-**Example response**
-
-```json
-{
-  "gid": 2000
-}
-```
-
-#### Resolve group identity
-
-`[POST] /api/v3/luma/resolve_group` - returns the federated group Id based on  the group Id on the storage
-
-**Example request**
-
-```json
-{
-  "storageName": "NFS",
-  "gid": 2000
-}
-```
-
-**Example response**
-
-```json
-{
-  "idp": "onedata",
-  "groupId": "HFLKJHASD9879ASDASDBNASDLKAJ"
-}
-```
-
-#### Resolve ACL user
-`[POST] /api/v3/luma/resolve_acl_user` - allows to get the federated user identity based on the user ACL name on a specific storage
-
-**Example request**
-
-```json
-{
-  "storageName": "NFS",
-  "type": "posix",
-  "aclName": "jdoe@example.com"
-}
-```
-
-**Example response**
-
-```json
-{
-  "idp": "onedata",
-  "userId": "SDASDBNASDLKAJHFLKJHASD9879A"
-}
-```
-
-#### Resolve ACL group
-`[POST] /api/v3/luma/resolve_acl_group` - returns the federated group Id based on  the group ACL name on the storage
-
-**Example request**
-
-```json
-{
-  "storageName": "NFS",
-  "aclName": "users"
-}
-```
-
-**Example response**
-
-```json
-{
-  "idp": "onedata",
-  "groupId": "HFLKJHASD9879ASDASDBNASDLKAJ"
-}
-```
-
-### Storage credential types
-
-Each of the above operations' arguments depend on the type of storage for which the mappings are defined.  Currently LUMA supports the following storage backends with the following credentials:
- - **POSIX**
-
-   ```json
-   {
-     "type": "posix",
-     "uid": 1001,
-     "gid": 1002
-   }
-   ```
-
- - **Ceph**
-
-   ```json
-   {
-     "type": "ceph",
-     "username": "client.user1",
-     "key": "LKAJHFLKJHASD9879ASDASDBNASD"
-   }
-   ```
-
- - **Amazon S3**
-
-   ```json
-   {
-     "type": "s3",
-     "accessKey": "J7657576ASDFKJAHSDASDASDJHVASDLKJAHSDLK",
-     "secretKey": "ASDASDJHVASDLKJAHSDLKJ7657576ASDFKJAHSD"
-   }
-   ```
-
- - **OpenStack Swift**
-
-   ```json
-   {
-     "type": "swift",
-     "username": "user1",
-     "password": "SKDJg55aSDLKJhAkkasxC"
-   }
-   ```
-
- - **GlusterFS**
-
-   ```json
-   {
-     "type": "glusterfs",
-     "uid": 1001,
-     "gid": 1001
-   }
-   ```
-
-## LUMA deployment
-
-This section presents a tutorial on how to deploy the reference LUMA instance and configure it for a basic use case. 
-LUMA reference implementation is a very basic service in Python using [Flask](http://flask.pocoo.org/) and 
-[TinyDB](http://tinydb.readthedocs.io/). The source can be obtained from 
-[onedata/luma](https://github.com/onedata/luma/tree/release/__ONEDATA_RELEASE__) GitHub repository.
-
-### Add Oneprovider storage with LUMA support
-
-The first step in LUMA setup is to add a storage to Oneprovider with LUMA support. LUMA does not have to be running yet, but it's endpoint has to be known, as presented below:
-
-![Adding LUMA endpoint in Onepanel](../../doc/img/admin/onepanel_luma.png)
-
-Typically, LUMA can be deployed on the same host as the Oneprovider and thus all network communication  with LUMA can be constrained to a localhost after it is configured.
-
-Please note that the LUMA URL must contain entire REST endpoint, i.e.
-
-```bash
-http://HOSTNAME:PORT/api/v3/luma
-```
-
-### Start LUMA using Docker
-
-Latest LUMA container can be found on our [Dockerhub repository](https://hub.docker.com/r/onedata/luma/). This implementation stores entire mapping database in a single JSON file, which should be mounted from the host to the container in order to provide persistence between container restarts:
-
-```bash
-$ touch db.json # Only the first time
-$ docker run -v $PWD/db.json:/luma/db.json -p 8080:8080 -it onedata/luma:__ONEDATA_RELEASE__
-```
-
-Flask server will by default log all requests to the stdout, so it should be easy to see whether the Oneprovider requests are handled properly.
-
-### Start LUMA directly from sources
-
-LUMA can be also started directly without Docker:
-
-```bash
-$ git clone https://github.com/onedata/luma
-$ cd luma
-$ git checkout release/__ONEDATA_RELEASE__
-$ cd luma
-$ vim db.json # Define the mappings manually or leave empty
-$ python app.py # Make sure that the service will run persistently
-```
-
-Once LUMA is started it can be interacted with using the REST API or the auto-generated GUI at: [http://<LUMA_HOST>:8080/api/v3/luma/ui/]().
-
-### Adding user and group mappings
-
-Mappings between users, groups and storage credentials can be defined in LUMA in 2 ways:
-
-* By manually creating the `db.json` files with proper structure
-* By adding mappings dynamically using LUMA admin REST API
-
-Both approaches require that certain identifiers for users, groups and storages are known to define the mappings properly. The following subsection describes how they can be obtained using Onedata REST API's.
-
-#### Prerequisites
-
-In order to define mappings, it is necessary to know the following information:
-
-- Storage name or storage Id
-- Users Id
-- Groups Id
-
-Storage name can be obtained simply from the Onepanel GUI under storage properties. All other attributes can be retrieved using the REST API of Onezone interface. The Onedata REST API's can be most conveniently accessed using or command line REST clients, which are provided in a small Docker container `onedata/rest-cli`. To start a preconfigured command-line environment to interact with Onedata services via REST simply run the following command:
-
-```sh
-$ docker run -e ONEDATA_ZONE=<ZONE_HOST> -e ONEDATA_PROVIDER=<PROVIDER_HOST> -e ONEDATA_API_KEY=<ACCESS_TOKEN> -it onedata/rest-cli
-```
-
-The following command line examples assume they are executed inside this container.
-
-##### Obtaining storage Id
-
-Although LUMA mappings can be defined using local storage name (LUMA is always associated with only a single Oneprovider), the mappings can also be defined using storage ID. The storage Id can be obtained from the Onepanel REST interface of the Oneprovider to which the storage is attached.
-
-```bash
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ export ONEPANEL_HOST=https://<ONEPROVIDER_IP>:9443
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ export ONEPANEL_BASIC_AUTH=admin:<ADMIN_PASSWORD>
-# First get the list of storage ids attached to this Oneprovider
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ onepanel-rest-cli getStorages | jq .
-{
-  "ids": [
-    "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
-    "Hx0HFUdKiDFgMdNDuFv7uwvpr5dew5VHS2N2kYa9haQ"
-  ]
-}
-# Now find which storage is the required one
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ onepanel-rest-cli getStorageDetails id=sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM | jq .
-{
-  "id": "sF6AGzSiGVNSRGvxiA6p3287LUZS-nyMhDzKubrGsSM",
-  "name": "LUMATEST",
-  "type": "posix",
-  "readonly": false,
-  "insecure": false,
-  "lumaEnabled": true,
-  "lumaUrl": "http://192.168.1.200:8080/api/v3/luma",
-  "lumaCacheTimeout": 1,
-  "mountPoint": "/mnt/storage1"
-}
-```
-
-##### Obtaining user Id
-
-User Id can be obtained by from the details which each user can get when authenticated to the Onezone REST API using the following operation.
-
-```bash
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getCurrentUser
-{
-  "userId": "a5ffe868b88f75e38f8b1e6809d093d1",
-  "fullName": "John Doe",    # Since 19.02.*
-  "name": "John Doe", 
-  "username": "john.doe",    # Since 19.02.*
-  "login": "john.doe",      
-  "emails": [
-    "jdoe@example.com"
-  ],
-  "linkedAccounts": [
-    {
-      "idp": "egi",
-      "subjectId": "223536c273ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
-      "fullName": "John Doe",    # Since 19.02.*
-      "name": "John Doe",
-      "username": "",            # Since 19.02.*
-      "login": "",
-      "entitlements": [
-        "vo.indigo-datacloud.eu/aai.egi.eu",
-        "egi.eu/www.egi.eu/wiki-editors"
-      ],
-      "emails": [
-        "jdoe@example.com"
-      ]
+    "storageId": String,         // guaranteed
+    "onedataUserId": String,     // guaranteed,
+    "idpIdentities": [{          // guaranteed
+        "idp": String,
+        "subjectId": String,
+    }],
+    "additionalUserDetails": {   // best effort, can be empty
+        "id": String,
+        "username": String,
+        "emails": [String],
+        "linkedAccounts": [
+            "idp": String,
+            "subjectId": String,
+            "username": String,
+            "emails": [String],
+            "custom": JSON       
+        ]
     }
-  ]
 }
 ```
-> NOTE: Since versions 19.02.*, fields `name` and `login` are deprecated and 
-marked for removal in future versions - use `fullName` and `username` that carry
-the same values.
-
-Here we can see that the user has 2 Id's:
-
-* `userId` at the top level which is associated with `onedata` IdP
-* as well as `subjectId` in the `linkedAccounts` section which is associated with the `egi` IdP - bot can be used in the LUMA mappings, provided they are paired with the name of the IdP
-
-##### Obtaining group Id
-In order to get the Id of a specific group in Onedata, it is necessary to list through all groups associated with a user or space and find the required one, for instance:
-
-```bash
-# First list the user groups Id's
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getUserGroups | jq .
-{
-  "groups": [
-    "wZTuAqxmm8ntFhCY5NpbjAKzAjokHqs2Ehj9SdqMJCk",
-    "vSJ4IRnBmNyLSHFLbRaotI7FVsck-6yT5X5S0KV08-o",
-    "zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8",
-    "all_users"
-  ]
-}
-# Then search for the interesting group
-[Onedata REST CLI - __ONEDATA_RELEASE__]$ onezone-rest-cli getUserGroup gid=zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8 | jq .
-{
-  "type": "role",
-  "name": "GroupA",
-  "groupId": "zWB2Jf3ivo0Zhevl9kexOvk9OaDAsTBAwtpQnEzuFu8"
-}
-```
-
-
-#### Creating mapping database manually
-
-The LUMA mappings can be defined directly in a `db.json` file of the LUMA reference implementation. An example LUMA database definition is presented below - corresponding with the example above for **OneproviderA**.
-
+* response body: [`StorageUser`](#storageuser)
 ```json
 {
-  "_default": {},
-  "users": {
-    "1": {
-      "userDetails": {
-        "id": "aaaaa"
-      },
-      "credentials": [
-        {
-          "storageName": "LUMATEST",
-          "type": "posix",
-          "uid": 1001,
-          "gid": 1001
-        }
-      ]
-    },
-    "2": {
-      "userDetails": {
-        "id": "bbbbb"
-      },
-      "credentials": [
-        {
-          "storageName": "LUMATEST",
-          "type": "posix",
-          "uid": 1002,
-          "gid": 1002
-        }
-      ]
-    }
-  },
-  "groups": {
-    "1": {
-      "idp": "onedata",
-      "groupId": "kkkkk",
-      "groupDetails": [
-        {
-          "gid": 2000,
-          "storageName": "LUMATEST"
-        }
-      ]
-    },
-    "2": {
-      "idp": "onedata",
-      "groupId": "nnnnn",
-      "groupDetails": [
-        {
-          "gid": 3000,
-          "storageName": "LUMATEST"
-        }
-      ]
-    }
-  },
-  "spaces": {
-    "1": {
-      "spaceId": "zzzzz",
-      "groupDetails":  [
-        {
-         "gid": 9999,
-         "storageName": "LUMATEST"
-        }
-      ]
-    }
-  }
+    "storageCredentials": StorageCredentials, // required
+    "displayUid": Integer                     // optional
 }
 ```
 
-#### Advanced mapping examples
-
-##### Using user Id from external IdP
-
-In case it is preferred to use user Id from another IdP than Onedata, it can be defined in the mapping as follows:
-
+#### Endpoint for setting default POSIX storage credentials in the space
+* URL: `/storage_access/posix_compatible/default_credentials`
+* HTTP method: `POST`
+* accepted body: 
 ```json
 {
-  "_default": {},
-  "users": {
-    "1": {
-      "userDetails": {
-      	"linkedAccounts": [ {
-        	"userId": "54213ca61ff53c61bb3da6ed061b74755c22bb012b048ac2768a26693c@egi.eu",
-        	"idp": "egi"
-      },
-      "credentials": [
-        {
-          "storageName": "LUMATEST",
-          "type": "posix",
-          "uid": 1001,
-          "gid": 1001
-        }
-      ]
-    }
-  }
+    "storageId": String,    // guaranteed
+    "spaceId": String       // guaranteed
 }
 ```
-
-##### Using user email
-
-Users can be also identified by email - however this will only work for forward mappings (federated Id to storage credentials - it will not work for importing data from legacy storage as in such case LUMA has to return unique user Id):
-
+* response body: [`PosixCredentials`](#posixcredentials)
 ```json
 {
-  "_default": {},
-  "users": {
-    "1": {
-      "userDetails": {
-      	"linkedAccounts": [ {
-        	"emails": ["jdoe@example.com"]
-      },
-      "credentials": [
-        {
-          "storageName": "LUMATEST",
-          "type": "posix",
-          "uid": 1001,
-          "gid": 1001
-        }
-      ]
-    }
-  }
+    "uid": Integer,         // optional
+    "gid": Integer          // optional
 }
 ```
 
-##### Mapping ACL names
-
-In case the legacy storage supports ACL, and it is necessary to import ACL's from the legacy storage (typically from NFSv4), the ACL names can be defined both for users and groups in LUMA directly using `aclName` field as follows:
-
+#### Endpoint for setting default space display credentials in the space
+* URL: `/display_credentials/default` 
+* HTTP method: `POST` 
+* accepted body: 
 ```json
 {
-  "_default": {},
-  "users": {
-    "1": {
-      "userDetails": {
-        "id": "aaaaa"
-      },
-      "credentials": [
-        {
-          "storageName": "LUMATEST",
-          "type": "posix",
-          "aclName": "jdoe@example.com"
-          "uid": 1001,
-          "gid": 1001
-        }
-      ]
-    }
-  },
-  "groups": {
-    "1": {
-      "idp": "onedata",
-      "groupId": "kkkkk",
-      "groupDetails": [
-        {
-          "gid": 2000,
-          "storageName": "LUMATEST",
-          "aclName": "groupa"
-        }
-      ]
-    }
-  }
+    "storageId": String,    // guaranteed
+    "spaceId": String       // guaranteed
+}
+```
+* response body: [`PosixCredentials`](#posixcredentials)
+```json
+{
+    "uid": Integer,          // optional
+    "gid": Integer           // optional
 }
 ```
 
-#### Adding mappings using REST
-
-Mappings can be also added, removed or modified directly on a running LUMA instance using admin REST calls.
-
-The following request adds user identity to LUMA (based on user Id), and returns in the `Location` head the automatically assigned LUMA user ID:
-
-```bash
-curl -vvv -X POST -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{ "id": "d5ffe868b88f75e38f8b1e6809d093d1"}' http://<LUMA_HOST>:8080/api/v3/luma/admin/users
-
-...
-Location: /api/v3/luma/admin/users/1
-...
+#### Endpoint for mapping storage UID to Onedata user
+* URL: `/storage_import/posix_compatible/uid_to_onedata_user`
+* HTTP method: `POST`
+* accepted body: 
+```json
+{
+    "storageId": String,    // guaranteed
+    "uid": Integer          // guaranteed
+}
+```
+* response body: [`OnedataUser`](#onedatauser)
+```JSON
+{
+    "mappingScheme": "onedataUser" | "idpUser", // required
+    // fields for "onedataUser" scheme
+    "onedataUserId": String,                    // required if mappingScheme == "onedataUser"
+    // fields for "idpUser" scheme
+    "idp": String,                              // required if mappingScheme == "idpUser"
+    "subjectId": String                         // required if mappingScheme == "idpUser"
+}
 ```
 
-Here we can see that the assigned user ID by LUMA is `1`.
-
-Now in order to add the mappings for UserA and UserB to NFS storage, we have to call the following operation:
-
-```bash
-$ curl -X PUT -H 'Content-Type: application/json' -H 'Accept: application/json' -d '[{"storageName": "NFS", "type": "posix", "uid": 1000, "gid": 1000 }]' http://<LUMA_HOST>:8080/api/v3/luma/admin/users/1/credentials
+#### Endpoint for mapping NFSv4 ACL user principal to Onedata user
+* URL: `/storage_import/posix_compatible/acl_user_to_onedata_user` 
+* HTTP method: `POST`
+* accepted body:
+```json
+{
+    "storageId": String,    // guaranteed
+    "aclUser": String       // guaranteed
+}
+``` 
+* response body: [`OnedataUser`](#onedatauser)
+```JSON
+{
+    "mappingScheme": "onedataUser" | "idpUser", // required
+    // fields for "onedataUser" scheme
+    "onedataUserId": String,                    // required if mappingScheme == "onedataUser"
+    // fields for "idpUser" scheme
+    "idp": String,                              // required if mappingScheme == "idpUser"
+    "subjectId": String                         // required if mappingScheme == "idpUser"
+}
 ```
 
-In the same vein a group mapping can be defined in LUMA. However first, it is necessary to obtain the group Id from Onezone. The below example shows how to add a mapping between the GroupA in Onezone and groupa on the POSIX storage:
-
-```sh
-curl -X PUT -H 'Content-Type: application/json' -H 'Accept: application/json' -d '[{"gid": "1002", "name": "groupa", "id": "7d8950e9906941550d925d734ad5a8b6"}]' http://<LUMA_HOST>:8080/api/v3/luma/admin/5da4aaa1-5cd3-4e33-92b6-89589e997974/groups/a514ccef-fb96-4e65-b786-5d503ff04c45
+#### Endpoint for mapping NFSv4 ACL group principal to Onedata group
+* URL: `/storage_import/posix_compatible/acl_group_to_onedata_group`
+* HTTP method: `POST`
+* accepted body: 
+```json
+{
+    "storageId": String,    // guaranteed
+    "aclGroup": String      // guaranteed
+}
+```
+* response body: [`OnedataGroup`](#onedatagroup)
+```JSON
+{
+    "mappingScheme": "onedataGroup" | "idpEntitlement", // required
+    // fields for "onedataGroup" scheme
+"onedataGroupId": String,                               // required if mappingScheme == "onedataGroup"
+    // fields for "idpEntitlement" scheme
+    "idp": String,                                      // required if mappingScheme == "idpEntitlement"
+    "idpEntitlement": String                            // required if mappingScheme == "idpEntitlement"
+}
 ```
 
-The LUMA reference implementation provides also a simple, automatically generated GUI which can be used to interact with the LUMA service by directly invoking the REST calls - it can be accessed under the following URL: [http://<LUMA_HOST>:8080/api/v3/luma/ui/]().
+## Configuration
 
+Configuration of LUMA DB is part of a [storage configuration](storage_configuration.md#storage-configuration).
+
+It is possible to choose type of [feed](#populating-luma-db-with-feeds) for populating the DB.
+In case of selecting the [external feed](#external-feed), it is compulsory to set URL of the external server that
+shall be queried for populating the LUMA DB.
+It is also possible to set api key that will be send with each request to the external server.
+
+>**NOTE:**
+> 
+> Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for given
+> storage resource.
+
+
+## REST API
+
+LUMA DB exposes [REST API](https://onedata.org/#/home/api/stable/onepanel?anchor=tag/LUMA-DB) which allows to
+get its configuration and also lookup/delete entries in the database.
+Links to comprehensive description of requests are presented in the below table:
+
+| Request                                    | Link to API |
+|--------------------------------------------|-------------|
+| Get LUMA DB configuration                  | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_config)|        
+| Clear LUMA DB                              | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_clear_db)|
+| Lookup default display credentials         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials)|
+| Remove default display credentials         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_display_credentials)|
+| Lookup Onedata user to credentials mapping | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_onedata_user_to_credentials_mapping)|
+| Remove Onedata user to credentials mapping | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_onedata_user_to_credentials_mapping)|
+| Lookup default posix credentials           | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_default_posix_credentials)|
+| Remove default posix credentials           | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_default_posix_credentials)|
+| Lookup mapping of UID                      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_UID_to_onedata_user_mapping)|
+| Remove mapping of UID                      | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_UID_to_onedata_user_mapping)|
+| Lookup mapping of ACL user                 | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_acl_user_to_onedata_user_mapping)|
+| Remove mapping of ACL user                 | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_user_to_onedata_user_mapping)|
+| Lookup mapping of ACL group                | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_acl_group_to_onedata_group_mapping)|
+| Remove mapping of ACL group                | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_group_to_onedata_group_mapping)|

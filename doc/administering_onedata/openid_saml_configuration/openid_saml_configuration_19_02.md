@@ -965,7 +965,7 @@ After that operation, the complete user data would look like the following:
     }]
 }
 ```
-This user data constitutes input in [Local User MApping](#luma-integration) - 
+This user data constitutes input in [Local User Mapping](#luma-integration) - 
 when mapping Onedata users into storage users within Oneprovider.
 
 > User data can also be retrieved using the 

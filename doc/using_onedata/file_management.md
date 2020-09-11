@@ -52,7 +52,18 @@ You can control access to your data with a combination of:
 * access control lists
 
 ### POSIX Permissions
-Onedata allows you to control access to your data in a POSIX fashion for users, group and others in terms of read, write and executable permissions.
+Onedata allows you to control access to your data in a POSIX-like fashion for users, group and others in terms of read,
+write and executable permissions. 
+
+>**NOTE:**
+>
+>An important subtlety in case of file permissions is the fact that all space members are treated as if they belong to
+a group which is a group owner of the file. 
+In other words, all space members belong to a virtual group which is a group owner of all files in the space.  
+That means that whenever a file is accessed by a space member who is not the owner of the file, the group permissions are
+taken into consideration.
+Permissions for "others" are considered when accessing [shares](../using_onedata/shares.md).
+
 In order to edit permissions:
 
 1. Navigate to **Oneprovider** page
