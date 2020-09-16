@@ -55,14 +55,25 @@ You can control access to your data with a combination of:
 Onedata allows you to control access to your data in a POSIX-like fashion for users, group and others in terms of read,
 write and executable permissions. 
 
->**NOTE:**
->
->An important subtlety in case of file permissions is the fact that all space members are treated as if they belong to
-a group which is a group owner of the file. 
-In other words, all space members belong to a virtual group which is a group owner of all files in the space.  
+An important nuance regarding file permissions is that all space members are treated as a virtual group which is the
+group owner of all files in the space.  
 That means that whenever a file is accessed by a space member who is not the owner of the file, the group permissions are
 taken into consideration.
 Permissions for "others" are considered when accessing [shares](../using_onedata/shares.md).
+
+Consider the following example of file's POSIX permissions:
+
+    rwx r-- ---
+     |   |   |
+     |   |   guests
+     |   |
+     |   space members
+     |
+     owner user
+     
+In the above case, the creator of the file (its owner user) has a full access to the file.
+All space members have read access to the file. Users (guests) who try to access the file through a share
+will fail to do so as all permissions are declined for "others". 
 
 In order to edit permissions:
 

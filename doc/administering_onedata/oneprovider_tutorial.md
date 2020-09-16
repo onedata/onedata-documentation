@@ -585,7 +585,7 @@ Using the token, the administrator can support the space on a specific storage u
   <p align="center"><img src="../img/admin/op_tutorial_support_space.png" width="720"></p>
 
 ### Add storage with existing data
-<!---TODO VFS-6384 -->
+<!---TODO VFS-6753 -->
 
 Oneprovider allows to enable synchronization of existing storage with legacy data without the need for manually importing that data into the Oneprovider.
 

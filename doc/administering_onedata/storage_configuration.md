@@ -7,34 +7,39 @@ This section thoroughly describes available options of storage configuration.
 
 ## Configuration of generic options
 ### Imported storage
-Option `imported storage` allows to determine that [Storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+Option `imported storage` determines that [Storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+<!---TODO VFS-6753 https://git.onedata.org/projects/VFS/repos/onedata-documentation/pull-requests/184/overview?commentId=61919 -->
 mechanism shall be enabled in the space that will be supported with such storage.
 Storage that is marked as `imported storage` can be used to support just one space.
-Moreover, currently only one out of supporting providers can support the space with `imported storage`.
-<!---TODO update link to storage import after completing VFS-6384 -->
+Moreover, only one out of supporting providers can support the space with `imported storage`.
+<!---TODO update link to storage import after completing VFS-6753 -->
+<!---TODO VFS-6753 https://git.onedata.org/projects/VFS/repos/onedata-documentation/pull-requests/184/overview?commentId=61920 -->
 
 ### LUMA DB feed
-Option `LUMA feed` allows to determine type of feed for Local User Mapping Database [LUMA DB](luma.md).
+Option `LUMA feed` determines type of feed for [Local User Mapping Database](luma.md).
 There are 3 possible values:
  * `auto`
  * `local`
  * `external`
 
-For more information on configuration of LUMA DB feed please look [here](luma.md#feed).
+For more information on configuration of LUMA DB feed please see [here](luma.md#configuration).
 
-### Skipping storage detection
-Option `skip storage detection` shall be enabled when adding storage on which detecting whether Oneclient application
-has direct access to storage should be skipped. This is a case in particular when storage is readonly because creating 
-test files during detection would fail. Please remember that in such case, `--force-direct-io` option has to be passed
-to Oneclient application to enable `direct-io` mode.
+### Skipping storage detection 
+Enable the `skip storage detection` option if you wish to turn off automatic detection of direct access to the storage
+in the Oneclient application. Required when the storage is readonly as the detection process attempts to create a test
+file on the storage. Please remember that in such case, `--force-direct-io` option has to be passed
+to Oneclient application to enable `direct-io` mode. Additionally, on POSIX compatible storages mountpoint must be passed manually.
+Please see Oneclient's documentation for [`--force-direct-io`](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes)
+and [`--override`](../using_onedata/oneclient.md#overriding-storage-helper-parameters) options.
 
 ### Storage path type 
-Determines how the logical file paths will be mapped on the storage. 'canonical' paths reflect the logical file names and 
-directory structure, however each rename operation will require renaming the files on the storage. 
-'flat' paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
+Determines how the logical file paths will be mapped on the storage:
+ * `canonical` paths reflect the logical file names and directory structure, however each rename operation will 
+ require renaming the files on the storage,
+ * `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
 
 ### Timeout
-Storage operation timeout in milliseconds. This parameter is optional.
+Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.
 
 ## Configuration of specific storage backends
 Onedata supports several storage backends which can be used by storage providers to support users spaces.
