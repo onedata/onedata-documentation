@@ -49,6 +49,7 @@
         * [Google IdP tutorial](doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.md)
       * [Space Support](doc/administering_onedata/provider_space_support.md)
       * [Storage Configuration](doc/administering_onedata/storage_configuration.md)
+      * [Storage import](doc/administering_onedata/storage_import.md)
       * [Ceph cluster deployment](doc/administering_onedata/ceph_cluster_deployment.md)
       * [SSL Certificate Management](doc/administering_onedata/ssl_certificate_management.md)
       * [Firewall Setup](doc/administering_onedata/firewall_setup.md)

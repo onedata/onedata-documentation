@@ -6,16 +6,56 @@ This section thoroughly describes available options of storage configuration.
 <!-- toc -->
 
 ## Configuration of generic options
-### Imported storage
-Option `imported storage` determines that [Storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
-<!---TODO VFS-6753 https://git.onedata.org/projects/VFS/repos/onedata-documentation/pull-requests/184/overview?commentId=61919 -->
-mechanism shall be enabled in the space that will be supported with such storage.
-Storage that is marked as `imported storage` can be used to support just one space.
-Moreover, only one out of supporting providers can support the space with `imported storage`.
-<!---TODO update link to storage import after completing VFS-6753 -->
-<!---TODO VFS-6753 https://git.onedata.org/projects/VFS/repos/onedata-documentation/pull-requests/184/overview?commentId=61920 -->
 
-### LUMA DB feed
+![Configuration of storage](../../doc/img/admin/storage_config.png)
+
+### Storage path type 
+Determines how the logical file paths will be mapped on the storage:
+ * `canonical` paths reflect the logical file names and directory structure, however each rename operation will 
+ require renaming the files on the storage,
+ * `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
+
+
+### Imported storage
+
+Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
+with the storage. This option should be enabled for storages with legacy data or for storages that will be modified by 
+applications bypassing the Oneprovider service.
+Storage that is marked as `Imported storage` can be used to support just one space.
+Moreover, only one out of supporting providers can support the space with an `Imported storage`.
+Supporting the space with an `Imported storage` results in enabling the [Storage import](storage_import.md) 
+in the space. It allows to register (import) files, located on the
+storage, in the space. Registering files does not copy the data. It only creates necessary
+metadata so that the files are visible in the space.
+
+Please see [here](storage_import.md) to learn about the storage import. 
+
+Please check whether storage backend for which you intend to enable `Imported storage` option is
+supported and how to properly configure it. Here you can find description for [manual](storage_import.md#storage-configuration-for-manual-import) 
+ and [auto](storage_import.md#storage-configuration-for-auto-import) import.
+
+### Readonly
+Option `Readonly` determines that storage is to be treated by the Oneprovider as a readonly. Oneprovider will not attempt
+to create, modify or delete files on the storage. Files cannot be replicated from other providers supporting
+the space. The only way to create files in the space supported by a readonly
+storage is by importing them which is why  `Readonly` options is only allowed if the [`Imported storage`](#imported-storage)
+option is enabled too. This option is **required** if the storage is truly readonly (any attempt to create, modify or delete
+file would result in an error).
+If you wish to use [Oneclient in direct-io mode](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes) on
+a readonly storage, you should also enable [`Skip storage detection`](#skip-storage-detection) option to turn off
+automatic detection of direct access to the storage in the Oneclient application. Please remember that in such case,
+ `--force-direct-io` option has to be passed to Oneclient application to enable `direct-io` mode. 
+Additionally, on POSIX compatible storages mountpoint must be passed manually.
+Please see Oneclient's documentation for [`--force-direct-io`](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes)
+and [`--override`](../using_onedata/oneclient.md#overriding-storage-helper-parameters) options.
+
+
+### Skip storage detection 
+`Skip storage detection` option turns off automatic detection of direct access to the storage in the Oneclient application.
+It also disables checks performed by Oneprovider when storage is added or modified.
+
+
+### LUMA feed
 Option `LUMA feed` determines type of feed for [Local User Mapping Database](luma.md).
 There are 3 possible values:
  * `auto`
@@ -23,20 +63,6 @@ There are 3 possible values:
  * `external`
 
 For more information on configuration of LUMA DB feed please see [here](luma.md#configuration).
-
-### Skipping storage detection 
-Enable the `skip storage detection` option if you wish to turn off automatic detection of direct access to the storage
-in the Oneclient application. Required when the storage is readonly as the detection process attempts to create a test
-file on the storage. Please remember that in such case, `--force-direct-io` option has to be passed
-to Oneclient application to enable `direct-io` mode. Additionally, on POSIX compatible storages mountpoint must be passed manually.
-Please see Oneclient's documentation for [`--force-direct-io`](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes)
-and [`--override`](../using_onedata/oneclient.md#overriding-storage-helper-parameters) options.
-
-### Storage path type 
-Determines how the logical file paths will be mapped on the storage:
- * `canonical` paths reflect the logical file names and directory structure, however each rename operation will 
- require renaming the files on the storage,
- * `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
 
 ### Timeout
 Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.
