@@ -9,6 +9,27 @@ storage resources (e.g. POSIX UID/GID, Ceph username, GlusterFS UID/GID, etc.) t
 LUMA DB can be set up for each storage registered in Oneprovider separately, with different credentials for users on 
 each storage.
 
+## How to properly configure LUMA DB and storage
+Below checklist will help properly configure LUMA DB and storage in Onedata.
+It is recommended to first familiarize oneself with all the concepts described in this chapter.
+Then, you should decide whether your use case is [basic](#basic) or [advanced](#advanced).
+
+### Configuration for the basic use case
+1. Choose and setup (if required) the right [LUMA DB feed](#populating-luma-db-with-feeds)
+2. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
+mapped exist and are reflected in the storage system.
+
+### Configuration for the advanced use case
+
+1. Choose and setup (if required) the right [LUMA DB feed](#populating-luma-db-with-feeds)
+2. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
+mapped exist and are reflected in the storage system.
+3. It is strongly recommended to ensure that all files on the imported storage have the same group owner (GID) - [read more](#advanced-mappings).
+4. If you intend to enable auto storage import with enabled `syncAcl` option you must properly set chosen feed to 
+deliver mappings for NFSv4 ACL [users](#storage-acl-user-to-onedata-user-mapping) and
+[groups](#storage-acl-group-to-onedata-group-mapping) for which ACLs are set on the imported storage.
+
+
 ## Credential types
 
 ### Storage credentials 
@@ -16,14 +37,14 @@ Credentials relevant for corresponding storage backend, used to perform operatio
 
 ### Display credentials
 Credentials used to present POSIX credentials (UID & GID) of a file owner in the
-file's attributes. e. g. they are displayed in the result of `ls` operation in Oneclient or when fetching file
+file's attributes, e.g., they are displayed in the result of `ls` operation in Oneclient or when fetching file
 attributes using REST API.
 
 ### Onedata user credentials
-Credentials identifying user in the Onedata system.
+Credentials identifying a user in the Onedata system.
 
 ### Onedata group credentials
-Credentials identifying group in the Onedata system.
+Credentials identifying a group in the Onedata system.
 
 ## Use cases
 
@@ -35,7 +56,7 @@ Credentials identifying group in the Onedata system.
 ### Advanced
 
 Advanced LUMA DB use cases are associated with the concept of [storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
-and should only be considered when corresponding storage is an imported storage.                                                     
+and should only be considered when the corresponding storage is an imported storage.                                                     
 * mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
  It allows to map owner of the storage file to a specific Onedata user who will become owner of the file imported
  to the space. Storage user is identified by the value of UID field returned from `stat` operation or equivalent on
@@ -43,7 +64,7 @@ and should only be considered when corresponding storage is an imported storage.
 * mapping storage NFSv4 ACL principal to Onedata [user](#onedata-user-credentials)/[group](#onedata-group-credentials) - 
 used in case of importing files from storage that
 supports [NFSv4 ACLs](https://www.osc.edu/book/export/html/4523), with `syncAcl` option enabled.
-It allows to map ACE principal to a specific user/group in the Onedata. If `syncAcl` option is disabled this mapping 
+It allows to map ACL principal to a specific user/group in the Onedata. If `syncAcl` option is disabled this mapping 
 does not have to be defined. 
   
 ## Onedata file permissions model and LUMA DB
@@ -89,7 +110,7 @@ This record stores standard POSIX-like user Id and group Id.
 ```
 
 #### `OnedataUser`
-These record represents credentials identifying user in the Onedata system.
+These record represents credentials identifying a user in the Onedata system.
 The record can have 2 schemes:
 * `"onedataUser"` - user's Id is stored directly in the record
 * `"idpUser"` - the record stores Id of an external identity provider (Idp) and Id of the user understood by the Idp
@@ -105,7 +126,7 @@ The record can have 2 schemes:
 ```
 
 #### `OnedataGroup`
-These record represents credentials identifying group in the Onedata system.
+These record represents credentials identifying a group in the Onedata system.
 The record can have 2 schemes:
 * `"onedataGroup"` - group's Id is stored directly in the record
 * `"idpEntitlement"` - the record stores Id of an external identity provider (Idp) and Id of the group understood by the Idp
@@ -144,15 +165,16 @@ On POSIX incompatible storages, field `storageCredentials` from [`StorageUser`](
 On POSIX compatible storages (currently POSIX, GLUSTERFS, NULLDEVICE), credentials consist of 2 integers: UID and GID.
 Only UID field is stored in the [`StorageUser`](#storageuser) record, the GID is constant for the space 
 (all space members are treated as the owner group - [read more](../using_onedata/file_management.md#posix-permissions)).
-This strategy, ensures that all files created in the space have the same GID owner on the supporting storage so that
+This strategy ensures that all files created in the space have the same GID owner on the supporting storage so that
 ownership of the files in the space is correctly mapped on the storage. 
 
 Due to above reasons, GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) record stored in [Spaces posix storage defaults table](#tables).
 
->**NOTE:**  In order to use [Oneclient direct-io mode](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes) 
-> storage admin has to ensure that storage users identified by UIDs, to which Onedata space members are mapped, belong
-> to a space group, identified by GID, associated with the space. The admin must also ensure that group identified by GID
->associated with the space exists in the system. 
+>**NOTE:** To enabled use of [Oneclient in direct-io mode](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes) for all space users, the storage admin has to ensure that:
+> * LUMA properly maps each Onedata user to an UID that is recognized in the system hosting the storage
+> * There exists a group in the system hosting the storage with GID equal to the virtual space GID 
+> ([read more](../using_onedata/file_management.md#posix-permissions)), and all above-mentioned UIDs belong to the group
+
 
 
 #### Onedata user to display credentials mapping
@@ -180,14 +202,14 @@ If the mapping is not defined, virtual space user becomes owner of the imported 
 
 #### Storage ACL user to Onedata user mapping
 
-ACE principal is mapped to [`OnedataUser`](#onedatauser) record stored in the [Onedata users table](#tables).
+ACL principal is mapped to [`OnedataUser`](#onedatauser) record stored in the [Onedata users table](#tables).
 Information stored in the record allow to identify corresponding Onedata user.
 If the mapping is not defined, importing the file will return error. 
  >**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
 
 #### Storage ACL group to Onedata group mapping
 
-ACE group principal is mapped to [`OnedataGroup`](#onedatagroup) record stored in the [Onedata groups table](#tables).
+ACL group principal is mapped to [`OnedataGroup`](#onedatagroup) record stored in the [Onedata groups table](#tables).
 Information stored in the record allow to identify corresponding Onedata group.
 If the mapping is not defined, importing the file will return error. 
 >**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
@@ -208,17 +230,16 @@ Auto feed populates LUMA DB using an automatic algorithm.
 This sections describes the algorithm for each [table](#tables).
 
 >**NOTE:**  If you want to fully configure LUMA DB for efficient and secure storage access
-> you must choose local or external feeds. Auto feed is meant to be used at the very beginning of
-> learning how to maintain Oneprovider service to ease the process of the first deployment.  
+> you should choose local or external feeds. Auto feed is meant to be used at the very beginning of
+> learning how to maintain Oneprovider service to ease the process of the first deployment. 
 
 #### Auto feed for Storage users table
 
 This table is populated differently depending on the storage type for which it is configured.
 In case of POSIX compatible storages, UID is generated basing on the Onedata user Id.
->**NOTE:**  Using auto feed on POSIX compatible storage results in an inability to use 
->[Oneclient direct-io mode](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes). The reason
->for that issue is that automatically generated UIDs are not known to the underlying storage system. 
->In other words, there are no users with such generated UIDs.
+>**NOTE:**  Please note that using auto feed on POSIX compatible storages can make it impossible to use 
+>[Oneclient in direct-io mode](../using_onedata/oneclient.md#direct-io-and-proxy-io-modes), as the automatically
+>generated mappings will not correspond to actual UIDs/GIDs recognized by the storage system. 
 
 The same UID is used as user's `displayUid`.
 
