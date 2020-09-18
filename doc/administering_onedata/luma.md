@@ -164,7 +164,7 @@ GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) re
 
 
 ### Imported storages
-Below mappings are associated with the concept of [storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+Below mappings are associated with the concept of [storage import](storage_import.md)
 and should only be considered when the corresponding storage is an imported storage.                                                     
 * mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
   It allows to map owner of the storage file to a specific Onedata user who will become owner of the file imported
