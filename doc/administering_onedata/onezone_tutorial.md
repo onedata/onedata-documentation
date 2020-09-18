@@ -1,5 +1,12 @@
 # Onezone installation tutorial
 
+**WARNING: Below tutorial is outdated** and some of the information might be no longer valid
+for versions 19.02 and 20.02. It is recommended to use the instructions and
+examples provided in the 
+[`onedata-deployments` repository](https://github.com/onedata/onedata-deployments/tree/master/onezone/examples).
+
+<hr />
+
 <!-- toc -->
 
 This section describes the steps needed to install and configure Onezone service in production, either using Docker images or directly using our packages. 
