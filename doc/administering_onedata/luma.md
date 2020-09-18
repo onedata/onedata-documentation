@@ -130,9 +130,9 @@ The mappings that need to be provided are different for regular and imported sto
 to populate the LUMA DB with required mappings can be found in the [next section](#populating-luma-db-with-feeds).
 
 ### Regular (non-imported) storages
-If the storage import is disabled, LUMA is used to access the storage in the user's context and it is sufficient to
-provide the [storage credentials](#storage-credentials) mapping. The [display credentials](#display-credentials) are
-optional - LUMA will use defaults if not provided.
+If the storage import is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
+the [storage credentials](#storage-credentials) mapping and recommended to set the default space GID in case of POSIX 
+storage (see below). The [display credentials](#display-credentials) are optional - LUMA will use defaults if not provided.
 
 #### Onedata user to storage credentials mapping
 [Storage credentials](#storage-credentials) are acquired differently depending on the storage type.
