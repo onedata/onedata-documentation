@@ -277,7 +277,7 @@ curl -k -H $TOKEN_HEADER -H $CDMI_VSN_HEADER -H 'Content-Type: application/cdmi-
 ### HTTP range read
 Get the first 4 bytes from the file directly using HTTP range read:
 ```bash
-curl -k -H $TOKEN_HEADER -H 'Range: 0-3' -X GET "$ENDPOINT/test/test.txt"
+curl -k -H $TOKEN_HEADER -H 'Range: bytes=0-3' -X GET "$ENDPOINT/test/test.txt"
 
 ABCD
 ```
