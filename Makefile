@@ -11,7 +11,7 @@ package:
 	cd docs/.vuepress/dist &&\
 	tar zcf ../../../onedata-documentation.tar.gz .
 
-preview:
+dev:
 	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} preview
 
 submodules:
