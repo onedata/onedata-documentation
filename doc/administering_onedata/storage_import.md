@@ -1,7 +1,10 @@
 # Storage import
 Storage import is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
-the files pre-existing on the storage are reflected and accessible in the supported space.
+the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
+the storage to detect consecutive changes made directly on the storage after the initial import (during the space 
+lifecycle) - using the continuous scan option, by manually triggering scans or by re-registering files. 
+
 
 This functionality should be used in two setups:
 * There is a legacy dataset located on the storage, which should be imported into a space.
@@ -9,9 +12,9 @@ This functionality should be used in two setups:
   the Oneprovider interfaces, and the changes should be reflected in the supported space.
   
 > **NOTE**: In other setups, it is **not recommended** to enable storage import, as it will introduce unnecessary
-overheads and might cause unwanted behaviour related to conflict resolution during standard space use. Essentially, the 
-regular storage setup in Onedata assumes that the supporting storage is initially empty and dedicated exclusively for 
-being accessed by Oneprovider. This should be the preferred setup, except for the two above-mentioned cases.
+overheads. Essentially, the regular storage setup in Onedata assumes that the supporting storage is initially empty and 
+dedicated exclusively for being accessed by Oneprovider. This should be the preferred setup, except for the two 
+above-mentioned cases.
 
 Storage import can be enabled only if the space is supported with an [`Imported storage`](storage_configuration.md#imported-storage).
 
@@ -23,7 +26,7 @@ as presented in the below picture.
 
 > **NOTE**: Storage import mode cannot be changed during the space lifecycle.
 
-![Supporting the space with an imported storage](../../doc/img/admin/auto_storage_import_config.png)
+![Supporting the space with an imported storage](../../doc/img/admin/storage_import_config.png)
 
 ### Manual storage import
 In case of `manual` mode, the files must be registered manually by the space users with 
