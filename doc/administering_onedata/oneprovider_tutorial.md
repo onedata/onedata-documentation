@@ -586,5 +586,5 @@ Using the token, the administrator can support the space on a specific storage u
 
 ### Add storage with existing data
 
-Oneprovider allows to enable synchronization of existing storage with legacy data without the need for copying
-the data. Please read about the storage import functionality [here](storage_import.md).
+Oneprovider supports direct import of legacy storage data - without the need of copying the data.
+You can learn more in the [storage import](storage_import.md) section.
