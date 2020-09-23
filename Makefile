@@ -1,4 +1,4 @@
-.PHONY: all build preview clean
+.PHONY: all build dev clean
 
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v1
 
@@ -21,7 +21,7 @@ submodules:
 build-native:
 	yarn docs:build
 
-preview-native:
+dev-native:
 	yarn docs:dev
 
 install-native:
