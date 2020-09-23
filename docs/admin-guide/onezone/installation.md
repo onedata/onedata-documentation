@@ -1,6 +1,6 @@
 # Installation
-<!-- (w miarę potrzeby nawiązania do configuration, nawiązanie do compatibility-reference [versions]) -->
+<!-- as needed: link to configuration, compatibility-reference [versions]) -->
 
 ## Docker-based
 
-## Native <!-- - tutaj tylko o tym że nie rekomendujemy, dajemy linka do dockerfile i można sobie próbować, ew. kontaktować się z nami -->
+## Native <!-- say that its not recommended, give a link to the dockerfile as reference, contact us if required -->

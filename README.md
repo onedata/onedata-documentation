@@ -1,35 +1,40 @@
 # Onedata documentation
+This documentation is build using [vuepress](vuepress.vuejs.org).
 
-This documentation is build using [vuepress](vuepress.vuejs.org). The
-source files reside in `./docs/`.
 
-## Building and previewing
-In order to build documentation execute `make build`. You can locally
-preview it by executing `make dev`. While previewing you can modify
-source files. The documentation will be reloaded when
-changed. However, sometimes reruning the build or the preview migth be
-needed. Ctrl-C interrupts the preview.
+## Building and developing
+* `make build` builds the documentation within a docker.
+* `make dev` prepares a local preview with livereload within a docker, allowing 
+  convenient development. The livereload might not cope with some structural 
+  changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
+* `make build-native` runs the `build` natively on the host (requires 
+  `node >= 10.0` and `yarn`), might require `make install-native` beforehand.
+* `make dev-native` starts the `dev` session natively on the host.
 
-### Make targets
 
-- all - default target. It builds the docs.
-- submodules - checkouts the repo submodules (bamboos).
-- build - builds the docs using a docker image. Results are placed in
-  docs/.vuepress/dist
-- dev - builds and allows live previewing the docs under
-  localhost:8080.
-- package - creates a tar.gz package with containing the docs.
-- build-native - builds the docs using yarn. Node, yarn, vuepress and
-  deps should already be installed.
-- dev-native - live preview using yarn.
-- install-native - installs vuepress locally.
-- clean - remove all non-source files and dirs.
+## Adding new pages and images
+The source files reside in `./docs/` and the images reside in `./images/`,
+with the mirrored directory structure (image path should correspond to 
+the markdown source path where it is used - see below).
 
-## Adding .md files
 - prepare the new .md file and place it in the relevant directory,
-  e.g., `./docs/admin-guide/onezone/`,
-- add appropriate entry in `./docs/.vuepress/config.js` in the
+  e.g., `./docs/admin-guide/onezone/installation.md`,
+- add images referenced by the .md file to corresponding directory,
+  e.g., `./images/admin-guide/onezone/installation/first-step.png`,
+- add appropriate entry in `./docs/.vuepress/config.js`, in the
   `sidebar` object.
 
-## Routing
-Custom routes can be placed in `./docs/.vuepress/enhanceApp.js`.
+
+## Custom routes
+Can be placed in `./docs/.vuepress/enhanceApp.js`.
+
+
+## Versioning
+The current Onedata version to which the docs correspond is placed in the 
+`RELEASE` file and injected into the docs using the `./inject-release.sh` 
+script during the build.
+
+
+## Build artifact
+After a successful build, the static HTML files are placed in `docs/.vuepress/dist`.
+Calling `make package` will pack it up into a tarball.

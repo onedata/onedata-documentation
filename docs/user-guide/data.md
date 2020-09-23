@@ -2,14 +2,14 @@
 
 ## File path and Id
 
-## File permissions - (POSIX i ACL)
+## File permissions - (POSIX & ACL)
 
-## File distribution  <!-- nawiązanie do replication & migration -->
+## File distribution  <!-- link to replication & migration -->
 
 ## Interfaces
 
-### Oneclient <!-- TODO: nawiązanie do rozdziału Oneclient -->
+### Oneclient <!-- TODO: link to Oneclient -->
 
-### CDMI <!-- zajawka + link -->
+### CDMI <!-- short description + link -->
 
-### GUI <!-- screeny z GUI -->
+### GUI <!-- screenshots -->

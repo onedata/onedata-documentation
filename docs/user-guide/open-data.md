@@ -1,2 +1,2 @@
-# Open data
-<!-- (handles) - OAI PMH, tutaj też Handle Servicy -->
+# Open Data
+<!-- (handles) - OAI PMH, Handle Services -->
