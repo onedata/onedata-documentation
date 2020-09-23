@@ -12,7 +12,7 @@ package:
 	tar zcf ../../../onedata-documentation.tar.gz .
 
 dev:
-	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} preview
+	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
 
 submodules:
 	git submodule sync --recursive ${submodule}
