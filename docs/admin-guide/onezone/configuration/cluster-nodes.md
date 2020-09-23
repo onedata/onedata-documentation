@@ -1,1 +1,1 @@
-# Cliuster nodes
+# Cluster nodes
