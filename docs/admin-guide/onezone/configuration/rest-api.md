@@ -1,2 +1,2 @@
 # REST API
-<!-- krótka zajawka, linki do swaggerów, REST CLI -->
+<!-- short description, links to swaggers, REST CLI -->

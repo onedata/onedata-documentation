@@ -2,9 +2,9 @@
 title: 'Introduction'
 ---
 
-# ![Onedata](./img/heading.png) Documentation
+# ![Onedata](../images/intro/heading.png) Documentation
 
-<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: __ONEDATA_RELEASE__ </div>
+<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
 Onedata is a global data management system, providing easy access to distributed 
 storage resources, supporting wide range of use cases from personal data 
@@ -39,7 +39,7 @@ After registering in a specific zone using Onezone web interface, a new space ha
 You can do that by sending to the provider a unique support request token, which can be generated using the Onezone interface. Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the storage provider. You can request more storage for your *space* from multiple geographically distributed providers. Onedata will unify access to these storage resources automatically.
 
 <p align="center">
-<img src="./img/spaces_model1.svg" width="580">
+<img src="../images/intro/spaces_model1.svg" width="580">
 </p>
 
 Each user can have any number of *spaces*. *Spaces* can be easily shared with other users and even exposed to the public. If you want to create a *space* for a community of users, Onedata supports user *groups*, which enable multiple users to access single *space* with respect to specified authorization rules.
@@ -54,7 +54,7 @@ Each zone is composed of a network of providers who provision their storage reso
 A user can use several providers simultaneously to manage his/her data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
 <p align="center">
-<img src="./img/overview_3d_map_with_users.png" width="580">
+<img src="../images/intro/overview_3d_map_with_users.png" width="580">
 </p>
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
@@ -69,7 +69,7 @@ Onedata is a distributed system divided into zones that are created by deploying
 *Onezone* is responsible for authentication and authorization of users and makes it possible for users from different zones to communicate with each other and share data. It allows providers from different zones to interact with each other, i.e., allowing users from different zones to get support for their spaces regardless of the zone in which the particular provider is located.
 
 <p align="center">
-<img src="./img/Onezone101.svg" width="580">
+<img src="../images/intro/onezone101.svg" width="580">
 </p>
 
 As *onedata.org* is a main public zone, any provider registered there allows the users to access their data through *onedata.org* user interface.
@@ -83,7 +83,7 @@ Onedata provides 4 ways to manage and access your data:
 ### User web interface
 
 <p align="center">
-<img src="./img/provider_gui_screen.png" width="780">
+<img src="../images/intro/provider_gui_screen.png" width="780">
 </p>
 
 The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
@@ -101,12 +101,11 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](../advanced/cdmi.md) and RESTful [interface](https://onedata.org/#/home/api) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
 
 
-Look for TODO  in the source file.
 <!-- TODO:
-INTRODUCTION  (tu się ląduje po wejściu na docsy)
-    - Dosłownie parę słow o Onedata
-    - Jesteś userem? - idź tutaj: [USER GUIDE]
-    - Jesteś adminem? - idź tutaj: [ADMIN GUIDE]
-      <te trzy pierwsze rzeczy sie musza miescic na pierwszym erkanie>
-    - Szerszy opis konceptów Onedata
+INTRODUCTION  (landing page)
+    - a couple of words about Onedata
+    - are you a user? - go here: [USER GUIDE]
+    - are you an admin? - go here: [ADMIN GUIDE]
+      <these three should fit onto one screen>
+    - broader description of Onedata
     -->

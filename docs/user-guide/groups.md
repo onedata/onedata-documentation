@@ -1,2 +1,2 @@
 # Groups
-<!-- TODO: zarządzanie, również członkami i przywilejami -->
+<!-- TODO: management, members and privileges -->

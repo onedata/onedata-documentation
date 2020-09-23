@@ -1,3 +1,4 @@
 # Advanced config
 
-<!-- pokazać jak podmienić overlay.config, dać odnośnik do app.config poszczególnych serwisów, powiedzieć że trzeba wiedzieć co się robi -->
+<!-- show how to use overlay.config or config.d, link to app.config of all services, warn not to tamper if you do not 
+ know what you are doing-->

@@ -3,3 +3,4 @@ yarn-cache/
 yarn.lock
 docs/.vuepress/dist
 *~
+.idea

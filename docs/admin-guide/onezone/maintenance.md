@@ -1,6 +1,7 @@
 # Maintenance
 
-## Startup & shutdown (również opisać tam restart)
+## Startup & shutdown 
+<!-- TODO: restart too -->
 
 ## Backing up
 

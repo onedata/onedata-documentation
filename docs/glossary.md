@@ -1,5 +1,5 @@
 # Glossary
-<!-- - wyjaśnienie pojęć z nawiązaniami -->
+<!-- short description of each concept with links to proper sections -->
 
 ## Auto cleaning
 
