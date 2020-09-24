@@ -10,6 +10,10 @@ This documentation is build using [vuepress](vuepress.vuejs.org).
 * `make build-native` runs the `build` natively on the host (requires 
   `node >= 10.0` and `yarn`), might require `make install-native` beforehand.
 * `make dev-native` starts the `dev` session natively on the host.
+* `make preview` starts a simple HTTP server in python that serves the docs
+  statically, giving a preview of what's in the build artifact (note that the 
+  `dev` and `dev-native` targets do not inject the `RELEASE` version, only the
+  placeholders are visible).
 
 
 ## Adding new pages and images
