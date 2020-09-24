@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 RELEASE=`cat ${RELEASE_FILE} | xargs` # xargs trims whitespaces
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    find ${DIST_DIRECTORY} -name '*.html' -exec sed -i '' "s/${RELEASE_PLACEHOLDER}/${RELEASE}/g" {} +
+    find ${DIST_DIRECTORY} -name '*.html' -or -name *.js -exec sed -i '' "s/${RELEASE_PLACEHOLDER}/${RELEASE}/g" {} +
 else
-    find ${DIST_DIRECTORY} -name '*.html' -exec sed -i "s/${RELEASE_PLACEHOLDER}/${RELEASE}/g" {} +
+    find ${DIST_DIRECTORY} -name '*.html' -or -name *.js -exec sed -i "s/${RELEASE_PLACEHOLDER}/${RELEASE}/g" {} +
 fi

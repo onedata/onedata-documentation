@@ -28,5 +28,9 @@ build-native:
 dev-native:
 	yarn docs:dev
 
+preview:
+	@bash -c "sleep 1; echo 'open http://localhost:8080/intro.html'; open http://localhost:8080/intro.html" &
+	@cd docs/.vuepress/dist && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
+
 clean:
 	@rm -rf node_modules package-lock.json yarn-cache docs/.vuepress/dist yarn.lock
