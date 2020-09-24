@@ -52,6 +52,13 @@ You can control access to your data with a combination of:
 * access control lists
 
 ### POSIX Permissions
+<!-- This header is referenced in: 
+    * doc/administering_onedata/luma.md#overview
+    * doc/administering_onedata/luma.md#onedata-users-to-storage-credentials-mapping
+    
+    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
+-->
+
 Onedata allows you to control access to your data in a POSIX-like fashion for users, group and others in terms of read,
 write and executable permissions. 
 

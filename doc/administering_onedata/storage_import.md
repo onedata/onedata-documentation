@@ -1,4 +1,11 @@
 # Storage import
+<!-- This header is referenced in: 
+    * doc/administering_onedata/storage_configuration.md#imported-storage
+    * doc/administering_onedata/luma.md#imported-storages
+    
+    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
+-->
+
 `Storage import` is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
 the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
@@ -29,6 +36,12 @@ as presented in the below picture.
 ![Supporting the space with an imported storage](../../doc/img/admin/storage_import_config.png)
 
 ### Manual storage import
+<!-- This header is referenced in: 
+    * doc/administering_onedata/storage_configuration.md#storage-type
+    
+    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
+-->
+
 In case of `manual` mode, the files must be registered manually by the space users with 
 [REST API](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-registration). 
 Registration of directories is not supported.
@@ -37,16 +50,22 @@ This option is preferred when only a part of the dataset is to be imported, but 
 not support [automatic import scans](#auto-storage-import).
 
 #### Storage configuration for manual import:
+<!-- This header is referenced in: 
+    * doc/administering_onedata/storage_configuration.md#imported-storage
+    
+    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
+-->
+
 Manual `storage import` is supported on the following storage backends:
- * POSIX
- * GLUSTERFS
- * NULLDEVICE
- * WEBDAV
- * XROOTD
- * HTTP
- * S3
- * SWIFT
- * CEPHRADOS
+ * `POSIX`
+ * `GlusterFS`
+ * `Null device`
+ * `WebDAV`
+ * `XRootD`
+ * `HTTP`
+ * `S3`
+ * `Swift`
+ * `Ceph RADOS`
  
 > **NOTE**: The storage must have `canonical` [path type](storage_configuration.md#storage-path-type). 
 Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
@@ -57,13 +76,19 @@ In case of `auto` mode, the storage will be automatically scanned and data will 
 assigned space.
 
 #### Storage configuration for auto import:
+<!-- This header is referenced in: 
+    * doc/administering_onedata/storage_configuration.md#imported-storage
+    
+    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
+-->
+
 Auto `storage import` is supported on the following storage backends:
- * POSIX
- * GLUSTERFS
- * NULLDEVICE
- * WEBDAV
- * XROOTD
- * S3
+ * `POSIX`
+ * `GlusterFS`
+ * `Null device`
+ * `WebDAV`
+ * `XRootD`
+ * `S3`
  
 > **NOTE**: The storage must have `canonical` [path type](storage_configuration.md#storage-path-type). 
 Moreover, on S3 the `Block size` parameter **must be set to `0` !**
