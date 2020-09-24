@@ -34,7 +34,7 @@ It is recommended that you first familiarize yourself with all the concepts desc
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
    mapped exist and are reflected in the storage system.
 4. It is strongly recommended to ensure that all files on the imported storage have the same group owner (GID) - [read more](#imported-storages).
-5. If you intend to enable auto storage import with enabled `syncAcl` option you must properly set chosen feed to 
+5. If you intend to enable `auto storage import` with enabled `syncAcl` option you must properly set chosen feed to 
    deliver mappings for NFSv4 ACL [users](#storage-acl-user-to-onedata-user-mapping) and
    [groups](#storage-acl-group-to-onedata-group-mapping) for which ACLs are set on the imported storage.
 
@@ -130,7 +130,7 @@ The mappings that need to be provided are different for regular and imported sto
 to populate the LUMA DB with required mappings can be found in the [next section](#populating-luma-db-with-feeds).
 
 ### Regular (non-imported) storages
-If the storage import is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
+If the `storage import` is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
 the [storage credentials](#storage-credentials) mapping and recommended to set the default space GID in case of POSIX 
 storage (see below). The [display credentials](#display-credentials) are optional - LUMA will use defaults if not provided.
 
@@ -164,7 +164,7 @@ GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) re
 
 
 ### Imported storages
-Below mappings are associated with the concept of [storage import](oneprovider_tutorial.md#add-storage-with-existing-data)
+Below mappings are associated with the concept of [storage import](storage_import.md)
 and should only be considered when the corresponding storage is an imported storage.                                                     
 * mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
   It allows to map owner of the storage file to a specific Onedata user who will become owner of the file imported
@@ -184,19 +184,19 @@ space should have the same group owner. **Otherwise, access to imported files ma
 UID returned from `stat` operation or equivalent on given storage backend is mapped to [`OnedataUser`](#onedatauser) record
 stored in the [Onedata users table](#tables). Information stored in the record allow to identify corresponding Onedata user.
 If the mapping is not defined, virtual space user becomes owner of the imported file.
->**NOTE:** This mapping is used only in case of enabled auto storage import. 
+>**NOTE:** This mapping is used only in case of enabled `auto storage import`. 
 
 #### Storage ACL user to Onedata user mapping
 ACL principal is mapped to [`OnedataUser`](#onedatauser) record stored in the [Onedata users table](#tables).
 Information stored in the record allow to identify corresponding Onedata user.
 If the mapping is not defined, importing the file will return error. 
- >**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
+ >**NOTE:** This mapping is used only in case of enabled `auto storage import` with `syncAcl` option enabled.
 
 #### Storage ACL group to Onedata group mapping
 ACL group principal is mapped to [`OnedataGroup`](#onedatagroup) record stored in the [Onedata groups table](#tables).
 Information stored in the record allow to identify corresponding Onedata group.
 If the mapping is not defined, importing the file will return error. 
->**NOTE:** This mapping is used only in case of enabled auto storage import with `syncAcl` option enabled.
+>**NOTE:** This mapping is used only in case of enabled `auto storage import` with `syncAcl` option enabled.
 
 
 ## Populating LUMA DB with feeds 
@@ -242,12 +242,12 @@ In case of POSIX incompatible storages, UID and GID are generated basing on the 
 #### Auto feed for Onedata users table
 This table can be populated automatically only with entries that associate storage user, identified by UID with Onedata user.
 Entries for NFSv4 ACL users cannot be populated automatically, they can only by populated by [local](#local-feed) or
-[external](#external-feed) feeds. The table is used only in case of auto storage import enabled. Moreover, mappings for NFSv4 ACL users are used
+[external](#external-feed) feeds. The table is used only in case of `auto storage import` enabled. Moreover, mappings for NFSv4 ACL users are used
 only if `syncAcl` option is enabled.
 
 #### Auto feed for Onedata groups table
 This table cannot be populated automatically, it can only be populated by [local](#local-feed) or [external](#external-feed)
-feeds. The table is used only in case of case of auto storage import enabled with `syncAcl` option enabled.  
+feeds. The table is used only in case of case of `auto storage import` enabled with `syncAcl` option enabled.  
 
 
 ### Local Feed

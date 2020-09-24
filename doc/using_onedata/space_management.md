@@ -34,7 +34,7 @@ In order to create a new space:
 
 The new space will appear in the list of spaces designated with a unique ID.
 
-In order to be able to store data in the newly created space, it is necessary to [get storage support](#add-storage-support) from some provider.
+In order to be able to store data in the newly created space, it is necessary to [get storage support](#getting-storage-support) from some provider.
 
 ### Joining an existing space
 In addition to creating new spaces, it is also possible to join existing spaces created by other users.
