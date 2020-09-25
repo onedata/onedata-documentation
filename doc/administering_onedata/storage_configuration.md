@@ -1,10 +1,5 @@
 # Storage Configuration
-<!-- This header is referenced in: 
-    * doc/administering_onedata/luma.md#configuration
-    * doc/administering_onedata/ceph_cluster_deployment.md#ceph-cluster-deployment
-   
-    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
--->
+<!-- This header is referenced at least one time as "#storage-configuration" -->
 
 <!-- toc -->
 
@@ -20,7 +15,7 @@ After the storage is created, only some of the parameters can be changed so as n
 Determines the type of corresponding storage backend.
 
 The currently supported storage backends include:
-* `POSIX` - any POSIX based storage, typically attached over high-throughput local network, such as NFS.
+* `POSIX` - any POSIX compatible storage, typically attached over high-throughput local network, such as NFS.
 * `S3` - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage.
 * `Ceph RADOS` - storage backend compatible with [Ceph](http://ceph.com/ceph-storage/) object storage.
 * `Swift` - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
@@ -31,8 +26,9 @@ on local Ceph deployment please see [here](ceph_cluster_deployment.md).
 * `XRootD` - storage backend compatible with [XRootD](http://www.xrootd.org/) protocol.
 * `HTTP` - any [HTTP](https://tools.ietf.org/html/rfc7231) or HTTPS compatible server. 
 Supported only with [`Readonly`](#readonly) option enabled and in [manual import mode](storage_import.md#manual-storage-import).
-* `Null device` - storage helper, which emulates behavior of `/dev/null` on local filesystem
-allows running various performance tests, which are not impacted by actual storage latency.
+* `Null device` - POSIX compatible storage which emulates behavior of `/dev/null` on local filesystem. 
+Allows running various performance tests, which are not impacted by actual storage latency. 
+[`Skip storage detection`](#skip-storage-detection) option is obligatory for this type of storage.
 
 Please consult the [Add storage REST request](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)
 for comprehensive description of type-specific configuration parameters. The parameters are visible after selecting
@@ -112,7 +108,7 @@ Storage operation timeout in milliseconds. This parameter is optional, the defau
      the QoS parameters in the admin chapter.
  -->
 Quality of service parameters. 
-For more information on configuration of `Quality of Service` mechanism please see [here](../using_onedata/qos.md)
+For more information on configuration of `Quality of Service` mechanism please see [here](../using_onedata/qos.md).
  
 
 ## REST API

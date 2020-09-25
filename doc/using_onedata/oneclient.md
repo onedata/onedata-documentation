@@ -1,8 +1,5 @@
 # Oneclient
-<!-- This header is referenced in: 
-    * doc/administering_onedata/storage_configuration.md#readonly
-    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
--->
+<!-- This header is referenced at least one time as "#oneclient" -->
 
 <!-- toc -->
 
@@ -90,12 +87,8 @@ It is however possible to limit the spaces which are visible, by providing a whi
 ## Options
 
 ### Direct I/O and Proxy I/O modes
-<!-- This header is referenced in: 
-    * doc/administering_onedata/luma.md#onedata-user-to-storage-credentials-mapping
-    * doc/administering_onedata/luma.md#auto-feed-for-storage-users-table
-    
-    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
--->
+<!-- This header is referenced at least one time as "#direct-io-and-proxy-io-modes" -->
+
 
 By default `oneclient` will automatically try to detect if it can access storage supporting
 mounted spaces directly, which significantly improves I/O performance as all read and write

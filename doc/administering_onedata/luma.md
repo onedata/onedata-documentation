@@ -444,11 +444,7 @@ For more information on mapping users from external Idp to Onedata users please 
 ```
 
 ## Configuration
-<!-- This header is referenced in: 
-    * doc/administering_onedata/storage_configuration.md#luma-feed
-    
-    PLEASE MAKE SURE THAT ALL LINKS TO THIS FILES ARE UP TO DATE AFTER INTRODUCING ANY CHANGES !!!
--->
+<!-- This header is referenced at least one time as "#configuration" -->
 
 Configuration of LUMA DB is part of a [storage configuration](storage_configuration.md#storage-configuration).
 
