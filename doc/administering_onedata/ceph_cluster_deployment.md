@@ -1,9 +1,10 @@
 # Ceph cluster deployment
+<!-- This header is referenced at least one time as "#ceph-cluster-deployment" -->
 
 Onedata docker containers since version 20.02 ship with [Ceph](https://ceph.io/) 14.2.2
 services preinstalled. Onepanel GUI and API offer means of deploying a Ceph
 cluster among Onedata cluster nodes, which can later be configured as
-[Oneprovider storage backend](./storage_configuration.html) using `localceph` storage type.
+[Oneprovider storage backend](storage_configuration.md) using `Local Ceph` storage type.
 
 ## Cluster components
 

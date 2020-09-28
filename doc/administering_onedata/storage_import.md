@@ -1,4 +1,6 @@
 # Storage import
+<!-- This header is referenced at least one time as "#storage-import" -->
+
 `Storage import` is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
 the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
@@ -29,24 +31,27 @@ as presented in the below picture.
 ![Supporting the space with an imported storage](../../doc/img/admin/storage_import_config.png)
 
 ### Manual storage import
-In case of `manual` mode, the files must be registered manually by the space users with 
-[REST API](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-registration). 
+<!-- This header is referenced at least one time as "#manual-storage-import" -->
+
+In case of `manual` mode, the files must be [registered manually](../../doc/using_onedata/file_registration.md) by the space users. 
 Registration of directories is not supported.
 
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does 
 not support [automatic import scans](#auto-storage-import).
 
 #### Storage configuration for manual import:
+<!-- This header is referenced at least one time as "#storage-configuration-for-manual-import" -->
+
 Manual `storage import` is supported on the following storage backends:
- * POSIX
- * GLUSTERFS
- * NULLDEVICE
- * WEBDAV
- * XROOTD
- * HTTP
- * S3
- * SWIFT
- * CEPHRADOS
+ * `POSIX`
+ * `GlusterFS`
+ * `Null device`
+ * `WebDAV`
+ * `XRootD`
+ * `HTTP`
+ * `S3`
+ * `Swift`
+ * `Ceph RADOS`
  
 > **NOTE**: The storage must have `canonical` [path type](storage_configuration.md#storage-path-type). 
 Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
@@ -57,13 +62,15 @@ In case of `auto` mode, the storage will be automatically scanned and data will 
 assigned space.
 
 #### Storage configuration for auto import:
+<!-- This header is referenced at least one time as "#storage-configuration-for-auto-import" -->
+
 Auto `storage import` is supported on the following storage backends:
- * POSIX
- * GLUSTERFS
- * NULLDEVICE
- * WEBDAV
- * XROOTD
- * S3
+ * `POSIX`
+ * `GlusterFS`
+ * `Null device`
+ * `WebDAV`
+ * `XRootD`
+ * `S3`
  
 > **NOTE**: The storage must have `canonical` [path type](storage_configuration.md#storage-path-type). 
 Moreover, on S3 the `Block size` parameter **must be set to `0` !**

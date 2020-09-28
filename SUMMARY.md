@@ -21,6 +21,7 @@
    * [Oneclient CLI](doc/using_onedata/oneclient.md)
    * [Docker volume plugin](doc/using_onedata/docker_volume_plugin.md)
    * [Shares](doc/using_onedata/shares.md)
+   * [File registration](doc/using_onedata/file_registration.md)
    * [Handle Services](doc/using_onedata/handle_services.md)
    * [Using REST API](doc/using_onedata/using_onedata_from_cli.md)
    * [OnedataFS Python interface](doc/using_onedata/onedatafs.md)

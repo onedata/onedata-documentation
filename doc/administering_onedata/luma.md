@@ -108,6 +108,9 @@ The record has one of the two schemes:
 }
 ```
 
+For more information on mapping users from external Idp to Onedata users please see 
+[here](openid_saml_configuration/openid_saml_configuration_19_02.md#attribute-mapping).
+
 #### `OnedataGroup`
 These record represents credentials identifying a group in the Onedata system.
 The record has one of the two schemes:
@@ -124,6 +127,8 @@ The record has one of the two schemes:
 }
 ```
 
+For more information on mapping groups from external Idp to Onedata groups please see 
+[here](openid_saml_configuration/openid_saml_configuration_19_02.md#entitlement-mapping).
 
 ## LUMA mappings
 The mappings that need to be provided are different for regular and imported storages, as shown below. Instructions how
@@ -167,12 +172,12 @@ GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) re
 Below mappings are associated with the concept of [storage import](storage_import.md)
 and should only be considered when the corresponding storage is an imported storage.                                                     
 * mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
-  It allows to map owner of the storage file to a specific Onedata user who will become owner of the file imported
+  It allows mapping owner of the storage file to a specific Onedata user who will become owner of the file imported
   to the space. Storage user is identified by the value of UID field returned from `stat` operation or equivalent on
   given storage backend.  
 * mapping storage NFSv4 ACL principal to Onedata [user](#onedata-user-credentials)/[group](#onedata-group-credentials) - 
   used in case of importing files from storage that supports [NFSv4 ACLs](https://www.osc.edu/book/export/html/4523), 
-  with `syncAcl` option enabled. It allows to map ACL principal to a specific user/group in the Onedata. If `syncAcl` 
+  with `syncAcl` option enabled. It allows mapping ACL principal to a specific user/group in the Onedata. If `syncAcl` 
   option is disabled this mapping does not have to be defined. 
 
 >**WARNING:** It is possible that imported files have different GIDs. Oneprovider does not attempt to map them to the 
@@ -333,6 +338,9 @@ Below is the full API specification of the external LUMA feed server.
 }
 ```
 
+For more information on mapping users from external Idp to Onedata users please see 
+[here](openid_saml_configuration/openid_saml_configuration_19_02.md#attribute-mapping).
+
 #### Endpoint for setting default POSIX storage credentials in the space
 * URL: `/storage_access/posix_compatible/default_credentials`
 * HTTP method: `POST`
@@ -436,6 +444,8 @@ Below is the full API specification of the external LUMA feed server.
 ```
 
 ## Configuration
+<!-- This header is referenced at least one time as "#configuration" -->
+
 Configuration of LUMA DB is part of a [storage configuration](storage_configuration.md#storage-configuration).
 
 It is possible to choose the type of [feed](#populating-luma-db-with-feeds) for populating the DB.
