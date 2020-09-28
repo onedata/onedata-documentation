@@ -22,7 +22,7 @@ to target provider and evicts file replica on the source provider.
 
 ### Advanced operations using views
 As a prerequisite for understanding this section we advise to familiarize with 
-[Onedata Views API](metadata.md#advanced-metadata-queries).
+[Onedata Views API](views.md).
 
 It is possible to schedule replication, eviction or migration of files that are included 
 in the result of a query on a view. Currently, scheduling of such operations is possible 
