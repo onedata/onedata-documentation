@@ -33,8 +33,7 @@ as presented in the below picture.
 ### Manual storage import
 <!-- This header is referenced at least one time as "#manual-storage-import" -->
 
-In case of `manual` mode, the files must be registered manually by the space users with 
-[REST API](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-registration). 
+In case of `manual` mode, the files must be [registered manually](../../doc/using_onedata/file_registration.md) by the space users. 
 Registration of directories is not supported.
 
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does 
