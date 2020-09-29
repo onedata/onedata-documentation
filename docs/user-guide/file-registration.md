@@ -3,9 +3,9 @@
 
 File registration is dedicated for reflecting external datasets in a Onedata space.
 It is available only for a storage system that supports the space and is configured
-as an [`Imported storage`](../administering_onedata/storage_configuration.md#imported-storage)
-with [manual import mode](../administering_onedata/storage_import.md#manual-storage-import)
-(as opposed to [auto import mode](../administering_onedata/storage_import.md#auto-storage-import), where the registration is done automatically).
+as an [`Imported storage`](../admin-guide/oneprovider/configuration/storages.md#imported-storage)
+with [manual import mode](../admin-guide/oneprovider/configuration/storage-import.md#manual-storage-import)
+(as opposed to [auto import mode](../admin-guide/oneprovider/configuration/storage-import.md#auto-storage-import), where the registration is done automatically).
 
 ## Registration API
 Currently, the only way to register files in a space is to use the 

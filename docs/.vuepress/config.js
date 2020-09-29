@@ -22,6 +22,7 @@ module.exports = {
           '/user-guide/oneclient',
           '/user-guide/replication-and-migration',
           '/user-guide/metadata',
+          '/user-guide/file-registration',
           '/user-guide/shares',
           '/user-guide/open-data',
           '/user-guide/tokens',
@@ -93,6 +94,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
                   '/admin-guide/oneprovider/configuration/ceph',
+                  '/admin-guide/oneprovider/configuration/quality-of-service',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]

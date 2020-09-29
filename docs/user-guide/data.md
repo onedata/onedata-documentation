@@ -2,7 +2,12 @@
 
 ## File path and Id
 
-## File permissions - (POSIX & ACL)
+## File permissions
+
+### Posix permissions
+<!-- This header is referenced at least one time as "#posix-permissions" -->
+
+### ACL
 
 ## File distribution  <!-- link to replication & migration -->
 
