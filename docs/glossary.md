@@ -1,7 +1,13 @@
 # Glossary
 <!-- short description of each concept with links to proper sections -->
 
-## Auto cleaning
+## Auto-cleaning
+Mechanism that automatically maintains storage usage at a certain 
+level and ensures that there is enough space for new replicas when performing continuous computations.
+The mechanism uses the statistics collected by the 
+[*file popularity*](#file-popularity) to determine
+the least popular file replicas in the [*space*](#space) and to evict them.
+Read more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## Cluster
 
@@ -10,6 +16,9 @@
 ## Couchbase
 
 ## File popularity
+Mechanism that enables tracking of usage-statistics for files in the selected [*space*](#space).
+Used by [*auto-cleaning*](#auto-cleaning) mechanism to cleanup the least popular file replicas.
+Read more [here](docs/admin-guide/oneprovider/configuration/file-popularity.md).
 
 ## File registration
 Mechanism dedicated for reflecting external datasets in a Onedata space.
@@ -50,6 +59,6 @@ Storage resource, exposed by [*Oneprovider*](#oneprovider) to support the [*spac
 Read more [here](docs/admin-guide/oneprovider/configuration/storages.md).
 
 ## Storage import
-Mechanism dedicated for importing files located on a storage by registering them in the space supported by
-the storage, without copying the data. 
+Mechanism dedicated for importing files located on a storage by registering them in the [*space*](#space) supported by
+the [*storage*](#storage), without copying the data. 
 Read more [here](docs/admin-guide/oneprovider/configuration/storage-import.md).
