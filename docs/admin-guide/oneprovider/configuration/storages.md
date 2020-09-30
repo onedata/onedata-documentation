@@ -1,11 +1,11 @@
 # Storages
 <!-- This file is referenced at least one time as "storages.md" -->
 
-<!-- toc -->
+[[toc]]
 
 ## Configuration
 
-Onepanel GUI allows creating, editing and deleting storages under the `Storages` menu. 
+Onepanel GUI allows creating, editing and deleting storages under the *Storages* menu. 
 All storage configuration options are available during storage creation (see below picture and descriptions). 
 After the storage is created, only some of the parameters can be changed so as not to break the data integrity.
 
@@ -41,11 +41,12 @@ A unique name for the storage resource.
 Determines how the logical file paths are mapped on the storage:
  * `canonical` paths reflect the logical file names and directory structure, however each rename operation 
  requires renaming the files on the storage which may result in copying the file blocks on some storage backends.
- Canonical path type is obligatory for [imported storages](#imported-storage).
+ Canonical path type is obligatory for [*imported storages*](#imported-storage).
  * `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
 
 
 ### Imported storage
+<!-- This file is referenced at least one time as "#imported-storage" -->
 
 Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
 with the storage. This option should be enabled in two setups: 
@@ -53,24 +54,24 @@ with the storage. This option should be enabled in two setups:
 * The data on storage is to be modified directly by third party applications, bypassing 
   the Oneprovider interfaces, and the changes should be reflected in the supported space.
   
-> **NOTE**: Storage that is marked as an `Imported storage` can be used to support just one space.
+> **NOTE**: Storage that is marked as an *imported storage* can be used to support just one space.
 
-> **NOTE**: Only one out of supporting providers can support the space with an `Imported storage`.
+> **NOTE**: Only one out of supporting providers can support the space with an *imported storage*.
 
-Supporting the space with an `Imported storage` results in enabling the `storage import`, which allows 
+Supporting the space with an *imported storage* results in enabling the *storage import*, which allows 
 registering storage files in the space without copying any data. More information can be found [here](storage-import.md).
 
 Please make sure that the storage backend for which you intend to enable `Imported storage` option is supported.
 Consult the list of supported backends and the required configuration for 
-[manual](storage-import.md#storage-configuration-for-manual-import) 
-and [auto](storage-import.md#storage-configuration-for-auto-import) import modes.
+[*manual*](storage-import.md#storage-configuration-for-manual-import) 
+and [*auto*](storage-import.md#storage-configuration-for-auto-import) *import modes*.
 
 ### Readonly
 Option `Readonly` determines that the storage is to be treated by the Oneprovider as readonly.
 In such case, Oneprovider does not attempt to create, modify or delete files on the storage.
 File blocks cannot be replicated onto the storage from other providers.
-For above reasons, `storage import` is effectively the only way to use such storage within a space - in consequence 
-the `Readonly` option is available only for an `Imported storage`.
+For above reasons, [*storage import*](storage-import.md) is effectively the only way to use such storage within a space - in consequence 
+the `Readonly` option is available only for an [*imported storage*](#imported-storage).
 The imported data will be available in readonly mode, unless replicated to other providers. 
 
 This option can be chosen even if the provider has write access to the storage, but the admin decides that it
@@ -108,7 +109,7 @@ Storage operation timeout in milliseconds. This parameter is optional, the defau
      the QoS parameters in the admin chapter.
  -->
 Quality of service parameters. 
-For more information on configuration of `Quality of Service` mechanism please see [here](quality-of-service.md#qos-params).
+For more information on configuration of *Quality of Service* mechanism please see [here](quality-of-service.md#qos-params).
  
 
 ## REST API

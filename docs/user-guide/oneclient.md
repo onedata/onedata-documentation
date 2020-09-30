@@ -1,5 +1,7 @@
 # Oneclient
 
+[[toc]]
+
 ## Options
 
 ### Direct I/O and Proxy I/O modes

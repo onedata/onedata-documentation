@@ -1,7 +1,7 @@
 # Local User Mapping - LUMA
 <!-- This file is referenced at least one time as "luma.md" -->
 
-<!-- toc -->
+[[toc]]
 
 ## Overview
 LUMA is a database that stores mappings between Onedata user accounts and local user accounts/credentials on storage 
@@ -21,23 +21,43 @@ In order to understand LUMA DB and how mappings should be defined please consult
 
 ## Storage and LUMA essentials
 **Below checklist contains the fundamental steps to properly configure your storage and the LUMA DB.**
-It is recommended that you first familiarize yourself with all the concepts described in this chapter.
+Nonetheless, it is recommended that you first familiarize yourself with all the concepts described in this chapter.
 
 ### Configuration for regular (non-imported) storages
-1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds)
-2. Substantiate the [required mappings](#luma-mappings) (if required) 
+1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds).
+2. Substantiate the [required mappings](#luma-mappings) (if applicable). 
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
    mapped exist and are reflected in the storage system.
 
 ### Configuration for imported storages
-1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds)
-2. Substantiate the [required mappings](#luma-mappings) (if required) 
+1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds).
+2. Substantiate the [required mappings](#luma-mappings) (if applicable) .
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
    mapped exist and are reflected in the storage system.
-4. It is strongly recommended to ensure that all files on the imported storage have the same group owner (GID) - [read more](#imported-storages).
-5. If you intend to enable `auto storage import` with enabled `syncAcl` option you must properly set chosen feed to 
-   deliver mappings for NFSv4 ACL [users](#storage-acl-user-to-onedata-user-mapping) and
-   [groups](#storage-acl-group-to-onedata-group-mapping) for which ACLs are set on the imported storage.
+4. As far as possible, ensure that all files on the *imported storage* have the same group owner (GID) - [read more](#imported-storages).
+5. If you intend to enable [*auto storage import*](storage-import.md#auto-storage-import) with enabled `Synchronize ACL` option 
+you must properly configure the chosen LUMA feed to deliver mappings for NFSv4 ACL 
+[users](#storage-acl-user-to-onedata-user-mapping) and [groups](#storage-acl-group-to-onedata-group-mapping) 
+for which ACLs are set on the *imported storage*.
+
+## Configuration
+<!-- This header is referenced at least one time as "#configuration" -->
+
+Configuration of LUMA DB is part of a [storage configuration](storages.md#configuration).
+
+It is possible to choose the type of [feed](#populating-luma-db-with-feeds) for populating the DB.
+In case of selecting the [external feed](#external-feed), it is compulsory to set URL of the external server that
+will be lazily queried to populate the LUMA DB.
+It is also possible to set an API key that will be send with each request to the external server.
+Example configuration of LUMA feed is presented on the below picture:
+
+![Configuration of LUMA](../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png)
+
+>**NOTE:**  Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for 
+given storage resource. Newly set feed will be used to populate LUMA DB once again.  
+>
+>**WARNING:**  Clearing the LUMA DB when feed type is changed means that the local feed is also cleared. In order to use 
+> the local feed then, all mappings must be added once again.
 
 
 ## Credential types
@@ -132,11 +152,11 @@ For more information on mapping groups from external Idp to Onedata groups pleas
 [here](../../onezone/configuration/oidc-saml.md#entitlement-mapping).
 
 ## LUMA mappings
-The mappings that need to be provided are different for regular and imported storages, as shown below. Instructions how
+The mappings that need to be provided are different for regular and [*imported storages*](storages.md#imported-storage), as shown below. Instructions how
 to populate the LUMA DB with required mappings can be found in the [next section](#populating-luma-db-with-feeds).
 
 ### Regular (non-imported) storages
-If the `storage import` is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
+If the [*storage import*](storage-import.md) is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
 the [storage credentials](#storage-credentials) mapping and recommended to set the default space GID in case of POSIX 
 storage (see below). The [display credentials](#display-credentials) are optional - LUMA will use defaults if not provided.
 
@@ -172,15 +192,15 @@ GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) re
 ### Imported storages
 <!-- This header is referenced at least one time as "#imported-storages" -->
 
-Below mappings are associated with the concept of [storage import](storage-import.md)
-and should only be considered when the corresponding storage is an imported storage.                                                     
+Below mappings are associated with the concept of [*storage import*](storage-import.md)
+and should only be considered when the corresponding storage is an [*imported storage*](storages.md#imported-storage).                                                     
 * mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
   It allows mapping owner of the storage file to a specific Onedata user who will become owner of the file imported
   to the space. Storage user is identified by the value of UID field returned from `stat` operation or equivalent on
   given storage backend.  
 * mapping storage NFSv4 ACL principal to Onedata [user](#onedata-user-credentials)/[group](#onedata-group-credentials) - 
   used in case of importing files from storage that supports [NFSv4 ACLs](https://www.osc.edu/book/export/html/4523), 
-  with `syncAcl` option enabled. It allows mapping ACL principal to a specific user/group in the Onedata. If `syncAcl` 
+  with `Synchronize ACL` option enabled. It allows mapping ACL principal to a specific user/group in the Onedata. If `Synchronize ACL` 
   option is disabled this mapping does not have to be defined. 
 
 >**WARNING:** It is possible that imported files have different GIDs. Oneprovider does not attempt to map them to the 
@@ -190,21 +210,23 @@ space should have the same group owner. **Otherwise, access to imported files ma
 
 #### Storage user to Onedata user mapping
 UID returned from `stat` operation or equivalent on given storage backend is mapped to [`OnedataUser`](#onedatauser) record
-stored in the [Onedata users table](#tables). Information stored in the record allow to identify corresponding Onedata user.
+stored in the [Onedata users table](#tables). Information stored in the record allow identifying corresponding Onedata user.
 If the mapping is not defined, virtual space user becomes owner of the imported file.
->**NOTE:** This mapping is used only in case of enabled `auto storage import`. 
+>**NOTE:** This mapping is used only in case of enabled [*auto storage import*](storage-import.md#auto-storage-import). 
 
 #### Storage ACL user to Onedata user mapping
 ACL principal is mapped to [`OnedataUser`](#onedatauser) record stored in the [Onedata users table](#tables).
-Information stored in the record allow to identify corresponding Onedata user.
-If the mapping is not defined, importing the file will return error. 
- >**NOTE:** This mapping is used only in case of enabled `auto storage import` with `syncAcl` option enabled.
+Information stored in the record allow identifying corresponding Onedata user.
+If the mapping is not defined, importing the file will return an error. 
+ >**NOTE:** This mapping is used only in case of enabled [*auto storage import*](storage-import.md#auto-storage-import)
+with `Synchronize ACL` option enabled.
 
 #### Storage ACL group to Onedata group mapping
 ACL group principal is mapped to [`OnedataGroup`](#onedatagroup) record stored in the [Onedata groups table](#tables).
-Information stored in the record allow to identify corresponding Onedata group.
-If the mapping is not defined, importing the file will return error. 
->**NOTE:** This mapping is used only in case of enabled `auto storage import` with `syncAcl` option enabled.
+Information stored in the record allow identifying corresponding Onedata group.
+If the mapping is not defined, importing the file will return an error. 
+>**NOTE:** This mapping is used only in case of enabled [*auto storage import*](storage-import.md#auto-storage-import)
+with `Synchronize ACL` option enabled.
 
 
 ## Populating LUMA DB with feeds 
@@ -250,12 +272,14 @@ In case of POSIX incompatible storages, UID and GID are generated basing on the 
 #### Auto feed for Onedata users table
 This table can be populated automatically only with entries that associate storage user, identified by UID with Onedata user.
 Entries for NFSv4 ACL users cannot be populated automatically, they can only by populated by [local](#local-feed) or
-[external](#external-feed) feeds. The table is used only in case of `auto storage import` enabled. Moreover, mappings for NFSv4 ACL users are used
-only if `syncAcl` option is enabled.
+[external](#external-feed) feeds. The table is used only in case of [*auto storage import*](storage-import.md#auto-storage-import)
+enabled. Moreover, mappings for NFSv4 ACL users are used
+only if `Synchronize ACL` option is enabled.
 
 #### Auto feed for Onedata groups table
 This table cannot be populated automatically, it can only be populated by [local](#local-feed) or [external](#external-feed)
-feeds. The table is used only in case of case of `auto storage import` enabled with `syncAcl` option enabled.  
+feeds. The table is used only in case of case of [*auto storage import*](storage-import.md#auto-storage-import)
+enabled with `Synchronize ACL` option enabled.  
 
 
 ### Local Feed
@@ -445,25 +469,6 @@ For more information on mapping users from external Idp to Onedata users please 
     "idpEntitlement": String                            // required if mappingScheme == "idpEntitlement"
 }
 ```
-
-## Configuration
-<!-- This header is referenced at least one time as "#configuration" -->
-
-Configuration of LUMA DB is part of a [storage configuration](storages.md#configuration).
-
-It is possible to choose the type of [feed](#populating-luma-db-with-feeds) for populating the DB.
-In case of selecting the [external feed](#external-feed), it is compulsory to set URL of the external server that
-will be lazily queried to populate the LUMA DB.
-It is also possible to set an API key that will be send with each request to the external server.
-Example configuration of LUMA feed is presented on the below picture:
-
-![Configuration of LUMA](../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png)
-
->**NOTE:**  Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for 
-given storage resource. Newly set feed will be used to populate LUMA DB once again.  
->
->**WARNING:**  Clearing the LUMA DB when feed type is changed means that the local feed is also cleared. In order to use 
-> the local feed then, all mappings must be added once again.
 
 
 ## REST API
