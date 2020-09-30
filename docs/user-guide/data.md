@@ -7,7 +7,8 @@
 ### Posix permissions
 <!-- This header is referenced at least one time as "#posix-permissions" -->
 
-### ACL
+### Access Control Lists
+<!-- This header is referenced at least one time as "#access-control-lists" -->
 
 ## File distribution  <!-- link to replication & migration -->
 
