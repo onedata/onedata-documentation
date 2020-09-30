@@ -1,11 +1,12 @@
 # File-popularity
+<!-- This file is referenced at least one time as "file_popularity.md" -->
 
 <!-- toc -->
 
 ## Concept
 
 The file-popularity mechanism enables tracking of usage-statistics for files in the 
-selected space. It allows to list files' IDs sorted by increasing order of the 
+selected space. It allows listing files' IDs sorted by increasing order of the 
 [`popularity`](#the-popularity-function) function, so that the least popular files
 are at the beginning of the list.
 
@@ -28,17 +29,17 @@ The example request returns 10 least popular files in the space.
 ## Advanced topics
 
 As a prerequisite for understanding this section we advise to familiarize with 
-the concept of [Onedata views](../using_onedata/metadata.md#advanced-metadata-queries).
+the concept of [Onedata views](../using_onedata/views.md).
 
 ### Internal implementation
 
 Internally, the mechanism creates the *file-popularity* view. All notes presented in the 
-[Advanced metadata queries section](../using_onedata/metadata.md#advanced-metadata-queries)
+[Views chapter](../using_onedata/views.md)
 applies also to the *file-popularity* view.
 >**NOTE:** The file-popularity view is a special view, therefore it is forbidden to create 
 > a view with such name. Furthermore, it is forbidden and impossible to 
 > modify or delete the view using 
->[Onedata Views API](../using_onedata/metadata.md#advanced-metadata-queries).
+>[Onedata Views API](../using_onedata/views.md).
 
 ### The popularity function
 The key that is emitted to the *file-popularity* view is the value of the
@@ -61,12 +62,12 @@ where:
 Entries in the views are modified only when associated document
 in the database is modified. It means that entry in the *file-popularity* view
 is modified only when the 
-[`file_popularity`](../using_onedata/metadata.md#file-popularity-model) model
+[`file_popularity`](../using_onedata/views.md#file-popularity-model) model
 document is updated. It happens on each close operation on a file.
-It is possible that a file that has been intensively used will not be opened any more. 
-Therefore, it's `avgOpenCountPerDay` will not be re-calculated and it will stay
+It is possible that a file that has been intensively used is not opened any more. 
+Therefore, it's `avgOpenCountPerDay` is not re-calculated and it stays
 on a very high value. If the popularity of the file was estimated only basing on
-this parameter such file will stay "popular" forever. To cope with this issue, 
+this parameter such file stays "popular" forever. To cope with this issue, 
 `lastOpenHour` parameter was used in the [`popularity`](#the-popularity-function) function.
 The parameter is responsible for "balancing" the importance of `avgOpenCountPerDay` parameter.
 
@@ -78,7 +79,7 @@ can be modified in the file-popularity configuration panel.
 
 >**NOTE:** Modification of the [`popularity`](#the-popularity-function) 
 function parameters results in modification of the mapping function of the
-*file-popularity* view. It means that all already indexed files will be 
+*file-popularity* view. It means that all already indexed files are 
 re-indexed. Such operation can be very time-consuming as it depends on the number 
 of the files in the space.
 >

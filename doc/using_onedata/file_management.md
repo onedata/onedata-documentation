@@ -91,6 +91,8 @@ In order to edit permissions:
 
 
 ### Access Control Lists
+<!-- This header is referenced at least one time as "#access-control-lists" -->
+
 You can also setup permissions using more advanced Access Control Lists option to control permissions for individual users and groups.
 
 In order to edit ACL's:
