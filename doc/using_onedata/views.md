@@ -1,5 +1,5 @@
 # Views
-<!-- This header is referenced at least one time as "views.md" -->
+<!-- This file is referenced at least one time as "views.md" -->
 
 <!-- toc -->
 

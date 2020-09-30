@@ -39,7 +39,7 @@ This section describes typical filesystem metadata attributes. The list of attri
 In a general case, extended attributes are platform agnostic and users can choose whatever keys and values to be assigned for these level attributes.
 
 
-One restriction is that all keys, beginning with `onedata_` or `cdmi_` prefixes, should be avoided as they are used by Onedata 
+One restriction is that all keys beginning with `onedata_` or `cdmi_` prefixes are reserved as they are used by Onedata 
 platform for special purposes, in particular for presentation in Graphical User Interface and Open Data publishing and management.
 
 ### Setting extended attributes using Graphical User Interface

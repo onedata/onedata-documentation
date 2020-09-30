@@ -1,5 +1,5 @@
 # File-popularity
-<!-- This header is referenced at least one time as "file_popularity.md" -->
+<!-- This file is referenced at least one time as "file_popularity.md" -->
 
 <!-- toc -->
 
