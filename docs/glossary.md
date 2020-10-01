@@ -6,8 +6,8 @@ Mechanism that automatically maintains storage usage at a certain
 level and ensures that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the 
 [*file popularity*](#file-popularity) to determine
-the least popular file replicas in the [*space*](#space) and to evict them.
-Read more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
+the least popular file replicas in a [*space*](#space) and to evict them.
+Learn more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## Cluster
 
@@ -16,13 +16,14 @@ Read more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
 ## Couchbase
 
 ## File popularity
-Mechanism that enables tracking of usage-statistics for files in the selected [*space*](#space).
-Used by [*auto-cleaning*](#auto-cleaning) mechanism to cleanup the least popular file replicas.
-Read more [here](docs/admin-guide/oneprovider/configuration/file-popularity.md).
+Enables tracking of usage statistics for files in a [*space*](#space).
+Used by [*auto-cleaning*](#auto-cleaning) mechanism to clean up the least popular file replicas.
+Learn more [here](docs/admin-guide/oneprovider/configuration/file-popularity.md).
 
 ## File registration
-Mechanism dedicated for reflecting external datasets in a Onedata space.
-Read more [here](docs/user-guide/file-registration.md).
+Allows users to register files located on an [imported storage](#imported-storage) in order to 
+reflect external datasets in a Onedata space.
+Learn more [here](docs/user-guide/file-registration.md).
 
 ## Group
 
@@ -33,8 +34,9 @@ Read more [here](docs/user-guide/file-registration.md).
 ## Harvester
 
 ## Imported storage
-[*Storage resource*](#storage) with enabled option `Imported storage` which allows enabling [*Storage import*](#storage-import).
-Read more [here](docs/admin-guide/oneprovider/configuration/storages.md#imported-storage).
+[*Storage resource*](#storage) marked as `Imported storage` in the configuration. 
+Enables [*Storage import*](#storage-import) when used to support a space.
+Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md#imported-storage).
 
 ## Let’s Encrypt
 
@@ -42,7 +44,7 @@ Read more [here](docs/admin-guide/oneprovider/configuration/storages.md#imported
 LUMA is a database that stores mappings between Onedata user accounts and local user accounts/credentials on storage 
 resources. It establishes a relation between members of a Onedata space and user accounts recognized by different 
 storage providers.
-Read more [here](docs/admin-guide/oneprovider/configuration/luma.md).
+Learn more [here](docs/admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
 
@@ -55,10 +57,13 @@ Read more [here](docs/admin-guide/oneprovider/configuration/luma.md).
 ## Space
 
 ## Storage
-Storage resource, exposed by [*Oneprovider*](#oneprovider) to support the [*space*](#space). 
-Read more [here](docs/admin-guide/oneprovider/configuration/storages.md).
+Storage resource recognized by a [*Oneprovider*](#oneprovider) and used to [*support*](#support) Onedata [*spaces*](#space).
+Storages are registered in the Oneprovider panel, using the GUI or REST API. 
+Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md).
 
 ## Storage import
-Mechanism dedicated for importing files located on a storage by registering them in the [*space*](#space) supported by
+Mechanism dedicated for importing files located on a storage by registering them in a [*space*](#space) supported by
 the [*storage*](#storage), without copying the data. 
-Read more [here](docs/admin-guide/oneprovider/configuration/storage-import.md).
+Learn more [here](docs/admin-guide/oneprovider/configuration/storage-import.md).
+
+# Support

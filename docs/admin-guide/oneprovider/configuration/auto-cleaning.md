@@ -1,81 +1,81 @@
 # Auto-cleaning
+<!-- This file is referenced at least one time as "auto-cleaning.md" -->
 
-As a prerequisite for understanding this section, we advise to familiarize with 
+As a prerequisite for understanding this chapter, we advise to familiarize with 
 the mechanism of [file popularity](file-popularity.md).
-
-[[toc]]
-
-## Concept
 
 The purpose of the *auto-cleaning* mechanism is to automatically maintain storage usage at a certain 
 level and ensure that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the 
 [file popularity](file-popularity.md) to determine
-the least popular file replicas in the space and to evict them.
+the least popular file replicas and evict them.
 The process is safe - only redundant replicas (duplicated on remote providers) are evicted.
-Eviction of replicas is synchronized among providers by custom algorithm.
-It ensures that in case of simultaneous requests for deletion of replicas of the same file
-there is no risk of data loss.
+Eviction of replicas is coordinated among providers using a custom algorithm.
+It ensures that there is no risk of data loss, even in case of simultaneous requests for deletion of replicas of 
+the same file.
 
-After each auto-cleaning run a cleaning report shows the released number of
-bytes and number of removed replicas.
+Each auto-cleaning run produces a report, which shows the number of removed replicas and the amount of released 
+storage space.
 
-## Configuration
-
-### Basic setup
+## Basic setup
 
 The mechanism can be enabled in the space configuration tab in Oneprovider's Onepanel.
 
 > *NOTE:* 
 >The [*file popularity*](file-popularity.md) mechanism 
 must be enabled to turn *auto-cleaning* on. 
-> Disabling [*file popularity*](file-popularity.md), disables *auto-cleaning*.
+> Disabling [*file popularity*](file-popularity.md) disables *auto-cleaning* as well.
  
-The user interface allows the administrator to specify **low** and **high** thresholds,
+The user interface allows specifying **low** and **high** thresholds,
 corresponding to the amount of data stored on the local storage supporting given space:
 * **high threshold** - when exceeded, an auto-cleaning run is triggered to evict redundant replicas. 
 * **low threshold** - when reached, the current auto-cleaning run is stopped.  
 
-The thresholds can be adjusted using the GUI as shown below in the 
-`Spaces -> "Space Name" -> Auto-cleaning` tab, as presented below or using REST API:
+The thresholds can be adjusted in the 
+`Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider's panel GUI (as shown below)
+ or using [REST API](#rest-api):
 
-![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_config.png)
+![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png)
 
 
-### Selective rules
+## Selective rules
 
 It is possible to filter the list of files obtained from the 
-[*file popularity*](file-popularity.md) by enabling *selective-rules*.
+[*file popularity*](file-popularity.md) by enabling *selective rules*.
 
 There are six rules for which ranges might be provided:
-* `maxOpenCount` - Files that have been opened less than or equal to `maxOpenCount` times may be cleaned.
+* `maxOpenCount` - Files that have been opened not more than `maxOpenCount` times may be cleaned.
   The default value is `9007199254740991 (2^53-1)`.
-* `minHoursSinceLastOpen` - Files that haven't been opened for longer than or equal
-  to given period (in hours) may be cleaned. The default value is `0`.
-* `minFileSize` - Only files which size (in bytes) is greater than or equal to given value may be cleaned.
+* `minHoursSinceLastOpen` - Files that have been closed at least this many hours ago may be cleaned.
+  The default value is `0`.
+* `minFileSize` - Only files which size (in bytes) is not less than given value may be cleaned.
   The default value is `1`.
-* `maxFileSize` - Only files which size (in bytes) is less than or equal to given value may be cleaned.
+* `maxFileSize` - Only files which size (in bytes) is not greater than given value may be cleaned.
   The default value is `1125899906842624 (1 PiB)`.
 * `maxHourlyMovingAverage` - Files that have moving average of open operations
-  count per hour less than or equal to given value may be cleaned. The average is calculated
+  count per hour not greater than given value may be cleaned. The average is calculated
   in 24 hours window. The default value is `9007199254740991 (2^53-1)`.
 * `maxDailyMovingAverage` - Files that have moving average of open operations
-  count per day less or equal to than given value may be cleaned. The average is calculated in 
+  count per day not greater than given value may be cleaned. The average is calculated in 
   30 days window. The default value is `9007199254740991 (2^53-1)`.
 * `maxMonthlyMovingAverage` - Files that have moving average of open operations
-  count per month less than or equal to given value may be cleaned. The average is calculated
+  count per month not greater than given value may be cleaned. The average is calculated
   in 12 months window. The default value is `9007199254740991 (2^53-1)`.
 
-If a rule is disabled it is ignored.
-File replica must satisfy all enabled rules to be evicted. 
+Disabled rules are ignored. A file replica must satisfy all enabled rules to be evicted. 
 
-### Force start
+## Starting run on demand
 
 It is possible to forcefully start an auto-cleaning run by pressing the green button
 placed below space occupancy bar. The run can be forcefully triggered even
 if the **high threshold** is not exceeded.
 
-### REST API
+## Stopping run on demand
+
+It is possible to forcefully stop an auto-cleaning run by pressing the red button
+placed below space occupancy bar.
+
+## REST API
 
 All operations presented in the GUI can also be performed using the REST API.
 Links to the documentation are presented below.

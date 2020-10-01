@@ -1,9 +1,6 @@
 # Storage import
 <!-- This file is referenced at least one time as "storage-import.md" -->
 
-[[toc]]
-
-
 *Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
 the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
@@ -24,7 +21,7 @@ above-mentioned cases.
 *storage import* can be enabled only if the space is supported with an [*Imported storage*](storages.md#imported-storage).
 
 
-## Modes
+## Configuration
 There are 2 possible modes of *storage import*: [*manual*](#manual-storage-import) and [*auto*](#auto-storage-import).
 The mode is chosen when the space is being supported with an [*Imported storage*](storages.md#imported-storage) 
 as presented in the below picture.
@@ -33,7 +30,7 @@ as presented in the below picture.
 
 ![Supporting the space with an *imported storage*](../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png)
 
-### Manual storage import
+## Manual storage import
 <!-- This header is referenced at least one time as "#manual-storage-import" -->
 
 In case of *manual* mode, the files must be [registered manually](../../../user-guide/file-registration.md) by the space users. 
@@ -42,7 +39,7 @@ Registration of directories is not supported.
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does 
 not support [automatic import scans](#auto-storage-import).
 
-#### Storage configuration for manual import:
+### Storage configuration for manual import:
 <!-- This header is referenced at least one time as "#storage-configuration-for-manual-import" -->
 
 *Manual storage import* is supported on the following storage backends:
@@ -60,13 +57,13 @@ not support [automatic import scans](#auto-storage-import).
 Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
 
 
-### Auto storage import
+## Auto storage import
 <!-- This header is referenced at least one time as "#auto-storage-import" -->
 
 In case of *auto* mode, the storage is automatically scanned and data is imported from storage into the
 assigned space.
 
-#### Storage configuration for auto import:
+### Storage configuration for auto import:
 <!-- This header is referenced at least one time as "#storage-configuration-for-auto-import" -->
 
 *Auto storage import* is supported on the following storage backends:
@@ -80,7 +77,7 @@ assigned space.
 > **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type). 
 Moreover, on S3 the `Block size` parameter **must be set to `0` !**
 
-#### Configuration
+### Configuration
 The configuration of *auto storage import* can be set when supporting the space, as presented in the 
 [previous picture](#modes). It can also be modified later in the
 `Spaces -> "Space Name" -> Storage import > Auto storage import configuration` tab, as presented below:
@@ -99,30 +96,30 @@ The available configuration options are:
 * `Scan interval` - Period between subsequent scans in seconds (counted from end of one scan till beginning of the following),
   relevant only if `Continuous scan` is enabled.
 
-#### Last scan summary
+### Last scan summary
 Below the configuration tab, there is information about current or last finished scan: its status, start & stop times
 and the number of created/modified/deleted files. If the `Continuous scan` is enabled, it also displays the estimated
 time of the next scan:
 
-![](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png)
+![Last scan summary](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png)
 
-#### Starting a scan on demand
+### Starting a scan on demand
 It is possible to forcefully start a single scan of *auto storage import*, even if `Continuous scan` is disabled
 (use the green button). The scan will be started with current configuration.
 
-![](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_start.png)
+![Starting a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_start.png)
 
 > **NOTE:** A new scan can be started only if there is no scan in progress for the space. 
 
-#### Stopping a scan on demand
+### Stopping a scan on demand
 It is also possible to forcefully stop the current scan of *auto storage import* (use the red button). 
 
-![](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png)
+![Stopping a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png)
 
 > **NOTE:** Stopping the scan is asynchronous - may take some time and does not guarantee instant effect.
 
-#### Statistics
+### Statistics
 Progress of the *auto storage import* can be observed on three charts, as shown below. 
 It is possible to change the time resolution of the charts in the upper right corner of the charts view.
 
-![](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stats.png)
+![Auto storage import statistics](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stats.png)

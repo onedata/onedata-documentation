@@ -1,6 +1,5 @@
 # Oneclient
-
-[[toc]]
+<!-- This file is referenced at least one time as "Oneclient.md" -->
 
 ## Options
 
