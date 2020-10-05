@@ -41,14 +41,18 @@ Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md#importe
 ## Let’s Encrypt
 
 ## LUMA
-LUMA is a database that stores mappings between Onedata user accounts and local user accounts/credentials on storage 
-resources. It establishes a relation between members of a Onedata space and user accounts recognized by different 
-storage providers.
+LUMA (Local User Mapping) is a database that stores mappings between Onedata user accounts and local user 
+accounts/credentials on storage resources. It establishes a relation between members of a Onedata space and user 
+accounts recognized by different storage providers.
 Learn more [here](docs/admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
 
 ## Onepanel
+Service dedicated for administration of a [*cluster*] ([*Onezone*] or [*Oneprovider*]) and at the same time an integral 
+part of the cluster. Referred to as *Onezone panel* or *Oneprovider panel* throughout the documentation. 
+Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interface (`https://$HOST:9443`) 
+and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
 
@@ -58,7 +62,7 @@ Learn more [here](docs/admin-guide/oneprovider/configuration/luma.md).
 
 ## Storage
 Storage resource recognized by a [*Oneprovider*](#oneprovider) and used to [*support*](#support) Onedata [*spaces*](#space).
-Storages are registered in the Oneprovider panel, using the GUI or REST API. 
+Storages are registered in the [*Oneprovider panel*](#onepanel), using the GUI or REST API. 
 Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md).
 
 ## Storage import

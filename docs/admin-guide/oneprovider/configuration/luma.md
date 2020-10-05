@@ -23,13 +23,13 @@ In order to understand LUMA DB and how mappings should be defined please consult
 **Below checklist contains the fundamental steps to properly configure your storage and the LUMA DB.**
 Nonetheless, it is recommended that you first familiarize yourself with all the concepts described in this chapter.
 
-### Configuration for regular (non-imported) storages
+### Checklist for regular (non-imported) storages
 1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds).
 2. Substantiate the [required mappings](#luma-mappings) (if applicable). 
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
    mapped exist and are reflected in the storage system.
 
-### Configuration for imported storages
+### Checklist for imported storages
 1. Choose the right [LUMA DB feed](#populating-luma-db-with-feeds).
 2. Substantiate the [required mappings](#luma-mappings) (if applicable) .
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be

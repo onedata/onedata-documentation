@@ -1,8 +1,10 @@
 # File popularity
 <!-- This file is referenced at least one time as "file-popularity.md" -->
 
+[[toc]]
+
 As a prerequisite for understanding this section we advise to familiarize with 
-the concept of [*Onedata views*](../../../user-guide/views.md).
+the concept of [*views*](../../../user-guide/views.md).
 
 The *file popularity* mechanism enables tracking of usage statistics for files in a space.
 It allows listing file IDs sorted in ascending order by the 
@@ -13,11 +15,9 @@ are at the beginning of the list.
 > It is impossible to obtain *file popularity* statistics gathered by a remote provider.
 
 The mechanism can be enabled for chosen space in the `Spaces -> "Space Name" -> File popularity` tab,
-in the Spaces menu of Oneprovider's panel GUI (as shown below) or using [REST API](#rest-api):
+in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API](#rest-api).
 
 ![*File popularity* configuration tab](../../../../images/admin-guide/oneprovider/configuration/file-popularity/file_popularity_tab.png)
-
-## Internal implementation
 
 Internally, the mechanism creates the *file popularity view*. All notes presented in the 
 [*Views* chapter](../../../user-guide/views.md)
@@ -25,7 +25,7 @@ applies also to the *file popularity view*.
 >**NOTE:** The *file popularity view* is a special view, therefore it is forbidden to create 
 > a view with such name. Furthermore, it is forbidden and impossible to 
 > modify or delete the view using 
->[*Onedata Views API*](../../../user-guide/views.md).
+>[*Views API*](../../../user-guide/views.md).
 
 
 ## Querying the file popularity view
@@ -36,6 +36,10 @@ curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spa
 ```
 An example of such request is presented in the *file popularity* configuration tab of Onepanel GUI.
 The example request returns 10 least popular files in the space.
+
+For more information on querying [*views*](../../../user-guide/views.md) please see 
+[here](../../../user-guide/views.md#rest-api).  
+
 
 ## Advanced topics
 
@@ -93,12 +97,12 @@ Assume that we have 2 files: F1 and F2.
 F1 was opened at timestamp (in hours) T1.
 F1 - lastOpenHour1 = T1
    - number of opens in the month preceding last open: opensCount1 = 1
-   - avgOpenCountPerDay1 = avg1 = opensCount1/30 = 1/30
+   - avgOpenCountPerDay1 = avg1 = opensCount1 / 30 = 1 / 30
    
 F2 was opened a month earlier than T1 for the last time.
 F2 - lastOpenHour2 = T2 = T1 - 30 * 24
    - number of opens in the month preceding last open: opensCount2 = 1000
-   - avgOpenCountPerDay2 = avg2 = opensCount2/30 = 1000/30
+   - avgOpenCountPerDay2 = avg2 = opensCount2 / 30 = 1000 / 30
 
 Calculate popularity for both files:
 
@@ -116,19 +120,19 @@ We want P1 = P2:
 w1 * T1 + w2 * avg1 = w1 * (T1 - 720) + w2 * avg2
 w1 * T1 + w2 * avg1 = w1 * T1 - w1 * 720 + w2 * avg2
 w1 * 720 = w2 * (avg2 - avg1)
-w1/w2 = (avg2 - avg1)/720
-w1/w2 = 999/21600
+w1 / w2 = (avg2 - avg1)/720
+w1 / w2 = 999 / 21600
 
 We can set w1 := 1 and therefore we have:
 
-w2 = 21600/999 ~= 21,62
+w2 = 21600 / 999 ~= 21,62
 
 Finally, to make it simpler, we set:
 w1 := 1.0
 w2 := 20.0
 ```
 
-### Tuning of the file popularity function
+### Tuning the file popularity function
 
 The three parameters of the function: `w1`, `w2` and `MAX_AVG_OPEN_COUNT_PER_DAY`
 can be modified in the *file popularity* configuration panel.

@@ -2,12 +2,12 @@
 <!-- This file is referenced at least one time as "auto-cleaning.md" -->
 
 As a prerequisite for understanding this chapter, we advise to familiarize with 
-the mechanism of [file popularity](file-popularity.md).
+the mechanism of [*file popularity*](file-popularity.md).
 
 The purpose of the *auto-cleaning* mechanism is to automatically maintain storage usage at a certain 
 level and ensure that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the 
-[file popularity](file-popularity.md) to determine
+[*file popularity*](file-popularity.md) to determine
 the least popular file replicas and evict them.
 The process is safe - only redundant replicas (duplicated on remote providers) are evicted.
 Eviction of replicas is coordinated among providers using a custom algorithm.
@@ -19,7 +19,7 @@ storage space.
 
 ## Basic setup
 
-The mechanism can be enabled in the space configuration tab in Oneprovider's Onepanel.
+The mechanism can be enabled in the space configuration tab in Oneprovider panel.
 
 > *NOTE:* 
 >The [*file popularity*](file-popularity.md) mechanism 
@@ -32,8 +32,8 @@ corresponding to the amount of data stored on the local storage supporting given
 * **low threshold** - when reached, the current auto-cleaning run is stopped.  
 
 The thresholds can be adjusted in the 
-`Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider's panel GUI (as shown below)
- or using [REST API](#rest-api):
+`Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider panel GUI (as shown below)
+ or using [REST API](#rest-api).
 
 ![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png)
 
