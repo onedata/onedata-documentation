@@ -46,23 +46,29 @@ In the *views* API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function must accept 4 arguments:
- * `id` - id of a file,
- * `type` - type of the document that is being mapped by the function. One of:
+ * `id` - id of the file (string)
+ * `type` - type of the document that is being mapped by the function, one of:
     * `"file_meta"`
     * `"times"`
     * `"custom_metadata"`
     * `"file_popularity"`
- * `meta` - values stored in the document being mapped,
- * `ctx` - context object used for storing helpful information. Currently it stores:
-    * `providerId`,
-    * `spaceId`.
+ * `meta` - values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
+ * `ctx` - additional information that might be helpful during indexing:
+    * `providerId`
+    * `spaceId`
 
 ```javascript 1.8
 ctx = {
     "providerId": "b705b0f664645a2c69934d9043b33c2207228257",
     "spaceId": "86b1daff220b40c235e6af1c235769a4ec4fe91a"
 }
+
 ```
+
+The mapping function will be called for each file-related document (as listed in the `type` argument above).
+For example, `emit()` will be called separately for the same file when it name changes (`file_meta`),
+its content is modified (`times`) and an extended attributes is set (`custom_metadata`).
+It is important to consider the type of the indexed document to avoid duplicate mappings.
 
 The mapping function must return `(key, value)` pair or pairs that are to be emitted
 to the view via `emit()` function.
@@ -157,7 +163,7 @@ Model that stores basic file metadata:
  * `owner` - Id of an owner of the file
  * `provider_id` - Id of a provider on which the file was created
  * `deleted` - flag informing that file was marked to be deleted
-Other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`.
+ * other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
 
  ```javascript 1.8
 file_meta = {
@@ -204,7 +210,7 @@ indexing is not yet supported.
 The model has the following fields:
  * `onedata_json` - map of JSON metadata values
  * `onedata_rdf` - RDF metadata in plain text
- * extended attributes set by users
+ * extended attributes set by users - a key-value map on the top level of the object
  ```javascript 1.8
 custom_metadata = {
     "onedata_json": {
