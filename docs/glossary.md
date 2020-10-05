@@ -49,7 +49,7 @@ Learn more [here](docs/admin-guide/oneprovider/configuration/luma.md).
 ## Oneclient
 
 ## Onepanel
-Service dedicated for administration of a *cluster* ([*Onezone*](#onezone) or [*Oneprovider*](#oneprovider)) and, 
+Service dedicated for administration of a [*cluster*](#cluster) ([*Onezone*](#onezone) or [*Oneprovider*](#oneprovider)) and, 
 at the same time, an integral part of the cluster. Referred to as *Onezone panel* or *Oneprovider panel* throughout the documentation. 
 Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interface (`https://$HOST:9443`) 
 and a REST API (`https://$HOST:9443/api/v3/onepanel/`).

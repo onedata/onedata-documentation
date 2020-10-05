@@ -65,8 +65,10 @@ ctx = {
 
 ```
 
-The mapping function will be called for each file-related document (as listed in the `type` argument above).
-For example, `emit()` will be called separately for the same file when it name changes (`file_meta`),
+> **NOTE:**
+>
+>The mapping function will be called for each file-related document (as listed in the `type` argument above).
+For example, `emit()` will be called separately for **the same file** when its name changes (`file_meta`),
 its content is modified (`times`) and an extended attributes is set (`custom_metadata`).
 It is important to consider the type of the indexed document to avoid duplicate mappings.
 
