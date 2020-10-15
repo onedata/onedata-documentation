@@ -19,7 +19,7 @@ The currently supported storage backends include:
 * `S3` - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage.
 * `Ceph RADOS` - storage backend compatible with [Ceph](http://ceph.com/ceph-storage/) object storage.
 * `Swift` - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
-* `GlusterFS` - [GlusterFS](https://www.gluster.org/) volumes can be directly attached to the Oneprovider.
+* `GlusterFS` - [GlusterFS](https://www.gluster.org/) volume directly attached to the Oneprovider.
 * `Local Ceph` - local Ceph cluster that has been deployed during deployment of Oneprovider. For more information
 on local Ceph deployment please see [here](ceph.md).
 * `WebDAV` - storage backend compatible with [WebDAV](https://tools.ietf.org/html/rfc4918) protocol.
@@ -89,7 +89,8 @@ and [`--override`](../../../user-guide/oneclient.md#overriding-storage-helper-pa
 
 ### Skip storage detection 
 `Skip storage detection` option turns off automatic detection of direct access to the storage in all instances of Oneclient application.
-It also disables checks performed by Oneprovider when storage is added or modified.
+It also disables checks performed by Oneprovider when storage is added or modified. This option is relevant
+only for storages that are **not** marked as `readonly` - for readonly storages, it is implicitly set to `true`.
 
 
 ### LUMA feed

@@ -7,7 +7,9 @@ level and ensures that there is enough space for new replicas when performing co
 The mechanism uses the statistics collected by the 
 [*file popularity*](#file-popularity) to determine
 the least popular file replicas in a [*space*](#space) and to evict them.
-Learn more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
+Learn more [here](admin-guide/oneprovider/configuration/auto-cleaning.md).
+
+## CDMI
 
 ## Cluster
 
@@ -18,12 +20,12 @@ Learn more [here](docs/admin-guide/oneprovider/configuration/auto-cleaning.md).
 ## File popularity
 Enables tracking of usage statistics for files in a [*space*](#space).
 Used by [*auto-cleaning*](#auto-cleaning) mechanism to clean up the least popular file replicas.
-Learn more [here](docs/admin-guide/oneprovider/configuration/file-popularity.md).
+Learn more [here](admin-guide/oneprovider/configuration/file-popularity.md).
 
 ## File registration
 Allows users to register files located on an [imported storage](#imported-storage) in order to 
 reflect external datasets in a Onedata space.
-Learn more [here](docs/user-guide/file-registration.md).
+Learn more [here](user-guide/file-registration.md).
 
 ## Group
 
@@ -36,7 +38,7 @@ Learn more [here](docs/user-guide/file-registration.md).
 ## Imported storage
 [*Storage resource*](#storage) marked as `Imported storage` in the configuration. 
 Enables [*Storage import*](#storage-import) when used to support a space.
-Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md#imported-storage).
+Learn more [here](admin-guide/oneprovider/configuration/storages.md#imported-storage).
 
 ## Let’s Encrypt
 
@@ -44,7 +46,7 @@ Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md#importe
 LUMA (Local User Mapping) is a database that stores mappings between Onedata user accounts and local user 
 accounts/credentials on storage resources. It establishes a relation between members of a Onedata space and user 
 accounts recognized by different storage providers.
-Learn more [here](docs/admin-guide/oneprovider/configuration/luma.md).
+Learn more [here](admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
 
@@ -58,16 +60,27 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Onezone
 
+## REST API
+
 ## Space
 
 ## Storage
 Storage resource recognized by a [*Oneprovider*](#oneprovider) and used to [*support*](#support) Onedata [*spaces*](#space).
 Storages are registered in the [*Oneprovider panel*](#onepanel), using the GUI or REST API. 
-Learn more [here](docs/admin-guide/oneprovider/configuration/storages.md).
+Learn more [here](admin-guide/oneprovider/configuration/storages.md).
 
 ## Storage import
 Mechanism dedicated for importing files located on a storage by registering them in a [*space*](#space) supported by
 the [*storage*](#storage), without copying the data. 
-Learn more [here](docs/admin-guide/oneprovider/configuration/storage-import.md).
+Learn more [here](admin-guide/oneprovider/configuration/storage-import.md).
 
 # Support
+
+# Token
+An alphanumeric string acting as a proof of authorization that can be used 
+across the system to authenticate (**access token**), prove identity 
+(**identity token**) or gain access to some resources (**invite token**). Tokens
+must be kept secret, just like passwords or private keys/certificates. A token 
+can look like the following: `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`.
+Tokens are a universal way of accessing Onedata interfaces: [*REST API*](#rest-api), 
+[*CDMI*](#cdmi) or [*Oneclient*](#oneclient). Learn more [here](user-guide/tokens.md).

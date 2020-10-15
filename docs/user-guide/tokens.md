@@ -4,11 +4,14 @@
 
 ## Quickstart
 
-See [GUI wizard](#gui-wizard) usage examples for quick guide how to obtain
+See [GUI wizard](#gui-wizard) usage examples for quick guide on how to obtain
 basic tokens.
 
 
 ## Basics
+
+A token is an alphanumeric string acting as a proof of authorization that can be 
+used across the system.
 
 There are three types of tokens in Onedata: [access tokens](#access-tokens), 
 [identity tokens](#identity-tokens) and [invite tokens](#invite-tokens).
@@ -28,9 +31,9 @@ All tokens are created in Onezone and can only be verified by Onezone.
 Tokens can be created and managed using the [wizard](#gui-wizard) in Onezone web 
 GUI or the [REST API](#using-rest-api).
 
-**Tokens must be kept secret** - unless they are safely confined with caveats, 
-then passing a token to another party or publishing it is possible, but must be
-done with care.
+In general, **tokens must be kept secret**. It is possible to strongly confine a 
+token with proper caveats and make it safe to be [passed to another party or 
+published](#safely-publishing-tokens), but it must be done with great care.
 
 
 ## Access tokens
@@ -176,17 +179,17 @@ tokens are linked to user's account and retrievable. All differences are shown
 in below table.
 
 
-| Temporary tokens                                                 | Named tokens                                                      |
-|------------------------------------------------------------------|-------------------------------------------------------------------|
-| no identification in the system                                  | must have a unique name                                           |
-| not persisted                                                    | persisted                                                         |
-| cannot be retrieved <br/> _you must store the token upon creation_ | linked to subject's account                                     |
-| shared secret <br/> _the secret can be regenerated, in this case all subject's temporary tokens become invalid_ | individual secret  |
-| cannot be deleted individually <br/> _see shared secret above_   | can be deleted <br/> _(the token immediately becomes invalid_     |
-| non-revocable individually <br/> _see shared secret above_       | revocable <br/> _revocation can be undone at will_                |
-| must have limited lifespan <br/> _max permitted lifespan is configurable by the Onezone admin_ | can have infinite lifespan          |
-| no accounting, cannot be listed                                  | can be listed in [REST API](#using-rest-api) or viewed in web GUI |
-| useful for automated software / middleware / scripting           | require more management but ensure full control                   |
+| Temporary tokens                                                                                 | Named tokens                                                                                |
+|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| no identification in the system                                                                  | must have a unique name                                                                     |
+| not persisted                                                                                    | persisted                                                                                   |
+| cannot be retrieved <br/> <sub style="color: #06f;">you must store the token upon creation</sub> | linked to subject's account                                                                 |
+| shared secret <br/><sub style="color: #06f;">the secret can be regenerated, which invalidates all subject's temporary tokens</sub> | individual secret                                         |
+| cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>      | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
+| non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>          | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
+| must have limited lifespan <br/><sub style="color: #06f;">max permitted lifespan is configurable by the Onezone admin</sub> | can have infinite lifespan                                       |
+| no accounting, cannot be listed                                                                  | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-wizard)            |
+| useful for automated software / middleware / scripting                                           | require more management but ensure full control                                             |
   
   
 ## Token caveats
@@ -357,7 +360,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
 * `interface` - limits the available interfaces on which the token can be used 
     to a certain one - `rest`, `oneclient` or `graphsync`. If the `oneclient` 
     interface is specified, this caveat is treated as a
-    [data access caveat](#data-access-caveats). The `graphsync` interface is
+    [*data access caveat*](#data-access-caveats). The `graphsync` interface is
     used internally for communication between services and does not make sense
     in tokens created by users. If no such caveat is included in a token, it can
     be used on all interfaces.
@@ -370,9 +373,9 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
 
 * `api` - limits the API operations that can be performed with the token. The 
     operations are whitelisted using the Onedata API matchspec format, which 
-    includes the service identifier, operation type (CRUD) and resource 
-    identifier. If no such caveat is included in a token, it can be used for all
-    API calls.
+    however is currently used only internally. Adding information how to build
+    matchspecs is on the roadmap for official API documentation. If no such 
+    caveat is included in a token, it can be used for all API calls.
     ```json
     {
         "type": "api",
@@ -384,7 +387,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     ```
 
 * `data.readonly` - allows only read access to user files. This is a 
-    [data access caveat](#data-access-caveats). If no such caveat is included in 
+    [*data access caveat*](#data-access-caveats). If no such caveat is included in 
     a token, it can be used for both reading and writing data.
     ```json
     {
@@ -396,7 +399,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     The paths must be canonical - starting with a slash + space id, and without 
     a trailing slash - and must be base64 encoded. If a directory path is given, 
     the token allows to access all nested files and directories starting from 
-    the specified directory. This is a [data access caveat](#data-access-caveats). 
+    the specified directory. This is a [*data access caveat*](#data-access-caveats). 
     If no such caveat is included in a token, it can be used for accessing all
     user files.
     ```json
@@ -404,20 +407,20 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
         "type": "data.path",
         "whitelist": [
             "L2QxYjM4OGY3Yzc=",
-            "L2QxYjM4OGY3YzcvZGlyL2ZpbGUudHh0"
+            "LzhkZjFlYjkwYTcvZGlyL2ZpbGUudHh0Cg=="
         ]
     }
     ```    
     ```
-    "L2QxYjM4OGY3Yzc="                  ==  base64("/d1b388f7c7")
-    "L2QxYjM4OGY3YzcvZGlyL2ZpbGUudHh0"  ==  base64("/d1b388f7c7/dir/file.txt")
+    "L2QxYjM4OGY3Yzc="                      ==  base64("/d1b388f7c7")
+    "LzhkZjFlYjkwYTcvZGlyL2ZpbGUudHh0Cg=="  ==  base64("/8df1eb90a7/dir/file.txt")
     ```
     
 * `data.objectid` - limits the object ids in which data can be accessed with the 
     token. The object ids comply with the CDMI format and can be used in the
     Oneprovider's REST and CDMI APIs. If a directory object id is given, the 
     token allows to access all nested files and directories starting from the 
-    specified directory. This is a [data access caveat](#data-access-caveats).
+    specified directory. This is a [*data access caveat*](#data-access-caveats).
     If no such caveat is included in a token, it can be used for accessing all
     user files.
     ```json
@@ -462,7 +465,7 @@ to always fail verification (renders it unusable in practice).
 | data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 | data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 
-> Identity tokens do not allow `service`, `api` or data access caveats as these
+> Identity tokens do not allow `service`, `api` or *data access caveats* as these
 caveats are only relevant when requesting data access or an API operation.
 
 > Invite tokens are specialized for one operation and always used in the Onezone
@@ -476,7 +479,7 @@ restrictions. Existence of **any data access caveat** in a token determines that
 the token is intended exclusively for accessing user files and causes all other 
 APIs to be disallowed or limited to the minimum required to handle data access 
 requests. Such tokens can only be used in the Oneprovider service for REST/CDMI
-operations on files or mounting a Oneclient.
+operations on files or mounting Oneclient.
 
 The list of *data access caveats*:
 
@@ -520,35 +523,35 @@ summarized in the below tables.
 
 #### Onezone
 
-| Interface         |                    REST                    |                GraphSync[*1] (GUI)              |           GraphSync[*1] (Oneprovider)            |
-|-------------------|:------------------------------------------:|:-----------------------------------------------:|:------------------------------------------------:|
-| time              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| ip                | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| asn               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| geo.country       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| geo.region        | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| service           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| consumer          | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| interface[*2]     | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted[*3] </span> |
-| api               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span> | 
-| data.readonly     | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted[*3] </span> |
-| data.path         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted[*3] </span> |
-| data.objectid     | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted[*3] </span> |
+| Interface             |                    REST                    |            GraphSync<sup>1</sup> (GUI)          |           GraphSync<sup>1</sup> (Oneprovider)           |
+|-----------------------|:------------------------------------------:|:-----------------------------------------------:|:-------------------------------------------------------:|
+| time                  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| ip                    | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| asn                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| geo.country           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| geo.region            | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| service               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| consumer              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| interface<sup>2</sup> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
+| api                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        | 
+| data.readonly         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
+| data.path             | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
+| data.objectid         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
 
-[*1]: 
+<sup>1</sup>
 The GraphSync interface is used internally for communication between services 
 and is not used directly by users, but is included in the table for reference.
 The information in the table is the same for the GraphSync interfaces of
 Oneprovider and Onepanel and omitted in tables that follow.
 
-[*2]: 
+<sup>2</sup>
 The interface caveat must match the interface on which the request has been 
 made, as shown in the table. There is one exception - the Oneprovider GraphSync 
 channel, where Onezone accepts all types of tokens that were delegated by users 
 to Oneproviders, but the included caveats can impose further restrictions 
 (e.g. when interface is equal to `"oneclient"`).
 
-[*3]: 
+<sup>3</sup>
 Oneprovider service uses the GraphSync channel to fetch user data from Onezone. 
 It uses the token that was passed to it by the user, either when they made a call
 to the REST/CDMI API, mounted a Oneclient, or visited the Oneprovider GUI (which
@@ -561,60 +564,64 @@ it will not be able to cause any damage with such token.
 
 #### Oneprovider
 
-| Interface         |                    Oneclient                    |CDMI & REST[*1]<br/>(data access operations)|        REST[*2]<br/>(other operations)     |
-|-------------------|:-----------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
-| time              | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| ip                | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| asn               | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| geo.country       | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| geo.region        | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| service           | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| consumer          | <span style="color:red">  rejected[*3] </span>  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| interface         | <span style="color:#aa0"> `"oneclient"` </span> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"rest"` </span> |
-| api               | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
-| data.readonly     | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
-| data.path         | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
-| data.objectid     | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
+| Interface             |                    Oneclient                      |CDMI & REST<sup>1</sup><br/>(data access operations)| REST<sup>2</sup><br/>(other operations)|
+|-----------------------|:-----------------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
+| time                  | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| ip                    | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| asn                   | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| geo.country           | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| geo.region            | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| service               | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| consumer              | <span style="color:red">  rejected<sup>3</sup></span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| interface<sup>4</sup> | <span style="color:#aa0"> `"oneclient"` </span>       | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"rest"` </span> |
+| api                   | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> | 
+| data.readonly         | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
+| data.path             | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
+| data.objectid         | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
 
-[*1]: 
+<sup>1</sup> 
 Data access operations include the whole CDMI API and REST endpoints to manage
 file and directory contents, metadata, permissions and ACLs. These endpoints
 can be accessed with tokens that include a *data access caveat*.
 
-[*2]: 
+<sup>2</sup> 
 Other REST operations include the API for: shares, spaces, views, 
 replicas & transfers, QoS, monitoring and datastore changes stream.
 These endpoints are forbidden when the token includes a *data access caveat*.
 
-[*3]: 
+<sup>3</sup>
 Currently it is not possible to provide a consumer token when mounting Oneclient, 
 which makes it impossible to verify consumer caveats on this interface.
+
+<sup>4</sup>
+The interface caveat must match the interface on which the request has been 
+made, as shown in the table.
 
 
 #### Onepanel
 
-| Interface         |             REST (Onezone panel)              |           REST (Oneprovider panel)            |
-|-------------------|:---------------------------------------------:|:---------------------------------------------:|
-| time              | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
-| ip                | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[*1] </span> | 
-| asn               | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[*1] </span> | 
-| geo.country       | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[*1] </span> | 
-| geo.region        | <span style="color:#480"> allowed     </span> | <span style="color:red"> rejected[*1] </span> | 
-| service           | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
-| consumer          | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
-| interface         | <span style="color:red"> rejected[*2] </span> | <span style="color:red"> rejected[*2] </span> |
-| api               | <span style="color:#480"> allowed     </span> | <span style="color:#480"> allowed     </span> | 
-| data.readonly     | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
-| data.path         | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
-| data.objectid     | <span style="color:red"> rejected     </span> | <span style="color:red"> rejected     </span> |
+| Interface     |                  REST (Onezone panel)                |               REST (Oneprovider panel)               |
+|---------------|:----------------------------------------------------:|:----------------------------------------------------:|
+| time          | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        | 
+| ip            | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> | 
+| asn           | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> | 
+| geo.country   | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> | 
+| geo.region    | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> | 
+| service       | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        | 
+| consumer      | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        | 
+| interface     | <span style="color:red"> rejected<sup>2</sup></span> | <span style="color:red"> rejected<sup>2</sup></span> |
+| api           | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        | 
+| data.readonly | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
+| data.path     | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
+| data.objectid | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
 
-[*1]:
+<sup>1</sup>
 Currently, only Onezone panel supports the IP related caveats (including 
 ASN, country and region, which are checked using a GEO IP database). The 
 support in Oneprovider panel is under implementation. For that time, tokens 
 with such caveats are immediately rejected.
 
-[*2]: 
+<sup>2</sup> 
 Currently, the support for `interface` caveat in both Onepanels is under 
 implementation. For that time, tokens with such caveats are immediately rejected.
 
@@ -719,7 +726,7 @@ anyone might be able to tinker with user's account and data.
 
 When creating a token for public use, consider the following:
 
-* Make sure to include carefully chosen [data access caveats](#data-access-caveats) 
+* Make sure to include carefully chosen [*data access caveats*](#data-access-caveats) 
 in the token (`data_readonly`, `data_path`, `data_objectid`). In a typical scenario, 
 you may want to allow readonly access to a certain subset of your data.
 
@@ -745,8 +752,8 @@ Here are some technical details concerning the security and privacy when using
 or delegating access tokens:
 
 * You should always keep your tokens safe, just like you would do with your
-passwords or certificates / private keys. The exceptions are 1) when passing an 
-invite token to somebody you wish to invite or 2) when delegating an access 
+passwords, certificates or private keys. The exceptions are when passing an 
+invite token to somebody you wish to invite or when delegating an access 
 token that has been properly limited by caveats.
 
 * It is strongly recommended to include a 
@@ -754,7 +761,7 @@ token that has been properly limited by caveats.
 outside of Onezone service.
 
 * When a Oneprovider or Oneprovider panel service receives a request along with
-an access token, it is required that the token's subject user trust the service
+an access token, it is required that the token's subject user trusts the service
 and is entitled to use it. In case of Oneprovider, the user must be supported 
 by the Oneprovider - must have access to at least one space that is supported by
 the Oneprovider, which implies bidirectional trust between the user and the 
@@ -764,7 +771,7 @@ authorization is declined. This is checked by Onezone when releasing user data.
 It is not possible to utilize the token in an untrusted Oneprovider, which 
 protects from data exfiltration.
 
-* Tokens with [data access caveats](#data-access-caveats) can be used only on 
+* Tokens with [*data access caveats*](#data-access-caveats) can be used only on 
 Oneprovider interfaces (Oneclient / REST / CDMI). When using such token, the 
 bearer is not able to learn token subject's account information or private data.
 The information is processed by the Oneprovider to handle the request, but never 
@@ -861,8 +868,8 @@ mounting Oneclient.
 
 #### Create a named token for readonly access in a specific directory
 
-Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the fileId of 
-the directory that is to be available with the token.
+Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the 
+[fileId](data.md#file-path-and-id) of the directory that is to be available with the token.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -1054,39 +1061,41 @@ Below are some examples how tokens can be created and managed via GUI.
 
 1. Click on `Consume` if you received an invite token in order to utilize the
 invitation. Click on `(+)` or `Get started` to create a new token.
-![image](../../images/user-guide/tokens/1-no-tokens.png)
+![image](../../images/user-guide/tokens/1-no-tokens.png#bordered)
 
 2. Create a new access token - give it a meaningful name and restrict it with
-[caveats](#token-caveats) if needed. Below example would create a token that
-can be used only for accessing your data via Oneclient mount or Oneprovider 
-REST/CDMI interface (note the service caveat) and with a limited lifespan.
-![image](../../images/user-guide/tokens/2-access-token.png)
+[caveats](#token-caveats) if needed. Below example would create a token with a 
+limited lifespan that can be used only for accessing Oneprovider services (note 
+the service caveat). Effectively, this limits the available interfaces to those
+offered by Oneprovider: Oneclient and REST/CDMI API. They can be further limited
+using the interface caveat (the first below).
+![image](../../images/user-guide/tokens/2-access-token.png#bordered)
 
 3. Consider adding other caveats to increase your security in case the token
 is to be delegated or passed to another user. Below 
-[data access caveats](#data-access-caveats) would restrict the token's power
+[*data access caveats*](#data-access-caveats) would restrict the token's power
 to just reading the contents of specified directory and file. Any other
 operation will be denied by all system components.
-![image](../../images/user-guide/tokens/3-data-access-caveats.png)
+![image](../../images/user-guide/tokens/3-data-access-caveats.png#bordered)
 
 4. You may want to create an [identity token](#identity-tokens) for more 
-advanced scenarios that entail consumer caveats:
-![image](../../images/user-guide/tokens/4-identity-token.png)
+advanced scenarios that entail [consumer](#consumer) caveats:
+![image](../../images/user-guide/tokens/4-identity-token.png#bordered)
 
 5. Invite tokens can be created easily in the members submenu of a space / group...
-![image](../../images/user-guide/tokens/5-invite-token-a.png)
+![image](../../images/user-guide/tokens/5-invite-token-a.png#bordered)
 though you may want to create a custom token using the wizard:
-![image](../../images/user-guide/tokens/5-invite-token-b.png)
+![image](../../images/user-guide/tokens/5-invite-token-b.png#bordered)
 
 6. Created token will be listed on the left - you can view the details of a 
 token and copy it in serialized form that can be used in CLI, e.g. to mount
 Oneclient or perform a request to REST/CDMI, or passed to some 
 scripts / middleware.
-![image](../../images/user-guide/tokens/6-browse-tokens.png)
+![image](../../images/user-guide/tokens/6-browse-tokens.png#bordered)
 
 7. Tokens can be modified to some extent - renamed or revoked. Other details, 
 such as caveats, are not modifiable as they are inscribed in the token.
-![image](../../images/user-guide/tokens/7-modify-token.png)
+![image](../../images/user-guide/tokens/7-modify-token.png#bordered)
 
 
 
