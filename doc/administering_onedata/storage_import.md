@@ -96,8 +96,11 @@ The available configuration options are:
 
 #### Last scan summary
 Below the configuration tab, there is information about current or last finished scan: its status, start & stop times
-and the number of created/modified/deleted files. If the `Continuous scan` is enabled, it also displays the estimated
-time of the next scan:
+and the number all of processed files (`Processed files`) as well as the number of files detected on storage (`Total storage files`). 
+`Processed files` is a sum of created, modified, unmodified, deleted and failed files counters which are presented 
+in the right column of the tab. `Failed files` is the number of files for which processing has failed.
+`Total storage files` is a sum of created, modified and unmodified files counters. 
+If the `Continuous scan` is enabled, it also displays the estimated time of the next scan.
 
 ![](../../doc/img/admin/auto_storage_import_info.png)
 
@@ -105,7 +108,7 @@ time of the next scan:
 It is possible to forcefully start a single scan of `auto storage import`, even if `Continuous scan` is disabled
 (use the green button). The scan will be started with current configuration.
 
-![](../../doc/img/admin/auto_storage_import_start.png)
+![](../../doc/img/admin/auto_storage_import_info.png)
 
 > **NOTE:** A new scan can be started only if there is no scan in progress for the space. 
 
