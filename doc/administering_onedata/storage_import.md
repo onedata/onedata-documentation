@@ -96,10 +96,12 @@ The available configuration options are:
 
 #### Last scan summary
 Below the configuration tab, there is information about current or last finished scan: its status, start & stop times
-and the number all of processed files (`Processed files`) as well as the number of files detected on storage (`Total storage files`). 
-`Processed files` is a sum of created, modified, unmodified, deleted and failed files counters which are presented 
-in the right column of the tab. `Failed files` is the number of files for which processing has failed.
-`Total storage files` is a sum of created, modified and unmodified files counters. 
+and the number all of processed files (`Processed files`) as well as the total number of files residing on the storage 
+during the scan (`Total storage files`). 
+`Processed files` is a sum of `Created files`, `Modified files`, `Unmodified files`, `Deleted files` and `Failed files`
+counters, which are presented in the right column of the tab. `Failed files` is the number of files for which processing has failed.
+`Total storage files` is a sum of `Created files`, `Modified files` and `Unmodified files` counters. 
+File counters include both directories and regular files.
 If the `Continuous scan` is enabled, it also displays the estimated time of the next scan.
 
 ![](../../doc/img/admin/auto_storage_import_info.png)
