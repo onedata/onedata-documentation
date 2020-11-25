@@ -98,8 +98,13 @@ The available configuration options are:
 
 ### Last scan summary
 Below the configuration tab, there is information about current or last finished scan: its status, start & stop times
-and the number of created/modified/deleted files. If the `Continuous scan` is enabled, it also displays the estimated
-time of the next scan:
+and the number all of processed files (`Processed files`) as well as the total number of files residing on the storage 
+during the scan (`Total storage files`). 
+`Processed files` is a sum of `Created files`, `Modified files`, `Unmodified files`, `Deleted files` and `Failed files`
+counters, which are presented in the right column of the tab. `Failed files` is the number of files for which processing has failed.
+`Total storage files` is a sum of `Created files`, `Modified files` and `Unmodified files` counters. 
+File counters include both directories and regular files.
+If the `Continuous scan` is enabled, it also displays the estimated time of the next scan.
 
 ![Last scan summary](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png)
 
@@ -107,7 +112,7 @@ time of the next scan:
 It is possible to forcefully start a single scan of *auto storage import*, even if `Continuous scan` is disabled
 (use the green button). The scan will be started with current configuration.
 
-![Starting a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_start.png)
+![Starting a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png)
 
 > **NOTE:** A new scan can be started only if there is no scan in progress for the space. 
 
