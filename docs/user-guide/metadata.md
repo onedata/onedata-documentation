@@ -106,9 +106,8 @@ a single value (which can be numeric or string).
 
 ![image](../../images/user-guide/metadata/set_file_xattrs.png)
 
-This metadata can be later used to create complex indexes over the data collections, 
-and can be accessed on the filesystem level using extended attribute mechanism 
-(e.g. through `xattr` command line tool).
+This metadata can be accessed on the filesystem level using extended attribute 
+mechanism (e.g. through `xattr` command line tool).
 
 ### JSON
 JSON metadata can be edited in place or pasted into the editor, which performs 
@@ -153,23 +152,24 @@ Please note that the extended attributes starting with `org.onedata.` prefix are
 Onedata system attributes and cannot be modified. They however provide useful 
 information about files such as:
 
-* `org.onedata.uuid` - the internal GUID of a file or directory in Onedata
+* `org.onedata.guid` - the internal GUID of a file or directory in Onedata
+* `org.onedata.object_id` - the file ID which can be used e.g. in REST
 * `org.onedata.space_id` - the ID of the space to which this file/directory belongs
-* `org.onedata.file_id` - the storage file ID (e.g. a path on POSIX storage)
 * `org.onedata.storage_id` - the storage ID on which this file is located
+* `org.onedata.storage_file_id` - the storage file ID (e.g. a path on POSIX storage)
 * `org.onedata.access_type` - type of access available for this file:
     * `direct` - it means that the client has direct access to the storage 
-    (e.g. S3 bucket or Ceph pool), 
+    (e.g. S3 bucket or Ceph pool)
     * `proxy` - it means that the direct access is not available and all data read 
-    and write requests will go through Oneprovider. 
+    and write requests will go through Oneprovider
     * `unknown` - it means the data access type has not been established yet 
-    (it is done only on the first I/O operation on a storage from given mountpoint).
-* `org.onedata.file_blocks` - the distribution of file blocks which are available 
-on this storage for this file
+    (it is done only on the first I/O operation on a storage from given mountpoint)
+* `org.onedata.file_blocks` - ascii art visualizing the distribution of file blocks 
+which are available on the provider where the oneclient is mounted
 * `org.onedata.file_blocks_count` - the number of file blocks which are available 
-on this storage for this file
+on the provider where the oneclient is mounted
 * `org.onedata.replication_progress` - the percentage of file blocks which are 
-available on this storage for this file
+available on the provider where the oneclient is mounted
 
 Similarly to Oneclient, extended attributes and metadata can be accessed and modified 
 from the OnedataFS Python interface:
@@ -209,8 +209,15 @@ space.setxattr("file.json", "license", '"MIT"')
 space.removexattr("file.json", "license")
 ```
 
+
 ## Metadata management using REST
 For reading filesystem attributes see 
 [Basic File Operations API documentation](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Basic-File-Operations).
 As for extended attributes and custom metadata management please refer to 
 [Custom File Metadata API documentation](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata).
+
+
+## Creating views over metadata
+
+To see how to create complex views over data collections using metadata please 
+refer to [views documentation chapter](./views.md).
