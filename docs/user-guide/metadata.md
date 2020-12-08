@@ -134,12 +134,11 @@ file.json
 
 [/mnt/oneclient/Space1]$ xattr -l file.json
 license: CC-0
-org.onedata.uuid: Z3VpZCM1NzMwZjNjNjRjYmI0Y2M1MjllZjRlYWVhNDJkNDY4MyNmNzMzMzA1Zj
-dhMGE4MWRjZTM5NjY2NzEzYTUxNmYwYg
-org.onedata.space_id: f733305f7a0a81dce39666713a516f0b
-org.onedata.file_id: /f733305f7a0a81dce39666713a516f0b/5/7/3/5730f3c64cbb4cc529e
-f4eaea42d4683
-org.onedata.storage_id: 55e4475e8dc60dc3ebd070f8dd424f24
+org.onedata.guid: Z3VpZCM0MmUzYmM5ZmE4ZWYyNjE1ZjAzMjdjMGZmOThkNTk2OGNoYWVlNSM0MWRlYmNmNzI5MTYxNGVkNjRhZjU2YjBmOGM4NTIyOGNoYWVlNQ
+org.onedata.file_id: 000000000052036A67756964233432653362633966613865663236313566303332376330666639386435393638636861656535233431646562636637323931363134656436346166353662306638633835323238636861656535
+org.onedata.space_id: 41debcf7291614ed64af56b0f8c85228chaee5
+org.onedata.storage_id: c7753c5b7c67120fec9c6f412b9dcb9cchd3ec
+org.onedata.storage_file_id: /41debcf7291614ed64af56b0f8c85228chaee5/file.txt
 org.onedata.access_type: direct
 org.onedata.file_blocks: [##################################################]
 org.onedata.file_blocks_count: 1
@@ -153,7 +152,7 @@ Onedata system attributes and cannot be modified. They however provide useful
 information about files such as:
 
 * `org.onedata.guid` - the internal GUID of a file or directory in Onedata
-* `org.onedata.object_id` - the file ID which can be used e.g. in REST
+* `org.onedata.file_id` - the file ID which can be used e.g. in REST
 * `org.onedata.space_id` - the ID of the space to which this file/directory belongs
 * `org.onedata.storage_id` - the storage ID on which this file is located
 * `org.onedata.storage_file_id` - the storage file ID (e.g. a path on POSIX storage)
