@@ -191,14 +191,15 @@ space.listdir('/')
 # List extended attributes names for `file.json`
 space.listxattr("file.json")
 ['license',
- 'org.onedata.uuid',
- 'org.onedata.space_id',
+ 'org.onedata.guid',
  'org.onedata.file_id',
+ 'org.onedata.space_id',
+ 'org.onedata.storage_id',
+ 'org.onedata.storage_file_id',
  'org.onedata.access_type',
  'org.onedata.file_blocks_count',
  'org.onedata.file_blocks',
- 'org.onedata.replication_progress',
- 'org.onedata.storage_id']
+ 'org.onedata.replication_progress']
 
 space.getxattr("file.json", "org.onedata.space_id")
 b'"f733305f7a0a81dce39666713a516f0b"'
