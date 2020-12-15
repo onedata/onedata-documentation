@@ -266,7 +266,8 @@ file_popularity = {
 ## REST API
 <!-- This header is referenced at least one time as "#rest-api" -->
 
-All operations on views are listed in the below table, with links to comprehensive description of appropriate requests and their parameters. 
+All operations on views can be performed using the REST API.
+Please refer to the linked API documentation for detailed information and examples.
 
 | Request                      | Link to API |
 |------------------------------|-------------|

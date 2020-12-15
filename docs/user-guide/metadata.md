@@ -4,37 +4,35 @@
 
 ## Quickstart
 
-See [GUI wizard](#gui-wizard) usage examples for the quick guide on how to set or 
-obtain file/directory custom metadata.
+See [Web GUI](#web-gui) usage examples for the quick guide on how to set or 
+obtain file/directory metadata.
 
 
 ## Basics
 
-Metadata in Onedata are organized into 3 levels:
+In the Onedata system, metadata is organized into 3 levels and regards every 
+file/directory:
 
-* **Filesystem attributes** - basic metadata related to file system operations 
-such as file size, creation and modification timestamps, POSIX access rights, etc.
-* **Extended attributes** - these attributes enable assigning custom key-value 
-pairs with file/directory in Onedata. They are compatible with POSIX extended 
-attributes and can include for instance information about the creator of the file, 
-Access Control Lists, license, etc.
-* **Custom metadata** - for each file/directory, user can assign a separate 
-document in one of supported metadata formats (currently JSON and RDF). This level 
-provides most flexibility and Onedata itself does not assume any schema related 
-with this metadata.
+* [Filesystem attributes](#filesystem-attributes) - basic filesystem metadata 
+such as file size, creation and modification timestamps, POSIX permissions, etc.
+* [Extended attributes](#extended-attributes) - simple key-value pairs, 
+compatible with POSIX extended attributes.
+* [Custom metadata](#custom-metadata) - custom documents in JSON or RDF format.
 
-The filesystem and extended level attributes are accessible directly via POSIX, 
-CDMI and REST protocols. Custom metadata, on the other hand, is accessible 
-directly only via REST and indirectly via POSIX and CDMI protocols (as extended 
-attributes under special names of `onedata_json` and `onedata_rdf`).
+The filesystem and extended attributes are accessible directly via 
+[POSIX](#metadata-management-with-oneclient-and-onedatafs), [CDMI](cdmi.md) and 
+[REST](#rest-api) protocols. Custom metadata, on the other hand, is 
+accessible directly only via [REST](#rest-api) and indirectly via 
+[POSIX](#metadata-management-with-oneclient-and-onedatafs) and [CDMI](cdmi.md)
+(as extended attributes under special names of `onedata_json` and `onedata_rdf`).
 
 
-## Filesystem attributes
+### Filesystem attributes
 
-Filesystem attributes are attributes set and modified automatically while performing 
-various filesystem operations. Most of them are read-only, which means their values 
-cannot be directly modified (with exception to posix mode). 
-All such attributes are shown in table below.
+Filesystem attributes are set and modified automatically as a result of various 
+filesystem operations. Most of them are read-only, which means their values 
+cannot be directly modified. The only exception is POSIX mode (permissions). 
+All filesystem attributes are shown in table below.
 
 
 Attribute           | Sample value                              | Description
@@ -42,7 +40,7 @@ Attribute           | Sample value                              | Description
 name                | "file.txt"                                | The name of the object (Space, directory or file)
 type                | "reg"                                     | Specifies whether the resource is a regular file (`reg`) or a directory (`dir`)
 size                | 1024                                      | Size of the file in bytes
-mode                | 0666                                      | POSIX access mode in octal form (i.e. 4 digits starting with 0)
+mode                | 0666                                      | POSIX permissions in octal form (i.e. 4 digits starting with 0)
 atime               | 1470304148                                | Last access timestamp (in seconds)
 mtime               | 1470304148                                | Last modification timestamp (in seconds)
 ctime               | 1470304148                                | Last status change timestamp (in seconds)
@@ -50,82 +48,79 @@ storage_user_id     | 6001                                      | Uid of the sto
 storage_group_id    | 6001                                      | Gid of the storage group owner of this file (the same Gid is displayed via oneclient)
 owner_id            | "6825604b0eb6a47b8b7a04b6369eb24d"        | ID of the file owner
 provider_id         | "79c0ed35f32e43db3a87f76a588c9b2f"        | ID of the provider on which file was created
-shares              | ["b3a87f76a588c9b279c0ed35f32e4db", ...]  | Array of share Id's associated with this file or directory
+shares              | ["b3a87f76a588c9b279c0ed35f32e4db", ...]  | Array of share Id's associated with this file/directory
 
 Some filesystem attributes are considered private and masked when accessing 
-file in share mode. They are:
-- storage_user_id - special value of `2147483646` is returned instead
-- storage_group_id - special value of `2147483646` is returned instead
-- owner_id - `unknown` will be returned instead
-- provider_id - `unknown` will be returned instead
-- mode - `owner` and `group` bits will be zeroed
-- shares - only share used to access file will be shown in the array 
+file in share mode (public view for unauthenticated clients). They are:
+- **storage_user_id** - special value of `2147483646` is returned instead
+- **storage_group_id** - special value of `2147483646` is returned instead
+- **owner_id** - `"unknown"` will be returned instead
+- **provider_id** - `"unknown"` will be returned instead
+- **mode** - `owner` and `group` bits will be zeroed
+- **shares** - only share used to access file will be shown in the array 
 (the rest will be omitted)
 
 
-## Extended attributes
+### Extended attributes
 
-In a general case, extended attributes are platform agnostic and users can choose 
-whatever keys and values to be assigned for these level attributes. One restriction 
-is that all keys beginning with `onedata_` or `cdmi_` prefixes are reserved as they 
-are used by Onedata platform for special purposes, in particular for presentation 
-in Graphical User Interface and Open Data publishing and management.
+Extended attributes are custom key-value pairs that can be assigned to any
+file/directory and are compatible with POSIX extended file attributes. **Only 
+numeric and string values are allowed** - for complex, nested objects, 
+[custom metadata](#custom-metadata) must be used. 
 
-
-## Custom metadata
-
-In addition to filesystem level and extended attributes, Onedata supports arbitrary 
-metadata documents to be assigned to a file or directory. Currently supported 
-formats include:
-- JSON
-- RDF
+In general, extended attributes are platform agnostic and users can choose 
+arbitrary keys and values to be assigned, for instance information about the 
+author of the file, mimetype, license, etc. One restriction is that all keys 
+beginning with `onedata_` or `cdmi_` prefixes are reserved as they are used by 
+the Onedata platform for special purposes, in particular for presentation in 
+Graphical User Interface and Open Data publishing and management.
 
 
-## GUI wizard
+### Custom metadata
+
+For each file/directory, users can assign custom documents in supported metadata formats 
+(currently JSON and [RDF - Resource Description Framework](https://www.w3.org/RDF)). 
+This level provides most flexibility as no specific schema is imposed. The custom 
+metadata can be used to create complex [views](#creating-views-over-metadata) or 
+[data discovery](#data-discovery) indexes that consolidate metadata
+from multiple spaces.
+
+
+## Web GUI
 The easiest way to create, modify and browse metadata attached to files or directories 
 is using the Web GUI metadata editor. 
 
-In order to edit the metadata of a file or directory, simply select the **Metadata** 
+1. In order to edit the metadata of a file/directory, simply select **Metadata** 
 from the file context menu.
 
 ![image](../../images/user-guide/metadata/set_file_metadata.png)
 
-In the same way metadata can be edited for entire data space, but it has to be called 
+2. Metadata can also be edited for entire data space, but it has to be invoked 
 from the space context menu.
 
 ![image](../../images/user-guide/metadata/set_space_metadata.png)
 
-The metadata editor allows editing 3 types of metadata:
-* **Basic** - simple [key-value pairs](#extended-attributes)
-* **JSON** - a valid [JSON document](#custom-metadata)
-* **RDF** - [RDF (Resource Description Framework) document](#custom-metadata)
-
-### Basic metadata
-Basic metadata is the simplest type of metadata where named keys are assigned 
-a single value (which can be numeric or string).
+3. The first tab allows edition of the [extended attributes](#extended-attributes)
+in a simple key-value editor.
 
 ![image](../../images/user-guide/metadata/set_file_xattrs.png)
 
-This metadata can be accessed on the filesystem level using extended attribute 
-mechanism (e.g. through `xattr` command line tool).
-
-### JSON
-JSON metadata can be edited in place or pasted into the editor, which performs 
-live syntax validation.
+4. In the second tab, JSON metadata can be edited in place or pasted into the 
+editor, which performs live syntax validation.
 
 ![image](../../images/user-guide/metadata/set_file_json_metadata.png)
 
-### RDF
-RDF editor works similarly to the JSON editor, but accepts triples in the XML format.
+5. The third tab contains an RDF editor that works similarly, 
+but accepts triples in the XML format.
 
 ![image](../../images/user-guide/metadata/set_file_rdf_metadata.png)
 
 
-## Metadata management using Oneclient and OnedataFS
+## Metadata management with Oneclient and OnedataFS
 
-In an Oneclient mount, the metadata is exposed through the extended attributes 
-mechanism, i.e. it can be accessed and modified using such tools as 
-[xattr](https://github.com/xattr/xattr):
+In an Oneclient mount, the metadata is exposed through the extended file 
+attributes. It can be accessed and modified using such tools as 
+[xattr](https://github.com/xattr/xattr) or `getfattr`:
 
 
 ```bash
@@ -148,21 +143,20 @@ org.onedata.replication_progress: 100%
 ```
 
 Please note that the extended attributes starting with `org.onedata.` prefix are 
-Onedata system attributes and cannot be modified. They however provide useful 
-information about files such as:
+Onedata system attributes and cannot be modified. They provide useful information 
+about files:
 
-* `org.onedata.guid` - the internal GUID of a file or directory in Onedata
-* `org.onedata.file_id` - the file ID which can be used e.g. in REST
+* `org.onedata.guid` - the internal GUID of a file/directory in Onedata
+* `org.onedata.file_id` - the universal file ID which can be used in REST or CDMI APIs
 * `org.onedata.space_id` - the ID of the space to which this file/directory belongs
 * `org.onedata.storage_id` - the storage ID on which this file is located
-* `org.onedata.storage_file_id` - the storage file ID (e.g. a path on POSIX storage)
+* `org.onedata.storage_file_id` - the internal storage file ID (e.g. a path on POSIX storage)
 * `org.onedata.access_type` - type of access available for this file:
-    * `direct` - it means that the client has direct access to the storage 
-    (e.g. S3 bucket or Ceph pool)
-    * `proxy` - it means that the direct access is not available and all data read 
-    and write requests will go through Oneprovider
-    * `unknown` - it means the data access type has not been established yet 
-    (it is done only on the first I/O operation on a storage from given mountpoint)
+    * `direct` - the client has direct access to the storage (e.g. S3 bucket or Ceph pool)
+    * `proxy` - the direct access is not available and all read and write requests will 
+                transfer the data through a network connection with Oneprovider
+    * `unknown` - the data access type has not been established yet (it is done 
+                  only on the first I/O operation on a storage from given mountpoint)
 * `org.onedata.file_blocks` - ascii art visualizing the distribution of file blocks 
 which are available on the provider where the oneclient is mounted
 * `org.onedata.file_blocks_count` - the number of file blocks which are available 
@@ -210,14 +204,25 @@ space.removexattr("file.json", "license")
 ```
 
 
-## Metadata management using REST
-For reading filesystem attributes see 
-[Basic File Operations API documentation](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Basic-File-Operations).
-As for extended attributes and custom metadata management please refer to 
-[Custom File Metadata API documentation](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata).
+## REST API
+
+All operations related to file metadata can be performed using the REST API.
+Please refer to the linked API documentation for detailed information and examples.
+
+| Operation                                    | Link to API |
+|----------------------------------------------|-------------|
+| Read filesystem attributes                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_attrs)|        
+| Set filesystem attributes                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/set_attr)|        
+| Manage extended attributes & custom metadata | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata)|        
 
 
 ## Creating views over metadata
 
-To see how to create complex views over data collections using metadata please 
-refer to [views documentation chapter](./views.md).
+Please refer to [views documentation](./views.md) for instructions on 
+how to create complex database views over data collections using metadata.
+
+
+## Data discovery
+
+File and directory metadata can be used to feed [data discovery](data-discovery.md) 
+indexes that harvest metadata from multiple spaces and provide advanced search engines.
