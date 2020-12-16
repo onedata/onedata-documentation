@@ -29,7 +29,8 @@ module.exports = {
           '/user-guide/views',
           '/user-guide/quality-of-service',
           '/user-guide/rest-api',
-          '/user-guide/cdmi'
+          '/user-guide/cdmi',
+          '/user-guide/data-discovery'
         ]
       },
       {

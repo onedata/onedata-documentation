@@ -115,7 +115,8 @@ For more information on configuration of *Quality of Service* mechanism please s
 
 ## REST API
 
-All operations on storage resources that are available in the Onepanel GUI can be performed using REST API.
+All operations on storage resources can be performed using the REST API.
+Please refer to the linked API documentation for detailed information and examples.
  
 | Request                      | Link to API |
 |------------------------------|-------------|

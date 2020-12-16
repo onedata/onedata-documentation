@@ -152,8 +152,8 @@ results in re-indexing of all files in the space.
 
 ### REST API
 
-All operations presented in the GUI can also be performed using the REST API.
-Links to the documentation are presented below.
+All operations related to file popularity can be performed using the REST API.
+Please refer to the linked API documentation for detailed information and examples.
 
 | Request                               | Link to API |
 |---------------------------------------|-------------|
