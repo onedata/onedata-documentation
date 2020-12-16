@@ -39,7 +39,7 @@ Attribute           | Sample value                              | Description
 --------------------|-------------------------------------------|-----------------------------------
 name                | "file.txt"                                | The name of the object (Space, directory or file)
 type                | "reg"                                     | Specifies whether the resource is a regular file (`reg`) or a directory (`dir`)
-size                | 1024                                      | Size of the file in bytes
+size                | 1024                                      | Size of the file in bytes, always 0 for directories
 mode                | 0666                                      | POSIX permissions in octal form (i.e. 4 digits starting with 0)
 atime               | 1470304148                                | Last access timestamp (in seconds)
 mtime               | 1470304148                                | Last modification timestamp (in seconds)
@@ -129,6 +129,8 @@ file.json
 
 [/mnt/oneclient/Space1]$ xattr -l file.json
 license: CC-0
+onedata_json: {"author":"John Doe"}
+onedata_rdf: <rdf>metadata_1</rdf>
 org.onedata.guid: Z3VpZCM0MmUzYmM5ZmE4ZWYyNjE1ZjAzMjdjMGZmOThkNTk2OGNoYWVlNSM0MWRlYmNmNzI5MTYxNGVkNjRhZjU2YjBmOGM4NTIyOGNoYWVlNQ
 org.onedata.file_id: 000000000052036A67756964233432653362633966613865663236313566303332376330666639386435393638636861656535233431646562636637323931363134656436346166353662306638633835323238636861656535
 org.onedata.space_id: 41debcf7291614ed64af56b0f8c85228chaee5
@@ -185,6 +187,8 @@ space.listdir('/')
 # List extended attributes names for `file.json`
 space.listxattr("file.json")
 ['license',
+ 'onedata_json',
+ 'onedata_rdf',
  'org.onedata.guid',
  'org.onedata.file_id',
  'org.onedata.space_id',
