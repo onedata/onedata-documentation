@@ -17,6 +17,14 @@ Learn more [here](admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## Couchbase
 
+## File ID
+A unique, global identifier associated with a file or directory.
+Learn more [here](user-guide/data.md#file-id).
+
+## File path
+Specifies a unique location of file or directory in a file system.
+Learn more [here](user-guide/data.md#file-path).
+
 ## File popularity
 Enables tracking of usage statistics for files in a [*space*](#space).
 Used by [*auto-cleaning*](#auto-cleaning) mechanism to clean up the least popular file replicas.
