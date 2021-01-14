@@ -4,7 +4,15 @@
 
 [[toc]]
 
-<!-- Note to use rest instead of cdmi -->
+## NOTE
+
+Please, check and consider using Onedata 
+[REST](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations)
+interface instead as it has better performance. One of the key differences 
+causing this is operating on file content as binaries (REST) instead of Base64 
+encoded strings (CDMI). Due to that any data send or received via CDMI makes up 
+4/3 of original data.
+
 
 ## Quickstart
 
@@ -28,30 +36,33 @@ is as follows:
 | Data Objects  | regular files stored in user's Spaces     |
 | Object ID     | [fileId](data.md#file-path-and-id)        |
 
-Storage elements (files and directories) can be accessed and managed in Onedata 
-using CDMI queries under following paths:
+Currently, Onedata supports CDMI version `1.1.1`. For more information about it 
+please visit official CDMI [website](http://www.snia.org/cdmi).
+
+
+## Endpoints
+
+Files (and directories) can be accessed and managed in Onedata using CDMI queries 
+on following paths:
 - `/cdmi/${FILE_PATH}`
 - `/cdmi/cdmi_objectid/${FILE_ID}`
 
-<TODO:
+It is advised to use the second approach (requests using file's own unique 
+[fileId](data.md#file-path-and-id) file id instead of path) whenever possible 
+as it has better performance (no path resolution needs to pe performed). 
 
-Also, this method requires path resolution to be performed and as such is slower 
-than referencing file using its own unique [fileId](data.md#file-path-and-id).
-
-When referencing files through CDMI using [file path](data.md#file-path-and-id), 
-please remember that Onedata organizes all data into spaces, and space name is 
-the first element of the file path - for example `CMS 1` in path below 
-(make sure to urlencode the path):
+When referencing files through CDMI using file path, please remember that 
+Onedata organizes all data into spaces, and space name is the first element 
+of the file path - for example `CMS 1` in path below (make sure to urlencode 
+the path):
 
 ```bash
 /cdmi/CMS%201/file.txt
 ```
 
-<TODO:
-jak ścieżka i katalog to katalog musi być zakończony /
-
-Currently, Onedata supports CDMI version `1.1.1`. For more information about it 
-please visit official CDMI [website](http://www.snia.org/cdmi).
+Also, please note that there are strict rules on the format of path stating that
+directory path must always end with `/` (e.g. `/cdmi/MysSpace/dir1/`) while 
+file path without it (e.g. `/cdmi/MysSpace/file1.txt`).
 
 
 ## Examples of usage
@@ -92,6 +103,9 @@ Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, `$ONEZONE_DOMAIN` and
 
 ### Create new file
 
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file) 
+REST endpoint instead.
+
 ```bash
 curl -X PUT "${ENDPOINT}/MySpace/file.txt" \ 
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}" -d '{
@@ -121,6 +135,9 @@ curl -X PUT "${ENDPOINT}/MySpace/file.txt" \
 
 ### Get selected file attributes
 
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_attrs) 
+REST endpoint instead.
+
 ```bash
 curl -X GET "${ENDPOINT}/MySpace/file.txt?valuetransferencoding;mimetype;objectName" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
@@ -128,16 +145,23 @@ curl -X GET "${ENDPOINT}/MySpace/file.txt?valuetransferencoding;mimetype;objectN
 
 ```json
 {
-  "valuetransferencoding":"utf-8",
-  "mimetype":"application/octet-stream",
-  "objectName":"test.txt"
+  "valuetransferencoding": "utf-8",
+  "mimetype": "application/octet-stream",
+  "objectName": "test.txt"
 }
 ```
 
 ### Get file content
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/download_file_content) 
+REST endpoint instead.
+
 ...
 
 ### Update file content
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/update_file_content) 
+REST endpoint instead.
 
 CDMI since version 1.0.2 provides support for partial uploads, where 
 a subrange of value field can be provided as a long as byte range 
@@ -167,12 +191,18 @@ curl -k -X PUT "$ENDPOINT/test/test.txt?value:0-3" \
 
 ### Delete file
 
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/remove_file) 
+REST endpoint instead.
+
 ```bash
 curl -X DELETE "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}"
 ```
 
 ### Create new directory
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file) 
+REST endpoint instead.
 
 ```bash
 curl -X PUT "${ENDPOINT}/MySpace/dirtest/" \
@@ -202,6 +232,9 @@ curl -X PUT "${ENDPOINT}/MySpace/dirtest/" \
 
 ### List directory
 
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/list_children) 
+REST endpoint instead.
+
 ```bash
 curl -X GET "$ENDPOINT/MySpace/dirtest/?children:0-2;childrenrange" \
 -H "${TOKEN_HEADER}" -H "${$CDMI_VSN_HEADER}"
@@ -220,12 +253,18 @@ curl -X GET "$ENDPOINT/MySpace/dirtest/?children:0-2;childrenrange" \
 
 ### Delete directory
 
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/remove_file) 
+REST endpoint instead.
+
 ```bash
 curl -X DELETE "${ENDPOINT}/MySpace/dirtest/" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_CONTAINER}"
 ```
 
 ### Set file metadata
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_xattr) 
+REST endpoint instead.
 
 ```bash
 curl -X PUT "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
@@ -239,6 +278,9 @@ curl -X PUT "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
 ```
 
 ### Get all file metadata
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs) 
+REST endpoint instead.
 
 ```bash
 curl -X GET "${ENDPOINT}/MySpace/file.txt?metadata" \
@@ -260,6 +302,9 @@ curl -X GET "${ENDPOINT}/MySpace/file.txt?metadata" \
 ```
 
 ### Get selected file metadata
+
+Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs) 
+REST endpoint instead.
 
 ```bash
 curl -X GET "${ENDPOINT}/cdmi_objectid/${FILE_ID}?metadata:onedata_json" \
