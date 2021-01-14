@@ -1,7 +1,5 @@
 # CDMI
 
-<!-- This file is referenced at least one time as "cdmi.md" -->
-
 [[toc]]
 
 ## NOTE
@@ -9,8 +7,8 @@
 Please, check and consider using Onedata 
 [REST](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations)
 interface instead as it has better performance. One of the key differences 
-causing this is operating on file content as binaries (REST) instead of Base64 
-encoded strings (CDMI). Due to that any data send or received via CDMI makes up 
+causing this is operating on file content as binaries only (REST) instead of Base64 
+encoded strings (CDMI). Due to that data send or received via CDMI may make up 
 4/3 of original data.
 
 
@@ -99,7 +97,99 @@ Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, `$ONEZONE_DOMAIN` and
 `$ONEPROVIDER_DOMAIN` variables. 
 
 ### Get supported capabilities
-...
+
+CDMI specification does not force to implement all capabilities. Please, check 
+available capabilities before making any further requests.
+
+```bash
+curl -X GET "${ENDPOINT}/cdmi_capabilities/" -H "${CDMI_VSN_HEADER}"
+```
+
+```json
+{
+  "objectType": "application/cdmi-capability",
+  "objectName": "cdmi_capabilities/",
+  "objectID": "0000000000208CA83030303030303030303030303030303030303030303030303030303030303031",
+  "childrenrange": "0-1",
+  "children": [
+    "container/",
+    "dataobject/"
+  ],
+  "capabilities": {
+    "cdmi_security_access_control": "true",
+    "cdmi_object_move_from_local": "true",
+    "cdmi_object_copy_from_local": "true",
+    "cdmi_object_access_by_ID": "true",
+    "cdmi_dataobjects": "true"
+  }
+}
+```
+
+In above example system capabilities declares support for **container** and 
+**dataobject** entities (`children`). Their supported capabilities can be 
+similarly checked using following queries:
+
+```bash
+curl -X GET "${ENDPOINT}/cdmi_capabilities/container/" -H "${CDMI_VSN_HEADER}"
+```
+
+```json
+{
+  "parentURI": "cdmi_capabilities/",
+  "parentID": "0000000000208CA83030303030303030303030303030303030303030303030303030303030303031",
+  "objectType": "application/cdmi-capability",
+  "objectName": "container/",
+  "objectID": "0000000000208DE83030303030303030303030303030303030303030303030303030303030303032",
+  "children": [],
+  "capabilities": {
+    "cdmi_size": "true",
+    "cdmi_read_metadata": "true",
+    "cdmi_mtime": "true",
+    "cdmi_move_dataobject": "true",
+    "cdmi_move_container": "true",
+    "cdmi_modify_metadata": "true",
+    "cdmi_list_children_range": "true",
+    "cdmi_list_children": "true",
+    "cdmi_delete_container": "true",
+    "cdmi_ctime": "true",
+    "cdmi_create_dataobject": "true",
+    "cdmi_create_container": "true",
+    "cdmi_copy_dataobject": "true",
+    "cdmi_copy_container": "true",
+    "cdmi_atime": "true",
+    "cdmi_acl": "true"
+  }
+}
+```
+
+```bash
+curl -X GET "${ENDPOINT}/cdmi_capabilities/dataobject/" -H "${CDMI_VSN_HEADER}"
+```
+
+```json
+{
+  "parentURI": "cdmi_capabilities/",
+  "parentID": "0000000000208CA83030303030303030303030303030303030303030303030303030303030303031",
+  "objectType": "application/cdmi-capability",
+  "objectName": "dataobject/",
+  "objectID": "0000000000204D293030303030303030303030303030303030303030303030303030303030303033",
+  "children": [],
+  "capabilities": {
+    "cdmi_size": "true",
+    "cdmi_read_value_range": "true",
+    "cdmi_read_value": "true",
+    "cdmi_read_metadata": "true",
+    "cdmi_mtime": "true",
+    "cdmi_modify_value_range": "true",
+    "cdmi_modify_value": "true",
+    "cdmi_modify_metadata": "true",
+    "cdmi_delete_dataobject": "true",
+    "cdmi_ctime": "true",
+    "cdmi_atime": "true",
+    "cdmi_acl": "true"
+  }
+}
+```
 
 ### Create new file
 
@@ -107,7 +197,7 @@ Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?
 REST endpoint instead.
 
 ```bash
-curl -X PUT "${ENDPOINT}/MySpace/file.txt" \ 
+curl -X PUT "${ENDPOINT}/MySpace/file.txt" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}" -d '{
   "value": "Test content"
 }' 
@@ -116,17 +206,17 @@ curl -X PUT "${ENDPOINT}/MySpace/file.txt" \
 ```json
 {
   "parentURI": "/MySpace/",
-  "parentID": "000000000058BEF4677569642373706163655F6661366566613631386132336638323930356237386337363564316638323635636866356638236661366566613631386132336638323930356237386337363564316638323635636866356638",
+  "parentID": "0000000000583AC1677569642373706163655F6161383362353733643364303135353236313133316232366236633637366534636862313464236161383362353733643364303135353236313133316232366236633637366534636862313464",
   "objectType": "application/cdmi-object",
   "objectName": "file.txt",
-  "objectID": "0000000000527A3E67756964233761353832643834663064386536613330363666626334353931353635366236636866356638236661366566613631386132336638323930356237386337363564316638323635636866356638",
+  "objectID": "000000000052F53167756964233865663133343936393036393330633736306362383730623530376165643230636862313464236161383362353733643364303135353236313133316232366236633637366534636862313464",
   "mimetype": "application/octet-stream",
   "metadata": {
     "cdmi_size": "12",
-    "cdmi_owner": "b0954b21ece47c83c21f37de62a0ba13che47c",
-    "cdmi_mtime": "2020-07-13T14:50:00Z",
-    "cdmi_ctime": "2020-07-13T14:50:00Z",
-    "cdmi_atime": "2020-07-13T14:50:00Z"
+    "cdmi_owner": "2a6af6ad4958f084f6c0ef252787d693ch9547",
+    "cdmi_mtime": "2021-01-14T09:13:38Z",
+    "cdmi_ctime": "2021-01-14T09:13:38Z",
+    "cdmi_atime": "2021-01-14T09:13:38Z"
   },
   "completionStatus": "Complete",
   "capabilitiesURI": "cdmi_capabilities/dataobject/"
@@ -151,12 +241,21 @@ curl -X GET "${ENDPOINT}/MySpace/file.txt?valuetransferencoding;mimetype;objectN
 }
 ```
 
-### Get file content
+### Get part of file content
 
 Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/download_file_content) 
 REST endpoint instead.
 
-...
+```bash
+curl -X GET "${ENDPOINT}/MySpace/file.txt?value:5-11" \
+-H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
+```
+
+```json
+{
+  "value": "content"
+}
+```
 
 ### Update file content
 
@@ -179,14 +278,14 @@ QUJDRA==
 ```
 
 ```bash
-# originally, the file content is  "qwertyuiop"
+# originally, the file content is  "Test content"
 
-curl -k -X PUT "$ENDPOINT/test/test.txt?value:0-3" \
+curl -X PUT "$ENDPOINT/MySpace/file.txt?value:0-3" \
 -H "X-CDMI-Partial: true" -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}" -d '{
   "value": "QUJDRA=="
 }'
 
-# upon success, the file content is "ABCDtyuiop"
+# upon success, the file content is "ABCD content"
 ```
 
 ### Delete file
@@ -212,16 +311,16 @@ curl -X PUT "${ENDPOINT}/MySpace/dirtest/" \
 ```json
 {
   "parentURI": "/MySpace/",
-  "parentID": "000000000058BEF4677569642373706163655F6661366566613631386132336638323930356237386337363564316638323635636866356638236661366566613631386132336638323930356237386337363564316638323635636866356638",
+  "parentID": "0000000000583AC1677569642373706163655F6161383362353733643364303135353236313133316232366236633637366534636862313464236161383362353733643364303135353236313133316232366236633637366534636862313464",
   "objectType": "application/cdmi-container",
   "objectName": "dirtest/",
-  "objectID": "0000000000528DE867756964233937353062353032366432613865396161373234366631643961613561633237636831616238236661366566613631386132336638323930356237386337363564316638323635636866356638",
+  "objectID": "00000000005257AF67756964236239306231623536626233663830323066653064373632653565616638633836636839353536236161383362353733643364303135353236313133316232366236633637366534636862313464",
   "metadata": {
     "cdmi_size": "0",
-    "cdmi_owner": "b0954b21ece47c83c21f37de62a0ba13che47c",
-    "cdmi_mtime": "2020-07-13T16:32:33Z",
-    "cdmi_ctime": "2020-07-13T16:32:33Z",
-    "cdmi_atime": "2020-07-13T16:32:33Z"
+    "cdmi_owner": "2a6af6ad4958f084f6c0ef252787d693ch9547",
+    "cdmi_mtime": "2021-01-14T09:30:53Z",
+    "cdmi_ctime": "2021-01-14T09:30:53Z",
+    "cdmi_atime": "2021-01-14T09:30:53Z"
   },
   "completionStatus": "Complete",
   "childrenrange": "",
@@ -230,14 +329,14 @@ curl -X PUT "${ENDPOINT}/MySpace/dirtest/" \
 }
 ```
 
-### List directory
+### List 3 first files in directory
 
 Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/list_children) 
 REST endpoint instead.
 
 ```bash
 curl -X GET "$ENDPOINT/MySpace/dirtest/?children:0-2;childrenrange" \
--H "${TOKEN_HEADER}" -H "${$CDMI_VSN_HEADER}"
+-H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
 ```
 
 ```json
@@ -290,13 +389,16 @@ curl -X GET "${ENDPOINT}/MySpace/file.txt?metadata" \
 ```json
 {
   "metadata": {
-    "meta1": "val1",
+    "onedata_json": {
+      "key": "val"
+    },
     "meta2": "val2",
+    "meta1": "val1",
     "cdmi_size": "12",
-    "cdmi_owner": "079f4ab79acd83b3ef41ec82f6b84abcchb280",
-    "cdmi_mtime": "2020-07-14T08:06:54Z",
-    "cdmi_ctime": "2020-07-14T09:20:47Z",
-    "cdmi_atime": "2020-07-14T09:21:04Z"
+    "cdmi_owner": "2a6af6ad4958f084f6c0ef252787d693ch9547",
+    "cdmi_mtime": "2021-01-14T09:42:25Z",
+    "cdmi_ctime": "2021-01-14T09:49:19Z",
+    "cdmi_atime": "2021-01-14T09:42:24Z"
   }
 }
 ```
@@ -307,16 +409,60 @@ Please, consider using [this](https://onedata.org/#/home/api/stable/oneprovider?
 REST endpoint instead.
 
 ```bash
-curl -X GET "${ENDPOINT}/cdmi_objectid/${FILE_ID}?metadata:onedata_json" \
+curl -k -X GET "${ENDPOINT}/cdmi_objectid/${FILE_ID}?metadata:onedata_json" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
 ```
 
 ```json
 {
   "metadata": {
-    "onedata_json": "val1"
+    "onedata_json": {
+      "key": "val"
+    }
   }
 }
 ```
 
-### ACL
+### Set file ACL
+
+For more information about ACL please refer to [this page](data.md#access-control-lists).
+
+```bash
+curl -k -X PUT "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
+-H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}" -d '{
+  "metadata": {
+    "cdmi_acl": [
+      {
+        "acetype": "ALLOW",
+        "identifier": "EVERYONE@",
+        "aceflags": "NO_FLAGS",
+        "acemask": "READ_OBJECT,READ_ATTRIBUTES,READ_METADATA,READ_ACL"
+      }
+    ]
+  }
+}'
+```
+
+### Get file ACL
+
+For more information about ACL please refer to [this page](data.md#access-control-lists).
+
+```bash
+curl -X GET "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
+-H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
+```
+
+```json
+{
+  "metadata": {
+    "cdmi_acl": [
+      {
+        "identifier": "EVERYONE@",
+        "acetype": "0x0",
+        "acemask": "0x20089",
+        "aceflags": "0x0"
+      }
+    ]
+  }
+}
+```
