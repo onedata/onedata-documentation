@@ -4,3 +4,4 @@ yarn.lock
 docs/.vuepress/dist
 *~
 .idea
+*.iml

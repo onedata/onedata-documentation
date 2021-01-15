@@ -435,7 +435,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     > NOTE: `data.objectid` caveats are computationally heavier than `data.path`
     caveats - you should use the latter whenever possible for performance 
     reasons. Nevertheless, `data.objectid` have the advantage that they remain
-    valid even if the target file is moved / renamed (given that the file id 
+    valid even if the target file is moved / renamed (given that the File Id 
     does not change in the process) - contrary to `data.path` caveats.
 
 
@@ -869,7 +869,7 @@ mounting Oneclient.
 #### Create a named token for readonly access in a specific directory
 
 Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the 
-[fileId](data.md#file-path-and-id) of the directory that is to be available with the token.
+[File Id](data.md#file-path-and-id) of the directory that is to be available with the token.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
