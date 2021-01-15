@@ -32,7 +32,7 @@ is as follows:
 |:--------------|:------------------------------------------|
 | Containers    | directories (including space directory)   |
 | Data Objects  | regular files stored in user's Spaces     |
-| Object ID     | [File ID](data.md#file-path-and-id)       |
+| Object ID     | [File Id](data.md#file-path-and-id)       |
 
 Currently, Onedata supports CDMI version `1.1.1`. 
 
@@ -44,7 +44,7 @@ For more information about CDMI please visit the official [website](http://www.s
 Files and directories can be accessed and managed in Onedata using CDMI queries 
 on following paths:
 - `/cdmi/${FILE_PATH}` - using the logical path to the file or directory.
-- `/cdmi/cdmi_objectid/${FILE_ID}` - using the [File ID](data.md#file-path-and-id) 
+- `/cdmi/cdmi_objectid/${FILE_ID}` - using the [File Id](data.md#file-path-and-id) 
   that uniquely identifies the file or directory across the system.
 
 It is advised to use File IDs whenever possible as they offer better 

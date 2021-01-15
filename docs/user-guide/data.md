@@ -1,7 +1,7 @@
 # Data
 <!-- This file is referenced at least one time as "data.md" -->
 
-## File path and ID
+## File path and Id
 <!-- This header is referenced at least one time as "#file-path-and-id" -->
 
 ## File permissions
