@@ -149,10 +149,10 @@ Onedata system attributes and cannot be modified. They provide useful informatio
 about files:
 
 * `org.onedata.guid` - the internal GUID of a file/directory in Onedata
-* `org.onedata.file_id` - the universal file ID which can be used in REST or CDMI APIs
+* `org.onedata.file_id` - the universal [File ID](data.md#file-path-and-id) which can be used in REST or CDMI APIs
 * `org.onedata.space_id` - the ID of the space to which this file/directory belongs
 * `org.onedata.storage_id` - the storage ID on which this file is located
-* `org.onedata.storage_file_id` - the internal storage file ID (e.g. a path on POSIX storage)
+* `org.onedata.storage_file_id` - the internal storage file identifier (e.g. file path on POSIX storage)
 * `org.onedata.access_type` - type of access available for this file:
     * `direct` - the client has direct access to the storage (e.g. S3 bucket or Ceph pool)
     * `proxy` - the direct access is not available and all read and write requests will 
