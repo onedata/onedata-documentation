@@ -65,12 +65,9 @@ Also, please note that CDMI imposes strict rules concerning the trailing slash i
 
 
 ## Examples of usage
-
-Please note that Onedata implements all operations according to the standard 
-CDMI specification, which means that any CDMI client supporting the same CDMI 
-versions should be compatible.
  
-Below examples cover only a part of the available API and parameters. 
+Please note that below examples cover only a part of the available API and
+parameters. 
 
 ### Prerequisites
 
@@ -380,7 +377,10 @@ curl -X GET "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
 
 Onedata implements a certain subset of CDMI specification and not all available
 operations are covered in this guide. You may use the capability discovery 
-endpoints (examples below) to find out which operations are supported.
+endpoints (examples below) to find out which operations are supported. 
+
+Refer to the [CDMI specification](http://www.snia.org/cdmi) for information on how 
+to use other supported operations and parameters.
 
 ### Get supported capabilities
 
