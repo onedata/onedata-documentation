@@ -11,6 +11,9 @@ Learn more [here](admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## CDMI
 
+Standardized interface for managing Cloud storage and accessing data held in it. 
+Learn more [here](user-guide/cdmi.md).
+
 ## Cluster
 
 ## Cluster manager
