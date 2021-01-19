@@ -81,6 +81,8 @@ file Id of file `/CMS 1/file.txt`, where `CMS 1` is the space name
     }
     ```
     >**NOTE:** Make sure to urlencode the path if used in URL, as in above example.
+                                                                                                                                                                                                                                                                                                                                                                                        
+    >**NOTE:** Please remember that according to CDMI protocol path to a directory must end with trailing slash. See more [here](cdmi.md#endpoints).
 
 
 ## File permissions
