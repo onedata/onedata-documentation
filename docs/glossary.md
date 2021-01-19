@@ -20,7 +20,7 @@ Learn more [here](user-guide/cdmi.md).
 
 ## Couchbase
 
-## File ID
+## File Id
 Uniquely specifies the location of a file or directory.
 Learn more [here](user-guide/data.md#file-id).
 
