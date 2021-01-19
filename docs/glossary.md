@@ -21,7 +21,7 @@ Learn more [here](user-guide/cdmi.md).
 ## Couchbase
 
 ## File ID
-A unique, global identifier associated with a file or directory.
+Uniquely specifies the location of a file or directory.
 Learn more [here](user-guide/data.md#file-id).
 
 ## File path

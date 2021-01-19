@@ -1,5 +1,5 @@
 # Oneclient
-<!-- This file is referenced at least one time as "Oneclient.md" -->
+<!-- This file is referenced at least one time as "oneclient.md" -->
 
 ## Options
 
