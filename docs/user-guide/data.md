@@ -1,6 +1,8 @@
 # Data
 <!-- This file is referenced at least one time as "data.md" -->
 
+To learn about logical organization of data in the Onedata system please see [spaces](spaces.md) chapter.
+
 ## File path and Id
 <!-- This header is referenced at least one time as "#file-path-and-id" -->
 
