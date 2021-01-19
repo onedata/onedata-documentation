@@ -40,7 +40,6 @@ For more information about CDMI please visit the official [website](http://www.s
 
 
 ## Endpoints
-<!-- This header is referenced at least one time as "#endpoints" -->
 
 Files and directories can be accessed and managed in Onedata using CDMI queries 
 on following paths:
