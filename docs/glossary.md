@@ -52,6 +52,9 @@ accounts recognized by different storage providers.
 Learn more [here](admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
+(Oneclient)[./user-guide/oneclient.md] is the Onedata command line interface
+for mounting distributed virtual filesystem on local machines.
+
 
 ## Onepanel
 Service dedicated for administration of a [*cluster*](#cluster) ([*Onezone*](#onezone) or [*Oneprovider*](#oneprovider)) and, 
