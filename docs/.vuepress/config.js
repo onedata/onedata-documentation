@@ -64,7 +64,8 @@ module.exports = {
                   '/admin-guide/onezone/configuration/oidc-saml',
                   '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
-                  '/admin-guide/onezone/configuration/advanced-config'
+                  '/admin-guide/onezone/configuration/advanced-config',
+                  '/admin-guide/onezone/configuration/data-discovery'
                 ]
               }
             ]
