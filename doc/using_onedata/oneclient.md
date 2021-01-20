@@ -1,4 +1,5 @@
 # Oneclient
+<!-- This header is referenced at least one time as "#oneclient" -->
 
 <!-- toc -->
 
@@ -86,6 +87,9 @@ It is however possible to limit the spaces which are visible, by providing a whi
 ## Options
 
 ### Direct I/O and Proxy I/O modes
+<!-- This header is referenced at least one time as "#direct-io-and-proxy-io-modes" -->
+
+
 By default `oneclient` will automatically try to detect if it can access storage supporting
 mounted spaces directly, which significantly improves I/O performance as all read and write
 operations go directly to the storage and not via the Oneprovider service.
@@ -104,6 +108,7 @@ improve performance for various types of storages, in particular object based st
 If for some reason this local cache is undesired, it can be disabled using `--no-buffer` option.
 
 ### Overriding storage helper parameters
+<!-- This header is referenced at least one time as "#overriding-storage-helper-parameters" -->
 
 Oneclient allows to override certain storage helper parameters in order to customize direct access to storage from a Oneclient host to the storage. Use cases for this feature include specifying custom mounpoint for POSIX storages, alternate IP addresses for network storages (e.g. available over local network from Oneclient host), etc.
 

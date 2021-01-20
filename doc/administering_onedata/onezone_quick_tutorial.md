@@ -1,8 +1,15 @@
 # Onezone quickstart tutorial
 
+**WARNING: Below tutorial is outdated** and some of the information might be no longer valid
+for versions 19.02 and 20.02. It is recommended to use the instructions and
+examples provided in the 
+[`onedata-deployments` repository](https://github.com/onedata/onedata-deployments/tree/master/onezone/examples).
+
+<hr />
+
 <!-- toc -->
 
- This tutorial assumes **Onezone** will be installed on a single node.
+This tutorial assumes **Onezone** will be installed on a single node.
 
 ## Prerequisites
 In order to ensure optimum performance of the **Onezone** service, several low-level settings need to be tuned on the host machine. This applies to both Docker based as well as package based installations, in particular to nodes where Couchbase database instance are deployed.

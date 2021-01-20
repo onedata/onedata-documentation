@@ -931,7 +931,7 @@ After that operation, the complete user data would look like the following:
     }]
 }
 ```
-This user data constitutes input in [Local User MApping](#luma-integration) - 
+This user data constitutes input in [Local User Mapping](#luma-integration) - 
 when mapping Onedata users into storage users within Oneprovider.
 
 > User data can also be retrieved using the 
@@ -1786,7 +1786,7 @@ have gone wrong:
 ## LUMA Integration
 The attributes and entitlements collected from IdPs can be very useful for 
 mapping storage users to Onedata users - see 
-[Local User MApping (LUMA)](../luma.md). Each time a provider requests LUMA to
+[Local User Mapping (LUMA)](../luma.md). Each time a provider requests LUMA to
 resolve storage credentials (uid:gid etc), it sends the attributes collected
 from IdPs. They can be used to differentiate and identify the storage users.
 

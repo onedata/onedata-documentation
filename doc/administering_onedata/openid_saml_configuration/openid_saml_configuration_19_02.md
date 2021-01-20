@@ -965,7 +965,7 @@ After that operation, the complete user data would look like the following:
     }]
 }
 ```
-This user data constitutes input in [Local User MApping](#luma-integration) - 
+This user data constitutes input in [Local User Mapping](#luma-integration) - 
 when mapping Onedata users into storage users within Oneprovider.
 
 > User data can also be retrieved using the 
@@ -1603,8 +1603,10 @@ membership - later changes in the corresponding entitlement will NOT be
 taken into account. The privileges can be changed manually without the risk
 of being overwritten by the entitlement mapping.
 
-There are three possible sets of privileges: `member`, `manager`, `admin`. 
+There are four possible sets of privileges: `none`, `member`, `manager`, `admin`. 
 They expand to a certain set of Onedata group privileges:
+* none -> `[]`
+
 * member -> `[group_view]`
 
 * manager -> `[group_view,

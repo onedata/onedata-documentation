@@ -33,8 +33,8 @@ must be enabled to turn *auto-cleaning* on.
  
 The user interface allows the administrator to specify **low** and **high** thresholds,
 corresponding to the amount of data stored on the local storage supporting given space:
-* **high threshold** - when exceeded, an auto-cleaning run will be triggered to evict redundant replicas. 
-* **low threshold** - when reached, the current auto-cleaning run will be stopped.  
+* **high threshold** - when exceeded, an auto-cleaning run is triggered to evict redundant replicas. 
+* **low threshold** - when reached, the current auto-cleaning run is stopped.  
 
 The thresholds can be adjusted using the GUI as shown below or using REST API:
 ![](../img/admin/op_panel_auto_cleaning.png)
