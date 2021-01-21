@@ -38,7 +38,7 @@ changes to be indexed.
 
 Metadata provided by a changes stream is then being processed by an external
 *harvesting backend* (e.g. Elasticsearch). Harvesters are bound to the harvesting backends in many-to-one
-relation - many harvesters can use the same backend at the time. Such a backend persists metadata in data structures called *indices*,
+relation - many harvesters can use the same backend simultaneously. Such a backend persists metadata in data structures called *indices*,
 which allow to perform database-like queries in terms of fields defined by *index schema*
 (either provided by a user or an automatically generated one). A harvester may contain
 any number of indices, but all of them are handled only by the backend bounded to the harvester.
@@ -70,7 +70,7 @@ it is accessible via:
 - direct access to the harvesting backend using its specific API.
 
 The data discovery GUI will be probably the most popular way as it provides simple tools for querying and filtering.
-REST API is dedicated for more advanced users, which wants to use harvested data in their own scripts
+REST API is dedicated for more advanced users, that want to use harvested data in their own scripts
 in an automated way. The last possibility - direct access to the harvesting backend - is available depending on
 your access priviliges to that backend. It is the most powerful one. Allows to use
 all proprietary API features with no additional translation layers from Onedata system.
@@ -84,6 +84,7 @@ anyone without no authentication. Also the data discovery GUI is accessible via 
 URL, which can be entered without a need to sign-in.
 
 ## Creating a new harvester
+<!-- This header is referenced at least one time as "#creating-a-new-harvester" -->
 
 The previous section has given us a short overview of the whole harvesting idea. Now we can try to create a harvester.
 
@@ -142,7 +143,7 @@ visible on the top right corner of the harvester spaces view.
 
 ![image](../../../../images/user-guide/data-discovery/x-spaces-list-operations.png)
 
-`Add one of your spaces` options was already shown in
+`Add one of your spaces` options has already been shown in
 [creating a harvester](#creating-a-new-harvester) section. `Invite space using token`
 opens a window with token, which should be passed to the owner of the space we would like
 to join to our harvester.
@@ -175,9 +176,10 @@ By default (if `Auto setup` was enabled during the harvester creation) there is 
 metadata without any extra restrictions. It is also used by the data discovery GUI (which is
 denoted by `Used by GUI` badge).
 
-> NOTE: When there are many indices, only a subset of them might be used by GUI. Other ones
-still work and index metadata, but are not accessible via the data discovery GUI. To query them
-you need to use REST API or change [indices configuration](#gui-plugin-indices) of the GUI plugin.
+> NOTE: If there are many indices, only a subset of them might be used by GUI. Other ones
+still work and collect metadata, but are not accessible via the data discovery GUI. To query them
+you need to use [REST API](../../../user-guide/data-discovery.html#using-rest-api)
+or change [indices configuration](#gui-plugin-indices) of the GUI plugin.
 
 ### Adding new index
 
@@ -195,9 +197,9 @@ backend, e.g. for Elasticsearch it must be a correct index mapping.
 - `Include metadata` - determines which type of metadata should be indexed. At least one
 type must be selected,
 - `Include file details` - specifies what file details should be harvested alongside the
-metadata. Enabling "Metadata existence flags" will add boolean flags saying whether the
-file has any metadata of certain type. The "File name" field may be utilized by the GUI
-plugin to improve the browsing experience.
+metadata. Enabling `Metadata existence flags` will add boolean flags saying whether the
+file has any metadata of certain type. The `File name` field may be utilized by the GUI
+plugin to improve the browsing experience,
 - `Include rejection reason` - if enabled, all payloads rejected by the harvesting backend
 will be automatically analysed for offending data (e.g. fields that do not match the
 schema), pruned and submitted again. This might slow down the harvesting process and cause
@@ -209,7 +211,7 @@ When a configuration for the new index is ready, click `Create index`. New entry
 be visible on the indices list and the harvesting process will start.
 
 > NOTE: The order of attaching spaces and creating indices does not matter. Every index
-(even these created after attaching spaces) will always process the whole metadata from
+(even those created after attaching spaces) will always process the whole metadata from
 all attached spaces.
 
 ### Removing index
@@ -245,6 +247,16 @@ them also.
 the creation of that specific index.
 
 ![image](../../../../images/user-guide/data-discovery/x-index-settings.png)
+
+## Harvester members
+
+The members view - available through `Members` submenu - allows you to add users or
+groups to the harvester and manage their privileges. It is the same mechanism as used by
+spaces and groups members concepts. For more information see
+[group members management](../../../user-guide/groups.html#group-members).
+
+> NOTE: When the harvester is public, then its indices can be accessed regardless the
+members-related rules.
 
 ## Harvester settings
 
@@ -284,7 +296,7 @@ Onezone interface. It communicates with the underlying harvesting service throug
 The first section of GUI plugin configuration allows to upload your own GUI plugin.
 It should be a standalone, static web application compressed in tar.gz format.
 
-Only plugins that are whitelisted are accepted (for safety purposes).
+Only plugins that are whitelisted, are accepted (for safety purposes).
 If your custom plugin was not provided directly by Onedata team, then you will
 need to contact Onezone administrator and ask to add harvester GUI checksum (from
 `shasum -a 256 your-plugin.tar.gz`) to `/etc/oz_worker/compatibility.json`
@@ -296,6 +308,7 @@ caution can cause critical security issues, including data leaks and unauthorize
 operations.
 
 #### GUI plugin indices
+<!-- This header is referenced at least one time as "#gui-plugin-indices" -->
 
 Each GUI plugin has a list of indices, which are needed for the plugin to work.
 For the custom plugins we have to setup a mapping between these requirements and real
