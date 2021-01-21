@@ -1,6 +1,8 @@
 # Glossary
 <!-- short description of each concept with links to proper sections -->
 
+<!-- TODO: VFS-7218 fill missing entries -->
+
 ## Auto-cleaning
 Mechanism that automatically maintains storage usage at a certain 
 level and ensures that there is enough space for new replicas when performing continuous computations.
@@ -74,6 +76,9 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 ## REST API
 
 ## Space
+A logical container for data, fundamental for user data organization in Onedata.
+Accessible only to its members - users or [groups](#group) - that are assigned
+fine grained privileges. Learn more [here](user-guide/spaces.md).
 
 ## Storage
 Storage resource recognized by a [*Oneprovider*](#oneprovider) and used to [*support*](#support) Onedata [*spaces*](#space).
@@ -85,9 +90,11 @@ Mechanism dedicated for importing files located on a storage by registering them
 the [*storage*](#storage), without copying the data. 
 Learn more [here](admin-guide/oneprovider/configuration/storage-import.md).
 
-# Support
+## Support
+A storage quota granted for a [space](#space) on a physical storage backend by
+a [Oneprovider](#oneprovider). Learn more [here](user-guide/spaces.md#space-support).
 
-# Token
+## Token
 An alphanumeric string acting as a proof of authorization that can be used 
 across the system to authenticate (**access token**), prove identity 
 (**identity token**) or gain access to some resources (**invite token**). Tokens

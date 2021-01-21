@@ -11,12 +11,14 @@ CDMI requests.
 
 ## CDMI vs. REST API
 
-Please consider using Onedata [REST](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations)
-interface which offers counterparts for most CDMI operations with a more
-straightforward API and better performance. This is mainly because CDMI uses 
-Base64 encoded strings for binary file content transmission, causing about 33% 
-bigger I/O traffic that REST, which works on plain binaries. 
+Please consider using Onedata [REST](data.md#rest-api) interface which offers 
+counterparts for most CDMI operations with a more straightforward API and better 
+performance. This is mainly because CDMI uses Base64 encoded strings for binary 
+file content transmission, causing about 33% bigger I/O traffic than REST 
+(which works on plain binaries). 
 
+Documentation of the file management API based on OpenAPI (a.k.a. Swagger) can be found 
+[here](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations).
 
 ## Introduction
 
@@ -32,7 +34,7 @@ is as follows:
 |:--------------|:------------------------------------------|
 | Containers    | directories (including space directory)   |
 | Data Objects  | regular files stored in user's Spaces     |
-| Object ID     | [File Id](data.md#file-path-and-id)       |
+| Object ID     | [File ID](data.md#file-path-and-id)       |
 
 Currently, Onedata supports CDMI version `1.1.1`. 
 
@@ -44,7 +46,7 @@ For more information about CDMI please visit the official [website](http://www.s
 Files and directories can be accessed and managed in Onedata using CDMI queries 
 on following paths:
 - `/cdmi/${FILE_PATH}` - using the logical path to the file or directory.
-- `/cdmi/cdmi_objectid/${FILE_ID}` - using the [File Id](data.md#file-path-and-id) 
+- `/cdmi/cdmi_objectid/${FILE_ID}` - using the [File ID](data.md#file-path-and-id) 
   that uniquely identifies the file or directory across the system.
 
 It is advised to use File IDs whenever possible as they offer better 
@@ -73,7 +75,7 @@ parameters.
 
 In order to use Onedata CDMI, a valid Onedata access token must be provided. 
 The access token can be generated either in the Web GUI or via REST API (refer 
-to the [tokens section](./tokens.md)).
+to the [tokens chapter](./tokens.md)).
 
 The following examples assume that below environment variables are exported. 
 

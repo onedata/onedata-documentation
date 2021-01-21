@@ -19,18 +19,19 @@ module.exports = {
           '/user-guide/groups',
           '/user-guide/spaces',
           '/user-guide/data',
+          '/user-guide/web-file-browser',
           '/user-guide/oneclient',
           '/user-guide/replication-and-migration',
           '/user-guide/metadata',
           '/user-guide/file-registration',
+          '/user-guide/tokens',
           '/user-guide/shares',
           '/user-guide/open-data',
-          '/user-guide/tokens',
-          '/user-guide/views',
-          '/user-guide/quality-of-service',
           '/user-guide/rest-api',
-          '/user-guide/cdmi',
-          '/user-guide/data-discovery'
+          '/user-guide/quality-of-service',
+          '/user-guide/data-discovery',
+          '/user-guide/views',
+          '/user-guide/cdmi'
         ]
       },
       {
