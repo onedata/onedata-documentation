@@ -92,10 +92,10 @@ The previous section has given us a short overview of the whole harvesting idea.
 with `oz_harvesters_*` admin privileges.
 
 1. Navigate to the Discovery tab and click "Get started"
-![image](../../../../images/user-guide/data-discovery/1-no-harvesters.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/1-no-harvesters.png)
 
 2. Choose the *Create a harvester* option or the `(+)` button at the top of the side menu.
-![image](../../../../images/user-guide/data-discovery/2-get-started.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/2-get-started.png)
 Other options visible on the screen allows to join to the existing harvester without creation.
 
 3. Fill in the information - choose a meaningful *name*, the plugin that will
@@ -105,22 +105,22 @@ optional - if not specified, default endpoint configured for the
 environment will be used. *Auto setup* means, that a newly created harvester will have an
 initial generic index and ready-to-use data discovery GUI. Auto setup is recommended,
 unless you are an advanced user and you want to customize configuration on your own.
-![image](../../../../images/user-guide/data-discovery/3-create-harvester.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/3-create-harvester.png)
 
 4. Navigate to the `Spaces` submenu to attach a space to the harvester.
 
-![image](../../../../images/user-guide/data-discovery/6-spaces.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/4-spaces.png)
 
 You can generate an invitation token and pass it to another user for them to add one of
 their spaces. For this guide, choose the `Add one of your spaces`. If you don't have any,
 learn about [spaces](../../../user-guide/spaces.html).
 
-![image](../../../../images/user-guide/data-discovery/7-choose-space.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/5-choose-space.png)
 
 After that the space will be attached to the harvester - harvesting
 processes will be started and indexing of file metadata will begin.
 
-![image](../../../../images/user-guide/data-discovery/8-spaces-list.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/6-spaces-list.png)
 
 5. That's it! You have a fully configured harvester and it is ready to use for data discovery.
 If files in the attached space does not have any metadata, then
@@ -133,7 +133,7 @@ The harvesting results are available through `Data discovery` submenu of your ha
 A harvester can have many spaces attached to it. A list of them is available through
 `Spaces` submenu of your harvester.
 
-![image](../../../../images/user-guide/data-discovery/8-spaces-list.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/6-spaces-list.png)
 
 ### Adding new spaces
 
@@ -141,25 +141,25 @@ At any moment you have a possibility to extend the list of spaces with new ones 
 of yours or a space of some another user. Both methods are available through *dots menu*
 visible on the top right corner of the harvester spaces view.
 
-![image](../../../../images/user-guide/data-discovery/x-spaces-list-operations.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/7-spaces-list-operations.png)
 
 `Add one of your spaces` options has already been shown in
 [creating a harvester](#creating-a-new-harvester) section. `Invite space using token`
 opens a window with token, which should be passed to the owner of the space we would like
 to join to our harvester.
 
-![image](../../../../images/user-guide/data-discovery/x-spaces-invite-token.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png)
 
 ### Removing spaces
 
 If you want to stop collecting metadata from one of the harvester spaces, click on the
 *dots menu* on the right side of the spaces list entry and choose `Remove this space`.
 
-![image](../../../../images/user-guide/data-discovery/x-spaces-list-remove.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/9-spaces-list-remove.png)
 
 And then click on `Remove` button to acknowlegde your decision.
 
-![image](../../../../images/user-guide/data-discovery/x-spaces-list-remove-modal.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/10-spaces-list-remove-modal.png)
 
 > NOTE: Removing space from the harvester will not remove previously indexed data from harvesting
 backend. It will also not affect the space itself.
@@ -169,7 +169,7 @@ backend. It will also not affect the space itself.
 Like spaces, a harvester can have multiple indices. These can be found under *Indices*
 submenu of your harvester.
 
-![image](../../../../images/user-guide/data-discovery/x-indices-list.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/11-indices-list.png)
 
 By default (if `Auto setup` was enabled during the harvester creation) there is one
 `generic-index` entry. It is a very basic index, which is designed to accept incoming
@@ -186,7 +186,7 @@ or change [indices configuration](#gui-plugin-indices) of the GUI plugin.
 To add a new index, click on the *dots menu* visible on the top right corner of the
 harvester indices view. Then choose `Create new index`.
 
-![image](../../../../images/user-guide/data-discovery/x-indices-list-operations.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/12-indices-list-operations.png)
 
 After that we can start to setup our new index in the visible form. It contains a few
 options to customize:
@@ -205,7 +205,7 @@ will be automatically analysed for offending data (e.g. fields that do not match
 schema), pruned and submitted again. This might slow down the harvesting process and cause
 nonconformant metadata to be lost.
 
-![image](../../../../images/user-guide/data-discovery/x-new-index-form.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/13-new-index-form.png)
 
 When a configuration for the new index is ready, click `Create index`. New entry will
 be visible on the indices list and the harvesting process will start.
@@ -219,11 +219,11 @@ all attached spaces.
 If you want to stop collecting metadata with a specific index, click on the
 *dots menu* on the right side of that index and choose `Remove`.
 
-![image](../../../../images/user-guide/data-discovery/x-indices-list-remove.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/14-indices-list-remove.png)
 
 After that an acknowledge modal will show.
 
-![image](../../../../images/user-guide/data-discovery/x-indices-list-remove-modal.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/15-indices-list-remove-modal.png)
 
 You can select `Remove harvested data`
 checkbox if you want to remove the index structure from the harvesting backend. Otherwise,
@@ -241,12 +241,12 @@ information. If there were spaces, which were attached to the harvester and deta
 later, then you can click on `Show archival spaces / providers` to see statistics for
 them also.
 
-![image](../../../../images/user-guide/data-discovery/x-index-progress.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/16-index-progress.png)
 
 `Settings` tab contains the same (but now read-only) configuration as it was used during
 the creation of that specific index.
 
-![image](../../../../images/user-guide/data-discovery/x-index-settings.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/17-index-settings.png)
 
 ## Harvester members
 
@@ -263,7 +263,7 @@ members-related rules.
 Each harvester has two categories of configuration, both can be found under the
 `Configuration` submenu.
 
-![image](../../../../images/user-guide/data-discovery/x-configuration.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/18-configuration.png)
 
 ### General settings
 
@@ -272,7 +272,7 @@ form used for harvester creation. The only extra field is the `Public` setting.
 If enabled, anyone with the public link can browse the harvested metadata or use the
 REST API for queries.
 
-![image](../../../../images/user-guide/data-discovery/x-configuration-public.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/19-configuration-public.png)
 
 ### GUI plugin settings
 
@@ -289,7 +289,7 @@ which will  visualise indexed data in a customized way. Hence the term
 GUI plugin is a self-contained web application. After uploading, it is embedded into the
 Onezone interface. It communicates with the underlying harvesting service through Onezone.
 
-![image](../../../../images/user-guide/data-discovery/x-configuration-gui-plugin.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/20-configuration-gui-plugin.png)
 
 #### Uploading custom GUI plugin
 
@@ -323,7 +323,7 @@ its schema is compatible with the schema used by the GUI plugin.
 - `Leave unassigned` - leaves it unsatisfied - use only if it is known,
 that this requirement is optional and the GUI plugin can work without it.
 
-![image](../../../../images/user-guide/data-discovery/x-configuration-gui-plugin-indices.png)
+![image](../../../../images/admin-guide/onezone/configuration/data-discovery/21-configuration-gui-plugin-indices.png)
 
 #### GUI plugin injected configuration
 
