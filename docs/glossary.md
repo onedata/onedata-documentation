@@ -21,11 +21,11 @@ Learn more [here](user-guide/cdmi.md).
 ## Couchbase
 
 ## File Id
-Uniquely specifies the location of a file or directory.
+A unique, global identifier associated with a file or directory.
 Learn more [here](user-guide/data.md#file-id).
 
 ## File path
-Specifies a unique location of file or directory in a file system.
+Uniquely specifies the location of a file or directory.
 Learn more [here](user-guide/data.md#file-path).
 
 ## File popularity
