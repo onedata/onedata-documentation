@@ -23,3 +23,10 @@ package:
 
 clean:
 	@rm -rf node_modules _book package-lock.json
+
+##
+## Codetag tracker
+##
+
+codetag_tracker:
+	./bamboos/scripts/codetag_tracker.sh
