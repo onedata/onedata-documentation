@@ -105,9 +105,55 @@ The most end-user friendly method of data management. Please refer to the
 [Web file browser](web-file-browser.md) chapter for a visual guide.
 
 
-## File permissions
-Access to each file or directory can be controlled using traditional (POSIX) 
-file permissions and Access Control Lists.
+## File System Security
+
+Onedata provides several file system security policies that limit access to 
+files and directories. Those are: Space ownership, Space privileges, 
+data access caveats, POSIX permissions and CDMI access control lists (ACLs).
+
+These models fit together as follows:
+1. If user access token [data access caveats](tokens.md#data-access-caveats) 
+forbids the requested access, the request is denied.
+2. If user is Space owner, the request is granted.
+3. If user lacks `space_write_data` permission for write operation or 
+`space_read_data` for read operation, the request is denied.
+4. If an access control entry exists on the file, it is evaluated and used to 
+determine access rights. See [CDMI ACLs](#access-control-lists) for details.
+5. Otherwise, POSIX permissions are checked. See [POSIX permissions](#posix-permissions)
+for details.
+
+Also, when accessing files or directories in [share mode](shares.md) 
+the access is additionally limited to read-only operations even if ACLs or 
+POSIX permissions allow write access.
+
+### Access Control Lists
+<!-- This header is referenced at least one time as "#access-control-lists" -->
+
+**Access control lists (ACL)** provide mechanism for granting and prohibiting 
+access to data on a space, directory and file levels. Onedata supports subset of 
+CDMI ACL which are based on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
+
+#### Introduction
+
+An ACL is an ordered list of **ACEs (access control entries)**. The client is 
+responsible for ordering the ACEs in an ACL as Oneprovider will evaluate 
+the ACEs in the exact order given by the client.
+
+The ACEs consist of four fields: 
+- type - `ALLOW` or `DENY` access of some kind to principal. 
+- who - principal (user or group) represented by the identifier. Additionally, 
+Onedata provides support for following special principals:
+    - `OWNER@` - the owner of the file,
+    - `GROUP@` - members of space containing file,
+    - `EVERYONE@` - literally everyone.
+- flags - tells whether principal identifier points to user or group.
+- access_mask - permissions.
+
+#### Permissions
+...
+
+#### Evaluation
+...
 
 ### POSIX permissions
 <!-- This header is referenced at least one time as "#posix-permissions" -->
@@ -154,10 +200,6 @@ that file permissions are accurately enforced in the space and the permissions i
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
 
-
-### Access Control Lists
-<!-- TODO: VFS-7218 write me -->
-<!-- This header is referenced at least one time as "#access-control-lists" -->
 
 ## File distribution 
 <!-- link to replication & migration -->
