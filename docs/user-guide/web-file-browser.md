@@ -182,7 +182,7 @@ above).
 
 ### QoS
 
-Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
+Brings up an editor of [Quality of Service](qos.md) (QoS)
 requirements defined for the selected file(s), which are used to automatically 
 manage the file data replication according to logical rules.
 

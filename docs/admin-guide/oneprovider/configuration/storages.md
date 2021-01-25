@@ -102,11 +102,8 @@ For more information on configuration of LUMA DB feed, see [here](luma.md#config
 Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.
 
 ### QoS Parameters
-<!-- TODO VFS-6815: After dividing the chapter, update below link to point to
-     the QoS parameters in the admin chapter.
- -->
 Quality of service parameters. 
-For more information on configuration of *Quality of Service* mechanism, see [here](quality-of-service.md#qos-params).
+For more information on configuration of *Quality of Service* mechanism, see [here](qos.md#qos-parameters).
  
 
 ## REST API
