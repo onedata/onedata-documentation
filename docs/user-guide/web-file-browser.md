@@ -300,7 +300,7 @@ creating new files or directories, scheduling data transfers etc).
 
 [29]: replication-and-migration.md
 
-[31]: quality-of-service.md
+[31]: qos.md
 
 [33]: rest-api.md
 

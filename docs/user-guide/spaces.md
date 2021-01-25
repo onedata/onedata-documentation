@@ -38,8 +38,7 @@ the distribution works and consciously managing it can greatly improve the
 performance of data access, e.g. by pre-staging data sets in the provider
 in which computations are to be performed. There are several tools in Onedata
 that can be used by advanced users to manage the underlying physical distribution
-and redundancy of data (such as [data transfers][6]
-or [QoS][7]).
+and redundancy of data (such as [data transfers][6] or [QoS][7]).
 
 When a file within a space is written (e.g. uploaded), its content is written to
 one of the supporting physical storages. Similarly, during a file read, the
@@ -193,7 +192,7 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [6]: replication-and-migration.md
 
-[7]: quality-of-service.md
+[7]: qos.md
 
 [8]: ../admin-guide/oneprovider/configuration/storage-import.md
 

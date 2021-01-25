@@ -110,11 +110,6 @@ For more information on configuration of LUMA DB feed, see [here][21].
 Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.
 
 ### QoS Parameters
-
-<!-- TODO VFS-6815: After dividing the chapter, update below link to point to
-     the QoS parameters in the admin chapter.
- -->
-
 Quality of service parameters.
 For more information on configuration of *Quality of Service* mechanism, see [here][22].
 
@@ -173,7 +168,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 [21]: luma.md#configuration
 
-[22]: quality-of-service.md#qos-params
+[22]: qos.md#qos-params
 
 [23]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details
 

@@ -36,7 +36,7 @@ module.exports = {
           '/user-guide/onedatafs',
           '/user-guide/rest-api',
           '/user-guide/replication-and-migration',
-          '/user-guide/quality-of-service',
+          '/user-guide/qos',
           '/user-guide/metadata',
           '/user-guide/data-discovery',
 //          '/user-guide/datasets',  % @TODO VFS-7218
@@ -109,7 +109,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
-                  '/admin-guide/oneprovider/configuration/quality-of-service',
+                  '/admin-guide/oneprovider/configuration/qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]
