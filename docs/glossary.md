@@ -3,6 +3,10 @@
 
 <!-- TODO: VFS-7218 fill missing entries -->
 
+## ACL
+Mechanism for granting and prohibiting access to data on a space, 
+directory and file levels. Learn more [here](user-guide/data.md#access-control-lists).
+
 ## Auto-cleaning
 Mechanism that automatically maintains storage usage at a certain 
 level and ensures that there is enough space for new replicas when performing continuous computations.
@@ -12,7 +16,6 @@ the least popular file replicas in a [*space*](#space) and to evict them.
 Learn more [here](admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## CDMI
-
 Standardized interface for managing Cloud storage and accessing data held in it. 
 Learn more [here](user-guide/cdmi.md).
 

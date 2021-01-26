@@ -109,15 +109,15 @@ The most end-user friendly method of data management. Please refer to the
 
 Onedata provides several file system security policies that limit access to 
 files and directories. Those are: Space ownership, Space privileges, 
-data access caveats, POSIX permissions and CDMI access control lists (ACLs).
+access token caveats, POSIX permissions and CDMI access control lists (ACLs).
 
 These models fit together as follows:
-1. If user access token [data access caveats](tokens.md#data-access-caveats) 
+1. If user access token [caveats](tokens.md#token-caveats) 
 forbids the requested access, the request is denied.
 2. If user is Space owner, the request is granted.
-3. If user lacks `space_write_data` permission for write operation or 
-`space_read_data` for read operation, the request is denied.
-4. If an access control entry exists on the file, it is evaluated and used to 
+3. If user lacks `space_write_data` permission in case of write operation or 
+`space_read_data` in case of read operation, the request is denied.
+4. If an access control list exists on the file, it is evaluated and used to 
 determine access rights. See [CDMI ACLs](#access-control-lists) for details.
 5. Otherwise, POSIX permissions are checked. See [POSIX permissions](#posix-permissions)
 for details.
@@ -149,11 +149,49 @@ Onedata provides support for following special principals:
 - flags - tells whether principal identifier points to user or group.
 - access_mask - permissions.
 
+Permissions can be changed using the [Web file browser](web-file-browser.md) in
+the **ACL** context menu, or using the [CDMI API](cdmi.md).
+
 #### Permissions
-...
+ACL provides more fine-grained control of access to resources than 
+POSIX permissions. This is possible thanks to using many more 
+permissions available to allow or deny for any user or group.
+
+All available permissions are presented below.
+
+|   Permissions    |          File             |          Directory            |
+|------------------|---------------------------|-------------------------------|
+| read             | open file for read        | list directory content        |
+| write            | open file for write       | add file to directory         |
+| append           | --                        | add subdirectory to directory |
+| execute          | --                        | traverse directory            |
+| delete           | delete file               | delete directory              |
+| delete child     | --                        | delete file or subdirectory from directory |
+| read attributes  | read file attributes      | read attributes metadata      |
+| write attributes | write file attributes     | write attributes metadata     |
+| read metadata    | read file metadata        | read directory metadata       |
+| write metadata   | write file metadata       | write directory metadata      |
+| read acl         | read file acl             | read directory acl            |
+| write acl        | write file acl            | write directory acl           |
 
 #### Evaluation
-...
+
+Each ACE in an ACL either allows or denies some set of permissions. 
+Oneprovider will evaluate the object (file or directory) ACEs until
+all requested permissions are granted or any of them is denied using 
+following algorithm:
+1. The ACE is checked for applicability. ACEs that do not refer to 
+the principal requesting the operation and any requested permission 
+are ignored.
+2. If the ACE denies any of the requested permissions, 
+then the request is denied.
+3. If the ACE allows any of the requested permissions, then they are added 
+to the list of granted permissions. If the list include all the requested 
+permissions, the request is allowed and the process stops. Otherwise, 
+the check continues to the next ACE.
+4. If the end of the ACL list is reached and permission has neither been 
+fully granted nor explicitly denied, access is denied and the algorithm 
+terminates.
 
 ### POSIX permissions
 <!-- This header is referenced at least one time as "#posix-permissions" -->
