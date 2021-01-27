@@ -107,37 +107,45 @@ The most end-user friendly method of data management. Please refer to the
 
 ## File System Security
 
-Onedata provides several file system security policies that limit access to 
-files and directories. Those are: Space ownership, Space privileges, 
-access token caveats, POSIX permissions and CDMI access control lists (ACLs).
+Onedata provides several file system security models that limit access to 
+files and directories. Those are: 
+[access token caveats](tokens.md#token-caveats),
+[space ownership](spaces.md#space-owner), 
+[space privileges](spaces.md#space-privileges), 
+[POSIX permissions](#posix-permissions) and 
+[CDMI access control lists (ACLs)](#access-control-lists).
 
 These models fit together as follows:
-1. If user access token [caveats](tokens.md#token-caveats) 
+1. If user [access token caveats](tokens.md#token-caveats) 
 forbids the requested access, the request is denied.
-2. If user is Space owner, the request is granted.
-3. If user lacks `space_write_data` permission in case of write operation or 
-`space_read_data` in case of read operation, the request is denied.
-4. If an access control list exists on the file, it is evaluated and used to 
-determine access rights. See [CDMI ACLs](#access-control-lists) for details.
-5. Otherwise, POSIX permissions are checked. See [POSIX permissions](#posix-permissions)
-for details.
+2. If user is [space owner](spaces.md#space-owner), the request is granted.
+3. If user lacks `space_write_data` [space privilege](spaces.md#space-privileges) 
+in case of operation that modifies file or directory (content, attributes, 
+metadata, etc.) or `space_read_data` [space privilege](spaces.md#space-privileges) 
+in case of operation that reads file or directory (content, attributes, 
+metadata, etc.), the request is denied.
+4. If an [ACL](#access-control-lists) exists on the file, it is evaluated 
+and used to determine whether access should be granted.
+5. Otherwise, [POSIX permissions](#posix-permissions) are checked. 
 
-Also, when accessing files or directories in [share mode](shares.md) 
+---
+> **NOTE:** when accessing files or directories in [share mode](shares.md) 
 the access is additionally limited to read-only operations even if ACLs or 
 POSIX permissions allow write access.
+---
 
 ### Access Control Lists
 <!-- This header is referenced at least one time as "#access-control-lists" -->
 
-**Access control lists (ACL)** provide mechanism for granting and prohibiting 
-access to data on a space, directory and file levels. Onedata supports subset of 
-CDMI ACL which are based on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
+**Access control lists (ACL)** provide mechanism for granting and denying access 
+to files and directories. Onedata supports subset of CDMI ACL which are based 
+on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
 
 #### Introduction
 
-An ACL is an ordered list of **ACEs (access control entries)**. The client is 
-responsible for ordering the ACEs in an ACL as Oneprovider will evaluate 
-the ACEs in the exact order given by the client.
+An ACL is an ordered list of **ACEs (access control entries)**. Oneprovider 
+evaluates ACEs in order defined by the client. If any of the ACEs denies access, 
+evaluation is stopped.
 
 The ACEs consist of four fields: 
 - type - `ALLOW` or `DENY` access of some kind to principal. 
@@ -146,7 +154,10 @@ Onedata provides support for following special principals:
     - `OWNER@` - the owner of the file,
     - `GROUP@` - members of space containing file,
     - `EVERYONE@` - literally everyone.
-- flags - tells whether principal identifier points to user or group.
+- flags - currently only flag telling whether principal identifier points 
+to user or group is supported. More flags can be set or 
+[imported](../admin-guide/oneprovider/configuration/storage-import.md)
+but they will be ignored during ACE evaluation.
 - access_mask - permissions.
 
 Permissions can be changed using the [Web file browser](web-file-browser.md) in
@@ -154,41 +165,40 @@ the **ACL** context menu, or using the [CDMI API](cdmi.md).
 
 #### Permissions
 ACL provides more fine-grained control of access to resources than 
-POSIX permissions. This is possible thanks to using many more 
-permissions available to allow or deny for any user or group.
+POSIX permissions. 
 
-All available permissions are presented below.
+All available permissions and their meaning for files or directories 
+are presented below.
 
-|   Permissions    |          File             |          Directory            |
-|------------------|---------------------------|-------------------------------|
-| read             | open file for read        | list directory content        |
-| write            | open file for write       | add file to directory         |
-| append           | --                        | add subdirectory to directory |
-| execute          | --                        | traverse directory            |
-| delete           | delete file               | delete directory              |
-| delete child     | --                        | delete file or subdirectory from directory |
-| read attributes  | read file attributes      | read attributes metadata      |
-| write attributes | write file attributes     | write attributes metadata     |
-| read metadata    | read file metadata        | read directory metadata       |
-| write metadata   | write file metadata       | write directory metadata      |
-| read acl         | read file acl             | read directory acl            |
-| write acl        | write file acl            | write directory acl           |
+|   Permissions      |          File             |          Directory            |
+|--------------------|---------------------------|-------------------------------|
+| Read/List          | open file for read        | list directory content        |
+| Write/Add file     | open file for write       | add file to directory         |
+| Add subdirectory   | --                        | add subdirectory to directory |
+| Traverse directory | --                        | traverse directory            |
+| Delete             | delete file               | delete directory              |
+| Delete child       | --                        | delete file or subdirectory from directory |
+| Read attributes    | read file attributes      | read attributes metadata      |
+| Write attributes   | write file attributes     | write attributes metadata     |
+| Read metadata      | read file metadata        | read directory metadata       |
+| Write metadata     | write file metadata       | write directory metadata      |
+| Read ACL           | read file acl             | read directory acl            |
+| Write ACL          | write file acl            | write directory acl           |
 
 #### Evaluation
 
 Each ACE in an ACL either allows or denies some set of permissions. 
-Oneprovider will evaluate the object (file or directory) ACEs until
+Oneprovider will evaluate the resource (file or directory) ACEs until
 all requested permissions are granted or any of them is denied using 
-following algorithm:
+the following algorithm:
 1. The ACE is checked for applicability. ACEs that do not refer to 
-the principal requesting the operation and any requested permission 
+the principal requesting the operation or any requested permission 
 are ignored.
 2. If the ACE denies any of the requested permissions, 
 then the request is denied.
 3. If the ACE allows any of the requested permissions, then they are added 
 to the list of granted permissions. If the list include all the requested 
-permissions, the request is allowed and the process stops. Otherwise, 
-the check continues to the next ACE.
+permissions, the request is allowed and the process stops.
 4. If the end of the ACL list is reached and permission has neither been 
 fully granted nor explicitly denied, access is denied and the algorithm 
 terminates.

@@ -60,6 +60,14 @@ privileges in the **space XYZ**. Any user that is added to the group will inheri
 the privileges and gain access to the **space XYZ** with admin privileges.
 
 
+## Space owner
+<!-- TODO: VFS-6808 writeme -->
+
+
+## Space privileges
+<!-- TODO: VFS-6808 writeme -->
+
+
 ## GUI guide
 Below is a step-by-step tutorial that will guide you through creating and 
 managing spaces.
