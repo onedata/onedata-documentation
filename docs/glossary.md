@@ -20,6 +20,14 @@ Learn more [here](user-guide/cdmi.md).
 
 ## Couchbase
 
+## File Id
+A unique, global identifier associated with a file or directory.
+Learn more [here](user-guide/data.md#file-id).
+
+## File path
+Uniquely specifies the location of a file or directory.
+Learn more [here](user-guide/data.md#file-path).
+
 ## File popularity
 Enables tracking of usage statistics for files in a [*space*](#space).
 Used by [*auto-cleaning*](#auto-cleaning) mechanism to clean up the least popular file replicas.
