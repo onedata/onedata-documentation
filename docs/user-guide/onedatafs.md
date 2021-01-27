@@ -2,14 +2,11 @@
 
 [[toc]]
 
-In addition to accessing data via POSIX virtual filesystem provided by
-`oneclient` transparently, it is also possible to access data managed
-by Onedata directly from Python, using OnedataFS Python library.
-
-OnedataFS is a [PyFilesystem](https://www.pyfilesystem.org/) plugin to
-[Onedata](https://onedata.org) virtual file system.
-As a PyFilesystem concrete class, [OnedataFS](https://github.com/onedata/fs-onedatafs/)
-allows you to work with Onedata in the same way as any other supported filesystem.
+OnedataFS is a Python library for accessing the Onedata virtual file system, 
+an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface. 
+As a [PyFilesystem](https://www.pyfilesystem.org/) plugin, 
+[OnedataFS](https://github.com/onedata/fs-onedatafs/) allows you to work with 
+Onedata in the same way as any other supported filesystem.
 
 
 ## Installation
@@ -66,7 +63,7 @@ or to install a specific version of `fs.onedatafs`
 $ conda install -c onedata fs.onedatafs=20.02.5
 ```
 
-Furthermore, to ensure that conda will not upgrade Python in a given environment,
+Furthermore, to ensure that conda will not upgrade Python in given environment,
 it is possible to provide the exact build number of the OnedataFS packages, which
 includes the Python version, e.g.:
 
@@ -94,30 +91,25 @@ space = odfs.opendir('/SpaceA')
 space.listdir('/')
 ```
 
-From then on, `space` can be used as any `PyFilesystem` instance, please refer
-to [PyFilesystem](https://docs.pyfilesystem.org/en/latest/interface.html)
-reference for documentation on all operations available
-on a filesystem object.
+From then on, `space` can be used as any `PyFilesystem` instance. Please refer
+to the [PyFilesystem API documentation](https://docs.pyfilesystem.org/en/latest/interface.html)
+for all operations available on a filesystem object.
 
 The complete list of options which can be provided to the OnedataFS constructor
-are as follows (only `host` and `token` are required):
+can be found below (only `host` and `token` are required).
 
-* `host` - the Onedata Oneprovider host name
-* `token` - the Onedata user access token
-* `port` - the Onedata Oneprovider port
-* `space` - the list of space names which should be listed. By default, all
-  user spaces are listed
-* `space_id` - the list of space id's which should be listed. By default, all
-  user spaces are listed
-* `insecure` - when `True`, allow connecting to Oneproviders without valid SSL
-  certificate
-* `force_proxy_io` - when `True`, forces all data transfers to go via
-  Oneproviders
+* `host` - Oneprovider hostname - follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
+* `token` - Onedata user access token - follow the same guidelines as for [Oneclient](oneclient.md#authentication)
+* `port` - Oneprovider port (defaults to 443)
+* `space` - the list of space names which should be listed (defaults to all user spaces)
+* `space_id` - the list of space IDs which should be listed (defaults to all user spaces)
+* `insecure` - when `True`, allows connecting to Oneproviders without valid SSL certificate
+* `force_proxy_io` - when `True`, forces all data transfers to go via Oneproviders
 * `force_direct_io` - when `True`, forces all data transfers to go directly via
   the target storage API. If storage is not available, for instance due to
   network firewalls, error will be returned for all `read` and `write`
   operations
-* `no_buffer` - when `True`, disable all internal buffering in the OnedataFS
+* `no_buffer` - when `True`, disables all internal buffering in the OnedataFS
 * `io_trace_log` - when `True`, the OnedataFS will log all requests in a CSV
   file in the directory specified by `log_dir`
 * `provider_timeout` - specifies the timeout for waiting for Oneprovider
@@ -130,12 +122,13 @@ are as follows (only `host` and `token` are required):
 * `cli_args` - any other Oneclient command line arguments can be passed as a
   value of this argument as single string, e.g. `'--storage-timeout=120
   --storage-helper-thread-count=20`
-
+  
+Please refer to the [Oneclient options](oneclient.md#options) documentation for more details.
 
 ### Advanced usage
 
-In addition to `PyFilesystem` methods `OnedataFS` provides some specific methods
-for using it's advanced features.
+In addition to `PyFilesystem` interface, `OnedataFS` provides some specific methods
+for using its advanced features.
 
 #### File location information
 
@@ -154,9 +147,8 @@ This will give the following output:
 ```
 
 where the dictionary provides information which Oneprovider, represented here
-by its ID, holds which blocks defined by byte ranges. In the above example
-Oneprovider
-`e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file.
+by its ID, holds which blocks defined by byte ranges. In the above example,
+Oneprovider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6MB).
 
 #### Extended attributes and metadata
 
@@ -170,8 +162,6 @@ For example to list extended attributes defined for `file.txt`:
 # List extended attributes names for `file.txt`
 space.listxattr("file.txt")
 ```
-
-gives:
 
 ```python
 ['org.onedata.guid',
@@ -189,8 +179,6 @@ To get the specific attribute value:
 ```python
 space.getxattr("file.txt", "org.onedata.space_id")
 ```
-
-gives:
 
 ```python
 b'"8a803754b41d9d744c8f03170193c0ab"'
