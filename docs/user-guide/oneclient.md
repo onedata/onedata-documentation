@@ -5,9 +5,9 @@
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
-[Fuse](https://github.com/libfuse/libfuse) and can be downloaded from
+[FUSE](https://github.com/libfuse/libfuse) and can be downloaded from
 [onedata.org](https://onedata.org/download). Please follow installation
-instructions that can be found there for your particular platform.
+instructions for your particular platform that can be found below.
 
 ## Installation
 
@@ -17,12 +17,12 @@ Oneclient is supported on several major Linux platforms including Ubuntu
 the following command:
 
 ```bash
-$ curl -sS  http://get.onedata.org/oneclient-2002.sh | bash
+$ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
 ```
->NOTE: The above command is only valid when installing a major release 20.02.*.
-For other version use appropriate script suffix, e.g. `1902` instead of `2002`.
+>**NOTE**: The above command is only valid when installing a major release 20.02.*.
+For other versions, use appropriate script suffix, e.g. `1902` instead of `2002`.
 
->After installing ensure that you are able to access `fusermount` tool, by
+> After installing, ensure that you are able to access `fusermount` tool, by
 running `fusermount -h`. In case you are not allowed to execute `fusermount`,
 ask your administrator to make you a member of the `fuse` group. If you have
 administrator rights to your machine, use command `gpasswd -a <username> fuse`
@@ -50,32 +50,30 @@ $ conda install -c onedata-centos6 oneclient
 
 ## Authentication
 
-In order to be able to mount your spaces you need to authenticate with a
-specific Onezone service and obtain a Oneclient access token. Access token can be
-generated directly from the Web interface using, select `Tokens` tab on the left
-and then press `+` sign at the top and then click on `ONECLIENT ACCESS` box
-in the main view:
+To mount your spaces using Oneclient, you need to authenticate with a
+specific Onezone service and obtain an access token suitable for Oneclient. 
+Access tokens can be generated directly from the Web interface - see the 
+[quickstart guide](tokens.md#access-token-quickstart). More information on 
+different types of tokens, and how to create them programmatically using the 
+REST API can be found [here](./tokens.md).
 
-![Onedata](../../images/user-guide/oneclient/access_token_menu.png)
-
-> IMPORTANT: Please make sure not to share or publish access tokens with
-anyone, access tokens should be treated as private keys which should be only
-used by their owners for authentication with Onedata services. In particular
-they should NOT be used for sharing your data with others - for this purpose
-you can issue special purpose tokens such as [space invite
-tokens or group invite tokens](./tokens.md#invite-tokens).
-
-More information on different types of tokens, and how to create them
-programmaticaly using REST API can be found [here](./tokens.md).
+> IMPORTANT: Please make sure not to publish your access tokens or share them 
+with anyone. Access tokens should be treated the same way as private keys or 
+passwords - they are intended to be used only by their owners for authentication 
+with Onedata services. The only exception is when a token is consciously limited
+by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
+(e.g. read-only access to a specific subdirectory). If you wish to collaborate
+on the same space and data with another user, simply invite them to your [space](spaces.md).
+<!-- TODO VFS-6808 link to space member invitation GUI -->
 
 If you are connecting to a provider service which does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
 `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable.
 
+
 ## Basic usage
 
-The basic command line syntax to mount spaces supported by a specific
-Oneprovider is:
+The basic command line syntax to mount your spaces with Oneclient is:
 
 ```bash
 $ oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
@@ -84,14 +82,21 @@ $ oneclient -H <PROVIDER_HOSTNAME> -t <ACCESS_TOKEN> <MOUNT_POINT>
 or
 
 ```bash
-$ export ONECLIENT_ACCESS_TOKEN=<CLIENT_TOKEN>
-
-$ export ONECLIENT_PROVIDER_HOST=<DEFAULT_PROVIDER>
-
-$ oneclient <MOUNT_POINT>
+$ export ONECLIENT_ACCESS_TOKEN=<CLIENT_TOKEN>         # e.g. MDAxNWxvY2F00aW9uIG9uZXp...
+$ export ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME>   # e.g. provider-krakow.onedata.org
+$ oneclient <MOUNT_POINT>                              # e.g. /home/joe/oneclient
 ```
 
-In order to unmount your spaces, type:
+Provide the hostname of a chosen Oneprovider - one that supports at least one
+of your spaces. The choice of Oneprovider may depend on several factors:
+1. The quality of your network connection to the Oneprovider.
+2. The fact whether the Oneprovider supports the space that is to be accessed.
+3. Whether or not you wish to use the [direct I/O](#direct-i-o-and-proxy-i-o-modes) mode.
+
+The hostname can be found in the Web GUI.
+<!-- TODO VFS-6808 link to section with guide how to obtain Oneprovider domain -->
+
+In order to terminate the Oneclient application and unmount your spaces, type:
 
 ```bash
 $ fusermount -uz <MOUNT_POINT>
@@ -117,13 +122,14 @@ options:
 
 
 ### Direct I/O and Proxy I/O modes
+<!-- This header is referenced at least one time as "#direct-i-o-and-proxy-i-o-modes" -->
 
 By default `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly, which significantly improves I/O
 performance as all read and write operations go directly to the storage and not
 via the Oneprovider service. The storage access detection is performed on
-first `read` or `write` operation in a given space, which may increase the latency
-of a first I/O operation on the space.
+first `read` or `write` operation in given space, which may cause a brief 
+increase of latency.
 
 This feature can be controlled using 2 command line options:
 
@@ -137,7 +143,7 @@ This feature can be controlled using 2 command line options:
     storage, in such case the file will be accessed using proxy I/O mode.
 
 > NOTE: Oneclient will be able to use direct I/O to a storage only if connected
-to the Oneprovider, which supports the space with this storage.
+to a Oneprovider that supports the space with this storage.
 
 ### Buffering
 `oneclient` employs an in-memory buffer for input and output data blocks, which
@@ -161,6 +167,7 @@ The buffer size can be also fine-tuned using the following options:
     files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
+<!-- This header is referenced at least one time as "#overriding-storage-helper-parameters" -->
 
 Oneclient allows to override certain storage helper parameters in order to
 customize direct access to storage from a Oneclient host to the storage. Use
@@ -410,7 +417,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 $ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:__ONEDATA_RELEASE__
+-d --name oneclient-1 onedata/oneclient:${RELEASE}
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
@@ -422,11 +429,11 @@ $ docker exec -it oneclient-1 /bin/bash
 $ ls /mnt/oneclient
 ```
 
-However, if is necessary to enter the Docker and start the Oneclient manually,
-it is necessary to override the Docker image entrypoint as follows:
+However, if it is necessary to enter the Docker and start the Oneclient manually,
+the Docker image entrypoint should be overriden as follows:
 
 ```bash
-$ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:__ONEDATA_RELEASE__
+$ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:${RELEASE}
 ```
 
 ## Running Oneclient as systemd service
@@ -498,7 +505,7 @@ represents a specific Oneclient set of settings in terms of Oneprovider host
 and access token, i.e. multiple users can have different volumes on the same
 host machine.
 
-Using Onedata Docker volume plugins, enables users to access Onedata spaces
+Using Onedata Docker volume plugins enables users to access Onedata spaces
 from their containers without having to manually start Oneclient neither on the
 host or within the container.
 
@@ -528,7 +535,7 @@ installed on the host, which can be verified using:
 
 ```bash
 $ oneclient -V
-Oneclient: __ONEDATA_RELEASE__
+Oneclient: ${RELEASE}
 FUSE library: 2.9
 ```
 
@@ -578,14 +585,13 @@ $ docker volume create --driver onedata \
         my_volume
 ```
 
-In cases when connecting to a Oneprovider instance without a trusted
-certificate, `-o insecure=true` option must be added. Additionally, Onedata
-Docker volume plugins supports all regular [Oneclient command line
-options](../using_onedata/oneclient.md), which must be
-added with `-o` followed by option name, equal sign and value (e.g. `-o
-force-direct-io=true -o read-buffer-max-size=52428800`):
+When connecting to a Oneprovider instance without a trusted certificate, 
+`-o insecure=true` option must be added. Additionally, Onedata Docker volume 
+plugins supports all regular [Oneclient command line options](../using_onedata/oneclient.md), 
+which must be added with `-o` followed by option name, equal sign and value
+(e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
 
-After the volume is created successfully, it's settings can be checked using:
+After the volume is created successfully, its settings can be checked using:
 
 ```bash
 $ docker volume inspect my_volume
@@ -606,13 +612,13 @@ $ docker volume inspect my_volume
 ]
 ```
 
-Creating volume does not automatically invoke Oneclient and does connect to
-Oneprovider in anyway. Only when a container is started with this volume
-attached, the Oneclient will be invoked. If multiple containers have the same
-volume attached, the Oneclient will be automatically unmounted after the last
+Creating a volume does not automatically invoke Oneclient and does cause 
+connection to Oneprovider in anyway. Only when a container is started with this 
+volume attached, the Oneclient is mounted. If multiple containers have the same
+volume attached, the Oneclient is automatically unmounted after the last
 container is stopped.
 
-To remove a volume simply run:
+To remove a volume, run:
 
 ```bash
 $ docker volume rm my_volume
@@ -623,8 +629,8 @@ from local Docker configuration on the host.
 
 #### Using volumes in containers
 
-In order to attach a volume to container, simply start any Docker image and
-attach the Onedata volume to some directory within the container, e.g.:
+In order to attach a volume to container, start any Docker image and
+mount the Onedata volume to some directory within the container, e.g.:
 
 ```bash
 $ docker run -v my_volume:/spaces -it alpine ls /spaces
@@ -633,7 +639,7 @@ MySpace1
 MySpace2
 ```
 
-Please note, that the Docker image doesn't need any Onedata specific packages
+Please note that the Docker image doesn't require any Onedata specific packages
 installed.
 
 #### Security
