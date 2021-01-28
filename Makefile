@@ -28,5 +28,5 @@ clean:
 ## Codetag tracker
 ##
 
-codetag_tracker:
-	./bamboos/scripts/codetag_tracker.sh
+codetag-tracker:
+	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=_book,gitbook_cache,node_modules
