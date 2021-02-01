@@ -5,16 +5,15 @@
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
-[FUSE](https://github.com/libfuse/libfuse) and can be downloaded from
-[onedata.org](https://onedata.org/download). Please follow installation
-instructions for your particular platform that can be found below.
+[Fuse](https://github.com/libfuse/libfuse). Please follow installation
+instructions below your particular platform.
 
 ## Installation
 
 ### Linux
 Oneclient is supported on several major Linux platforms including Ubuntu
-(Xenial, Bionic) and CentoOS 7. To install Oneclient using packages simply use
-the following command:
+(Xenial, Bionic) and CentoOS 7 as well as Conda. To install Oneclient using
+packages simply use the following command:
 
 ```bash
 $ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
@@ -51,15 +50,15 @@ $ conda install -c onedata-centos6 oneclient
 ## Authentication
 
 To mount your spaces using Oneclient, you need to authenticate with a
-specific Onezone service and obtain an access token suitable for Oneclient. 
-Access tokens can be generated directly from the Web interface - see the 
-[quickstart guide](tokens.md#access-token-quickstart). More information on 
-different types of tokens, and how to create them programmatically using the 
+specific Onezone service and obtain an access token suitable for Oneclient.
+Access tokens can be generated directly from the Web interface - see the
+[quickstart guide](tokens.md#access-token-quickstart). More information on
+different types of tokens, and how to create them programmatically using the
 REST API can be found [here](./tokens.md).
 
-> IMPORTANT: Please make sure not to publish your access tokens or share them 
-with anyone. Access tokens should be treated the same way as private keys or 
-passwords - they are intended to be used only by their owners for authentication 
+> IMPORTANT: Please make sure not to publish your access tokens or share them
+with anyone. Access tokens should be treated the same way as private keys or
+passwords - they are intended to be used only by their owners for authentication
 with Onedata services. The only exception is when a token is consciously limited
 by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
 (e.g. read-only access to a specific subdirectory). If you wish to collaborate
@@ -122,13 +121,23 @@ options:
 
 
 ### Direct I/O and Proxy I/O modes
-<!-- This header is referenced at least one time as "#direct-i-o-and-proxy-i-o-modes" -->
+With respect to data access, oneclient can work in 2 modes: direct I/O and
+proxy I/O. The difference between these modes is that direct I/O allows
+Oneclient to `read` and `write` data directly to the physical storage, assuming
+that the Oneclient process has direct network access to the storage (e.g. S3
+bucket or Ceph pool), which is not always available. Proxy I/O mode does not
+require physical access to the storage by the Oneclient process, since in this
+mode all `read` and `write` operations go to the storage indirectly through
+Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
+`truncate`) go through Oneprovider to ensure data integrity.
+
+![Oneclient proxy IO vs direct IO](../../images/user-guide/oneclient/oneclient-direct-proxy.png)
 
 By default `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly, which significantly improves I/O
 performance as all read and write operations go directly to the storage and not
 via the Oneprovider service. The storage access detection is performed on
-first `read` or `write` operation in given space, which may cause a brief 
+first `read` or `write` operation in given space, which may cause a brief
 increase of latency.
 
 This feature can be controlled using 2 command line options:
@@ -585,9 +594,9 @@ $ docker volume create --driver onedata \
         my_volume
 ```
 
-When connecting to a Oneprovider instance without a trusted certificate, 
-`-o insecure=true` option must be added. Additionally, Onedata Docker volume 
-plugins supports all regular [Oneclient command line options](../using_onedata/oneclient.md), 
+When connecting to a Oneprovider instance without a trusted certificate,
+`-o insecure=true` option must be added. Additionally, Onedata Docker volume
+plugins supports all regular [Oneclient command line options](../using_onedata/oneclient.md),
 which must be added with `-o` followed by option name, equal sign and value
 (e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
 
@@ -612,8 +621,8 @@ $ docker volume inspect my_volume
 ]
 ```
 
-Creating a volume does not automatically invoke Oneclient and does cause 
-connection to Oneprovider in anyway. Only when a container is started with this 
+Creating a volume does not automatically invoke Oneclient and does cause
+connection to Oneprovider in anyway. Only when a container is started with this
 volume attached, the Oneclient is mounted. If multiple containers have the same
 volume attached, the Oneclient is automatically unmounted after the last
 container is stopped.
