@@ -237,7 +237,7 @@ $ sudo apt install onezone
 
 <!-- ### Configuring service properties
 
-TODO
+TODO: VFS-6810
  -->
 ### Configuring authentication methods
 

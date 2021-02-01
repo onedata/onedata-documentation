@@ -23,3 +23,6 @@ package:
 
 clean:
 	@rm -rf node_modules _book package-lock.json
+
+codetag-tracker:
+	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=_book,gitbook_cache,node_modules
