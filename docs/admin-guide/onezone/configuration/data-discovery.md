@@ -4,7 +4,7 @@
 This guide is dedicated for administrators that would like to properly configure
 Data Discovery services for end users. Consider reading the 
 [counterpart documentation for end users](../../../user-guide/data-discovery.md) 
-that includes a guide for querying Data Discovery indexes in Onedata and a 
+that includes a guide for querying Data Discovery indices in Onedata and a 
 [FAQ](../../../user-guide/data-discovery.md#data-discovery-faq) that should help 
 solve problems.
 
@@ -326,7 +326,6 @@ configuration file.
 
 > WARNING: Use only GUI plugins which are whitelisted by the Onezone and taken from a
 trusted source. Custom GUI plugins may contain malicious code and cause critical security 
-issues, including data leaks and unauthorized operations.
 issues, including data leaks and unauthorized operations.
 
 ##### GUI plugin indices

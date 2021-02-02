@@ -44,7 +44,7 @@ The invitation can be accepted using the **Consume** action in the **TOKENS** ta
 <!-- TODO VFS-6808: link to consume -->
 You will be asked to choose a space to be added to the harvester and
 the harvester will start processing your metadata. Keep in mind that you need to
-be a member of the harvester to query the indexes, unless the harvester has 
+be a member of the harvester to query the indices, unless the harvester has 
 [public access](#public-and-private-access).
 
 ### 2. Adding a space to your own harvester
@@ -76,7 +76,7 @@ In case of any problems with metadata indexing, contact the owner or creator of 
 
 ## Querying indexed metadata
 The harvested metadata is indexed by the backend configured for given harvester - 
-e.g. an Elasticsearch cluster. The indexes can be queried using the 
+e.g. an Elasticsearch cluster. The indices can be queried using the 
 [Data Discovery GUI](#data-discovery-gui) or the [REST API](#rest-api).
 
 The data discovery GUI is arguably the most convenient way, providing easy to use 
