@@ -135,11 +135,13 @@ Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
 ![Oneclient proxy IO vs direct IO](../../images/user-guide/oneclient/oneclient-direct-proxy.png)
 
 By default `oneclient` will automatically try to detect if it can access
-storage supporting user spaces directly, which significantly improves I/O
-performance as all read and write operations go directly to the storage and not
-via the Oneprovider service. The storage access detection is performed on
-first `read` or `write` operation in given space, which may cause a brief
-increase of latency.
+storage supporting user spaces directly. The storage access detection is
+performed on first `read` or `write` operation in given space, which may cause
+a brief increase of latency.
+
+> NOTE: Direct I/O mode should always be preferred if possible due to much
+better performance and scalability, as all `read` and `write` operations go
+directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
 
