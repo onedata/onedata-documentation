@@ -4,8 +4,8 @@
 
 ## Quickstart
 
-See [GUI wizard](#gui-wizard) usage examples for quick guide on how to obtain
-basic tokens.
+See the [GUI guide](#gui-guide) for examples how to quickly obtain basic tokens
+and consume invite tokens.
 
 
 ## Basics
@@ -28,7 +28,7 @@ their fundamental concept of [caveats](#token-caveats) - contextual confinements
 
 All tokens are created in Onezone and can only be verified by Onezone.
 
-Tokens can be created and managed using the [wizard](#gui-wizard) in Onezone web 
+Tokens can be created and managed using the [wizard](#gui-guide) in Onezone web 
 GUI or the [REST API](#using-rest-api).
 
 In general, **tokens must be kept secret**. It is possible to strongly confine a 
@@ -116,7 +116,7 @@ which is chosen by the inviting user. It means that the token consumer does not
 choose where they are joining and does not need to know the target group, space
 etc. beforehand - the token itself is enough to join it.
 
-The [Onezone Web GUI](#gui-wizard) provides a comprehensive wizard for creating 
+The [Onezone Web GUI](#gui-guide) provides a comprehensive wizard for creating 
 invite tokens with different parameters. Below is some technical information about 
 the invite tokens which might be useful for [REST API](#using-rest-api) users.
 
@@ -188,7 +188,7 @@ in below table.
 | cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>      | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
 | non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>          | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
 | must have limited lifespan <br/><sub style="color: #06f;">max permitted lifespan is configurable by the Onezone admin</sub> | can have infinite lifespan                                       |
-| no accounting, cannot be listed                                                                  | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-wizard)            |
+| no accounting, cannot be listed                                                                  | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-guide)            |
 | useful for automated software / middleware / scripting                                           | require more management but ensure full control                                             |
   
   
@@ -227,7 +227,7 @@ without knowing the original token. Consider this example:
     the `My experiment` space, which becomes immediately visible for the users
     that have the `Alpha*` token.
     
-The [Onezone Web GUI](#gui-wizard) offers a convenient wizard for adding caveats to 
+The [Onezone Web GUI](#gui-guide) offers a convenient wizard for adding caveats to 
 tokens. Further, you will find technical details and considerations about token caveats.
 
 Below is the list of all recognized caveats in Onedata. Provided examples of 
@@ -1055,47 +1055,73 @@ ${REST_API}/tokens/named/ce3cec620a003576b279ddd533777ec1ch34dd -d '{
 
 The token can be used again.
 
-## GUI wizard
 
-Below are some examples how tokens can be created and managed via GUI.
+## GUI guide
 
-1. Click on `Consume` if you received an invite token in order to utilize the
-invitation. Click on `(+)` or `Get started` to create a new token.
+### Access token quickstart
+The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
+click on the **(+)** button and choose the template the best suits your needs. 
+You can use the default settings or tailor the token to a specific use-case, 
+possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
+![image](../../images/user-guide/tokens/0-access-token-templates.png#bordered)
+
+
+### Consuming invite tokens
+Invite tokens are used to create relations in the system, e.g. add
+new members to a group or space. In case you receive any invite token, simply
+navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
+into the visible text field. Shortly afterwards you should see the details of
+the invitation carried by the token. Confirm to accept the invitation.
+![image](../../images/user-guide/tokens/0-consume-token.png#bordered)
+
+
+### Detailed guide
+Recommended for users that want to familiarize with the advanced features 
+offered by Onedata tokens and the token creation GUI wizard.
+
+1. Navigate to the **TOKENS** tab. Click on **(+)** or **Get started** to create a new token. 
+Click on **Consume** if you received an invite token in order to utilize the invitation. 
 ![image](../../images/user-guide/tokens/1-no-tokens.png#bordered)
 
-2. Create a new access token - give it a meaningful name and restrict it with
-[caveats](#token-caveats) if needed. Below example would create a token with a 
-limited lifespan that can be used only for accessing Oneprovider services (note 
-the service caveat). Effectively, this limits the available interfaces to those
-offered by Oneprovider: Oneclient and REST/CDMI API. They can be further limited
-using the interface caveat (the first below).
-![image](../../images/user-guide/tokens/2-access-token.png#bordered)
+2. When you choose the action to create a new token, you will be presented with
+a wizard with quick templates. Choose the one most appropriate for your use case.
+Familiarize yourself with the hints displayed on the page. Go through different
+templates and examine the suggested caveats.
+![image](../../images/user-guide/tokens/2-token-wizard.png#bordered)
 
-3. Consider adding other caveats to increase your security in case the token
+3. Use the **Create custom token** action to create your own access token. 
+Give it a meaningful name and restrict it with some [caveats](#token-caveats). 
+Below example would create a token with a limited lifespan that can be used only 
+for accessing Oneprovider services (note the service caveat). Effectively, this 
+limits the available interfaces to those offered by Oneprovider: Oneclient and 
+REST/CDMI API. They can be further limited using the interface caveat (the first below).
+![image](../../images/user-guide/tokens/3-access-token.png#bordered)
+
+4. Consider adding other caveats to increase your security in case the token
 is to be delegated or passed to another user. Below 
 [*data access caveats*](#data-access-caveats) would restrict the token's power
 to just reading the contents of specified directory and file. Any other
 operation will be denied by all system components.
-![image](../../images/user-guide/tokens/3-data-access-caveats.png#bordered)
+![image](../../images/user-guide/tokens/4-data-access-caveats.png#bordered)
 
-4. You may want to create an [identity token](#identity-tokens) for more 
+5. You may want to create an [identity token](#identity-tokens) for more 
 advanced scenarios that entail [consumer](#consumer) caveats:
-![image](../../images/user-guide/tokens/4-identity-token.png#bordered)
+![image](../../images/user-guide/tokens/5-identity-token.png#bordered)
 
-5. Invite tokens can be created easily in the members submenu of a space / group...
-![image](../../images/user-guide/tokens/5-invite-token-a.png#bordered)
+6. Invite tokens can be created easily in the members submenu of a group / space etc.
+![image](../../images/user-guide/tokens/6-invite-token-a.png#bordered)
 though you may want to create a custom token using the wizard:
-![image](../../images/user-guide/tokens/5-invite-token-b.png#bordered)
+![image](../../images/user-guide/tokens/6-invite-token-b.png#bordered)
 
-6. Created token will be listed on the left - you can view the details of a 
+7. Created token will be listed on the left - you can view the details of a 
 token and copy it in serialized form that can be used in CLI, e.g. to mount
 Oneclient or perform a request to REST/CDMI, or passed to some 
 scripts / middleware.
-![image](../../images/user-guide/tokens/6-browse-tokens.png#bordered)
+![image](../../images/user-guide/tokens/7-browse-tokens.png#bordered)
 
-7. Tokens can be modified to some extent - renamed or revoked. Other details, 
+8. Tokens can be modified to some extent - renamed or revoked. Other details, 
 such as caveats, are not modifiable as they are inscribed in the token.
-![image](../../images/user-guide/tokens/7-modify-token.png#bordered)
+![image](../../images/user-guide/tokens/8-modify-token.png#bordered)
 
 
 
