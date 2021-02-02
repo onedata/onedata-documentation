@@ -1059,21 +1059,24 @@ The token can be used again.
 ## GUI guide
 
 ### Access token quickstart
+<!-- This header is referenced at least one time as "#access-token-quickstart" -->
+
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
-click on the **(+)** button and choose the template the best suits your needs. 
+click on the **(+)** button and choose the template the best ©suits your needs. 
 You can use the default settings or tailor the token to a specific use-case, 
 possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
 ![image](../../images/user-guide/tokens/0-access-token-templates.png#bordered)
 
 
 ### Consuming invite tokens
+<!-- This header is referenced at least one time as "#consuming-invite-tokens" -->
+
 Invite tokens are used to create relations in the system, e.g. add
 new members to a group or space. In case you receive any invite token, simply
 navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
 ![image](../../images/user-guide/tokens/0-consume-token.png#bordered)
-<!-- TODO VFS-6808: after merging add links to token consumption from data discovery -->
 
 
 ### Detailed guide

@@ -62,8 +62,7 @@ passwords - they are intended to be used only by their owners for authentication
 with Onedata services. The only exception is when a token is consciously limited
 by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
 (e.g. read-only access to a specific subdirectory). If you wish to collaborate
-on the same space and data with another user, simply invite them to your [space](spaces.md).
-<!-- TODO VFS-6808 link to space member invitation GUI -->
+on the same space and data with another user, simply [invite them to your space](spaces.md#invite-a-user).
 
 If you are connecting to a provider service which does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
@@ -92,8 +91,7 @@ of your spaces. The choice of Oneprovider may depend on several factors:
 2. The fact whether the Oneprovider supports the space that is to be accessed.
 3. Whether or not you wish to use the [direct I/O](#direct-i-o-and-proxy-i-o-modes) mode.
 
-The hostname can be found in the Web GUI.
-<!-- TODO VFS-6808 link to section with guide how to obtain Oneprovider domain -->
+The hostname can be found in the [Web GUI](data.md#oneprovider-domain).
 
 In order to terminate the Oneclient application and unmount your spaces, type:
 

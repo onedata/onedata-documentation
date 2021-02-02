@@ -87,6 +87,7 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 A logical container for data, fundamental for user data organization in Onedata.
 Accessible only to its members - users or [groups](#group) - that are assigned
 fine grained privileges. Learn more [here](user-guide/spaces.md).
+<!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
 
 ## Storage
 Storage resource recognized by a [*Oneprovider*](#oneprovider) and used to [*support*](#support) Onedata [*spaces*](#space).
@@ -99,8 +100,9 @@ the [*storage*](#storage), without copying the data.
 Learn more [here](admin-guide/oneprovider/configuration/storage-import.md).
 
 ## Support
-A storage quota granted for a [space](#space) on a physical storage backend by
-a [Oneprovider](#oneprovider). Learn more [here](user-guide/spaces.md#space-support).
+A [storage](admin-guide/oneprovider/configuration/storages.md) quota granted for 
+a [space](#space) on a physical storage backend by a [Oneprovider](#oneprovider). 
+Learn more [here](user-guide/spaces.md#space-support).
 
 ## Token
 An alphanumeric string acting as a proof of authorization that can be used 

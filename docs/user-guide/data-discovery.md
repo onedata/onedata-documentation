@@ -40,8 +40,9 @@ in the future.
 You do not have to be a member of a harvester to add a space to it.
 Contact the harvester owner and ask him for a 
 [space invite token](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces). 
-The invitation can be accepted using the **Consume** action in the **TOKENS** tab.
-<!-- TODO VFS-6808: link to consume -->
+The invitation can be accepted using the **Consume** action in the 
+[Tokens GUI](tokens.md#consuming-invite-tokens).
+
 You will be asked to choose a space to be added to the harvester and
 the harvester will start processing your metadata. Keep in mind that you need to
 be a member of the harvester to query the indices, unless the harvester has 
@@ -54,8 +55,8 @@ If you have sufficient privileges, you can use the option to
 to the harvester, available in the **Spaces** submenu. Otherwise, contact the 
 harvester owner and ask him for a 
 [space invite token](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces). 
-The invitation can be accepted using the **Consume** action in the **TOKENS** tab.
-<!-- TODO VFS-6808: link to consume -->
+The invitation can be accepted using the **Consume** action in the 
+[Tokens GUI](tokens.md#consuming-invite-tokens).
 You will be asked to choose a space to be added to the harvester. 
 After a while, your metadata should be accessible via **Data discovery** submenu of the harvester.
 
@@ -66,8 +67,8 @@ Contact an administrator and ask to
 [create a new harvester](../admin-guide/onezone/configuration/data-discovery.md#creating-a-new-harvester). 
 The administrator should then give you a 
 [user invite token](../admin-guide/onezone/configuration/data-discovery.md#harvester-members). 
-The invitation can be accepted using the **Consume** action in the **TOKENS** tab.
-<!-- TODO VFS-6808: link to consume -->
+The invitation can be accepted using the **Consume** action in the 
+[Tokens GUI](tokens.md#consuming-invite-tokens).
 Continue as described in [(2)](#_2-adding-a-space-to-your-own-harvester) to add a space 
 to the new harvester.
 
@@ -223,9 +224,8 @@ curl -X POST -H "x-auth-token: ${TOKEN}" -H "content-type: application/json" \
     }'
 ```
 
-Note that the `${TOKEN}` variable must be set to an access token of a user that
-<!-- TODO VFS-6808: link to access token quickstart -->
-is a member of this harvester - unless the harvester is
+Note that the `${TOKEN}` variable must be set to an [access token](tokens.md#access-token-quickstart) 
+of a user that is a member of this harvester - unless the harvester is
 [public](#public-and-private-access), then the `x-auth-token` header can be simply removed.
 
 The response will contain the raw response from the Elasticsearch server. If

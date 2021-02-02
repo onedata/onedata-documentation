@@ -32,8 +32,7 @@ understand the main concepts and configure your harvester correctly.
 ### Detecting new metadata
 
 A harvester can be connected to any number of [spaces](../../../user-guide/spaces.md), 
-each of which can be supported by any number of Oneproviders. 
-<!-- TODO VFS-6808: link to architecture -> Oneprovider -->
+each of which can be supported by any number of [Oneproviders](../../../intro.md#architecture). 
 For every such pair (Oneprovider x space), there is a continuous harvesting process 
 that scans the space by incrementally iterating over all changes that have been made to the files 
 locally (a.k.a. changes stream). Types of changes handled by the harvesting mechanism are:
@@ -41,8 +40,8 @@ locally (a.k.a. changes stream). Types of changes handled by the harvesting mech
   - metadata change (xattrs, JSON or RDF),
   - file name change.
 
-Each change triggers a metadata submission, which is posted in batches to the Onezone service. 
-<!-- TODO VFS-6808: link to architecture -> Onezone -->
+Each change triggers a metadata submission, which is posted in batches to the 
+[Onezone service](../../../intro.md#architecture). 
 The changes stream is robust and resistant to failures - in case of any problems,
 harvesting is restarted at the point of last successful submission.
 
@@ -68,7 +67,7 @@ will only accept objects that match its schema, effectively splitting the harves
 metadata into two subsets. As a result, they can be used like tables in a database - 
 each holding records of different types.
 
-<!-- TODO VFS-6805: a nice diagram with spaces, providers, onezone, ES, indices -->
+<!-- TODO VFS-7218: a nice diagram with spaces, providers, onezone, ES, indices -->
 
 #### More about index schemas
 The index schema describes:
@@ -175,8 +174,8 @@ visible on the top right corner of the harvester spaces view.
 **Add one of your spaces** options has already been shown in
 [creating a harvester](#creating-a-new-harvester) section. **Invite space using token**
 opens a window with token, which should be passed to the owner of the space to be
-added to the harvester. The other user should use the **Consume** action in the Tokens GUI.
-<!-- TODO VFS-6808: link to consume -->
+added to the harvester. The other user should use the **Consume** action in the 
+[Tokens GUI](../../../user-guide/tokens.md#consuming-invite-tokens).
 ![image](../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png#bordered)
 
 #### Removing spaces
