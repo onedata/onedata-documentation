@@ -20,6 +20,7 @@ module.exports = {
           '/user-guide/spaces',
           '/user-guide/data',
           '/user-guide/oneclient',
+          '/user-guide/onedatafs',
           '/user-guide/replication-and-migration',
           '/user-guide/metadata',
           '/user-guide/file-registration',

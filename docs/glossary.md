@@ -20,6 +20,14 @@ Learn more [here](user-guide/cdmi.md).
 
 ## Couchbase
 
+## File Id
+A unique, global identifier associated with a file or directory.
+Learn more [here](user-guide/data.md#file-id).
+
+## File path
+Uniquely specifies the location of a file or directory.
+Learn more [here](user-guide/data.md#file-path).
+
 ## File popularity
 Enables tracking of usage statistics for files in a [*space*](#space).
 Used by [*auto-cleaning*](#auto-cleaning) mechanism to clean up the least popular file replicas.
@@ -52,6 +60,14 @@ accounts recognized by different storage providers.
 Learn more [here](admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
+Oneclient is a command line interface based on [FUSE](https://github.com/libfuse/libfuse) 
+for mounting the Onedata distributed virtual filesystem on local machines.
+Learn more [here](user-guide/oneclient.md).
+
+## OnedataFS
+OnedataFS is a [PyFilesystem](https://www.pyfilesystem.org/) plugin that allows
+accessing the user data programmatically using a python API.
+Learn more [here](user-guide/onedatafs.md).
 
 ## Onepanel
 Service dedicated for administration of a [*cluster*](#cluster) ([*Onezone*](#onezone) or [*Oneprovider*](#oneprovider)) and, 
