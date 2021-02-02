@@ -121,6 +121,7 @@ options:
 
 
 ### Direct I/O and Proxy I/O modes
+<!-- This header is referenced at least one time as "#direct-i-o-and-proxy-i-o-modes" -->
 With respect to data access, oneclient can work in 2 modes: direct I/O and
 proxy I/O. The difference between these modes is that direct I/O allows
 Oneclient to `read` and `write` data directly to the physical storage, assuming
