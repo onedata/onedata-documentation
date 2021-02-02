@@ -1073,6 +1073,7 @@ navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
 ![image](../../images/user-guide/tokens/0-consume-token.png#bordered)
+<!-- TODO VFS-6808: after merging add links to token consumption from data discovery -->
 
 
 ### Detailed guide
@@ -1122,7 +1123,6 @@ scripts / middleware.
 8. Tokens can be modified to some extent - renamed or revoked. Other details, 
 such as caveats, are not modifiable as they are inscribed in the token.
 ![image](../../images/user-guide/tokens/8-modify-token.png#bordered)
-
 
 
 [Google's macaroons]: https://ai.google/research/pubs/pub41892
