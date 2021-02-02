@@ -82,7 +82,7 @@ For each file/directory, users can assign custom documents in supported metadata
 (currently JSON and [RDF - Resource Description Framework](https://www.w3.org/RDF)). 
 This level provides most flexibility as no specific schema is imposed. The custom 
 metadata can be used to create complex [views](#creating-views-over-metadata) or 
-[data discovery](#data-discovery) indexes that consolidate metadata
+[data discovery](#data-discovery) indices that consolidate metadata
 from multiple spaces.
 
 
@@ -229,4 +229,4 @@ how to create complex database views over data collections using metadata.
 ## Data discovery
 
 File and directory metadata can be used to feed [data discovery](data-discovery.md) 
-indexes that harvest metadata from multiple spaces and provide advanced search engines.
+indices that harvest metadata from multiple spaces and provide advanced search engines.

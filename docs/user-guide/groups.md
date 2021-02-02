@@ -1,6 +1,9 @@
 # Groups
 <!-- TODO: VFS-7218 management, members and privileges -->
 
+## Group members
+<!-- This header is referenced at least one time as "#group-members" -->
+
 <!-- TODO: VFS-7218 basically we need a similar tutorial as in spaces, but with users and groups only -->
 
 <!-- TODO: VFS-7218 this is some leftovers from the archiver docs, maybe can be reused -->

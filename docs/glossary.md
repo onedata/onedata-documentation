@@ -62,6 +62,14 @@ accounts recognized by different storage providers.
 Learn more [here](admin-guide/oneprovider/configuration/luma.md).
 
 ## Oneclient
+Oneclient is a command line interface based on [FUSE](https://github.com/libfuse/libfuse) 
+for mounting the Onedata distributed virtual filesystem on local machines.
+Learn more [here](user-guide/oneclient.md).
+
+## OnedataFS
+OnedataFS is a [PyFilesystem](https://www.pyfilesystem.org/) plugin that allows
+accessing the user data programmatically using a python API.
+Learn more [here](user-guide/onedatafs.md).
 
 ## Onepanel
 Service dedicated for administration of a [*cluster*](#cluster) ([*Onezone*](#onezone) or [*Oneprovider*](#oneprovider)) and, 
