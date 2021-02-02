@@ -1057,6 +1057,8 @@ The token can be used again.
 
 ## GUI wizard
 
+<!-- TODO VFS-6808: after merging add links to token consumption from data discovery -->
+
 Below are some examples how tokens can be created and managed via GUI.
 
 1. Click on `Consume` if you received an invite token in order to utilize the
@@ -1096,21 +1098,6 @@ scripts / middleware.
 7. Tokens can be modified to some extent - renamed or revoked. Other details, 
 such as caveats, are not modifiable as they are inscribed in the token.
 ![image](../../images/user-guide/tokens/7-modify-token.png#bordered)
-
-### Consuming invite tokens
-<!-- This header is referenced at least one time as "#consuming-invite-tokens" -->
-
-The invite tokens have to be consumed to let the invitation to succeed. If you received
-such a token, click `Consume` in the `Tokens` sidebar (as shown by the screenshot
-[here](#gui-wizard)). Then paste it into the input on the center of the page and click
-`Join`.
-
-![image](../../images/user-guide/tokens/8-consume-user-invite-token.png#bordered)
-
-To consume invite tokens, that are not a direct user invitations, you will have to choose
-which entity (group, space, etc.), should be a target for the invitation.
-
-![image](../../images/user-guide/tokens/9-consume-non-user-invite-token.png#bordered)
 
 
 [Google's macaroons]: https://ai.google/research/pubs/pub41892
