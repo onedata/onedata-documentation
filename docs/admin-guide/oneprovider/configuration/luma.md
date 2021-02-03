@@ -105,7 +105,7 @@ This record is used to represent user on the specific storage backend and consis
 ```
 
 #### `PosixCredentials`
-This record stores standard POSIX-like user Id and group Id.
+This record stores standard POSIX-like user ID and group ID.
 ```JSON
 {
     "uid": Integer,
@@ -116,8 +116,8 @@ This record stores standard POSIX-like user Id and group Id.
 #### `OnedataUser`
 These record represents credentials identifying a user in the Onedata system.
 The record has one of the two schemes:
-* `"onedataUser"` - user's Id is stored directly in the record
-* `"idpUser"` - the record stores Id of an external identity provider (Idp) and Id of the user understood by the Idp
+* `"onedataUser"` - user's ID is stored directly in the record
+* `"idpUser"` - the record stores ID of an external identity provider (Idp) and ID of the user understood by the Idp
 ```JSON
 {
     "mappingScheme": "onedataUser" | "idpUser",
@@ -135,8 +135,8 @@ For more information on mapping users from external Idp to Onedata users please 
 #### `OnedataGroup`
 These record represents credentials identifying a group in the Onedata system.
 The record has one of the two schemes:
-* `"onedataGroup"` - group's Id is stored directly in the record
-* `"idpEntitlement"` - the record stores Id of an external identity provider (Idp) and Id of the group understood by the Idp
+* `"onedataGroup"` - group's ID is stored directly in the record
+* `"idpEntitlement"` - the record stores ID of an external identity provider (Idp) and ID of the group understood by the Idp
 ```JSON
 {
     "mappingScheme": "onedataGroup" | "idpEntitlement",
@@ -245,7 +245,7 @@ This sections describes the algorithm for each [table](#tables).
 
 #### Auto feed for Storage users table
 This table is populated differently depending on the storage type for which it is configured.
-In case of POSIX compatible storages, UID is generated basing on the Onedata user Id.
+In case of POSIX compatible storages, UID is generated basing on the Onedata user ID.
 >**NOTE:**  Please note that using auto feed on POSIX compatible storages can make it impossible to use 
 >[Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes), as the automatically
 >generated mappings will not correspond to actual UIDs/GIDs recognized by the storage system. 
@@ -267,7 +267,7 @@ UID and GID of owner of the storage mountpoint are used, as returned by the `sta
 This table is populated differently depending on the storage type for which it is configured.
 In case of POSIX compatible storages, the same credentials as stored in [Spaces posix storage defaults table](#tables) are used.
 
-In case of POSIX incompatible storages, UID and GID are generated basing on the Id of the space for which the table is populated. 
+In case of POSIX incompatible storages, UID and GID are generated basing on the ID of the space for which the table is populated. 
 
 #### Auto feed for Onedata users table
 This table can be populated automatically only with entries that associate storage user, identified by UID with Onedata user.

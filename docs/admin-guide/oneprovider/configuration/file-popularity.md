@@ -3,11 +3,11 @@
 
 [[toc]]
 
-As a prerequisite for understanding this section we advise to familiarize with 
+As a prerequisite for understanding this chapter we advise to familiarize with 
 the concept of [*views*](../../../user-guide/views.md).
 
 The *file popularity* mechanism enables tracking of usage statistics for files in a space.
-It allows listing file Ids sorted in ascending order by the 
+It allows listing file IDs sorted in ascending order by the 
 [*popularity function*](#the-popularity-function), so that the least popular files
 are at the beginning of the list.
 

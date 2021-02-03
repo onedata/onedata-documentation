@@ -33,7 +33,7 @@ Currently, views can be created on the following models storing file metadata:
 
 ### Mapping function
 
-All information presented in this section is relevant to both map-reduce and spatial views.
+All information presented in this chapter is relevant to both map-reduce and spatial views.
 Function used by spatial views is called as a *spatial* in Couchbase documentation. For simplicity, in this documentation, 
 the *mapping* name is used for both terms, as they must comply with the same rules (with one exception, emphasised below).
 
@@ -46,7 +46,7 @@ In the *views* API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function must accept 4 arguments:
- * `id` - id of the file (string)
+ * `id` - ID of the file (string)
  * `type` - type of the document that is being mapped by the function, one of:
     * `"file_meta"`
     * `"times"`
@@ -162,8 +162,8 @@ Model that stores basic file metadata:
  * `type` - type of the file. One of: regular file (`REG`), directory (`DIR`)
  * `mode` - POSIX access mode as a decimal integer 
  * `acl` - [access control list](data.md#access-control-lists)
- * `owner` - Id of an owner of the file
- * `provider_id` - Id of a provider on which the file was created
+ * `owner` - ID of an owner of the file
+ * `provider_id` - ID of a provider on which the file was created
  * `deleted` - flag informing that file was marked to be deleted
  * other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
 

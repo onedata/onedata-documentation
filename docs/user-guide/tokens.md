@@ -173,10 +173,10 @@ which are optional:
 
 ## Named and temporary tokens
 
-Tokens in Onedata can be temporary or named, regardless of the type (access 
-or invite). Temporary tokens are short lived and not persisted, while named 
-tokens are linked to user's account and retrievable. All differences are shown 
-in below table.
+Tokens in Onedata can be temporary or named, regardless of the type (access, 
+invite or identity). Temporary tokens are short lived and not persisted, while 
+named tokens are linked to user's account and retrievable. All differences are 
+shown in below table.
 
 
 | Temporary tokens                                                                                 | Named tokens                                                                                |
@@ -396,7 +396,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     ```
 
 * `data.path` - limits the paths in which data can be accessed with the token.
-    The paths must be canonical - starting with a slash + space id, and without 
+    The paths must be canonical - starting with a slash + space ID, and without 
     a trailing slash - and must be base64 encoded. If a directory path is given, 
     the token allows to access all nested files and directories starting from 
     the specified directory. This is a [*data access caveat*](#data-access-caveats). 
@@ -416,9 +416,9 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     "LzhkZjFlYjkwYTcvZGlyL2ZpbGUudHh0Cg=="  ==  base64("/8df1eb90a7/dir/file.txt")
     ```
     
-* `data.objectid` - limits the object ids in which data can be accessed with the 
-    token. The object ids comply with the CDMI format and can be used in the
-    Oneprovider's REST and CDMI APIs. If a directory object id is given, the 
+* `data.objectid` - limits the object IDs in which data can be accessed with the 
+    token. The object IDs comply with the CDMI format and can be used in the
+    Oneprovider's REST and CDMI APIs. If a directory object ID is given, the 
     token allows to access all nested files and directories starting from the 
     specified directory. This is a [*data access caveat*](#data-access-caveats).
     If no such caveat is included in a token, it can be used for accessing all
@@ -435,7 +435,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     > NOTE: `data.objectid` caveats are computationally heavier than `data.path`
     caveats - you should use the latter whenever possible for performance 
     reasons. Nevertheless, `data.objectid` have the advantage that they remain
-    valid even if the target file is moved / renamed (given that the File Id 
+    valid even if the target file is moved / renamed (given that the File ID
     does not change in the process) - contrary to `data.path` caveats.
 
 
@@ -642,7 +642,7 @@ identity by sending its identity token to Onezone.
 There are 4 service types in Onedata. Note the serialized format in the table
 below if you wish to use the [REST API](#using-rest-api) for creating tokens 
 with `service` caveats - the first three letters denote the type, and the rest 
-after the hyphen is the `id` of the corresponding Oneprovider or special 
+after the hyphen is the ID of the corresponding Oneprovider or special 
 `onezone` keyword for the Onezone service. 
 
 | Service                        |               Examples (serialized format)              | 
@@ -652,7 +652,7 @@ after the hyphen is the `id` of the corresponding Oneprovider or special
 | Oneprovider                    | `opw-01c4455bef059353c9dfb35ba93a24f3` <br/> `opw-*`    |
 | Oneprovider panel (for admins) | `opp-01c4455bef059353c9dfb35ba93a24f3` <br/> `opp-*`    |
 
-> Note: the special `*` service `id` can be used to allow any service of given
+> Note: the special `*` service ID can be used to allow any service of given
 type (e.g. any Oneprovider service).
 
 ### Service caveat considerations
@@ -683,7 +683,7 @@ caveat that limits the allowed consumers to Alice:
     ]
 }
 ```
-* `5c9dfb35db55bef7e8a51dfb35ba93a2` - Alice's user `id`
+* `5c9dfb35db55bef7e8a51dfb35ba93a2` - Alice's user ID
 
 Then, Bob passes the confined token to Alice. In such case, Alice has to prove 
 her identity by adding her [identity token](#identity-tokens) to the request:
@@ -700,7 +700,7 @@ request will fail with unverified caveat error.
 There are 3 consumer types in Onedata. Note the serialized format in the table
 below if you wish to use the [REST API](#using-rest-api) for creating tokens 
 with `consumer` caveats - the first three letters denote the type, and the rest 
-after the hyphen is the `id` of the corresponding user / group / Oneprovider. 
+after the hyphen is the ID of the corresponding user / group / Oneprovider. 
 
 | Consumer                       |               Examples (serialized format)              | 
 |--------------------------------|:-------------------------------------------------------:|
@@ -712,7 +712,7 @@ after the hyphen is the `id` of the corresponding user / group / Oneprovider.
 whitelist. It will be successfully verified if the request's consumer is a user 
 that belongs to the specified group.
 
-> Note: the special `*` consumer `id` can be used to allow any consumer of given
+> Note: the special `*` consumer ID can be used to allow any consumer of given
 type (e.g. any user or any Oneprovider).
 
  
@@ -833,8 +833,8 @@ curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/temporary -d
 
 #### Create a named access token for mounting Oneclient in specific Oneprovider
 
-Identify the Id of the desired Oneprovider - you can visit the web GUI and go to
-the Overview tab in the Oneprovider. Assume the Id is `3fe8f8eafb53c7205eeffde461a50348chfaf0`.
+Identify the ID of the desired Oneprovider - you can visit the web GUI and go to
+the Overview tab in the Oneprovider. Assume the ID is `3fe8f8eafb53c7205eeffde461a50348chfaf0`.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -862,14 +862,14 @@ curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
 }
 ```
 
-This token can be used only in the Oneprovider with specified Id and only for
+This token can be used only in the Oneprovider with specified ID and only for
 mounting Oneclient.
 
 
 #### Create a named token for readonly access in a specific directory
 
 Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the 
-[File Id](data.md#file-path-and-id) of the directory that is to be available with the token.
+[File ID](data.md#file-path-and-id) of the directory that is to be available with the token.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -905,7 +905,7 @@ directory (and its subdirectories).
 #### Create a named token valid only for a colleague
 
 Please refer to the scenario [described before](#consumer). Assume that Bob 
-wishes to create a token for Alice (user Id `461698917aa4c176fd86a111b6e7231ca998f1`) 
+wishes to create a token for Alice (user ID `461698917aa4c176fd86a111b6e7231ca998f1`) 
 that would allow data access in whole space `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 Note: 
 ```bash
@@ -976,8 +976,8 @@ Now, Alice can use the tokens like below for accessing the data in the space:
 
 #### Create a named invite token for requesting space support with 4 uses
 
-Identify the Id of the desired space - you can visit the web GUI and go to
-the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
+Identify the ID of the desired space - you can visit the web GUI and go to
+the Overview tab in the space. Assume the ID is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -1005,8 +1005,8 @@ token to four different Oneproviders and ask for support.
 
 #### Create a named invite token for inviting space members with certain privileges
 
-Identify the Id of the desired space - you can visit the web GUI and go to
-the Overview tab in the space. Assume the Id is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
+Identify the ID of the desired space - you can visit the web GUI and go to
+the Overview tab in the space. Assume the ID is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -1036,7 +1036,7 @@ limit.
 #### Revoke the previously created invite token for inviting space members
 
 Named token create operation returns the `tokenId`, which can be used to refer
-to the named token. Note the Id returned in the previous example. The token can
+to the named token. Note the ID returned in the previous example. The token can
 be revoked like this:
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X PATCH \
@@ -1059,21 +1059,24 @@ The token can be used again.
 ## GUI guide
 
 ### Access token quickstart
+<!-- This header is referenced at least one time as "#access-token-quickstart" -->
+
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
-click on the **(+)** button and choose the template the best suits your needs. 
+click on the **(+)** button and choose the template the best ©suits your needs. 
 You can use the default settings or tailor the token to a specific use-case, 
 possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
 ![image](../../images/user-guide/tokens/0-access-token-templates.png#bordered)
 
 
 ### Consuming invite tokens
+<!-- This header is referenced at least one time as "#consuming-invite-tokens" -->
+
 Invite tokens are used to create relations in the system, e.g. add
 new members to a group or space. In case you receive any invite token, simply
 navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
 ![image](../../images/user-guide/tokens/0-consume-token.png#bordered)
-<!-- TODO VFS-6808: after merging add links to token consumption from data discovery -->
 
 
 ### Detailed guide

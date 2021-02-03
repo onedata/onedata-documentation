@@ -46,9 +46,9 @@ mtime               | 1470304148                                | Last modificat
 ctime               | 1470304148                                | Last status change timestamp (in seconds)
 storage_user_id     | 6001                                      | Uid of the storage owner of this file
 storage_group_id    | 6001                                      | Gid of the storage group owner of this file (the same Gid is displayed via oneclient)
-owner_id            | "6825604b0eb6a47b8b7a04b6369eb24d"        | Id of the file owner
-provider_id         | "79c0ed35f32e43db3a87f76a588c9b2f"        | Id of the provider on which file was created
-shares              | ["b3a87f76a588c9b279c0ed35f32e4db", ...]  | Array of share Id's associated with this file/directory
+owner_id            | "6825604b0eb6a47b8b7a04b6369eb24d"        | ID of the file owner
+provider_id         | "79c0ed35f32e43db3a87f76a588c9b2f"        | ID of the provider on which file was created
+shares              | ["b3a87f76a588c9b279c0ed35f32e4db", ...]  | Array of share IDs associated with this file/directory
 
 Some filesystem attributes are considered private and masked when accessing 
 file in share mode (public view for unauthenticated clients). They are:
@@ -149,9 +149,9 @@ Onedata system attributes and cannot be modified. They provide useful informatio
 about files:
 
 * `org.onedata.guid` - the internal GUID of a file/directory in Onedata
-* `org.onedata.file_id` - the universal [File Id](data.md#file-path-and-id) which can be used in REST or CDMI APIs
-* `org.onedata.space_id` - the Id of the space to which this file/directory belongs
-* `org.onedata.storage_id` - the storage Id on which this file is located
+* `org.onedata.file_id` - the universal [File ID](data.md#file-path-and-id) which can be used in REST or CDMI APIs
+* `org.onedata.space_id` - the ID of the space to which this file/directory belongs
+* `org.onedata.storage_id` - the storage ID on which this file is located
 * `org.onedata.storage_file_id` - the internal storage file identifier (e.g. file path on POSIX storage)
 * `org.onedata.access_type` - type of access available for this file:
     * `direct` - the client has direct access to the storage (e.g. S3 bucket or Ceph pool)
