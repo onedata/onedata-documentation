@@ -49,6 +49,7 @@ Onedata stores information about the mapping between logical and physical files
 in the file metadata, which is replicated and synchronized between 
 all supporting Oneproviders.
 
+<!-- TODO VFS-7218 globally unify the formatting of NOTEs in all docs -->
 > **NOTE**: a space can be supported with an imported storage.
 This way, a preexisting data-set can be made available in a Onedata space.
 Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).

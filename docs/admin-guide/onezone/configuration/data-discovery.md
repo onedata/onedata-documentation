@@ -33,7 +33,7 @@ understand the main concepts and configure your harvester correctly.
 
 A harvester can be connected to any number of [spaces](../../../user-guide/spaces.md), 
 each of which can be supported by any number of [Oneproviders](../../../intro.md#architecture). 
-For every such pair (Oneprovider x space), there is a continuous harvesting process 
+For every such pair (Oneprovider & space), there is a continuous harvesting process 
 that scans the space by incrementally iterating over all changes that have been made to the files 
 locally (a.k.a. changes stream). Types of changes handled by the harvesting mechanism are:
   - creation and deletion of a file,
@@ -81,7 +81,7 @@ In most cases, there is no need to define a custom index schema.
 
 Backends are pluginable - by default, Onezone comes with one predefined backend plugin for
 Elasticsearch. Its documentation concerning index schemas can be found
-[here](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.md).
+[here](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html).
 
 
 ### Querying indexed metadata
@@ -174,8 +174,9 @@ visible on the top right corner of the harvester spaces view.
 **Add one of your spaces** options has already been shown in
 [creating a harvester](#creating-a-new-harvester) section. **Invite space using token**
 opens a window with token, which should be passed to the owner of the space to be
-added to the harvester. The other user should use the **Consume** action in the 
-[Tokens GUI](../../../user-guide/tokens.md#consuming-invite-tokens).
+added to the harvester. The invitation can be accepted using the **Consume** 
+action in the in the [Tokens GUI](../../../user-guide/tokens.md#consuming-invite-tokens), 
+as long as the consuming user has the **Add harvester** privilege in the space.
 ![image](../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png#bordered)
 
 #### Removing spaces
@@ -259,7 +260,7 @@ At the end, click on **Remove** button to acknowledge your decision.
 #### Index characteristics
 
 Click on the index to see its details. **Harvesting progress** shows the space scanning
-progress per each pair (Oneprovider x space). You can click on each chart to see more
+progress per each pair (Oneprovider & space). You can click on each chart to see more
 information. To view statistics for spaces that are no longer attached to the harvester, 
 use the **Show archival spaces / providers** toggle.
 

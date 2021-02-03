@@ -41,7 +41,8 @@ You do not have to be a member of a harvester to add a space to it.
 Contact the harvester owner and ask him for a 
 [space invite token](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces). 
 The invitation can be accepted using the **Consume** action in the 
-[Tokens GUI](tokens.md#consuming-invite-tokens).
+[Tokens GUI](tokens.md#consuming-invite-tokens), as long as the consuming user
+has the **Add harvester** privilege in the space.
 
 You will be asked to choose a space to be added to the harvester and
 the harvester will start processing your metadata. Keep in mind that you need to

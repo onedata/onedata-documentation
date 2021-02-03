@@ -12,7 +12,6 @@ the least popular file replicas in a [*space*](#space) and to evict them.
 Learn more [here](admin-guide/oneprovider/configuration/auto-cleaning.md).
 
 ## CDMI
-
 Standardized interface for managing Cloud storage and accessing data held in it. 
 Learn more [here](user-guide/cdmi.md).
 
@@ -22,9 +21,22 @@ Learn more [here](user-guide/cdmi.md).
 
 ## Couchbase
 
+## Data Discovery
+Mechanisms that harvest the user-defined [metadata](#file-metadata) assigned to 
+files in multiple [spaces](#space) and submit it to indices, which can be
+later browsed and queried. Logically divided into separate [harvesters](#harvester) 
+that can have different configuration and source spaces.
+Learn more [here](user-guide/data-discovery.md).
+
 ## File Id
 A unique, global identifier associated with a file or directory.
 Learn more [here](user-guide/data.md#file-id).
+
+## File metadata
+Information that describes a file or directory. Can be roughly divided into
+filesystem metadata, governed by the system, and user defined metadata, i.e.
+extended attributes or custom RDF and JSON documents.
+Learn more [here](user-guide/metadata.md).
 
 ## File path
 Uniquely specifies the location of a file or directory.
@@ -47,6 +59,10 @@ Learn more [here](user-guide/file-registration.md).
 ## Handle service
 
 ## Harvester
+An internal service that implements the mechanisms of [data discovery](#data-discovery).
+Similar to a [group](#group) or [space](#space) in terms of logical representation
+in the system, bringing together users or groups that are entitled to use it with 
+different privileges. Learn more [here](user-guide/data-discovery.md).
 
 ## Imported storage
 [*Storage resource*](#storage) marked as `Imported storage` in the configuration. 

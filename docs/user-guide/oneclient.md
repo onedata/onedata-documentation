@@ -9,11 +9,12 @@ in your local file system tree. Oneclient is based on
 instructions below your particular platform.
 
 ## Installation
-
-### Linux
 Oneclient is supported on several major Linux platforms including Ubuntu
-(Xenial, Bionic) and CentoOS 7 as well as Conda. To install Oneclient using
-packages simply use the following command:
+(Xenial, Bionic) and CentOS 7. It can be installed using packages or the
+Conda package manager.
+
+### Packages
+To install Oneclient using packages, simply use the following command:
 
 ```bash
 $ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
