@@ -175,7 +175,7 @@ ownership of the files in the space is correctly mapped on the storage.
 Due to above reasons, GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) 
 record stored in [Spaces posix storage defaults table](#tables).
 
->**NOTE:** To enable use of [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes) 
+>**NOTE:** To enable use of [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes) 
 > for all space users, the storage admin has to ensure that:
 > * LUMA properly maps each Onedata user to an UID that is recognized in the system hosting the storage
 > * There exists a group in the system hosting the storage with GID equal to the virtual space GID 
@@ -247,7 +247,7 @@ This sections describes the algorithm for each [table](#tables).
 This table is populated differently depending on the storage type for which it is configured.
 In case of POSIX compatible storages, UID is generated basing on the Onedata user ID.
 >**NOTE:**  Please note that using auto feed on POSIX compatible storages can make it impossible to use 
->[Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes), as the automatically
+>[Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes), as the automatically
 >generated mappings will not correspond to actual UIDs/GIDs recognized by the storage system. 
 
 The same UID is used as user's `displayUid`.

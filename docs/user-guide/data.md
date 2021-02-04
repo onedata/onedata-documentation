@@ -1,6 +1,8 @@
 # Data
 <!-- This file is referenced at least one time as "data.md" -->
 
+[[toc]]
+
 The Onedata system organizes all user data into logical containers called spaces. 
 Please refer to [this](spaces.md) chapter for details about this concept and how 
 the logical files are mapped to their physical content on storage backends.
@@ -39,20 +41,26 @@ otherwise make sure to urlencode the path if its the part of an URL:
 {...}/CMS%201/file.txt
 ```        
 
+>**NOTE:** Duplicate space names are generally allowed. For that reason, 
+referencing files by path may be ambiguous. During file path resolution, the 
+first space whose name matches the first segment of the path is always taken, 
+but the order in which spaces are checked cannot be guaranteed.
+
+
 ### File ID
 <!-- This header is referenced at least one time as "#file-id" -->
 
 File ID is a unique, global identifier associated with a file or directory and
 can be used universally in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
-There are several ways to find out the file ID of given file or directory:
+There are several ways to find out the File ID of given file or directory:
 
 Web GUI - click on **Information** in the file/directory context menu and look 
 for `File ID`
 ![image](../../images/user-guide/data/file-information-gui.png)
 
-REST API - use the file ID 
+REST API - use the File ID 
 [resolution endpoint](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id). 
-Below example returns the file ID of <br />`/CMS 1/file.txt`, where `CMS 1` is the space name 
+Below example returns the File ID of <br />`/CMS 1/file.txt`, where `CMS 1` is the space name 
 (consult [file path](#file-path)):
 ```bash
 curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
@@ -79,6 +87,10 @@ between services, the other interfaces require that the user must choose one of
 his Oneproviders and be aware of its domain (see below).
 
 ### Oneprovider domain
+<!-- This header is referenced at least one time as "#oneprovider-domain" -->
+<!-- TODO VFS-7218 this should be moved somewhere else - maybe a new chapter with providers GUI
+     from the user's point of view? -->
+
 Oneprovider's domain is required to mount a [Oneclient](#oneclient) instance or
 utilize the [REST](#rest-api) and [CDMI](#cdmi) APIs. It can be easily found in the Web GUI. 
 Use the blue button to copy to clipboard:
@@ -91,7 +103,7 @@ connection to chosen Oneprovider instance. Please refer to [this](oneclient.md)
 chapter for information on its setup and usage.
 
 ### REST API
-Oneprovider service offers a comprehensible REST API for data management. All
+Oneprovider service offers a comprehensive REST API for data management. All
 endpoints use [File IDs](#file-id) to identify files and directories. The documentation
 based on OpenAPI (a.k.a. Swagger) can be found [here](https://onedata.org/#/home/api/stable/oneprovider).
 For general information on using the REST APIs in Onedata, see [this](rest-api.md) chapter.
@@ -233,7 +245,7 @@ to the file. All space members have read access to the file. Users (guests) who
 try to access the file through a public share will fail to do so as all 
 permissions are declined for **others**.
 
-Default permissions (for newly created filed/directories) are as follows:
+Default permissions (for newly created files/directories) are as follows:
 * files: `r-x r-x r--` (octal: `664`)
 * directories: `rwx rwx r-x` (octal: `775`)
 

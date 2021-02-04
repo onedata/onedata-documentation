@@ -26,10 +26,17 @@ Assume the following domains in the environment:
 * Oneprovider: `oneprovider.cyfronet.pl`
 
 In such case, the APIs are available under the following endpoints:
-* Onezone: `https://onezone.plgrid.pl/api/v3/onezone/{...}`
-* Oneprovider: `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`
-* Onezone panel (admins only): `https://onezone.plgrid.pl/api/v3/onepanel/{...}`
-* Oneprovider panel (admins only): `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}`
+
+| Service                           | API endpoint                                                 |
+|-----------------------------------|--------------------------------------------------------------|
+| Onezone                           | `https://onezone.plgrid.pl/api/v3/onezone/{...}`             |
+| Oneprovider                       | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`   |
+| Onezone panel (admins only)       | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
+| Oneprovider panel (admins only)   | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
+  
+>**NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider 
+domains and internally proxied to Onepanel. The port `9443` can be used to 
+access the Onepanel API directly from within the cluster's local network. 
 
 The Onezone domain should be known to the users as this is their entry point
 to the system, presenting them with a login page. Instructions on how to find 
@@ -38,7 +45,7 @@ the domain of a Oneprovider service can be found [here](data.md#oneprovider-doma
 
 ### Access tokens
 Access tokens are used universally to authorize API requests in all services. 
-Please follow this [quickstart guide](./tokens.md#quickstart) to acquire an access token.
+Please follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
 
 
 ### Oneprovider ID

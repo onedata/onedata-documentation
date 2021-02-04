@@ -78,12 +78,12 @@ This option can be chosen even if the provider has write access to the storage, 
 should be perceived as readonly. However, if the storage is indeed readonly (prevents making any changes),
 `Readonly` **must** be enabled for correct operation of the Oneprovider service.
 
-If you wish to use [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes)  on
+If you wish to use [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes)  on
 a readonly storage, you should also enable [`Skip storage detection`](#skip-storage-detection) option to turn off
 automatic detection of direct access to the storage in the Oneclient application. Please remember that in such case,
  `--force-direct-io` option has to be passed to Oneclient application to enable `direct-io` mode. 
 Additionally, on POSIX compatible storages mountpoint must be passed manually.
-Please see Oneclient's documentation for [`--force-direct-io`](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes) 
+Please see Oneclient's documentation for [`--force-direct-io`](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes) 
 and [`--override`](../../../user-guide/oneclient.md#overriding-storage-helper-parameters) options.
 
 

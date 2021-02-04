@@ -21,6 +21,7 @@ module.exports = {
           '/user-guide/data',
           '/user-guide/web-file-browser',
           '/user-guide/oneclient',
+          '/user-guide/onedatafs',
           '/user-guide/replication-and-migration',
           '/user-guide/metadata',
           '/user-guide/file-registration',
@@ -65,6 +66,7 @@ module.exports = {
                   '/admin-guide/onezone/configuration/oidc-saml',
                   '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
+                  '/admin-guide/onezone/configuration/data-discovery',
                   '/admin-guide/onezone/configuration/advanced-config'
                 ]
               }
@@ -90,7 +92,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/web-certificate',
                   '/admin-guide/oneprovider/configuration/cluster-members',
                   '/admin-guide/oneprovider/configuration/storages',
-                  '/admin-guide/oneprovider/configuration/space-supports',
+                  '/admin-guide/oneprovider/configuration/space-support',
                   '/admin-guide/oneprovider/configuration/storage-import',
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
