@@ -9,11 +9,7 @@
 	    v-if="shouldShowNavbar"
 	    @toggle-sidebar="toggleSidebar"
 	/>
-	
-	<template>
-	    <h1> Testing... </h1>
-	</template>
- 	
+	 	
   	<div
 	    class="sidebar-mask"
 	    @click="toggleSidebar(false)"
