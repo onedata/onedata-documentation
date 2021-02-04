@@ -4,6 +4,7 @@
 [[toc]]
 
 ## Configuration
+<!-- This header is referenced at least one time as "#configuration" -->
 
 Onepanel GUI allows creating, editing and deleting storages under the *Storages* menu. 
 All storage configuration options are available during storage creation (see below picture and descriptions). 

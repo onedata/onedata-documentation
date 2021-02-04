@@ -4,6 +4,7 @@
 ## Docker-based
 
 ### Manual
+<!-- This header is referenced at least one time as "#manual" -->
 
 ### Onedatify
 
