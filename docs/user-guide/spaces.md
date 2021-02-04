@@ -39,7 +39,7 @@ the distribution works and consciously managing it can greatly improve the
 performance of data access, e.g. by pre-staging data sets in the Oneprovider 
 in which computations are to be performed. There are several tools in Onedata 
 that can be used by advanced users to manage the underlying physical distribution 
-and redundancy of data (such as [data transfers](replication-and-migration.md) 
+and redundancy of data (such as [data transfers](data-transfers.md) 
 or [QoS](quality-of-service.md)).
 
 When a file within a space is written (e.g. uploaded), its content is written to 
@@ -47,7 +47,8 @@ one of the supporting physical storages. Similarly, during a file read, the
 physical data is read from the storage and then returned to the requesting client. 
 Onedata stores information about the mapping between logical and physical files 
 in the file metadata, which is replicated and synchronized between 
-all supporting Oneproviders.
+all supporting Oneproviders. You can learn more about file distribution
+[here](data.md#file-distribution). 
 
 <!-- TODO VFS-7218 globally unify the formatting of NOTEs in all docs -->
 > **NOTE**: a space can be supported with an imported storage.

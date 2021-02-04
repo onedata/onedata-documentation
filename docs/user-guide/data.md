@@ -54,11 +54,11 @@ File ID is a unique, global identifier associated with a file or directory and
 can be used universally in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
 There are several ways to find out the File ID of given file or directory:
 
-Web GUI - click on **Information** in the file/directory context menu and look 
+[Web GUI](#web-gui) - click on **Information** in the file/directory context menu and look 
 for `File ID`
 ![image](../../images/user-guide/data/file-information-gui.png)
 
-REST API - use the File ID 
+[REST API](#rest-api) - use the File ID 
 [resolution endpoint](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id). 
 Below example returns the File ID of <br />`/CMS 1/file.txt`, where `CMS 1` is the space name 
 (consult [file path](#file-path)):
@@ -74,6 +74,16 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 >**NOTE:** Make sure to urlencode the path if used in URL, as in above example.
 
 >**NOTE:** See [below](#oneprovider-domain) to learn how to obtain the Oneprovider domain.
+
+[Oneclient](#oneclient) - check [file extended attributes](oneclient.md#file-extended-attributes) and look for 
+`org.onedata.file_id` attribute:
+```bash
+xattr -l file.txt 
+```
+```bash
+org.onedata.file_id: 094576776E667431723230677767776C6B497031394E445F6E3868677873...
+...
+``` 
 
 
 ## Interfaces
@@ -177,7 +187,113 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 ### Access Control Lists
 <!-- TODO VFS-7218 write me -->
-<!-- This header is referenced at least one time as "#access-control-lists" -->
 
 ## File distribution 
-<!-- link to replication & migration -->
+<!-- This header is referenced at least one time as "#file-distribution" -->
+
+On the physical level, files in Onedata are divided into blocks of various sizes.
+File blocks may be distributed among Oneproviders supporting space in which the file is stored.
+List of file blocks present in Oneprovider is called a file replica. Onedata stores information about the mapping
+between logical and physical files in the file metadata, which is replicated and synchronized between all supporting Oneproviders.
+
+When a whole file or its part is read and some blocks are not present in the local Oneprovider,
+missing blocks are replicated on demand from other Oneproviders. The process of replication is optimized
+aiming to improve efficiency of file access on one hand and to decrease network traffic and Oneprovider's load as well as
+space capacity usage on the other hand.
+
+When a file is written in a given Oneprovider, overlapping blocks replicated to other Oneproviders are invalidated.   
+In order to read the file, Oneprovider with invalidated blocks must once again replicate missing blocks from the
+Oneprovider with the newest version of the blocks.
+
+Simultaneous modifications of file may occur when many users access a certain file. In such case, if ranges of simultaneous modifications are not
+overlapping, all modifications are safely applied. In case of a conflict, a conflict resolution algorithm is used which allows
+all supporting providers to determine consistent, final version of the file. Conflict resolution is performed independently
+by each provider without need to coordinate the resolution with other supporting Oneproviders which allows it to be fast. 
+
+
+### Discovering file distribution
+There are several ways to discover how the file blocks are distributed among providers supporting the space in which it is stored:
+
+[Web GUI](#web-gui) - click on **Data distribution** in the file context menu:
+![image](../../images/user-guide/data/file-distribution-gui.png) 
+
+The following **Data distribution** modal, representing distribution of file blocks, will occur:
+![image](../../images/user-guide/data/file-distribution-modal.png)
+
+[REST API](#rest-api) - use [Get file distribution](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution)
+endpoint.
+```bash
+curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
+ -X POST "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/data/$FILE_ID/distribution"
+```
+The distribution is returned in a JSON format:
+```javascript 
+[
+  {
+    "totalBlocksSize": 268435456,
+    "providerId": "17d9da253bd54b480ec1f7ae2154aa25ch13c0",
+    "blocks": [
+      [
+        1073741824, // block offset
+        268435456   // block size
+      ]
+    ]
+  },
+  {
+    "totalBlocksSize": 939524096,
+    "providerId": "1d4f91163d67878b19c41e629aef9f59ch8429",
+    "blocks": [
+      [
+        0,          // block offset
+        268435456   // block size
+      ],
+      [
+        402653184,  // block offset
+        671088640   // block size
+      ]
+    ]
+  },
+  {
+    "totalBlocksSize": 134217728,
+    "providerId": "dac5b63b5b22a9c40c8ed41c1c6be27fchc8c0",
+    "blocks": [
+      [
+        268435456,  // block offset
+        134217728   // block size
+      ]
+    ]
+  }
+]
+```
+
+[Oneclient](#oneclient) - check [file extended attributes](oneclient.md#file-extended-attributes) and inspect 
+`org.onedata.file_blocks`, `org.onedata.file_blocks_count` and `org.onedata.replication_progress` attributes:
+```bash
+xattr -l results.txt
+``` 
+
+```bash
+org.onedata.file_blocks: [########################################.         ]
+org.onedata.file_blocks_count: 1
+org.onedata.replication_progress: 80% 
+...
+```
+>**NOTE:** Please note that extended attributes presents only information about blocks of the file stored in
+> Oneprovider to which the Oneclient is connected. In order to find information about replicas of the file
+> in other providers Web GUI or REST API must be used.
+
+
+### Distribution management
+
+Advanced users who intend to achieve the best performance of data access must consciously manage distribution of the
+files on which the computations are to be performed. Please remember that spaces have limited sizes of support
+granted by the Oneproviders, which means that space capacity usage must also be taken into account.
+
+The mechanisms which allow users and space admins to manage the data distribution are listed below:
+1. [Data transfers](data-transfers.md) - allow users to intentionally replicate, evict and migrate file blocks
+2. [Quality of Service](quality-of-service.md) - allows users to specify QoS requirements which may ensure that file
+replicas in certain Oneproviders are automatically updated and protected from eviction 
+3. [Auto-cleaning](../admin-guide/oneprovider/configuration/auto-cleaning.md) - automatically maintains storage usage at
+a certain level and ensure that there is enough space for new replicas when performing continuous computations
+
+>**NOTE:** Please note that Auto-cleaning can only be configured by a space admin.

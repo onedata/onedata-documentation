@@ -22,7 +22,7 @@ module.exports = {
           '/user-guide/web-file-browser',
           '/user-guide/oneclient',
           '/user-guide/onedatafs',
-          '/user-guide/replication-and-migration',
+          '/user-guide/data-transfers',
           '/user-guide/metadata',
           '/user-guide/file-registration',
           '/user-guide/tokens',
