@@ -1,7 +1,7 @@
 # Maintenance
 
 ## Startup & shutdown 
-<!-- TODO: restart too -->
+<!-- TODO VFS-7218 restart too -->
 
 ## Backing up
 

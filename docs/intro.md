@@ -1,6 +1,20 @@
 ---
 title: 'Introduction'
 ---
+<!-- This file is referenced at least one time as "intro.md" -->
+
+<!-- TODO VFS-6805:
+INTRODUCTION  (landing page)
+    - a couple of words about Onedata
+    - are you a user? - go here: [USER GUIDE]
+    - are you an admin? - go here: [ADMIN GUIDE]
+      <these three should fit onto one screen>
+    - broader description of Onedata
+        - architecture
+     - rework user interfaces, move them somewhere else (data management interfaces are already on the data page, but
+       what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
+    -->
+    
 
 # ![Onedata](../images/intro/heading.png) Documentation
 
@@ -98,14 +112,12 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 
 ### API
 
-Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](../advanced/cdmi.md) and RESTful [interface](https://onedata.org/#/home/api) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
+Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](user-guide/cdmi.md) and RESTful [interface](https://onedata.org/#/home/api) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
 
 
-<!-- TODO:
-INTRODUCTION  (landing page)
-    - a couple of words about Onedata
-    - are you a user? - go here: [USER GUIDE]
-    - are you an admin? - go here: [ADMIN GUIDE]
-      <these three should fit onto one screen>
-    - broader description of Onedata
-    -->
+## Architecture
+<!-- This header is referenced at least one time as "#architecture" -->
+<!-- TODO VFS-6805: description of architecture: Onezones, Oneproviders, Onepanels, glossary -->
+<!-- TODO VFS-6805: describe the concept of Oneprovider being a service deployed in a data provider institution 
+                    and offering storage space for users -->
+architecture

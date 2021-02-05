@@ -19,15 +19,19 @@ module.exports = {
           '/user-guide/groups',
           '/user-guide/spaces',
           '/user-guide/data',
+          '/user-guide/web-file-browser',
           '/user-guide/oneclient',
+          '/user-guide/onedatafs',
           '/user-guide/replication-and-migration',
           '/user-guide/metadata',
+          '/user-guide/file-registration',
+          '/user-guide/tokens',
           '/user-guide/shares',
           '/user-guide/open-data',
-          '/user-guide/tokens',
-          '/user-guide/views',
-          '/user-guide/quality-of-service',
           '/user-guide/rest-api',
+          '/user-guide/quality-of-service',
+          '/user-guide/data-discovery',
+          '/user-guide/views',
           '/user-guide/cdmi'
         ]
       },
@@ -62,6 +66,7 @@ module.exports = {
                   '/admin-guide/onezone/configuration/oidc-saml',
                   '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
+                  '/admin-guide/onezone/configuration/data-discovery',
                   '/admin-guide/onezone/configuration/advanced-config'
                 ]
               }
@@ -87,12 +92,13 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/web-certificate',
                   '/admin-guide/oneprovider/configuration/cluster-members',
                   '/admin-guide/oneprovider/configuration/storages',
-                  '/admin-guide/oneprovider/configuration/space-supports',
+                  '/admin-guide/oneprovider/configuration/space-support',
                   '/admin-guide/oneprovider/configuration/storage-import',
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
                   '/admin-guide/oneprovider/configuration/ceph',
+                  '/admin-guide/oneprovider/configuration/quality-of-service',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]

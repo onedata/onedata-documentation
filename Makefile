@@ -34,3 +34,6 @@ preview:
 
 clean:
 	@rm -rf node_modules package-lock.json yarn-cache docs/.vuepress/dist yarn.lock
+
+codetag-tracker:
+	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,docs/.vuepress/dist

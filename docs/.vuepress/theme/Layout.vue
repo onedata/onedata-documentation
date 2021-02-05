@@ -52,6 +52,12 @@
     </div>
 </template>
 
+<style>
+	img[src*="bordered"] {
+		border: 1px solid #ddd;
+	}
+</style>
+
 <script>
  import Home from '@parent-theme/components/Home.vue'
  import Navbar from '@parent-theme/components/Navbar.vue'
