@@ -439,7 +439,7 @@ Click "Obtain certificate".
 
 Choose Local Ceph type of storage and give it a name. Click "OK".
 
-![Storages-1](./installation-gui-storages-1.png)
+![Storages-2](./installation-gui-storages-2.png)
 
 Click "Finish".
 
