@@ -1062,7 +1062,7 @@ The token can be used again.
 <!-- This header is referenced at least one time as "#access-token-quickstart" -->
 
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
-click on the **(+)** button and choose the template the best ©suits your needs. 
+click on the **(+)** button and choose the template the best suits your needs. 
 You can use the default settings or tailor the token to a specific use-case, 
 possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
 ![image](../../images/user-guide/tokens/0-access-token-templates.png#bordered)
