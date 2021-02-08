@@ -19,7 +19,7 @@ submodules:
 	git submodule update --init --recursive ${submodule}
 
 install-native:
-	yarn add -D vuepress
+	yarn install --no-lockfile
 
 build-native:
 	yarn docs:build
