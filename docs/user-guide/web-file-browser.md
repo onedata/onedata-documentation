@@ -1,7 +1,7 @@
 # Web file browser
 <!-- This file is referenced at least one time as "web-file-browser.md" -->
 
-[[ toc ]]
+[[toc]]
 
 When you have an access to [data space](spaces.md) that is
 [supported](spaces.md#request-support-for-space) by at least one provider, you
