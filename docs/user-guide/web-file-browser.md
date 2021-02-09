@@ -1,6 +1,8 @@
 # Web file browser
 <!-- This file is referenced at least one time as "web-file-browser.md" -->
 
+[[ toc ]]
+
 When you have an access to [data space](spaces.md) that is
 [supported](spaces.md#request-support-for-space) by at least one provider, you
 can access and manage the data using the web file browser, which is available in
@@ -132,7 +134,7 @@ create more shares for this file or directory.
 
 ### Metadata
 
-**Metadata** option allows browsing end editing [metadata](metadata.md) for
+**Metadata** option allows browsing end editing [metadata](metadata.md#web-gui) for
 files. A modal that is shown, contains an editor of three types of metadata:
 basic (key-value), JSON and RDF. The two last provide a code editor features
 like syntax checking and highlighting.
