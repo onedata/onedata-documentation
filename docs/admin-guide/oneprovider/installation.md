@@ -157,8 +157,10 @@ services:
     image: onedata/oneprovider:${RELEASE}
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
+	# The IP of VM need to be placed below under extra_hosts, for example:
+	# - "node1.oneprovider.localhost:10.20.30.5"
 	extra_hosts:
-	- "node1.oneprovider.localhost:127.0.1.1"
+	- "node1.oneprovider.localhost:place-the-VM-IP-here"
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
     # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
     network_mode: host
@@ -348,8 +350,10 @@ services:
     image: onedata/oneprovider:${RELEASE}
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
-    extra_hosts:
-       - "node1.oneprovider.localhost:127.0.1.1"
+	# The IP of VM need to be placed below under extra_hosts, for example:
+	# - "node1.oneprovider.localhost:10.20.30.5"
+	extra_hosts:
+	- "node1.oneprovider.localhost:place-the-VM-IP-here"
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
     # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
     # To use bridge network
@@ -413,7 +417,7 @@ Choose the components to be installed on the given node. For a one-node deployme
 
 ![Ceph-configuration](./installation-gui-ceph-configuration.png)
 
-Configure the Ceph components. At least one monitor, manager and OSD need to be configured. For the OSD you can choose between block device or loop device (in which case the data will go to a regular file). If choosing loopdevice make sure there is enough disk space otherwise the deployment will fail. For more details about the Ceph distributed storage system go to the [Ceph site](https://ceph.io). Click "Deploy" to continiue with the instalation.
+Configure the local Ceph components. At least one monitor, manager and OSD need to be configured. For the OSD you can choose between block device or loop device (in which case the data will go to a regular file). If choosing loopdevice make sure there is enough disk space otherwise the deployment will fail. For more information about local ceph configuation and further management go [here](configuration/ceph). For more details about the Ceph distributed storage system go to the [Ceph site](https://ceph.io). Click "Deploy" to continiue with the instalation.
 
 ![Registration](./installation-gui-registration.png)
 
