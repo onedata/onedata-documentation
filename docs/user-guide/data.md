@@ -117,28 +117,35 @@ The most end-user friendly method of data management. Please refer to the
 [Web file browser](web-file-browser.md) chapter for a visual guide.
 
 
-## File System Security
+## Data Access Control
 
-Onedata provides several file system security models that limit access to 
-files and directories. Those are: 
-[access token caveats](tokens.md#token-caveats),
-[space ownership](spaces.md#space-owner), 
-[space privileges](spaces.md#space-privileges), 
-[POSIX permissions](#posix-permissions) and 
-[CDMI access control lists (ACLs)](#access-control-lists).
+Onedata incorporates several concepts that regulate the access to data. They are 
+considered in the following order when an operation is requested:
 
-These models fit together as follows:
-1. If user [access token caveats](tokens.md#token-caveats) 
-forbids the requested access, the request is denied.
-2. If user is [space owner](spaces.md#space-owner), the request is granted.
-3. If user lacks `space_write_data` [space privilege](spaces.md#space-privileges) 
-in case of operation that modifies file or directory (content, attributes, 
-metadata, etc.) or `space_read_data` [space privilege](spaces.md#space-privileges) 
-in case of operation that reads file or directory (content, attributes, 
-metadata, etc.), the request is denied.
-4. If an [ACL](#access-control-lists) exists on the file, it is evaluated 
-and used to determine whether access should be granted.
-5. Otherwise, [POSIX permissions](#posix-permissions) are checked. 
+1. **authentication and authorization** - each operation is done in the context
+of a specific authenticated user, who must prove their authorization to perform 
+the operation - which is typically done using access tokens. A token can be 
+limited by [caveats](tokens.md#token-caveats) that restrict the authorization.
+Especially the [data access caveats](tokens.md#data-access-caveats) have a
+significant impact on data access.
+
+2. [space membership](spaces.md#space-members) is required to access the data in
+a specific space.
+
+3. [space owners](spaces.md#space-owner) have an unlimited access to a space
+and can perform any operation, regardless of their privileges or permissions
+set on specific files.
+
+4. [space privileges](spaces.md#space-privileges) regulate what actions are 
+allowed for non-owner users. In the context of data access, the 
+`space_write_data` and `space_read_data` privileges are checked when an 
+operation to modify or read space data is requested.
+
+5a. [CDMI access control lists (ACLs)](#access-control-lists) - in an ACL exists 
+on the file, it is evaluated to determine whether access should be granted.
+
+5b. [POSIX permissions](#posix-permissions) are checked otherwise. 
+
 
 ---
 > **NOTE:** when accessing files or directories in [share mode](shares.md) 
