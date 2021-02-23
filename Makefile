@@ -1,8 +1,11 @@
 .PHONY: all build dev clean
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v1
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v2
 
 all: build
+
+lint:
+	docker run --rm -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} lint
 
 build:
 	docker run --rm -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} build
@@ -27,6 +30,9 @@ build-native:
 
 dev-native:
 	yarn docs:dev
+
+lint-native:
+	yarn docs:lint
 
 preview:
 	@bash -c "sleep 1; echo 'open http://localhost:8080/intro.html'; open http://localhost:8080/intro.html" &

@@ -2,9 +2,13 @@
     "license": "MIT",
     "scripts": {
         "docs:dev": "vuepress dev docs",
-        "docs:build": "vuepress build docs"
+        "docs:build": "vuepress build docs",
+        "docs:lint": "remark docs"
     },
     "devDependencies": {
+        "remark-cli": "^9.0.0",
+        "remark-lint": "^8.0.0",
+        "remark-preset-lint-recommended": "^5.0.0",
         "vuepress": "^1.8.0"
     }
 }
