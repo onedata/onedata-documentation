@@ -19,7 +19,7 @@ submodules:
 	git submodule update --init --recursive ${submodule}
 
 install-native:
-	yarn install --no-lockfile
+	yarn install
 
 build-native:
 	yarn docs:build
@@ -33,7 +33,7 @@ preview:
 	@cd docs/.vuepress/dist && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 
 clean:
-	@rm -rf node_modules package-lock.json yarn-cache docs/.vuepress/dist yarn.lock
+	@rm -rf node_modules yarn-cache docs/.vuepress/dist
 
 codetag-tracker:
 	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,docs/.vuepress/dist
