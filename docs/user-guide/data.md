@@ -148,7 +148,7 @@ on the file, it is evaluated to determine whether access should be granted.
 
 
 ---
-> **NOTE:** when accessing files or directories in [share mode](shares.md) 
+> **NOTE:** when accessing files or directories in [share mode](shares.md)                    FIXMEFIXME
 the access is additionally limited to read-only operations even if ACLs or 
 POSIX permissions allow write access.
 ---
