@@ -1,7 +1,7 @@
 # Oneclient
 <!-- This file is referenced at least one time as "oneclient.md" -->
 
-[[toc]]
+[toc][]
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
@@ -90,7 +90,7 @@ Provide the hostname of a chosen Oneprovider - one that supports at least one
 of your spaces. The choice of Oneprovider may depend on several factors:
 1. The quality of your network connection to the Oneprovider.
 2. The fact whether the Oneprovider supports the space that is to be accessed.
-3. Whether or not you wish to use the [direct I/O](#direct-i-o-and-proxy-i-o-modes) mode.
+3. Whether or not you wish to use the [direct I/O](#direct-io-and-proxy-io-modes) mode.
 
 The hostname can be found in the [Web GUI](data.md#oneprovider-domain).
 
@@ -120,7 +120,7 @@ options:
 
 
 ### Direct I/O and Proxy I/O modes
-<!-- This header is referenced at least one time as "#direct-i-o-and-proxy-i-o-modes" -->
+
 With respect to data access, oneclient can work in 2 modes: direct I/O and
 proxy I/O. The difference between these modes is that direct I/O allows
 Oneclient to `read` and `write` data directly to the physical storage, assuming
@@ -178,7 +178,7 @@ The buffer size can be also fine-tuned using the following options:
     files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
-<!-- This header is referenced at least one time as "#overriding-storage-helper-parameters" -->
+
 
 Oneclient allows to override certain storage helper parameters in order to
 customize direct access to storage from a Oneclient host to the storage. Use
@@ -598,6 +598,7 @@ $ docker volume create --driver onedata \
 
 When connecting to a Oneprovider instance without a trusted certificate,
 `-o insecure=true` option must be added. Additionally, Onedata Docker volume
+<!-- FIXME: VFS-7297 there is no ../using_onedata/oneclient.md -->
 plugins supports all regular [Oneclient command line options](../using_onedata/oneclient.md),
 which must be added with `-o` followed by option name, equal sign and value
 (e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):

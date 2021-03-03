@@ -31,7 +31,7 @@ as presented in the below picture.
 ![Supporting the space with an *imported storage*](../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png)
 
 ## Manual storage import
-<!-- This header is referenced at least one time as "#manual-storage-import" -->
+
 
 In case of *manual* mode, the files must be [registered manually](../../../user-guide/file-registration.md) by the space users. 
 Registration of directories is not supported.
@@ -40,7 +40,7 @@ This option is preferred when only a part of the dataset is to be imported, but 
 not support [automatic import scans](#auto-storage-import).
 
 ### Storage configuration for manual import:
-<!-- This header is referenced at least one time as "#storage-configuration-for-manual-import" -->
+
 
 *Manual storage import* is supported on the following storage backends:
  * `POSIX`
@@ -58,13 +58,13 @@ Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter
 
 
 ## Auto storage import
-<!-- This header is referenced at least one time as "#auto-storage-import" -->
+
 
 In case of *auto* mode, the storage is automatically scanned and data is imported from storage into the
 assigned space.
 
 ### Storage configuration for auto import:
-<!-- This header is referenced at least one time as "#storage-configuration-for-auto-import" -->
+
 
 *Auto storage import* is supported on the following storage backends:
  * `POSIX`

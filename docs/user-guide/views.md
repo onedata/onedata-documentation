@@ -1,7 +1,7 @@
 # Views
 <!-- This file is referenced at least one time as "views.md" -->
 
-[[toc]]
+[toc][]
 
 Onedata supports creation of custom database views for indexing file metadata. They can be used for:
  * efficient querying for files
@@ -227,7 +227,7 @@ custom_metadata = {
 
 
 ### File popularity model
-<!-- This header is referenced at least one time as "#file-popularity-model" -->
+
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "file_popularity"`.
 
 Model used for tracking [*file popularity*](../admin-guide/oneprovider/configuration/file-popularity.md).
@@ -264,7 +264,7 @@ file_popularity = {
 ```
 
 ## REST API
-<!-- This header is referenced at least one time as "#rest-api" -->
+
 
 All operations on views can be performed using the REST API.
 Please refer to the linked API documentation for detailed information and examples.

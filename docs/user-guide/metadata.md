@@ -1,6 +1,6 @@
 # Metadata
 
-[[toc]]
+[toc][]
 
 ## Quickstart
 
