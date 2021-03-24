@@ -141,7 +141,7 @@ allowed for non-owner users. In the context of data access, the
 `space_write_data` and `space_read_data` privileges are checked when an 
 operation to modify or read space data is requested.
 
-5a. [CDMI access control lists (ACLs)](#access-control-lists) - in an ACL exists 
+5a. [CDMI access control lists (ACLs)](#access-control-lists) - if an ACL exists 
 on the file, it is evaluated to determine whether access should be granted.
 
 5b. [POSIX permissions](#posix-permissions) are checked otherwise. 
