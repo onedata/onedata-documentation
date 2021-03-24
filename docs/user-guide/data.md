@@ -117,70 +117,77 @@ The most end-user friendly method of data management. Please refer to the
 [Web file browser](web-file-browser.md) chapter for a visual guide.
 
 
-## File System Security
+## Data Access Control
 
-Onedata provides several file system security models that limit access to 
-files and directories. Those are: 
-[access token caveats](tokens.md#token-caveats),
-[space ownership](spaces.md#space-owner), 
-[space privileges](spaces.md#space-privileges), 
-[POSIX permissions](#posix-permissions) and 
-[CDMI access control lists (ACLs)](#access-control-lists).
+Onedata incorporates several concepts that regulate the access to data. They are 
+considered in the following order when an operation is requested:
 
-These models fit together as follows:
-1. If user [access token caveats](tokens.md#token-caveats) 
-forbids the requested access, the request is denied.
-2. If user is [space owner](spaces.md#space-owner), the request is granted.
-3. If user lacks `space_write_data` [space privilege](spaces.md#space-privileges) 
-in case of operation that modifies file or directory (content, attributes, 
-metadata, etc.) or `space_read_data` [space privilege](spaces.md#space-privileges) 
-in case of operation that reads file or directory (content, attributes, 
-metadata, etc.), the request is denied.
-4. If an [ACL](#access-control-lists) exists on the file, it is evaluated 
-and used to determine whether access should be granted.
-5. Otherwise, [POSIX permissions](#posix-permissions) are checked. 
+1. **Authentication and authorization** - each operation is done in the context
+of a specific authenticated user, who must prove their authorization to perform 
+the operation - which is typically done using access tokens. A token can be 
+limited by [caveats](tokens.md#token-caveats) that restrict the authorization.
+Especially the [data access caveats](tokens.md#data-access-caveats) have a
+significant impact on data access.
 
----
-> **NOTE:** when accessing files or directories in [share mode](shares.md) 
-the access is additionally limited to read-only operations even if ACLs or 
-POSIX permissions allow write access.
----
+2. [Space membership](spaces.md#space-members) is required to access the data in
+a specific space.
+
+3. [Space owners](spaces.md#space-owner) have an unlimited access to a space
+and can perform any operation, regardless of their privileges or permissions
+set on specific files.
+
+4. [Space privileges](spaces.md#space-privileges) regulate what actions are 
+allowed for non-owner users. In the context of data access, the 
+`space_write_data` and `space_read_data` privileges are checked when an 
+operation to modify or read space data is requested.
+
+5a. [CDMI access control lists (ACLs)](#access-control-lists) - in an ACL exists 
+on the file, it is evaluated to determine whether access should be granted.
+
+5b. [POSIX permissions](#posix-permissions) are checked otherwise. 
+
+
+> **NOTE:** in case of files or directories in [share mode](shares.md), the 
+access is additionally limited to read-only operations, even if ACLs or POSIX 
+permissions allow write access.
+
 
 ### Access Control Lists
 <!-- This header is referenced at least one time as "#access-control-lists" -->
 
-**Access control lists (ACL)** provide mechanism for granting and denying access 
-to files and directories. Onedata supports subset of CDMI ACL which are based 
+**Access control lists (ACL)** are a mechanism for regulating access to files 
+and directories using hierarchical rules that grant and deny granular operations
+for a specific principal. Onedata supports subset of CDMI ACL which are based 
 on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
 
 #### Introduction
 
 An ACL is an ordered list of **ACEs (access control entries)**. Oneprovider 
-evaluates ACEs in order defined by the client. If any of the ACEs denies access, 
-evaluation is stopped.
+evaluates ACEs strictly in the same order as they were added, top-down. If any
+of the ACEs denies or grants access to the considered principal, evaluation is 
+stopped.
 
 The ACEs consist of four fields: 
-- type - `ALLOW` or `DENY` access of some kind to principal. 
-- who - principal (user or group) represented by the identifier. Additionally, 
-Onedata provides support for following special principals:
-    - `OWNER@` - the owner of the file,
-    - `GROUP@` - members of space containing file,
-    - `EVERYONE@` - literally everyone.
-- flags - currently only flag telling whether principal identifier points 
-to user or group is supported. More flags can be set or 
-[imported](../admin-guide/oneprovider/configuration/storage-import.md)
-but they will be ignored during ACE evaluation.
-- access_mask - permissions.
+- `type` - `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
+- `who` - the principal whom the ACE affects: 
+    - user or group represented by their identifier
+    - `OWNER@` - the owner of the file
+    - `GROUP@` - members of space containing the file
+    - `ANONYMOUS@` - guest client (accessing through a share)
+    - `EVERYONE@` - everyone, including the anonymous users
+- `flags` - currently only the flag indicating whether principal identifier points 
+to user or group is supported, other flags can be set or 
+[imported](../admin-guide/oneprovider/configuration/storage-import.md),
+but they will be ignored during ACE evaluation
+- `access_mask` - the permissions regulated by this ACE
 
-Permissions can be changed using the [Web file browser](web-file-browser.md) in
-the **ACL** context menu, or using the [CDMI API](cdmi.md).
+Permissions can be changed using the [Web file browser](web-file-browser.md#acl) in
+the **ACL** context menu, or using the [CDMI API](cdmi.md#set-file-acl).
 
 #### Permissions
-ACL provides more fine-grained control of access to resources than 
-POSIX permissions. 
+ACL provides more fine-grained control of access to resources than POSIX permissions. 
 
-All available permissions and their meaning for files or directories 
-are presented below.
+All available permissions and their meaning for files or directories are presented below.
 
 |   Permissions      |          File             |          Directory            |
 |--------------------|---------------------------|-------------------------------|
@@ -206,11 +213,11 @@ the following algorithm:
 1. The ACE is checked for applicability. ACEs that do not refer to 
 the principal requesting the operation or any requested permission 
 are ignored.
-2. If the ACE denies any of the requested permissions, 
-then the request is denied.
+2. If the ACE denies any of the requested permissions, then access is denied 
+and the algorithm terminates.
 3. If the ACE allows any of the requested permissions, then they are added 
 to the list of granted permissions. If the list include all the requested 
-permissions, the request is allowed and the process stops.
+permissions, the access is granted and the algorithm terminates.
 4. If the end of the ACL list is reached and permission has neither been 
 fully granted nor explicitly denied, access is denied and the algorithm 
 terminates.
