@@ -23,3 +23,6 @@ package:
 
 clean:
 	@rm -rf node_modules _book package-lock.json
+
+codetag-tracker:
+	@echo "Skipping codetag-tracker for release version 20.02.*"
