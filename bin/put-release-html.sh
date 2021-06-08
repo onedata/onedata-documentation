@@ -1,3 +1,3 @@
 #!/bin/sh
-RELEASE=20.02.9
+RELEASE=20.02.10
 find _book -name '*.html' -exec sed -i "s/__ONEDATA_RELEASE__/${RELEASE}/g" {} \;
