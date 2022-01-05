@@ -461,7 +461,46 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 
 
-### Onedatify
+### Deploing oneprovider with Onedatify convenience script
+
+Onedatify is an easy to use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
+
+
+##### Generating oneline Onedatify command in Onezone
+
+Go to Onezone interface and click on the space. Click `Add storage` in the providers pane.
+
+Select the tab `Deploy your own Oneprovider`:
+
+![something](./onedatify_deploy_provider_command.png)
+
+and copy the generated command.
+
+##### Run the command on the target host
+
+Paste the copied command in the terminal on the Oneprovider machine (as superuser).
+
+Check the prerequsite list and confirm to proceed to the next step:
+
+![some](./onedatify_step_1.png)
+
+If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
+
+After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
+
+![step 2](./onedatify_step_2.png)
+
+The progress can be monitored on a separate terminal using the following command:
+
+```
+journalctl -u onedatify.service -f
+```
+
+After the deployment is complete, the following message will be shown, with connection details for administration panel for the Oneprovider instance:
+
+![step 5](./onedatify_step_5.png)
+
+
 
 ### Ansible/TF
 
