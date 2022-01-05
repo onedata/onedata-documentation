@@ -1,9 +1,13 @@
 # Installation
 <!-- as needed: link to configuration, compatibility-reference [versions]) -->
+
 This chapter describes the available **Oneprovider** installation methods. 
 Note
 that an existing **Onezone** instance should be available before deploying
-**Oneprovider**. 
+**Oneprovider**. Oneprovider communicates with external services or clients
+using ports 80, 443, 6665 and 9443. All of these ports need to be publicly
+open except 9443 which is used for direct emergency access to the Oneprovider.
+
 
 **Oneprovider** service can be deployed on multiple nodes for
 high-availability purpose. If not mentioned otherwise it is assumed that 
@@ -462,6 +466,64 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 
 ### Onedatify
+
+<!-- # Deploy Oneprovider and attach empty storage with Onedatify -->
+
+<!-- toc -->
+
+Onedatify is an easy to use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
+
+#### Prerequisites
+
+In addition to the general prerequisites this method requires also an access to existing user account in the Onezone instance, with which Oneprovider should register.
+
+#### Deploy Oneprovider and attach empty storage
+
+Follow carefully the following steps.
+
+##### Create a new space in Onezone
+
+The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically supported by the new Oneprovider instance.
+
+Go the main Onezone interface and select `DATA -> +` :
+
+<p align="center"> <img src="./onedatify_create_space.png"> </p>
+
+Note: Skip this step if existing space should be supported.
+
+##### Generate oneline Onedatify command in Onezone
+
+Go to Onezone interface, and select `Add storage...` option under the space name.
+
+Select the tab `DEPLOY YOUR OWN PROVIDER`:
+
+<p align="center"> <img src="./onedatify_deploy_provider_command.png"> </p>
+
+and copy the generated command.
+
+##### Run the command on the target host
+
+Paste the copied command in the terminal on the Oneprovider machine (as superuser or as a user with sudo privileges).
+
+Check the prerequsite list and confirm to proceed to the next step:
+
+<p align="center"> <img src="./onedatify_step_1.png"> </p>
+
+If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
+
+After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
+
+<p align="center"> <img src="./onedatify_step_2.png"> </p>
+
+The progress can be monitored on a separate terminal using the following command:
+
+```
+journalctl -u onedatify.service -f
+```
+
+After the deployment is complete, the following message will be shown, with connection details for administration panel for the Oneprovider instance:
+
+<p align="center"> <img src="./onedatify_step_5.png"> </p>
 
 ### Ansible/TF
 
