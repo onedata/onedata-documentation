@@ -465,24 +465,43 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 
 
-### Deploing oneprovider with Onedatify convenience script
+### Deploing Oneprovider with Onedatify convenience script
 
 Onedatify is an easy to use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
 
+#### Prerequisites
+
+In addition to the general prerequisites this method requires also an access to existing user account in the Onezone instance, with which Oneprovider should register.
+
+#### Deploing Oneprovider 
+
+Follow carefully the following steps.
+
+##### Creating a new space in Onezone
+
+The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically supported by the new Oneprovider instance.
+
+Go the main Onezone interface and select **DATA -> +** :
+
+![somethong](./onedatify_create_space.png)
+
+Note: Skip this step if existing space should be supported.
 
 ##### Generating oneline Onedatify command in Onezone
 
-Go to Onezone interface and click on the space. Click `Add storage` in the providers pane.
+Go to Onezone interface and click on the space. Click **Add support** in the providers pane.
 
-Select the tab `Deploy your own Oneprovider`:
+Select the tab *Deploy your own Oneprovider*:
 
 ![something](./onedatify_deploy_provider_command.png)
 
 and copy the generated command.
 
+Note: If you would like to expose a dircetory containing an existing data set then select the tab *Expose existing data set* and copy the generated command. 
+
 ##### Run the command on the target host
 
-Paste the copied command in the terminal on the Oneprovider machine (as superuser).
+Paste the copied command in the terminal on the Oneprovider machine (as superuser or as a user with sudo privileges).
 
 Check the prerequsite list and confirm to proceed to the next step:
 
@@ -510,59 +529,7 @@ After the deployment is complete, the following message will be shown, with conn
 
 <!-- toc -->
 
-Onedatify is an easy to use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
 
-#### Prerequisites
-
-In addition to the general prerequisites this method requires also an access to existing user account in the Onezone instance, with which Oneprovider should register.
-
-#### Deploy Oneprovider and attach empty storage
-
-Follow carefully the following steps.
-
-##### Create a new space in Onezone
-
-The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically supported by the new Oneprovider instance.
-
-Go the main Onezone interface and select `DATA -> +` :
-
-<p align="center"> <img src="./onedatify_create_space.png"> </p>
-
-Note: Skip this step if existing space should be supported.
-
-##### Generate oneline Onedatify command in Onezone
-
-Go to Onezone interface, and select `Add storage...` option under the space name.
-
-Select the tab `DEPLOY YOUR OWN PROVIDER`:
-
-<p align="center"> <img src="./onedatify_deploy_provider_command.png"> </p>
-
-and copy the generated command.
-
-##### Run the command on the target host
-
-Paste the copied command in the terminal on the Oneprovider machine (as superuser or as a user with sudo privileges).
-
-Check the prerequsite list and confirm to proceed to the next step:
-
-<p align="center"> <img src="./onedatify_step_1.png"> </p>
-
-If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
-
-After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
-
-<p align="center"> <img src="./onedatify_step_2.png"> </p>
-
-The progress can be monitored on a separate terminal using the following command:
-
-```
-journalctl -u onedatify.service -f
-```
-
-After the deployment is complete, the following message will be shown, with connection details for administration panel for the Oneprovider instance:
-
-<p align="center"> <img src="./onedatify_step_5.png"> </p>
 
 ### Ansible/TF
 
