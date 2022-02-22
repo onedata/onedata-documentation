@@ -3,82 +3,106 @@
 ## Startup & shutdown 
 <!-- TODO VFS-7218 restart too -->
 
-## Backup
+## Backing up
 
-All essential data for running the oneprovider service are placed in a
-single directory (for example /opt/onedata/oneprovider) during
-instalation. The directory contains configuration data for running the
-docker container as well as a persistence directory which contains the
-couchbase data and other essential folders which needs to be kept in
-case of re-creating or migrating the container.
+If the standard installation procedure was followed, all data essential for 
+the Oneprovider service is placed in a single, self-contained directory 
+(`/opt/onedata/oneprovider`). This directory is sufficient to restore the 
+service or migrate it to another host. It contains the configuration for 
+running the docker container as well as the persistence directory which 
+contains database files and service configuration. **Backing up the service
+boils down to creating snapshots of the installation directory.**
 
-The backup procedure is the following:
+>**NOTE:** Apart from the Oneprovider service persistence that stores file
+> metadata, administrators should back up the underlying storage systems 
+> that store the physical data exposed via logical Onedata spaces. This guide
+> does not cover storage data backups, please use backup procedures recommended
+> for specific storage backend types.
 
-1. Stop the service. The service needs to be stopped as live backups are 
-not currently supported.
-```
+Below are examples how [offline](#offline-backups) and [live](#live-backups) 
+backups can be performed. 
+
+### Offline backups
+
+Offline backups guarantee the complete integrity of the snapshot, but require 
+a certain downtime of the service. If downtimes are acceptable, one can 
+configure a periodic procedure that is run during low usage periods, e.g. at night.
+
+1. Stop the service.
+```bash
 sudo systemctl stop oneprovider
 ```
-2. Backup the install directory in a tar file.
-```
+2. Backup the installation directory to a tar file.
+```bash
 tar zcPf /opt/onedata/oneprovider /mybackups/oneprovider.tgz
 ```
 3. Start the service.
-```
+```bash
 sudo systemctl start oneprovider
 ```
-4. Copy the tar file to a safe place, e.g.:
-```
+4. Copy the snapshot to a safe place, preferably multiple locations that use 
+different underlying storage infrastructures to achieve backup redundancy.
+```bash
 scp /mybackups/oneprovider.tgz some.remote.server:/backups/oneprovider.tgz
 ```
 
-Note: In the case when the oneprovider service is deployed on multiple
-nodes repeat the procedure on each node.  Note: If stopping of the
-service is not desirable the script `odbackup.sh` can be used (see
-next subsection).
+>**NOTE:** Tools such as rsync can be used to speed up the backups and limit
+> the downtimes, by doing fast incremental copies, e.g.:
+```bash
+sudo systemctl stop oneprovider
+rsync -a /opt/onedata/oneprovider /mybackups/oneprovider-incremental-backup
+sudo systemctl start oneprovider
+# compress and store the /mybackups/oneprovider-incremental-backup directory
+# while the service is already back online
+```
 
-### Live backups with odbackup.sh
+>**NOTE:** In multinode deployments, the procedure must be done on each host
+> and synchronized, i.e. all nodes should be stopped, then backed up and started
+> together.
+
+
+### Live backups
 
 The script
 [odbackup.sh](https://github.com/onedata/onedata-deployments/blob/master/bin/odbackup.sh)
-can be used to automate the backup process. The script is particularly
-useful for multinode onedata deployments. The script is included in
-the repo
-[onedata-deployments](https://github.com/onedata/onedata-deployments).
-See its `README.md` for usage details. Note that the script does not
-stop the onedata services to allow live backups with eventual
-consistency. The script writes the backups to an S3 bucket using
-`s3cmd`, which needs to be configured before running the script.
+from [onedata-deployments](https://github.com/onedata/onedata-deployments) repository
+can be used to automate the backup process. It is particularly useful for multinode 
+onedata deployments - see the `README.md` for usage details. In this procedure, the
+service nodes are not stopped, but the snapshot is performed as much in parallel as
+possible. Despite using LVM's atomic snapshots, this approach does not guarantee
+complete integrity of the backups, as in rare cases the backup may happen when 
+application's state is not fully flushed from memory to the disk. Nevertheless, the 
+possible data loss caused by live backups is marginal as service restoration / disaster 
+recovery typically uses a backup from several hours or days before an incident. 
+There is an ongoing effort to support live backups with guaranteed data consistency.
 
-Note: There is an ongoing effort for supporting live backups with guaranteed data consistency. 
 
-## Restore and disaster recovery
+## Restoring
 
-### Virtual Machines preparing 
+### Preparation of Virtual Machines 
 
-In case of disaster recovery the newly created VMs should be setup before restoring
-from backup. The ansible playbook found in the repo 
-[onedata-deployments](https://github.com/onedata/onedata-deployments) can be used to 
-speed up the process. Alternatively, you can manually issue the commands included in
-the section [Installation](instalation.md). 
+Some disaster recovery scenarios require creation of new VMs to restore the service.
+The [ansible playbook](https://github.com/onedata/onedata-deployments/tree/master/ansible)
+from [onedata-deployments](https://github.com/onedata/onedata-deployments) repository
+can be used to speed up the process. Alternatively, one can manually run the commands 
+included in the [Installation](installation.md) section. 
 
-Ideally, the new VMs should have the same IP addresses and hostname as
-the destructed ones. If that is not possible additional steps will be
-needed after the restoring to bring up the database (CouchBase). 
+Ideally, the new VMs should have the same IP addresses and hostnames as the original 
+ones. If that is not possible, additional steps will be needed after the restoring 
+to bring up the Couchbase database that depends on the IP addresses in its cluster
+configuration. In this case, refer to the official documentation on how to set up
+a Couchbase cluster.
 
-See the [README.md](https://github.com/onedata/onedata-deployments/tree/master/ansible) 
-for details about configuring and running the ansible playbook. 
 
 ### Restoring from backup
 
-After the setup is done the backup need to be restored. The restore procedure is the 
-following:
+Run the following procedure on the VM designated to host the restored service:
 
 1. Copy the tar file of the last backup.
 ```
 scp some.remote.server:/backups/oneprovider.tgz /mybackups/oneprovider.tgz
 ```
-2. Restore the install directory from the tar file.
+2. Restore the installation directory from the tar file.
 ```
 tar zxPf /mybackups/oneprovider.tgz
 ```
@@ -87,10 +111,12 @@ tar zxPf /mybackups/oneprovider.tgz
 sudo systemctl start oneprovider
 ```
 
-### 
-Note: If the service is started on another VM remember to assign to it
-the relevant public IP.
-Note: For multiple node deployments the above procedure should be done on each node.
+>**NOTE:** If the service is started on another VM, it must be assigned the 
+> relevant public IP.
+
+>**NOTE:** In multinode deployments, the procedure must be done on each host
+> and the nodes should be started together.
+
 
 ## Upgrading
 
