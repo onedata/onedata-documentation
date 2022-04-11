@@ -2,6 +2,6 @@
 <!-- This file is referenced at least one time as "web-file-browser.md" -->
 
 ## ACL
-<!-- This file is referenced at least one time as "web-file-browser.md#acl" -->
+<!-- This header is referenced at least one time as "web-file-browser.md#acl" -->
 
 <!-- screenshots -->

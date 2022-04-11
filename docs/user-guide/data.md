@@ -41,9 +41,9 @@ otherwise make sure to urlencode the path if its the part of an URL:
 {...}/CMS%201/file.txt
 ```        
 
->**NOTE:** Duplicate space names are generally allowed. For that reason, 
-referencing files by path may be ambiguous. During file path resolution, the 
-first space whose name matches the first segment of the path is always taken, 
+>**NOTE:** Duplicate space names are generally allowed. For that reason,
+referencing files by path may be ambiguous. During file path resolution, the
+first space whose name matches the first segment of the path is always taken,
 but the order in which spaces are checked cannot be guaranteed.
 
 
@@ -119,35 +119,68 @@ The most end-user friendly method of data management. Please refer to the
 
 ## Data Access Control
 
-Onedata incorporates several concepts that regulate the access to data. They are 
-considered in the following order when an operation is requested:
+Access to the Onedata filesystem is regulated by applying **authentication and
+authorization** checks for every operation.
 
-1. **Authentication and authorization** - each operation is done in the context
-of a specific authenticated user, who must prove their authorization to perform 
-the operation - which is typically done using access tokens. A token can be 
-limited by [caveats](tokens.md#token-caveats) that restrict the authorization.
-Especially the [data access caveats](tokens.md#data-access-caveats) have a
-significant impact on data access.
+### Authentication 
 
-2. [Space membership](spaces.md#space-members) is required to access the data in
-a specific space.
+Each operation is done in the context of a specific authenticated user. If the
+requesting client provides no authentication, they are treated as **guest**, who 
+is entitled only to publicly accessible data. Authentication is carried by
+[access tokens](tokens.md#access-tokens) - bearer tokens issued in the name of
+a specific subject (e.g. user). Access tokens are used uniformly in the system, 
+in [REST API](rest-api.md), [Oneclient](oneclient.md) or [Web GUI](#web-gui)
+(the Web application obtains an access token after a user logs in and refreshes
+it as needed).
 
-3. [Space owners](spaces.md#space-owner) have an unlimited access to a space
-and can perform any operation, regardless of their privileges or permissions
-set on specific files.
+### Authorization
 
-4. [Space privileges](spaces.md#space-privileges) regulate what actions are 
-allowed for non-owner users. In the context of data access, the 
-`space_write_data` and `space_read_data` privileges are checked when an 
-operation to modify or read space data is requested.
+The decision whether an authenticated client is allowed to perform the requested
+operation depends on a series of security checks on different levels. The
+procedure can be divided into steps as follows (the steps are processed in 
+sequence unless the procedure finishes upon **access denied** or **granted**):
 
-5a. [CDMI access control lists (ACLs)](#access-control-lists) - if an ACL exists 
-on the file, it is evaluated to determine whether access should be granted.
+1. The provided access token is analysed concerning
+   [caveats](tokens.md#token-caveats) that can restrict the authorization.
+   Especially the [data access caveats](tokens.md#data-access-caveats) have a
+   significant impact on data access. If the requested operation or resource is
+   forbidden in regard to any caveat, **access is denied**.
 
-5b. [POSIX permissions](#posix-permissions) are checked otherwise. 
+2. If the user is not a [space member](spaces.md#space-members), **access is
+   denied**.
+
+3. [Dataset protection flags](datasets.md) are checked - if the requested
+   operation is forbidden, **access is denied**. For example, a file content
+   modification request will be denied if the file is write-protected.
+
+4. If the user is a [space owner](spaces.md#space-owner), **access is
+   granted** (space owners omit space privilege and permission checks).
+
+5. If the user does not have the [space privileges](spaces.md#space-privileges)
+   required for requested operation, **access is denied**. For example, no
+   `space_write_data` privilege in case of file modification request, or no
+   `space_read_data` privilege in case of directory listing request.
+
+6. If a [CDMI Access Control List](#access-control-lists) (ACL) exists on the
+   file, it is evaluated to determine whether access should be **denied** or
+   **granted**.
+
+7. Otherwise, [POSIX permissions](#posix-permissions) are checked to determine
+   whether access should be **denied** or **granted**.
 
 
-> **NOTE:** in case of files or directories in [share mode](shares.md), the 
+In case of an unauthenticated (**guest**) access, the steps are as follows:
+
+1. The requested resource identifier is analysed if it points to a file or
+   directory that is [publicly shared](shares.md) - if not, **access is
+   denied**.
+
+2. Steps 6 or 7 from the previous procedure are applied (it is possible to
+   limit access to shared data using the [`ANONYMOUS@`](#access-control-entry) ACL
+   principal or the POSIX permissions for [`others`](#posix-permissions)).
+
+
+> **NOTE:** in case of [publicly shared](shares.md) files or directories, the 
 access is additionally limited to read-only operations, even if ACLs or POSIX 
 permissions allow write access.
 
@@ -155,19 +188,19 @@ permissions allow write access.
 ### Access Control Lists
 <!-- This header is referenced at least one time as "#access-control-lists" -->
 
-**Access control lists (ACL)** are a mechanism for regulating access to files 
+**Access Control Lists (ACL)** are a mechanism for regulating access to files 
 and directories using hierarchical rules that grant and deny granular operations
 for a specific principal. Onedata supports subset of CDMI ACL which are based 
 on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
 
-#### Introduction
-
-An ACL is an ordered list of **ACEs (access control entries)**. Oneprovider 
+An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider 
 evaluates ACEs strictly in the same order as they were added, top-down. If any
 of the ACEs denies or grants access to the considered principal, evaluation is 
 stopped.
 
-The ACEs consist of four fields: 
+#### Access Control Entry
+
+An ACE consist of four fields: 
 - `type` - `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 - `who` - the principal whom the ACE affects: 
     - user or group represented by their identifier
@@ -226,16 +259,16 @@ terminates.
 <!-- This header is referenced at least one time as "#posix-permissions" -->
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
-systems for specifying access rights to files or directories. However, there
-is one important nuance - all space members are treated as a virtual group which
-is the **group** owner of all files in the space. This means that whenever a 
-file is accessed by a space member who is not the owner of the file, the 
-**group** permissions are taken into consideration. Permissions for **others** 
-are considered when a public [share](shares.md) is accessed (as an anonymous 
-guest). These differences stem from the fact that unlike on POSIX systems, there
-is an additional layer of access control imposed by membership in 
-[spaces](spaces.md) (which are completely separated logical data containers), 
-and the concepts of POSIX **group** and Onedata [group](groups.md) are different. 
+systems for specifying access rights to files or directories. However, there is
+one important nuance - all space members are treated as a virtual group which is
+the **group** owner of all files in the space. This means that whenever a file
+is accessed by a space member who is not the owner of the file, the **group**
+permissions are taken into consideration. Permissions for **others** are
+considered when a public [share](shares.md) is accessed (as a **guest**). These
+differences stem from the fact that unlike on POSIX systems, there is an
+additional layer of access control imposed by membership in [spaces](spaces.md)
+(which are completely separated logical data containers), and the concepts of
+POSIX **group** and Onedata [group](groups.md) are different.
 
 Examine the following example of file POSIX permissions:
 
@@ -250,7 +283,7 @@ Examine the following example of file POSIX permissions:
 In the above case, the creator of the file (its **owner** user) has full access 
 to the file. All space members have read access to the file. Users (guests) who 
 try to access the file through a public share will fail to do so as all 
-permissions are declined for **others**.
+permissions are denied for **others**.
 
 Default permissions (for newly created files/directories) are as follows:
 * files: `r-x r-x r--` (octal: `664`)
