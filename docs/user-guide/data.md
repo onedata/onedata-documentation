@@ -150,8 +150,9 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
    denied**.
 
 3. [Dataset protection flags](datasets.md) are checked - if the requested
-   operation is forbidden, **access is denied**. For example, a file content
-   modification request will be denied if the file is write-protected.
+   operation is forbidden by current protection flags, **access is denied**. For
+   example, a file content modification request will be denied if the file is
+   located in a dataset that has data protection enabled.
 
 4. If the user is a [space owner](spaces.md#space-owner), **access is
    granted** (space owners omit space privilege and permission checks).
