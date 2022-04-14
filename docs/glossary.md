@@ -3,6 +3,10 @@
 
 <!-- TODO: VFS-7218 fill missing entries -->
 
+## ACL
+Mechanism for granting and denying access to files and directories. 
+Learn more [here](user-guide/data.md#access-control-lists).
+
 ## Auto-cleaning
 Mechanism that automatically maintains storage usage at a certain 
 level and ensures that there is enough space for new replicas when performing continuous computations.
