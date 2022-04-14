@@ -19,12 +19,12 @@ There are three types of tokens in Onedata: [access tokens](#access-tokens),
 Regardless of the above-mentioned type, each token can be 
 [named or temporary](#named-and-temporary-tokens).
 
-Tokens are passed around the system in a serialized form - an alphanumeric 
+Tokens are passed around the system in a serialized form – an alphanumeric 
 string that looks like the following:
 `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgRHR00WTg5dH...`
 
 The implementation of tokens in Onedata is based on [Google's macaroons] and utilizes 
-their fundamental concept of [caveats](#token-caveats) - contextual confinements.
+their fundamental concept of [caveats](#token-caveats) – contextual confinements.
 
 All tokens are created in Onezone and can only be verified by Onezone.
 
@@ -38,7 +38,7 @@ published](#safely-publishing-tokens), but it must be done with great care.
 
 ## Access tokens
 
-Access tokens are the basic way to authorize operations in Onedata - either in 
+Access tokens are the basic way to authorize operations in Onedata – either in 
 REST/CDMI API or when mounting Oneclient. Access tokens are a type of bearer 
 authentication, which means that the party in possession of a token can use it 
 to perform operations on behalf of the token subject (creator). The subject can 
@@ -61,7 +61,7 @@ Access tokens carry authorization to perform operations in the system on behalf
 of the subject. The authorization can be limited by [caveats](#token-caveats). 
 
 > **NOTE**: If there are no caveats, the token carries **absolute power to 
-perform any operation** on behalf of the subject - similar to user's password. 
+perform any operation** on behalf of the subject – similar to user's password. 
 Users are strongly recommended **NOT** to create such tokens, as there is always 
 a risk of a token being intercepted by a malicious party.
    
@@ -80,7 +80,7 @@ token's caveats. For example, for Bob to be able to create a file in space
    (or to be accurate, token caveats must not forbid writing in the space)
 
 Access tokens are a powerful tool for authority delegation, but at the same time
-require caution - they must be kept secret, similarly to user passwords. However,
+require caution – they must be kept secret, similarly to user passwords. However,
 thanks to support for [caveats](#token-caveats) (contextual confinements), 
 tokens can be limited with fine granularity, making it safer to delegate them to 
 other users or services. Nevertheless, you should never disclose your tokens to 
@@ -114,7 +114,7 @@ entity (e.g. group or space).
 Each token has inscribed information about the target entity of the invitation
 which is chosen by the inviting user. It means that the token consumer does not 
 choose where they are joining and does not need to know the target group, space
-etc. beforehand - the token itself is enough to join it.
+etc. beforehand – the token itself is enough to join it.
 
 The [Onezone Web GUI](#gui-guide) provides a comprehensive wizard for creating 
 invite tokens with different parameters. Below is some technical information about 

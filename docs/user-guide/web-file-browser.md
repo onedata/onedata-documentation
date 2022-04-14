@@ -3,87 +3,88 @@
 
 [[toc]]
 
-When you have an access to [data space](spaces.md) that is
-[supported](spaces.md#request-support-for-space) by at least one provider, you
-can access and manage the data using the web file browser, which is available in
-**DATA > _Space_ > Data** tab.
+The Web file browser is a graphical interface offering a broad spectrum of file
+management features, including basic file operations (e.g. filesystem
+navigation, file upload or download) and advanced capabilities, specific for
+Onedata (e.g. Quality of Service, data distribution management, dataset
+management).
 
-![Location of file browser in data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#bordered)
+The file browser is always presented in the context a single [space](spaces.md).
+It becomes available when the space is
+[supported](spaces.md#request-support-for-space) by at least one provider and
+can be invoked by navigating to the **DATA > _Space name_ > Files** tab, or
+clicking the **FILES** tile in the space **Overview**.
 
+![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#bordered)
+<!-- FIXME add visual indication where is the FILES tile -->
+<!-- FIXME refresh screenshots that say "Data" instead of "Files" -->
 
 ## Uploading data
 
-The empty space that does not contain any data will welcome you with the
-following screen:
+A new, empty space welcomes users with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#bordered)
 
-To put a life into this empty place, you can add some files using upload button
-or drag&drop them from your computer. While data is sent, a progress panel will
-appear in the bottom-right corner of the screen. You can upload multiple files
-at once, as well as add more files at any moment.
+New files can be uploaded using the **upload** button or y dragging and dropping
+them in the file browser area. While the data is being uploaded, a progress
+panel appears in the bottom-right corner of the screen. It is possible to upload
+multiple files at once or add more files during an ongoing upload.
 
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#bordered)
 
-To manage uploads easily, an **UPLOADS** tab will appear in the main menu
-sidebar, providing advanced view of all uploads that have been started by
-current user in current browser tab. The information can be grouped by the
-provider to which files are sent.
+After any upload is started, the **UPLOADS** tab will appear in the main menu
+sidebar, providing detailed view of all uploads that have been done in the
+current browser tab. The information can be viewed in a summarized form or per
+the target provider.
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#bordered)
 
 
 ## File browser layout
 
-The file browser consists of two main parts:
+<!-- FIXME add guide to the oneprovider switcher (and map) -->
 
-1. a header that contains breadcrumbs showing current directory path and basic
-actions toolbar,
-2. a file list.
+The top section of the file browser accommodates a breadcrumb navigator and a
+toolbox.
 
+The breadcrumb navigator presents the path to the current working directory and
+allows navigation to its parent directories. The current working directory is
+the last element in the breadcrumbs and has a context menu with all available
+actions for the directory (identical to the context menus on the file list,
+described below).
 
-### File browser header
-
-The breadcrumbs bar contains a path to currently viewed directory and allows to
-navigate to one of its parent directory. The currently opened directory entry,
-shown on the breadcrumbs end, provides a context menu with full list of current
-directory actions.
-
-On the right of directory breadcrumbs, there are shortcut action buttons that
-allow to upload files, create a new directory and refresh files list.
+The toolbox, located in the top right corner, contains shortcuts for common
+directory actions (*upload files*, *create a new directory* and *refresh file list*).
 
 ![Directory breadcrumbs](../../images/user-guide/web-file-browser/layout-breadcrumbs.png#bordered)
 
+The remainder part of the file browser presents the content of the current working
+directory in a form of a list with details.
 
-### File list
-
-The file list shows content of currently opened directory. Each file row has its
-name, size and modification time displayed.
-
-::: tip
-Navigation slightly differs on mobile devices and on desktop browsers.
-In this section a desktop mode is described. See [mobile file
-browser](#mobile-file-browser) for guide.
+::: tip NOTE
+File list navigation is slightly different on mobile devices than on desktop
+browsers. This section addresses the latter, while [mobile file
+browser](#mobile-file-browser) is covered later on.
 :::
 
-By clicking once on a file, it will be selected or deselected. You can select or
-deselect multiple files using `Ctrl` (or `Opt` on MacOS) while clicking. You can
-also select a range of files, when some file is selected and another file is
-clicked with `Shift`.
+Files can be selected or deselected by left-clicking on them. By holding down
+`Ctrl` (or `Opt` on MacOS) while clicking, it is possible to select/deselect
+multiple files. A range of files can be selected by holding down `Shift`.
 
-By clicking on an file item twice, you can open the directory or download a
-file.
+A double click on an item opens a directory (sets it as a new current working
+directory) or downloads a file.
 
-When an item or set of selected items is clicked with right mouse button, a
-context menu will appear with file actions.
+When an item or multiple selected items are right-clicked, a context menu with
+available actions appears.
 
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#bordered)
 
-When there are more files than can be displayed on a single screen, you can
-scroll down to dynamically load further content.
+The file browser uses "infinite scroll" approach to display large directories –
+new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#bordered)
 
+FIXME
 In addition to aforementioned file attributes on the list, additional
 information are displayed using tags. These include information whether file is
 shared, have Quality of Service requirements attached or have Access Control
@@ -93,6 +94,8 @@ List (ACL) assigned.
 
 
 ## File browser features
+
+<!-- FIXME add missing features (as of 21.02) -->
 
 The context-menu for files provides a rich set of both basic file operations,
 such as deleting and copying files, as well as advanced ones, that utilizes
@@ -241,25 +244,25 @@ Onedata web file browser supports mobile devices such as smartphones or tablets.
 Available features are literally the same as in desktop mode, while the view is
 designed for small devices.
 
-![Mobile web file browser - overview](../../images/user-guide/web-file-browser/mobile-overview.png#bordered)
+![Mobile web file browser – overview](../../images/user-guide/web-file-browser/mobile-overview.png#bordered)
 
 In the mobile mode, navigation is customized for touch screens. Instead of
 double click, user should just tap a file or directory to download or open it,
 
-![Mobile web file browser - download](../../images/user-guide/web-file-browser/mobile-download.png#bordered)
+![Mobile web file browser – download](../../images/user-guide/web-file-browser/mobile-download.png#bordered)
 
 Selection is done by holding a file for about a second, and selecting more file
 can be achieved by tapping other files. A context menu for a file can be invoked
 using three-dots menu in the file row or convenient **Selection...** tool on the
 bottom of screen.
 
-![Mobile web file browser - context menu](../../images/user-guide/web-file-browser/mobile-menu.png#bordered)
+![Mobile web file browser – context menu](../../images/user-guide/web-file-browser/mobile-menu.png#bordered)
 
 To perform operations such as creating new directory or uploading files, you
 should use context menu of a current directory. When an upload will be started,
 a progress appears in the bottom of the screen.
 
-![Mobile web file browser - upload](../../images/user-guide/web-file-browser/mobile-upload.png#bordered)
+![Mobile web file browser – upload](../../images/user-guide/web-file-browser/mobile-upload.png#bordered)
 
 
 ## Choosing Oneprovider
