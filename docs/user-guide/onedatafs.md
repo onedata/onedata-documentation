@@ -1,6 +1,6 @@
 # OnedataFS
 
-[[toc]]
+[toc][]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system, 
 an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface. 
