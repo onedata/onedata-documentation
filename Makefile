@@ -8,7 +8,7 @@ lint:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
 
 build:
-	docker run --rm -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} build
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} build
 	./inject-release.sh
 
 package:
