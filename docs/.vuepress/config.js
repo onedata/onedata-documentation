@@ -31,6 +31,8 @@ module.exports = {
           '/user-guide/rest-api',
           '/user-guide/quality-of-service',
           '/user-guide/data-discovery',
+          '/user-guide/datasets',
+          '/user-guide/archives',
           '/user-guide/views',
           '/user-guide/cdmi'
         ]

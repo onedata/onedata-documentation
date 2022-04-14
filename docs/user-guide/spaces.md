@@ -123,7 +123,7 @@ Use the the **Consume** action in the [Tokens GUI](tokens.md#consuming-invite-to
 Paste in the token - it will be identified and you will be asked which group you 
 wish to add. Choose the **Space admins** group and confirm.
 
-### Space privileges
+### Modify space privileges
 When the **Space admins** group has been added to the space, go back to the
 members menu, where you can view its privileges by expanding the entry.
 ![image](../../images/user-guide/spaces/8-privileges-1.png#bordered)
