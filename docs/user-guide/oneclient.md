@@ -598,7 +598,6 @@ $ docker volume create --driver onedata \
 
 When connecting to a Oneprovider instance without a trusted certificate,
 `-o insecure=true` option must be added. Additionally, Onedata Docker volume
-<!-- FIXME: VFS-7297 there is no ../using_onedata/oneclient.md -->
 plugins supports all regular [Oneclient command line options](../using_onedata/oneclient.md),
 which must be added with `-o` followed by option name, equal sign and value
 (e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
