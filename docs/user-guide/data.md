@@ -1,7 +1,7 @@
 # Data
 <!-- This file is referenced at least one time as "data.md" -->
 
-[[toc]]
+[toc][]
 
 The Onedata system organizes all user data into logical containers called spaces. 
 Please refer to [this](spaces.md) chapter for details about this concept and how 
@@ -9,14 +9,14 @@ the logical files are mapped to their physical content on storage backends.
  
  
 ## File path and ID
-<!-- This header is referenced at least one time as "#file-path-and-id" -->
+
 
 Files and directories in Onedata can be globally identified using unique file 
 IDs or logical paths. Whenever possible, it is recommended to use File IDs, 
 due to better performance and no need for escaping or encoding.
 
 ### File path
-<!-- This header is referenced at least one time as "#file-paths" -->
+
 
 All logical paths in Onedata use the slash `/` delimiter and must start with a
 space name:
@@ -52,7 +52,7 @@ but the order in which spaces are checked cannot be guaranteed.
 
 
 ### File ID
-<!-- This header is referenced at least one time as "#file-id" -->
+
 
 File ID is a unique, global identifier associated with a file or directory and
 can be used universally in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
@@ -102,7 +102,7 @@ natural navigation between services, the other interfaces require that the user
 chooses one of their Oneproviders and is aware of its domain (see below).
 
 ### Oneprovider domain
-<!-- This header is referenced at least one time as "#oneprovider-domain" -->
+
 <!-- TODO VFS-7218 this should be moved somewhere else – maybe a new chapter with providers GUI
      from the user's point of view? -->
 
@@ -272,7 +272,7 @@ fully granted nor explicitly denied, access is denied and the algorithm
 terminates.
 
 ### POSIX permissions
-<!-- This header is referenced at least one time as "#posix-permissions" -->
+
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
 systems for specifying access rights to files or directories. However, there is

@@ -1,6 +1,6 @@
 # Tokens
 
-[[toc]]
+[toc][]
 
 ## Quickstart
 
@@ -1059,24 +1059,24 @@ The token can be used again.
 ## GUI guide
 
 ### Access token quickstart
-<!-- This header is referenced at least one time as "#access-token-quickstart" -->
+
 
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
 click on the **(+)** button and choose the template the best suits your needs. 
 You can use the default settings or tailor the token to a specific use-case, 
 possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
-![image](../../images/user-guide/tokens/0-access-token-templates.png#bordered)
+![image](../../images/user-guide/tokens/0-access-token-templates.png#screenshot)
 
 
 ### Consuming invite tokens
-<!-- This header is referenced at least one time as "#consuming-invite-tokens" -->
+
 
 Invite tokens are used to create relations in the system, e.g. add
 new members to a group or space. In case you receive any invite token, simply
 navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
-![image](../../images/user-guide/tokens/0-consume-token.png#bordered)
+![image](../../images/user-guide/tokens/0-consume-token.png#screenshot)
 
 
 ### Detailed guide
@@ -1085,13 +1085,13 @@ offered by Onedata tokens and the token creation GUI wizard.
 
 1. Navigate to the **TOKENS** tab. Click on **(+)** or **Get started** to create a new token. 
 Click on **Consume** if you received an invite token in order to utilize the invitation. 
-![image](../../images/user-guide/tokens/1-no-tokens.png#bordered)
+![image](../../images/user-guide/tokens/1-no-tokens.png#screenshot)
 
 2. When you choose the action to create a new token, you will be presented with
 a wizard with quick templates. Choose the one most appropriate for your use case.
 Familiarize yourself with the hints displayed on the page. Go through different
 templates and examine the suggested caveats.
-![image](../../images/user-guide/tokens/2-token-wizard.png#bordered)
+![image](../../images/user-guide/tokens/2-token-wizard.png#screenshot)
 
 3. Use the **Create custom token** action to create your own access token. 
 Give it a meaningful name and restrict it with some [caveats](#token-caveats). 
@@ -1099,33 +1099,33 @@ Below example would create a token with a limited lifespan that can be used only
 for accessing Oneprovider services (note the service caveat). Effectively, this 
 limits the available interfaces to those offered by Oneprovider: Oneclient and 
 REST/CDMI API. They can be further limited using the interface caveat (the first below).
-![image](../../images/user-guide/tokens/3-access-token.png#bordered)
+![image](../../images/user-guide/tokens/3-access-token.png#screenshot)
 
 4. Consider adding other caveats to increase your security in case the token
 is to be delegated or passed to another user. Below 
 [*data access caveats*](#data-access-caveats) would restrict the token's power
 to just reading the contents of specified directory and file. Any other
 operation will be denied by all system components.
-![image](../../images/user-guide/tokens/4-data-access-caveats.png#bordered)
+![image](../../images/user-guide/tokens/4-data-access-caveats.png#screenshot)
 
 5. You may want to create an [identity token](#identity-tokens) for more 
 advanced scenarios that entail [consumer](#consumer) caveats:
-![image](../../images/user-guide/tokens/5-identity-token.png#bordered)
+![image](../../images/user-guide/tokens/5-identity-token.png#screenshot)
 
 6. Invite tokens can be created easily in the members submenu of a group / space etc.
-![image](../../images/user-guide/tokens/6-invite-token-a.png#bordered)
+![image](../../images/user-guide/tokens/6-invite-token-a.png#screenshot)
 though you may want to create a custom token using the wizard:
-![image](../../images/user-guide/tokens/6-invite-token-b.png#bordered)
+![image](../../images/user-guide/tokens/6-invite-token-b.png#screenshot)
 
 7. Created token will be listed on the left - you can view the details of a 
 token and copy it in serialized form that can be used in CLI, e.g. to mount
 Oneclient or perform a request to REST/CDMI, or passed to some 
 scripts / middleware.
-![image](../../images/user-guide/tokens/7-browse-tokens.png#bordered)
+![image](../../images/user-guide/tokens/7-browse-tokens.png#screenshot)
 
 8. Tokens can be modified to some extent - renamed or revoked. Other details, 
 such as caveats, are not modifiable as they are inscribed in the token.
-![image](../../images/user-guide/tokens/8-modify-token.png#bordered)
+![image](../../images/user-guide/tokens/8-modify-token.png#screenshot)
 
 
 [Google's macaroons]: https://ai.google/research/pubs/pub41892

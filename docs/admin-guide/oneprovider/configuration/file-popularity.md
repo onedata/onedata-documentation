@@ -1,7 +1,7 @@
 # File popularity
 <!-- This file is referenced at least one time as "file-popularity.md" -->
 
-[[toc]]
+[toc][]
 
 As a prerequisite for understanding this chapter we advise to familiarize with 
 the concept of [*views*](../../../user-guide/views.md).

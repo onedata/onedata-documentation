@@ -98,7 +98,7 @@ Onedata provides 4 ways to manage and access your data:
 
 The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
 
-![Preview of Onedata Web interface](../images/intro/web-gui-example.png#bordered)
+![Example view of Onedata web interface](../images/intro/web-gui-example.png#screenshot)
 
 ### User command-line interface
 
@@ -114,7 +114,7 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](u
 
 
 ## Architecture
-<!-- This header is referenced at least one time as "#architecture" -->
+
 <!-- TODO VFS-6805: description of architecture: Onezones, Oneproviders, Onepanels, glossary -->
 <!-- TODO VFS-6805: describe the concept of Oneprovider being a service deployed in a data provider institution 
                     and offering storage space for users -->

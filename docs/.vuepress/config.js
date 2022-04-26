@@ -1,5 +1,13 @@
+const slugger = require('github-slugger').slug;
 module.exports = {
   title: 'Onedata documentation',
+  markdown: {
+    slugify: slugger,
+    toc: {
+      // changed because we want use remark-lint-no-undefined-references
+      markerPattern: /^\[toc\]/im,
+    },
+  },
   themeConfig: {
     navbar: false,
     sidebar: [

@@ -96,75 +96,75 @@ any results, you must make sure that there are some files in spaces attached to
 the harvester (preferably with some [custom metadata](./metadata.md) set).
 You might open the [public](#public-and-private-access) view of the harvester
 (if enabled) to enter the full-screen mode.
-![image](../../images/user-guide/data-discovery/1-data-discovery.png#bordered)
+![image](../../images/user-guide/data-discovery/1-data-discovery.png#screenshot)
 
 2. Click on an entry to expand it and view the metadata. This example shows
 a file that has some custom JSON metadata set. Such
 file can be found in the index by its filename or queries matching the JSON
 metadata.
-![image](../../images/user-guide/data-discovery/2-entry-details.png#bordered)
+![image](../../images/user-guide/data-discovery/2-entry-details.png#screenshot)
 
 3. You can switch between table and JSON views.
-![image](../../images/user-guide/data-discovery/3-json-view.png#bordered)
+![image](../../images/user-guide/data-discovery/3-json-view.png#screenshot)
 
 4. You can easily go to the source file using the green link (see above) -
 you will be taken to the directory that contains the indexed file.
-![image](../../images/user-guide/data-discovery/4-go-to-file.png#bordered)
+![image](../../images/user-guide/data-discovery/4-go-to-file.png#screenshot)
 
 5. Back to the data discovery view – you can use the query builder to compose
 custom queries which will narrow your search results. Building the query starts
 with a single placeholder that can become a direct condition, or branch into
 a more complex expression using chosen operator.
-![image](../../images/user-guide/data-discovery/5-query-builder-1.png#bordered)
+![image](../../images/user-guide/data-discovery/5-query-builder-1.png#screenshot)
 
 6. If an operator is chosen, new placeholders appear in that place, which
 can be recursively filled with further conditions or operators. This example
 shows the `OR` operator, which will match a file if the left-hand expression or
 the right-hand expression matches it.
-![image](../../images/user-guide/data-discovery/6-query-builder-2.png#bordered)
+![image](../../images/user-guide/data-discovery/6-query-builder-2.png#screenshot)
 
 7. The condition expression is composed of a property name, comparator and
 value to compare against. If the condition is true for a file, it will be
 included in the results (subject to other expressions in case of a complex query).
-![image](../../images/user-guide/data-discovery/7-query-builder-3.png#bordered)
+![image](../../images/user-guide/data-discovery/7-query-builder-3.png#screenshot)
 
 8. Complete condition – matches if the `enabled` property in file metadata
 equals `true`.
-![image](../../images/user-guide/data-discovery/8-query-builder-4.png#bordered)
+![image](../../images/user-guide/data-discovery/8-query-builder-4.png#screenshot)
 
 9. Now, for the right-hand expression – another condition that matches if `id`
 is equal to `16`.
-![image](../../images/user-guide/data-discovery/9-query-builder-5.png#bordered)
+![image](../../images/user-guide/data-discovery/9-query-builder-5.png#screenshot)
 
 10. Complete query might look like the following – quick on the *Query* button
 to perform the search.
-![image](../../images/user-guide/data-discovery/10-query-builder-6.png#bordered)
+![image](../../images/user-guide/data-discovery/10-query-builder-6.png#screenshot)
 
 11. The results are presented on a paged view – you should see all the files
 that match the specified query, split to pages. Use the paging menu at the
 bottom for navigation.
-![image](../../images/user-guide/data-discovery/11-query-builder-7.png#bordered)
+![image](../../images/user-guide/data-discovery/11-query-builder-7.png#screenshot)
 
 12. Results can be sorted by desired property and in ascending or descending order.
-![image](../../images/user-guide/data-discovery/12-sort.png#bordered)
+![image](../../images/user-guide/data-discovery/12-sort.png#screenshot)
 
 13. To refine the search, you may apply some filters based on properties. In our
 example, the results constitute 17 accumulated unique properties to filter by.
-![image](../../images/user-guide/data-discovery/13-filter.png#bordered)
+![image](../../images/user-guide/data-discovery/13-filter.png#screenshot)
 
 14. Filtering is applied live. Behind the scenes, the query is not repeated -
 the unwanted properties are hidden from the view for convenient browsing, 
 but the list of matching files does not change.
-![image](../../images/user-guide/data-discovery/14-filter-applied.png#bordered)
+![image](../../images/user-guide/data-discovery/14-filter-applied.png#screenshot)
 
 15. If you wish to use the [REST API](#rest-api) for queries, you may find the
 `{REST API}` button useful.
-![image](../../images/user-guide/data-discovery/15-rest-api-button.png#bordered)
+![image](../../images/user-guide/data-discovery/15-rest-api-button.png#screenshot)
 
 16. Click on the button to generate a `curl` command that will perform a query
 equivalent to the one currently built in the editor, including the filters and
 sorting parameters. See the [REST API](#rest-api) for more information.
-![image](../../images/user-guide/data-discovery/16-rest-api-modal.png#bordered)
+![image](../../images/user-guide/data-discovery/16-rest-api-modal.png#screenshot)
 
 
 ## REST API
