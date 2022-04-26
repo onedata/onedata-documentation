@@ -2,11 +2,11 @@
 <!-- This file is referenced at least one time as "spaces.md" -->
 
 Spaces are a fundamental concept of user data organization in Onedata. A **space** 
-can be perceived as a logical container for data - a layer that hides the complexity 
+can be perceived as a logical container for data – a layer that hides the complexity 
 of different storage systems and the physical location of files. It offers 
 a unified storage space in the Onedata virtual file system, where files and 
 directories are referenced by [logical paths or global IDs](data.md#file-path-and-id). 
-Each space can have multiple [members](#space-members) - users or groups. 
+Each space can have multiple [members](#space-members) – users or groups. 
 Only the members of a space have access to the stored data.
 
 ## Space support
@@ -49,7 +49,7 @@ Onedata stores information about the mapping between logical and physical files
 in the file metadata, which is replicated and synchronized between 
 all supporting Oneproviders.
 
-<!-- TODO VFS-7218 globally unify the formatting of NOTEs in all docs -->
+<!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 > **NOTE**: a space can be supported with an imported storage.
 This way, a preexisting data-set can be made available in a Onedata space.
 Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
@@ -57,7 +57,7 @@ Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
 
 ## Space members
 Access control to Onedata spaces is built around the concept of user and group
-memberships. A space is accessible only to its members - in a typical scenario,
+memberships. A space is accessible only to its members – in a typical scenario,
 this can be a group of scientists that work on the same research project and
 share the related datasets. They may have different affiliations, but their view 
 on the common space is the same, regardless of their institution of origin. Each
@@ -95,7 +95,7 @@ in the overview, which will invoke the **Add support** action. Alternatively,
 navigate to the space's **Providers** submenu.
 ![image](../../images/user-guide/spaces/2-space_created.png#bordered)
 
-You should obtain a space support token - pass it to a Oneprovider admin so that
+You should obtain a space support token – pass it to a Oneprovider admin so that
 they can [grant support for your space](../admin-guide/oneprovider/configuration/space-support.md#granting-support). 
 The token is multi-use and valid for a day.
 ![image](../../images/user-guide/spaces/3-request_support.png#bordered)
@@ -120,7 +120,7 @@ generate a group invite token. Copy it to the clipboard for the next step.
 ![image](../../images/user-guide/spaces/7-create-group-invite-token.png#bordered)
 
 Use the the **Consume** action in the [Tokens GUI](tokens.md#consuming-invite-tokens). 
-Paste in the token - it will be identified and you will be asked which group you 
+Paste in the token – it will be identified and you will be asked which group you 
 wish to add. Choose the **Space admins** group and confirm.
 
 ### Modify space privileges
@@ -128,7 +128,7 @@ When the **Space admins** group has been added to the space, go back to the
 members menu, where you can view its privileges by expanding the entry.
 ![image](../../images/user-guide/spaces/8-privileges-1.png#bordered)
 
-The privileges are grouped into sections - you can grant or revoke the whole
+The privileges are grouped into sections – you can grant or revoke the whole
 section, or expand for more granular setting. Make sure to save your changes
 afterwards.
 ![image](../../images/user-guide/spaces/9-privileges-2.png#bordered)
@@ -155,14 +155,14 @@ The interface is analogical to the one for spaces.
 Go back to the space members view. Expand the view options and choose 
 **Effective Privileges**. You will see that the Subgroup appears on the list. 
 This is because it inherits the space membership in the space from its parent 
-group - **Other group**. Examine the privileges and see that they are inherited 
+group – **Other group**. Examine the privileges and see that they are inherited 
 as well. You can play around with the privileges of the **Other group** and see
 that the inheritance is updated.
 ![image](../../images/user-guide/spaces/13-effective-privileges.png#bordered)
 
 Switch to the **Effective Memberships** view, and optionally turn on 
 descriptions. Expand your user entry to see all of your memberships in the
-space - direct and inherited from group memberships (effective).
+space – direct and inherited from group memberships (effective).
 ![image](../../images/user-guide/spaces/14-effective-memberships.png#bordered)
 
 ### Data browser
