@@ -1,5 +1,5 @@
 # Data Discovery
-<!-- This file is referenced at least one time as "data-discovery.md" -->
+<!-- This file is referenced at least one time as "data-discovery.md" TODO VFS-7452 -->
 
 This guide is dedicated for non-admin users that would like to index the 
 metadata from files in their spaces and perform queries. Consider reading the 

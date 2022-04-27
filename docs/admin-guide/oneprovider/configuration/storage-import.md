@@ -1,5 +1,5 @@
 # Storage import
-<!-- This file is referenced at least one time as "storage-import.md" -->
+<!-- This file is referenced at least one time as "storage-import.md" TODO VFS-7452 -->
 
 *Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that

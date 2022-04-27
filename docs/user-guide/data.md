@@ -1,5 +1,5 @@
 # Data
-<!-- This file is referenced at least one time as "data.md" -->
+<!-- This file is referenced at least one time as "data.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -45,6 +45,7 @@ some characters in paths should be properly escaped:
 {...}/CMS%201/directory/images%26videos/garden.png
 ```        
 
+<!-- TODO VFS-7452 unify all NOTE blocks -->
 >**NOTE:** Duplicate space names are generally allowed. For that reason,
 referencing files by path may be ambiguous. During file path resolution, the
 first space whose name matches the first segment of the path is always taken,
@@ -202,7 +203,7 @@ permissions allow write access.
 
 
 ### Access Control Lists
-<!-- This header is referenced at least one time as "#access-control-lists" -->
+<!-- This header is referenced at least one time as "#access-control-lists" TODO VFS-7452 -->
 
 **Access Control Lists (ACL)** are a mechanism for regulating access to files 
 and directories using hierarchical rules that grant and deny granular operations

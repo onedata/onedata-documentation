@@ -1,5 +1,5 @@
 # Data Discovery
-<!-- This file is referenced at least one time as "data-discovery.md" -->
+<!-- This file is referenced at least one time as "data-discovery.md" TODO VFS-7452 -->
 
 This guide is dedicated for administrators that would like to properly configure
 Data Discovery services for end users. Consider reading the 

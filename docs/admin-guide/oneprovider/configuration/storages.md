@@ -1,5 +1,5 @@
 # Storages
-<!-- This file is referenced at least one time as "storages.md" -->
+<!-- This file is referenced at least one time as "storages.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -46,7 +46,7 @@ Determines how the logical file paths are mapped on the storage:
 
 
 ### Imported storage
-<!-- This file is referenced at least one time as "#imported-storage" -->
+<!-- This file is referenced at least one time as "#imported-storage" TODO VFS-7452 -->
 
 Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
 with the storage. This option should be enabled in two setups: 

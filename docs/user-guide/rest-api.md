@@ -1,5 +1,5 @@
 # REST API
-<!-- This file is referenced at least one time as "rest-api.md" -->
+<!-- This file is referenced at least one time as "rest-api.md" TODO VFS-7452 -->
 
 This chapter contains basics about Onedata REST API usage.
 

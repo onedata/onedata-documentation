@@ -26,6 +26,7 @@ module.exports = {
           '/user-guide/account-management',
           '/user-guide/groups',
           '/user-guide/spaces',
+          '/user-guide/providers',
           '/user-guide/data',
           '/user-guide/web-file-browser',
           '/user-guide/oneclient',

@@ -1,5 +1,5 @@
 # Spaces
-<!-- This file is referenced at least one time as "spaces.md" -->
+<!-- This file is referenced at least one time as "spaces.md" TODO VFS-7452 -->
 
 Spaces are a fundamental concept of user data organization in Onedata. A **space** 
 can be perceived as a logical container for data – a layer that hides the complexity 
