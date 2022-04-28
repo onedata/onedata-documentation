@@ -9,8 +9,8 @@ navigation, file upload or download) and advanced capabilities, specific for
 Onedata (e.g. Quality of Service, data distribution management, dataset
 management).
 
-The file browser is always presented in the context a single [space](spaces.md).
-It becomes available when the space is
+The file browser is always presented in the context of a single
+[space](spaces.md). It becomes available when the space is
 [supported](spaces.md#request-support-for-space) by at least one
 [provider](providers.md) and can be invoked by navigating to the **DATA > _Space
 name_ > Files** tab, or clicking the **FILES** tile in the space **Overview**.
@@ -25,7 +25,7 @@ A new, empty space welcomes users with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
 
-New files can be uploaded using the **upload** button or y dragging and dropping
+New files can be uploaded using the **upload** button or dragging and dropping
 them in the file browser area. While the data is being uploaded, a progress
 panel appears in the bottom-right corner of the screen. It is possible to upload
 multiple files at once or add more files during an ongoing upload.
@@ -41,8 +41,6 @@ the target provider.
 
 
 ## File browser layout
-
-<!-- FIXME add guide to the oneprovider switcher (and map) -->
 
 The top section of the file browser accommodates a breadcrumb navigator and a
 toolbox.
@@ -134,8 +132,8 @@ modal that allows creating a new [share](shares.md).
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-share.png#screenshot)
 
 If the item has already been shared, the modal will present the list of existing
-shares, with the possibility to copy their links, view their details (using the
-green links) or create another share.
+shares, with the possibility to copy their public links, view their details
+(using the green links) or create another share.
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-shared-already.png#screenshot)
 

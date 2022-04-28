@@ -523,7 +523,7 @@ host or within the container.
 ### Installation
 
 The Onedata Docker volume plugin can be installed using packages which are
-provided for Ubuntu and Centos.
+provided for Ubuntu and CentOS.
 
 The easiest way is to use the oneclient.sh automated installation script:
 

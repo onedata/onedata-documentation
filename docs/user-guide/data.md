@@ -143,7 +143,7 @@ authorization** checks for every operation.
 Each operation is done in the context of a specific authenticated user. If the
 requesting client provides no authentication, they are treated as **guest**, who 
 is entitled only to publicly accessible data. Authentication is carried by
-[access tokens](tokens.md#access-tokens) - bearer tokens issued in the name of
+[access tokens](tokens.md#access-tokens) – bearer tokens issued in the name of
 a specific subject (e.g. user). Access tokens are used uniformly in the system, 
 in [REST API](rest-api.md), [Oneclient](oneclient.md) or [Web GUI](#web-gui)
 (the Web application obtains an access token after a user logs in and refreshes
@@ -165,7 +165,7 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
 2. If the user is not a [space member](spaces.md#space-members), **access is
    denied**.
 
-3. [Dataset protection flags](datasets.md) are checked - if the requested
+3. [Dataset protection flags](datasets.md) are checked – if the requested
    operation is forbidden by current protection flags, **access is denied**. For
    example, a file content modification request will be denied if the file is
    located in a dataset that has data protection enabled.
@@ -189,7 +189,7 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
 In case of an unauthenticated (**guest**) access, the steps are as follows:
 
 1. The requested resource identifier is analysed if it points to a file or
-   directory that is [publicly shared](shares.md) - if not, **access is
+   directory that is [publicly shared](shares.md) – if not, **access is
    denied**.
 
 2. Steps 6 or 7 from the previous procedure are applied (it is possible to
@@ -218,18 +218,18 @@ stopped.
 #### Access Control Entry
 
 An ACE consist of four fields: 
-- `type` - `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
-- `who` - the principal whom the ACE affects: 
+- `type` – `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
+- `who` – the principal whom the ACE affects: 
     - user or group represented by their identifier
-    - `OWNER@` - the owner of the file
-    - `GROUP@` - members of space containing the file
-    - `ANONYMOUS@` - guest client (accessing through a share)
-    - `EVERYONE@` - everyone, including the anonymous users
-- `flags` - currently only the flag indicating whether principal identifier points 
+    - `OWNER@` – the owner of the file
+    - `GROUP@` – members of space containing the file
+    - `ANONYMOUS@` – guest client (accessing through a share)
+    - `EVERYONE@` – everyone, including the anonymous users
+- `flags` – currently only the flag indicating whether principal identifier points 
 to user or group is supported, other flags can be set or 
 [imported](../admin-guide/oneprovider/configuration/storage-import.md),
 but they will be ignored during ACE evaluation
-- `access_mask` - the permissions regulated by this ACE
+- `access_mask` – the permissions regulated by this ACE
 
 Permissions can be changed using the [Web file browser](web-file-browser.md#acl) in
 the **ACL** context menu, or using the [CDMI API](cdmi.md#set-file-acl).
@@ -243,10 +243,10 @@ All available permissions and their meaning for files or directories are present
 |--------------------|---------------------------|-------------------------------|
 | Read/List          | open file for read        | list directory content        |
 | Write/Add file     | open file for write       | add file to directory         |
-| Add subdirectory   | --                        | add subdirectory to directory |
-| Traverse directory | --                        | traverse directory            |
+| Add subdirectory   | –                        | add subdirectory to directory |
+| Traverse directory | –                        | traverse directory            |
 | Delete             | delete file               | delete directory              |
-| Delete child       | --                        | delete file or subdirectory from directory |
+| Delete child       | –                        | delete file or subdirectory from directory |
 | Read attributes    | read file attributes      | read attributes metadata      |
 | Write attributes   | write file attributes     | write attributes metadata     |
 | Read metadata      | read file metadata        | read directory metadata       |
@@ -260,17 +260,20 @@ Each ACE in an ACL either allows or denies some set of permissions.
 Oneprovider will evaluate the resource (file or directory) ACEs until
 all requested permissions are granted or any of them is denied using 
 the following algorithm:
-1. The ACE is checked for applicability. ACEs that do not refer to 
-the principal requesting the operation or any requested permission 
-are ignored.
-2. If the ACE denies any of the requested permissions, then access is denied 
-and the algorithm terminates.
+
+1. The ACE is checked for applicability. ACEs that do not refer to the principal
+   requesting the operation or any requested permission are ignored.
+
+2. If the ACE denies any of the requested permissions, then access is denied and
+   the algorithm terminates.
+
 3. If the ACE allows any of the requested permissions, then they are added 
-to the list of granted permissions. If the list include all the requested 
-permissions, the access is granted and the algorithm terminates.
+   to the list of granted permissions. If the list include all the requested
+   permissions, the access is granted and the algorithm terminates.
+
 4. If the end of the ACL list is reached and permission has neither been 
-fully granted nor explicitly denied, access is denied and the algorithm 
-terminates.
+   fully granted nor explicitly denied, access is denied and the algorithm
+   terminates.
 
 ### POSIX permissions
 
