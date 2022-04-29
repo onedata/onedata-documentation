@@ -1,5 +1,5 @@
 # Oneclient
-<!-- This file is referenced at least one time as "oneclient.md" -->
+<!-- This file is referenced at least one time as "oneclient.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -52,14 +52,14 @@ $ conda install -c onedata-centos6 oneclient
 
 To mount your spaces using Oneclient, you need to authenticate with a
 specific Onezone service and obtain an access token suitable for Oneclient.
-Access tokens can be generated directly from the Web interface - see the
+Access tokens can be generated directly from the Web interface – see the
 [quickstart guide](tokens.md#access-token-quickstart). More information on
 different types of tokens, and how to create them programmatically using the
 REST API can be found [here](./tokens.md).
 
 > IMPORTANT: Please make sure not to publish your access tokens or share them
 with anyone. Access tokens should be treated the same way as private keys or
-passwords - they are intended to be used only by their owners for authentication
+passwords – they are intended to be used only by their owners for authentication
 with Onedata services. The only exception is when a token is consciously limited
 by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
 (e.g. read-only access to a specific subdirectory). If you wish to collaborate
@@ -86,7 +86,7 @@ $ export ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME>   # e.g. provider-krakow.on
 $ oneclient <MOUNT_POINT>                              # e.g. /home/joe/oneclient
 ```
 
-Provide the hostname of a chosen Oneprovider - one that supports at least one
+Provide the hostname of a chosen Oneprovider – one that supports at least one
 of your spaces. The choice of Oneprovider may depend on several factors:
 1. The quality of your network connection to the Oneprovider.
 2. The fact whether the Oneprovider supports the space that is to be accessed.
@@ -111,10 +111,10 @@ It is however possible to limit the spaces which are visible, by providing a
 white list of the spaces on the command line. This can be achieved using 2
 options:
 
-  * `--space <name>` -  every occurence of this option followed by the name of
+  * `--space <name>` –  every occurence of this option followed by the name of
     a space will limit the mounted spaces to the specified spaces (e.g.
     `--space Space1 --space Space2`)
-  * `--space-id <id>` -  every occurence of this option followed by the id of a
+  * `--space-id <id>` –  every occurence of this option followed by the id of a
     space will limit the mounted spaces to the specified spaces (e.g.
     `--space-id a58a461875b59988bd16eca960d8130b --space-id bd16eca960d8130ba58a461875b53451`)
 
@@ -144,11 +144,11 @@ directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
 
-  * `--force-proxy-io` - disables Direct I/O mode, all data transfers will go
+  * `--force-proxy-io` – disables Direct I/O mode, all data transfers will go
     via Oneprovider service using so called Proxy I/O, which in most cases will
     be somewhat slower, and definitely less scalable than Direct I/O when running
     large number of Oneclient instances connected to a single Oneprovider service
-  * `--force-direct-io` - forces Direct I/O mode, any `read` or `write`
+  * `--force-direct-io` – forces Direct I/O mode, any `read` or `write`
     operation will return `Operation not supported` error. The only exception
     is when the file is not accessible due to incorrect permissions on the
     storage, in such case the file will be accessed using proxy I/O mode.
@@ -166,15 +166,15 @@ If for some reason this in-memory buffer is undesired, it can be disabled using
 
 The buffer size can be also fine-tuned using the following options:
 
-  * `--read-buffer-min-size` - minimum size of the read buffer for a single opened file,
-  * `--read-buffer-max-size` - maximum size of the read buffer for a single opened file,
-  * `--read-buffer-total-size` - maximum size of read buffer for all opened
+  * `--read-buffer-min-size` – minimum size of the read buffer for a single opened file,
+  * `--read-buffer-max-size` – maximum size of the read buffer for a single opened file,
+  * `--read-buffer-total-size` – maximum size of read buffer for all opened
     files, if this value is exceeded consecutive open files will be unbuffered,
-  * `--write-buffer-min-size` - minimum size of the write buffer for a single
+  * `--write-buffer-min-size` – minimum size of the write buffer for a single
     opened file,
-  * `--write-buffer-max-size` - maximum size of the write buffer for a single
+  * `--write-buffer-max-size` – maximum size of the write buffer for a single
     opened file,
-  * `--write-buffer-total-size` - maximum size of write buffer for all opened
+  * `--write-buffer-total-size` – maximum size of write buffer for all opened
     files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
@@ -193,11 +193,11 @@ the Oneclient command line:
 `2bede2623303bc2a19696e5817e13c0b` is the storage id of this storage.
 
 The `--override` option takes 3 arguments separated by `:`:
-* `storade ID` - this is Onedata internal storage Id, which can be obtained
+* `storade ID` – this is Onedata internal storage Id, which can be obtained
   from Onepanel administrator interface or using REST API
-* `parameter name` - this is the name of the storage helper parameter, these
+* `parameter name` – this is the name of the storage helper parameter, these
   are specific to particular type of storage
-* `parameter value` - a value, which should override the value specified in the
+* `parameter value` – a value, which should override the value specified in the
   Oneprovider when registering the storage
 
 ### Logging
@@ -205,11 +205,11 @@ The `--override` option takes 3 arguments separated by `:`:
 In order to enable a verbose log, `oneclient` provides a `-v` flag, which takes
 a single integer argument which determines the log verbosity:
 
-- `-v 0` - *(default)* only serious errors
-- `-v 1` - warnings and errors which are not fatal
-- `-v 2` - verbose information on requests and their handling
-- `-v 3` - trace function calls along with their arguments
-- `-v 4` - binary messages between Oneclient and Oneprovider
+- `-v 0` – *(default)* only serious errors
+- `-v 1` – warnings and errors which are not fatal
+- `-v 2` – verbose information on requests and their handling
+- `-v 3` – trace function calls along with their arguments
+- `-v 4` – binary messages between Oneclient and Oneprovider
 
 > Please note that above level 2, the size of the logs can be substantial thus
 it is necessary to monitor free disk space. When the machine runs out of disk
@@ -523,26 +523,17 @@ host or within the container.
 ### Installation
 
 The Onedata Docker volume plugin can be installed using packages which are
-provided for Ubuntu Wily, Ubuntu Xenial, CentOS 7 and Fedora 23.
+provided for Ubuntu and CentOS.
 
-The easiest way is to use our automated installation script:
+The easiest way is to use the oneclient.sh automated installation script:
 
 ```bash
-# Using cURL
-$ curl -sSL http://packages.onedata.org/onedata-docker-volume-2002.sh | sh
-
-# Or using wget
-$ wget -qO- http://packages.onedata.org/onedata-docker-volume-2002.sh | sh
+$ wget -qO- http://packages.onedata.org/oneclient.sh
+$ sh oneclient.sh docker-volume-onedata
 ```
 
-The script will automatically check for Docker and install latest Docker if
-none is installed on the host, after a short warning message.
-
-If an older version of Docker than required (1.13) is installed the script
-will abort, and a newer Docker version must be installed manually.
-
-After the install script completes, latest `oneclient` version will be
-installed on the host, which can be verified using:
+The script should automatically install the plugin and oneclient CLI.
+This can be verified using:
 
 ```bash
 $ oneclient -V

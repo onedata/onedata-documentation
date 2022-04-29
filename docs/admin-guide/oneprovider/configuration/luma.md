@@ -1,5 +1,5 @@
-# Local User Mapping - LUMA
-<!-- This file is referenced at least one time as "luma.md" -->
+# Local User Mapping – LUMA
+<!-- This file is referenced at least one time as "luma.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -34,7 +34,7 @@ Nonetheless, it is recommended that you first familiarize yourself with all the 
 2. Substantiate the [required mappings](#luma-mappings) (if applicable) .
 3. Make sure that [storage credentials](#onedata-user-to-storage-credentials-mapping) to which Onedata users will be
    mapped exist and are reflected in the storage system.
-4. As far as possible, ensure that all files on the *imported storage* have the same group owner (GID) - [read more](#imported-storages).
+4. As far as possible, ensure that all files on the *imported storage* have the same group owner (GID) – [read more](#imported-storages).
 5. If you intend to enable [*auto storage import*](storage-import.md#auto-storage-import) with enabled `Synchronize ACL` option 
 you must properly configure the chosen LUMA feed to deliver mappings for NFSv4 ACL 
 [users](#storage-acl-user-to-onedata-user-mapping) and [groups](#storage-acl-group-to-onedata-group-mapping) 
@@ -116,8 +116,8 @@ This record stores standard POSIX-like user ID and group ID.
 #### `OnedataUser`
 These record represents credentials identifying a user in the Onedata system.
 The record has one of the two schemes:
-* `"onedataUser"` - user's ID is stored directly in the record
-* `"idpUser"` - the record stores ID of an external identity provider (Idp) and ID of the user understood by the Idp
+* `"onedataUser"` – user's ID is stored directly in the record
+* `"idpUser"` – the record stores ID of an external identity provider (Idp) and ID of the user understood by the Idp
 ```JSON
 {
     "mappingScheme": "onedataUser" | "idpUser",
@@ -135,8 +135,8 @@ For more information on mapping users from external Idp to Onedata users please 
 #### `OnedataGroup`
 These record represents credentials identifying a group in the Onedata system.
 The record has one of the two schemes:
-* `"onedataGroup"` - group's ID is stored directly in the record
-* `"idpEntitlement"` - the record stores ID of an external identity provider (Idp) and ID of the group understood by the Idp
+* `"onedataGroup"` – group's ID is stored directly in the record
+* `"idpEntitlement"` – the record stores ID of an external identity provider (Idp) and ID of the group understood by the Idp
 ```JSON
 {
     "mappingScheme": "onedataGroup" | "idpEntitlement",
@@ -158,7 +158,7 @@ to populate the LUMA DB with required mappings can be found in the [next section
 ### Regular (non-imported) storages
 If the [*storage import*](storage-import.md) is disabled, LUMA is used to access the storage in the user's context and it is sufficient to provide 
 the [storage credentials](#storage-credentials) mapping and recommended to set the default space GID in case of POSIX 
-storage (see below). The [display credentials](#display-credentials) are optional - LUMA will use defaults if not provided.
+storage (see below). The [display credentials](#display-credentials) are optional – LUMA will use defaults if not provided.
 
 #### Onedata user to storage credentials mapping
 [Storage credentials](#storage-credentials) are acquired differently depending on the storage type.
@@ -168,7 +168,7 @@ On POSIX incompatible storages, field `storageCredentials` from [`StorageUser`](
 
 On POSIX compatible storages (currently POSIX, GLUSTERFS, NULLDEVICE), credentials consist of 2 integers: UID and GID.
 Only UID field is stored in the [`StorageUser`](#storageuser) record, the GID is constant for the space 
-(all space members are treated as the owner group - [read more](../../../user-guide/data.md#posix-permissions)).
+(all space members are treated as the owner group – [read more](../../../user-guide/data.md#posix-permissions)).
 This strategy ensures that all files created in the space have the same GID owner on the supporting storage so that
 ownership of the files in the space is correctly mapped on the storage. 
 
@@ -194,18 +194,18 @@ GID is acquired from field `gid` from [`PosixCredentials`](#posixcredentials) re
 
 Below mappings are associated with the concept of [*storage import*](storage-import.md)
 and should only be considered when the corresponding storage is an [*imported storage*](storages.md#imported-storage).                                                     
-* mapping storage user to [Onedata user](#onedata-user-credentials) - used in case of importing files from storage.
+* mapping storage user to [Onedata user](#onedata-user-credentials) – used in case of importing files from storage.
   It allows mapping owner of the storage file to a specific Onedata user who will become owner of the file imported
   to the space. Storage user is identified by the value of UID field returned from `stat` operation or equivalent on
   given storage backend.  
-* mapping storage NFSv4 ACL principal to Onedata [user](#onedata-user-credentials)/[group](#onedata-group-credentials) - 
+* mapping storage NFSv4 ACL principal to Onedata [user](#onedata-user-credentials)/[group](#onedata-group-credentials) – 
   used in case of importing files from storage that supports [NFSv4 ACLs](https://www.osc.edu/book/export/html/4523), 
   with `Synchronize ACL` option enabled. It allows mapping ACL principal to a specific user/group in the Onedata. If `Synchronize ACL` 
   option is disabled this mapping does not have to be defined. 
 
 >**WARNING:** It is possible that imported files have different GIDs. Oneprovider does not attempt to map them to the 
 Onedata groups model as it's not compatible with the POSIX groups model. It is strongly recommended that admin of the 
-legacy storage to be imported ensures that the file structure is compliant with the Onedata model - all files in the 
+legacy storage to be imported ensures that the file structure is compliant with the Onedata model – all files in the 
 space should have the same group owner. **Otherwise, access to imported files may be denied by the underlying storage system.**
 
 #### Storage user to Onedata user mapping
@@ -323,7 +323,7 @@ can be found in the [REST API documentation](https://onedata.org/#/home/api/stab
 The LUMA DB is populated by lazily querying an external HTTP server that implements a standardized API.
 The space admin is responsible for the implementation and maintenance of the server.
 
->**NOTE:**  It is compulsory to configure the URL of external feed - please see the [Configuration](#configuration) section.
+>**NOTE:**  It is compulsory to configure the URL of external feed – please see the [Configuration](#configuration) section.
 
 Below is the full API specification of the external LUMA feed server.
 

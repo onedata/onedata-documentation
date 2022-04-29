@@ -26,6 +26,7 @@ module.exports = {
           '/user-guide/account-management',
           '/user-guide/groups',
           '/user-guide/spaces',
+          '/user-guide/providers',
           '/user-guide/data',
           '/user-guide/web-file-browser',
           '/user-guide/oneclient',
@@ -39,6 +40,8 @@ module.exports = {
           '/user-guide/rest-api',
           '/user-guide/quality-of-service',
           '/user-guide/data-discovery',
+          '/user-guide/datasets',
+          '/user-guide/archives',
           '/user-guide/views',
           '/user-guide/cdmi'
         ]

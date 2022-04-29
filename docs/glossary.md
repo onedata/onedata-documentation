@@ -3,6 +3,10 @@
 
 <!-- TODO: VFS-7218 fill missing entries -->
 
+## ACL
+Mechanism for granting and denying access to files and directories. 
+Learn more [here](user-guide/data.md#access-control-lists).
+
 ## Auto-cleaning
 Mechanism that automatically maintains storage usage at a certain 
 level and ensures that there is enough space for new replicas when performing continuous computations.
@@ -101,7 +105,7 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Space
 A logical container for data, fundamental for user data organization in Onedata.
-Accessible only to its members - users or [groups](#group) - that are assigned
+Accessible only to its members – users or [groups](#group) – that are assigned
 fine grained privileges. Learn more [here](user-guide/spaces.md).
 <!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
 

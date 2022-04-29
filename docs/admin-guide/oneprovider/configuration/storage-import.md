@@ -1,11 +1,11 @@
 # Storage import
-<!-- This file is referenced at least one time as "storage-import.md" -->
+<!-- This file is referenced at least one time as "storage-import.md" TODO VFS-7452 -->
 
 *Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
 the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
 the storage to detect consecutive changes made directly on the storage after the initial import (during the space 
-lifecycle) - using the continuous scan option, by manually triggering scans or by re-registering files. 
+lifecycle) – using the continuous scan option, by manually triggering scans or by re-registering files. 
 
 
 This functionality should be used in two setups:
@@ -85,15 +85,15 @@ The configuration of *auto storage import* can be set when supporting the space,
 ![Auto storage import configuration](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png)
 
 The available configuration options are:
-* `Max depth` - Maximum depth of filesystem tree that will be traversed during the scan. By default it is 65535.
-* `Synchronize ACL` - Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB](luma.md#imported-storages).
-* `Detect modifications` - If disabled, the storage will be treated as immutable – changes of already imported files
+* `Max depth` – Maximum depth of filesystem tree that will be traversed during the scan. By default it is 65535.
+* `Synchronize ACL` – Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB](luma.md#imported-storages).
+* `Detect modifications` – If disabled, the storage will be treated as immutable – changes of already imported files
   will not be detected. Relevant only if more than one scan is performed.
-* `Detect deletions` - Flag determining that deletions of already imported files will be detected and reflected.
+* `Detect deletions` – Flag determining that deletions of already imported files will be detected and reflected.
   Relevant only if more than one scan is performed.
-* `Continuous scan` - Indicates if the data on the storage should be imported into the space periodically. Continuous
+* `Continuous scan` – Indicates if the data on the storage should be imported into the space periodically. Continuous
   import guarantees data integrity if direct modifications on the storage are to be made during the space lifecycle.
-* `Scan interval` - Period between subsequent scans in seconds (counted from end of one scan till beginning of the following),
+* `Scan interval` – Period between subsequent scans in seconds (counted from end of one scan till beginning of the following),
   relevant only if `Continuous scan` is enabled.
 
 ### Last scan summary
@@ -121,7 +121,7 @@ It is also possible to forcefully stop the current scan of *auto storage import*
 
 ![Stopping a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png)
 
-> **NOTE:** Stopping the scan is asynchronous - may take some time and does not guarantee instant effect.
+> **NOTE:** Stopping the scan is asynchronous – may take some time and does not guarantee instant effect.
 
 ### Statistics
 Progress of the *auto storage import* can be observed on three charts, as shown below. 

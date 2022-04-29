@@ -11,7 +11,7 @@
 
 <!-- TODO VFS-7218 this is some leftovers from the archiver docs, maybe can be reused -->
 Go to the **Other group** in **GROUP** tab. You are encouraged to add some 
-more relations in the **Members** submenu - create more groups and organize
+more relations in the **Members** submenu – create more groups and organize
 them into complex structures. Onedata supports arbitrary group nesting levels,
 and even allows cycles. Play around to see how a group can become its own
 effective parent and child at the same time. Visit the **Hierarchy** tab to

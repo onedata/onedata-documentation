@@ -1,5 +1,5 @@
 # Data Discovery
-<!-- This file is referenced at least one time as "data-discovery.md" -->
+<!-- This file is referenced at least one time as "data-discovery.md" TODO VFS-7452 -->
 
 This guide is dedicated for non-admin users that would like to index the 
 metadata from files in their spaces and perform queries. Consider reading the 
@@ -26,7 +26,7 @@ interface or REST API.
 - By indexing metadata you implicitly give a consent for sharing them with all members
 of the indexing harvester. Anyone with access to the harvester will be able to query the
 indices and see metadata.
-- The files to be indexed do not have conflicting metadata formats - 
+- The files to be indexed do not have conflicting metadata formats – 
 [learn more](#why-some-of-my-metadata-is-not-present-in-my-index).
 
 There are several ways how you can index the metadata attached to the files in 
@@ -77,7 +77,7 @@ In case of any problems with metadata indexing, contact the owner or creator of 
 
 
 ## Querying indexed metadata
-The harvested metadata is indexed by the backend configured for given harvester - 
+The harvested metadata is indexed by the backend configured for given harvester – 
 e.g. an Elasticsearch cluster. The indices can be queried using the 
 [Data Discovery GUI](#data-discovery-gui) or the [REST API](#rest-api).
 
@@ -111,7 +111,7 @@ metadata.
 you will be taken to the directory that contains the indexed file.
 ![image](../../images/user-guide/data-discovery/4-go-to-file.png#screenshot)
 
-5. Back to the data discovery view - you can use the query builder to compose
+5. Back to the data discovery view – you can use the query builder to compose
 custom queries which will narrow your search results. Building the query starts
 with a single placeholder that can become a direct condition, or branch into
 a more complex expression using chosen operator.
@@ -128,19 +128,19 @@ value to compare against. If the condition is true for a file, it will be
 included in the results (subject to other expressions in case of a complex query).
 ![image](../../images/user-guide/data-discovery/7-query-builder-3.png#screenshot)
 
-8. Complete condition - matches if the `enabled` property in file metadata
+8. Complete condition – matches if the `enabled` property in file metadata
 equals `true`.
 ![image](../../images/user-guide/data-discovery/8-query-builder-4.png#screenshot)
 
-9. Now, for the right-hand expression - another condition that matches if `id`
+9. Now, for the right-hand expression – another condition that matches if `id`
 is equal to `16`.
 ![image](../../images/user-guide/data-discovery/9-query-builder-5.png#screenshot)
 
-10. Complete query might look like the following - quick on the *Query* button
+10. Complete query might look like the following – quick on the *Query* button
 to perform the search.
 ![image](../../images/user-guide/data-discovery/10-query-builder-6.png#screenshot)
 
-11. The results are presented on a paged view - you should see all the files
+11. The results are presented on a paged view – you should see all the files
 that match the specified query, split to pages. Use the paging menu at the
 bottom for navigation.
 ![image](../../images/user-guide/data-discovery/11-query-builder-7.png#screenshot)
@@ -170,13 +170,13 @@ sorting parameters. See the [REST API](#rest-api) for more information.
 ## REST API
 
 Onezone's REST API allows performing queries in Elasticsearch, where Onezone
-serves as a proxy - as the Elasticsearch server is usually deployed alongside
+serves as a proxy – as the Elasticsearch server is usually deployed alongside
 the Onezone's cluster in an isolated, internal network.
 
 Example query to the harvester looks like the following. The request body is
 essentially a specification of the request to be made by Onezone to the
 Elasticsearch server, and the response is fed back to the client. The `body`
-value is a string - encoded JSON expressing the Elasticsearch query.
+value is a string – encoded JSON expressing the Elasticsearch query.
 
 ```bash
 curl -X POST -H "x-auth-token: ${TOKEN}" -H "content-type: application/json" \
@@ -226,13 +226,13 @@ curl -X POST -H "x-auth-token: ${TOKEN}" -H "content-type: application/json" \
 ```
 
 Note that the `${TOKEN}` variable must be set to an [access token](tokens.md#access-token-quickstart) 
-of a user that is a member of this harvester - unless the harvester is
+of a user that is a member of this harvester – unless the harvester is
 [public](#public-and-private-access), then the `x-auth-token` header can be simply removed.
 
 The response will contain the raw response from the Elasticsearch server. If
 filters are enabled, only the specified properties will be included in the
-results (for the bove example - `id` and `keywords`). Furthermore, by default
-only the first 10 entries will be returned - override by changing the
+results (for the bove example – `id` and `keywords`). Furthermore, by default
+only the first 10 entries will be returned – override by changing the
 `\"from\": 0, \"size\": 10` parameters of the query.
 
 
@@ -245,9 +245,9 @@ the Onezone administrators and maintained by them. By granting privileges to cre
 harvesters, the Onezone admins can designate a group of trusted users that can use those resources.
 
 What is more, the harvesting process analyzes all changes performed on the files in spaces attached to
-the harvester. When these spaces are large - e.g. with a few millions of files or more -
+the harvester. When these spaces are large – e.g. with a few millions of files or more -
 that analysis and metadata submission significantly impacts the overall system
-performance - mostly Onezone service and external harvesting backend. Hence the ability to create and configure
+performance – mostly Onezone service and external harvesting backend. Hence the ability to create and configure
 harvesters is narrowed to a privileged group of users so that the system load can be controlled.
 
 The admin privilege required to create a harvester is `oz_harvesters_create`.
@@ -265,7 +265,7 @@ Another reason might be the index settings. For instance, if you configured inde
 only JSON metadata, then all other types of metadata will be ignored and not submitted to the index.
 
 > **NOTE**: If you did not provide a custom index schema, then Onedata uses a default one
-> which - in most cases - generates acceptable data format just-in-time depending on
+> which – in most cases – generates acceptable data format just-in-time depending on
 > incoming data. It means that if you had file metadata where field **myFavField** was initially a
 > number, then the **myFavField** field must always be a number (for every file). The
 > data types in harvested metadata must match all initially detected types for each field

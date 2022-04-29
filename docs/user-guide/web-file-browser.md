@@ -1,284 +1,295 @@
 # Web file browser
-<!-- This file is referenced at least one time as "web-file-browser.md" -->
+<!-- This file is referenced at least one time as "web-file-browser.md" TODO VFS-7452 -->
 
 [toc][]
 
-When you have an access to [data space](spaces.md) that is
-[supported](spaces.md#request-support-for-space) by at least one provider, you
-can access and manage the data using the web file browser, which is available in
-**DATA > _Space_ > Data** tab.
+The Web file browser is a graphical interface offering a broad spectrum of file
+management features, including basic file operations (e.g. filesystem
+navigation, file upload or download) and advanced capabilities, specific for
+Onedata (e.g. Quality of Service, data distribution management, dataset
+management).
 
-![Location of file browser in data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
+The file browser is always presented in the context of a single
+[space](spaces.md). It becomes available when the space is
+[supported](spaces.md#request-support-for-space) by at least one
+[provider](providers.md) and can be invoked by navigating to the **DATA > _Space
+name_ > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
+![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
+<!-- FIXME add visual indication where is the FILES tile -->
+<!-- FIXME refresh screenshots that say "Data" instead of "Files" -->
 
 ## Uploading data
 
-The empty space that does not contain any data will welcome you with the
-following screen:
+A new, empty space welcomes users with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
 
-To put a life into this empty place, you can add some files using upload button
-or drag&drop them from your computer. While data is sent, a progress panel will
-appear in the bottom-right corner of the screen. You can upload multiple files
-at once, as well as add more files at any moment.
+New files can be uploaded using the **upload** button or dragging and dropping
+them in the file browser area. While the data is being uploaded, a progress
+panel appears in the bottom-right corner of the screen. It is possible to upload
+multiple files at once or add more files during an ongoing upload.
 
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
 
-To manage uploads easily, an **UPLOADS** tab will appear in the main menu
-sidebar, providing advanced view of all uploads that have been started by
-current user in current browser tab. The information can be grouped by the
-provider to which files are sent.
+After any upload is started, the **UPLOADS** tab will appear in the main menu
+sidebar, providing detailed view of all uploads that have been done in the
+current browser tab. The information can be viewed in a summarized form or per
+the target provider.
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
 
 
 ## File browser layout
 
-The file browser consists of two main parts:
+The top section of the file browser accommodates a breadcrumb navigator and a
+toolbox.
 
-1. a header that contains breadcrumbs showing current directory path and basic
-actions toolbar,
-2. a file list.
+The breadcrumb navigator presents the path to the current working directory and
+allows navigation to its parent directories. The current working directory is
+the last element in the breadcrumbs and has a context menu with all available
+actions for the directory (identical to the context menus on the file list,
+described below).
 
-
-### File browser header
-
-The breadcrumbs bar contains a path to currently viewed directory and allows to
-navigate to one of its parent directory. The currently opened directory entry,
-shown on the breadcrumbs end, provides a context menu with full list of current
-directory actions.
-
-On the right of directory breadcrumbs, there are shortcut action buttons that
-allow to upload files, create a new directory and refresh files list.
+The toolbox, located in the top right corner, contains shortcuts for common
+directory actions (*upload files*, *create a new directory* and *refresh file list*).
 
 ![Directory breadcrumbs](../../images/user-guide/web-file-browser/layout-breadcrumbs.png#screenshot)
+FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
+The remainder part of the file browser presents the content of the current working
+directory in a form of a list with details.
 
-### File list
-
-The file list shows content of currently opened directory. Each file row has its
-name, size and modification time displayed.
-
-::: tip
-Navigation slightly differs on mobile devices and on desktop browsers.
-In this section a desktop mode is described. See [mobile file
-browser](#mobile-file-browser) for guide.
+::: tip NOTE
+File list navigation is slightly different on mobile devices and is covered 
+[later on](#mobile-file-browser).
 :::
 
-By clicking once on a file, it will be selected or deselected. You can select or
-deselect multiple files using `Ctrl` (or `Opt` on MacOS) while clicking. You can
-also select a range of files, when some file is selected and another file is
-clicked with `Shift`.
+Files can be selected or deselected by left-clicking on them. By holding down
+`Ctrl` (or `Opt` on MacOS) while clicking, it is possible to select/deselect
+multiple files. A range of files can be selected by holding down `Shift`.
 
-By clicking on an file item twice, you can open the directory or download a
-file.
+A double click on an item opens a directory (sets it as a new current working
+directory) or downloads a file.
 
-When an item or set of selected items is clicked with right mouse button, a
-context menu will appear with file actions.
+When an item or multiple selected items are right-clicked, a context menu with
+available actions appears.
 
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
 
-When there are more files than can be displayed on a single screen, you can
-scroll down to dynamically load further content.
+The file browser uses the "infinite scroll" method to display large
+directories – new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
 
-In addition to aforementioned file attributes on the list, additional
-information are displayed using tags. These include information whether file is
-shared, have Quality of Service requirements attached or have Access Control
-List (ACL) assigned.
+Apart from basic details displayed on the list, additional information and
+characteristics of files is presented using tags. For instance, the tags include
+information whether a file is shared, has Quality of Service requirements
+attached or an Access Control List (ACL) assigned.
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
-
+FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
 ## File browser features
 
-The context-menu for files provides a rich set of both basic file operations,
-such as deleting and copying files, as well as advanced ones, that utilizes
-Onedata unique features, like data distribution.
+<!-- FIXME add missing features and adjust to 21.02 (or create a separate ticket for that) -->
+
+All file management operations offered by the file browser are available in the
+context menu invoked with a right-click or using the three-dots button on
+the left of each list entry.
 
 ::: tip
-Some of file operations requires appropriate
-[privileges](spaces.md#space-privileges) in the space for current user. Some of
-the operations are applicable to single file or directory, while other can be
-used on multiple files at once.
+Some operations require appropriate [privileges](spaces.md#space-privileges) 
+in the space and are disabled in the menu in case the user's privileges are not
+sufficient.
+:::
+
+::: tip
+It is possible to invoke the context-menu for more than one selected item, but
+only some of the operations are available in this mode.
 :::
 
 ![Context menu for single file](../../images/user-guide/web-file-browser/feature-file-context-menu.png#screenshot)
+FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
+FIXME looks like the "screenshot" style does not add a border to the images
+FIXME looks like this problem affects a lot of images in this chapter - check them all
 
 ### Information
 
-**Information** shows a modal with additional information about a single file or
-directory such as name, path, associated identifiers and owner name.
+This action brings up a modal with information about a single file or directory.
 
 ![Information about file](../../images/user-guide/web-file-browser/feature-info.png#screenshot)
 
 
 ### Share
 
-**Share** option gives you the power to make a file or directory public to
-non-Onedata users. If file is not shared yet, this action will open a modal that
-allows to create a new [share](shares.md), that could be accessed by other
-people.
+Using the **Share** submenu, it is possible to make a file or directory publicly
+accessible by anyone knowing the share link (no authentication or account in
+Onedata is needed). If the item has not been shared yet, this action will open a
+modal that allows creating a new [share](shares.md).
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-share.png#screenshot)
 
-If the file is shared, the modal will show a list of shares associated with it.
-You can copy public links or go to their configuration views. You can also
-create more shares for this file or directory.
+If the item has already been shared, the modal will present the list of existing
+shares, with the possibility to copy their public links, view their details
+(using the green links) or create another share.
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-shared-already.png#screenshot)
 
 
 ### Metadata
 
-**Metadata** option allows browsing end editing [metadata](metadata.md#web-gui) for
-files. A modal that is shown, contains an editor of three types of metadata:
-basic (key-value), JSON and RDF. The two last provide a code editor features
-like syntax checking and highlighting.
+This action allows browsing end editing custom file
+[metadata](metadata.md#web-gui), divided into three classes: basic (key-value),
+JSON and RDF. The last two feature a code editor with syntax checking and
+highlighting.
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-metadata-json.png#screenshot)
 
 
 ### Permissions
 
-Using **permissions** option, you can change POSIX permissions and Access
-Control List (ACL) of a file.
+Invokes an editor of [permissions](data.md#permissions) assigned to the file –
+[POSIX](data.md#posix-permissions) or [Access Control List
+(ACL)](data.md#access-control-lists). Each file can use only one of the
+permission types at the same time, and the currently applied one is selected
+using the **Permissions type** toggle.
 
-You can enter an octal representation or use checkboxes to change permissions
-details.
+POSIX permissions are the default permissions set for each file and can be
+edited using the octal representation field or by manipulating the checkboxes.
 
 ![POSIX permissions of file](../../images/user-guide/web-file-browser/feature-permissions-posix.png#screenshot)
 
-Selecting **ACL** in the modal switch shows an ACL editor that allows to add
-users or groups to the Access Control List and configure detailed permissions
-for each. Detailed information about ACL in Onedata can be found in [Access
-Control Lists](data.md#access-control-lists) page.
+Upon switching to the **ACL** type, a different editor is presented. It allows
+creating and editing entries for different principals in the space and assigning
+allowing/denying rules for granular operations concerning the file or directory.
 
 ![ACL of file](../../images/user-guide/web-file-browser/feature-permissions-acl.png#screenshot)
 
 
 ### Data distribution
 
-**Data distribution** gives you a powerful tool to manage and monitor
-distribution of file data among supporting providers.
-
-Data charts visualizes file blocks located on supporting providers for each
-selected file or on a summarized view.
+This submenu is used to monitor and manage the [distribution of file
+data](data.md#file-distribution) among supporting providers. The green bars
+visualize which blocks (fragments of the file) are stored on the storage systems
+of the corresponding providers. When more than one file is selected, the
+distribution can be viewed in a summarized or detailed manner.
 
 ![Data distribution charts](../../images/user-guide/web-file-browser/feature-distribution-bar.png#screenshot)
 
-You can watch status and schedule a data [replication, migration and
-eviction](replication-and-migration.md) on status/action toolbars. There are
-also information about ongoing and past data transfers with link to detailed
-[transfers](replication-and-migration.md) view.
+The handy status bar indicates ongoing [replication, migration and
+eviction](replication-and-migration.md) jobs and allows scheduling new ones for
+the corresponding provider. In the detailed view, there is also a shortcut to
+the history of data transfers for the subject file (as shown in the screenshot
+above).
 
 ![Data distribution actions](../../images/user-guide/web-file-browser/feature-distribution-schedule.png#screenshot)
 
 
 ### QoS
 
-**Quality of Service** option provides view and management of [Quality of
-Service](quality-of-service.md) (QoS) requirements defined for files and their
-status of fulfillment.
+Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
+requirements defined for the selected file(s), which are used to automatically 
+manage the file data replication according to logical rules.
 
-You can add new QoS requirements for a single or multiple files using a visual
-expression editor. The block-based editor allows to create a logical expression
-on sets utilizing QoS parameters with their values defined for supporting
-storages.
+The rules can be put down using a visual block-based expression editor. These
+rules are evaluated against the QoS parameters assigned to different supporting
+storages in order to determine where the replicas should be stored.
 
 ![QoS visual editor: block editing](../../images/user-guide/web-file-browser/feature-qos-visual.png#screenshot)
+FIXME fix the label in GUI - it should say "Replica number"
 
-You can check which storages will be used to fulfill the requirement any time
-and copy an expression as text to reuse it, e.g. in REST API calls.
+Below the requirement, there is information what storages match the requirement
+and an action that copies the expression in textual form, to be reused when
+creating a new requirement or using the [REST API](rest-api.md).
 
 ![QoS visual editor: storage match and expression](../../images/user-guide/web-file-browser/feature-qos-visual-match.png#screenshot)
 
-You can also write the expression as text and convert it to block form for
-validation and further edition.
+Expressions can be entered in the textual form. They are converted to block form
+upon confirmation, and then can be further edited.
 
 ![QoS editor in text mode](../../images/user-guide/web-file-browser/feature-qos-text.png#screenshot)
 
-When selected files have QoS requirements defined, the modal shows a list of the
-expressions with their status of fulfillment, matching storages and other
-information. There is also an option to remove the requirement if it is assigned
-directly to the selected file.
+If the selected files have any QoS requirements defined, they are displayed on
+the list along with their status of fulfillment, matching storages and other
+information. It is possible to remove selected QoS requirements, unless they
+are inherited from any parent directory. 
 
 ![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
 
 
 ### Rename
 
-**Rename** option shows a modal that allows to change a file name.
+Basic operation used to change the file name.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-rename.png#screenshot)
 
 
 ### Copy, Cut and Paste
 
-You can **copy** or **cut** one or multiple files using context menu, and then a
-**paste** option should appear in each directory. Simply clicking on this icon
-will start files copy or move to a currently opened directory.
+The  **copy** or **cut** action from the context-menu can be used on one or
+more selected items. Then, a **paste** action will appear in the toolbox, which
+can be used to copy or move the files to the current working directory.
 
 ![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
 
 
 ### Delete
 
-**Delete** option is used for removing selected files and directories. An opened
-modal shows summary and progress of the operation.
+This action permanently deletes the selected files and directories. 
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-delete.png#screenshot)
 
+FIXME fix the description in GUI - there should be no comma before "that is shared X times"
 
 ## Mobile file browser
 
 <!-- TODO VFS-7218 all images here should be centered -->
 
 Onedata web file browser supports mobile devices such as smartphones or tablets.
-Available features are literally the same as in desktop mode, while the view is
-designed for small devices.
+Available features are the same as in desktop mode, but the page layout is
+adjusted to small devices.
 
 ![Mobile web file browser - overview](../../images/user-guide/web-file-browser/mobile-overview.png#screenshot)
 
-In the mobile mode, navigation is customized for touch screens. Instead of
-double click, user should just tap a file or directory to download or open it,
+In the mobile mode, the navigation is adapted for touch screens. Instead of a
+double click, a tap gesture is used to download a file or open a directory.
 
 ![Mobile web file browser - download](../../images/user-guide/web-file-browser/mobile-download.png#screenshot)
 
-Selection is done by holding a file for about a second, and selecting more file
-can be achieved by tapping other files. A context menu for a file can be invoked
-using three-dots menu in the file row or convenient **Selection...** tool on the
-bottom of screen.
+Selection is performed by pressing and holding on a file for about a second, and
+then selecting further files is done by tapping on them. The context menu for a
+file can be invoked using the three-dots menu in the file row or the
+**Selection** button at the bottom of screen.
 
 ![Mobile web file browser - context menu](../../images/user-guide/web-file-browser/mobile-menu.png#screenshot)
 
-To perform operations such as creating new directory or uploading files, you
-should use context menu of a current directory. When an upload will be started,
-a progress appears in the bottom of the screen.
+Operations on the current working directory, such as creating new directory or
+uploading files, are available in the breadcrumbs navigator. When an upload is
+started, a progress bar appears at the bottom of the screen.
 
 ![Mobile web file browser - upload](../../images/user-guide/web-file-browser/mobile-upload.png#screenshot)
 
 
-## Choosing Oneprovider
+## Switching between providers
 
-The file browser features are brought by one of the Oneproviders supporting the
-space. The currently used provider is shown on the top of file browser in the
-**View provided by...** bar. Although a default one will be chosen
-automatically, you can switch it using **Choose other Oneprovider...** on the
-top of file browser and choosing a provider from tab bar if the space is
-supported by multiple providers. Yo can also open a providers map showing their
-locations from a globe icon.
+The file browser view is provided by one of the providers supporting the space.
+The currently selected provider is shown on the top of file browser in the
+**View provided by...** bar. Although the provider is chosen automatically, it
+is possible to manually select a different one using the **Choose other
+Oneprovider...** action at the top of file browser, given that there is more
+than one supporting provider. Alternatively, providers can be switched using a 
+world map visual representation, available under the globe icon.
 
 ![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)
 
 ::: tip
-If you choose another Oneprovider, you will eventually see the same
-content, but new changes might appear with different delay. Oneproviders
-continuously synchronize the data changes within space, and depending on the
-system usage intensity, they can take from couple of seconds to even hours to
-propagate. To see the changes immediately, make sure to choose the Oneprovider
-on which you are working (making computations, scheduling data transfers etc).
+After switching to another provider, the user will eventually see the same
+content, but new changes might appear with different delay. Providers
+continuously synchronize the data changes within spaces, and depending on the
+system usage intensity, they can take from a couple of seconds to even hours to
+propagate. To see the changes immediately, it is recommended to choose the
+Oneprovider on which the user is making them (modifying file content,
+creating new files or directories, scheduling data transfers etc).
 :::

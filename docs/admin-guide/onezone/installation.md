@@ -1,4 +1,7 @@
 # Installation
+
+<!-- @TODO VFS-7218 missing chapter -->
+
 <!-- as needed: link to configuration, compatibility-reference [versions]) -->
 
 ## Docker-based
