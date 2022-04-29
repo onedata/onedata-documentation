@@ -92,7 +92,7 @@ FIXME this screenshot ^ appears to have a lot of blank space beneath the content
 
 ## File browser features
 
-<!-- FIXME add missing features (as of 21.02) -->
+<!-- FIXME add missing features and adjust to 21.02 (or create a separate ticket for that) -->
 
 All file management operations offered by the file browser are available in the
 context menu invoked with a right-click or using the three-dots button on
