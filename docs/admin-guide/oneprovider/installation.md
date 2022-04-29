@@ -403,57 +403,57 @@ $ sudo systemctl start oneprovider.service
 
 Start a web browser and open https://localhost:9443. If the browser is not started on the oneprovider VM replace localhost with the IP of the VM. You may need to accept the SSL security exception in your browser. The cluster deployment process is straighforward - just follow the instructions on the subsequent pages. You can hover the question marks for additional explanations. The following screenshots illustrate the process.
 
-![New-onepanel-installation](./installation-gui-new-onepanel.png)
+![New-onepanel-installation](../../../images/admin-guide/oneprovider/installation/installation-gui-new-onepanel.png)
 
 Click "Create a new cluster".
 
-![Set-onepanel-emergency-passphrase](./installation-gui-passphrase.png)
+![Set-onepanel-emergency-passphrase](../../../images/admin-guide/oneprovider/installation/installation-gui-passphrase.png)
 
 Enter the passphrase and click "Submit".
 
-![Welcome](./installation-gui-welcome.png)
+![Welcome](../../../images/admin-guide/oneprovider/installation/installation-gui-welcome.png)
 
 Click "Create Oneprovider cluster"
 
-![Cluster-deployment](./installation-gui-cluster-deployment.png)
+![Cluster-deployment](../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-deployment.png)
 
 Choose the components to be installed on the given node. For a one-node deployment as in this example select all compoments. A local Ceph cluster will be also deployed. Click on the green "Proceed" button.
 
-![Ceph-configuration](./installation-gui-ceph-configuration.png)
+![Ceph-configuration](../../../images/admin-guide/oneprovider/installation/installation-gui-ceph-configuration.png)
 
 Configure the local Ceph components. At least one monitor, manager and OSD need to be configured. For the OSD you can choose between block device or loop device (in which case the data will go to a regular file). If choosing loopdevice make sure there is enough disk space otherwise the deployment will fail. For more information about local ceph configuation and further management go [here](configuration/ceph). For more details about the Ceph distributed storage system go to the [Ceph site](https://ceph.io). Click "Deploy" to continiue with the instalation.
 
-![Registration](./installation-gui-registration.png)
+![Registration](../../../images/admin-guide/oneprovider/installation/installation-gui-registration.png)
 
 Register your oneprovider in a given onezone. Click "show me how" for instructions. Paste the obtained token and click "Proceed".
 
-![Registration-2](./installation-gui-registration-2.png)
+![Registration-2](../../../images/admin-guide/oneprovider/installation/installation-gui-registration-2.png)
 
 Fill the requiered form fields and click "Register".
 
-![IP-address-setup](./installation-gui-ip-address-setup.png)
+![IP-address-setup](../../../images/admin-guide/oneprovider/installation/installation-gui-ip-address-setup.png)
 
 Check the correctness of IP address and click "Setup IP address".
 
-![DNS-setup](./installation-gui-dns-setup.png)
+![DNS-setup](../../../images/admin-guide/oneprovider/installation/installation-gui-dns-setup.png)
 
 Check the DNS configuration and click "Proceed".
 
-![Web-certificate](./installation-gui-web-certificate.png)
+![Web-certificate](../../../images/admin-guide/oneprovider/installation/installation-gui-web-certificate.png)
 
 Click "Obtain certificate".
 
-![Storages](./installation-gui-storages.png)
+![Storages](../../../images/admin-guide/oneprovider/installation/installation-gui-storages.png)
 
 Choose Local Ceph type of storage and give it a name. Click "OK".
 
-![Storages-2](./installation-gui-storages-2.png)
+![Storages-2](../../../images/admin-guide/oneprovider/installation/installation-gui-storages-2.png)
 
 Click "Finish".
 
-![Cluster-configured-successfully](./installation-gui-cluster-configured-successfully.png)
+![Cluster-configured-successfully](../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png)
 
-Now you can start managing your cluster, e.g., support a space as described in [Space supports](./configuration/space-supports).
+Now you can start managing your cluster, e.g., support a space as described in [Space supports](../../../images/admin-guide/oneprovider/installation/configuration/space-supports).
 
 
 
@@ -483,7 +483,7 @@ The first step to deploy Oneprovider using Onedatify script is to create a new s
 
 Go the main Onezone interface and select **DATA -> +** :
 
-![somethong](./onedatify_create_space.png)
+![somethong](../../../images/admin-guide/oneprovider/installation/onedatify_create_space.png)
 
 Note: Skip this step if existing space should be supported.
 
@@ -493,7 +493,7 @@ Go to Onezone interface and click on the space. Click **Add support** in the pro
 
 Select the tab *Deploy your own Oneprovider*:
 
-![something](./onedatify_deploy_provider_command.png)
+![something](../../../images/admin-guide/oneprovider/installation/onedatify_deploy_provider_command.png)
 
 and copy the generated command.
 
@@ -505,13 +505,13 @@ Paste the copied command in the terminal on the Oneprovider machine (as superuse
 
 Check the prerequsite list and confirm to proceed to the next step:
 
-![some](./onedatify_step_1.png)
+![some](../../../images/admin-guide/oneprovider/installation/onedatify_step_1.png)
 
 If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
 
 After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
 
-![step 2](./onedatify_step_2.png)
+![step 2](../../../images/admin-guide/oneprovider/installation/onedatify_step_2.png)
 
 The progress can be monitored on a separate terminal using the following command:
 
@@ -521,7 +521,7 @@ journalctl -u onedatify.service -f
 
 After the deployment is complete, the following message will be shown, with connection details for administration panel for the Oneprovider instance:
 
-![step 5](./onedatify_step_5.png)
+![step 5](../../../images/admin-guide/oneprovider/installation/onedatify_step_5.png)
 
 
 
