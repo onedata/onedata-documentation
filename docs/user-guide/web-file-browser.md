@@ -16,8 +16,8 @@ The file browser is always presented in the context of a single
 name_ > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
-<!-- FIXME add visual indication where is the FILES tile -->
-<!-- FIXME refresh screenshots that say "Data" instead of "Files" -->
+
+<!-- TODO: VFS-9382 update screenshot and mark FILES tile with rectangle -->
 
 ## Uploading data
 
@@ -55,7 +55,6 @@ The toolbox, located in the top right corner, contains shortcuts for common
 directory actions (*upload files*, *create a new directory* and *refresh file list*).
 
 ![Directory breadcrumbs](../../images/user-guide/web-file-browser/layout-breadcrumbs.png#screenshot)
-FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
 The remainder part of the file browser presents the content of the current working
 directory in a form of a list with details.
@@ -88,11 +87,10 @@ information whether a file is shared, has Quality of Service requirements
 attached or an Access Control List (ACL) assigned.
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
-FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
 ## File browser features
 
-<!-- FIXME add missing features and adjust to 21.02 (or create a separate ticket for that) -->
+<!-- TODO: VFS-9383 documentation of features introduced in 21.02 -->
 
 All file management operations offered by the file browser are available in the
 context menu invoked with a right-click or using the three-dots button on
@@ -110,7 +108,6 @@ only some of the operations are available in this mode.
 :::
 
 ![Context menu for single file](../../images/user-guide/web-file-browser/feature-file-context-menu.png#screenshot)
-FIXME this screenshot ^ appears to have a lot of blank space beneath the content?
 
 FIXME looks like the "screenshot" style does not add a border to the images
 FIXME looks like this problem affects a lot of images in this chapter - check them all
@@ -198,7 +195,6 @@ rules are evaluated against the QoS parameters assigned to different supporting
 storages in order to determine where the replicas should be stored.
 
 ![QoS visual editor: block editing](../../images/user-guide/web-file-browser/feature-qos-visual.png#screenshot)
-FIXME fix the label in GUI - it should say "Replica number"
 
 Below the requirement, there is information what storages match the requirement
 and an action that copies the expression in textual form, to be reused when
@@ -241,7 +237,6 @@ This action permanently deletes the selected files and directories.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-delete.png#screenshot)
 
-FIXME fix the description in GUI - there should be no comma before "that is shared X times"
 
 ## Mobile file browser
 
