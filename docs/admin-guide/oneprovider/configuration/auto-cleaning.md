@@ -35,7 +35,7 @@ The thresholds can be adjusted in the
 `Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider panel GUI (as shown below)
  or using [REST API](#rest-api).
 
-![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png)
+![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png#screenshot)
 
 
 ## Selective rules

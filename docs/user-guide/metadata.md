@@ -93,27 +93,27 @@ is using the Web GUI metadata editor.
 1. In order to edit the metadata of a file/directory, simply select **Metadata** 
 from the file context menu.
 
-![image](../../images/user-guide/metadata/set_file_metadata.png)
+![image](../../images/user-guide/metadata/set_file_metadata.png#screenshot)
 
 2. Metadata can also be edited for entire data space, but it has to be invoked 
 from the space context menu.
 
-![image](../../images/user-guide/metadata/set_space_metadata.png)
+![image](../../images/user-guide/metadata/set_space_metadata.png#screenshot)
 
 3. The first tab allows edition of the [extended attributes](#extended-attributes)
 in a simple key-value editor.
 
-![image](../../images/user-guide/metadata/set_file_xattrs.png)
+![image](../../images/user-guide/metadata/set_file_xattrs.png#screenshot)
 
 4. In the second tab, JSON metadata can be edited in place or pasted into the 
 editor, which performs live syntax validation.
 
-![image](../../images/user-guide/metadata/set_file_json_metadata.png)
+![image](../../images/user-guide/metadata/set_file_json_metadata.png#screenshot)
 
 5. The third tab contains an RDF editor that works similarly, 
 but accepts triples in the XML format.
 
-![image](../../images/user-guide/metadata/set_file_rdf_metadata.png)
+![image](../../images/user-guide/metadata/set_file_rdf_metadata.png#screenshot)
 
 
 ## Metadata management with Oneclient and OnedataFS

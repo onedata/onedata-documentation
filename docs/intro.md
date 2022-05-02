@@ -52,9 +52,7 @@ After registering in a specific zone using Onezone web interface, a new space ha
 
 You can do that by sending to the provider a unique support request token, which can be generated using the Onezone interface. Provider uses this token to easily enable support for your *space* with a specified quota. The actual storage size and provisioning time depends on your agreement with the storage provider. You can request more storage for your *space* from multiple geographically distributed providers. Onedata will unify access to these storage resources automatically.
 
-<p align="center">
 <img src="../images/intro/spaces_model1.svg" width="580">
-</p>
 
 Each user can have any number of *spaces*. *Spaces* can be easily shared with other users and even exposed to the public. If you want to create a *space* for a community of users, Onedata supports user *groups*, which enable multiple users to access single *space* with respect to specified authorization rules.
 
@@ -67,9 +65,7 @@ Each zone is composed of a network of providers who provision their storage reso
 
 A user can use several providers simultaneously to manage his/her data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
-<p align="center">
 <img src="../images/intro/overview_3d_map_with_users.png" width="580">
-</p>
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
 
@@ -82,9 +78,7 @@ Onedata is a distributed system divided into zones that are created by deploying
 
 *Onezone* is responsible for authentication and authorization of users and makes it possible for users from different zones to communicate with each other and share data. It allows providers from different zones to interact with each other, i.e., allowing users from different zones to get support for their spaces regardless of the zone in which the particular provider is located.
 
-<p align="center">
 <img src="../images/intro/onezone101.svg" width="580">
-</p>
 
 As *onedata.org* is a main public zone, any provider registered there allows the users to access their data through *onedata.org* user interface.
 

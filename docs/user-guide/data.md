@@ -29,7 +29,7 @@ The path-based navigation is used mainly in the Web GUI and Oneclient interfaces
 
 [Web GUI](#web-gui) – the path is represented in the file browser's breadcrumbs.  
 
-![image](../../images/user-guide/data/file-gui-path-and-info.png#bordered)
+![image](../../images/user-guide/data/file-gui-path-and-info.png#screenshot)
 
 
 [Oneclient](#oneclient) – when using a shell to access the mounted filesystem,
@@ -61,7 +61,7 @@ There are several ways to find out the File ID of given file or directory:
 
 [Web GUI](#web-gui) – the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
-![image](../../images/user-guide/data/file-gui-path-and-info.png#bordered)
+![image](../../images/user-guide/data/file-gui-path-and-info.png#screenshot)
 
 [Oneclient](#oneclient) – useful information about every file is accessible
 using the `xattr` command (that reads extended attributes) – the below command
@@ -109,7 +109,7 @@ chooses one of their Oneproviders and is aware of its domain (see below).
 
 Oneprovider's domain is required to mount a [Oneclient](#oneclient) instance or
 utilize the [REST](#rest-api) and [CDMI](#cdmi) APIs. It can be found in the Web
-GUI: ![image](../../images/user-guide/data/provider-domain.png#bordered)
+GUI: ![image](../../images/user-guide/data/provider-domain.png#screenshot)
 
 ### Oneclient 
 Oneclient is a command-line based application used for mounting

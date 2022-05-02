@@ -45,10 +45,14 @@
 </template>
 
 <style>
-[src*=screenshot], .screenshot {
+img {
   display: block;
+  margin-top: 2em;
+  margin-bottom: 2em;
   margin-left: auto;
   margin-right: auto;
+}
+img[src*=screenshot] {
   border: 1px solid #ddd;
 }
 </style>

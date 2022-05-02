@@ -109,9 +109,6 @@ only some of the operations are available in this mode.
 
 ![Context menu for single file](../../images/user-guide/web-file-browser/feature-file-context-menu.png#screenshot)
 
-FIXME looks like the "screenshot" style does not add a border to the images
-FIXME looks like this problem affects a lot of images in this chapter - check them all
-
 ### Information
 
 This action brings up a modal with information about a single file or directory.
@@ -239,8 +236,6 @@ This action permanently deletes the selected files and directories.
 
 
 ## Mobile file browser
-
-<!-- TODO VFS-7218 all images here should be centered -->
 
 Onedata web file browser supports mobile devices such as smartphones or tablets.
 Available features are the same as in desktop mode, but the page layout is

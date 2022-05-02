@@ -51,7 +51,7 @@ will be lazily queried to populate the LUMA DB.
 It is also possible to set an API key that will be send with each request to the external server.
 Example configuration of LUMA feed is presented on the below picture:
 
-![Configuration of LUMA](../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png)
+![Configuration of LUMA](../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png#screenshot)
 
 >**NOTE:**  Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for 
 given storage resource. Newly set feed will be used to populate LUMA DB once again.  
