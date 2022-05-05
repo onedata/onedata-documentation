@@ -1,7 +1,7 @@
 # CDMI
-<!-- This file is referenced at least one time as "cdmi.md" -->
+<!-- This file is referenced at least one time as "cdmi.md" TODO VFS-7452 -->
 
-[[toc]]
+[toc][]
 
 
 ## Quickstart
@@ -46,12 +46,12 @@ For more information about CDMI please visit the official [website](http://www.s
 
 Files and directories can be accessed and managed in Onedata using CDMI queries 
 on following paths:
-- `/cdmi/${FILE_PATH}` - using the logical path to the file or directory.
-- `/cdmi/cdmi_objectid/${FILE_ID}` - using the [File ID](data.md#file-path-and-id) 
+- `/cdmi/${FILE_PATH}` – using the logical path to the file or directory.
+- `/cdmi/cdmi_objectid/${FILE_ID}` – using the [File ID](data.md#file-path-and-id) 
   that uniquely identifies the file or directory across the system.
 
 It is advised to use File IDs whenever possible as they offer better 
-performance - no path resolution needs to pe performed.
+performance – no path resolution needs to pe performed.
 
 When referencing files through CDMI using file path, please remember that 
 Onedata organizes all data into spaces, and the space name is the first element 
@@ -63,8 +63,8 @@ the path**):
 ```
 
 Also, please note that CDMI imposes strict rules concerning the trailing slash in paths:
-* directory path must always end with `/` - e.g. `/cdmi/MysSpace/dir1/` 
-* file path must have no trailing slash - e.g. `/cdmi/MysSpace/file1.txt`.
+* directory path must always end with `/` – e.g. `/cdmi/MysSpace/dir1/` 
+* file path must have no trailing slash – e.g. `/cdmi/MysSpace/file1.txt`.
 
 
 ## Examples of usage

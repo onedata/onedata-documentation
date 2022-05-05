@@ -1,7 +1,7 @@
 # Storages
-<!-- This file is referenced at least one time as "storages.md" -->
+<!-- This file is referenced at least one time as "storages.md" TODO VFS-7452 -->
 
-[[toc]]
+[toc][]
 
 ## Configuration
 
@@ -9,24 +9,24 @@ Onepanel GUI allows creating, editing and deleting storages under the *Storages*
 All storage configuration options are available during storage creation (see below picture and descriptions). 
 After the storage is created, only some of the parameters can be changed so as not to break the data integrity.
 
-![Configuration of storage](../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png)
+![Configuration of storage](../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png#screenshot)
 
 ### Storage type
 Determines the type of corresponding storage backend.
 
 The currently supported storage backends include:
-* `POSIX` - any POSIX compatible storage, typically attached over high-throughput local network, such as NFS.
-* `S3` - [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage.
-* `Ceph RADOS` - storage backend compatible with [Ceph](http://ceph.com/ceph-storage/) object storage.
-* `Swift` - storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
-* `GlusterFS` - [GlusterFS](https://www.gluster.org/) volume directly attached to the Oneprovider.
-* `Local Ceph` - local Ceph cluster that has been deployed during deployment of Oneprovider. For more information
+* `POSIX` – any POSIX compatible storage, typically attached over high-throughput local network, such as NFS.
+* `S3` – [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) compatible storage.
+* `Ceph RADOS` – storage backend compatible with [Ceph](http://ceph.com/ceph-storage/) object storage.
+* `Swift` – storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
+* `GlusterFS` – [GlusterFS](https://www.gluster.org/) volume directly attached to the Oneprovider.
+* `Local Ceph` – local Ceph cluster that has been deployed during deployment of Oneprovider. For more information
 on local Ceph deployment please see [here](ceph.md).
-* `WebDAV` - storage backend compatible with [WebDAV](https://tools.ietf.org/html/rfc4918) protocol.
-* `XRootD` - storage backend compatible with [XRootD](http://www.xrootd.org/) protocol.
-* `HTTP` - any [HTTP](https://tools.ietf.org/html/rfc7231) or HTTPS compatible server. 
+* `WebDAV` – storage backend compatible with [WebDAV](https://tools.ietf.org/html/rfc4918) protocol.
+* `XRootD` – storage backend compatible with [XRootD](http://www.xrootd.org/) protocol.
+* `HTTP` – any [HTTP](https://tools.ietf.org/html/rfc7231) or HTTPS compatible server. 
 Supported only with [`Readonly`](#readonly) option enabled and in [manual import mode](storage-import.md#manual-storage-import).
-* `Null device` - POSIX compatible storage which emulates behavior of `/dev/null` on local filesystem. 
+* `Null device` – POSIX compatible storage which emulates behavior of `/dev/null` on local filesystem. 
 Allows running various performance tests, which are not impacted by actual storage latency. 
 [`Skip storage detection`](#skip-storage-detection) option is obligatory for this type of storage.
 
@@ -46,7 +46,7 @@ Determines how the logical file paths are mapped on the storage:
 
 
 ### Imported storage
-<!-- This file is referenced at least one time as "#imported-storage" -->
+<!-- This file is referenced at least one time as "#imported-storage" TODO VFS-7452 -->
 
 Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
 with the storage. This option should be enabled in two setups: 
@@ -70,7 +70,7 @@ and [*auto*](storage-import.md#storage-configuration-for-auto-import) *import mo
 Option `Readonly` determines that the storage is to be treated by the Oneprovider as readonly.
 In such case, Oneprovider does not attempt to create, modify or delete files on the storage.
 File blocks cannot be replicated onto the storage from other providers.
-For above reasons, [*storage import*](storage-import.md) is effectively the only way to use such storage within a space - in consequence 
+For above reasons, [*storage import*](storage-import.md) is effectively the only way to use such storage within a space – in consequence 
 the `Readonly` option is available only for an [*imported storage*](#imported-storage).
 The imported data will be available in readonly mode, unless replicated to other providers. 
 
@@ -78,19 +78,19 @@ This option can be chosen even if the provider has write access to the storage, 
 should be perceived as readonly. However, if the storage is indeed readonly (prevents making any changes),
 `Readonly` **must** be enabled for correct operation of the Oneprovider service.
 
-If you wish to use [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes)  on
+If you wish to use [Oneclient in direct-io mode](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes)  on
 a readonly storage, you should also enable [`Skip storage detection`](#skip-storage-detection) option to turn off
 automatic detection of direct access to the storage in the Oneclient application. Please remember that in such case,
  `--force-direct-io` option has to be passed to Oneclient application to enable `direct-io` mode. 
 Additionally, on POSIX compatible storages mountpoint must be passed manually.
-Please see Oneclient's documentation for [`--force-direct-io`](../../../user-guide/oneclient.md#direct-i-o-and-proxy-i-o-modes) 
+Please see Oneclient's documentation for [`--force-direct-io`](../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes) 
 and [`--override`](../../../user-guide/oneclient.md#overriding-storage-helper-parameters) options.
 
 
 ### Skip storage detection 
 `Skip storage detection` option turns off automatic detection of direct access to the storage in all instances of Oneclient application.
 It also disables checks performed by Oneprovider when storage is added or modified. This option is relevant
-only for storages that are **not** marked as `readonly` - for readonly storages, it is implicitly set to `true`.
+only for storages that are **not** marked as `readonly` – for readonly storages, it is implicitly set to `true`.
 
 
 ### LUMA feed

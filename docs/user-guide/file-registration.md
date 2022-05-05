@@ -1,10 +1,10 @@
 # File registration
-<!-- This file is referenced at least one time as "file-registration.md" -->
+<!-- This file is referenced at least one time as "file-registration.md" TODO VFS-7452 -->
 
 File registration is dedicated for reflecting external datasets in a Onedata space.
 Space users can perform registration by providing the location of a file on an external
 storage and optionally its attributes. Upon registration, the file becomes accessible
-in the space under requested path. No data is copied in the process - merely a file 
+in the space under requested path. No data is copied in the process – merely a file 
 metadata entry is created in the space with a reference to the external storage, 
 which will be contacted by the Oneprovider whenever the file is accessed.
 

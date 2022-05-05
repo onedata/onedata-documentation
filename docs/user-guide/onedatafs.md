@@ -1,6 +1,6 @@
 # OnedataFS
 
-[[toc]]
+[toc][]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system, 
 an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface. 
@@ -98,28 +98,28 @@ for all operations available on a filesystem object.
 The complete list of options which can be provided to the OnedataFS constructor
 can be found below (only `host` and `token` are required).
 
-* `host` - Oneprovider hostname - follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
-* `token` - Onedata user access token - follow the same guidelines as for [Oneclient](oneclient.md#authentication)
-* `port` - Oneprovider port (defaults to 443)
-* `space` - the list of space names which should be listed (defaults to all user spaces)
-* `space_id` - the list of space IDs which should be listed (defaults to all user spaces)
-* `insecure` - when `True`, allows connecting to Oneproviders without valid SSL certificate
-* `force_proxy_io` - when `True`, forces all data transfers to go via Oneproviders
-* `force_direct_io` - when `True`, forces all data transfers to go directly via
+* `host` – Oneprovider hostname – follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
+* `token` – Onedata user access token – follow the same guidelines as for [Oneclient](oneclient.md#authentication)
+* `port` – Oneprovider port (defaults to 443)
+* `space` – the list of space names which should be listed (defaults to all user spaces)
+* `space_id` – the list of space IDs which should be listed (defaults to all user spaces)
+* `insecure` – when `True`, allows connecting to Oneproviders without valid SSL certificate
+* `force_proxy_io` – when `True`, forces all data transfers to go via Oneproviders
+* `force_direct_io` – when `True`, forces all data transfers to go directly via
   the target storage API. If storage is not available, for instance due to
   network firewalls, error will be returned for all `read` and `write`
   operations
-* `no_buffer` - when `True`, disables all internal buffering in the OnedataFS
-* `io_trace_log` - when `True`, the OnedataFS will log all requests in a CSV
+* `no_buffer` – when `True`, disables all internal buffering in the OnedataFS
+* `io_trace_log` – when `True`, the OnedataFS will log all requests in a CSV
   file in the directory specified by `log_dir`
-* `provider_timeout` - specifies the timeout for waiting for Oneprovider
+* `provider_timeout` – specifies the timeout for waiting for Oneprovider
   responses, in seconds
-* `metadata_cache_size` - size of the cache for file and directory metadata
-* `drop_dir_cache_after` - time in seconds after unused metadata entries are
+* `metadata_cache_size` – size of the cache for file and directory metadata
+* `drop_dir_cache_after` – time in seconds after unused metadata entries are
   purged from cache
-* `log_dir` - path in the filesystem, where internal OnedataFS logs should be
+* `log_dir` – path in the filesystem, where internal OnedataFS logs should be
   stored. When `None`, no logging will be generated
-* `cli_args` - any other Oneclient command line arguments can be passed as a
+* `cli_args` – any other Oneclient command line arguments can be passed as a
   value of this argument as single string, e.g. `'--storage-timeout=120
   --storage-helper-thread-count=20`
   
