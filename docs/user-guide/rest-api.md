@@ -1,5 +1,4 @@
 # REST API
-<!-- This file is referenced at least one time as "rest-api.md" TODO VFS-7452 -->
 
 This chapter contains basics about Onedata REST API usage.
 
@@ -34,9 +33,9 @@ In such case, the APIs are available under the following endpoints:
 | Onezone panel (admins only)       | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
 | Oneprovider panel (admins only)   | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
   
->**NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider 
-domains and internally proxied to Onepanel. The port `9443` can be used to 
-access the Onepanel API directly from within the cluster's local network. 
+> **NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider
+> domains and internally proxied to Onepanel. The port `9443` can be used to
+> access the Onepanel API directly from within the cluster's local network. 
 
 The Onezone domain should be known to the users as this is their entry point
 to the system, presenting them with a login page. Instructions on how to find 

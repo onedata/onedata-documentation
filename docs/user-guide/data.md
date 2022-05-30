@@ -1,5 +1,4 @@
 # Data
-<!-- This file is referenced at least one time as "data.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -45,11 +44,11 @@ some characters in paths should be properly escaped:
 {...}/CMS%201/directory/images%26videos/garden.png
 ```        
 
-<!-- TODO VFS-7452 unify all NOTE blocks -->
->**NOTE:** Duplicate space names are generally allowed. For that reason,
-referencing files by path may be ambiguous. During file path resolution, the
-first space whose name matches the first segment of the path is always taken,
-but the order in which spaces are checked cannot be guaranteed.
+<!-- TODO VFS-9387 unify all NOTE blocks -->
+> **NOTE:** Duplicate space names are generally allowed. For that reason,
+> referencing files by path may be ambiguous. During file path resolution, the
+> first space whose name matches the first segment of the path is always taken,
+> but the order in which spaces are checked cannot be guaranteed.
 
 
 ### File ID
@@ -72,7 +71,7 @@ returns specifically the File ID attribute:
 094576776E667431723230677767776C6B497031394E445F6E3868677873...
 ```
 
->**NOTE:** Use `xattr -l garden.png` to list all available attributes.
+> **NOTE:** Use `xattr -l garden.png` to list all available attributes.
 
 [REST](#rest-api) – use the File ID 
 [resolution endpoint](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id). 
@@ -87,10 +86,10 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
     "fileId": "094576776E667431723230677767776C6B497031394E445F6E3868677873..."
 }
 ```
->**NOTE:** Paths used in URLs must be url-encoded.
+> **NOTE:** Paths used in URLs must be url-encoded.
 
->**NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
-[below](#oneprovider-domain).
+> **NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
+> [below](#oneprovider-domain).
 
 ## Interfaces
 Onedata offers several ways of accessing and managing user data.
@@ -198,12 +197,11 @@ In case of an unauthenticated (**guest**) access, the steps are as follows:
 
 
 > **NOTE:** in case of [publicly shared](shares.md) files or directories, the 
-access is additionally limited to read-only operations, even if ACLs or POSIX 
-permissions allow write access.
+> access is additionally limited to read-only operations, even if ACLs or POSIX 
+> permissions allow write access.
 
 
 ### Access Control Lists
-<!-- This header is referenced at least one time as "#access-control-lists" TODO VFS-7452 -->
 
 **Access Control Lists (ACL)** are a mechanism for regulating access to files 
 and directories using hierarchical rules that grant and deny granular operations
@@ -231,7 +229,7 @@ to user or group is supported, other flags can be set or
 but they will be ignored during ACE evaluation
 - `access_mask` – the permissions regulated by this ACE
 
-Permissions can be changed using the [Web file browser](web-file-browser.md#acl) in
+Permissions can be changed using the [Web file browser](web-file-browser.md#permissions) in
 the **ACL** context menu, or using the [CDMI API](cdmi.md#set-file-acl).
 
 #### Permissions

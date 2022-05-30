@@ -1,5 +1,4 @@
 # File registration
-<!-- This file is referenced at least one time as "file-registration.md" TODO VFS-7452 -->
 
 File registration is dedicated for reflecting external datasets in a Onedata space.
 Space users can perform registration by providing the location of a file on an external

@@ -14,7 +14,7 @@ running the docker container as well as the persistence directory which
 contains database files and service configuration. **Backing up the service
 boils down to creating snapshots of the installation directory.**
 
->**NOTE:** Apart from the Onezone service persistence that stores file
+> **NOTE:** Apart from the Onezone service persistence that stores file
 > metadata, administrators should back up the underlying storage systems 
 > that store the physical data exposed via logical Onedata spaces. This guide
 > does not cover storage data backups, please use backup procedures recommended
@@ -47,7 +47,7 @@ different underlying storage infrastructures to achieve backup redundancy.
 scp /mybackups/onezone.tgz some.remote.server:/backups/onezone.tgz
 ```
 
->**NOTE:** Tools such as rsync can be used to speed up the backups and limit
+> **NOTE:** Tools such as rsync can be used to speed up the backups and limit
 > the downtimes, by doing fast incremental copies, e.g.:
 ```bash
 sudo systemctl stop onezone
@@ -57,7 +57,7 @@ sudo systemctl start onezone
 # while the service is already back online
 ```
 
->**NOTE:** In multinode deployments, the procedure must be done on each host
+> **NOTE:** In multinode deployments, the procedure must be done on each host
 > and synchronized, i.e. all nodes should be stopped, then backed up and started
 > together.
 
@@ -120,10 +120,10 @@ tar zxPf /mybackups/onezone.tgz
 sudo systemctl start onezone
 ```
 
->**NOTE:** If the service is started on another VM, it must be assigned the 
+> **NOTE:** If the service is started on another VM, it must be assigned the 
 > relevant public IP.
 
->**NOTE:** In multinode deployments, the procedure must be done on each host
+> **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
 

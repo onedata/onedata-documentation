@@ -23,7 +23,7 @@ Tokens are passed around the system in a serialized form – an alphanumeric
 string that looks like the following:
 `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgRHR00WTg5dH...`
 
-The implementation of tokens in Onedata is based on [Google's macaroons] and utilizes 
+The implementation of tokens in Onedata is based on [Google's macaroons][] and utilizes 
 their fundamental concept of [caveats](#token-caveats) – contextual confinements.
 
 All tokens are created in Onezone and can only be verified by Onezone.
@@ -61,9 +61,9 @@ Access tokens carry authorization to perform operations in the system on behalf
 of the subject. The authorization can be limited by [caveats](#token-caveats). 
 
 > **NOTE**: If there are no caveats, the token carries **absolute power to 
-perform any operation** on behalf of the subject – similar to user's password. 
-Users are strongly recommended **NOT** to create such tokens, as there is always 
-a risk of a token being intercepted by a malicious party.
+> perform any operation** on behalf of the subject – similar to user's password.
+> Users are strongly recommended **NOT** to create such tokens, as there is always
+> a risk of a token being intercepted by a malicious party.
    
 Authorization in Onedata depends on the token's subject, their relations and
 privileges (e.g. space membership and the privileges in the space), as well as 
@@ -95,11 +95,12 @@ an identity token is required to satisfy a [`consumer` caveat](#consumer) in
 another token. An identity token can have [caveats](#token-caveats), which limit
 the context in which the token is accepted (e.g. shortlisting the allowed IP 
 addresses from which the token can be used).
+
 > Identity tokens must not be disclosed to other users or untrusted services,
-as whoever possesses such token can impersonate the subject. They can be safely 
-sent to the **Onezone** service. When using such token in a **Oneprovider** 
-service, it is strongly recommended to add a short TTL for the token with a 
-[`time` caveat](#token-caveats).
+> as whoever possesses such token can impersonate the subject. They can be safely
+> sent to the **Onezone** service. When using such token in a **Oneprovider**
+> service, it is strongly recommended to add a short TTL for the token with a
+> [`time` caveat](#token-caveats).
 
 
 ## Invite tokens
@@ -195,7 +196,7 @@ shown in below table.
 ## Token caveats
 
 Each token can have any number of caveats (including none). Caveats are a 
-fundamental concept of [Google's macaroons] (which are used for token 
+fundamental concept of [Google's macaroons][] (which are used for token 
 implementation in Onedata). Caveats are contextual confinements - they limit the
 context in which a token is valid. They are inscribed in the token itself,
 which enables powerful delegation features. Thanks to cryptographic signatures,
@@ -258,10 +259,10 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     }
     ```
     > NOTE: when adding `ip` caveats, keep in mind that if your requests need to
-    be proxied to another Oneprovider, the IP of the Oneprovider that received
-    the original request must also be whitelisted (as it is perceived as the
-    new request's client). Proxying happens when the Oneprovider that received 
-    your request does not support the concerned space.
+    > be proxied to another Oneprovider, the IP of the Oneprovider that received
+    > the original request must also be whitelisted (as it is perceived as the
+    > new request's client). Proxying happens when the Oneprovider that received 
+    > your request does not support the concerned space.
     
 * `asn` - limits the ASNs (Autonomous System Number) from which the token can be 
     utilized. The client's ASN is resolved based on client's IP and MaxMind's 
@@ -275,8 +276,8 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
         ]
     }
     ```
-    > NOTE: as the client ASN detection depends on client's IP, this caveat 
-    has the same considerations as the `ip` caveat when requests are proxied.
+    > NOTE: as the client ASN detection depends on client's IP, this caveat
+    > has the same considerations as the `ip` caveat when requests are proxied.
   
 * `geo.country` - limits the countries from which the token can be utilized. 
     Supports whitelists and blacklist. The client's country is resolved based on
@@ -292,7 +293,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     }
     ```  
     > NOTE: as the client country detection depends on client's IP, this caveat
-    has the same considerations as the `ip` caveat when requests are proxied.
+    > has the same considerations as the `ip` caveat when requests are proxied.
     
 * `geo.region` - limits the geographical regions from which the token can be 
     utilized. The available values are the 7 continents (`"Oceania"` covers 
@@ -317,7 +318,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     }
     ```
     > NOTE: as the client region detection depends on client's IP, this caveat
-    has the same considerations as the `ip` caveat when requests are proxied.
+    > has the same considerations as the `ip` caveat when requests are proxied.
     
 * `service` - limits the [services](#service) that can process the token. Imposes 
     implicit [API limitations](#service-caveat-considerations). If the caveat is 
@@ -337,9 +338,9 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     }
     ```
     > NOTE: when adding `service` caveats, keep in mind that if your requests 
-    need to be proxied to another Oneprovider, it must also be whitelisted. 
-    Proxying happens when the Oneprovider that received your request does not 
-    support the concerned space.
+    > need to be proxied to another Oneprovider, it must also be whitelisted. 
+    > Proxying happens when the Oneprovider that received your request does not 
+    > support the concerned space.
     
 * `consumer` - limits the [consumers](#consumer) that can utilize the token. If 
     the caveat is present, the consumer must prove their identity by sending their 
@@ -433,10 +434,10 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     }
     ```
     > NOTE: `data.objectid` caveats are computationally heavier than `data.path`
-    caveats - you should use the latter whenever possible for performance 
-    reasons. Nevertheless, `data.objectid` have the advantage that they remain
-    valid even if the target file is moved / renamed (given that the File ID
-    does not change in the process) - contrary to `data.path` caveats.
+    > caveats - you should use the latter whenever possible for performance 
+    > reasons. Nevertheless, `data.objectid` have the advantage that they remain
+    > valid even if the target file is moved / renamed (given that the File ID
+    > does not change in the process) - contrary to `data.path` caveats.
 
 
 ### Caveats compatibility
@@ -466,10 +467,10 @@ to always fail verification (renders it unusable in practice).
 | data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 
 > Identity tokens do not allow `service`, `api` or *data access caveats* as these
-caveats are only relevant when requesting data access or an API operation.
+> caveats are only relevant when requesting data access or an API operation.
 
 > Invite tokens are specialized for one operation and always used in the Onezone
-service, hence they allow only suitable caveats.
+> service, hence they allow only suitable caveats.
 
 
 ### Data access caveats
@@ -497,12 +498,12 @@ without the risk of malicious utilization
 any API operations and can be used solely to read the specified directory.
 
 > These restrictions improve security, but the downside is that it is not 
-possible to grant somebody restricted access to files and the system API at the 
-same time with one token - two different tokens must be created. The alternative 
-would be to make no implicit restrictions and expect users to consciously limit 
-the token with `api` caveats whenever they wish to safely publish it. That, 
-however, was deemed too obscure, unintuitive and risky, as it would require a 
-deep knowledge of the underlying mechanisms.
+> possible to grant somebody restricted access to files and the system API at the
+> same time with one token - two different tokens must be created. The alternative
+> would be to make no implicit restrictions and expect users to consciously limit
+> the token with `api` caveats whenever they wish to safely publish it. That,
+> however, was deemed too obscure, unintuitive and risky, as it would require a
+> deep knowledge of the underlying mechanisms.
 
 
 ### Caveats impact on services
@@ -653,7 +654,7 @@ after the hyphen is the ID of the corresponding Oneprovider or special
 | Oneprovider panel (for admins) | `opp-01c4455bef059353c9dfb35ba93a24f3` <br/> `opp-*`    |
 
 > Note: the special `*` service ID can be used to allow any service of given
-type (e.g. any Oneprovider service).
+> type (e.g. any Oneprovider service).
 
 ### Service caveat considerations
 
@@ -708,12 +709,12 @@ after the hyphen is the ID of the corresponding user / group / Oneprovider.
 | group                          | `grp-0921135ee61fe53a3df449365228e9b4` <br/> `grp-*`    |
 | Oneprovider                    | `prv-01c4455bef059353c9dfb35ba93a24f3` <br/> `prv-*`    |
 
-> Note: group is a special consumer that can be put into the `consumer` caveat's 
-whitelist. It will be successfully verified if the request's consumer is a user 
-that belongs to the specified group.
+> Note: group is a special consumer that can be put into the `consumer` caveat's
+> whitelist. It will be successfully verified if the request's consumer is a user
+> that belongs to the specified group.
 
 > Note: the special `*` consumer ID can be used to allow any consumer of given
-type (e.g. any user or any Oneprovider).
+> type (e.g. any user or any Oneprovider).
 
  
 ## Safely publishing tokens

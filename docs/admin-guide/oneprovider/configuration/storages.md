@@ -1,5 +1,4 @@
 # Storages
-<!-- This file is referenced at least one time as "storages.md" TODO VFS-7452 -->
 
 [toc][]
 
@@ -39,14 +38,13 @@ A unique name for the storage resource.
 
 ### Storage path type 
 Determines how the logical file paths are mapped on the storage:
- * `canonical` paths reflect the logical file names and directory structure, however each rename operation 
- requires renaming the files on the storage which may result in copying the file blocks on some storage backends.
- Canonical path type is obligatory for [*imported storages*](#imported-storage).
- * `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
+* `canonical` paths reflect the logical file names and directory structure, however each rename operation 
+requires renaming the files on the storage which may result in copying the file blocks on some storage backends.
+Canonical path type is obligatory for [*imported storages*](#imported-storage).
+* `flat` paths are based on unique file UUID's and do not require on-storage rename when logical file name is changed.
 
 
 ### Imported storage
-<!-- This file is referenced at least one time as "#imported-storage" TODO VFS-7452 -->
 
 Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
 with the storage. This option should be enabled in two setups: 
@@ -96,9 +94,9 @@ only for storages that are **not** marked as `readonly` – for readonly storage
 ### LUMA feed
 Option `LUMA feed` determines type of feed for [Local User Mapping Database](luma.md).
 There are 3 possible values:
- * `auto`
- * `local`
- * `external`
+* `auto`
+* `local`
+* `external`
 
 For more information on configuration of LUMA DB feed please see [here](luma.md#configuration).
 
@@ -120,8 +118,8 @@ Please refer to the linked API documentation for detailed information and exampl
  
 | Request                      | Link to API |
 |------------------------------|-------------|
-| Create storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)|        
-| Get storage details          | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details)|        
-| Update storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage)|             
-| Remove storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage)|             
+| Create storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)|
+| Get storage details          | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details)|
+| Update storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage)|
+| Remove storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage)|
 | List storage resources       | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages)|
