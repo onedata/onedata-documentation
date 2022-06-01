@@ -1,5 +1,4 @@
 # Spaces
-<!-- This file is referenced at least one time as "spaces.md" TODO VFS-7452 -->
 
 Spaces are a fundamental concept of user data organization in Onedata. A **space** 
 can be perceived as a logical container for data – a layer that hides the complexity 
@@ -51,8 +50,8 @@ all supporting Oneproviders.
 
 <!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 > **NOTE**: a space can be supported with an imported storage.
-This way, a preexisting data-set can be made available in a Onedata space.
-Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
+> This way, a preexisting data-set can be made available in a Onedata space.
+> Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
  
 
 ## Space members

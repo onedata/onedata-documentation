@@ -1,5 +1,4 @@
 # Data Discovery
-<!-- This file is referenced at least one time as "data-discovery.md" TODO VFS-7452 -->
 
 This guide is dedicated for non-admin users that would like to index the 
 metadata from files in their spaces and perform queries. Consider reading the 
@@ -33,8 +32,8 @@ There are several ways how you can index the metadata attached to the files in
 your space by adding it to a harvester.
 
 > **WARNING**: Keep in mind that all members of a harvester have access to your indexed
-metadata without restrictions. This includes any new member that may join the harvester
-in the future.
+> metadata without restrictions. This includes any new member that may join the harvester
+> in the future.
 
 ### 1. Adding a space to an existing harvester
 You do not have to be a member of a harvester to add a space to it.
@@ -70,7 +69,7 @@ The administrator should then give you a
 [user invite token](../admin-guide/onezone/configuration/data-discovery.md#harvester-members). 
 The invitation can be accepted using the **Consume** action in the 
 [Tokens GUI](tokens.md#consuming-invite-tokens).
-Continue as described in [(2)](#_2-adding-a-space-to-your-own-harvester) to add a space 
+Continue as described in [(2)](#2-adding-a-space-to-your-own-harvester) to add a space 
 to the new harvester.
 
 In case of any problems with metadata indexing, contact the owner or creator of your harvester.

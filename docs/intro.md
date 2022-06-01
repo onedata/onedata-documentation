@@ -1,7 +1,6 @@
 ---
 title: 'Introduction'
 ---
-<!-- This file is referenced at least one time as "intro.md" TODO VFS-7452 -->
 
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
@@ -41,9 +40,9 @@ If you would like to deploy the onedata services on your infrastructure then you
 ## Basic concepts
 
 The most important concepts of the platform to understand at the beginning include:
- - **Spaces** – distributed virtual volumes, where users can organize their data
- - **Providers** – entities who support user spaces with actual storage resources exposed via *Oneprovider* services
- - **Zones** – federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
+* **Spaces** – distributed virtual volumes, where users can organize their data
+* **Providers** – entities who support user spaces with actual storage resources exposed via *Oneprovider* services
+* **Zones** – federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
 
 ### Spaces
 All data stored in Onedata is organized into *Spaces*. Spaces can be seen as virtual directories or volumes, which can contain an arbitrary directory and file hierarchy, while being distributed across multiple storage providers. Each space has to be supported by at least one provider, which means that this provider reserved certain storage quota for this particular space. In case a space is supported by more providers, the total quota is the sum of storage space provisioned by all providers supporting it.
@@ -58,7 +57,7 @@ Each user can have any number of *spaces*. *Spaces* can be easily shared with ot
 
 Data in spaces can be managed through a web interface as well as from command-line. Each space can be easily mounted to a local filesystem and accessed directly from a laptop, a cluster node or virtual machine deployed in the cloud.
 
-For more information about *Spaces* and *Groups* see [Space Management](../using_onedata/space_management.md) and [Group Management](../using_onedata/group_management.md).
+For more information about *Spaces* and *Groups* see [Space Management](user-guide/spaces.md) and [Group Management](user-guide/groups.md).
 
 ### Providers
 Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service, attaching storage resources and registering it in a particular Onezone service.
@@ -69,9 +68,9 @@ A user can use several providers simultaneously to manage his/her data. Onedata 
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
 
-Users use *Onezone* web interfaces (like the one at [onedata.org](onedata.org)) in order to authenticate with Onedata and access the data located on the providers storage resources.
+Users use *Onezone* web interfaces (like the one at [onedata.org](https://onedata.org)) in order to authenticate with Onedata and access the data located on the providers storage resources.
 
-For more information about Onedata's provider service, check out [Oneprovider Overview](../administering_onedata/provider_overview.md) documentation.
+For more information about Onedata's provider service, check out [Oneprovider Overview](admin-guide/oneprovider/overview.md) documentation.
 
 ### Zones
 Onedata is a distributed system divided into zones that are created by deploying a dedicated service called *Onezone*. Any organization, community or user group can deploy their own *Onezone* service with customized login page and either connect it to the distributed network of *Onezone* services or run it as an isolated private deployment.
@@ -82,7 +81,7 @@ Onedata is a distributed system divided into zones that are created by deploying
 
 As *onedata.org* is a main public zone, any provider registered there allows the users to access their data through *onedata.org* user interface.
 
-For more information about Onedata's  *Onezone* service, check out [*Onezone* Overview](../administering_onedata/onezone_overview.md) documentation.
+For more information about Onedata's  *Onezone* service, check out [*Onezone* Overview](admin-guide/onezone/overview.md) documentation.
 
 
 ## User interfaces
@@ -96,7 +95,7 @@ The Onedata Web Interface provides a web-based, graphical user interface that yo
 
 ### User command-line interface
 
-If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](../using_onedata/oneclient.md) reference for the complete list of available features.
+If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](user-guide/oneclient.md) reference for the complete list of available features.
 
 ### Administrator Web interface
 

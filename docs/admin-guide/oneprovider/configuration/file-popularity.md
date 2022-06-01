@@ -1,5 +1,4 @@
 # File popularity
-<!-- This file is referenced at least one time as "file-popularity.md" -->
 
 [toc][]
 
@@ -11,7 +10,7 @@ It allows listing File IDs sorted in ascending order by the
 [*popularity function*](#the-popularity-function), so that the least popular files
 are at the beginning of the list.
 
->**NOTE:** Usage statistics can be collected only for local storage supporting the space. 
+> **NOTE:** Usage statistics can be collected only for local storage supporting the space. 
 > It is impossible to obtain *file popularity* statistics gathered by a remote provider.
 
 The mechanism can be enabled for chosen space in the `Spaces -> "Space Name" -> File popularity` tab,
@@ -22,10 +21,10 @@ in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API]
 Internally, the mechanism creates the *file popularity view*. All notes presented in the 
 [*Views* chapter](../../../user-guide/views.md)
 applies also to the *file popularity view*.
->**NOTE:** The *file popularity view* is a special view, therefore it is forbidden to create 
+> **NOTE:** The *file popularity view* is a special view, therefore it is forbidden to create 
 > a view with such name. Furthermore, it is forbidden and impossible to 
 > modify or delete the view using 
->[*Views API*](../../../user-guide/views.md).
+> [*Views API*](../../../user-guide/views.md).
 
 
 ## Querying the file popularity view
@@ -137,15 +136,15 @@ w2 := 20.0
 The three parameters of the function: `w1`, `w2` and `MAX_AVG_OPEN_COUNT_PER_DAY`
 can be modified in the *file popularity* configuration panel.
 
->**NOTE:** Modification of the [*popularity function*](#the-popularity-function) 
-parameters results in modification of the mapping function of the
-*file popularity view*. It means that all already indexed files need to be 
-re-indexed. Such operation can be very time-consuming, depending on the number 
-of the files in the space.
+> **NOTE:** Modification of the [*popularity function*](#the-popularity-function) 
+> parameters results in modification of the mapping function of the
+> *file popularity view*. It means that all already indexed files need to be
+> re-indexed. Such operation can be very time-consuming, depending on the number
+> of the files in the space.
 
->**NOTE:** The same notice applies to disabling/enabling the mechanism. 
-Disabling the view results in its deletion, therefore re-enabling the view
-results in re-indexing of all files in the space.
+> **NOTE:** The same notice applies to disabling/enabling the mechanism.
+> Disabling the view results in its deletion, therefore re-enabling the view
+> results in re-indexing of all files in the space.
 
 ><span style="color:red">MODIFICATION OF THE [*POPULARITY FUNCTION*](#the-popularity-function) MUST BE PERFORMED WITH CARE!!!</span>
 
@@ -157,5 +156,5 @@ Please refer to the linked API documentation for detailed information and exampl
 
 | Request                               | Link to API |
 |---------------------------------------|-------------|
-| Get *file popularity* configuration   | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration)|        
+| Get *file popularity* configuration   | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration)|
 | Update *file popularity* configuration| [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity)|

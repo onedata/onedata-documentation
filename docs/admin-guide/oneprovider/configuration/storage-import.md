@@ -1,5 +1,4 @@
 # Storage import
-<!-- This file is referenced at least one time as "storage-import.md" TODO VFS-7452 -->
 
 *Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
@@ -14,9 +13,9 @@ This functionality should be used in two setups:
   the Oneprovider interfaces, and the changes should be reflected in the supported space.
   
 > **NOTE**: In other setups, it is **not recommended** to enable *storage import*, as it will introduce unnecessary
-overheads. Essentially, the regular storage setup in Onedata assumes that the supporting storage is initially empty and 
-dedicated exclusively for being accessed by Oneprovider. This should be the preferred setup, except for the two 
-above-mentioned cases.
+> overheads. Essentially, the regular storage setup in Onedata assumes that the supporting storage is initially empty and
+> dedicated exclusively for being accessed by Oneprovider. This should be the preferred setup, except for the two
+> above-mentioned cases.
 
 *storage import* can be enabled only if the space is supported with an [*Imported storage*](storages.md#imported-storage).
 
@@ -43,18 +42,18 @@ not support [automatic import scans](#auto-storage-import).
 
 
 *Manual storage import* is supported on the following storage backends:
- * `POSIX`
- * `GlusterFS`
- * `Null device`
- * `WebDAV`
- * `XRootD`
- * `HTTP`
- * `S3`
- * `Swift`
- * `Ceph RADOS`
+* `POSIX`
+* `GlusterFS`
+* `Null device`
+* `WebDAV`
+* `XRootD`
+* `HTTP`
+* `S3`
+* `Swift`
+* `Ceph RADOS`
  
-> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type). 
-Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
+> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type).
+> Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
 
 
 ## Auto storage import
@@ -67,19 +66,19 @@ assigned space.
 
 
 *Auto storage import* is supported on the following storage backends:
- * `POSIX`
- * `GlusterFS`
- * `Null device`
- * `WebDAV`
- * `XRootD`
- * `S3`
+* `POSIX`
+* `GlusterFS`
+* `Null device`
+* `WebDAV`
+* `XRootD`
+* `S3`
  
-> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type). 
-Moreover, on S3 the `Block size` parameter **must be set to `0` !**
+> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type).
+> Moreover, on S3 the `Block size` parameter **must be set to `0` !**
 
 ### Configuration
 The configuration of *auto storage import* can be set when supporting the space, as presented in the 
-[previous picture](#modes). It can also be modified later in the
+[previous picture](#configuration). It can also be modified later in the
 `Spaces -> "Space Name" -> Storage import > Auto storage import configuration` tab, as presented below:
 
 ![Auto storage import configuration](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png#screenshot)

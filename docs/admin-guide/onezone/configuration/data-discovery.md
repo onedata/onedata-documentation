@@ -1,5 +1,4 @@
 # Data Discovery
-<!-- This file is referenced at least one time as "data-discovery.md" TODO VFS-7452 -->
 
 This guide is dedicated for administrators that would like to properly configure
 Data Discovery services for end users. Consider reading the 
@@ -36,9 +35,9 @@ each of which can be supported by any number of [Oneproviders](../../../intro.md
 For every such pair (Oneprovider & space), there is a continuous harvesting process 
 that scans the space by incrementally iterating over all changes that have been made to the files 
 locally (a.k.a. changes stream). Types of changes handled by the harvesting mechanism are:
-  - creation and deletion of a file,
-  - metadata change (xattrs, JSON or RDF),
-  - file name change.
+* creation and deletion of a file,
+* metadata change (xattrs, JSON or RDF),
+* file name change.
 
 Each change triggers a metadata submission, which is posted in batches to the 
 [Onezone service](../../../intro.md#architecture). 
@@ -46,8 +45,8 @@ The changes stream is robust and resistant to failures – in case of any proble
 harvesting is restarted at the point of last successful submission.
 
 > **NOTE**: The changes to files are processed in the order of occurrence – if the space is
-large and has not been fully harvested yet, it might take a long time for the newest
-changes to be indexed.
+> large and has not been fully harvested yet, it might take a long time for the newest
+> changes to be indexed.
 
 ### Feeding metadata into indices
 
@@ -95,8 +94,8 @@ It requires network a connection to the harvesting backend (which is often behin
 This way, one can use all proprietary API features with no additional translation layers from Onedata system.
 
 > WARNING: Using direct access to the harvesting backend may corrupt your indexed data as
-it allows not only to query, but also to modify and remove metadata entries and whole indices.
-Use it with caution.
+> it allows not only to query, but also to modify and remove metadata entries and whole indices.
+> Use it with caution.
 
 ### Public access
 
@@ -192,7 +191,7 @@ And then click on **Remove** button to acknowledge your decision.
 ![image](../../../../images/admin-guide/onezone/configuration/data-discovery/10-spaces-list-remove-modal.png#screenshot)
 
 > **NOTE**: Removing space from the harvester will not remove previously indexed data from harvesting
-backend. It will also not affect the space itself.
+> backend. It will also not affect the space itself.
 
 ### Harvester indices
 
@@ -206,9 +205,9 @@ metadata without any extra restrictions. It is also used by the data discovery G
 denoted by **Used by GUI** badge).
 
 > **NOTE**: If there are many indices, only a subset of them might be used by GUI. Other ones
-still work and collect metadata, but are not accessible via the data discovery GUI. To query them
-you need to use [REST API](../../../user-guide/data-discovery.md#rest-api)
-or change [indices configuration](#gui-plugin-indices) of the GUI plugin.
+> still work and collect metadata, but are not accessible via the data discovery GUI. To query them
+> you need to use [REST API](../../../user-guide/data-discovery.md#rest-api)
+> or change [indices configuration](#gui-plugin-indices) of the GUI plugin.
 
 #### Adding new index
 
@@ -239,8 +238,8 @@ When a configuration for the new index is ready, click **Create index**. New ent
 be visible on the indices list and the harvesting process will start.
 
 > **NOTE**: The order of adding spaces and creating indices does not matter. Every index
-(even those created after adding spaces) will always process all metadata from
-all spaces starting from the beginning of their lifecycle.
+> (even those created after adding spaces) will always process all metadata from
+> all spaces starting from the beginning of their lifecycle.
 
 #### Removing an index
 
@@ -280,8 +279,8 @@ groups to the harvester and manage their privileges. It is the same mechanism as
 spaces and groups members concepts. For more information see
 [group members management](../../../user-guide/groups.md#group-members).
 
-> **NOTE**: When the harvester is public, its indices can be accessed by anyone 
-regardless of the actual harvester members and their privileges.
+> **NOTE**: When the harvester is public, its indices can be accessed by anyone
+> regardless of the actual harvester members and their privileges.
 
 ### Harvester settings
 
@@ -326,8 +325,8 @@ need to contact the Onezone administrator and ask to add harvester GUI checksum 
 configuration file.
 
 > WARNING: Use only GUI plugins which are whitelisted by the Onezone and taken from a
-trusted source. Custom GUI plugins may contain malicious code and cause critical security 
-issues, including data leaks and unauthorized operations.
+> trusted source. Custom GUI plugins may contain malicious code and cause critical security
+> issues, including data leaks and unauthorized operations.
 
 ##### GUI plugin indices
 
@@ -353,5 +352,5 @@ In such a situation you should use **Injected configuration** section and fill i
 your own configuration in JSON format.
 
 > **NOTE**: If you do not know what the possible options are, enter the edition mode and click
-**Use defaults** button. It will fill the textarea with the example configuration
-provided by the GUI plugin.
+> **Use defaults** button. It will fill the textarea with the example configuration
+> provided by the GUI plugin.

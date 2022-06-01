@@ -1,5 +1,4 @@
 # Auto-cleaning
-<!-- This file is referenced at least one time as "auto-cleaning.md" -->
 
 As a prerequisite for understanding this chapter, we advise to familiarize with 
 the mechanism of [*file popularity*](file-popularity.md).
@@ -22,8 +21,7 @@ storage space.
 The mechanism can be enabled in the space configuration tab in Oneprovider panel.
 
 > *NOTE:* 
->The [*file popularity*](file-popularity.md) mechanism 
-must be enabled to turn *auto-cleaning* on. 
+> The [*file popularity*](file-popularity.md) mechanism must be enabled to turn *auto-cleaning* on. 
 > Disabling [*file popularity*](file-popularity.md) disables *auto-cleaning* as well.
  
 The user interface allows specifying **low** and **high** thresholds,
@@ -82,7 +80,7 @@ Please refer to the linked API documentation for detailed information and exampl
 
 | Request                                 | Link to API |
 |---------------------------------------- |-------------|
-| Get auto-cleaning configuration         | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration)|        
+| Get auto-cleaning configuration         | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration)|
 | Update auto-cleaning configuration      | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_space_auto_cleaning)|
 | Get list of auto-cleaning runs' reports | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_reports)|
 | Get the report of auto-cleaning run     | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_report)|
