@@ -21,26 +21,17 @@ host or within the container.
 ## Installation
 
 The Onedata Docker volume plugin can be installed using packages which are
-provided for Ubuntu Wily, Ubuntu Xenial, CentOS 7 and Fedora 23.
+provided for Ubuntu and Centos.
 
-The easiest way is to use our automated installation script:
+The easiest way is to use the oneclient.sh automated installation script:
 
 ```
-# Using cURL
-$ curl -sSL http://packages.onedata.org/onedata-docker-volume.sh | sh
-
-# Or using wget
-$ wget -qO- http://packages.onedata.org/onedata-docker-volume.sh | sh
+$ wget -qO- http://packages.onedata.org/oneclient.sh
+$ sh oneclient.sh docker-volume-onedata
 ```
 
-The script will automatically check for Docker and install latest Docker if
-none is installed on the host, after a short warning message.
-
-If an older version of Docker than required (1.13) is installed the script
-will abort, and a newer Docker version must be installed manually.
-
-After the install script completes, latest `oneclient` version will be
-installed on the host, which can be verified using:
+The script should automatically install the plugin and oneclient CLI.
+This can be verified using:
 
 ```
 $ oneclient -V
