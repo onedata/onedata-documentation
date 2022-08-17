@@ -15,10 +15,10 @@ Internally, views are based on [Couchbase Views](https://docs.couchbase.com/serv
 Please visit this site for more detailed explanation of concepts used within this documentation.  
 
 There are two types of views that can be created:
-* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html) – a perspective on the data stored
+* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html) — a perspective on the data stored
  in a database in a format that can be used to represent the data in a specific way, define and filter the information, 
  and provide a basis for searching or querying the data in the database based on the content.
-* [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) – 
+* [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) — 
    spatial views are similar to map-reduce views. They are suited for querying multi-dimensional data.
    The main difference is that they don't have a reduce function.
 
@@ -39,20 +39,20 @@ the *mapping* name is used for both terms, as they must comply with the same rul
 In order to create a view, it is necessary to provide a mapping function in JavaScript. 
 It is used to map the data stored in a document to the value which should be indexed.
 Mapping is performed using `emit()` function. Each call to `emit()` results in a new row of data in the view result.
-More info on mapping functions can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
+More information on mapping functions can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
 
 In the *views* API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function must accept 4 arguments:
-* `id` – ID of the file (string)
-* `type` – type of the document that is being mapped by the function, one of:
+* `id` — ID of the file (string)
+* `type` — type of the document that is being mapped by the function, one of:
    * `"file_meta"`
    * `"times"`
    * `"custom_metadata"`
    * `"file_popularity"`
-* `meta` – values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
-* `ctx` – additional information that might be helpful during indexing:
+* `meta` — values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
+* `ctx` — additional information that might be helpful during indexing:
    * `providerId`
    * `spaceId`
 
@@ -119,10 +119,10 @@ A few examples of the mapping function are presented [here](#mapping-function-ex
 
 The mapping function defined for a spatial view must return the key as a multidimensional bounding box.
 There are 3 accepted ways of defining a key in a spatial function:
-* single values – list of numerical values, which is expanded to a collapsed range. 
+* single values — list of numerical values, which is expanded to a collapsed range. 
    For example, list `[1.0, 2, 3.5]` is internally expanded to  list of ranges `[[1.0, 1.0], [2 , 2], [3.5, 3.5]]`
-* ranges – list of ranges. For example:  `[[1.0, 2.0], [100, 1000]]`
-* GeoJSON geometry – the following GeoJSON objects are supported: 
+* ranges — list of ranges. For example:  `[[1.0, 2.0], [100, 1000]]`
+* GeoJSON geometry — the following GeoJSON objects are supported: 
   * Point
   * MultiPoint
   * LineString
@@ -155,11 +155,11 @@ are relevant, in particular:
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "file_meta"`.
 
 Model that stores basic file metadata:
-* `name` – name of the file 
-* `type` – type of the file. One of: regular file (`REG`), directory (`DIR`)
-* `mode` – POSIX access mode as a decimal integer 
-* `acl` – [access control list](data.md#access-control-lists)
-* `owner` – ID of an owner of the file
+* `name` — name of the file 
+* `type` — type of the file. One of: regular file (`REG`), directory (`DIR`)
+* `mode` — POSIX access mode as a decimal integer 
+* `acl` — [access control list](data.md#access-control-lists)
+* `owner` — ID of an owner of the file
 * `provider_id` – ID of a provider on which the file was created
 * `deleted` – flag informing that file was marked to be deleted
 * other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
@@ -264,7 +264,7 @@ file_popularity = {
 
 
 All operations on views can be performed using the REST API.
-Please refer to the linked API documentation for detailed information and examples.
+Refer to the linked API documentation for detailed information and examples.
 
 | Request                      | Link to API |
 |------------------------------|-------------|

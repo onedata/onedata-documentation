@@ -19,12 +19,12 @@ There are three types of tokens in Onedata: [access tokens](#access-tokens),
 Regardless of the above-mentioned type, each token can be 
 [named or temporary](#named-and-temporary-tokens).
 
-Tokens are passed around the system in a serialized form – an alphanumeric 
+Tokens are passed around the system in a serialized form — an alphanumeric 
 string that looks like the following:
 `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgRHR00WTg5dH...`
 
 The implementation of tokens in Onedata is based on [Google's macaroons][] and utilizes 
-their fundamental concept of [caveats](#token-caveats) – contextual confinements.
+their fundamental concept of [caveats](#token-caveats) — contextual confinements.
 
 All tokens are created in Onezone and can only be verified by Onezone.
 
@@ -38,7 +38,7 @@ published](#safely-publishing-tokens), but it must be done with great care.
 
 ## Access tokens
 
-Access tokens are the basic way to authorize operations in Onedata – either in 
+Access tokens are the basic way to authorize operations in Onedata — either in 
 REST/CDMI API or when mounting Oneclient. Access tokens are a type of bearer 
 authentication, which means that the party in possession of a token can use it 
 to perform operations on behalf of the token subject (creator). The subject can 
@@ -359,7 +359,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
     ```
     
 * `interface` - limits the available interfaces on which the token can be used 
-    to a certain one - `rest`, `oneclient` or `graphsync`. If the `oneclient` 
+    to a certain one — `rest`, `oneclient` or `graphsync`. If the `oneclient` 
     interface is specified, this caveat is treated as a
     [*data access caveat*](#data-access-caveats). The `graphsync` interface is
     used internally for communication between services and does not make sense
@@ -790,7 +790,7 @@ used - other spaces are completely invisible and inaccessible to the token beare
 ## Using REST API
 
 Below are some examples how the REST API can be used to manage user tokens. For
-detailed documentation of all endpoints, please refer to the 
+detailed documentation of all endpoints, refer to the 
 [API documentation](https://onedata.org/#/home/api/latest/onezone?anchor=tag/Token).
 
 Below examples assume that the following envs are exported:
@@ -905,7 +905,7 @@ directory (and its subdirectories).
 
 #### Create a named token valid only for a colleague
 
-Please refer to the scenario [described before](#consumer). Assume that Bob 
+Refer to the scenario [described before](#consumer). Assume that Bob 
 wishes to create a token for Alice (user ID `461698917aa4c176fd86a111b6e7231ca998f1`) 
 that would allow data access in whole space `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 Note: 
@@ -1065,7 +1065,7 @@ The token can be used again.
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
 click on the **(+)** button and choose the template the best suits your needs. 
 You can use the default settings or tailor the token to a specific use-case, 
-possibly limiting it with caveats. In such case, please see the detailed guide [below](#detailed-guide).
+possibly limiting it with caveats. In such case, see the detailed guide [below](#detailed-guide).
 ![image](../../images/user-guide/tokens/0-access-token-templates.png#screenshot)
 
 

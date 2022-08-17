@@ -36,7 +36,7 @@ curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spa
 An example of such request is presented in the *file popularity* configuration tab of Onepanel GUI.
 The example request returns 10 least popular files in the space.
 
-For more information on querying [*views*](../../../user-guide/views.md) please see 
+For more information on querying [*views*](../../../user-guide/views.md), see 
 [here](../../../user-guide/views.md#rest-api).  
 
 
@@ -53,13 +53,13 @@ P(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountP
 ```
 
 where:
-* `lastOpenHour` – parameter which is equal to timestamp (in hours since 01.01.1970)
+* `lastOpenHour` — parameter which is equal to timestamp (in hours since 01.01.1970)
   of last open operation on given file
-* `w1` – weight of lastOpenHour parameter
-* `avgOpenCountPerDay` – parameter equal to moving average of number of open
+* `w1` — weight of lastOpenHour parameter
+* `avgOpenCountPerDay` — parameter equal to moving average of number of open
   operations on given file per day. The value is calculated over last 30 days.
-* `w2` – weight of avgOpenCountPerDay parameter
-* `MAX_AVG_OPEN_COUNT_PER_DAY` – upper boundary for avgOpenCountPerDay parameter
+* `w2` — weight of avgOpenCountPerDay parameter
+* `MAX_AVG_OPEN_COUNT_PER_DAY` — upper boundary for avgOpenCountPerDay parameter
 
 Entries in the views are modified only when associated document
 in the database is modified. It means that an entry in the *file popularity view*
@@ -70,7 +70,7 @@ The downside of this approach is that the `avgOpenCountPerDay` may not be recalc
 circumstances and the file may be indexed as "popular" forever, contrary to the actual popularity.
 This is possible when the file that has been intensively used for some time but hasn't been opened
 since then, so that no recalculation could be triggered to update its popularity. This is why the
-`lastOpenHour` parameter is used in the *popularity function* – to balance the importance of
+`lastOpenHour` parameter is used in the *popularity function* — to balance the importance of
 `avgOpenCountPerDay` parameter.
 
 ### Default parameters
@@ -152,7 +152,7 @@ can be modified in the *file popularity* configuration panel.
 ### REST API
 
 All operations related to file popularity can be performed using the REST API.
-Please refer to the linked API documentation for detailed information and examples.
+Refer to the linked API documentation for detailed information and examples.
 
 | Request                               | Link to API |
 |---------------------------------------|-------------|
