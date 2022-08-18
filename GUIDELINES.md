@@ -1,9 +1,9 @@
 # Guidelines
 Unified guidelines for writing and formatting the Onedata documentation.
 
-<!-- @TODO VFS-9738 carry on with more guidelines and adjust the existing
-     docs so that they comply.    
--->
+
+## TODO
+* VFS-9738 carry on with more guidelines and adjust the existing docs so that they comply.
 
 
 ## Source file structure
@@ -51,7 +51,7 @@ To add a new page and/or image:
 ```
 * Use only the wildcard (`*`) character for bullet points.
 
-* For multiline points, ident the content to 
+* For multiline points, indent the content to
   align with the first line content.
 
 * Consider adding blank lines between points in lists that have a lot of content.
@@ -121,7 +121,7 @@ Below are some examples how a link or reference can be introduced:
   commas, parentheses, or colons, depending on the context. Always put a space
   before and after the em dash.
   > Authentication is carried by access tokens — bearer tokens that allow acting
-    on behalf of the token subject.
+  > on behalf of the token subject.
 
   For more tips, see the [punctuation guide](https://www.thepunctuationguide.com/hyphen.html).
 
@@ -143,17 +143,14 @@ Below are some examples how a link or reference can be introduced:
   locate the region of interest in GUI, but focus on the discussed feature.
   
 * When taking screenshots, use browser zoom to get better quality images.
-  Keep the zoom level constant between different screenshots. The recommended
-  zoom is 125% for a 1920x1080 window.
+  Satisfying zoom level depends on the screenshot region size, but quite often
+  is about 125% for a 1920x1080 window. Verify the quality of screenshots
+  in the docs preview; if the image is not clear, try different zoom levels.
 
 * Always add the `screenshot` class to all screenshots:
   ```
   ![image](../../images/user-guide/spaces/1-no_spaces.png#screenshot)
   ```
-
-
-## Images
-* Consider adding a border to make an image look better between blocks of text.
 
 
 ## Custom routes
