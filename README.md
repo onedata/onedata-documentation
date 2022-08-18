@@ -1,5 +1,9 @@
 # Onedata documentation
-This documentation is build using [vuepress](vuepress.vuejs.org).
+This documentation is build using [vuepress](https://vuepress.vuejs.org).
+
+
+## Guidelines
+All docs should be edited and formatted in compliance with the [guidelines](GUIDELINES.md). 
 
 
 ## Building and developing
@@ -14,23 +18,6 @@ This documentation is build using [vuepress](vuepress.vuejs.org).
   statically, giving a preview of what's in the build artifact (note that the 
   `dev` and `dev-native` targets do not inject the `RELEASE` version, only the
   placeholders are visible).
-
-
-## Adding new pages and images
-The source files reside in `./docs/` and the images reside in `./images/`,
-with the mirrored directory structure (image path should correspond to 
-the markdown source path where it is used - see below).
-
-- prepare the new .md file and place it in the relevant directory,
-  e.g., `./docs/admin-guide/onezone/installation.md`,
-- add images referenced by the .md file to corresponding directory,
-  e.g., `./images/admin-guide/onezone/installation/first-step.png`,
-- add appropriate entry in `./docs/.vuepress/config.js`, in the
-  `sidebar` object.
-
-
-## Custom routes
-Can be placed in `./docs/.vuepress/enhanceApp.js`.
 
 
 ## Versioning

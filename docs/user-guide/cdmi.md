@@ -38,21 +38,21 @@ is as follows:
 
 Currently, Onedata supports CDMI version `1.1.1`. 
 
-For more information about CDMI please visit the official [website](http://www.snia.org/cdmi).
+For more information about CDMI, visit the official [website](http://www.snia.org/cdmi).
 
 
 ## Endpoints
 
 Files and directories can be accessed and managed in Onedata using CDMI queries 
 on following paths:
-- `/cdmi/${FILE_PATH}` – using the logical path to the file or directory.
-- `/cdmi/cdmi_objectid/${FILE_ID}` – using the [File ID](data.md#file-path-and-id) 
+* `/cdmi/${FILE_PATH}` — using the logical path to the file or directory.
+* `/cdmi/cdmi_objectid/${FILE_ID}` — using the [File ID](data.md#file-path-and-id) 
   that uniquely identifies the file or directory across the system.
 
 It is advised to use File IDs whenever possible as they offer better 
-performance – no path resolution needs to pe performed.
+performance — no path resolution needs to pe performed.
 
-When referencing files through CDMI using file path, please remember that 
+When referencing files through CDMI using file path, remember that 
 Onedata organizes all data into spaces, and the space name is the first element 
 of the file path. For example, `CMS 1` in the path below (**make sure to urlencode 
 the path**):
@@ -61,9 +61,9 @@ the path**):
 /cdmi/CMS%201/file.txt
 ```
 
-Also, please note that CDMI imposes strict rules concerning the trailing slash in paths:
-* directory path must always end with `/` – e.g. `/cdmi/MysSpace/dir1/` 
-* file path must have no trailing slash – e.g. `/cdmi/MysSpace/file1.txt`.
+> **NOTE**: CDMI imposes strict rules concerning the trailing slash in paths:
+> * directory path must always end with `/` — e.g. `/cdmi/MysSpace/dir1/`,
+> * file path must have no trailing slash — e.g. `/cdmi/MysSpace/file1.txt`.
 
 
 ## Examples of usage
@@ -353,7 +353,7 @@ curl -X PUT "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
 
 ### Get file ACL
 
-For more information about ACL please refer to [this page](data.md#access-control-lists).
+For more information about ACL, refer to [this page](data.md#access-control-lists).
 
 ```bash
 curl -X GET "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \

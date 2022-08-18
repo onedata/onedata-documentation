@@ -32,7 +32,7 @@ later browsed and queried. Logically divided into separate [harvesters](#harvest
 that can have different configuration and source spaces.
 Learn more [here](user-guide/data-discovery.md).
 
-## File Id
+## File ID
 A unique, global identifier associated with a file or directory.
 Learn more [here](user-guide/data.md#file-id).
 
@@ -98,8 +98,12 @@ Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interfa
 and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
+<!-- TODO: VFS-7218 piece of software that is installed at a data provider site -->
 
 ## Onezone
+
+## Provider
+<!-- TODO: VFS-7218 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
 

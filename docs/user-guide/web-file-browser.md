@@ -76,7 +76,7 @@ available actions appears.
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
 
 The file browser uses the "infinite scroll" method to display large
-directories – new items are dynamically loaded when the list is scrolled down.
+directories — new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
 
@@ -143,7 +143,7 @@ highlighting.
 
 ### Permissions
 
-Invokes an editor of [permissions](data.md#permissions) assigned to the file –
+Invokes an editor of [permissions](data.md#permissions) assigned to the file —
 [POSIX](data.md#posix-permissions) or [Access Control List
 (ACL)](data.md#access-control-lists). Each file can use only one of the
 permission types at the same time, and the currently applied one is selected

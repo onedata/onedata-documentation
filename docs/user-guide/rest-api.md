@@ -7,14 +7,14 @@ This chapter contains basics about Onedata REST API usage.
 There are essentially three types of services in Onedata that make up its [architecture](../intro.md#architecture). 
 Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger):
 
-* Onezone – API for managing high level objects such as users, groups, spaces etc. – 
+* Onezone — API for managing high level objects such as users, groups, spaces etc. — 
   [REST API](https://onedata.org/#/home/api/stable/onezone).
 
-* Oneprovider – API for data management – [REST API](https://onedata.org/#/home/api/stable/oneprovider), 
+* Oneprovider — API for data management — [REST API](https://onedata.org/#/home/api/stable/oneprovider), 
   complemented by [CDMI API](cdmi.md) (recommended only for advanced use-cases 
   that explicitly require the CDMI protocol, due to its worse efficiency)
 
-* Onepanel – admin API for managing service clusters (Onezone or Oneprovider) – 
+* Onepanel — admin API for managing service clusters (Onezone or Oneprovider) — 
   [REST API](https://onedata.org/#/home/api/stable/onepanel).
 
 
@@ -44,7 +44,7 @@ the domain of a Oneprovider service can be found [here](data.md#oneprovider-doma
 
 ### Access tokens
 Access tokens are used universally to authorize API requests in all services. 
-Please follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
+Follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
 
 
 ### Oneprovider ID

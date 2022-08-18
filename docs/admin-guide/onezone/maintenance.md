@@ -17,8 +17,8 @@ boils down to creating snapshots of the installation directory.**
 > **NOTE:** Apart from the Onezone service persistence that stores file
 > metadata, administrators should back up the underlying storage systems 
 > that store the physical data exposed via logical Onedata spaces. This guide
-> does not cover storage data backups, please use backup procedures recommended
-> for specific storage backend types.
+> does not cover storage data backups, you should use backup procedures 
+> recommended for specific storage backend types.
 
 Below are examples how [offline](#offline-backups) and [live](#live-backups) 
 backups can be performed. 
@@ -69,7 +69,7 @@ The script
 from
 [onedata-deployments](https://github.com/onedata/onedata-deployments)
 repository can be used to automate the backup process. It is
-particularly useful for multinode onedata deployments – see the
+particularly useful for multinode onedata deployments — see the
 `README.md` for usage details. In this procedure, the service nodes
 are not stopped, but the snapshot is performed as much in parallel as
 possible. Despite using LVM's atomic snapshots, this approach does not

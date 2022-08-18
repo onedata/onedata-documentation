@@ -4,7 +4,7 @@
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
-[Fuse](https://github.com/libfuse/libfuse). Please follow installation
+[Fuse](https://github.com/libfuse/libfuse). Follow installation
 instructions below your particular platform.
 
 ## Installation
@@ -51,14 +51,14 @@ $ conda install -c onedata-centos6 oneclient
 
 To mount your spaces using Oneclient, you need to authenticate with a
 specific Onezone service and obtain an access token suitable for Oneclient.
-Access tokens can be generated directly from the Web interface – see the
+Access tokens can be generated directly from the Web interface — see the
 [quickstart guide](tokens.md#access-token-quickstart). More information on
 different types of tokens, and how to create them programmatically using the
 REST API can be found [here](./tokens.md).
 
 > IMPORTANT: Please make sure not to publish your access tokens or share them
 > with anyone. Access tokens should be treated the same way as private keys or
-> passwords – they are intended to be used only by their owners for authentication
+> passwords — they are intended to be used only by their owners for authentication
 > with Onedata services. The only exception is when a token is consciously limited
 > by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
 > (e.g. read-only access to a specific subdirectory). If you wish to collaborate
@@ -85,11 +85,11 @@ $ export ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME>   # e.g. provider-krakow.on
 $ oneclient <MOUNT_POINT>                              # e.g. /home/joe/oneclient
 ```
 
-Provide the hostname of a chosen Oneprovider – one that supports at least one
-of your spaces. The choice of Oneprovider may depend on several factors:
-1. The quality of your network connection to the Oneprovider.
-2. The fact whether the Oneprovider supports the space that is to be accessed.
-3. Whether or not you wish to use the [direct I/O](#direct-io-and-proxy-io-modes) mode.
+Provide the hostname of a chosen provider — one that supports at least one
+of your spaces. The choice of provider may depend on several factors:
+1. The quality of your network connection to the provider.
+2. The fact whether the provider supports the space that is to be accessed.
+3. Whether you wish to use the [direct I/O](#direct-io-and-proxy-io-modes) mode.
 
 The hostname can be found in the [Web GUI](data.md#oneprovider-domain).
 
@@ -110,10 +110,10 @@ It is however possible to limit the spaces which are visible, by providing a
 white list of the spaces on the command line. This can be achieved using 2
 options:
 
-* `--space <name>` –  every occurence of this option followed by the name of
+* `--space <name>` —  every occurence of this option followed by the name of
   a space will limit the mounted spaces to the specified spaces (e.g.
   `--space Space1 --space Space2`)
-* `--space-id <id>` –  every occurence of this option followed by the id of a
+* `--space-id <id>` —  every occurence of this option followed by the id of a
   space will limit the mounted spaces to the specified spaces (e.g.
   `--space-id a58a461875b59988bd16eca960d8130b --space-id bd16eca960d8130ba58a461875b53451`)
 
@@ -210,7 +210,7 @@ a single integer argument which determines the log verbosity:
 * `-v 3` – trace function calls along with their arguments
 * `-v 4` – binary messages between Oneclient and Oneprovider
 
-> Please note that above level 2, the size of the logs can be substantial thus
+> **NOTE**: above level 2, the size of the logs can be substantial thus
 > it is necessary to monitor free disk space. When the machine runs out of disk
 > space, Oneclient will stop logging.
 

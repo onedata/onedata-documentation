@@ -17,8 +17,8 @@ boils down to creating snapshots of the installation directory.**
 > **NOTE:** Apart from the Oneprovider service persistence that stores file
 > metadata, administrators should back up the underlying storage systems 
 > that store the physical data exposed via logical Onedata spaces. This guide
-> does not cover storage data backups, please use backup procedures recommended
-> for specific storage backend types.
+> does not cover storage data backups, you should use backup procedures 
+> recommended for specific storage backend types.
 
 Below are examples how [offline](#offline-backups) and [live](#live-backups) 
 backups can be performed. 
