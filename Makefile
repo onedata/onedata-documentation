@@ -19,7 +19,7 @@ submodules:
 	git submodule update --init --recursive ${submodule}
 
 package:
-	cd _book && tar zcf ../onedata-documentation.tar.gz .
+	cd _book && tar zcf ../onedata_documentation.tar.gz .
 
 clean:
 	@rm -rf node_modules _book package-lock.json
