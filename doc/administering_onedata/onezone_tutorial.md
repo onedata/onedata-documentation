@@ -176,7 +176,7 @@ services:
             # Per node Couchbase cache size in MB for all buckets
             serverQuota: 4096
             # Per bucket Couchbase cache size in MB across the cluster
-            bucketQuota: 1024
+            bucketQuota: 4096
             nodes:
               - "n1"
         onezone:
