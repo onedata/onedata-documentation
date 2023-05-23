@@ -21,20 +21,7 @@ submodules:
 	git submodule sync --recursive ${submodule}
 	git submodule update --init --recursive ${submodule}
 
-install-native:
-	yarn install
-
-build-native:
-	yarn docs:build
-	./inject-release.sh
-
-dev-native:
-	yarn docs:dev
-
-lint-native:
-	yarn docs:lint
-
-preview:
+preview: build
 	@bash -c "sleep 1; echo 'opening http://localhost:8080/intro.html ...'; xdg-open http://localhost:8080/intro.html" &
 	@cd docs/.vuepress/dist && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 

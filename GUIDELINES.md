@@ -11,13 +11,20 @@ The source files reside in `./docs/` and the images reside in `./images/`,
 with the mirrored directory structure (image path should correspond to
 the markdown source path where it is used - see below).
 
-To add a new page and/or image:
-- prepare the new .md file and place it in the relevant directory,
-  e.g., `./docs/admin-guide/onezone/installation.md`,
-- add images referenced by the .md file to corresponding directory,
-  e.g., `./images/admin-guide/onezone/installation/first-step.png`,
+To add a new page:
+- create a new .md file, placing it in a sensible location in the structure,
+  e.g. `./docs/admin-guide/onezone/installation.md`,
 - add appropriate entry in `./docs/.vuepress/config.js`, in the
   `sidebar` object.
+
+To add an image:
+- place the image to be referenced by an .md file in its corresponding directory,
+  i.e. for the above-mentioned page, it would be:
+  `./images/admin-guide/onezone/installation/first-step.png`,
+- embed the image into the Markdown page:
+  ```
+  ![image](../../../images/admin-guide/onezone/installation/first-step.png)
+  ```
 
 
 ## Writing tone
@@ -49,7 +56,7 @@ To add a new page and/or image:
 
 ### Enumeration & itemization
 ```
-* Use only the wildcard (`*`) character for bullet points.
+* Use only the wildcard (`*`) character for bullet points — do not use the hyphen (`-`).
 
 * For multiline points, indent the content to
   align with the first line content.
@@ -105,7 +112,7 @@ Below are some examples how a link or reference can be introduced:
 
 * `For more information about X, refer to [this page](path/to/file.md#section).`
 * `For more information about X, see the [Y](path/to/file.md#section) section/chapter.`
-* `More information on X can be found [here](path/to/file.md#section).`
+* `See [this](path/to/file.md#section) chapter for more details.`
 
 
 ## Technicalities
