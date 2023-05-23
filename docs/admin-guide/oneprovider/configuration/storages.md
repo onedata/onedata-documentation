@@ -19,8 +19,6 @@ The currently supported storage backends include:
 * `Ceph RADOS` — storage backend compatible with [Ceph](http://ceph.com/ceph-storage/) object storage.
 * `Swift` — storage backend compatible with [OpenStack SWIFT](http://docs.openstack.org/developer/swift/) protocol.
 * `GlusterFS` — [GlusterFS](https://www.gluster.org/) volume directly attached to the provider.
-* `Local Ceph` — local Ceph cluster that has been deployed during Oneprovider deployment. For more information
-on local Ceph deployment, see [here](ceph.md).
 * `WebDAV` — storage backend compatible with [WebDAV](https://tools.ietf.org/html/rfc4918) protocol.
 * `XRootD` — storage backend compatible with [XRootD](http://www.xrootd.org/) protocol.
 * `HTTP` — any [HTTP](https://tools.ietf.org/html/rfc7231) or HTTPS compatible server. 
