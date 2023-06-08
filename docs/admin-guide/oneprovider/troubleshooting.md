@@ -10,7 +10,7 @@ In case of issues related to Oneprovider deployment, registering new storage
 backend or supporting spaces consult Onepanel logs. For any other kind of 
 problem (data management, QoS, transfers, etc.) check Oneprovider logs.
 
-### Log File Location
+### Log file Location
 
 1. Docker based deployment (assuming the paths were set as in the tutorial)
 
@@ -39,6 +39,47 @@ cmd.log debug.log error.log info.log run_erl.log
 ~$ ls /var/log/op_worker/
 debug.log error.log info.log run_erl.log
 ```
+
+### Log file rotation
+
+Log rotation ensures efficient management of log files. It prevents log files 
+from growing indefinitely and consuming excessive disk space. In the Onedata 
+system, log rotation is performed according to the following process:
+
+1. Maximum Log Size:
+
+    Each log file in the system has a configurable maximum size. The specific 
+    configuration for each log file may vary (e.g., for error.log, the default 
+    maximum size is set to 50 MB). When a log file reaches this defined maximum 
+    size, log rotation is triggered.
+
+2. Numerical Suffix:
+   
+    When log rotation is initiated, the current log file is renamed by 
+    appending a numerical suffix. The original log file name remains unchanged, 
+    while the rotated file receives a suffix of ".0". For example, `error.log` 
+    becomes `error.log.0`.
+
+3. Incrementing Suffix:
+
+    If a rotated log file with a specific suffix already exists, the suffix is 
+    incremented by 1. For instance, if `error.log.0` already exists, it is 
+    renamed to `error.log.1`. This process continues until the maximum number 
+    of rotated log files, denoted as *N*, is reached.
+
+4. Removing Oldest Log Files:
+
+    Once *N* reaches the configured maximum value for a specific log file 
+    (e.g., for `error.log`, the default maximum value is 9), the oldest rotated 
+    log is removed instead of being renamed to *MaxN + 1*.
+
+New log entries are always written to the log file without any numerical suffix, 
+ensuring a continuous flow of logs in the latest file.
+
+Specific configurations and values for log rotation may vary depending on the 
+log file. Administrators can customize these settings based on their 
+requirements and the available disk space to achieve optimal log management 
+in the Onedata system.
 
 ### Log severity levels (based on syslog levels)
 
@@ -178,6 +219,11 @@ debugging purposes.
 
 4. `journal.log`
 
+    This log file serves the purpose of quickly assessing the state of the 
+    provider. It contains information about application starts, stops (whether 
+    the stop was graceful) and also connection and disconnection information 
+    with the zone. 
+
 5. `link`
 
     RTransfer link logs consist of low-level, internal logs related to the 
@@ -185,6 +231,11 @@ debugging purposes.
     software and are primarily utilized for debugging purposes.
 
 6. `node_manager_monitoring.log`
+
+    This log file provides information about node activities, allowing 
+    visibility into node-level events, status changes, and system behavior.
+    It is particularly useful for Onedata developers during the debugging 
+    process when troubleshooting issues. 
 
 7. `storage_import`
 
