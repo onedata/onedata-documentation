@@ -6,11 +6,26 @@ Oneprovider service requires several TCP ports (`80`, `443`, `6665`, `9443`)
 to be opened for proper operation. Some of these ports can be limited to 
 internal network, in particular `9443` for Onepanel management interface. 
 
-Furthermore, on all nodes of Oneprovider deployment where Couchbase instance 
-is deployed, it exposes several additional ports. This means that the 
-Couchbase security guidelines should be also followed.
+In a multinode deployment scenario, it is necessary to expose certain additional 
+ports on all nodes where the Couchbase instance is deployed. The following ports 
+need to be exposed:
 
-For more information about ports setup see [Firewal setup](configuration/network-and-firewall.md)
+* 8091 - Couchbase admin interface (Optional)
+* 8092
+* 11207
+* 11209
+* 11210
+* 11211
+* 18091-18092
+* 21100-21299
+
+::: danger SECURITY RISK
+Exposing these ports to the public internet can pose a significant security risk. 
+Ensure that these ports are only accessible within the intranet to maintain 
+the integrity and security of your Couchbase deployment.
+:::
+
+For more information about ports setup see [Firewal setup](configuration/network-and-firewall.md).
 
 ## Health
 
@@ -81,8 +96,8 @@ available:
     providers and needs to catch up with changes.
     * `error`: Indicates that there are issues with a particular component.
 
-    By examining the status of each component and the overall healthdata status,
-    you can determine whether the service is running properly.
+    By examining the status of each component and the overall `healthdata` 
+    status, you can determine whether the service is running properly.
 
     Here's an example illustrating a situation where the service is out of sync
     with errors in one of the components:
@@ -200,7 +215,7 @@ in the Onedata system.
 There are eight logging levels, described below, that define the importance and
 severity of an event.
 
-1. Debug (level 7)
+1. Debug (level *7*, abbreviation *D*)
 
     The debug logs provides detailed information for debugging and analysis 
     purposes. It includes low-level system details and extensive diagnostic 
@@ -255,25 +270,25 @@ severity of an event.
     > **NOTE:** You can do the same for Onepanel, just replace `op_worker` 
     > with `op_panel`.
 
-2. Info (level 6)
+2. Info (level *6*, abbreviation *I*)
 
     This severity is assigned for purely informational events providing 
     insights into normal system behavior and activities (e.g. application 
     start or stop).
 
-3. Notice (level 5)
+3. Notice (level *5*, abbreviation *N*)
 
     This severity is assigned for normal but significant events like important 
     system operations and noteworthy activities (e.g. configuration changes).
 
-4. Warning (level 4)
+4. Warning (level *4*, abbreviation *W*)
 
     The warning logs signals potential issues or abnormal system actions. 
     It indicates situations that might lead to problems in the future if action 
     in not taken now (e.g. network connectivity warnings or suspicious user 
     activities).
 
-5. Error (level 3)
+5. Error (level *3*, abbreviation *E*)
 
     The error logs indicates fails encountered during system operations 
     (e.g. authentication failures, or service unavailability).
@@ -320,19 +335,19 @@ severity of an event.
     Sharing this information with the developers will aid in diagnosing 
     and fixing the functionality issue.
 
-6. Critical (level 2)
+6. Critical (level *2*, abbreviation *C*)
 
     This severity is assigned for severe errors that cause significant 
     disruptions to the system (e.g. critical hardware failures or 
     database corruption).
 
-7. Alert (level 1)
+7. Alert (level *1*, abbreviation *A*)
 
     This severity is assigned for events requiring immediate administrator 
     response (e.g. database disk usage exceeding safe thresholds which can 
     cause loss of critical data).
 
-8. Emergency (level 0)
+8. Emergency (level *0*, abbreviation *M*)
 
     This is the highest possible severity assigned. It logs catastrophic events 
     resulting in complete system failure or shutdown (e.g. exhausted disk space).
@@ -341,11 +356,11 @@ The Onedata system organizes logs into separate files based on their severity
 levels. This approach simplifies log management and analysis. The commonly 
 used log files include:
 
-    `debug.log`: Contains logs from the debug level and higher.
-    `info.log`: Contains logs from the info level and higher.
+    debug.log: Contains logs from the debug level and higher.
+    info.log: Contains logs from the info level and higher.
     ...
-    `alert.log`: Contains logs from the alert level and higher.
-    `emergency.log`: Contains logs from the emergency level.
+    alert.log: Contains logs from the alert level and higher.
+    emergency.log: Contains logs from the emergency level.
 
 ### Other log files
 
@@ -371,7 +386,8 @@ debugging purposes.
 
     > **NOTE:** Due an overhead to every file operation, they cause a slight 
     > performance drop and as such are disabled by default. To enable them,
-    > set `file_access_audit_log_enabled` to `true` in `op_worker` config.
+    > set `file_access_audit_log_enabled` to `true` in `op_worker` 
+    > [config](configuration/advanced-config.md).
 
 4. `journal.log`
 
@@ -417,9 +433,9 @@ log files generated by the Erlang ecosystem:
     crashes. The `crush.log` file helps in identifying the cause of the 
     crash and provides insights for debugging and resolving issues.
 
-    For more information about crush dumps, refer to [official documentation](https://www.erlang.org/doc/apps/erts/crash_dump.html).
+    For more information, refer to the [official documentation](https://www.erlang.org/doc/apps/erts/crash_dump.html).
 
 2. `run_erl.log` and `erlang.log`
 
-    These log files are generated by `run_erl` program. For more information 
-    about them, refer to [official documentation](https://www.erlang.org/doc/man/run_erl.html).
+    These log files are generated by `run_erl` program. For more information,
+    refer to the [official documentation](https://www.erlang.org/doc/man/run_erl.html).
