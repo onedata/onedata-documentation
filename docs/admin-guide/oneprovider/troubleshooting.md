@@ -51,7 +51,7 @@ available:
 
     <?xml version="1.0"?>
     <healthdata date="2023/06/08 10:52:52" status="ok">
-    <op_worker name="op_worker@oneprovider-example.com" status="ok">
+      <op_worker name="op_worker@oneprovider-example.com" status="ok">
         <node_manager status="ok"/>
         <dispatcher status="ok"/>
         <atm_supervision_worker status="ok"/>
@@ -69,7 +69,7 @@ available:
         <tp_router status="ok"/>
         <http_listener status="ok"/>
         <https_listener status="ok"/>
-    </op_worker>
+      </op_worker>
     </healthdata>
     ```
 
@@ -92,7 +92,7 @@ available:
 
     <?xml version="1.0"?>
     <healthdata date="2023/06/12 06:22:41" status="error">
-    <op_worker name="op_worker@oneprovider-example.com" status="error">
+      <op_worker name="op_worker@oneprovider-example.com" status="error">
         <node_manager status="ok"/>
         <dispatcher status="ok"/>
         <atm_supervision_worker status="ok"/>
@@ -110,7 +110,7 @@ available:
         <tp_router status="ok"/>
         <http_listener status="ok"/>
         <https_listener status="ok"/>
-    </op_worker>
+      </op_worker>
     </healthdata>
     ```
 
@@ -278,7 +278,47 @@ severity of an event.
     The error logs indicates fails encountered during system operations 
     (e.g. authentication failures, or service unavailability).
 
-# TODO describe 500 error_unexpected_error ?
+    In case of an unforeseen or unexpected error in the Onedata system, 
+    the operation may result in an *internalServerError*. To provide more 
+    information about the error, a reference is included in the response:
+
+    ```bash
+    ~$ curl -k -sS -X GET https://$ONEPROVIDER_HOST/api/v3/oneprovider/health | jq
+
+    {
+      "error": {
+        "id": "internalServerError",
+        "details": {
+          "reference": "67f0194c57"
+        },
+        "description": "The server has encountered an error while processing this request. If the problem persists, please contact the site's administrators, citing the following reference: 67f0194c57."
+      }
+    }
+    ```
+
+    The included reference can be used to locate additional details, such as 
+    a stack trace, related to the error in the `error.log` file:
+
+    ```erlang
+    [E 2023-06-12 07:36:08.456 <0.24584.1>] An unexpected exception (ref: 67f0194c57) occurred in provider_middleware_plugin:get/2 line 221
+    > Caught: error:badmatch
+    > Stacktrace:
+        cowboy_stream_h:execute/3 line 306
+        cowboy_rest:upgrade/4 line 284
+        cowboy_rest:set_resp_body/2 line 1472
+        cowboy_rest:call/3 line 1583
+        rest_handler:process_request/2 line 221
+        middleware_rest_handler:handle_request/2 line 29
+        middleware:handle/2 line 119
+        provider_middleware_plugin:get/2 line 221
+    ```
+
+    This example shows an error entry containing the reference, the specific 
+    module (`provider_middleware_plugin`), and the line number (*line 221*) 
+    where the exception occurred. The stack trace provides additional 
+    information about the sequence of function calls leading to the error. 
+    Sharing this information with the developers will aid in diagnosing 
+    and fixing the functionality issue.
 
 6. Critical (level 2)
 
