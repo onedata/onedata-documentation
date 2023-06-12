@@ -14,84 +14,105 @@ For more information about ports setup see [Firewal setup](configuration/network
 
 ## Health
 
+To verify the status of the Oneprovider service, you have several options 
+available:
 
-### Nagios
+1. Using the `op_worker ping`/`op_panel ping` command:
 
-Monitoring the status of the Oneprovider service in the Onedata system can be
-achieved using Nagios, a popular monitoring tool. The monitoring information
-is accessible on a specific port and provides a basic overview of the status
-of all functional components of the Oneprovider service.
+    You can utilize the `op_worker/op_panel ping` command to check if the 
+    service is running. This command checks if the service node is active 
+    and prints "pong" when successful. If the node is stopped or unresponsive, 
+    it will display the message: "Node '$NAME_HOST' not responding to pings."
 
-To monitor the service status, you can utilize our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata)
-or employ a simple script as shown below:
+2. Using the `service` command:
 
-```bash
-curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+    You can also use the service command to quickly check the status of the 
+    Oneprovider service. Execute the following commands to verify its status:
 
-<?xml version="1.0"?>
-<healthdata date="2023/06/08 10:52:52" status="ok">
-  <op_worker name="op_worker@oneprovider-example.com" status="ok">
-    <node_manager status="ok"/>
-    <dispatcher status="ok"/>
-    <atm_supervision_worker status="ok"/>
-    <auto_storage_import_worker status="ok"/>
-    <datastore_worker status="ok"/>
-    <dbsync_worker status="ok"/>
-    <dir_stats_service_worker status="ok"/>
-    <fslogic_worker status="ok"/>
-    <harvesting_worker status="ok"/>
-    <middleware_worker status="ok"/>
-    <provider_rpc_worker status="ok"/>
-    <qos_worker status="ok"/>
-    <rtransfer_worker status="ok"/>
-    <session_manager_worker status="ok"/>
-    <tp_router status="ok"/>
-    <http_listener status="ok"/>
-    <https_listener status="ok"/>
-  </op_worker>
-</healthdata>
-```
+    ```bash
+    ~$ service op_worker status
 
-In the provided XML response, each component of the Oneprovider service is
-listed with its respective status. The possible statuses include:
+    pong
+    op_worker is running
+    ```
 
-* `ok`: Indicates that the component is functioning correctly.
-* `out_of_sync`: Indicates that the provider is lagging behind other providers
-and needs to catch up with changes.
-* `error`: Indicates that there are issues with a particular component.
+3. Nagios
 
-By examining the status of each component and the overall healthdata status,
-you can determine whether the service is running properly.
+    Monitoring the status of the Oneprovider service in the Onedata system can be
+    achieved using Nagios, a popular monitoring tool. The monitoring information
+    is accessible on a specific port and provides a basic overview of the status
+    of all functional components of the Oneprovider service.
 
-Here's an example illustrating a situation where the service is out of sync
-with errors in one of the components:
+    To monitor the service status, you can utilize our [Nagios scripts](https://github.com/onedata/nagios-plugins-onedata)
+    or employ a simple script as shown below:
 
-```bash
-curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+    ```bash
+    ~$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
 
-<?xml version="1.0"?>
-<healthdata date="2023/06/12 06:22:41" status="error">
-  <op_worker name="op_worker@oneprovider-example.com" status="error">
-    <node_manager status="ok"/>
-    <dispatcher status="ok"/>
-    <atm_supervision_worker status="ok"/>
-    <auto_storage_import_worker status="ok"/>
-    <datastore_worker status="error"/>
-    <dbsync_worker status="out_of_sync"/>
-    <dir_stats_service_worker status="ok"/>
-    <fslogic_worker status="ok"/>
-    <harvesting_worker status="ok"/>
-    <middleware_worker status="ok"/>
-    <provider_rpc_worker status="ok"/>
-    <qos_worker status="ok"/>
-    <rtransfer_worker status="ok"/>
-    <session_manager_worker status="ok"/>
-    <tp_router status="ok"/>
-    <http_listener status="ok"/>
-    <https_listener status="ok"/>
-  </op_worker>
-</healthdata>
-```
+    <?xml version="1.0"?>
+    <healthdata date="2023/06/08 10:52:52" status="ok">
+    <op_worker name="op_worker@oneprovider-example.com" status="ok">
+        <node_manager status="ok"/>
+        <dispatcher status="ok"/>
+        <atm_supervision_worker status="ok"/>
+        <auto_storage_import_worker status="ok"/>
+        <datastore_worker status="ok"/>
+        <dbsync_worker status="ok"/>
+        <dir_stats_service_worker status="ok"/>
+        <fslogic_worker status="ok"/>
+        <harvesting_worker status="ok"/>
+        <middleware_worker status="ok"/>
+        <provider_rpc_worker status="ok"/>
+        <qos_worker status="ok"/>
+        <rtransfer_worker status="ok"/>
+        <session_manager_worker status="ok"/>
+        <tp_router status="ok"/>
+        <http_listener status="ok"/>
+        <https_listener status="ok"/>
+    </op_worker>
+    </healthdata>
+    ```
+
+    In the provided XML response, each component of the Oneprovider service is
+    listed with its respective status. The possible statuses include:
+
+    * `ok`: Indicates that the component is functioning correctly.
+    * `out_of_sync`: Indicates that the provider is lagging behind other 
+    providers and needs to catch up with changes.
+    * `error`: Indicates that there are issues with a particular component.
+
+    By examining the status of each component and the overall healthdata status,
+    you can determine whether the service is running properly.
+
+    Here's an example illustrating a situation where the service is out of sync
+    with errors in one of the components:
+
+    ```bash
+    ~$ curl -sS https://$ONEPROVIDER_HOST/nagios | xmllint --format -
+
+    <?xml version="1.0"?>
+    <healthdata date="2023/06/12 06:22:41" status="error">
+    <op_worker name="op_worker@oneprovider-example.com" status="error">
+        <node_manager status="ok"/>
+        <dispatcher status="ok"/>
+        <atm_supervision_worker status="ok"/>
+        <auto_storage_import_worker status="ok"/>
+        <datastore_worker status="error"/>
+        <dbsync_worker status="out_of_sync"/>
+        <dir_stats_service_worker status="ok"/>
+        <fslogic_worker status="ok"/>
+        <harvesting_worker status="ok"/>
+        <middleware_worker status="ok"/>
+        <provider_rpc_worker status="ok"/>
+        <qos_worker status="ok"/>
+        <rtransfer_worker status="ok"/>
+        <session_manager_worker status="ok"/>
+        <tp_router status="ok"/>
+        <http_listener status="ok"/>
+        <https_listener status="ok"/>
+    </op_worker>
+    </healthdata>
+    ```
 
 ## Logs
 
