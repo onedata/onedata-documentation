@@ -1,5 +1,17 @@
 # Troubleshooting
 
+## Connectivity issues
+
+Oneprovider service requires several TCP ports (`80`, `443`, `6665`, `9443`) 
+to be opened for proper operation. Some of these ports can be limited to 
+internal network, in particular `9443` for Onepanel management interface. 
+
+Furthermore, on all nodes of Oneprovider deployment where Couchbase instance 
+is deployed, it exposes several additional ports. This means that the 
+Couchbase security guidelines should be also followed.
+
+For more information about ports setup see [Firewal setup](configuration/network-and-firewall.md)
+
 ## Logs
 
 Logging plays a crucial role in troubleshooting and monitoring of the Onedata 
@@ -17,7 +29,7 @@ problem (data management, QoS, transfers, etc.) check Oneprovider logs.
 ```bash
 # Onepanel logs
 ~$ ls /opt/onedata/oneprovider/persistence/var/log/op_panel/
-cmd.log debug.log error.log info.log run_erl.log
+debug.log error.log info.log run_erl.log
 ```
 
 ```bash
@@ -31,7 +43,7 @@ debug.log error.log info.log run_erl.log
 ```bash
 # Onepanel logs
 ~$ ls /var/log/op_panel/
-cmd.log debug.log error.log info.log run_erl.log
+debug.log error.log info.log run_erl.log
 ```
 
 ```bash
@@ -214,8 +226,10 @@ debugging purposes.
     File access audit logs record all file operations and provide a comprehensive 
     overview of file-related activities within the system. They are useful for 
     auditing and tracking file access activities.
-    
-    > **NOTE:** Those logs are by default disabled and must be enabled.
+
+    > **NOTE:** Due an overhead to every file operation, they cause a slight 
+    > performance drop and as such are disabled by default. To enable them,
+    > set `file_access_audit_log_enabled` to `true` in `op_worker` config.
 
 4. `journal.log`
 
