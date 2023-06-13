@@ -139,5 +139,3 @@ sudo systemctl start oneprovider
 > and the nodes should be started together.
 
 ## Upgrading
-
-## Troubleshooting
