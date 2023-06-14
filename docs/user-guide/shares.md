@@ -127,7 +127,7 @@ This single share management view contains:
 * a **Public share link** to access the share by anonymous users,
 * a **Description** tab that allows creating information page describing the share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
-* a **Publish as Open Data** tab, which allows publishing the dataset as Open Data.
+* a **Publish as Open Data** tab, which allows [publishing the dataset as Open Data](./open-data.md).
 
 ![Share management view](../../images/user-guide/shares/share-root-view.png#screenshot)
 

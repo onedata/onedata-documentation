@@ -79,6 +79,7 @@ module.exports = {
                   '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
                   '/admin-guide/onezone/configuration/data-discovery',
+                  '/admin-guide/onezone/configuration/handle-services',
                   '/admin-guide/onezone/configuration/advanced-config'
                 ]
               }
