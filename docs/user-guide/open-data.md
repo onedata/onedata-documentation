@@ -56,7 +56,7 @@ You can still add the description of the share besides the Open Data Dublin Core
 First, obtain Handle service and target share IDs. You can get available Handle services registered in the current Onezone using the following command line:
 
 ```shell
-curl -k -u username:password https://$ONEZONE_HOST/api/v3/onezone/handle_services
+curl -k -u username:password https://$ONEZONE_HOST/api/v3/onezone/user/effective_handle_services
 ```
 
 which can result in:
@@ -64,10 +64,6 @@ which can result in:
 ```json
 {"handle_services":["054900fc799a7f14451e99fac94f351ach7099"]}
 ```
-
-::: tip NOTE
-REST operation that gets available Handle services requires `oz_handle_services_list` admin privilege.
-:::
 
 The share ID can, for example, be obtained from Web GUI's Public share link, which is e.g. `https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846` — in this example the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
 
