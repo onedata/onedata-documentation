@@ -1,36 +1,20 @@
 # Onedata documentation
-This documentation is build using [vuepress](vuepress.vuejs.org).
+This documentation is build using [vuepress](https://vuepress.vuejs.org).
+
+
+## Guidelines
+All docs should be edited and formatted in compliance with the [guidelines](GUIDELINES.md). 
 
 
 ## Building and developing
-* `make build` builds the documentation within a docker.
-* `make dev` prepares a local preview with livereload within a docker, allowing 
+* `make build` builds the documentation using a docker.
+* `make dev` prepares a local preview with livereload using a docker, allowing 
   convenient development. The livereload might not cope with some structural 
   changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
-* `make build-native` runs the `build` natively on the host (requires 
-  `node >= 10.0` and `yarn`), might require `make install-native` beforehand.
-* `make dev-native` starts the `dev` session natively on the host.
+  Note that in this mode, the `RELEASE` version is not injected, only the
+  placeholders are visible, as opposed to the `make preview` target.
 * `make preview` starts a simple HTTP server in python that serves the docs
-  statically, giving a preview of what's in the build artifact (note that the 
-  `dev` and `dev-native` targets do not inject the `RELEASE` version, only the
-  placeholders are visible).
-
-
-## Adding new pages and images
-The source files reside in `./docs/` and the images reside in `./images/`,
-with the mirrored directory structure (image path should correspond to 
-the markdown source path where it is used - see below).
-
-- prepare the new .md file and place it in the relevant directory,
-  e.g., `./docs/admin-guide/onezone/installation.md`,
-- add images referenced by the .md file to corresponding directory,
-  e.g., `./images/admin-guide/onezone/installation/first-step.png`,
-- add appropriate entry in `./docs/.vuepress/config.js`, in the
-  `sidebar` object.
-
-
-## Custom routes
-Can be placed in `./docs/.vuepress/enhanceApp.js`.
+  statically, giving a preview of what's in the build artifact.
 
 
 ## Versioning

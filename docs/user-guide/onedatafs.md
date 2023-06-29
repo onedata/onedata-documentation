@@ -1,6 +1,6 @@
 # OnedataFS
 
-[[toc]]
+[toc][]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system, 
 an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface. 
@@ -73,15 +73,14 @@ $ conda install -c onedata fs.onedatafs=20.02.5=py36_0
 
 ## Usage
 
-To create an instance of OnedataFS connected to a specific Oneprovider, use
-the following code:
+To create an instance of OnedataFS connected to a specific provider, use the following code:
 
 ```python
 from fs.onedatafs import OnedataFS
 onedata_provider_host = "..."
 onedata_access_token = "..."
 
-# Create connection to Oneprovider
+# Create connection to the provider
 odfs = OnedataFS(onedata_provider_host, onedata_access_token)
 
 # Open selected space directory
@@ -91,39 +90,38 @@ space = odfs.opendir('/SpaceA')
 space.listdir('/')
 ```
 
-From then on, `space` can be used as any `PyFilesystem` instance. Please refer
+From then on, `space` can be used as any `PyFilesystem` instance. Refer
 to the [PyFilesystem API documentation](https://docs.pyfilesystem.org/en/latest/interface.html)
 for all operations available on a filesystem object.
 
 The complete list of options which can be provided to the OnedataFS constructor
 can be found below (only `host` and `token` are required).
 
-* `host` - Oneprovider hostname - follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
-* `token` - Onedata user access token - follow the same guidelines as for [Oneclient](oneclient.md#authentication)
-* `port` - Oneprovider port (defaults to 443)
-* `space` - the list of space names which should be listed (defaults to all user spaces)
-* `space_id` - the list of space IDs which should be listed (defaults to all user spaces)
-* `insecure` - when `True`, allows connecting to Oneproviders without valid SSL certificate
-* `force_proxy_io` - when `True`, forces all data transfers to go via Oneproviders
-* `force_direct_io` - when `True`, forces all data transfers to go directly via
+* `host` — provider hostname — follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
+* `token` — Onedata user access token — follow the same guidelines as for [Oneclient](oneclient.md#authentication)
+* `port` — provider port (defaults to 443)
+* `space` — the list of space names which should be listed (defaults to all user spaces)
+* `space_id` — the list of space IDs which should be listed (defaults to all user spaces)
+* `insecure` — when `True`, allows connecting to providers without valid SSL certificate
+* `force_proxy_io` — when `True`, forces all data transfers to go via providers
+* `force_direct_io` — when `True`, forces all data transfers to go directly via
   the target storage API. If storage is not available, for instance due to
   network firewalls, error will be returned for all `read` and `write`
   operations
-* `no_buffer` - when `True`, disables all internal buffering in the OnedataFS
-* `io_trace_log` - when `True`, the OnedataFS will log all requests in a CSV
+* `no_buffer` — when `True`, disables all internal buffering in the OnedataFS
+* `io_trace_log` — when `True`, the OnedataFS will log all requests in a CSV
   file in the directory specified by `log_dir`
-* `provider_timeout` - specifies the timeout for waiting for Oneprovider
-  responses, in seconds
-* `metadata_cache_size` - size of the cache for file and directory metadata
-* `drop_dir_cache_after` - time in seconds after unused metadata entries are
+* `provider_timeout` — specifies the timeout for waiting for provider responses, in seconds
+* `metadata_cache_size` — size of the cache for file and directory metadata
+* `drop_dir_cache_after` — time in seconds after unused metadata entries are
   purged from cache
-* `log_dir` - path in the filesystem, where internal OnedataFS logs should be
+* `log_dir` — path in the filesystem, where internal OnedataFS logs should be
   stored. When `None`, no logging will be generated
-* `cli_args` - any other Oneclient command line arguments can be passed as a
+* `cli_args` — any other Oneclient command line arguments can be passed as a
   value of this argument as single string, e.g. `'--storage-timeout=120
   --storage-helper-thread-count=20`
   
-Please refer to the [Oneclient options](oneclient.md#options) documentation for more details.
+Refer to the [Oneclient options](oneclient.md#options) documentation for more details.
 
 ### Advanced usage
 
@@ -132,7 +130,7 @@ for using its advanced features.
 
 #### File location information
 
-In Onedata, each file can be distributed among different Oneprovider instances,
+In Onedata, each file can be distributed among different providers,
 in blocks of various size.  In order to get information about the distribution
 of these blocks, use the `location` method:
 
@@ -146,9 +144,9 @@ This will give the following output:
 {'e0e49ac3d9b058c4839f8fb7ccc02d72': [[0, 1615273]]}
 ```
 
-where the dictionary provides information which Oneprovider, represented here
+where the dictionary provides information which provider, represented here
 by its ID, holds which blocks defined by byte ranges. In the above example,
-Oneprovider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6MB).
+provider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6MB).
 
 #### Extended attributes and metadata
 

@@ -1,5 +1,4 @@
 # REST API
-<!-- This file is referenced at least one time as "rest-api.md" -->
 
 This chapter contains basics about Onedata REST API usage.
 
@@ -8,14 +7,14 @@ This chapter contains basics about Onedata REST API usage.
 There are essentially three types of services in Onedata that make up its [architecture](../intro.md#architecture). 
 Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger):
 
-* Onezone - API for managing high level objects such as users, groups, spaces etc. - 
+* Onezone — API for managing high level objects such as users, groups, spaces etc. — 
   [REST API](https://onedata.org/#/home/api/stable/onezone).
 
-* Oneprovider - API for data management - [REST API](https://onedata.org/#/home/api/stable/oneprovider), 
+* Oneprovider — API for data management — [REST API](https://onedata.org/#/home/api/stable/oneprovider), 
   complemented by [CDMI API](cdmi.md) (recommended only for advanced use-cases 
   that explicitly require the CDMI protocol, due to its worse efficiency)
 
-* Onepanel - admin API for managing service clusters (Onezone or Oneprovider) - 
+* Onepanel — admin API for managing service clusters (Onezone or Oneprovider) — 
   [REST API](https://onedata.org/#/home/api/stable/onepanel).
 
 
@@ -34,9 +33,9 @@ In such case, the APIs are available under the following endpoints:
 | Onezone panel (admins only)       | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
 | Oneprovider panel (admins only)   | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
   
->**NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider 
-domains and internally proxied to Onepanel. The port `9443` can be used to 
-access the Onepanel API directly from within the cluster's local network. 
+> **NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider
+> domains and internally proxied to Onepanel. The port `9443` can be used to
+> access the Onepanel API directly from within the cluster's local network. 
 
 The Onezone domain should be known to the users as this is their entry point
 to the system, presenting them with a login page. Instructions on how to find 
@@ -45,7 +44,7 @@ the domain of a Oneprovider service can be found [here](data.md#oneprovider-doma
 
 ### Access tokens
 Access tokens are used universally to authorize API requests in all services. 
-Please follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
+Follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
 
 
 ### Oneprovider ID
@@ -56,9 +55,3 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
      
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
-
-
-### REST CLI
-<!-- TODO VFS-7217 -->
-
-

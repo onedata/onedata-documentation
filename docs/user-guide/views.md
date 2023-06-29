@@ -1,13 +1,12 @@
 # Views
-<!-- This file is referenced at least one time as "views.md" -->
 
-[[toc]]
+[toc][]
 
 Onedata supports creation of custom database views for indexing file metadata. They can be used for:
- * efficient querying for files
- * producing tables and lists of information based on file metadata
- * extracting or filtering information from file metadata
- * calculating, summarizing or reducing the information from file metadata  
+* efficient querying for files
+* producing tables and lists of information based on file metadata
+* extracting or filtering information from file metadata
+* calculating, summarizing or reducing the information from file metadata  
 
 Views are a result of continuous indexing of documents.
 Documents are mapped using a user-defined mapping function. Optionally, results of 
@@ -16,18 +15,18 @@ Internally, views are based on [Couchbase Views](https://docs.couchbase.com/serv
 Please visit this site for more detailed explanation of concepts used within this documentation.  
 
 There are two types of views that can be created:
- * [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html) - a perspective on the data stored
+* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html) — a perspective on the data stored
  in a database in a format that can be used to represent the data in a specific way, define and filter the information, 
  and provide a basis for searching or querying the data in the database based on the content.
- * [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) - 
+* [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) — 
    spatial views are similar to map-reduce views. They are suited for querying multi-dimensional data.
    The main difference is that they don't have a reduce function.
 
 Currently, views can be created on the following models storing file metadata:
- * [`file_meta`](#file-meta-model)
- * [`times`](#times-model)
- * [`custom_metadata`](#custom-metadata-model)
- * [`file_popularity`](#file-popularity-model)
+* [`file_meta`](#file-meta-model)
+* [`times`](#times-model)
+* [`custom_metadata`](#custom-metadata-model)
+* [`file_popularity`](#file-popularity-model)
 
 ## Concepts
 
@@ -40,22 +39,22 @@ the *mapping* name is used for both terms, as they must comply with the same rul
 In order to create a view, it is necessary to provide a mapping function in JavaScript. 
 It is used to map the data stored in a document to the value which should be indexed.
 Mapping is performed using `emit()` function. Each call to `emit()` results in a new row of data in the view result.
-More info on mapping functions can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
+More information on mapping functions can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
 
 In the *views* API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
 
 The mapping function must accept 4 arguments:
- * `id` - ID of the file (string)
- * `type` - type of the document that is being mapped by the function, one of:
-    * `"file_meta"`
-    * `"times"`
-    * `"custom_metadata"`
-    * `"file_popularity"`
- * `meta` - values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
- * `ctx` - additional information that might be helpful during indexing:
-    * `providerId`
-    * `spaceId`
+* `id` — ID of the file (string)
+* `type` — type of the document that is being mapped by the function, one of:
+   * `"file_meta"`
+   * `"times"`
+   * `"custom_metadata"`
+   * `"file_popularity"`
+* `meta` — values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
+* `ctx` — additional information that might be helpful during indexing:
+   * `providerId`
+   * `spaceId`
 
 ```javascript 1.8
 ctx = {
@@ -65,12 +64,10 @@ ctx = {
 
 ```
 
-> **NOTE:**
->
->The mapping function will be called for each file-related document (as listed in the `type` argument above).
-For example, `emit()` will be called separately for **the same file** when its name changes (`file_meta`),
-its content is modified (`times`) and an extended attributes is set (`custom_metadata`).
-It is important to consider the type of the indexed document to avoid duplicate mappings.
+> **NOTE:** The mapping function will be called for each file-related document (as listed in the `type` argument above).
+> For example, `emit()` will be called separately for **the same file** when its name changes (`file_meta`),
+> its content is modified (`times`) and an extended attributes is set (`custom_metadata`).
+> It is important to consider the type of the indexed document to avoid duplicate mappings.
 
 The mapping function must return `(key, value)` pair or pairs that are to be emitted
 to the view via `emit()` function.
@@ -84,7 +81,7 @@ a list of 2-element lists `[key, value]`. The `emit()` function is called for
 each 2-element list in the top-level list. 
 
 Valid formats of the mapping function are presented below. `key` and `value` can be any valid JSON objects:
- * returning a single view row
+* returning a single view row
     ```javascript
     function (id, type, meta, ctx) {
         var key = ...
@@ -92,7 +89,7 @@ Valid formats of the mapping function are presented below. `key` and `value` can
         return [key, value];
     }
     ```
- * returning multiple view rows
+* returning multiple view rows
       ```javascript
       function (id, type, meta, ctx) {
           var key1 = ...
@@ -122,16 +119,16 @@ A few examples of the mapping function are presented [here](#mapping-function-ex
 
 The mapping function defined for a spatial view must return the key as a multidimensional bounding box.
 There are 3 accepted ways of defining a key in a spatial function:
- * single values - list of numerical values, which is expanded to a collapsed range. 
+* single values — list of numerical values, which is expanded to a collapsed range. 
    For example, list `[1.0, 2, 3.5]` is internally expanded to  list of ranges `[[1.0, 1.0], [2 , 2], [3.5, 3.5]]`
- * ranges - list of ranges. For example:  `[[1.0, 2.0], [100, 1000]]`
- * GeoJSON geometry - the following GeoJSON objects are supported: 
-   * Point
-   * MultiPoint
-   * LineString
-   * MultiLineString
-   * MultiPolygon
-   * GeometryCollection
+* ranges — list of ranges. For example:  `[[1.0, 2.0], [100, 1000]]`
+* GeoJSON geometry — the following GeoJSON objects are supported: 
+  * Point
+  * MultiPoint
+  * LineString
+  * MultiLineString
+  * MultiPolygon
+  * GeometryCollection
 
 Above formats of defining keys might be combined. The only constraint is that GeoJSON object must be the first element of the list.
 Defining spatial view keys is thoroughly described [here](https://docs.couchbase.com/server/5.5/views/sv-writing-views-keys.html).
@@ -146,11 +143,11 @@ Contrary to the mapping function, the reduce function is not wrapped by any
 additional Javascript code. It is passed as it is to the Couchbase and therefore all
 information and notices presented [here](https://docs.couchbase.com/server/5.5/views/views-writing-reduce.html) 
 are relevant, in particular: 
- * built-in reduce functions:
-   * [`_count`](https://docs.couchbase.com/server/5.5/views/views-writing-count.html)
-   * [`_sum`](https://docs.couchbase.com/server/5.5/views/views-writing-sum.html)
-   * [`_stats`](https://docs.couchbase.com/server/5.5/views/views-writing-stats.html)
- * writing [custom reduce functions](https://docs.couchbase.com/server/5.5/views/views-writing-custom-reduce.html)
+* built-in reduce functions:
+  * [`_count`](https://docs.couchbase.com/server/5.5/views/views-writing-count.html)
+  * [`_sum`](https://docs.couchbase.com/server/5.5/views/views-writing-sum.html)
+  * [`_stats`](https://docs.couchbase.com/server/5.5/views/views-writing-stats.html)
+* writing [custom reduce functions](https://docs.couchbase.com/server/5.5/views/views-writing-custom-reduce.html)
 
 ## Indexable metadata models
 
@@ -158,14 +155,14 @@ are relevant, in particular:
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "file_meta"`.
 
 Model that stores basic file metadata:
- * `name` - name of the file 
- * `type` - type of the file. One of: regular file (`REG`), directory (`DIR`)
- * `mode` - POSIX access mode as a decimal integer 
- * `acl` - [access control list](data.md#access-control-lists)
- * `owner` - ID of an owner of the file
- * `provider_id` - ID of a provider on which the file was created
- * `deleted` - flag informing that file was marked to be deleted
- * other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
+* `name` — name of the file 
+* `type` — type of the file. One of: regular file (`REG`), directory (`DIR`)
+* `mode` — POSIX access mode as a decimal integer 
+* `acl` — [access control list](data.md#access-control-lists)
+* `owner` — ID of an owner of the file
+* `provider_id` – ID of a provider on which the file was created
+* `deleted` – flag informing that file was marked to be deleted
+* other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
 
  ```javascript 1.8
 file_meta = {
@@ -190,9 +187,9 @@ Indexed by the `emit(id, type, meta, ctx)` function where `type === "times"`.
 
 This model was extracted from the `file_meta` due to efficiency reasons.
 It stores classical Unix timestamps (in seconds since Epoch):
- * `atime` - Unix last access timestamp
- * `mtime` - Unix last modification timestamp
- * `ctime` - Unix last status timestamp
+* `atime` – Unix last access timestamp
+* `mtime` – Unix last modification timestamp
+* `ctime` – Unix last status timestamp
 
  ```javascript 1.8
 times = {
@@ -210,9 +207,9 @@ Model used for storing [extended attributes](metadata.md#extended-attributes) an
 Currently, views can operate on both extended attributes as well as JSON metadata, RDF metadata backend
 indexing is not yet supported.
 The model has the following fields:
- * `onedata_json` - map of JSON metadata values
- * `onedata_rdf` - RDF metadata in plain text
- * extended attributes set by users - a key-value map on the top level of the object
+* `onedata_json` – map of JSON metadata values
+* `onedata_rdf` – RDF metadata in plain text
+* extended attributes set by users – a key-value map on the top level of the object
  ```javascript 1.8
 custom_metadata = {
     "onedata_json": {
@@ -227,7 +224,7 @@ custom_metadata = {
 
 
 ### File popularity model
-<!-- This header is referenced at least one time as "#file-popularity-model" -->
+
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "file_popularity"`.
 
 Model used for tracking [*file popularity*](../admin-guide/oneprovider/configuration/file-popularity.md).
@@ -236,18 +233,18 @@ These documents are available only if collecting *file popularity* statistics is
 It can be turned on only by space admin via Onepanel. 
 The *file popularity* document is available only for files which have been opened at least once on a given provider.  
 It stores:
- * `size` - total sum of the file's blocks stored on given provider
- * `open_count` - number of `open` operations on the file
- * `last_open` - timestamp fo last `open` on the file
- * `hr_hist`  - hourly histogram of number of `open` operations on the file per hour, in the last 24 hours, represented as
+* `size` – total sum of the file's blocks stored on given provider
+* `open_count` – number of `open` operations on the file
+* `last_open` – timestamp fo last `open` on the file
+* `hr_hist`  – hourly histogram of number of `open` operations on the file per hour, in the last 24 hours, represented as
  a list of 24 integers
- * `dy_hist`  - daily histogram of number of `open` operations on the file per day, in the last 30 days, represented as
+* `dy_hist`  – daily histogram of number of `open` operations on the file per day, in the last 30 days, represented as
 a list of 30 integers
- * `mth_hist` - monthly histogram of number of `open` operations on the file per month, in the last 12 months, represented as
+* `mth_hist` – monthly histogram of number of `open` operations on the file per month, in the last 12 months, represented as
 a list of 12 integers
- * `hr_mov_avg` - moving average of number of `open` operations on the file per hour
- * `dy_mov_avg` - moving average of number of `open` operations on the file per day
- * `mth_mov_avg` - moving average of number of `open` operations on the file per month
+* `hr_mov_avg` – moving average of number of `open` operations on the file per hour
+* `dy_mov_avg` – moving average of number of `open` operations on the file per day
+* `mth_mov_avg` – moving average of number of `open` operations on the file per month
 
  ```javascript 1.8
 file_popularity = {
@@ -264,21 +261,21 @@ file_popularity = {
 ```
 
 ## REST API
-<!-- This header is referenced at least one time as "#rest-api" -->
+
 
 All operations on views can be performed using the REST API.
-Please refer to the linked API documentation for detailed information and examples.
+Refer to the linked API documentation for detailed information and examples.
 
 | Request                      | Link to API |
 |------------------------------|-------------|
-| Create view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)|        
-| Get view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)|        
-| Update view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)|        
-| Remove view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)|        
-| Update view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function)|        
-| Remove view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function)|        
-| List views                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)|        
-| Query view                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)|        
+| Create view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)|
+| Get view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)|
+| Update view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)|
+| Remove view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)|
+| Update view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function)|
+| Remove view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function)|
+| List views                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)|
+| Query view                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)|
 
 
 ## Mapping function examples

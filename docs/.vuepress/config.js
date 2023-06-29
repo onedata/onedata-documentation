@@ -1,5 +1,13 @@
+const slugger = require('github-slugger').slug;
 module.exports = {
   title: 'Onedata documentation',
+  markdown: {
+    slugify: slugger,
+    toc: {
+      // changed because we want use remark-lint-no-undefined-references
+      markerPattern: /^\[toc\]/im,
+    },
+  },
   themeConfig: {
     navbar: false,
     sidebar: [
@@ -18,19 +26,23 @@ module.exports = {
           '/user-guide/account-management',
           '/user-guide/groups',
           '/user-guide/spaces',
+          '/user-guide/providers',
           '/user-guide/data',
           '/user-guide/web-file-browser',
-          '/user-guide/oneclient',
-          '/user-guide/onedatafs',
-          '/user-guide/data-transfers',
-          '/user-guide/metadata',
-          '/user-guide/file-registration',
-          '/user-guide/tokens',
           '/user-guide/shares',
           '/user-guide/open-data',
+          '/user-guide/tokens',
+          '/user-guide/oneclient',
+          '/user-guide/onedatafs',
           '/user-guide/rest-api',
+          '/user-guide/replication-and-migration',
           '/user-guide/quality-of-service',
+          '/user-guide/metadata',
           '/user-guide/data-discovery',
+//          '/user-guide/datasets',  % @TODO VFS-7218
+//          '/user-guide/archives',
+//          '/user-guide/automation',
+          '/user-guide/file-registration',
           '/user-guide/views',
           '/user-guide/cdmi'
         ]
@@ -97,7 +109,6 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
-                  '/admin-guide/oneprovider/configuration/ceph',
                   '/admin-guide/oneprovider/configuration/quality-of-service',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'

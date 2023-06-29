@@ -3,6 +3,10 @@
 
 <!-- TODO: VFS-7218 fill missing entries -->
 
+## ACL
+Mechanism for granting and denying access to files and directories. 
+Learn more [here](user-guide/data.md#access-control-lists).
+
 ## Auto-cleaning
 Mechanism that automatically maintains storage usage at a certain 
 level and ensures that there is enough space for new replicas when performing continuous computations.
@@ -28,7 +32,7 @@ later browsed and queried. Logically divided into separate [harvesters](#harvest
 that can have different configuration and source spaces.
 Learn more [here](user-guide/data-discovery.md).
 
-## File Id
+## File ID
 A unique, global identifier associated with a file or directory.
 Learn more [here](user-guide/data.md#file-id).
 
@@ -94,14 +98,18 @@ Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interfa
 and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
+<!-- TODO: VFS-7218 piece of software that is installed at a data provider site -->
 
 ## Onezone
+
+## Provider
+<!-- TODO: VFS-7218 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
 
 ## Space
 A logical container for data, fundamental for user data organization in Onedata.
-Accessible only to its members - users or [groups](#group) - that are assigned
+Accessible only to its members – users or [groups](#group) – that are assigned
 fine grained privileges. Learn more [here](user-guide/spaces.md).
 <!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
 

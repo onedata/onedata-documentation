@@ -1,173 +1,165 @@
 <template>
-    <div
-	class="theme-container"
-	:class="pageClasses"
-	@touchstart="onTouchStart"
-	@touchend="onTouchEnd"
-    >
-	<Navbar
-	    v-if="shouldShowNavbar"
-	    @toggle-sidebar="toggleSidebar"
-	/>
-	
-	<template>
-	    <h1> Testing... </h1>
-	</template>
- 	
-  	<div
-	    class="sidebar-mask"
-	    @click="toggleSidebar(false)"
-	/>
-	
-	<Sidebar
-	    :items="sidebarItems"
-	    @toggle-sidebar="toggleSidebar"
-	>
-	    <template #top>
-		<slot name="sidebar-top" />
-		<style>
-		 .search-box ul.suggestions {
-		     right: auto !important;
-		     left: 0 !important;
-		     width: 100%;
-		     z-index: 1;
-		 }
-		</style>
-   		<SearchBox style="margin-top:1cm;" />
-	    </template>
-	    <template #bottom>
-		<slot name="sidebar-bottom" />
-	    </template>
-	</Sidebar>
+  <div
+    class="theme-container"
+    :class="pageClasses"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
+  >
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-	<Home v-if="$page.frontmatter.home" />
-	
-	<Page
-	    v-else
-	    :sidebar-items="sidebarItems"
-	>
-	    <template #top>
-		<slot name="page-top" />
-	    </template>
-      <template #bottom>
-          <slot name="page-bottom" />
+    <template>
+      <h1>Testing...</h1>
+    </template>
+
+    <div class="sidebar-mask" @click="toggleSidebar(false)" />
+
+    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+      <template #top>
+        <slot name="sidebar-top" />
+        <style>
+          .search-box ul.suggestions {
+            right: auto !important;
+            left: 0 !important;
+            width: 100%;
+            z-index: 1;
+          }
+        </style>
+        <SearchBox style="margin-top: 1cm" />
       </template>
-	</Page>
-    </div>
+      <template #bottom>
+        <slot name="sidebar-bottom" />
+      </template>
+    </Sidebar>
+
+    <Home v-if="$page.frontmatter.home" />
+
+    <Page v-else :sidebar-items="sidebarItems">
+      <template #top>
+        <slot name="page-top" />
+      </template>
+      <template #bottom>
+        <slot name="page-bottom" />
+      </template>
+    </Page>
+  </div>
 </template>
 
 <style>
-	img[src*="bordered"] {
-		border: 1px solid #ddd;
-	}
+img {
+  display: block;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+img[src*=screenshot] {
+  border: 1px solid #ddd;
+}
 </style>
 
 <script>
- import Home from '@parent-theme/components/Home.vue'
- import Navbar from '@parent-theme/components/Navbar.vue'
- import Page from '@parent-theme/components/Page.vue'
- import Sidebar from '@parent-theme/components/Sidebar.vue'
- import { resolveSidebarItems } from '@parent-theme/util'
- import SearchBox from '@SearchBox'
- 
- 
- export default {
-     name: 'Layout',
+import Home from "@parent-theme/components/Home.vue";
+import Navbar from "@parent-theme/components/Navbar.vue";
+import Page from "@parent-theme/components/Page.vue";
+import Sidebar from "@parent-theme/components/Sidebar.vue";
+import { resolveSidebarItems } from "@parent-theme/util";
+import SearchBox from "@SearchBox";
 
-     components: {
-	 Home,
-	 Page,
-	 Sidebar,
-	 Navbar,
-	 SearchBox
-     },
+export default {
+  name: "Layout",
 
-     data () {
-	 return {
-	     isSidebarOpen: false
-	 }
-     },
+  components: {
+    Home,
+    Page,
+    Sidebar,
+    Navbar,
+    SearchBox,
+  },
 
-     computed: {
-	 shouldShowNavbar () {
-	     const { themeConfig } = this.$site
-	     const { frontmatter } = this.$page
-	     if (
-		 frontmatter.navbar === false
-		 || themeConfig.navbar === false) {
-		 return false
-	     }
-	     return (
-		 this.$title
-		 || themeConfig.logo
-		 || themeConfig.repo
-		 || themeConfig.nav
-		 || this.$themeLocaleConfig.nav
-	     )
-	 },
+  data() {
+    return {
+      isSidebarOpen: false,
+    };
+  },
 
-	 shouldShowSidebar () {
-	     const { frontmatter } = this.$page
-	     return (
-		 !frontmatter.home
-		 && frontmatter.sidebar !== false
-		 && this.sidebarItems.length
-	     )
-	 },
+  computed: {
+    shouldShowNavbar() {
+      const { themeConfig } = this.$site;
+      const { frontmatter } = this.$page;
+      if (frontmatter.navbar === false || themeConfig.navbar === false) {
+        return false;
+      }
+      return (
+        this.$title ||
+        themeConfig.logo ||
+        themeConfig.repo ||
+        themeConfig.nav ||
+        this.$themeLocaleConfig.nav
+      );
+    },
 
-	 sidebarItems () {
-	     return resolveSidebarItems(
-		 this.$page,
-		 this.$page.regularPath,
-		 this.$site,
-		 this.$localePath
-	     )
-	 },
+    shouldShowSidebar() {
+      const { frontmatter } = this.$page;
+      return (
+        !frontmatter.home &&
+        frontmatter.sidebar !== false &&
+        this.sidebarItems.length
+      );
+    },
 
-	 pageClasses () {
-	     const userPageClass = this.$page.frontmatter.pageClass
-	     return [
-		 {
-		     'no-navbar': !this.shouldShowNavbar,
-		     'sidebar-open': this.isSidebarOpen,
-		     'no-sidebar': !this.shouldShowSidebar
-		 },
-		 userPageClass
-	     ]
-	 }
-     },
+    sidebarItems() {
+      return resolveSidebarItems(
+        this.$page,
+        this.$page.regularPath,
+        this.$site,
+        this.$localePath
+      );
+    },
 
-     mounted () {
-	 this.$router.afterEach(() => {
-	     this.isSidebarOpen = false
-	 })
-     },
+    pageClasses() {
+      const userPageClass = this.$page.frontmatter.pageClass;
+      return [
+        {
+          "no-navbar": !this.shouldShowNavbar,
+          "sidebar-open": this.isSidebarOpen,
+          "no-sidebar": !this.shouldShowSidebar,
+        },
+        userPageClass,
+      ];
+    },
+  },
 
-     methods: {
-	 toggleSidebar (to) {
-	     this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
-	     this.$emit('toggle-sidebar', this.isSidebarOpen)
-	 },
+  mounted() {
+    this.$router.afterEach(() => {
+      this.isSidebarOpen = false;
+    });
+  },
 
-	 // side swipe
-	 onTouchStart (e) {
-	     this.touchStart = {
-		 x: e.changedTouches[0].clientX,
-		 y: e.changedTouches[0].clientY
-	     }
-	 },
+  methods: {
+    toggleSidebar(to) {
+      this.isSidebarOpen = typeof to === "boolean" ? to : !this.isSidebarOpen;
+      this.$emit("toggle-sidebar", this.isSidebarOpen);
+    },
 
-	 onTouchEnd (e) {
-	     const dx = e.changedTouches[0].clientX - this.touchStart.x
-	     const dy = e.changedTouches[0].clientY - this.touchStart.y
-	     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-		 if (dx > 0 && this.touchStart.x <= 80) {
-		     this.toggleSidebar(true)
-		 } else {
-		     this.toggleSidebar(false)
-		 }
-	     }
-	 }
-     }
- }
+    // side swipe
+    onTouchStart(e) {
+      this.touchStart = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY,
+      };
+    },
+
+    onTouchEnd(e) {
+      const dx = e.changedTouches[0].clientX - this.touchStart.x;
+      const dy = e.changedTouches[0].clientY - this.touchStart.y;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx > 0 && this.touchStart.x <= 80) {
+          this.toggleSidebar(true);
+        } else {
+          this.toggleSidebar(false);
+        }
+      }
+    },
+  },
+};
 </script>
