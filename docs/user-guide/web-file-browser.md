@@ -5,8 +5,8 @@
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
 navigation, file upload or download) and advanced capabilities, specific for
-Onedata (e.g. Quality of Service, data distribution management, dataset
-management).
+Onedata (e.g. Quality of Service, data distribution management,
+datasets & archives management).
 
 The file browser is always presented in the context of a single
 [space](spaces.md). It becomes available when the space is
@@ -20,21 +20,21 @@ name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ## Uploading data
 
-A new, empty space welcomes users with the following screen:
+A new, empty space welcomes you with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
 
-New files can be uploaded using the **upload** button or dragging and dropping
-them in the file browser area. While the data is being uploaded, a progress
-panel appears in the bottom-right corner of the screen. It is possible to upload
-multiple files at once or add more files during an ongoing upload.
+
+To upload new files, use the **upload** button or drag and drop them into the 
+file browser area. While the data is being uploaded, a progress panel will appear
+in the bottom-right corner of your screen. You can upload multiple files 
+simultaneously or add more files while an upload is in progress.
 
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
 sidebar, providing detailed view of all uploads that have been done in the
-current browser tab. The information can be viewed in a summarized form or per
-the target provider.
+current browser tab. View the information in a summarized form or per the target provider.
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
 
@@ -62,9 +62,9 @@ File list navigation is slightly different on mobile devices and is covered
 [later on](#mobile-file-browser).
 :::
 
-Files can be selected or deselected by left-clicking on them. By holding down
-`Ctrl` (or `Opt` on MacOS) while clicking, it is possible to select/deselect
-multiple files. A range of files can be selected by holding down `Shift`.
+You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
+(or `Opt` on MacOS) while clicking to select or deselect multiple files. 
+To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
 directory) or downloads a file.
@@ -82,7 +82,9 @@ directories — new items are dynamically loaded when the list is scrolled down.
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
 information whether a file is shared, has Quality of Service requirements
-attached or an Access Control List (ACL) assigned.
+attached or an Access Control List (ACL) assigned. 
+
+## DODAĆ JAKIŚ OBRAZEK Z DATASETEM I ARCHIWUM
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
 
@@ -109,6 +111,7 @@ only some of the operations are available in this mode.
 
 ### Information
 
+## TOTALNIE INNE INFORMACJA
 This action brings up a modal with information about a single file or directory.
 
 ![Information about file](../../images/user-guide/web-file-browser/feature-info.png#screenshot)
@@ -141,9 +144,9 @@ highlighting.
 
 Invokes an editor of [permissions](data.md#permissions) assigned to the file —
 [POSIX](data.md#posix-permissions) or [Access Control List
-(ACL)](data.md#access-control-lists). Each file can use only one of the
-permission types at the same time, and the currently applied one is selected
-using the **Permissions type** toggle.
+(ACL)](data.md#access-control-lists). 
+You can assign only one permission type to each file at a time.
+To select the currently applied permission type, use the **Permissions type** toggle.
 
 POSIX permissions are the default permissions set for each file and can be
 edited using the octal representation field or by manipulating the checkboxes.
