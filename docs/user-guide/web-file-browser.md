@@ -5,8 +5,8 @@
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
 navigation, file upload or download) and advanced capabilities, specific for
-Onedata (e.g. Quality of Service, data distribution management, dataset
-management).
+Onedata (e.g. Quality of Service, data distribution management,
+datasets & archives management).
 
 The file browser is always presented in the context of a single
 [space](spaces.md). It becomes available when the space is
@@ -20,21 +20,21 @@ name_ > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ## Uploading data
 
-A new, empty space welcomes users with the following screen:
+A new, empty space welcomes you with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
 
-New files can be uploaded using the **upload** button or dragging and dropping
-them in the file browser area. While the data is being uploaded, a progress
-panel appears in the bottom-right corner of the screen. It is possible to upload
-multiple files at once or add more files during an ongoing upload.
+
+To upload new files, use the **upload** button or drag and drop them into the 
+file browser area. While the data is being uploaded, a progress panel will appear
+in the bottom-right corner of your screen. You can upload multiple files 
+simultaneously or add more files while an upload is in progress.
 
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
 sidebar, providing detailed view of all uploads that have been done in the
-current browser tab. The information can be viewed in a summarized form or per
-the target provider.
+current browser tab. View the information in a summarized form or per the target provider.
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
 
@@ -63,9 +63,9 @@ File list navigation is slightly different on mobile devices and is covered
 [later on](#mobile-file-browser).
 :::
 
-Files can be selected or deselected by left-clicking on them. By holding down
-`Ctrl` (or `Opt` on MacOS) while clicking, it is possible to select/deselect
-multiple files. A range of files can be selected by holding down `Shift`.
+You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
+(or `Opt` on MacOS) while clicking to select or deselect multiple files. 
+To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
 directory) or downloads a file.
@@ -83,7 +83,9 @@ directories — new items are dynamically loaded when the list is scrolled down.
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
 information whether a file is shared, has Quality of Service requirements
-attached or an Access Control List (ACL) assigned.
+attached or an Access Control List (ACL) assigned. 
+
+## DODAĆ JAKIŚ OBRAZEK Z DATASETEM I ARCHIWUM
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
 
@@ -110,25 +112,38 @@ only some of the operations are available in this mode.
 
 ### Information
 
-This action brings up a modal with information about a single file or directory.
+This action brings up **Info** tab in a **Details** modal with information about a single file or directory.
 
 ![Information about file](../../images/user-guide/web-file-browser/feature-info.png#screenshot)
 
+You can also excess the Information tab by hovering over icon of file or directory
+
+### Download
+
+This action simply downloads chosen single file or directory. You can also download single 
+files by double-clicking on them.
 
 ### Share
 
-Using the **Share** submenu, it is possible to make a file or directory publicly
-accessible by anyone knowing the share link (no authentication or account in
+Using the **Share** tab in the **Details** modal, you can make a file or
+directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
 modal that allows creating a new [share](shares.md).
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-share.png#screenshot)
 
-If the item has already been shared, the modal will present the list of existing
+If the item has already been shared, you will see the list of existing
 shares, with the possibility to copy their public links, view their details
 (using the green links) or create another share.
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-shared-already.png#screenshot)
+
+### Datasets
+
+This action brings up **Datasets** modal, where you can assign a dataset status to
+your file or directory. Datasets are files or directories that space users identify
+as meaningful data collections to them. To read more about the functionality of the
+Datasets head over to this 
 
 
 ### Metadata
@@ -145,12 +160,12 @@ highlighting.
 
 Invokes an editor of [permissions](data.md#permissions) assigned to the file —
 [POSIX](data.md#posix-permissions) or [Access Control List
-(ACL)](data.md#access-control-lists). Each file can use only one of the
-permission types at the same time, and the currently applied one is selected
-using the **Permissions type** toggle.
+(ACL)](data.md#access-control-lists). 
+You can assign only one permission type to each file at a time.
+To select the currently applied permission type, use the **Permissions type** toggle.
 
-POSIX permissions are the default permissions set for each file and can be
-edited using the octal representation field or by manipulating the checkboxes.
+Edit the POSIX permissions for each file by using the octal representation 
+field or manipulating the checkboxes.
 
 ![POSIX permissions of file](../../images/user-guide/web-file-browser/feature-permissions-posix.png#screenshot)
 
@@ -163,7 +178,7 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-This submenu is used to monitor and manage the [distribution of file
+This tab is used to monitor and manage the [distribution of file
 data](data.md#file-distribution) among supporting providers. The green bars
 visualize which blocks (fragments of the file) are stored on the storage systems
 of the corresponding providers. When more than one file is selected, the
@@ -186,9 +201,9 @@ Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
 requirements defined for the selected file(s), which are used to automatically 
 manage the file data replication according to logical rules.
 
-The rules can be put down using a visual block-based expression editor. These
-rules are evaluated against the QoS parameters assigned to different supporting
-storages in order to determine where the replicas should be stored.
+You can put down the rules using a visual block-based expression editor. 
+Evaluate these rules against the QoS parameters assigned to different supporting
+storages to determine where the replicas should be stored.
 
 ![QoS visual editor: block editing](../../images/user-guide/web-file-browser/feature-qos-visual.png#screenshot)
 
@@ -198,8 +213,9 @@ creating a new requirement or using the [REST API](rest-api.md).
 
 ![QoS visual editor: storage match and expression](../../images/user-guide/web-file-browser/feature-qos-visual-match.png#screenshot)
 
-Expressions can be entered in the textual form. They are converted to block form
-upon confirmation, and then can be further edited.
+
+Enter expressions in textual form. They will be converted to block form upon 
+confirmation and can be further edited.
 
 ![QoS editor in text mode](../../images/user-guide/web-file-browser/feature-qos-text.png#screenshot)
 
@@ -211,11 +227,47 @@ are inherited from any parent directory.
 ![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
 
 
+### Run workflow
+
+This action brings up modal containing list of all the uploaded workflows, that
+you can choose to tun your file on. To read more about the functionality of the
+workflows head over to 
+
+![Share directory modal](../../images/user-guide/web-file-browser/feature-metadata-json.png#screenshot)
+
+
 ### Rename
 
 Basic operation used to change the file name.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-rename.png#screenshot)
+
+
+### Create symbolic link
+
+This action lets you create a symbolic link to single file or directory nad place it in a chosen destination. 
+Symbolic link also known as a symlink , is a file that acts as a reference or 
+pointer to another file or directory. To place symbolic link in directory you are in,
+click on the highlighted button in top right corner.
+
+![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
+
+
+### Create hard link
+
+As above this action lets you create a hard link to single file or directory nad place it in a chosen
+destination. A hard link is a reference to a file that points directly to the
+underlying data of that file on a file system. In simpler terms, a hard link is
+an additional name or entry for an existing file. Multiple hard links can exist
+for a single file, and they all refer to the same underlying data on the disk
+
+To place a hardlink follow the same steps as you would with placing a symbolic link.
+As you create hardlink, the original file or directory will now display label with
+amount of hard links created to this file. You can click on the label you will 
+see the list of existing hard links in **Details** modal. 
+
+
+![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
 
 
 ### Copy, Cut and Paste
@@ -268,7 +320,7 @@ The currently selected provider is shown on the top of file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
 Oneprovider...** action at the top of file browser, given that there is more
-than one supporting provider. Alternatively, providers can be switched using a 
+than one supporting provider. Alternatively, you can switch providers by using a 
 world map visual representation, available under the globe icon.
 
 ![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)
