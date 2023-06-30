@@ -8,6 +8,7 @@ the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
 
+
 You can globally identify files and directories in Onedata using unique file IDs
 or logical paths. Whenever possible, it is recommended to use File IDs for better
 performance and no need for escaping or encoding.
@@ -238,36 +239,36 @@ ACL provides more fine-grained control of access to resources than POSIX permiss
 
 All available permissions and their meaning for files or directories are presented below.
 
-#### For file
+#### ACL for file
 
-| Permissions      |                            | 
-|------------------|----------------------------|
-| Read             | open file for read         | 
-| Write            | open file for write        | 
-| Read ACL         | read file ACL              |
-| Change ACL       | write file ACL             | 
-| Read metadata    | read file metadata         |
-| Write metadata   | write file metadata        |
-| Read attributes  | read attributes metadata   | 
-| Write attributes | write attributes metadata  | 
-| Delete           | delete file                | 
+| Permissions      |                                                | 
+|------------------|------------------------------------------------|
+| Read             | open file for read                             | 
+| Write            | open file for write                            | 
+| Read ACL         | read file ACL                                  |
+| Change ACL       | write file ACL                                 | 
+| Read metadata    | read file metadata                             |
+| Write metadata   | write file metadata                            |
+| Read attributes  | read metadata associated with file attributes  | 
+| Write attributes | write metadata associated with file attributes | 
+| Delete           | delete file                                    | 
 
-#### For directory
+#### ACL for directory
 
-| Permissions        |                                                    |
-|--------------------|----------------------------------------------------|
-| List files         | list directory content                             |
-| Add files          | add file to directory                              |
-| Add subdirectory   | add subdirectory to directory                      |
-| Traverse directory | traverse directory  - coś jeszcze                  |
-| Delete child       | delete file or subdirectory from directory         |
-| Read ACL           | delete file or subdirectory from directory         |
-| Change ACL         | read attributes metadata                           |
-| Read metadata      | write attributes metadata  - opisać czym się różni |
-| Write metadata     | read directory metadata                            |
-| Read attributes    | read attributes metadata                           |
-| Write attributes   | write attributes metadata                                |
-| Delete             | delete directory                                   |
+| Permissions        |                                                     |
+|--------------------|-----------------------------------------------------|
+| List files         | list directory content                              |
+| Add files          | add file to directory                               |
+| Add subdirectory   | add subdirectory to directory                       |
+| Traverse directory | navigate through a directory structure              |
+| Delete child       | delete file or subdirectory from directory          |
+| Read ACL           | delete file or subdirectory from directory          |
+| Change ACL         | read attributes metadata                            |
+| Read metadata      | read directory metadata                             |
+| Write metadata     | write directory metadata                            |
+| Read attributes    | read metadata associated with directory attributes  |
+| Write attributes   | write metadata associated with directory attributes |
+| Delete             | delete directory                                    |
 
 
 
