@@ -3,16 +3,16 @@
 [toc][]
 
 The Onedata system organizes all user data into logical containers called spaces. 
-Please refer to [this](spaces.md) chapter for details about this concept and how 
+Refer to [this](spaces.md) chapter for details about this concept and how 
 the logical files are mapped to their physical content on storage backends.
  
  
 ## File path and ID
 
 
-Files and directories in Onedata can be globally identified using unique file 
-IDs or logical paths. Whenever possible, it is recommended to use File IDs, 
-due to better performance and no need for escaping or encoding.
+You can globally identify files and directories in Onedata using unique file IDs
+or logical paths. Whenever possible, it is recommended to use File IDs for better
+performance and no need for escaping or encoding.
 
 ### File path
 
@@ -54,9 +54,9 @@ some characters in paths should be properly escaped:
 ### File ID
 
 
-File ID is a unique, global identifier associated with a file or directory and
-can be used universally in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
-There are several ways to find out the File ID of given file or directory:
+File ID is a unique, global identifier associated with a file or directory. 
+You can universally utilize it in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
+To find out the File ID of a given file or directory, you have several options:
 
 [Web GUI](#web-gui) — the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
@@ -93,13 +93,13 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 
 ## Interfaces
 Onedata offers several ways of accessing and managing user data.
-Regardless of the interface, the user is presented with a coherent view on all
-his files. All data management interfaces are available in the [Oneprovider
-service](../intro.md#architecture). Depending on the environment, there might be
-several Oneprovider services [supporting user spaces](spaces.md#space-support)
-that can be used to access the data. While the [Web GUI](#web-gui) offers
-natural navigation between services, the other interfaces require that the user
-chooses one of their Oneproviders and is aware of its domain (see below).
+Regardless of the interface you choose, you will have a unified view of all your files.
+All data management interfaces are available in the [Oneprovider service](../intro.md#architecture).
+Depending on the environment, there might be several Oneprovider services 
+[supporting user spaces](spaces.md#space-support) that you can use to access the data.
+While the [Web GUI](#web-gui) offers natural navigation between services,
+the other interfaces require that the user chooses one of their Oneproviders
+and is aware of its domain (see below).
 
 ### Oneprovider domain
 
@@ -128,8 +128,8 @@ Oneprovider implements a subset of **Cloud Data Management Interface**
 specification, as described in [this chapter](cdmi.md).
 
 ### Web GUI
-The most end-user friendly method of data management. A visual guide can be
-found in [this chapter](web-file-browser.md).
+The most end-user friendly method of data management. 
+You can find a visual guide in [this chapter](web-file-browser.md).
 
 
 ## Data Access Control
@@ -216,41 +216,59 @@ stopped.
 #### Access Control Entry
 
 An ACE consist of four fields: 
-* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 * `who` — the principal whom the ACE affects: 
     - user or group represented by their identifier
     * `OWNER@` — the owner of the file
-    * `GROUP@` — members of space containing the file
+    * `OWNING GROUP@` — members of space which contains  the file
     * `ANONYMOUS@` — guest client (accessing through a share)
     * `EVERYONE@` — everyone, including the anonymous users
+* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 * `flags` — currently only the flag indicating whether principal identifier points 
 to user or group is supported, other flags can be set or 
 [imported](../admin-guide/oneprovider/configuration/storage-import.md),
 but they will be ignored during ACE evaluation
 * `access_mask` — the permissions regulated by this ACE
 
-Permissions can be changed using the [Web file browser](web-file-browser.md#permissions) in
-the **ACL** context menu, or using the [CDMI API](cdmi.md#set-file-acl).
+You can change permissions using the [Web file browser](web-file-browser.md#permissions)
+in the **File Details** modal, or using the [CDMI API](cdmi.md#set-file-acl).
 
 #### Permissions
 ACL provides more fine-grained control of access to resources than POSIX permissions. 
 
 All available permissions and their meaning for files or directories are presented below.
 
-|   Permissions      |          File             |          Directory            |
-|--------------------|---------------------------|-------------------------------|
-| Read/List          | open file for read        | list directory content        |
-| Write/Add file     | open file for write       | add file to directory         |
-| Add subdirectory   | —                        | add subdirectory to directory |
-| Traverse directory | —                        | traverse directory            |
-| Delete             | delete file               | delete directory              |
-| Delete child       | —                        | delete file or subdirectory from directory |
-| Read attributes    | read file attributes      | read attributes metadata      |
-| Write attributes   | write file attributes     | write attributes metadata     |
-| Read metadata      | read file metadata        | read directory metadata       |
-| Write metadata     | write file metadata       | write directory metadata      |
-| Read ACL           | read file acl             | read directory acl            |
-| Write ACL          | write file acl            | write directory acl           |
+#### For file
+
+| Permissions      |                            | 
+|------------------|----------------------------|
+| Read             | open file for read         | 
+| Write            | open file for write        | 
+| Read ACL         | read file ACL              |
+| Change ACL       | write file ACL             | 
+| Read metadata    | read file metadata         |
+| Write metadata   | write file metadata        |
+| Read attributes  | read attributes metadata   | 
+| Write attributes | write attributes metadata  | 
+| Delete           | delete file                | 
+
+#### For directory
+
+| Permissions        |                                                    |
+|--------------------|----------------------------------------------------|
+| List files         | list directory content                             |
+| Add files          | add file to directory                              |
+| Add subdirectory   | add subdirectory to directory                      |
+| Traverse directory | traverse directory  - coś jeszcze                  |
+| Delete child       | delete file or subdirectory from directory         |
+| Read ACL           | delete file or subdirectory from directory         |
+| Change ACL         | read attributes metadata                           |
+| Read metadata      | write attributes metadata  - opisać czym się różni |
+| Write metadata     | read directory metadata                            |
+| Read attributes    | read attributes metadata                           |
+| Write attributes   | write attributes metadata                                |
+| Delete             | delete directory                                   |
+
+
 
 #### Evaluation
 
@@ -277,8 +295,8 @@ the following algorithm:
 
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
-systems for specifying access rights to files or directories. However, there is
-one important nuance — all space members are treated as a virtual group which is
+systems for specifying access rights to files or directories. 
+However, all space members are treated as a virtual group which is
 the **group** owner of all files in the space. This means that whenever a file
 is accessed by a space member who is not the owner of the file, the **group**
 permissions are taken into consideration. Permissions for **others** are
@@ -308,8 +326,8 @@ Default permissions (for newly created files/directories) are as follows:
 * files: `r-x r-x r--` (octal: `664`)
 * directories: `rwx rwx r-x` (octal: `775`)
 
-Permissions can be changed using the [Web file browser](web-file-browser.md) in
-the **Permissions** context menu, or using the 
+You can change permissions using the [Web file browser](web-file-browser.md) in
+the **Permissions** tab in **File Details modal**, or using the 
 [REST API](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr).
 
 Oneprovider admins should keep in mind that the 
