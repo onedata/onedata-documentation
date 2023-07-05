@@ -85,7 +85,6 @@ characteristics of files is presented using tags. For instance, the tags include
 information whether a file is shared, has Quality of Service requirements
 attached or an Access Control List (ACL) assigned. 
 
-## DODAĆ JAKIŚ OBRAZEK Z DATASETEM I ARCHIWUM
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
 
@@ -112,7 +111,7 @@ only some of the operations are available in this mode.
 
 ### Information
 
-This action brings up **Info** tab in a **Details** modal with information about a single file or directory.
+This action brings up a modal with information about a single file or directory.
 
 ![Information about file](../../images/user-guide/web-file-browser/feature-info.png#screenshot)
 
