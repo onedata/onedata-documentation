@@ -82,11 +82,17 @@ directories — new items are dynamically loaded when the list is scrolled down.
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
 information whether a file is shared, has Quality of Service requirements
-attached or an Access Control List (ACL) assigned. 
+attached or is marked as Dataset.
 
 ## DODAĆ JAKIŚ OBRAZEK Z DATASETEM I ARCHIWUM
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
+
+You can also change layout of file browser by clicking **Configure columns** button,
+in upper-right corner of file browser.
+
+![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
+
 
 ## File browser features
 
@@ -229,7 +235,7 @@ This action brings up modal containing list of all the uploaded workflows, that
 you can choose to tun your file on. To read more about the functionality of the
 workflows head over to 
 
-![Share directory modal](../../images/user-guide/web-file-browser/feature-metadata-json.png#screenshot)
+![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
 
 
 ### Rename
@@ -246,7 +252,7 @@ Symbolic link also known as a symlink , is a file that acts as a reference or
 pointer to another file or directory. To place symbolic link in directory you are in,
 click on the highlighted button in top right corner.
 
-![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
+![Create symbolic link feature](../../images/user-guide/web-file-browser/feature-sumbolic-link.png#screenshot)
 
 
 ### Create hard link
@@ -263,7 +269,7 @@ amount of hard links created to this file. You can click on the label you will
 see the list of existing hard links in **Details** modal. 
 
 
-![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
+![Create hard link feature](../../images/user-guide/web-file-browser/feature-hard-link.png#screenshot)
 
 
 ### Copy, Cut and Paste
@@ -291,8 +297,6 @@ adjusted to small devices.
 In the mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
 
-![Mobile web file browser - download](../../images/user-guide/web-file-browser/mobile-download.png#screenshot)
-
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
@@ -313,7 +317,7 @@ The currently selected provider is shown on the top of file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
 Oneprovider...** action at the top of file browser, given that there is more
-than one supporting provider. Alternatively, you can switch providers by using a 
+than one supporting provider. Alternatively, providers can be switched using a 
 world map visual representation, available under the globe icon.
 
 ![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)
