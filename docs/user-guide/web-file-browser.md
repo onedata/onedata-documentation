@@ -16,8 +16,6 @@ name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
 
-<!-- TODO: VFS-9382 update screenshot and mark FILES tile with rectangle -->
-
 ## Uploading data
 
 A new, empty space welcomes you with the following screen:
@@ -74,10 +72,23 @@ available actions appears.
 
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
 
+For better navigation in file browser, you can also change layout of it, by choosing 
+what columns of attributes you want to be displayed. Click **Configure columns** button,
+in upper-right corner of file browser, and choose desired columns.
+
+![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
+
 The file browser uses the "infinite scroll" method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
+
+To quickly jump to desired file or directory, type desired phrase, in 
+search bar located below the breadcrumbs, and you will be moved to the first file or
+directory which name stars with desired prefix.
+
+![Jump to prefix feature](../../images/user-guide/web-file-browser/jump-to-prefix.png#screenshot)
+
 
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
@@ -88,15 +99,10 @@ attached or is marked as Dataset.
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
 
-You can also change layout of file browser by clicking **Configure columns** button,
-in upper-right corner of file browser.
 
-![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
 
 
 ## File browser features
-
-<!-- TODO: VFS-9383 documentation of features introduced in 21.02 -->
 
 All file management operations offered by the file browser are available in the
 context menu invoked with a right-click or using the three-dots button on
@@ -148,7 +154,9 @@ shares, with the possibility to copy their public links, view their details
 This action brings up **Datasets** modal, where you can assign a dataset status to
 your file or directory. Datasets are files or directories that space users identify
 as meaningful data collections to them. To read more about the functionality of the
-Datasets head over to this 
+Datasets head over to this [page](datasets.md) 
+
+![Datasets modal](../../images/user-guide/web-file-browser/datasets-modal.png#screenshot)
 
 
 ### Metadata
@@ -215,16 +223,15 @@ creating a new requirement or using the [REST API](rest-api.md).
 
 ![QoS visual editor: storage match and expression](../../images/user-guide/web-file-browser/feature-qos-visual-match.png#screenshot)
 
-
-Enter expressions in textual form. They will be converted to block form upon 
+You can also enter expressions in textual form. They will be converted to block form upon 
 confirmation and can be further edited.
 
 ![QoS editor in text mode](../../images/user-guide/web-file-browser/feature-qos-text.png#screenshot)
 
 If the selected files have any QoS requirements defined, they are displayed on
-the list along with their status of fulfillment, matching storages and other
-information. It is possible to remove selected QoS requirements, unless they
-are inherited from any parent directory.
+the list along with their status of fulfillment, matching storages, transfer statistics,
+and other information. It is possible to remove selected QoS requirements, unless they
+are inherited from any parent directory. 
 
 ![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
 
@@ -232,8 +239,8 @@ are inherited from any parent directory.
 ### Run workflow
 
 This action brings up modal containing list of all the uploaded workflows, that
-you can choose to tun your file on. To read more about the functionality of the
-workflows head over to 
+you can choose to run your file on. To read more about the functionality of the
+workflows head over to [autiomation guide](automation.md) 
 
 ![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
 

@@ -104,9 +104,6 @@ and is aware of its domain (see below).
 
 ### Oneprovider domain
 
-<!-- TODO VFS-7218 this should be moved somewhere else — maybe a new chapter with providers GUI
-     from the user's point of view? -->
-
 Oneprovider's domain is required to mount a [Oneclient](#oneclient) instance or
 utilize the [REST](#rest-api) and [CDMI](#cdmi) APIs. It can be found in the Web
 GUI: ![image](../../images/user-guide/data/provider-domain.png#screenshot)
@@ -342,6 +339,5 @@ that file permissions are accurately enforced in the space and the permissions i
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
 
-## File distribution
-
-<!-- link to replication & migration -->
+## File distribution 
+[Replication and migration](replication-and-migration.md) 
