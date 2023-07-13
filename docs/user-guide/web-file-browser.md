@@ -100,8 +100,6 @@ attached or is marked as Dataset.
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
 
 
-
-
 ## File browser features
 
 All file management operations offered by the file browser are available in the
