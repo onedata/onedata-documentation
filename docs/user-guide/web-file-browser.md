@@ -172,7 +172,7 @@ distribution can be viewed in a summarized or detailed manner.
 ![Data distribution charts](../../images/user-guide/web-file-browser/feature-distribution-bar.png#screenshot)
 
 The handy status bar indicates ongoing [replication, migration and
-eviction](replication-and-migration.md) jobs and allows scheduling new ones for
+eviction](data-transfer.md) jobs and allows scheduling new ones for
 the corresponding provider. In the detailed view, there is also a shortcut to
 the history of data transfers for the subject file (as shown in the screenshot
 above).
