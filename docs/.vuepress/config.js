@@ -93,6 +93,7 @@ module.exports = {
               '/admin-guide/oneprovider/overview',
               '/admin-guide/oneprovider/installation',
               '/admin-guide/oneprovider/maintenance',
+              '/admin-guide/oneprovider/administration-panel',
               {
                 title: 'Configuration',
                 collapsable: false,
