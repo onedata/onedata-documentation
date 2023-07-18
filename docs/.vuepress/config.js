@@ -1,4 +1,6 @@
+const path = require('path');
 const slugger = require('github-slugger').slug;
+const markdownItInclude = require('@mdit/plugin-include').include;
 module.exports = {
   title: 'Onedata documentation',
   markdown: {
@@ -6,6 +8,14 @@ module.exports = {
     toc: {
       // changed because we want use remark-lint-no-undefined-references
       markerPattern: /^\[toc\]/im,
+    },
+    extendMarkdown: md => {
+      md.use(markdownItInclude, {
+        deep: true,
+        currentPath: (env) => {
+          return '.';
+        },
+      })
     },
   },
   themeConfig: {
