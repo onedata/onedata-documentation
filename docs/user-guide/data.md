@@ -382,7 +382,7 @@ the space in which it is stored with:
 You can manage the data distribution using:
 
 1. [Transfers](data-transfer.md) - allow to intentionally replicate, 
-   evict and migrate file blocks.
+   evict and migrate file(s).
 
 2. [Quality of Service](quality-of-service.md) - allows to specify requirements 
    which may ensure that file replicas in certain providers are automatically 

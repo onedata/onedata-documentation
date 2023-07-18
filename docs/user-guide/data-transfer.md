@@ -1,42 +1,78 @@
-# Transfer
+# Data Transfer
 
 [toc][]
 
-Transfer is a process of data movement between providers. This operation is 
-asynchronous and it can take a long time depending on the size of the data 
-to move.
 
-Types of transfers:
+## Overview
 
-1. replication - process of copying data to achieve a complete replica in 
-    destination provider. The data will be copied from one or more providers 
-    in the space that hold replicas or some fragments. 
+Data transfer is a process of moving data between providers within the 
+Onedata system. This operation is asynchronous and may take a considerable 
+amount of time depending on the size of the data being transferred.
+
+There are three types of data transfers supported:
+
+1. **replication** - process of copying data to achieve a complete replica in 
+    destination provider. The data is copied from one or more providers within 
+    the space that already hold replicas or fragments.
     >**NOTE:** This operation requires `space_schedule_replication` privilege.
 
-2. eviction - process of removing replica(s) from provider specified. This 
+2. **eviction** - process of removing replica(s) from provider specified. This 
     operation is safe and will succeed only if there exist at least one file 
     replica on other providers suporting the space. 
     >**NOTE:** This operation requires `space_schedule_eviction privilege` privilege.
-    
-3. migration - replication followed by eviction. 
+
+3. **migration** - replication followed by eviction. It first replicates the data 
+    to the target provider and then evicts the replica from the source provider. 
     >**NOTE:** This operation requires both `space_schedule_replication` and 
-    `space_schedule_eviction` privileges.
+    >`space_schedule_eviction` privileges.
 
 
 ## Web GUI
 
-<!-- TODO add -->
-<!-- Web interface provides visual information on the current replication of each file among the storage providers supporting the user space in which this file is located. The information is visible in the Data distribution window. It can be used to perform all of the operations mentioned in the previous section. Screenshot of the sample data distribution window is presented in the image below:
+You can initiate data transfer using [Data distribution](data.md#file-distribution) 
+modal:
+![image](../../images/user-guide/transfer/initiate-transfer.png) 
 
-Using GUI
+For each space, under the `Transfers` tab on the left, a dedicated transfer 
+management view is available:
+![image](../../images/user-guide/transfer/transfer-page.png) 
+>**NOTE:** The presented view is specific to the current provider, meaning it 
+> provides information available to that particular provider. Due to possible 
+> differences in metadata synchronization, the view might vary when switching 
+> to another provider.
 
-In order to initiate a transfer, simply select the Data distribution icon in the top menu of the file browser of Oneprovider and select the target provider:
+This view consists of three main elements:
+1. `ONGOING TRANSFERS MAP` - an interactive map displaying active data transfers 
+    with intuitive visual cues. Each line represents an ongoing transfer, with 
+    the transferring provider indicated by an exploding circle (outgoing data) 
+    and the receiving provider represented by an imploding circle (incoming data).
+    ![image](../../images/user-guide/transfer/ongoing-transfers-map.png) 
 
-Transfers can be conveniently managed and monitored using Oneprovider GUI. For each space, under tab Transfers on the left a dedicated transfer management view is available:
+2. `ONEPROVIDERS THROUGHPUT` - this section presents inbound and outbound 
+    throughput, providing a summary of data transfers incoming to and outgoing 
+    from each provider. The measurements can be viewed either individually per 
+    provider or combined on a single chart.
+    ![image](../../images/user-guide/transfer/oneprovider-throughput.png) 
 
-For each transfer within the current data space an appropriate entry in the list below is added, which provides information on current throughput of a specific transfer.
+    Available time series:
+    * `Total`: this represents the sum of both transfer jobs and 
+    on-the-fly throughput.
+    * `Transfer Jobs`: this category displays the throughput of all data 
+    transfers manually triggered by users.
+    * `On-the-fly`: `On-the-fly` throughput represents data transfers triggered 
+    by remote data access. These transfers occur in the background automatically 
+    when providers are requested to serve file not replicated ont them. 
+    `On-the-fly` transfers do not appear in the transfer jobs list; only 
+    summarized statistics are available.
 
-Overall throughput for the space can be observed on the world map. -->
+3. `TRANSFER JOBS HISTORY` - this list presents comprehensive information about 
+    each individual transfer within the space. It offers valuable insights into 
+    the transfer's progress, status, and relevant details as well as allow you 
+    to:
+    * cancel transfer if it is still ongoing
+    * rerun transfer if it has already ended (this initiates a new transfer with 
+    the same parameters as the original one)
+    ![image](../../images/user-guide/transfer/transfers-history.png) 
 
 
 ## REST API
