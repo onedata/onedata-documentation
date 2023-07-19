@@ -1,5 +1,6 @@
 # Onedata documentation
-This documentation is build using [vuepress](https://vuepress.vuejs.org).
+
+This documentation is built using [VuePress](https://vuepress.vuejs.org).
 
 
 ## Guidelines

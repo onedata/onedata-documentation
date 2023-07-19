@@ -5,4 +5,5 @@ docs/.vuepress/dist
 .idea
 *.iml
 .DS_Store
-.vscode
+.vscode/**
+!.vscode/extensions.json

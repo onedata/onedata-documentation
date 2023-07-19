@@ -1,4 +1,8 @@
-module.exports = {
+export default {
+  "settings": {
+    bullet: "*",
+    listItemIndent: "one"
+  },
   "plugins": {
     "remark-preset-lint-recommended": true,
     "remark-lint-final-newline": false,
@@ -7,9 +11,12 @@ module.exports = {
     "remark-lint-no-shortcut-reference-link": true,
     "remark-lint-hard-break-spaces": true,
     "remark-lint-no-blockquote-without-marker": true,
-    "remark-lint-no-undefined-references": { allow: [ 'toc' ] },
-    
+    "remark-lint-no-undefined-references": {
+      allow: ['toc']
+    },
+
     // plugins other than recommended
-    "remark-validate-links": true,
+    "remark-validate-links": ["error"],
+    "remark-frontmatter": true,
   }
 };
