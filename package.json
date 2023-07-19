@@ -1,12 +1,11 @@
 {
-    "type": "module",
     "license": "MIT",
     "scripts": {
         "deps": "npm install -g yarn && yarn install",
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
         "docs:lint": "remark docs",
-        "docs:format-all": "remark docs/intro.md --output"
+        "docs:format-all": "remark . --output"
     },
     "devDependencies": {
         "github-slugger": "^1.3.0",

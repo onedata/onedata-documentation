@@ -1,21 +1,18 @@
 # Data
 
-[toc][]
+[toc]()
 
-The Onedata system organizes all user data into logical containers called spaces. 
-Please refer to [this](spaces.md) chapter for details about this concept and how 
+The Onedata system organizes all user data into logical containers called spaces.
+Please refer to [this](spaces.md) chapter for details about this concept and how
 the logical files are mapped to their physical content on storage backends.
- 
- 
+
 ## File path and ID
 
-
-Files and directories in Onedata can be globally identified using unique file 
-IDs or logical paths. Whenever possible, it is recommended to use File IDs, 
+Files and directories in Onedata can be globally identified using unique file
+IDs or logical paths. Whenever possible, it is recommended to use File IDs,
 due to better performance and no need for escaping or encoding.
 
 ### File path
-
 
 All logical paths in Onedata use the slash `/` delimiter and must start with a
 space name:
@@ -26,15 +23,14 @@ space name:
 
 The path-based navigation is used mainly in the Web GUI and Oneclient interfaces.
 
-[Web GUI](#web-gui) — the path is represented in the file browser's breadcrumbs.  
+[Web GUI](#web-gui) — the path is represented in the file browser's breadcrumbs.
 
 ![image](../../images/user-guide/data/file-gui-path-and-info.png#screenshot)
-
 
 [Oneclient](#oneclient) — when using a shell to access the mounted filesystem,
 some characters in paths should be properly escaped:
 
-``` 
+```
 ~$ cat /CMS\ 1/directory/images\&videos/garden.png
 ```
 
@@ -42,17 +38,16 @@ some characters in paths should be properly escaped:
 
 ```
 {...}/CMS%201/directory/images%26videos/garden.png
-```        
+```
 
 <!-- TODO VFS-9288 unify all NOTE blocks -->
+
 > **NOTE:** Duplicate space names are generally allowed. For that reason,
 > referencing files by path may be ambiguous. During file path resolution, the
 > first space whose name matches the first segment of the path is always taken,
 > but the order in which spaces are checked cannot be guaranteed.
 
-
 ### File ID
-
 
 File ID is a unique, global identifier associated with a file or directory and
 can be used universally in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
@@ -73,25 +68,29 @@ returns specifically the File ID attribute:
 
 > **NOTE:** Use `xattr -l garden.png` to list all available attributes.
 
-[REST](#rest-api) — use the File ID 
-[resolution endpoint](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id). 
-The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name 
+[REST](#rest-api) — use the File ID
+[resolution endpoint](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id).
+The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name
 (consult [file path](#file-path)):
+
 ```bash
 curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 -X POST "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/lookup-file-id/CMS%201/directory/images%26videos/garden.png"
 ```
-```json 
+
+```json
 {
     "fileId": "094576776E667431723230677767776C6B497031394E445F6E3868677873..."
 }
 ```
+
 > **NOTE:** Paths used in URLs must be url-encoded.
 
 > **NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
 > [below](#oneprovider-domain).
 
 ## Interfaces
+
 Onedata offers several ways of accessing and managing user data.
 Regardless of the interface, the user is presented with a coherent view on all
 his files. All data management interfaces are available in the [Oneprovider
@@ -110,13 +109,15 @@ Oneprovider's domain is required to mount a [Oneclient](#oneclient) instance or
 utilize the [REST](#rest-api) and [CDMI](#cdmi) APIs. It can be found in the Web
 GUI: ![image](../../images/user-guide/data/provider-domain.png#screenshot)
 
-### Oneclient 
+### Oneclient
+
 Oneclient is a command-line based application used for mounting
 Onedata spaces in the local file system tree. To that end, Oneclient requires a
 network connection to chosen Oneprovider instance. [This chapter](oneclient.md)
 covers information about its setup and usage.
 
 ### REST API
+
 Oneprovider service offers a comprehensive REST API for data management. All
 endpoints use [File IDs](#file-id) to identify files and directories. The
 documentation based on OpenAPI (a.k.a. Swagger) can be found
@@ -124,26 +125,27 @@ documentation based on OpenAPI (a.k.a. Swagger) can be found
 on using the REST APIs in Onedata are covered in [this chapter](rest-api.md).
 
 ### CDMI
+
 Oneprovider implements a subset of **Cloud Data Management Interface**
 specification, as described in [this chapter](cdmi.md).
 
 ### Web GUI
+
 The most end-user friendly method of data management. A visual guide can be
 found in [this chapter](web-file-browser.md).
-
 
 ## Data Access Control
 
 Access to the Onedata filesystem is regulated by applying **authentication and
 authorization** checks for every operation.
 
-### Authentication 
+### Authentication
 
 Each operation is done in the context of a specific authenticated user. If the
-requesting client provides no authentication, they are treated as **guest**, who 
+requesting client provides no authentication, they are treated as **guest**, who
 is entitled only to publicly accessible data. Authentication is carried by
 [access tokens](tokens.md#access-tokens) — bearer tokens issued in the name of
-a specific subject (e.g. user). Access tokens are used uniformly in the system, 
+a specific subject (e.g. user). Access tokens are used uniformly in the system,
 in [REST API](rest-api.md), [Oneclient](oneclient.md) or [Web GUI](#web-gui)
 (the Web application obtains an access token after a user logs in and refreshes
 it as needed).
@@ -152,7 +154,7 @@ it as needed).
 
 The decision whether an authenticated client is allowed to perform the requested
 operation depends on a series of security checks on different levels. The
-procedure can be divided into steps as follows (the steps are processed in 
+procedure can be divided into steps as follows (the steps are processed in
 sequence unless the procedure finishes upon **access denied** or **granted**):
 
 1. The provided access token is analysed concerning
@@ -184,7 +186,6 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
 7. Otherwise, [POSIX permissions](#posix-permissions) are checked to determine
    whether access should be **denied** or **granted**.
 
-
 In case of an unauthenticated (**guest**) access, the steps are as follows:
 
 1. The requested resource identifier is analysed if it points to a file or
@@ -195,45 +196,49 @@ In case of an unauthenticated (**guest**) access, the steps are as follows:
    limit access to shared data using the [`ANONYMOUS@`](#access-control-entry) ACL
    principal or the POSIX permissions for [`others`](#posix-permissions)).
 
-
-> **NOTE:** in case of [publicly shared](shares.md) files or directories, the 
-> access is additionally limited to read-only operations, even if ACLs or POSIX 
+> **NOTE:** in case of [publicly shared](shares.md) files or directories, the
+> access is additionally limited to read-only operations, even if ACLs or POSIX
 > permissions allow write access.
-
 
 ### Access Control Lists
 
-**Access Control Lists (ACL)** are a mechanism for regulating access to files 
+**Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
-for a specific principal. Onedata supports subset of CDMI ACL which are based 
+for a specific principal. Onedata supports subset of CDMI ACL which are based
 on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
 
-An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider 
+An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider
 evaluates ACEs strictly in the same order as they were added, top-down. If any
-of the ACEs denies or grants access to the considered principal, evaluation is 
+of the ACEs denies or grants access to the considered principal, evaluation is
 stopped.
 
 #### Access Control Entry
 
-An ACE consist of four fields: 
+An ACE consist of four fields:
+
 * `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
-* `who` — the principal whom the ACE affects: 
-    - user or group represented by their identifier
-    * `OWNER@` — the owner of the file
-    * `GROUP@` — members of space containing the file
-    * `ANONYMOUS@` — guest client (accessing through a share)
-    * `EVERYONE@` — everyone, including the anonymous users
-* `flags` — currently only the flag indicating whether principal identifier points 
-to user or group is supported, other flags can be set or 
-[imported](../admin-guide/oneprovider/configuration/storage-import.md),
-but they will be ignored during ACE evaluation
+* `who` — the principal whom the ACE affects:
+
+  * user or group represented by their identifier
+
+  <!---->
+
+  * `OWNER@` — the owner of the file
+  * `GROUP@` — members of space containing the file
+  * `ANONYMOUS@` — guest client (accessing through a share)
+  * `EVERYONE@` — everyone, including the anonymous users
+* `flags` — currently only the flag indicating whether principal identifier points
+  to user or group is supported, other flags can be set or
+  [imported](../admin-guide/oneprovider/configuration/storage-import.md),
+  but they will be ignored during ACE evaluation
 * `access_mask` — the permissions regulated by this ACE
 
 Permissions can be changed using the [Web file browser](web-file-browser.md#permissions) in
 the **ACL** context menu, or using the [CDMI API](cdmi.md#set-file-acl).
 
 #### Permissions
-ACL provides more fine-grained control of access to resources than POSIX permissions. 
+
+ACL provides more fine-grained control of access to resources than POSIX permissions.
 
 All available permissions and their meaning for files or directories are presented below.
 
@@ -254,9 +259,9 @@ All available permissions and their meaning for files or directories are present
 
 #### Evaluation
 
-Each ACE in an ACL either allows or denies some set of permissions. 
+Each ACE in an ACL either allows or denies some set of permissions.
 Oneprovider will evaluate the resource (file or directory) ACEs until
-all requested permissions are granted or any of them is denied using 
+all requested permissions are granted or any of them is denied using
 the following algorithm:
 
 1. The ACE is checked for applicability. ACEs that do not refer to the principal
@@ -265,16 +270,15 @@ the following algorithm:
 2. If the ACE denies any of the requested permissions, then access is denied and
    the algorithm terminates.
 
-3. If the ACE allows any of the requested permissions, then they are added 
+3. If the ACE allows any of the requested permissions, then they are added
    to the list of granted permissions. If the list include all the requested
    permissions, the access is granted and the algorithm terminates.
 
-4. If the end of the ACL list is reached and permission has neither been 
+4. If the end of the ACL list is reached and permission has neither been
    fully granted nor explicitly denied, access is denied and the algorithm
    terminates.
 
 ### POSIX permissions
-
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
 systems for specifying access rights to files or directories. However, there is
@@ -291,34 +295,38 @@ different.
 
 Examine the following example of file POSIX permissions:
 
-    rwx r-- ---
-     |   |   |
-     |   |   guests
-     |   |
-     |   space members
-     |
-     owner user
-     
-In the above case, the creator of the file (its **owner** user) has full access 
-to the file. All space members have read access to the file. Users (guests) who 
-try to access the file through a public share will fail to do so as all 
+```
+rwx r-- ---
+ |   |   |
+ |   |   guests
+ |   |
+ |   space members
+ |
+ owner user
+ 
+```
+
+In the above case, the creator of the file (its **owner** user) has full access
+to the file. All space members have read access to the file. Users (guests) who
+try to access the file through a public share will fail to do so as all
 permissions are denied for **others**.
 
 Default permissions (for newly created files/directories) are as follows:
+
 * files: `r-x r-x r--` (octal: `664`)
 * directories: `rwx rwx r-x` (octal: `775`)
 
 Permissions can be changed using the [Web file browser](web-file-browser.md) in
-the **Permissions** context menu, or using the 
+the **Permissions** context menu, or using the
 [REST API](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr).
 
-Oneprovider admins should keep in mind that the 
+Oneprovider admins should keep in mind that the
 [Local User Mapping Database](../admin-guide/oneprovider/configuration/luma.md)
-must be properly set up for each storage supporting a space. This is required so 
-that file permissions are accurately enforced in the space and the permissions in 
+must be properly set up for each storage supporting a space. This is required so
+that file permissions are accurately enforced in the space and the permissions in
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
 
+## File distribution
 
-## File distribution 
 <!-- link to replication & migration -->

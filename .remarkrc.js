@@ -1,7 +1,8 @@
-export default {
+module.exports = {
   "settings": {
     bullet: "*",
-    listItemIndent: "one"
+    listItemIndent: "one",
+    fences: true,
   },
   "plugins": {
     "remark-preset-lint-recommended": true,

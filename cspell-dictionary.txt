@@ -3,5 +3,7 @@ mybackups
 oneclient
 onepanel
 oneprovider
+oneproviders
 onezone
 vuepress
+xattrs
