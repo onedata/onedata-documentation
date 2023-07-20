@@ -277,16 +277,16 @@ file_popularity = {
 All operations on views can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                      | Link to API |
-|------------------------------|-------------|
-| Create view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)|
-| Get view                     | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)|
-| Update view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)|
-| Remove view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)|
-| Update view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function)|
-| Remove view reduce function  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function)|
-| List views                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)|
-| Query view                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)|
+| Request                     | Link to API                                                                                           |
+| --------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Create view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)           |
+| Get view                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)              |
+| Update view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)           |
+| Remove view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)           |
+| Update view reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function) |
+| Remove view reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function) |
+| List views                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)             |
+| Query view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)            |
 
 ## Mapping function examples
 

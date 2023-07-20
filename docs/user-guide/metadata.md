@@ -32,20 +32,20 @@ filesystem operations. Most of them are read-only, which means their values
 cannot be directly modified. The only exception is POSIX mode (permissions).
 All filesystem attributes are shown in table below.
 
-Attribute           | Sample value                              | Description
-\--------------------|-------------------------------------------|-----------------------------------
-name                | "file.txt"                                | The name of the object (Space, directory or file)
-type                | "reg"                                     | Specifies whether the resource is a regular file (`reg`) or a directory (`dir`)
-size                | 1024                                      | Size of the file in bytes, always 0 for directories
-mode                | 0666                                      | POSIX permissions in octal form (i.e. 4 digits starting with 0)
-atime               | 1470304148                                | Last access timestamp (in seconds)
-mtime               | 1470304148                                | Last modification timestamp (in seconds)
-ctime               | 1470304148                                | Last status change timestamp (in seconds)
-storage\_user\_id     | 6001                                      | Uid of the storage owner of this file
-storage\_group\_id    | 6001                                      | Gid of the storage group owner of this file (the same Gid is displayed via oneclient)
-owner\_id            | "6825604b0eb6a47b8b7a04b6369eb24d"        | ID of the file owner
-provider\_id         | "79c0ed35f32e43db3a87f76a588c9b2f"        | ID of the provider on which file was created
-shares              | \["b3a87f76a588c9b279c2...", ...]        | Array of share IDs associated with this file/directory
+| Attribute          | Sample value                       | Description                                                                           |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------------------------------- |
+| name               | "file.txt"                         | The name of the object (Space, directory or file)                                     |
+| type               | "reg"                              | Specifies whether the resource is a regular file (`reg`) or a directory (`dir`)       |
+| size               | 1024                               | Size of the file in bytes, always 0 for directories                                   |
+| mode               | 0666                               | POSIX permissions in octal form (i.e. 4 digits starting with 0)                       |
+| atime              | 1470304148                         | Last access timestamp (in seconds)                                                    |
+| mtime              | 1470304148                         | Last modification timestamp (in seconds)                                              |
+| ctime              | 1470304148                         | Last status change timestamp (in seconds)                                             |
+| storage\_user\_id  | 6001                               | Uid of the storage owner of this file                                                 |
+| storage\_group\_id | 6001                               | Gid of the storage group owner of this file (the same Gid is displayed via oneclient) |
+| owner\_id          | "6825604b0eb6a47b8b7a04b6369eb24d" | ID of the file owner                                                                  |
+| provider\_id       | "79c0ed35f32e43db3a87f76a588c9b2f" | ID of the provider on which file was created                                          |
+| shares             | \["b3a87f76a588c9b279c2...", ...]  | Array of share IDs associated with this file/directory                                |
 
 Some filesystem attributes are considered private and masked when accessing
 file in share mode (public view for unauthenticated clients). They are:
@@ -206,11 +206,11 @@ space.removexattr("file.json", "license")
 All operations related to file metadata can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Operation                                    | Link to API |
-|----------------------------------------------|-------------|
-| Read filesystem attributes                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_attrs)|
-| Set filesystem attributes                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/set_attr)|
-| Manage extended attributes & custom metadata | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata)|
+| Operation                                    | Link to API                                                                              |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Read filesystem attributes                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_attrs)      |
+| Set filesystem attributes                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/set_attr)       |
+| Manage extended attributes & custom metadata | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata) |
 
 ## Creating views over metadata
 

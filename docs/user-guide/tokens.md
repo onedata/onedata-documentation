@@ -174,17 +174,17 @@ invite or identity). Temporary tokens are short lived and not persisted, while
 named tokens are linked to user's account and retrievable. All differences are
 shown in below table.
 
-| Temporary tokens                                                                                 | Named tokens                                                                                |
-|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| no identification in the system                                                                  | must have a unique name                                                                     |
-| not persisted                                                                                    | persisted                                                                                   |
-| cannot be retrieved <br/> <sub style="color: #06f;">you must store the token upon creation</sub> | linked to subject's account                                                                 |
-| shared secret <br/><sub style="color: #06f;">the secret can be regenerated, which invalidates all subject's temporary tokens</sub> | individual secret                                         |
-| cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>      | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
-| non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>          | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
-| must have limited lifespan <br/><sub style="color: #06f;">max permitted lifespan is configurable by the Onezone admin</sub> | can have infinite lifespan                                       |
-| no accounting, cannot be listed                                                                  | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-guide)            |
-| useful for automated software / middleware / scripting                                           | require more management but ensure full control                                             |
+| Temporary tokens                                                                                                                   | Named tokens                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| no identification in the system                                                                                                    | must have a unique name                                                                     |
+| not persisted                                                                                                                      | persisted                                                                                   |
+| cannot be retrieved <br/> <sub style="color: #06f;">you must store the token upon creation</sub>                                   | linked to subject's account                                                                 |
+| shared secret <br/><sub style="color: #06f;">the secret can be regenerated, which invalidates all subject's temporary tokens</sub> | individual secret                                                                           |
+| cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>                                        | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
+| non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>                                            | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
+| must have limited lifespan <br/><sub style="color: #06f;">max permitted lifespan is configurable by the Onezone admin</sub>        | can have infinite lifespan                                                                  |
+| no accounting, cannot be listed                                                                                                    | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-guide)             |
+| useful for automated software / middleware / scripting                                                                             | require more management but ensure full control                                             |
 
 ## Token caveats
 
@@ -443,20 +443,20 @@ to always fail verification (renders it unusable in practice).
 * <span style="color:red"> rejected </span> - presence of this caveat will cause
   immediate token verification failure
 
-| Caveat            |               Access tokens               |              Identity tokens              |               Invite tokens               |
-|-------------------|:-----------------------------------------:|:-----------------------------------------:|:-----------------------------------------:|
-| time              | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| ip                | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| asn               | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.country       | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| geo.region        | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| service           | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| consumer          | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
-| interface         | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
-| api               | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| data.readonly     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| data.path         | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
-| data.objectid     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| Caveat        |               Access tokens               |              Identity tokens              |               Invite tokens               |
+| ------------- | :---------------------------------------: | :---------------------------------------: | :---------------------------------------: |
+| time          | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| ip            | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| asn           | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| geo.country   | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| geo.region    | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| service       | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| consumer      | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> |
+| interface     | <span style="color:#480"> allowed </span> | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> |
+| api           | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.readonly | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.path     | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
+| data.objectid | <span style="color:#480"> allowed </span> | <span style="color:red"> rejected </span> | <span style="color:red"> rejected </span> |
 
 > Identity tokens do not allow `service`, `api` or *data access caveats* as these
 > caveats are only relevant when requesting data access or an API operation.
@@ -513,17 +513,17 @@ summarized in the below tables.
 
 #### Onezone
 
-| Interface             |                    REST                    |            GraphSync<sup>1</sup> (GUI)          |           GraphSync<sup>1</sup> (Oneprovider)           |
-|-----------------------|:------------------------------------------:|:-----------------------------------------------:|:-------------------------------------------------------:|
-| time                  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| ip                    | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| asn                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| geo.country           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| geo.region            | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| service               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
-| consumer              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
+| Interface             |                    REST                    |           GraphSync<sup>1</sup> (GUI)           |           GraphSync<sup>1</sup> (Oneprovider)           |
+| --------------------- | :----------------------------------------: | :---------------------------------------------: | :-----------------------------------------------------: |
+| time                  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| ip                    | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| asn                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| geo.country           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| geo.region            | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| service               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| consumer              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
 | interface<sup>2</sup> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
-| api                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> | <span style="color:#480"> allowed        </span>        |
+| api                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
 | data.readonly         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
 | data.path             | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
 | data.objectid         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
@@ -553,20 +553,20 @@ it will not be able to cause any damage with such token.
 
 #### Oneprovider
 
-| Interface             |                    Oneclient                      |CDMI & REST<sup>1</sup><br/>(data access operations)| REST<sup>2</sup><br/>(other operations)|
-|-----------------------|:-----------------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
-| time                  | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| ip                    | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| asn                   | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| geo.country           | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| geo.region            | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| service               | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| consumer              | <span style="color:red">  rejected<sup>3</sup></span> | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| interface<sup>4</sup> | <span style="color:#aa0"> `"oneclient"` </span>       | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"rest"` </span> |
-| api                   | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed  </span> |
-| data.readonly         | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
-| data.path             | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
-| data.objectid         | <span style="color:#480"> allowed       </span>       | <span style="color:#480"> allowed  </span> | <span style="color:red">  rejected </span> |
+| Interface             |                       Oneclient                       | CDMI & REST<sup>1</sup><br/>(data access operations) |   REST<sup>2</sup><br/>(other operations)  |
+| --------------------- | :---------------------------------------------------: | :--------------------------------------------------: | :----------------------------------------: |
+| time                  |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| ip                    |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| asn                   |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| geo.country           |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| geo.region            |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| service               |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| consumer              | <span style="color:red">  rejected<sup>3</sup></span> |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| interface<sup>4</sup> |    <span style="color:#aa0"> `"oneclient"` </span>    |      <span style="color:#aa0"> `"rest"` </span>      | <span style="color:#aa0"> `"rest"` </span> |
+| api                   |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| data.readonly         |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
+| data.path             |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
+| data.objectid         |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
 
 <sup>1</sup>
 Data access operations include the whole CDMI API and REST endpoints to manage
@@ -588,20 +588,20 @@ made, as shown in the table.
 
 #### Onepanel
 
-| Interface     |                  REST (Onezone panel)                |               REST (Oneprovider panel)               |
-|---------------|:----------------------------------------------------:|:----------------------------------------------------:|
-| time          | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        |
-| ip            | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> |
-| asn           | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> |
-| geo.country   | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> |
-| geo.region    | <span style="color:#480"> allowed     </span>        | <span style="color:red"> rejected<sup>1</sup></span> |
-| service       | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        |
-| consumer      | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        |
+| Interface     |                 REST (Onezone panel)                 |               REST (Oneprovider panel)               |
+| ------------- | :--------------------------------------------------: | :--------------------------------------------------: |
+| time          |     <span style="color:#480"> allowed     </span>    |     <span style="color:#480"> allowed     </span>    |
+| ip            |     <span style="color:#480"> allowed     </span>    | <span style="color:red"> rejected<sup>1</sup></span> |
+| asn           |     <span style="color:#480"> allowed     </span>    | <span style="color:red"> rejected<sup>1</sup></span> |
+| geo.country   |     <span style="color:#480"> allowed     </span>    | <span style="color:red"> rejected<sup>1</sup></span> |
+| geo.region    |     <span style="color:#480"> allowed     </span>    | <span style="color:red"> rejected<sup>1</sup></span> |
+| service       |     <span style="color:#480"> allowed     </span>    |     <span style="color:#480"> allowed     </span>    |
+| consumer      |     <span style="color:#480"> allowed     </span>    |     <span style="color:#480"> allowed     </span>    |
 | interface     | <span style="color:red"> rejected<sup>2</sup></span> | <span style="color:red"> rejected<sup>2</sup></span> |
-| api           | <span style="color:#480"> allowed     </span>        | <span style="color:#480"> allowed     </span>        |
-| data.readonly | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
-| data.path     | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
-| data.objectid | <span style="color:red"> rejected     </span>        | <span style="color:red"> rejected     </span>        |
+| api           |     <span style="color:#480"> allowed     </span>    |     <span style="color:#480"> allowed     </span>    |
+| data.readonly |     <span style="color:red"> rejected     </span>    |     <span style="color:red"> rejected     </span>    |
+| data.path     |     <span style="color:red"> rejected     </span>    |     <span style="color:red"> rejected     </span>    |
+| data.objectid |     <span style="color:red"> rejected     </span>    |     <span style="color:red"> rejected     </span>    |
 
 <sup>1</sup>
 Currently, only Onezone panel supports the IP related caveats (including
@@ -632,12 +632,12 @@ with `service` caveats - the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding Oneprovider or special
 `onezone` keyword for the Onezone service.
 
-| Service                        |               Examples (serialized format)              |
-|--------------------------------|:-------------------------------------------------------:|
-| Onezone                        | `ozw-onezone`                                           |
-| Onezone panel (for admins)     | `ozp-onezone`                                           |
-| Oneprovider                    | `opw-01c4455bef059353c9dfb35ba93a24f3` <br/> `opw-*`    |
-| Oneprovider panel (for admins) | `opp-01c4455bef059353c9dfb35ba93a24f3` <br/> `opp-*`    |
+| Service                        |             Examples (serialized format)             |
+| ------------------------------ | :--------------------------------------------------: |
+| Onezone                        |                     `ozw-onezone`                    |
+| Onezone panel (for admins)     |                     `ozp-onezone`                    |
+| Oneprovider                    | `opw-01c4455bef059353c9dfb35ba93a24f3` <br/> `opw-*` |
+| Oneprovider panel (for admins) | `opp-01c4455bef059353c9dfb35ba93a24f3` <br/> `opp-*` |
 
 > Note: the special `*` service ID can be used to allow any service of given
 > type (e.g. any Oneprovider service).
@@ -691,11 +691,11 @@ below if you wish to use the [REST API](#using-rest-api) for creating tokens
 with `consumer` caveats - the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding user / group / Oneprovider.
 
-| Consumer                       |               Examples (serialized format)              |
-|--------------------------------|:-------------------------------------------------------:|
-| user                           | `usr-d4f5876dbe7f1e7e8a511de6dd31144c` <br/> `usr-*`    |
-| group                          | `grp-0921135ee61fe53a3df449365228e9b4` <br/> `grp-*`    |
-| Oneprovider                    | `prv-01c4455bef059353c9dfb35ba93a24f3` <br/> `prv-*`    |
+| Consumer    |             Examples (serialized format)             |
+| ----------- | :--------------------------------------------------: |
+| user        | `usr-d4f5876dbe7f1e7e8a511de6dd31144c` <br/> `usr-*` |
+| group       | `grp-0921135ee61fe53a3df449365228e9b4` <br/> `grp-*` |
+| Oneprovider | `prv-01c4455bef059353c9dfb35ba93a24f3` <br/> `prv-*` |
 
 > Note: group is a special consumer that can be put into the `consumer` caveat's
 > whitelist. It will be successfully verified if the request's consumer is a user

@@ -242,20 +242,20 @@ ACL provides more fine-grained control of access to resources than POSIX permiss
 
 All available permissions and their meaning for files or directories are presented below.
 
-|   Permissions      |          File             |          Directory            |
-|--------------------|---------------------------|-------------------------------|
-| Read/List          | open file for read        | list directory content        |
-| Write/Add file     | open file for write       | add file to directory         |
-| Add subdirectory   | —                        | add subdirectory to directory |
-| Traverse directory | —                        | traverse directory            |
-| Delete             | delete file               | delete directory              |
-| Delete child       | —                        | delete file or subdirectory from directory |
-| Read attributes    | read file attributes      | read attributes metadata      |
-| Write attributes   | write file attributes     | write attributes metadata     |
-| Read metadata      | read file metadata        | read directory metadata       |
-| Write metadata     | write file metadata       | write directory metadata      |
-| Read ACL           | read file acl             | read directory acl            |
-| Write ACL          | write file acl            | write directory acl           |
+| Permissions        | File                  | Directory                                  |
+| ------------------ | --------------------- | ------------------------------------------ |
+| Read/List          | open file for read    | list directory content                     |
+| Write/Add file     | open file for write   | add file to directory                      |
+| Add subdirectory   | —                     | add subdirectory to directory              |
+| Traverse directory | —                     | traverse directory                         |
+| Delete             | delete file           | delete directory                           |
+| Delete child       | —                     | delete file or subdirectory from directory |
+| Read attributes    | read file attributes  | read attributes metadata                   |
+| Write attributes   | write file attributes | write attributes metadata                  |
+| Read metadata      | read file metadata    | read directory metadata                    |
+| Write metadata     | write file metadata   | write directory metadata                   |
+| Read ACL           | read file acl         | read directory acl                         |
+| Write ACL          | write file acl        | write directory acl                        |
 
 #### Evaluation
 

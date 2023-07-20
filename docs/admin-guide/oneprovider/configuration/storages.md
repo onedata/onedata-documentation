@@ -123,10 +123,10 @@ For more information on configuration of *Quality of Service* mechanism, see [he
 All operations on storage resources can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                      | Link to API |
-|------------------------------|-------------|
-| Create storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)|
-| Get storage details          | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details)|
-| Update storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage)|
-| Remove storage               | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage)|
-| List storage resources       | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages)|
+| Request                | Link to API                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------ |
+| Create storage         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage)         |
+| Get storage details    | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details) |
+| Update storage         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage)      |
+| Remove storage         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage)      |
+| List storage resources | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages)        |

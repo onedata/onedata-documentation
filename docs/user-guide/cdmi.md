@@ -28,11 +28,11 @@ CDMI uses certain terms such as **data object** or **container** to refer to
 various elements of storage. The mapping between main CDMI and Onedata concepts
 is as follows:
 
-| CDMI          | Onedata                                   |
-|:--------------|:------------------------------------------|
-| Containers    | directories (including space directory)   |
-| Data Objects  | regular files stored in user's Spaces     |
-| Object ID     | [File ID](data.md#file-path-and-id)       |
+| CDMI         | Onedata                                 |
+| :----------- | :-------------------------------------- |
+| Containers   | directories (including space directory) |
+| Data Objects | regular files stored in user's Spaces   |
+| Object ID    | [File ID](data.md#file-path-and-id)     |
 
 Currently, Onedata supports CDMI version `1.1.1`.
 

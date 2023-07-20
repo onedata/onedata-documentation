@@ -6,7 +6,7 @@ module.exports = {
   },
   "plugins": {
     "remark-preset-lint-recommended": true,
-    "remark-lint-final-newline": false,
+    "remark-lint-final-newline": true,
     "remark-lint-list-item-indent": "space",
     "remark-lint-list-item-bullet-indent": true,
     "remark-lint-no-shortcut-reference-link": true,
@@ -17,7 +17,9 @@ module.exports = {
     },
 
     // plugins other than recommended
+    "remark-gfm": true,
     "remark-validate-links": ["error"],
     "remark-frontmatter": true,
+    "remark-lint-table-pipes" : true,
   }
 };

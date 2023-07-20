@@ -27,12 +27,12 @@ Assume the following domains in the environment:
 
 In such case, the APIs are available under the following endpoints:
 
-| Service                           | API endpoint                                                 |
-|-----------------------------------|--------------------------------------------------------------|
-| Onezone                           | `https://onezone.plgrid.pl/api/v3/onezone/{...}`             |
-| Oneprovider                       | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`   |
-| Onezone panel (admins only)       | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
-| Oneprovider panel (admins only)   | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
+| Service                         | API endpoint                                                                                                                          |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Onezone                         | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
+| Oneprovider                     | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
+| Onezone panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
+| Oneprovider panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
 > **NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider
 > domains and internally proxied to Onepanel. The port `9443` can be used to

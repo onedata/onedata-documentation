@@ -157,7 +157,7 @@ can be modified in the *file popularity* configuration panel.
 All operations related to file popularity can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                               | Link to API |
-|---------------------------------------|-------------|
-| Get *file popularity* configuration   | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration)|
-| Update *file popularity* configuration| [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity)|
+| Request                                | Link to API                                                                                              |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Get *file popularity* configuration    | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration) |
+| Update *file popularity* configuration | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity)         |
