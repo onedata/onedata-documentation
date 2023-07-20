@@ -1,12 +1,15 @@
 .PHONY: all build dev clean
 
 # FIXME: VFS-11182 Use final v3 compiler
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v3-alpha.1
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v3-alpha.2
 
 all: build
 
 lint:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
+
+format-all:
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all
 
 build:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} build
