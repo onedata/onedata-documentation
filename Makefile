@@ -1,6 +1,7 @@
 .PHONY: all build dev clean
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v2
+# FIXME: VFS-11182 Use final v3 compiler
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v3-alpha.1
 
 all: build
 
