@@ -116,23 +116,17 @@ Run the following procedure on the VM designated to host the restored service:
 
 1. Copy the tar file of the last backup.
 
-<!---->
-
 ```bash
 scp some.remote.server:/backups/onezone.tgz /mybackups/onezone.tgz
 ```
 
-2\. Restore the installation directory from the tar file.
-
-<!---->
+2. Restore the installation directory from the tar file.
 
 ```bash
 tar zxPf /mybackups/onezone.tgz
 ```
 
-3\. Start the service.
-
-<!---->
+3. Start the service.
 
 ```bash
 sudo systemctl start onezone
