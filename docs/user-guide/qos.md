@@ -2,17 +2,26 @@
 
 [toc]
 
+Quality of Service (QoS) is used to manage file replica distribution and redundancy
+between providers supporting a space.
+FIXME — add links to data distribution, provider, space
+
+This guide is dedicated to non-admin users that would like to utilize QoS to manage
+the distribution of their data. Consider reading the 
+[counterpart documentation for admins](../admin-guide/oneprovider/configuration/qos.md) 
+for information on the proper configuration of the Oneprovider service regarding QoS.
+
 ## Basics
 
-Quality of Service functionality in Onedata is used to manage file replica distribution and redundancy
-between supporting Oneproviders. Users can define any number of QoS requirements for a file or directory.
-Each requirement consists of target replicas number and an expression that is used to select storages
-where the replicas should be placed ‐ it is matched against parameters that were assigned to storages
-by Oneprovider admins.
+Qos mechanisms are based on the continuous processing of ([QoS requirements](#qos-requirement)). 
+A requirement is essentially a rule defining the desired data redundancy (replica count) 
+and how to determine the placement of replicas ([QoS expression](#qos-expression)). 
 
-If required, data transfers are automatically triggered to satisfy the QoS requirements - remote
-changes made to file content are automatically reconciled. File replicas corresponding to QoS requirements
-are protected from eviction.
+Each file or directory can have any number of requirements — in the case of directories, the requirement is applied to all its files and subdirectories, recursively.
+
+If required, data transfers are automatically triggered to satisfy the QoS requirements — remote
+changes made to file content are automatically reconciled. File replicas corresponding to 
+QoS requirements are protected from eviction.
 
 Removing a QoS requirement does not automatically remove the replicas that were created during its
 lifetime, but they are no longer protected.
@@ -20,96 +29,99 @@ lifetime, but they are no longer protected.
 
 ## QoS expression
 QoS expressions are a declarative way of specifying desired storage parameters in a unified format.
+They are used to determine the replica placement — the target storage backends where the replicas
+of the data will be stored. The expressions refer to storage parameters that are assigned
+by [Oneprovider admins](../admin-guide/oneprovider/configuration/qos.md).
 
-Operands in expression must be in form `key {comparator} value`, where `{comparator}` is one of `<, >, <=, >=, =`, 
-e.g. `key = value`. One exception from this is operand `anyStorage`. If any comparator other than `=` is used, only 
-numeric values are allowed.
+An expression is a set of one or more operands, each referring to one storage parameter.
+An operand is in form `key {comparator} value`, where `{comparator}` is one of `<, >, <=, >=, =`, 
+e.g. `key = value`. One exception from this is the single-worded, built-in operand `anyStorage`. 
+If any comparator other than `=` is used, only numeric values are allowed.
 
-Operands can be combined with the use of one of supported operators:
-* `&` - results in storages that match expressions on both sides of this operator
-* `|` - results in storages that match at least one expression on both sides of this operator
-* `\ ` - results in storages that match expression on left side of this operator and do not match expression on the 
-right side of operator
+Operands are processed left-to-right and can be combined:
+* `&` — expression matches if both operands match,
+* `|` — expression matches if any of the two operands matches,
+* `\ ` — expression matches if the left-hand side operand matches and the right-hand side operand does not.
 
 Example QoS expressions:  
-* `geo=PL` - any storages in Poland  
-* `timeout < 8` - storages with timeout parameter set to less than 8
-* `timeout = 8` - storages with timeout parameter set to exactly 8
-* `geo=PL & type=disk` - disk storages located in Poland  
-* `geo=PL | type=disk` - storages located in Poland or disk storages anywhere  
-* `anyStorage \ type=disk` - any storages that are not of disk type  
+* `geo=PL` — storage backends in Poland,
+* `timeout < 8` — storage backends with timeout parameter set to less than 8,
+* `timeout = 8` — storage backends with timeout parameter set to exactly 8,
+* `geo=PL & type=disk` — storage backends of disk type in Poland,
+* `geo=PL | type=disk` — storage backends in Poland or storage backends of disk type anywhere,
+* `anyStorage \ type=disk` — storage backends that are not of the disk type.
+
+Use parentheses to group operands that should be evaluated together, e.g:  
+* `geo=FR | (geo=PL & type=disk)` — storage backends in France or storage backends of disk type in Poland,  
+* `(geo=PL \ type=disk) | (geo=FR & type=disk)` — storage backends in Poland that are not of disk type or storage backends in France that are of disk type.
 
 
-Operands and nesting can be used to combine simple expressions into complex ones, e.g:  
-* `geo=FR | (geo=PL & type=disk)` - any storages in France or disk storages located in Poland  
-* `(geo=PL \ type=disk) | (geo=FR & type=disk)` - storages in Poland that are not of disk type or storages in 
-France that are of disk type
+## QoS requirement
+A QoS requirement consists of a [QoS expression](#qos-expression) and the target replica count.
+Storage backends matching the expression are selected for data replication in a continuous re-evaluation
+process until the target replica count is satisfied. If there are more matching backends than
+the target replica count, a random subset is selected.
 
-## QoS requirements
-QoS requirement consists of a [QoS expression](#qos-expression) and a desired number of replicas.
-It can be added for a single file or a whole directory (in such case all nested subfiles and
-subdirectories are affected). The QoS expression is used to select matching storages where the
-replicas will be placed - until the specified target number of replicas is satisfied.
-The replicas are automatically managed ‐ protected from eviction and reconciled upon changes
-to the file content.
+The replicas originating from the evaluation of QoS requirements are automatically managed — 
+protected from eviction and reconciled upon changes to the file content.
 
-Fulfillment of a QoS requirement is indicated by its `status`:
-* `fulfilled` - desired number of replicas have been created on matching storages and their contents
- are up-to-date (remote changes have been reconciled).
-* `pending` - the requirement is not yet fulfilled - data replication is still ongoing.
-* `impossible` - there are not enough storages matching the expression to meet the required number
-  of replicas, hence the requirement cannot be satisfied - unless the list of supporting storages
-  or their parameters change.
-
-## Using web GUI
-
-Quality of Service can be managed in the web GUI. Look for the Quality of Service in the file/directory's context menu.
-
-![qos_in_context_menu](../../images/user-guide/qos/context_menu.png)
-
-In *Quality of Service* modal requirements for selected file/directory can be managed.  
-
-![qos_modal](../../images/user-guide/qos/modal_empty.png)
-
-To add new QoS requirement number of required replicas and [QoS expression](#qos-expression) need to be given.  
-
-![add_qos_req](../../images/user-guide/qos/add_qos_modal.png)
-
-QoS expression can be provided as plain text (useful when pasting copied expression) or can be constructed 
-using built-in graphical editor.  
-
-![qos_expression_editor](../../images/user-guide/qos/modal_expression.png)  
-
-Editor provides suggestions for each key/value, based on existing storage parameters.  
-
-![qos_property_selector](../../images/user-guide/qos/modal_property_selector.png)  
-
-You can see status and transfer statistics for each of QoS requirements.
-
-![qos_fulfilled](../../images/user-guide/qos/modal_fulfilled.png)
+Fulfillment of a QoS requirement is indicated by its **status**:
+* `fulfilled` — the target replica count has been created on the matching storage backends 
+  and their contents are up-to-date (remote changes have been reconciled).
+* `pending` — the requirement is not yet fulfilled — data replication is still ongoing.
+* `impossible` — there are not enough storage backends matching the expression to meet the target 
+  replica count, hence the requirement cannot be satisfied — unless the list of supporting storage backends or their parameters change.
 
 
-On the charts you can see total number of files as well as number of bytes that where transferred to fulfill this 
-requirement. 
+## Web GUI guide
 
-::: warning
-All QoS charts are seen from the point of view of currently selected provider.
+To manage QoS requirements, choose the **Quality of Service** action from the file/directory's 
+context menu in the [file browser](web-file-browser.md).
+
+![qos_in_context_menu](../../images/user-guide/qos/context_menu.png#screenshot)
+
+Choose the **Add requirement** action and specify the target replica count and the expression.  
+
+![add_qos_req](../../images/user-guide/qos/add_qos_modal.png#screenshot)
+
+QoS expression can be entered as text (useful when pasting a copied expression) or constructed 
+using the built-in graphical editor.  
+
+![qos_expression_editor](../../images/user-guide/qos/modal_expression.png#screenshot)  
+
+The editor provides suggestions for each key/value, based on existing storage parameters.  
+
+![qos_property_selector](../../images/user-guide/qos/modal_property_selector.png#screenshot)  
+
+After expanding the row for a requirement, you can examine its status, transfer statistics, 
+and audit log.
+
+![qos_fulfilled](../../images/user-guide/qos/modal_fulfilled.png#screenshot)
+
+In the charts, you can see the total number of files and the number of bytes that were
+transferred in order to fulfill the requirement. 
+
+::: warning NOTE
+The QoS charts and audit logs are presented as seen from the point of view of the 
+[currently selected provider](web-file-browser.md#switching-between-providers).
 :::
 
 #### INBOUND chart
-* `Files` represent number of regular files that were processed to fulfill QoS requirement. When single file was 
-transferred multiple times (e.g. when file content was changed multiple times on remote provider) each of these 
-transfers contributes towards this counter. This means that single file can be counted multiple times. Empty 
-files also increase this counter. 
-* `Bytes` represent number of bytes that have been saved on local storages in order to fulfill this QoS requirement.
+* `Files` represent the number of regular files that were processed to fulfill the QoS requirement. 
+If a single file is transferred multiple times (e.g. when the file content changes multiple times on a remote provider), each of these transfers contributes towards this counter. 
+Empty files also increase the counter. 
+* `Bytes` represent the number of bytes that have been written to the local storage backends to fulfill the QoS requirement.
 
 #### OUTBOUND chart
-* `Bytes` represent number of bytes that have been transferred **from** each remote storage. Sum of these values is equal 
-to Bytes value shown in the `INBOUND` chart.
+* `Bytes` represent the number of bytes that have been transferred **from** remote storage backends.
+The sum of these values is equal to the `Bytes` value shown in the `INBOUND` chart.
+
 
 ## Using REST API
 
-Below are some examples how the REST API can be used to manage QoS requirements. For
+FIXME adjust to guidelines
+
+Below are some examples of how the REST API can be used to manage QoS requirements. For
 detailed documentation of all endpoints, refer to the
 [API documentation](https://onedata.org/#/home/API/latest/oneprovider?anchor=tag/QoS).
 
