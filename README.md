@@ -2,6 +2,11 @@
 
 This documentation is built using [VuePress](https://vuepress.vuejs.org).
 
+## Contributing
+
+Make sure to set up your working environment (see [Development](#development)) 
+before making any changes in the docs and always stick to the [guidelines](GUIDELINES.md).
+
 ## Guidelines
 
 All docs should be edited and formatted in compliance with the [guidelines](GUIDELINES.md).
@@ -13,32 +18,31 @@ All docs should be edited and formatted in compliance with the [guidelines](GUID
 Most Makefile targets use our build-docker with all dependencies installed.
 These scripts are suitable for most developers and documentation users.
 
-* `make build` builds the documentation using a docker.
-* `make dev` prepares a local preview with livereload using a docker, allowing
+* `make build` builds the documentation, producing an artifact.
+* `make dev` prepares a local preview with livereload, allowing
   convenient development. The livereload might not cope with some structural
   changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
   Note that in this mode, the `RELEASE` version is not injected, only the
   placeholders are visible, as opposed to the `make preview` target.
-  This target uses a docker, like `make build`.
 * `make preview` starts a simple HTTP server in Python that serves the docs
-  statically, giving a preview of what's in the build artifact. This task is not performed
-  using a docker, so Python 2 or 3 is required to be installed.
-* `make lint` launches Markdown linter on all documents using a docker.
-* `make format-all` performs auto-formatting on all Markdown documents using a docker.
-  Note, that this task will modify Markdown files when there is a need to apply
-  formatting, so it is recommended to use it when you have your current changes staged.
+  statically, giving a preview of what's in the build artifact. **This task is not 
+  performed using a docker**, so Python 2 or 3 is required to be installed.
+* `make lint` launches Markdown linter on all documents.
+* `make format-all` performs auto-formatting on all Markdown documents.
+  Note that this task will modify Markdown files where needed, so it is 
+  recommended to use it after staging current changes.
 
 ### Development
 
-A recommended IDE to develop documentation is Visual Studio Code.
+The recommended IDE to develop the documentation is Visual Studio Code (VSCode).
 
-You can set up recommended Visual Studio Code workspace configuration using
-`./setup-vscode.sh` that will apply setting from the `.vscode.example` directory to your
+You can set up recommended VSCode workspace configuration using
+`./setup-vscode.sh`, that will apply settings from the `.vscode.example` directory to your
 workspace configuration.
 
 There are a few recommended extensions for documentation development. You should be
-asked for installing them on opening this workspace (as they are listed in
-`extensions.json`).
+asked to install them when opening this workspace in VSCode (as they are listed in
+`extensions.json`). If not, install them manually.
 
 #### remark (`unifiedjs.vscode-remark`)
 
@@ -51,11 +55,11 @@ in local `node_modules`.
 
 With all needed dependencies, remark extension enables Markdown files check with linter
 that is configured in `.remarkrc.js` file, and enables code auto-formatter. By default,
-you can format your code using `Format Document` Visual Studio Code command (accessible
-using `ctrl+shift+p`). If something does not work, try restarting Visual Studio Code.
+you can format your code using `Format Document` VSCode command (accessible
+using `ctrl+shift+p`). If it does not work, try restarting VSCode.
 
 It is also recommended to change your workspace settings to enable auto-formatting on each
-file save as described below.
+file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 
 ```json
   "[markdown]": {
@@ -64,24 +68,24 @@ file save as described below.
   }
 ```
 
+
 #### Grammarly (`znck.grammarly`)
 
 This extension enables Markdown and plaintext files check using
 [Grammarly](https://www.grammarly.com/) service. You can use the extension without
-authentication, but it is recommended to create an account and log in to it in Visual
-Studio Code to have your personal dictionary, [customized
-here](https://account.grammarly.com/customize). Currently (as of July 2023) the Grammarly
-extension does not support personal dictionary configured locally.
+authentication, but it is recommended to create an account and log in to it in VSCode
+to have your personal dictionary, [customized here](https://account.grammarly.com/customize). 
+As of July 2023, the Grammarly extension does not support personal dictionary configured locally.
 
 #### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
 
 Code Spell Checker adds an offline spell check. However, as the Grammarly addon also
-performs spell checking that cannot be turned of (as of July 2023), you can resign from
+performs spell checking that cannot be turned off (as of July 2023), you can resign from
 using this extension.
 
 If you applied the default configuration for the workspace (using `setup-vscode.sh`
 script), the Code Spell Check extension uses `cspell-dictionary.txt` file with known
-words.
+words. Do add new words if needed and commit the changes.
 
 ### Development using a natively-installed toolkit
 
