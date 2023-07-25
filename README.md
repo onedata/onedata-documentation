@@ -4,7 +4,7 @@ This documentation is built using [VuePress](https://vuepress.vuejs.org).
 
 ## Contributing
 
-Make sure to set up your working environment (see [Development](#development)) 
+Make sure to set up your working environment (see [Development](#development))
 before making any changes in the docs and always stick to the [guidelines](GUIDELINES.md).
 
 ## Guidelines
@@ -25,11 +25,11 @@ These scripts are suitable for most developers and documentation users.
   Note that in this mode, the `RELEASE` version is not injected, only the
   placeholders are visible, as opposed to the `make preview` target.
 * `make preview` starts a simple HTTP server in Python that serves the docs
-  statically, giving a preview of what's in the build artifact. **This task is not 
+  statically, giving a preview of what's in the build artifact. **This task is not
   performed using a docker**, so Python 2 or 3 is required to be installed.
 * `make lint` launches Markdown linter on all documents.
 * `make format-all` performs auto-formatting on all Markdown documents.
-  Note that this task will modify Markdown files where needed, so it is 
+  Note that this task will modify Markdown files where needed, so it is
   recommended to use it after staging current changes.
 
 ### Development
@@ -68,13 +68,12 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-
 #### Grammarly (`znck.grammarly`)
 
 This extension enables Markdown and plaintext files check using
 [Grammarly](https://www.grammarly.com/) service. You can use the extension without
 authentication, but it is recommended to create an account and log in to it in VSCode
-to have your personal dictionary, [customized here](https://account.grammarly.com/customize). 
+to have your personal dictionary, [customized here](https://account.grammarly.com/customize).
 As of July 2023, the Grammarly extension does not support personal dictionary configured locally.
 
 #### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
