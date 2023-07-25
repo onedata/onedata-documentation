@@ -220,9 +220,6 @@ An ACE consist of four fields:
 * `who` — the principal whom the ACE affects:
 
   * user or group represented by their identifier
-
-  <!---->
-
   * `OWNER@` — the owner of the file
   * `GROUP@` — members of space containing the file
   * `ANONYMOUS@` — guest client (accessing through a share)

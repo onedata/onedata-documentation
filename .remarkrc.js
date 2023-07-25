@@ -21,5 +21,6 @@ module.exports = {
     "remark-validate-links": ["error"],
     "remark-frontmatter": true,
     "remark-lint-table-pipes" : true,
+    "remark-emoji": true,
   }
 };

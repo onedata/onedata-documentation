@@ -32,21 +32,21 @@ To add an image:
 * Always use second person and imperative mood to address the user. Don't be
   overly polite (avoid using `please` when giving commands).
 
-  :white\_check\_mark: To upload a file, click on the corresponding button in the top toolbar.
+  ✅ To upload a file, click on the corresponding button in the top toolbar.
 
-  :x: Files can be uploaded by clicking on the corresponding button in the top toolbar.
+  ❌ Files can be uploaded by clicking on the corresponding button in the top toolbar.
 
-  :white\_check\_mark: You can find the transfer statistics below.
+  ✅ You can find the transfer statistics below.
 
-  :x: The transfer statistics can be found below.
+  ❌ The transfer statistics can be found below.
 
-  :white\_check\_mark: For more information, see this chapter.
+  ✅ For more information, see this chapter.
 
-  :x: For more information, please see this chapter.
+  ❌ For more information, please see this chapter.
 
-  :white\_check\_mark: Note that the log size can get substantial.
+  ✅ Note that the log size can get substantial.
 
-  :x: Please note that the log size can get substantial.
+  ❌ Please note that the log size can get substantial.
 
 ## Code style
 

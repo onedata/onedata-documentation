@@ -33,8 +33,8 @@ These scripts are suitable for most developers and documentation users.
 A recommended IDE to develop documentation is Visual Studio Code.
 
 You can set up recommended Visual Studio Code workspace configuration using
-`./setup-vscode.sh` that will apply setting from the `vscode.example` directory to your
-workspace configuration\`.
+`./setup-vscode.sh` that will apply setting from the `.vscode.example` directory to your
+workspace configuration.
 
 There are a few recommended extensions for documentation development. You should be
 asked for installing them on opening this workspace (as they are listed in
