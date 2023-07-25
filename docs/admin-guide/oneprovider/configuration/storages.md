@@ -83,7 +83,7 @@ Please see Oneclient's documentation for [`--force-direct-io`](../../../user-gui
 and [`--override`](../../../user-guide/oneclient.md#overriding-storage-helper-parameters) options.
 
 
-### Skip storage detection 
+### Skip storage detection
 `Skip storage detection` option turns off automatic detection of direct access to the storage in all instances of Oneclient application.
 It also disables checks performed by Oneprovider when storage is added or modified. This option is relevant
 only for storages that are **not** marked as `readonly` — for readonly storages, it is implicitly set to `true`.
@@ -102,9 +102,7 @@ For more information on configuration of LUMA DB feed, see [here](luma.md#config
 Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.
 
 ### QoS Parameters
-Quality of service parameters. 
-For more information on configuration of *Quality of Service* mechanism, see [here](qos.md#qos-parameters).
- 
+Quality of Service parameters - refer to the [QoS documentation](qos.md#qos-parameters). 
 
 ## REST API
 

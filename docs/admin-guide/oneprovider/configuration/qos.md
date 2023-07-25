@@ -1,35 +1,48 @@
 # Quality of Service
-<!-- This file is referenced at least one time as "qos.md" -->
 
 [toc]
 
-Quality of Service functionality in Onedata is used to manage file replica distribution and redundancy
-between supporting Oneproviders.
+Quality of Service (QoS) is used to manage file replica distribution and redundancy
+between providers supporting a space.
+FIXME - add links to data distribution, provider, space
 
-For explanation how this functionality works and how to use it consult [paragraph in User Guide](../../../user-guide/qos.md#Basics).
+This documentation concerns the proper configuration of the Oneprovider service
+so that QoS rules can be effectively utilized by the users. For details on how 
+QoS works and how to use it, consult the 
+[counterpart documentation for end users](../../../user-guide/qos.md#Basics).
 
 ## QoS parameters
-QoS management is based on QoS parameters that are assigned to storages by Oneprovider admins.
-All parameters are in form `key=value`.
+QoS management is based on QoS parameters that are assigned to storage backends 
+by Oneprovider admins. All parameters are in the form of `key=value`.
 
-Each storage has implicit parameters representing its ID and ID of its Oneprovider:
+Each storage has implicit parameters representing its ID and the ID of its Oneprovider:
 `storageId=$STORAGE_ID` and `providerId=$PROVIDER_ID`.
 
-Adding new QoS parameters and removing existing ones can be done using the Modify Storage Details operation in Onepanel.
+You can modify the QoS parameters using the Web GUI (Administration Panel) or REST API.
+FIXME - add links to Administration Panel and REST API
 
-::: warning
-`storageId` and `providerId` parameters cannot be removed or modified.
+
+::: tip NOTE
+The `storageId` and `providerId` parameters cannot be removed or modified.
 :::
 
-## Using web GUI
+## Web GUI guide
 
-QoS parameters for storage can be set in storage create/modify view in Onepanel:
+QoS parameters can be set during storage creation:
 ![qos_parameters_editor](../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png)  
+FIXME create a full-screen shot to include more context ^
+FIXME add 2-3 sensible parameters before creating the screenshot
+
+To modify the parameters, use the **Modify** action for the desired row in the **Storage backends** view:
+
+FIXME screenshot with modification ^
 
 
 ## Using REST API
 
-Below are some examples for Oneprovider administrators concerning management of storage
+FIXME adjust to guidelines
+
+Below are some examples for Oneprovider administrators concerning the management of storage
 QoS parameters with the use of [REST API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details).
 
 Below examples assume that the following environment variables are exported:
