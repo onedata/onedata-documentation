@@ -1,0 +1,27 @@
+{
+  "grammarly.files.include": [
+    "**/readme.md",
+    "**/README.md",
+    "**/*.txt",
+    "**/*.md"
+  ],
+  "grammarly.files.exclude": [
+    "**/cspell-dictionary.txt"
+  ],
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark",
+    "editor.formatOnSave": false
+  },
+  "cSpell.enabledLanguageIds": [
+    "markdown",
+    "plaintext"
+  ],
+  "cSpell.customDictionaries": {
+    "myWords": {
+      "name": "onedata",
+      "path": "cspell-dictionary.txt",
+      "scope": "workspace",
+      "addWords": true
+    }
+  }
+}
