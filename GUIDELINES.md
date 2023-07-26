@@ -2,7 +2,7 @@
 
 Unified guidelines for writing and formatting the Onedata documentation.
 
-## TODO
+## Tasks to do
 
 * VFS-9738 carry on with more guidelines and adjust the existing docs so that they comply.
 
