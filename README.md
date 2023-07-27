@@ -4,7 +4,7 @@ This documentation is built using [VuePress](https://vuepress.vuejs.org).
 
 ## Contributing
 
-Before making any changes in the docs, make sure to set up your working environment 
+Before making any changes in the docs, make sure to set up your working environment
 (see [Development](#development) below).
 
 **Before creating a PR**:
