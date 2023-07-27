@@ -2,34 +2,34 @@
 
 Unified guidelines for writing and formatting the Onedata documentation.
 
-## Tasks to do
-
-* VFS-9738 carry on with more guidelines and adjust the existing docs so that they comply.
+Some of the formatting guidelines are automatically cared for with proper
+workspace configuration — make sure to set it up as described in [the README](README.md#development).
 
 ## Source file structure
 
 The source files reside in `./docs/` and the images reside in `./images/`,
-with the mirrored directory structure (image path should correspond to
+with the mirrored directory structure (the image path should correspond to
 the markdown source path where it is used - see below).
 
 To add a new page:
 
-* create a new .md file, placing it in a sensible location in the structure,
+* create a new Markdown file, placing it in a sensible location in the structure,
   e.g. `./docs/admin-guide/onezone/installation.md`,
 * add appropriate entry in `./docs/.vuepress/config.js`, in the
   `sidebar` object.
 
 To add an image:
 
-* place the image to be referenced by an .md file in its corresponding directory,
+* place the image to be referenced by a .md file in its corresponding directory,
   i.e. for the above-mentioned page, it would be:
   `./images/admin-guide/onezone/installation/first-step.png`,
+
 * embed the image into the Markdown page:
   `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
 
 ## Writing tone
 
-* Always use second person and imperative mood to address the user. Don't be
+* Always use the second person and imperative mood to address the user. Don't be
   overly polite (avoid using `please` when giving commands).
 
   ✅ To upload a file, click on the corresponding button in the top toolbar.
@@ -52,7 +52,7 @@ To add an image:
 
 ### General
 
-* Do not exceed 80-120 characters per line, unless really necessary (e.g. with
+* Do not exceed 80-120 characters per line, unless necessary (e.g. with
   long links or tables).
 
 ### Enumeration & itemization
@@ -64,6 +64,13 @@ To add an image:
   align with the first line content.
 
 * Consider adding blank lines between points in lists that have a lot of content.
+
+* Add proper punctuation — each entry should end with a period if it is a sentence.
+* for short entries, that are not full sentences, but for instance single items,
+* one,
+* two,
+* three,
+* add a comma, but for the last one, add a period.
 ```
 
 ### Code blocks
@@ -92,6 +99,10 @@ Avoid using the default markdown blockquotes, but use the
 This is a tip
 :::
 
+::: tip NOTE
+This is a note, reusing the same style as the tip container
+:::
+
 ::: warning
 This is a warning
 :::
@@ -113,11 +124,82 @@ console.log('Hello, VuePress!')
 
 ## Links & references
 
-Below are some examples how a link or reference can be introduced:
+Below are some examples of how a link or reference can be introduced:
 
 * `For more information about X, refer to [this page](path/to/file.md#section).`
 * `For more information about X, see the [Y](path/to/file.md#section) section/chapter.`
 * `See [this](path/to/file.md#section) chapter for more details.`
+
+### Referring to GUI elements
+
+Use consistent naming of structural GUI elements, as shown below:
+
+![GUI elements](images/guidelines/gui-elements.png)
+
+To refer to a named GUI element, use **bold** text style. You may also use the *italic*
+style to express a placeholder (some meta information), e.g.:
+
+* `Navigate to the **Data > *Space name* > Files** view.`
+* `Click on the **Consume** button in the **Tokens** tab.`
+* `Open the **Tokens** tab and click on the **Consume** button.`
+* `Choose the **Tokens** tab from the navigation bar and click on the **Consume** button.`
+* `In the **Tokens** tab, click on the **Consume** button.`
+* `Navigate to the **Data** tab and select the *Space name* in the left submenu.`
+* `Choose the **Remove** action from the share's actions in the sidebar.`
+* `Choose an action from the actions menu for the desired row.`
+* `Open the actions menu on the right and choose **Remove**.`
+* `Open the context menu for the file and choose **Information**.`
+* `Select the **Metadata** tab in the right-side panel.`
+
+## Screenshots
+
+* Crop as much as possible; leave just enough context so that the user can
+  locate the region of interest in GUI, but focus on the discussed feature.
+  **This typically does not apply to the first screenshot in a section**.
+  It's generally a good idea to have a broader context in the first screenshot,
+  e.g. with the navigation bar and sidebar visible, so it's easy for the user
+  to reproduce the steps. Consecutive ones can be then cropped.
+
+* When taking screenshots, use browser zoom to get better-quality images.
+  Satisfying zoom level depends on the screenshot region size, but quite often
+  is about 125% for a 1920x1080 window. Verify the quality of screenshots
+  in the docs preview; if the image is not clear, try different zoom levels.
+
+* Don't overdo it; avoid screenshots of obvious steps such as a confirmation
+  modal; it's enough to describe it in the text, e.g.:
+  ```text
+  Confirm deletion of the file when prompted.
+  You will be prompted to confirm deletion of the file.
+  ```
+
+* **Always add** the `screenshot` class to all screenshots:
+  ```
+  ![image](../../images/user-guide/spaces/1-no_spaces.png#screenshot)
+  ```
+
+## REST API examples
+
+In general, avoid including REST API call examples in the docs — this is what the API (swaggers)
+docs are for. There are some exceptions to this rule though. If the REST API is complicated,
+it may be a good idea to include one or two examples to give the reader a kickstart.
+
+Do include useful links to the REST API, typically at the end of a section. Make sure
+to link the section with the guide on how to use the REST API of the corresponding service.
+Below is an example of how to do that.
+
+```
+You can interact with the LUMA DB using the Onepanel's REST API — see [this section](./rest-api.md) 
+for a guide on how to get started.
+
+Below are some links to the REST API documentation of commonly used operations:
+
+| Operation                             | Link to the API docs |
+|---------------------------------------|----------------------|
+| Get LUMA DB configuration             | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_config)|
+| Clear LUMA DB                         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_clear_db)|
+| Lookup default display credentials    | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials)|
+| Lookup default display credentials    | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials)|
+```
 
 ## Technicalities
 
@@ -140,7 +222,7 @@ Below are some examples how a link or reference can be introduced:
 
   For more tips, see the [punctuation guide](https://www.thepunctuationguide.com/hyphen.html).
 
-* To abbreviate `identifier`, stick to the `ID` notation rather than `Id`.
+* To abbreviate the word `identifier`, stick to the `ID` notation rather than `Id`.
 
 * Use the term `provider` when referring to a Onedata provider in most contexts,
   except when talking about a service or a piece of software — use `Oneprovider`
@@ -152,18 +234,8 @@ Below are some examples how a link or reference can be introduced:
 
   > As an admin, you should install the Oneprovider cluster to expose your storage system via Onedata.
 
-## Screenshots
-
-* Crop as much as possible; leave just enough context so that the user can
-  locate the region of interest in GUI, but focus on the discussed feature.
-
-* When taking screenshots, use browser zoom to get better quality images.
-  Satisfying zoom level depends on the screenshot region size, but quite often
-  is about 125% for a 1920x1080 window. Verify the quality of screenshots
-  in the docs preview; if the image is not clear, try different zoom levels.
-
-* Always add the `screenshot` class to all screenshots:
-  `![image](../../images/user-guide/spaces/1-no_spaces.png#screenshot)`
+* Use the term **storage backend** to refer to an instance of a storage system, do not use
+  the legacy name (**storage**, **storages**).
 
 ## Custom routes
 

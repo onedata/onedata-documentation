@@ -4,12 +4,16 @@ This documentation is built using [VuePress](https://vuepress.vuejs.org).
 
 ## Contributing
 
-Make sure to set up your working environment (see [Development](#development))
-before making any changes in the docs and always stick to the [guidelines](GUIDELINES.md).
+Before making any changes in the docs, make sure to set up your working environment
+(see [Development](#development) below).
 
-## Guidelines
+**Before creating a PR**:
 
-All docs should be edited and formatted in compliance with the [guidelines](GUIDELINES.md).
+* Make sure your contribution **sticks to the [guidelines](GUIDELINES.md)**.
+* Fix any linguistic or grammatical errors detected by the plugins. If you are touching
+  a file with pre-existing errors, please take some time to tidy it up a bit.
+* Make sure the build is passing (may require re-formatting, pleasing the linter or solving
+  forgotten code tags).
 
 ## Building and developing
 
