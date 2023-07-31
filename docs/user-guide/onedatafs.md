@@ -1,15 +1,15 @@
 # OnedataFS
 
-[toc][]
+[toc]()
 
-OnedataFS is a Python library for accessing the Onedata virtual file system, 
-an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface. 
-As a [PyFilesystem](https://www.pyfilesystem.org/) plugin, 
-[OnedataFS](https://github.com/onedata/fs-onedatafs/) allows you to work with 
+OnedataFS is a Python library for accessing the Onedata virtual file system,
+an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface.
+As a [PyFilesystem](https://www.pyfilesystem.org/) plugin,
+[OnedataFS](https://github.com/onedata/fs-onedatafs/) allows you to work with
 Onedata in the same way as any other supported filesystem.
 
-
 ## Installation
+
 OnedataFS can be installed from our provided packages for both Python 2 and Python 3.
 
 ### Ubuntu
@@ -118,9 +118,8 @@ can be found below (only `host` and `token` are required).
 * `log_dir` — path in the filesystem, where internal OnedataFS logs should be
   stored. When `None`, no logging will be generated
 * `cli_args` — any other Oneclient command line arguments can be passed as a
-  value of this argument as single string, e.g. `'--storage-timeout=120
-  --storage-helper-thread-count=20`
-  
+  value of this argument as single string, e.g. `'--storage-timeout=120 --storage-helper-thread-count=20`
+
 Refer to the [Oneclient options](oneclient.md#options) documentation for more details.
 
 ### Advanced usage
@@ -156,6 +155,7 @@ API is provided by `PyFilesystem`, `OnedataFS` provides additional methods
 which allow to interact with the metadata directly.
 
 For example to list extended attributes defined for `file.txt`:
+
 ```python
 # List extended attributes names for `file.txt`
 space.listxattr("file.txt")
@@ -174,6 +174,7 @@ space.listxattr("file.txt")
 ```
 
 To get the specific attribute value:
+
 ```python
 space.getxattr("file.txt", "org.onedata.space_id")
 ```
@@ -183,9 +184,11 @@ b'"8a803754b41d9d744c8f03170193c0ab"'
 ```
 
 To create a new extended attribute:
+
 ```python
 space.setxattr("file.txt", "license", '"CC-0"')
 ```
+
 Please note that the extended attribute values are by default parsed as JSON values,
 thus in order to insert a string, it has to have additional `"` qoutes.
 
