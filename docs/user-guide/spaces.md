@@ -77,10 +77,12 @@ the privileges and gain access to the **space XYZ** with admin privileges.
 <!-- TODO VFS-7218 documentation for space owner concept -->
 
 ## GUI guide
+
 Below is a step-by-step tutorial that will guide you through creating and
 managing spaces.
 
 ### Create or join a new space
+
 Navigate to the **DATA** tab to create your first space. You may also join an
 existing space using the **Consume** action in the
 [Tokens GUI](tokens.md#consuming-invite-tokens), in case you
@@ -112,6 +114,7 @@ token generation action, copy the acquired token and pass it to another user.
 ![image](../../images/user-guide/spaces/5-members.png#screenshot)
 
 ### Invite a group
+
 Create a new group using the `(+)` action button in the **GROUPS** menu.
 Name the group **Space admins**.
 ![image](../../images/user-guide/spaces/6-create-group.png#screenshot)
@@ -145,6 +148,7 @@ Create and add **Other group** to the space using one of those methods.
 ![image](../../images/user-guide/spaces/10-add-your-group.png#screenshot)
 
 ### Bulk edit of privileges
+
 You can use the **Bulk edit** action after selecting several groups and/or
 users to update the privileges for all of them at once. The new settings will
 overwrite the old ones to identical values.
