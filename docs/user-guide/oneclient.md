@@ -1,6 +1,6 @@
 # Oneclient
 
-[toc][]
+[toc]()
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
@@ -8,17 +8,20 @@ in your local file system tree. Oneclient is based on
 instructions below your particular platform.
 
 ## Installation
+
 Oneclient is supported on several major Linux platforms including Ubuntu
 (Xenial, Bionic) and CentOS 7. It can be installed using packages or the
 Conda package manager.
 
 ### Packages
+
 To install Oneclient using packages, simply use the following command:
 
 ```bash
 $ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
 ```
-> **NOTE**: The above command is only valid when installing a major release 20.02.*.
+
+> **NOTE**: The above command is only valid when installing a major release 20.02.\*.
 > For other versions, use appropriate script suffix, e.g. `1902` instead of `2002`.
 
 > After installing, ensure that you are able to access `fusermount` tool, by
@@ -28,6 +31,7 @@ $ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
 > to add your account to the `fuse` group.
 
 ### Anaconda
+
 Oneclient can be also installed using [Anaconda](https://anaconda.org),
 from the official [Onedata conda repository](https://anaconda.org/onedata):
 
@@ -43,6 +47,7 @@ $ conda install -c onedata oneclient=20.02.5
 
 For `CentOS 6` there is a special Conda channel `onedata-centos6`, and the
 install command is:
+
 ```bash
 $ conda install -c onedata-centos6 oneclient
 ```
@@ -68,7 +73,6 @@ If you are connecting to a provider service which does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
 `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable.
 
-
 ## Basic usage
 
 The basic command line syntax to mount your spaces with Oneclient is:
@@ -87,6 +91,7 @@ $ oneclient <MOUNT_POINT>                              # e.g. /home/joe/oneclien
 
 Provide the hostname of a chosen provider — one that supports at least one
 of your spaces. The choice of provider may depend on several factors:
+
 1. The quality of your network connection to the provider.
 2. The fact whether the provider supports the space that is to be accessed.
 3. Whether you wish to use the [direct I/O](#direct-io-and-proxy-io-modes) mode.
@@ -116,7 +121,6 @@ options:
 * `--space-id <id>` —  every occurence of this option followed by the id of a
   space will limit the mounted spaces to the specified spaces (e.g.
   `--space-id a58a461875b59988bd16eca960d8130b --space-id bd16eca960d8130ba58a461875b53451`)
-
 
 ### Direct I/O and Proxy I/O modes
 
@@ -156,6 +160,7 @@ This feature can be controlled using 2 command line options:
 > to a Oneprovider that supports the space with this storage.
 
 ### Buffering
+
 `oneclient` employs an in-memory buffer for input and output data blocks, which
 can significantly improve performance for various types of storages, in
 particular object based storages such as S3.
@@ -178,7 +183,6 @@ The buffer size can be also fine-tuned using the following options:
 
 ### Overriding storage helper parameters
 
-
 Oneclient allows to override certain storage helper parameters in order to
 customize direct access to storage from a Oneclient host to the storage. Use
 cases for this feature include specifying custom mounpoint for POSIX storages,
@@ -192,6 +196,7 @@ the Oneclient command line:
 `2bede2623303bc2a19696e5817e13c0b` is the storage id of this storage.
 
 The `--override` option takes 3 arguments separated by `:`:
+
 * `storage ID` – this is Onedata internal storage Id, which can be obtained
   from Onepanel administrator interface or using REST API
 * `parameter name` – this is the name of the storage helper parameter, these
@@ -213,7 +218,6 @@ a single integer argument which determines the log verbosity:
 > **NOTE**: above level 2, the size of the logs can be substantial thus
 > it is necessary to monitor free disk space. When the machine runs out of disk
 > space, Oneclient will stop logging.
-
 
 ### Other options
 
@@ -422,6 +426,7 @@ Monitoring options:
 ```
 
 ## Using Oneclient from Docker
+
 Oneclient can also be started without installation using our official Docker images:
 
 ```bash
@@ -433,6 +438,7 @@ $ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
 directory (inside container). They can be accessed from another terminal,
 for instance using:
+
 ```bash
 $ docker exec -it oneclient-1 /bin/bash
 
@@ -576,6 +582,7 @@ Once the Onedata Docker volume plugin service is running, all users in the
 `docker` group can create their volumes.
 
 #### Creating volumes
+
 A basic command to create a volume named `my_volume`, which mounts user spaces
 from a specific Oneprovider and with a specific access token is as follows:
 
