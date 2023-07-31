@@ -1,0 +1,1278 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <!-- Start book Onedata Documentation -->
+<!-- Start book Onedata Documentation -->
+    <head>
+        <!-- head:start -->
+<!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Storage Configuration | Onedata Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/nanoscroller.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/onedata.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/rest.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-responsive-iframes/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../../website-1686572662585.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../../doc/administering_onedata/storage_import.html" />
+    
+    
+    <link rel="prev" href="../../doc/administering_onedata/provider_space_support.html" />
+    
+
+        <!-- head:end -->
+<!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+<!-- body:start -->
+        
+    <div class="book"
+        data-level="3.6.5"
+        data-chapter-title="Storage Configuration"
+        data-filepath="doc/administering_onedata/storage_configuration.md"
+        data-basepath="../.."
+        data-revision="Mon Jun 12 2023 12:24:21 GMT+0000 (UTC)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Onedata Documentation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting Started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="doc/getting_started/what_is_onedata.html">
+            
+                
+                    <a href="../../doc/getting_started/what_is_onedata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        What is Onedata?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="doc/getting_started/downloading_onedata.html">
+            
+                
+                    <a href="../../doc/getting_started/downloading_onedata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Downloading Onedata
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="doc/getting_started/user_onedata_101.html">
+            
+                
+                    <a href="../../doc/getting_started/user_onedata_101.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        User Quickstart
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="doc/getting_started/admin_onedata_101.html">
+            
+                
+                    <a href="../../doc/getting_started/admin_onedata_101.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Admin Quickstart
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="doc/administering_onedata/onezone_quick_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_quick_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.1.</b>
+                        
+                        Onezone deploy
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="doc/administering_onedata/oneprovider_quick_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/oneprovider_quick_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.2.</b>
+                        
+                        Oneprovider deploy
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Onedata for users</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="doc/user_guide.html">
+            
+                
+                    <a href="../../doc/user_guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="doc/using_onedata/account_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/account_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Account Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="doc/using_onedata/space_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/space_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Space Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="doc/using_onedata/space_collaboration.html">
+            
+                
+                    <a href="../../doc/using_onedata/space_collaboration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Space Collaboration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="doc/using_onedata/group_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/group_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Group Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="doc/using_onedata/privilege_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/privilege_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Privilege Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="doc/using_onedata/file_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/file_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        File Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="doc/using_onedata/replication_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/replication_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.8.</b>
+                        
+                        Replication and Transfer Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="doc/using_onedata/metadata.html">
+            
+                
+                    <a href="../../doc/using_onedata/metadata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.9.</b>
+                        
+                        Metadata
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="doc/using_onedata/views.html">
+            
+                
+                    <a href="../../doc/using_onedata/views.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.10.</b>
+                        
+                        Views
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="doc/using_onedata/tokens.html">
+            
+                
+                    <a href="../../doc/using_onedata/tokens.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.11.</b>
+                        
+                        Tokens
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="doc/using_onedata/oneclient.html">
+            
+                
+                    <a href="../../doc/using_onedata/oneclient.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.12.</b>
+                        
+                        Oneclient CLI
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="doc/using_onedata/docker_volume_plugin.html">
+            
+                
+                    <a href="../../doc/using_onedata/docker_volume_plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.13.</b>
+                        
+                        Docker volume plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="doc/using_onedata/shares.html">
+            
+                
+                    <a href="../../doc/using_onedata/shares.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.14.</b>
+                        
+                        Shares
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="doc/using_onedata/file_registration.html">
+            
+                
+                    <a href="../../doc/using_onedata/file_registration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.15.</b>
+                        
+                        File registration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="doc/using_onedata/handle_services.html">
+            
+                
+                    <a href="../../doc/using_onedata/handle_services.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.16.</b>
+                        
+                        Handle Services
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.17" data-path="doc/using_onedata/using_onedata_from_cli.html">
+            
+                
+                    <a href="../../doc/using_onedata/using_onedata_from_cli.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.17.</b>
+                        
+                        Using REST API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.18" data-path="doc/using_onedata/onedatafs.html">
+            
+                
+                    <a href="../../doc/using_onedata/onedatafs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.18.</b>
+                        
+                        OnedataFS Python interface
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.19" data-path="doc/using_onedata/jupyter_integration.html">
+            
+                
+                    <a href="../../doc/using_onedata/jupyter_integration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.19.</b>
+                        
+                        Jupyter integration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.20" data-path="doc/using_onedata/qos.html">
+            
+                
+                    <a href="../../doc/using_onedata/qos.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.20.</b>
+                        
+                        Quality of Service
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Onedata for administrators</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="doc/admin_guide.html">
+            
+                
+                    <a href="../../doc/admin_guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="doc/system_requirements.html">
+            
+                
+                    <a href="../../doc/system_requirements.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        System requirements
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="doc/compatibility_reference.html">
+            
+                
+                    <a href="../../doc/compatibility_reference.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Compatibility reference
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="Services overview.html">
+            
+            <span><b>3.4.</b> Services overview</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.4.1" data-path="doc/administering_onedata/onezone_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.1.</b>
+                        
+                        Onezone overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.2" data-path="doc/administering_onedata/provider_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/provider_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.2.</b>
+                        
+                        Oneprovider overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.3" data-path="doc/administering_onedata/onepanel_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onepanel_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.3.</b>
+                        
+                        Onepanel overview
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="doc/administering_onedata/deployment_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/deployment_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        Installation tutorial
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="doc/administering_onedata/onedatify_deploy.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onedatify_deploy.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.1.</b>
+                        
+                        Oneprovider deploy
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="doc/administering_onedata/onedatify_deploy_with_import.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onedatify_deploy_with_import.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.2.</b>
+                        
+                        Oneprovider deploy and expose data
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.3" data-path="doc/administering_onedata/onezone_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.3.</b>
+                        
+                        Onezone setup
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="Administrator manual.html">
+            
+            <span><b>3.6.</b> Administrator manual</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.6.1" data-path="doc/administering_onedata/oneprovider_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/oneprovider_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.1.</b>
+                        
+                        Oneprovider setup
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.2" data-path="doc/administering_onedata/creating_user_accounts.html">
+            
+                
+                    <a href="../../doc/administering_onedata/creating_user_accounts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.2.</b>
+                        
+                        Creating User accounts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3" data-path="doc/administering_onedata/openid_saml_configuration.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.</b>
+                        
+                        OpenID &amp; SAML Configuration
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.6.3.1" data-path="doc/administering_onedata/openid_saml_configuration/openid_configuration_legacy.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_configuration_legacy.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.1.</b>
+                        
+                        18.02.0-rc11 or older
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.2" data-path="doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_18_02.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_18_02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.2.</b>
+                        
+                        18.02.0-rc12 - 18.02.*
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.3" data-path="doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.3.</b>
+                        
+                        19.02.* or newer
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.4" data-path="doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.4.</b>
+                        
+                        Google IdP tutorial
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.4" data-path="doc/administering_onedata/provider_space_support.html">
+            
+                
+                    <a href="../../doc/administering_onedata/provider_space_support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.4.</b>
+                        
+                        Space Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.6.5" data-path="doc/administering_onedata/storage_configuration.html">
+            
+                
+                    <a href="../../doc/administering_onedata/storage_configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.5.</b>
+                        
+                        Storage Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.6" data-path="doc/administering_onedata/storage_import.html">
+            
+                
+                    <a href="../../doc/administering_onedata/storage_import.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.6.</b>
+                        
+                        Storage import
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.7" data-path="doc/administering_onedata/ceph_cluster_deployment.html">
+            
+                
+                    <a href="../../doc/administering_onedata/ceph_cluster_deployment.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.7.</b>
+                        
+                        Ceph cluster deployment
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.8" data-path="doc/administering_onedata/ssl_certificate_management.html">
+            
+                
+                    <a href="../../doc/administering_onedata/ssl_certificate_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.8.</b>
+                        
+                        SSL Certificate Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.9" data-path="doc/administering_onedata/firewall_setup.html">
+            
+                
+                    <a href="../../doc/administering_onedata/firewall_setup.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.9.</b>
+                        
+                        Firewall Setup
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.10" data-path="doc/administering_onedata/luma.html">
+            
+                
+                    <a href="../../doc/administering_onedata/luma.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.10.</b>
+                        
+                        Local User Mapping - LUMA
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.11" data-path="doc/administering_onedata/file_popularity.html">
+            
+                
+                    <a href="../../doc/administering_onedata/file_popularity.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.11.</b>
+                        
+                        File-popularity
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.12" data-path="doc/administering_onedata/auto_cleaning.html">
+            
+                
+                    <a href="../../doc/administering_onedata/auto_cleaning.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.12.</b>
+                        
+                        Auto-cleaning
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.13" data-path="doc/administering_onedata/administering_onedata_from_cli.html">
+            
+                
+                    <a href="../../doc/administering_onedata/administering_onedata_from_cli.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.13.</b>
+                        
+                        Admin REST API
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="doc/advanced/index.html">
+            
+                
+                    <a href="../../doc/advanced/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Advanced topics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="doc/advanced/cdmi.html">
+            
+                
+                    <a href="../../doc/advanced/cdmi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        CDMI API
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Onedata Documentation</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="storage-configuration">Storage Configuration</h1>
+<!-- This header is referenced at least one time as "#storage-configuration" -->
+<!-- toc -->
+<ul>
+<li><a href="#configuration">Configuration</a><ul>
+<li><a href="#storage-type">Storage type</a></li>
+<li><a href="#storage-name">Storage name</a></li>
+<li><a href="#storage-path-type">Storage path type</a></li>
+<li><a href="#imported-storage">Imported storage</a></li>
+<li><a href="#readonly">Readonly</a></li>
+<li><a href="#skip-storage-detection">Skip storage detection</a></li>
+<li><a href="#luma-feed">LUMA feed</a></li>
+<li><a href="#timeout">Timeout</a></li>
+<li><a href="#qos-parameters">QoS Parameters</a></li>
+</ul>
+</li>
+<li><a href="#rest-api">REST API</a></li>
+</ul>
+<!-- toc stop -->
+<h2 id="configuration">Configuration</h2>
+<p>Onepanel GUI allows creating, editing and deleting storages under the <code>Storages</code> menu. 
+All storage configuration options are available during storage creation (see below picture and descriptions). 
+After the storage is created, only some of the parameters can be changed so as not to break the data integrity.</p>
+<figure id="fig3.6.5.1"><img src="../img/admin/storage_config.png" alt="Configuration of storage"><figcaption>Figure: Configuration of storage</figcaption></figure>
+<h3 id="storage-type">Storage type</h3>
+<p>Determines the type of corresponding storage backend.</p>
+<p>The currently supported storage backends include:</p>
+<ul>
+<li><code>POSIX</code> - any POSIX compatible storage, typically attached over high-throughput local network, such as NFS.</li>
+<li><code>S3</code> - <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html" target="_blank">Amazon S3</a> compatible storage.</li>
+<li><code>Ceph RADOS</code> - storage backend compatible with <a href="http://ceph.com/ceph-storage/" target="_blank">Ceph</a> object storage.</li>
+<li><code>Swift</code> - storage backend compatible with <a href="http://docs.openstack.org/developer/swift/" target="_blank">OpenStack SWIFT</a> protocol.</li>
+<li><code>GlusterFS</code> - <a href="https://www.gluster.org/" target="_blank">GlusterFS</a> volumes can be directly attached to the Oneprovider.</li>
+<li><code>Local Ceph</code> - local Ceph cluster that has been deployed during deployment of Oneprovider. For more information
+on local Ceph deployment please see <a href="ceph_cluster_deployment.html">here</a>.</li>
+<li><code>WebDAV</code> - storage backend compatible with <a href="https://tools.ietf.org/html/rfc4918" target="_blank">WebDAV</a> protocol.</li>
+<li><code>XRootD</code> - storage backend compatible with <a href="http://www.xrootd.org/" target="_blank">XRootD</a> protocol.</li>
+<li><code>HTTP</code> - any <a href="https://tools.ietf.org/html/rfc7231" target="_blank">HTTP</a> or HTTPS compatible server. 
+Supported only with <a href="#readonly"><code>Readonly</code></a> option enabled and in <a href="storage_import.html#manual-storage-import">manual import mode</a>.</li>
+<li><code>Null device</code> - POSIX compatible storage which emulates behavior of <code>/dev/null</code> on local filesystem. 
+Allows running various performance tests, which are not impacted by actual storage latency. 
+<a href="#skip-storage-detection"><code>Skip storage detection</code></a> option is obligatory for this type of storage.</li>
+</ul>
+<p>Please consult the <a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage" target="_blank">Add storage REST request</a>
+for comprehensive description of type-specific configuration parameters. The parameters are visible after selecting
+the specific type of storage from the dropdown in the request body specification.</p>
+<h3 id="storage-name">Storage name</h3>
+<p>A unique name for the storage resource.</p>
+<h3 id="storage-path-type">Storage path type</h3>
+<p>Determines how the logical file paths are mapped on the storage:</p>
+<ul>
+<li><code>canonical</code> paths reflect the logical file names and directory structure, however each rename operation 
+requires renaming the files on the storage which may result in copying the file blocks on some storage backends.
+Canonical path type is obligatory for <a href="#imported-storage">imported storages</a>.</li>
+<li><code>flat</code> paths are based on unique file UUID&apos;s and do not require on-storage rename when logical file name is changed.</li>
+</ul>
+<h3 id="imported-storage">Imported storage</h3>
+<p>Option <code>Imported storage</code> determines if the contents of this storage should be imported to the Onedata space supported
+with the storage. This option should be enabled in two setups: </p>
+<ul>
+<li>There is a legacy dataset located on the storage, which should be imported into a space.</li>
+<li>The data on storage is to be modified directly by third party applications, bypassing 
+the Oneprovider interfaces, and the changes should be reflected in the supported space.</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>: Storage that is marked as an <code>Imported storage</code> can be used to support just one space.</p>
+<p><strong>NOTE</strong>: Only one out of supporting providers can support the space with an <code>Imported storage</code>.</p>
+</blockquote>
+<p>Supporting the space with an <code>Imported storage</code> results in enabling the <code>storage import</code>, which allows 
+registering storage files in the space without copying any data. More information can be found <a href="storage_import.html">here</a>.</p>
+<p>Please make sure that the storage backend for which you intend to enable <code>Imported storage</code> option is supported.
+Consult the list of supported backends and the required configuration for 
+<a href="storage_import.html#storage-configuration-for-manual-import">manual</a> 
+and <a href="storage_import.html#storage-configuration-for-auto-import">auto</a> import modes.</p>
+<h3 id="readonly">Readonly</h3>
+<p>Option <code>Readonly</code> determines that the storage is to be treated by the Oneprovider as readonly.
+In such case, Oneprovider does not attempt to create, modify or delete files on the storage.
+File blocks cannot be replicated onto the storage from other providers.
+For above reasons, <code>storage import</code> is effectively the only way to use such storage within a space - in consequence 
+the <code>Readonly</code> option is available only for an <code>Imported storage</code>.
+The imported data will be available in readonly mode, unless replicated to other providers. </p>
+<p>This option can be chosen even if the provider has write access to the storage, but the admin decides that it
+should be perceived as readonly. However, if the storage is indeed readonly (prevents making any changes),
+<code>Readonly</code> <strong>must</strong> be enabled for correct operation of the Oneprovider service.</p>
+<p>If you wish to use <a href="../using_onedata/oneclient.html#direct-io-and-proxy-io-modes">Oneclient in direct-io mode</a> on
+a readonly storage, you should also enable <a href="#skip-storage-detection"><code>Skip storage detection</code></a> option to turn off
+automatic detection of direct access to the storage in the Oneclient application. Please remember that in such case,
+ <code>--force-direct-io</code> option has to be passed to Oneclient application to enable <code>direct-io</code> mode. 
+Additionally, on POSIX compatible storages mountpoint must be passed manually.
+Please see Oneclient&apos;s documentation for <a href="../using_onedata/oneclient.html#direct-io-and-proxy-io-modes"><code>--force-direct-io</code></a>
+and <a href="../using_onedata/oneclient.html#overriding-storage-helper-parameters"><code>--override</code></a> options.</p>
+<h3 id="skip-storage-detection">Skip storage detection</h3>
+<p><code>Skip storage detection</code> option turns off automatic detection of direct access to the storage in all instances of Oneclient application.
+It also disables checks performed by Oneprovider when storage is added or modified.</p>
+<h3 id="luma-feed">LUMA feed</h3>
+<p>Option <code>LUMA feed</code> determines type of feed for <a href="luma.html">Local User Mapping Database</a>.
+There are 3 possible values:</p>
+<ul>
+<li><code>auto</code></li>
+<li><code>local</code></li>
+<li><code>external</code></li>
+</ul>
+<p>For more information on configuration of LUMA DB feed please see <a href="luma.html#configuration">here</a>.</p>
+<h3 id="timeout">Timeout</h3>
+<p>Storage operation timeout in milliseconds. This parameter is optional, the default is 120 seconds.</p>
+<h3 id="qos-parameters">QoS Parameters</h3>
+<!-- TODO VFS-6815: After dividing the chapter, update below link to point to
+     the QoS parameters in the admin chapter.
+ -->
+<p>Quality of service parameters. 
+For more information on configuration of <code>Quality of Service</code> mechanism please see <a href="../using_onedata/qos.html">here</a>.</p>
+<h2 id="rest-api">REST API</h2>
+<p>All operations on storage resources that are available in the Onepanel GUI can be performed using REST API.</p>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Link to API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create storage</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Get storage details</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Update storage</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove storage</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>List storage resources</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages" target="_blank">API</a></td>
+</tr>
+</tbody>
+</table>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../doc/administering_onedata/provider_space_support.html" class="navigation navigation-prev " aria-label="Previous page: Space Support"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../doc/administering_onedata/storage_import.html" class="navigation navigation-next " aria-label="Next page: Storage import"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/nanoscroller.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/onedata.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/w3data.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-responsive-iframes/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"image-captions":{"caption":"","variable_name":"_pictures"},"ga":{"token":"UA-63301911-1","configuration":"auto"},"favicon":"doc/img/onedata.ico","search":{"maxIndexSize":1000000},"onedata-theme":{},"youtube":{},"toggle-chapters":{},"toc":{},"include":{},"responsive-iframes":{},"custom-favicon":{},"styles-sass":{},"include-html":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+<!-- body:end -->
+    </body>
+    <!-- End of book Onedata Documentation -->
+<!-- End of book Onedata Documentation -->
+</html>

@@ -1,0 +1,202 @@
+/* colors */
+@font-face {
+  font-family: 'Open Sans';
+  src: url("OpenSans-Regular-webfont.eot");
+  src: local("Open Sans"), local("OpenSans"), url("gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.woff2") format("woff2"), url("gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.woff") format("woff"), url("gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.svg#open_sansregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.right-side {
+  float: right;
+  width: 50%;
+  margin: 20px; }
+
+h1 img[alt='Onedata'] {
+  height: 0.75em;
+  margin-right: 0.3em; }
+
+.book.font-family-1 {
+  font-family: 'Open Sans', sans-serif; }
+
+.book {
+  font-family: 'Open Sans', sans-serif; }
+  .book .book-body {
+    /* All links in content */ }
+    .book .book-body h1 {
+      padding-bottom: 6px;
+      letter-spacing: .125em;
+      text-transform: uppercase;
+      color: #F14549;
+      border-bottom: #9F9F9F solid 1px; }
+    .book .book-body .page-wrapper .page-inner section.normal a {
+      color: #F14549; }
+    .book .book-body .page-wrapper .page-inner section.normal .swagger {
+      font-size: 14px; }
+    .book .book-body .page-wrapper .page-inner section.normal .swagger td, .book .book-body th {
+      vertical-align: middle; }
+    .book .book-body .page-wrapper .page-inner section.normal .swagger .panel-title {
+      margin-top: 0em;
+      margin-bottom: 0em; }
+    .book .book-body .page-wrapper .page-inner section.normal .glossary-term {
+      font-style: italic;
+      text-decoration: initial;
+      color: #333; }
+    .book .book-body .page-wrapper .page-inner section.normal h1 .glossary-term,
+    .book .book-body .page-wrapper .page-inner section.normal h2 .glossary-term,
+    .book .book-body .page-wrapper .page-inner section.normal h3 .glossary-term,
+    .book .book-body .page-wrapper .page-inner section.normal h4 .glossary-term,
+    .book .book-body .page-wrapper .page-inner section.normal h5 .glossary-term {
+      font-style: normal;
+      color: #F14549; }
+    .book .book-body .page-wrapper .page-inner section.normal h1 .glossary-term:hover,
+    .book .book-body .page-wrapper .page-inner section.normal h2 .glossary-term:hover,
+    .book .book-body .page-wrapper .page-inner section.normal h3 .glossary-term:hover,
+    .book .book-body .page-wrapper .page-inner section.normal h4 .glossary-term:hover,
+    .book .book-body .page-wrapper .page-inner section.normal h5 .glossary-term:hover {
+      text-decoration: none; }
+  .book .book-header {
+    font-family: 'Open Sans', sans-serif; }
+  .book .book-summary {
+    font-family: 'Open Sans', sans-serif;
+    width: 280px;
+    border-style: none;
+    background-color: transparent;
+    /* Shrink sub-chapters to 90% of chapters */ }
+    .book .book-summary ul.summary > li.chapter:first-child {
+      border-top: none; }
+    .book .book-summary ul.summary li.chapter[data-level="0"] {
+      padding: 0; }
+      .book .book-summary ul.summary li.chapter[data-level="0"] a {
+        line-height: 48px;
+        display: inline;
+        font-size: 13pt;
+        text-transform: uppercase;
+        color: #000;
+        font-weight: bold; }
+        .book .book-summary ul.summary li.chapter[data-level="0"] a:hover {
+          color: #F14549; }
+        .book .book-summary ul.summary li.chapter[data-level="0"] a img {
+          position: relative;
+          top: -1px;
+          height: 0.78em; }
+      .book .book-summary ul.summary li.chapter[data-level="0"] .header-logo {
+        padding-right: 0; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) > a {
+      margin-left: 12px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter a {
+      padding-left: 20px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter:not(.no-children)::before {
+      left: 16px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 40px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 36px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 60px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 56px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 80px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 76px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 100px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 96px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 120px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 116px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 140px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 136px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 160px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 156px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 180px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 176px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter a {
+      padding-left: 200px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]) ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter ul.articles li.chapter:not(.no-children)::before {
+      left: 196px; }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]):not(.no-children):before {
+      position: absolute;
+      top: 19px;
+      left: 10px;
+      content: "";
+      border-style: solid;
+      border-width: 5px 0 5px 8px;
+      border-color: transparent transparent transparent #364149;
+      transform: rotate(0deg); }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]):not(.no-children).active:before {
+      transform: rotate(90deg); }
+    .book .book-summary ul.summary li.chapter:not([data-level="0"]):not(.no-children):hover:before, .book .book-summary ul.summary li.chapter:not([data-level="0"]):not(.no-children).active:before {
+      border-color: transparent transparent transparent #F14549; }
+    .book .book-summary ul.summary li.chapter li.chapter:not(.no-children):before {
+      left: 30px;
+      top: 18px; }
+    .book .book-summary ul.summary li.active > a,
+    .book .book-summary ul.summary li a:hover {
+      color: #F14549; }
+    .book .book-summary ul.summary li.active span {
+      color: #999; }
+    .book .book-summary ul.summary li.chapter {
+      position: relative;
+      padding-top: 5px;
+      border-top: #e5e4e5 solid 1px; }
+    .book .book-summary ul.summary li ul {
+      padding-left: 0px; }
+    .book .book-summary ul.summary li.divider {
+      display: none; }
+    .book .book-summary ul.summary li span b,
+    .book .book-summary ul.summary li a b {
+      display: none; }
+    .book .book-summary ul.articles li.chapter {
+      font-size: 98%; }
+
+a.gitbook-link {
+  display: none !important; }
+
+/* Glossary term */
+.glossary-term {
+  text-decoration: none; }
+
+h1 .glossary-term,
+h2 .glossary-term,
+h3 .glossary-term,
+h4 .glossary-term,
+h5 .glossary-term {
+  text-decoration: none; }
+
+/* Figures */
+figure {
+  text-align: center; }
+
+.clearfix {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* heading in summary - used for onedata logo */
+.summary h1 {
+  font-size: 13pt;
+  text-transform: uppercase;
+  color: #000; }
+  .summary h1 img {
+    height: 0.75em; }
+
+.summary h1:hover {
+  color: #F14549; }
+
+.book-summary .version-string {
+  position: absolute;
+  bottom: 0;
+  height: 112px;
+  padding: 4px; }
+
+.book-summary .version-string ~ .summary {
+  bottom: 112px !important; }

@@ -1,0 +1,1790 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <!-- Start book Onedata Documentation -->
+<!-- Start book Onedata Documentation -->
+    <head>
+        <!-- head:start -->
+<!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Local User Mapping - LUMA | Onedata Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/nanoscroller.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/onedata.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-onedata-theme/rest.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-responsive-iframes/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../../website-1686572662585.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../../doc/administering_onedata/file_popularity.html" />
+    
+    
+    <link rel="prev" href="../../doc/administering_onedata/firewall_setup.html" />
+    
+
+        <!-- head:end -->
+<!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+<!-- body:start -->
+        
+    <div class="book"
+        data-level="3.6.10"
+        data-chapter-title="Local User Mapping - LUMA"
+        data-filepath="doc/administering_onedata/luma.md"
+        data-basepath="../.."
+        data-revision="Mon Jun 12 2023 12:24:21 GMT+0000 (UTC)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Onedata Documentation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting Started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="doc/getting_started/what_is_onedata.html">
+            
+                
+                    <a href="../../doc/getting_started/what_is_onedata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        What is Onedata?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="doc/getting_started/downloading_onedata.html">
+            
+                
+                    <a href="../../doc/getting_started/downloading_onedata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Downloading Onedata
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="doc/getting_started/user_onedata_101.html">
+            
+                
+                    <a href="../../doc/getting_started/user_onedata_101.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        User Quickstart
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="doc/getting_started/admin_onedata_101.html">
+            
+                
+                    <a href="../../doc/getting_started/admin_onedata_101.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Admin Quickstart
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="doc/administering_onedata/onezone_quick_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_quick_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.1.</b>
+                        
+                        Onezone deploy
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="doc/administering_onedata/oneprovider_quick_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/oneprovider_quick_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.2.</b>
+                        
+                        Oneprovider deploy
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Onedata for users</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="doc/user_guide.html">
+            
+                
+                    <a href="../../doc/user_guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="doc/using_onedata/account_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/account_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Account Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="doc/using_onedata/space_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/space_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Space Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="doc/using_onedata/space_collaboration.html">
+            
+                
+                    <a href="../../doc/using_onedata/space_collaboration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Space Collaboration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="doc/using_onedata/group_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/group_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Group Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="doc/using_onedata/privilege_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/privilege_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Privilege Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="doc/using_onedata/file_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/file_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        File Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="doc/using_onedata/replication_management.html">
+            
+                
+                    <a href="../../doc/using_onedata/replication_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.8.</b>
+                        
+                        Replication and Transfer Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="doc/using_onedata/metadata.html">
+            
+                
+                    <a href="../../doc/using_onedata/metadata.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.9.</b>
+                        
+                        Metadata
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="doc/using_onedata/views.html">
+            
+                
+                    <a href="../../doc/using_onedata/views.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.10.</b>
+                        
+                        Views
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="doc/using_onedata/tokens.html">
+            
+                
+                    <a href="../../doc/using_onedata/tokens.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.11.</b>
+                        
+                        Tokens
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="doc/using_onedata/oneclient.html">
+            
+                
+                    <a href="../../doc/using_onedata/oneclient.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.12.</b>
+                        
+                        Oneclient CLI
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="doc/using_onedata/docker_volume_plugin.html">
+            
+                
+                    <a href="../../doc/using_onedata/docker_volume_plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.13.</b>
+                        
+                        Docker volume plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="doc/using_onedata/shares.html">
+            
+                
+                    <a href="../../doc/using_onedata/shares.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.14.</b>
+                        
+                        Shares
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="doc/using_onedata/file_registration.html">
+            
+                
+                    <a href="../../doc/using_onedata/file_registration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.15.</b>
+                        
+                        File registration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="doc/using_onedata/handle_services.html">
+            
+                
+                    <a href="../../doc/using_onedata/handle_services.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.16.</b>
+                        
+                        Handle Services
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.17" data-path="doc/using_onedata/using_onedata_from_cli.html">
+            
+                
+                    <a href="../../doc/using_onedata/using_onedata_from_cli.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.17.</b>
+                        
+                        Using REST API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.18" data-path="doc/using_onedata/onedatafs.html">
+            
+                
+                    <a href="../../doc/using_onedata/onedatafs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.18.</b>
+                        
+                        OnedataFS Python interface
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.19" data-path="doc/using_onedata/jupyter_integration.html">
+            
+                
+                    <a href="../../doc/using_onedata/jupyter_integration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.19.</b>
+                        
+                        Jupyter integration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.20" data-path="doc/using_onedata/qos.html">
+            
+                
+                    <a href="../../doc/using_onedata/qos.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.20.</b>
+                        
+                        Quality of Service
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Onedata for administrators</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="doc/admin_guide.html">
+            
+                
+                    <a href="../../doc/admin_guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="doc/system_requirements.html">
+            
+                
+                    <a href="../../doc/system_requirements.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        System requirements
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="doc/compatibility_reference.html">
+            
+                
+                    <a href="../../doc/compatibility_reference.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Compatibility reference
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="Services overview.html">
+            
+            <span><b>3.4.</b> Services overview</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.4.1" data-path="doc/administering_onedata/onezone_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.1.</b>
+                        
+                        Onezone overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.2" data-path="doc/administering_onedata/provider_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/provider_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.2.</b>
+                        
+                        Oneprovider overview
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.3" data-path="doc/administering_onedata/onepanel_overview.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onepanel_overview.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.3.</b>
+                        
+                        Onepanel overview
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="doc/administering_onedata/deployment_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/deployment_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        Installation tutorial
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="doc/administering_onedata/onedatify_deploy.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onedatify_deploy.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.1.</b>
+                        
+                        Oneprovider deploy
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="doc/administering_onedata/onedatify_deploy_with_import.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onedatify_deploy_with_import.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.2.</b>
+                        
+                        Oneprovider deploy and expose data
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.3" data-path="doc/administering_onedata/onezone_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/onezone_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.3.</b>
+                        
+                        Onezone setup
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="Administrator manual.html">
+            
+            <span><b>3.6.</b> Administrator manual</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.6.1" data-path="doc/administering_onedata/oneprovider_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/oneprovider_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.1.</b>
+                        
+                        Oneprovider setup
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.2" data-path="doc/administering_onedata/creating_user_accounts.html">
+            
+                
+                    <a href="../../doc/administering_onedata/creating_user_accounts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.2.</b>
+                        
+                        Creating User accounts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3" data-path="doc/administering_onedata/openid_saml_configuration.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.</b>
+                        
+                        OpenID &amp; SAML Configuration
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.6.3.1" data-path="doc/administering_onedata/openid_saml_configuration/openid_configuration_legacy.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_configuration_legacy.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.1.</b>
+                        
+                        18.02.0-rc11 or older
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.2" data-path="doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_18_02.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_18_02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.2.</b>
+                        
+                        18.02.0-rc12 - 18.02.*
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.3" data-path="doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/openid_saml_configuration_19_02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.3.</b>
+                        
+                        19.02.* or newer
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3.4" data-path="doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.html">
+            
+                
+                    <a href="../../doc/administering_onedata/openid_saml_configuration/google_idp_tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.3.4.</b>
+                        
+                        Google IdP tutorial
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.4" data-path="doc/administering_onedata/provider_space_support.html">
+            
+                
+                    <a href="../../doc/administering_onedata/provider_space_support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.4.</b>
+                        
+                        Space Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.5" data-path="doc/administering_onedata/storage_configuration.html">
+            
+                
+                    <a href="../../doc/administering_onedata/storage_configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.5.</b>
+                        
+                        Storage Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.6" data-path="doc/administering_onedata/storage_import.html">
+            
+                
+                    <a href="../../doc/administering_onedata/storage_import.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.6.</b>
+                        
+                        Storage import
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.7" data-path="doc/administering_onedata/ceph_cluster_deployment.html">
+            
+                
+                    <a href="../../doc/administering_onedata/ceph_cluster_deployment.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.7.</b>
+                        
+                        Ceph cluster deployment
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.8" data-path="doc/administering_onedata/ssl_certificate_management.html">
+            
+                
+                    <a href="../../doc/administering_onedata/ssl_certificate_management.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.8.</b>
+                        
+                        SSL Certificate Management
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.9" data-path="doc/administering_onedata/firewall_setup.html">
+            
+                
+                    <a href="../../doc/administering_onedata/firewall_setup.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.9.</b>
+                        
+                        Firewall Setup
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.6.10" data-path="doc/administering_onedata/luma.html">
+            
+                
+                    <a href="../../doc/administering_onedata/luma.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.10.</b>
+                        
+                        Local User Mapping - LUMA
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.11" data-path="doc/administering_onedata/file_popularity.html">
+            
+                
+                    <a href="../../doc/administering_onedata/file_popularity.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.11.</b>
+                        
+                        File-popularity
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.12" data-path="doc/administering_onedata/auto_cleaning.html">
+            
+                
+                    <a href="../../doc/administering_onedata/auto_cleaning.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.12.</b>
+                        
+                        Auto-cleaning
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.13" data-path="doc/administering_onedata/administering_onedata_from_cli.html">
+            
+                
+                    <a href="../../doc/administering_onedata/administering_onedata_from_cli.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.13.</b>
+                        
+                        Admin REST API
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="doc/advanced/index.html">
+            
+                
+                    <a href="../../doc/advanced/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Advanced topics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="doc/advanced/cdmi.html">
+            
+                
+                    <a href="../../doc/advanced/cdmi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        CDMI API
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Onedata Documentation</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="local-user-mapping--luma">Local User Mapping - LUMA</h1>
+<!-- toc -->
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#storage-and-luma-essentials">Storage and LUMA essentials</a><ul>
+<li><a href="#configuration-for-regular-non-imported-storages">Configuration for regular (non-imported) storages</a></li>
+<li><a href="#configuration-for-imported-storages">Configuration for imported storages</a></li>
+</ul>
+</li>
+<li><a href="#credential-types">Credential types</a><ul>
+<li><a href="#storage-credentials">Storage credentials</a></li>
+<li><a href="#display-credentials">Display credentials</a></li>
+<li><a href="#onedata-user-credentials">Onedata user credentials</a></li>
+<li><a href="#onedata-group-credentials">Onedata group credentials</a></li>
+</ul>
+</li>
+<li><a href="#database">Database</a><ul>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#records">Records</a><ul>
+<li><a href="#storageuser"><code>StorageUser</code></a></li>
+<li><a href="#posixcredentials"><code>PosixCredentials</code></a></li>
+<li><a href="#onedatauser"><code>OnedataUser</code></a></li>
+<li><a href="#onedatagroup"><code>OnedataGroup</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#luma-mappings">LUMA mappings</a><ul>
+<li><a href="#regular-non-imported-storages">Regular (non-imported) storages</a><ul>
+<li><a href="#onedata-user-to-storage-credentials-mapping">Onedata user to storage credentials mapping</a></li>
+<li><a href="#onedata-user-to-display-credentials-mapping">Onedata user to display credentials mapping</a></li>
+</ul>
+</li>
+<li><a href="#imported-storages">Imported storages</a><ul>
+<li><a href="#storage-user-to-onedata-user-mapping">Storage user to Onedata user mapping</a></li>
+<li><a href="#storage-acl-user-to-onedata-user-mapping">Storage ACL user to Onedata user mapping</a></li>
+<li><a href="#storage-acl-group-to-onedata-group-mapping">Storage ACL group to Onedata group mapping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#populating-luma-db-with-feeds">Populating LUMA DB with feeds</a><ul>
+<li><a href="#auto-feed">Auto Feed</a><ul>
+<li><a href="#auto-feed-for-storage-users-table">Auto feed for Storage users table</a></li>
+<li><a href="#auto-feed-for-spaces-posix-storage-defaults-table">Auto feed for Spaces posix storage defaults table</a></li>
+<li><a href="#auto-feed-for-spaces-display-defaults-table">Auto feed for Spaces display defaults table</a></li>
+<li><a href="#auto-feed-for-onedata-users-table">Auto feed for Onedata users table</a></li>
+<li><a href="#auto-feed-for-onedata-groups-table">Auto feed for Onedata groups table</a></li>
+</ul>
+</li>
+<li><a href="#local-feed">Local Feed</a></li>
+<li><a href="#external-feed">External Feed</a><ul>
+<li><a href="#endpoint-for-mapping-onedata-user-to-storage-credentials">Endpoint for mapping Onedata user to storage credentials</a></li>
+<li><a href="#endpoint-for-setting-default-posix-storage-credentials-in-the-space">Endpoint for setting default POSIX storage credentials in the space</a></li>
+<li><a href="#endpoint-for-setting-default-space-display-credentials-in-the-space">Endpoint for setting default space display credentials in the space</a></li>
+<li><a href="#endpoint-for-mapping-storage-uid-to-onedata-user">Endpoint for mapping storage UID to Onedata user</a></li>
+<li><a href="#endpoint-for-mapping-nfsv4-acl-user-principal-to-onedata-user">Endpoint for mapping NFSv4 ACL user principal to Onedata user</a></li>
+<li><a href="#endpoint-for-mapping-nfsv4-acl-group-principal-to-onedata-group">Endpoint for mapping NFSv4 ACL group principal to Onedata group</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#rest-api">REST API</a></li>
+</ul>
+<!-- toc stop -->
+<h2 id="overview">Overview</h2>
+<p>LUMA is a database that stores mappings between Onedata user accounts and local user accounts/credentials on storage 
+resources, e.g.:</p>
+<ul>
+<li>POSIX UID/GID</li>
+<li>Ceph username and password</li>
+<li>GlusterFS UID/GID</li>
+</ul>
+<p>LUMA DB essentially establishes a relation between members of a Onedata space and user accounts recognized by different 
+storage providers, reflecting the ownerships of user data kept on various storage systems in different locations.
+The LUMA DB can be set up for each storage registered in Oneprovider separately, with different credentials for users on 
+each storage.</p>
+<p>In order to understand LUMA DB and how mappings should be defined please consult how 
+<a href="../using_onedata/file_management.html#posix-permissions">POSIX-like file ownership and permissions</a> work in Onedata.</p>
+<h2 id="storage-and-luma-essentials">Storage and LUMA essentials</h2>
+<p><strong>Below checklist contains the fundamental steps to properly configure your storage and the LUMA DB.</strong>
+It is recommended that you first familiarize yourself with all the concepts described in this chapter.</p>
+<h3 id="configuration-for-regular-nonimported-storages">Configuration for regular (non-imported) storages</h3>
+<ol>
+<li>Choose the right <a href="#populating-luma-db-with-feeds">LUMA DB feed</a></li>
+<li>Substantiate the <a href="#luma-mappings">required mappings</a> (if required) </li>
+<li>Make sure that <a href="#onedata-user-to-storage-credentials-mapping">storage credentials</a> to which Onedata users will be
+mapped exist and are reflected in the storage system.</li>
+</ol>
+<h3 id="configuration-for-imported-storages">Configuration for imported storages</h3>
+<ol>
+<li>Choose the right <a href="#populating-luma-db-with-feeds">LUMA DB feed</a></li>
+<li>Substantiate the <a href="#luma-mappings">required mappings</a> (if required) </li>
+<li>Make sure that <a href="#onedata-user-to-storage-credentials-mapping">storage credentials</a> to which Onedata users will be
+mapped exist and are reflected in the storage system.</li>
+<li>It is strongly recommended to ensure that all files on the imported storage have the same group owner (GID) - <a href="#imported-storages">read more</a>.</li>
+<li>If you intend to enable <code>auto storage import</code> with enabled <code>syncAcl</code> option you must properly set chosen feed to 
+deliver mappings for NFSv4 ACL <a href="#storage-acl-user-to-onedata-user-mapping">users</a> and
+<a href="#storage-acl-group-to-onedata-group-mapping">groups</a> for which ACLs are set on the imported storage.</li>
+</ol>
+<h2 id="credential-types">Credential types</h2>
+<p>These definitions are used throughout the rest of the chapter.</p>
+<h3 id="storage-credentials">Storage credentials</h3>
+<p>Credentials relevant for corresponding storage backend, used to perform operations on the storage in context of a specific user.</p>
+<h3 id="display-credentials">Display credentials</h3>
+<p>Credentials used to present POSIX credentials (UID &amp; GID) of a file owner in the
+file&apos;s attributes, e.g., they are displayed in the result of <code>ls</code> operation in Oneclient or when fetching file
+attributes using REST API.</p>
+<h3 id="onedata-user-credentials">Onedata user credentials</h3>
+<p>Credentials identifying a user in the Onedata system.</p>
+<h3 id="onedata-group-credentials">Onedata group credentials</h3>
+<p>Credentials identifying a group in the Onedata system.</p>
+<h2 id="database">Database</h2>
+<p>LUMA DB consists of 5 tables that store 4 types of records, as described below.</p>
+<h3 id="tables">Tables</h3>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Key</th>
+<th>Record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storage users</td>
+<td><code>(StorageId, UserId)</code></td>
+<td><a href="#storageuser"><code>StorageUser</code></a></td>
+</tr>
+<tr>
+<td>Spaces posix storage defaults</td>
+<td><code>(StorageId, SpaceId)</code></td>
+<td><a href="#posixcredentials"><code>PosixCredentials</code></a></td>
+</tr>
+<tr>
+<td>Spaces display defaults</td>
+<td><code>(StorageId, SpaceId)</code></td>
+<td><a href="#posixcredentials"><code>PosixCredentials</code></a></td>
+</tr>
+<tr>
+<td>Onedata users</td>
+<td><code>(StorageId, UID/AclUser)</code></td>
+<td><a href="#onedatauser"><code>OnedataUser</code></a></td>
+</tr>
+<tr>
+<td>Onedata groups</td>
+<td><code>(StorageId, AclGroup)</code></td>
+<td><a href="#onedatagroup"><code>OnedataGroup</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="records">Records</h3>
+<h4 id="storageuser"><code>StorageUser</code></h4>
+<p>This record is used to represent user on the specific storage backend and consists of two fields:</p>
+<ul>
+<li><code>storageCredentials</code> is a map storing credentials relevant for given storage backend,</li>
+<li><code>displayUid</code> is a field used to present corresponding user as owner of a file (UID) in Oneclient or GUI</li>
+</ul>
+<pre><code class="lang-JSON">{
+    <span class="hljs-string">&quot;storageCredentials&quot;</span>: <span class="hljs-built_in">JSON</span>, <span class="hljs-comment">// Map storing credentials relevant for given storage backend</span>
+    <span class="hljs-string">&quot;displayUid&quot;</span>: Integer
+}
+</code></pre>
+<h4 id="posixcredentials"><code>PosixCredentials</code></h4>
+<p>This record stores standard POSIX-like user Id and group Id.</p>
+<pre><code class="lang-JSON">{
+    <span class="hljs-string">&quot;uid&quot;</span>: Integer,
+    <span class="hljs-string">&quot;gid&quot;</span>: Integer
+}
+</code></pre>
+<h4 id="onedatauser"><code>OnedataUser</code></h4>
+<p>These record represents credentials identifying a user in the Onedata system.
+The record has one of the two schemes:</p>
+<ul>
+<li><code>&quot;onedataUser&quot;</code> - user&apos;s Id is stored directly in the record</li>
+<li><code>&quot;idpUser&quot;</code> - the record stores Id of an external identity provider (Idp) and Id of the user understood by the Idp<pre><code class="lang-JSON">{
+  <span class="hljs-string">&quot;mappingScheme&quot;</span>: <span class="hljs-string">&quot;onedataUser&quot;</span> | <span class="hljs-string">&quot;idpUser&quot;</span>,
+  <span class="hljs-comment">// fields for &quot;onedataUser&quot; scheme</span>
+  <span class="hljs-string">&quot;onedataUserId&quot;</span>: <span class="hljs-built_in">String</span>,     
+  <span class="hljs-comment">// fields for &quot;idpUser&quot; scheme</span>
+  <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,
+  <span class="hljs-string">&quot;subjectId&quot;</span>: <span class="hljs-built_in">String</span>
+}
+</code></pre>
+</li>
+</ul>
+<p>For more information on mapping users from external Idp to Onedata users please see 
+<a href="openid_saml_configuration/openid_saml_configuration_19_02.html#attribute-mapping">here</a>.</p>
+<h4 id="onedatagroup"><code>OnedataGroup</code></h4>
+<p>These record represents credentials identifying a group in the Onedata system.
+The record has one of the two schemes:</p>
+<ul>
+<li><code>&quot;onedataGroup&quot;</code> - group&apos;s Id is stored directly in the record</li>
+<li><code>&quot;idpEntitlement&quot;</code> - the record stores Id of an external identity provider (Idp) and Id of the group understood by the Idp<pre><code class="lang-JSON">{
+  <span class="hljs-string">&quot;mappingScheme&quot;</span>: <span class="hljs-string">&quot;onedataGroup&quot;</span> | <span class="hljs-string">&quot;idpEntitlement&quot;</span>,
+  <span class="hljs-comment">// fields for &quot;onedataGroup&quot; scheme</span>
+  <span class="hljs-string">&quot;onedataGroupId&quot;</span>: <span class="hljs-built_in">String</span>,
+  <span class="hljs-comment">// fields for &quot;idpEntitlement&quot; scheme</span>
+  <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,
+  <span class="hljs-string">&quot;idpEntitlement&quot;</span>: <span class="hljs-built_in">String</span>
+}
+</code></pre>
+</li>
+</ul>
+<p>For more information on mapping groups from external Idp to Onedata groups please see 
+<a href="openid_saml_configuration/openid_saml_configuration_19_02.html#entitlement-mapping">here</a>.</p>
+<h2 id="luma-mappings">LUMA mappings</h2>
+<p>The mappings that need to be provided are different for regular and imported storages, as shown below. Instructions how
+to populate the LUMA DB with required mappings can be found in the <a href="#populating-luma-db-with-feeds">next section</a>.</p>
+<h3 id="regular-nonimported-storages">Regular (non-imported) storages</h3>
+<p>If the <code>storage import</code> is disabled, LUMA is used to access the storage in the user&apos;s context and it is sufficient to provide 
+the <a href="#storage-credentials">storage credentials</a> mapping and recommended to set the default space GID in case of POSIX 
+storage (see below). The <a href="#display-credentials">display credentials</a> are optional - LUMA will use defaults if not provided.</p>
+<h4 id="onedata-user-to-storage-credentials-mapping">Onedata user to storage credentials mapping</h4>
+<p><a href="#storage-credentials">Storage credentials</a> are acquired differently depending on the storage type.</p>
+<p>On POSIX incompatible storages, field <code>storageCredentials</code> from <a href="#storageuser"><code>StorageUser</code></a> record stored in 
+<a href="#tables">Storage users table</a> is basically returned.</p>
+<p>On POSIX compatible storages (currently POSIX, GLUSTERFS, NULLDEVICE), credentials consist of 2 integers: UID and GID.
+Only UID field is stored in the <a href="#storageuser"><code>StorageUser</code></a> record, the GID is constant for the space 
+(all space members are treated as the owner group - <a href="../using_onedata/file_management.html#posix-permissions">read more</a>).
+This strategy ensures that all files created in the space have the same GID owner on the supporting storage so that
+ownership of the files in the space is correctly mapped on the storage. </p>
+<p>Due to above reasons, GID is acquired from field <code>gid</code> from <a href="#posixcredentials"><code>PosixCredentials</code></a> 
+record stored in <a href="#tables">Spaces posix storage defaults table</a>.</p>
+<blockquote>
+<p><strong>NOTE:</strong> To enable use of <a href="../using_onedata/oneclient.html#direct-io-and-proxy-io-modes">Oneclient in direct-io mode</a> 
+for all space users, the storage admin has to ensure that:</p>
+<ul>
+<li>LUMA properly maps each Onedata user to an UID that is recognized in the system hosting the storage</li>
+<li>There exists a group in the system hosting the storage with GID equal to the virtual space GID 
+(<a href="../using_onedata/file_management.html#posix-permissions">read more</a>), and all above-mentioned UIDs belong to the group</li>
+</ul>
+</blockquote>
+<h4 id="onedata-user-to-display-credentials-mapping">Onedata user to display credentials mapping</h4>
+<p><a href="#display-credentials">Display credentials</a> are POSIX compatible credentials that consist of 2 integers: UID and GID.</p>
+<p>UID is acquired from field <code>displayUid</code> from <a href="#storageuser"><code>StorageUser</code></a> record stored in <a href="#tables">Storage users table</a>.</p>
+<p>GID is acquired from field <code>gid</code> from <a href="#posixcredentials"><code>PosixCredentials</code></a> record stored in <a href="#tables">Spaces display defaults table</a>.</p>
+<h3 id="imported-storages">Imported storages</h3>
+<p>Below mappings are associated with the concept of <a href="storage_import.html">storage import</a>
+and should only be considered when the corresponding storage is an imported storage.                                                     </p>
+<ul>
+<li>mapping storage user to <a href="#onedata-user-credentials">Onedata user</a> - used in case of importing files from storage.
+It allows mapping owner of the storage file to a specific Onedata user who will become owner of the file imported
+to the space. Storage user is identified by the value of UID field returned from <code>stat</code> operation or equivalent on
+given storage backend.  </li>
+<li>mapping storage NFSv4 ACL principal to Onedata <a href="#onedata-user-credentials">user</a>/<a href="#onedata-group-credentials">group</a> - 
+used in case of importing files from storage that supports <a href="https://www.osc.edu/book/export/html/4523" target="_blank">NFSv4 ACLs</a>, 
+with <code>syncAcl</code> option enabled. It allows mapping ACL principal to a specific user/group in the Onedata. If <code>syncAcl</code> 
+option is disabled this mapping does not have to be defined. </li>
+</ul>
+<blockquote>
+<p><strong>WARNING:</strong> It is possible that imported files have different GIDs. Oneprovider does not attempt to map them to the 
+Onedata groups model as it&apos;s not compatible with the POSIX groups model. It is strongly recommended that admin of the 
+legacy storage to be imported ensures that the file structure is compliant with the Onedata model - all files in the 
+space should have the same group owner. <strong>Otherwise, access to imported files may be denied by the underlying storage system.</strong></p>
+</blockquote>
+<h4 id="storage-user-to-onedata-user-mapping">Storage user to Onedata user mapping</h4>
+<p>UID returned from <code>stat</code> operation or equivalent on given storage backend is mapped to <a href="#onedatauser"><code>OnedataUser</code></a> record
+stored in the <a href="#tables">Onedata users table</a>. Information stored in the record allow to identify corresponding Onedata user.
+If the mapping is not defined, virtual space user becomes owner of the imported file.</p>
+<blockquote>
+<p><strong>NOTE:</strong> This mapping is used only in case of enabled <code>auto storage import</code>. </p>
+</blockquote>
+<h4 id="storage-acl-user-to-onedata-user-mapping">Storage ACL user to Onedata user mapping</h4>
+<p>ACL principal is mapped to <a href="#onedatauser"><code>OnedataUser</code></a> record stored in the <a href="#tables">Onedata users table</a>.
+Information stored in the record allow to identify corresponding Onedata user.
+If the mapping is not defined, importing the file will return error. </p>
+<blockquote>
+<p><strong>NOTE:</strong> This mapping is used only in case of enabled <code>auto storage import</code> with <code>syncAcl</code> option enabled.</p>
+</blockquote>
+<h4 id="storage-acl-group-to-onedata-group-mapping">Storage ACL group to Onedata group mapping</h4>
+<p>ACL group principal is mapped to <a href="#onedatagroup"><code>OnedataGroup</code></a> record stored in the <a href="#tables">Onedata groups table</a>.
+Information stored in the record allow to identify corresponding Onedata group.
+If the mapping is not defined, importing the file will return error. </p>
+<blockquote>
+<p><strong>NOTE:</strong> This mapping is used only in case of enabled <code>auto storage import</code> with <code>syncAcl</code> option enabled.</p>
+</blockquote>
+<h2 id="populating-luma-db-with-feeds">Populating LUMA DB with feeds</h2>
+<p>LUMA DB can be filled with mappings in 3 different ways, called feeds:</p>
+<ul>
+<li><a href="#auto-feed"><code>auto</code></a></li>
+<li><a href="#local-feed"><code>local</code></a></li>
+<li><a href="#external-feed"><code>external</code></a></li>
+</ul>
+<h3 id="auto-feed">Auto Feed</h3>
+<p>Auto feed populates LUMA DB using an automatic algorithm. 
+This sections describes the algorithm for each <a href="#tables">table</a>.</p>
+<blockquote>
+<p><strong>NOTE:</strong>  If you want to fully configure LUMA DB for efficient and secure storage access
+you should choose local or external feeds. Auto feed is meant to be used at the very beginning of
+learning how to maintain Oneprovider service to ease the process of the first deployment. </p>
+</blockquote>
+<h4 id="auto-feed-for-storage-users-table">Auto feed for Storage users table</h4>
+<p>This table is populated differently depending on the storage type for which it is configured.
+In case of POSIX compatible storages, UID is generated basing on the Onedata user Id.</p>
+<blockquote>
+<p><strong>NOTE:</strong>  Please note that using auto feed on POSIX compatible storages can make it impossible to use 
+<a href="../using_onedata/oneclient.html#direct-io-and-proxy-io-modes">Oneclient in direct-io mode</a>, as the automatically
+generated mappings will not correspond to actual UIDs/GIDs recognized by the storage system. </p>
+</blockquote>
+<p>The same UID is used as user&apos;s <code>displayUid</code>.</p>
+<p>In case of POSIX incompatible storages, storage credentials of the storage admin are used as user&apos;s storage credentials.</p>
+<blockquote>
+<p><strong>WARNING:</strong>  Allowing all space members to access storage with admin credentials is a potential security risk.
+Therefore, using the auto feed is not recommended for POSIX incompatible storages.</p>
+</blockquote>
+<p><code>displayUid</code> is generated the same way as UID in case of POSIX compatible storage.</p>
+<h4 id="auto-feed-for-spaces-posix-storage-defaults-table">Auto feed for Spaces posix storage defaults table</h4>
+<p>This table is populated only for POSIX compatible storages.
+UID and GID of owner of the storage mountpoint are used, as returned by the <code>stat</code> operation.</p>
+<h4 id="auto-feed-for-spaces-display-defaults-table">Auto feed for Spaces display defaults table</h4>
+<p>This table is populated differently depending on the storage type for which it is configured.
+In case of POSIX compatible storages, the same credentials as stored in <a href="#tables">Spaces posix storage defaults table</a> are used.</p>
+<p>In case of POSIX incompatible storages, UID and GID are generated basing on the Id of the space for which the table is populated. </p>
+<h4 id="auto-feed-for-onedata-users-table">Auto feed for Onedata users table</h4>
+<p>This table can be populated automatically only with entries that associate storage user, identified by UID with Onedata user.
+Entries for NFSv4 ACL users cannot be populated automatically, they can only by populated by <a href="#local-feed">local</a> or
+<a href="#external-feed">external</a> feeds. The table is used only in case of <code>auto storage import</code> enabled. Moreover, mappings for NFSv4 ACL users are used
+only if <code>syncAcl</code> option is enabled.</p>
+<h4 id="auto-feed-for-onedata-groups-table">Auto feed for Onedata groups table</h4>
+<p>This table cannot be populated automatically, it can only be populated by <a href="#local-feed">local</a> or <a href="#external-feed">external</a>
+feeds. The table is used only in case of case of <code>auto storage import</code> enabled with <code>syncAcl</code> option enabled.  </p>
+<h3 id="local-feed">Local Feed</h3>
+<p>All mappings in LUMA DB must be set explicitly by the Oneprovider admin using the REST API. 
+It is recommended to set the mappings before inviting users to join the space, otherwise their operations on files will fail.</p>
+<p>Comprehensive description of requests and their parameters considering configuration of local feed 
+can be found in the <a href="https://onedata.org/#/home/api/stable/onepanel?anchor=tag/LUMA-DB-local-feed" target="_blank">REST API documentation</a>.    </p>
+<blockquote>
+<p><strong>NOTE:</strong>  For <a href="#regular-non-imported-storages">regular (non-imported) storages</a>, it is enough to set the 
+<a href="#onedata-user-to-storage-credentials-mapping">Onedata user to credentials mappings</a>.
+Other mappings, if not set, are acquired the same way it is done in case of auto feed.</p>
+<p><strong>WARNING:</strong>  In case of local feed, mappings are directly stored in the LUMA DB tables.
+Deleting entries from the local feed results in deleting them from the LUMA DB and vice versa.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Link to API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lookup Onedata user to credentials mapping in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove Onedata user to credentials mapping in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert Onedata user to credentials mapping into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_add_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Modify Onedata user to credentials mapping in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_modify_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup default display credentials in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_display_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove default display credentials in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_display_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert default display credentials into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_display_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup default posix credentials in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_default_posix_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove default posix credentials in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_default_posix_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert default posix credentials into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_default_posix_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of UID in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_UID_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of UID in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_UID_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert mapping of UID into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_UID_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of ACL user in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_acl_user_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of ACL user in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_acl_user_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert mapping of ACL user into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_acl_user_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of ACL group in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_get_acl_group_to_onedata_group_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of ACL group in local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_remove_acl_group_to_onedata_group_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Insert mapping of ACL group into local feed</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/local_feed_set_acl_group_to_onedata_group_mapping" target="_blank">API</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-feed">External Feed</h3>
+<p>The LUMA DB is populated by lazily querying an external HTTP server that implements a standardized API.
+The space admin is responsible for the implementation and maintenance of the server.</p>
+<blockquote>
+<p><strong>NOTE:</strong>  It is compulsory to configure the URL of external feed - please see the <a href="#configuration">Configuration</a> section.</p>
+</blockquote>
+<p>Below is the full API specification of the external LUMA feed server.</p>
+<blockquote>
+<p><strong>NOTE:</strong>  For <a href="#regular-non-imported-storages">regular (non-imported) storages</a>, it is enough to implement callback 
+for acquiring <a href="#endpoint-for-mapping-onedata-user-to-storage-credentials">Onedata user to credentials mappings</a>.
+Other mappings, if not set, are acquired the same way it is done in case of auto feed.  </p>
+</blockquote>
+<h4 id="endpoint-for-mapping-onedata-user-to-storage-credentials">Endpoint for mapping Onedata user to storage credentials</h4>
+<ul>
+<li>URL: <code>/storage_access/all/onedata_user_to_credentials</code></li>
+<li>HTTP method: <code>POST</code></li>
+<li>accepted body: <pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,         <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;onedataUserId&quot;</span>: <span class="hljs-built_in">String</span>,     <span class="hljs-comment">// guaranteed,</span>
+  <span class="hljs-string">&quot;idpIdentities&quot;</span>: [{          <span class="hljs-comment">// guaranteed</span>
+      <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,
+      <span class="hljs-string">&quot;subjectId&quot;</span>: <span class="hljs-built_in">String</span>,
+  }],
+  <span class="hljs-string">&quot;additionalUserDetails&quot;</span>: {   <span class="hljs-comment">// best effort, can be empty</span>
+      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-built_in">String</span>,
+      <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-built_in">String</span>,
+      <span class="hljs-string">&quot;emails&quot;</span>: [<span class="hljs-built_in">String</span>],
+      <span class="hljs-string">&quot;linkedAccounts&quot;</span>: [
+          <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,
+          <span class="hljs-string">&quot;subjectId&quot;</span>: <span class="hljs-built_in">String</span>,
+          <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-built_in">String</span>,
+          <span class="hljs-string">&quot;emails&quot;</span>: [<span class="hljs-built_in">String</span>],
+          <span class="hljs-string">&quot;custom&quot;</span>: <span class="hljs-built_in">JSON</span>       
+      ]
+  }
+}
+</code></pre>
+</li>
+<li>response body: <a href="#storageuser"><code>StorageUser</code></a><pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageCredentials&quot;</span>: StorageCredentials, <span class="hljs-comment">// required</span>
+  <span class="hljs-string">&quot;displayUid&quot;</span>: Integer                     <span class="hljs-comment">// optional</span>
+}
+</code></pre>
+</li>
+</ul>
+<p>For more information on mapping users from external Idp to Onedata users please see 
+<a href="openid_saml_configuration/openid_saml_configuration_19_02.html#attribute-mapping">here</a>.</p>
+<h4 id="endpoint-for-setting-default-posix-storage-credentials-in-the-space">Endpoint for setting default POSIX storage credentials in the space</h4>
+<ul>
+<li>URL: <code>/storage_access/posix_compatible/default_credentials</code></li>
+<li>HTTP method: <code>POST</code></li>
+<li>accepted body: <pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,    <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;spaceId&quot;</span>: <span class="hljs-built_in">String</span>       <span class="hljs-comment">// guaranteed</span>
+}
+</code></pre>
+</li>
+<li>response body: <a href="#posixcredentials"><code>PosixCredentials</code></a><pre><code class="lang-json">{
+  <span class="hljs-string">&quot;uid&quot;</span>: Integer,         <span class="hljs-comment">// optional</span>
+  <span class="hljs-string">&quot;gid&quot;</span>: Integer          <span class="hljs-comment">// optional</span>
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="endpoint-for-setting-default-space-display-credentials-in-the-space">Endpoint for setting default space display credentials in the space</h4>
+<ul>
+<li>URL: <code>/display_credentials/default</code> </li>
+<li>HTTP method: <code>POST</code> </li>
+<li>accepted body: <pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,    <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;spaceId&quot;</span>: <span class="hljs-built_in">String</span>       <span class="hljs-comment">// guaranteed</span>
+}
+</code></pre>
+</li>
+<li>response body: <a href="#posixcredentials"><code>PosixCredentials</code></a><pre><code class="lang-json">{
+  <span class="hljs-string">&quot;uid&quot;</span>: Integer,          <span class="hljs-comment">// optional</span>
+  <span class="hljs-string">&quot;gid&quot;</span>: Integer           <span class="hljs-comment">// optional</span>
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="endpoint-for-mapping-storage-uid-to-onedata-user">Endpoint for mapping storage UID to Onedata user</h4>
+<ul>
+<li>URL: <code>/storage_import/posix_compatible/uid_to_onedata_user</code></li>
+<li>HTTP method: <code>POST</code></li>
+<li>accepted body: <pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,    <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;uid&quot;</span>: Integer          <span class="hljs-comment">// guaranteed</span>
+}
+</code></pre>
+</li>
+<li>response body: <a href="#onedatauser"><code>OnedataUser</code></a><pre><code class="lang-JSON">{
+  <span class="hljs-string">&quot;mappingScheme&quot;</span>: <span class="hljs-string">&quot;onedataUser&quot;</span> | <span class="hljs-string">&quot;idpUser&quot;</span>, <span class="hljs-comment">// required</span>
+  <span class="hljs-comment">// fields for &quot;onedataUser&quot; scheme</span>
+  <span class="hljs-string">&quot;onedataUserId&quot;</span>: <span class="hljs-built_in">String</span>,                    <span class="hljs-comment">// required if mappingScheme == &quot;onedataUser&quot;</span>
+  <span class="hljs-comment">// fields for &quot;idpUser&quot; scheme</span>
+  <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,                              <span class="hljs-comment">// required if mappingScheme == &quot;idpUser&quot;</span>
+  <span class="hljs-string">&quot;subjectId&quot;</span>: <span class="hljs-built_in">String</span>                         <span class="hljs-comment">// required if mappingScheme == &quot;idpUser&quot;</span>
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="endpoint-for-mapping-nfsv4-acl-user-principal-to-onedata-user">Endpoint for mapping NFSv4 ACL user principal to Onedata user</h4>
+<ul>
+<li>URL: <code>/storage_import/posix_compatible/acl_user_to_onedata_user</code> </li>
+<li>HTTP method: <code>POST</code></li>
+<li>accepted body:<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,    <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;aclUser&quot;</span>: <span class="hljs-built_in">String</span>       <span class="hljs-comment">// guaranteed</span>
+}
+</code></pre>
+</li>
+<li>response body: <a href="#onedatauser"><code>OnedataUser</code></a><pre><code class="lang-JSON">{
+  <span class="hljs-string">&quot;mappingScheme&quot;</span>: <span class="hljs-string">&quot;onedataUser&quot;</span> | <span class="hljs-string">&quot;idpUser&quot;</span>, <span class="hljs-comment">// required</span>
+  <span class="hljs-comment">// fields for &quot;onedataUser&quot; scheme</span>
+  <span class="hljs-string">&quot;onedataUserId&quot;</span>: <span class="hljs-built_in">String</span>,                    <span class="hljs-comment">// required if mappingScheme == &quot;onedataUser&quot;</span>
+  <span class="hljs-comment">// fields for &quot;idpUser&quot; scheme</span>
+  <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,                              <span class="hljs-comment">// required if mappingScheme == &quot;idpUser&quot;</span>
+  <span class="hljs-string">&quot;subjectId&quot;</span>: <span class="hljs-built_in">String</span>                         <span class="hljs-comment">// required if mappingScheme == &quot;idpUser&quot;</span>
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="endpoint-for-mapping-nfsv4-acl-group-principal-to-onedata-group">Endpoint for mapping NFSv4 ACL group principal to Onedata group</h4>
+<ul>
+<li>URL: <code>/storage_import/posix_compatible/acl_group_to_onedata_group</code></li>
+<li>HTTP method: <code>POST</code></li>
+<li>accepted body: <pre><code class="lang-json">{
+  <span class="hljs-string">&quot;storageId&quot;</span>: <span class="hljs-built_in">String</span>,    <span class="hljs-comment">// guaranteed</span>
+  <span class="hljs-string">&quot;aclGroup&quot;</span>: <span class="hljs-built_in">String</span>      <span class="hljs-comment">// guaranteed</span>
+}
+</code></pre>
+</li>
+<li>response body: <a href="#onedatagroup"><code>OnedataGroup</code></a><pre><code class="lang-JSON">{
+  <span class="hljs-string">&quot;mappingScheme&quot;</span>: <span class="hljs-string">&quot;onedataGroup&quot;</span> | <span class="hljs-string">&quot;idpEntitlement&quot;</span>, <span class="hljs-comment">// required</span>
+  <span class="hljs-comment">// fields for &quot;onedataGroup&quot; scheme</span>
+<span class="hljs-string">&quot;onedataGroupId&quot;</span>: <span class="hljs-built_in">String</span>,                               <span class="hljs-comment">// required if mappingScheme == &quot;onedataGroup&quot;</span>
+  <span class="hljs-comment">// fields for &quot;idpEntitlement&quot; scheme</span>
+  <span class="hljs-string">&quot;idp&quot;</span>: <span class="hljs-built_in">String</span>,                                      <span class="hljs-comment">// required if mappingScheme == &quot;idpEntitlement&quot;</span>
+  <span class="hljs-string">&quot;idpEntitlement&quot;</span>: <span class="hljs-built_in">String</span>                            <span class="hljs-comment">// required if mappingScheme == &quot;idpEntitlement&quot;</span>
+}
+</code></pre>
+</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<!-- This header is referenced at least one time as "#configuration" -->
+<p>Configuration of LUMA DB is part of a <a href="storage_configuration.html#storage-configuration">storage configuration</a>.</p>
+<p>It is possible to choose the type of <a href="#populating-luma-db-with-feeds">feed</a> for populating the DB.
+In case of selecting the <a href="#external-feed">external feed</a>, it is compulsory to set URL of the external server that
+will be lazily queried to populate the LUMA DB.
+It is also possible to set an API key that will be send with each request to the external server.
+Example configuration of LUMA feed is presented on the below picture:</p>
+<figure id="fig3.6.10.1"><img src="../img/admin/luma_config.png" alt="Configuration of LUMA"><figcaption>Figure: Configuration of LUMA</figcaption></figure>
+<blockquote>
+<p><strong>NOTE:</strong>  Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for 
+given storage resource. Newly set feed will be used to populate LUMA DB once again.  </p>
+<p><strong>WARNING:</strong>  Clearing the LUMA DB when feed type is changed means that the local feed is also cleared. In order to use 
+the local feed then, all mappings must be added once again.</p>
+</blockquote>
+<h2 id="rest-api">REST API</h2>
+<p>LUMA DB exposes <a href="https://onedata.org/#/home/api/stable/onepanel?anchor=tag/LUMA-DB" target="_blank">REST API</a> which allows to
+get its configuration and also lookup/delete entries in the database.
+Links to comprehensive description of requests are presented in the below table:</p>
+<blockquote>
+<p><strong>NOTE:</strong>  Deleted mapping from LUMA DB will be acquired from the currently set feed when needed.
+Please remember that deleting an entry from the LUMA DB in case of local feed results also in deleting
+it from the feed. </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Link to API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get LUMA DB configuration</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_config" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Clear LUMA DB</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_clear_db" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup default display credentials</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove default display credentials</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_display_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup Onedata user to credentials mapping</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove Onedata user to credentials mapping</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_onedata_user_to_credentials_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup default posix credentials</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_default_posix_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove default posix credentials</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_default_posix_credentials" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of UID</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_UID_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of UID</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_UID_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of ACL user</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_acl_user_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of ACL user</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_user_to_onedata_user_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Lookup mapping of ACL group</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_acl_group_to_onedata_group_mapping" target="_blank">API</a></td>
+</tr>
+<tr>
+<td>Remove mapping of ACL group</td>
+<td><a href="https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_group_to_onedata_group_mapping" target="_blank">API</a></td>
+</tr>
+</tbody>
+</table>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../doc/administering_onedata/firewall_setup.html" class="navigation navigation-prev " aria-label="Previous page: Firewall Setup"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../doc/administering_onedata/file_popularity.html" class="navigation navigation-next " aria-label="Next page: File-popularity"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/nanoscroller.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/onedata.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-onedata-theme/w3data.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-responsive-iframes/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"image-captions":{"caption":"","variable_name":"_pictures"},"ga":{"token":"UA-63301911-1","configuration":"auto"},"favicon":"doc/img/onedata.ico","search":{"maxIndexSize":1000000},"onedata-theme":{},"youtube":{},"toggle-chapters":{},"toc":{},"include":{},"responsive-iframes":{},"custom-favicon":{},"styles-sass":{},"include-html":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+<!-- body:end -->
+    </body>
+    <!-- End of book Onedata Documentation -->
+<!-- End of book Onedata Documentation -->
+</html>

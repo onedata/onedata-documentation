@@ -1,6 +1,6 @@
 # Web file browser
 
-[toc][]
+[toc]()
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
@@ -11,8 +11,8 @@ datasets & archives management).
 The file browser is always presented in the context of a single
 [space](spaces.md). It becomes available when the space is
 [supported](spaces.md#request-support-for-space) by at least one
-[provider](providers.md) and can be invoked by navigating to the **DATA > _Space
-name_ > Files** tab, or clicking the **FILES** tile in the space **Overview**.
+[provider](providers.md) and can be invoked by navigating to the **DATA > *Space
+name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
 
@@ -36,7 +36,6 @@ current browser tab. View the information in a summarized form or per the target
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
 
-
 ## File browser layout
 
 The top section of the file browser accommodates a breadcrumb navigator and a
@@ -57,7 +56,7 @@ The remainder part of the file browser presents the content of the current worki
 directory in a form of a list with details.
 
 ::: tip NOTE
-File list navigation is slightly different on mobile devices and is covered 
+File list navigation is slightly different on mobile devices and is covered
 [later on](#mobile-file-browser).
 :::
 
@@ -107,7 +106,7 @@ context menu invoked with a right-click or using the three-dots button on
 the left of each list entry.
 
 ::: tip
-Some operations require appropriate [privileges](spaces.md#space-privileges) 
+Some operations require appropriate [privileges](spaces.md#space-privileges)
 in the space and are disabled in the menu in case the user's privileges are not
 sufficient.
 :::
@@ -166,7 +165,6 @@ highlighting.
 
 ![Share directory modal](../../images/user-guide/web-file-browser/feature-metadata-json.png#screenshot)
 
-
 ### Permissions
 
 Invokes an editor of [permissions](data.md#permissions) assigned to the file —
@@ -186,7 +184,6 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ![ACL of file](../../images/user-guide/web-file-browser/feature-permissions-acl.png#screenshot)
 
-
 ### Data distribution
 
 This tab is used to monitor and manage the [distribution of file
@@ -205,11 +202,10 @@ above).
 
 ![Data distribution actions](../../images/user-guide/web-file-browser/feature-distribution-schedule.png#screenshot)
 
-
 ### QoS
 
 Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
-requirements defined for the selected file(s), which are used to automatically 
+requirements defined for the selected file(s), which are used to automatically
 manage the file data replication according to logical rules.
 
 You can put down the rules using a visual block-based expression editor. 
@@ -288,13 +284,11 @@ can be used to copy or move the files to the current working directory.
 
 ![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
 
-
 ### Delete
 
-This action permanently deletes the selected files and directories. 
+This action permanently deletes the selected files and directories.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-delete.png#screenshot)
-
 
 ## Mobile file browser
 
@@ -320,7 +314,6 @@ started, a progress bar appears at the bottom of the screen.
 
 ![Mobile web file browser - upload](../../images/user-guide/web-file-browser/mobile-upload.png#screenshot)
 
-
 ## Switching between providers
 
 The file browser view is provided by one of the providers supporting the space.
@@ -328,7 +321,7 @@ The currently selected provider is shown on the top of file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
 Oneprovider...** action at the top of file browser, given that there is more
-than one supporting provider. Alternatively, providers can be switched using a 
+than one supporting provider. Alternatively, providers can be switched using a
 world map visual representation, available under the globe icon.
 
 ![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)

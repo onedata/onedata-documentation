@@ -1,0 +1,320 @@
+/* colors */
+$onedata-red: #F14549;
+$heading-line: #9F9F9F;
+$glossary-term: #333;
+$summary-separator: #e5e4e5;
+$summary-heading: #000;
+$summary-fg: #364149;
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('OpenSans-Regular-webfont.eot');
+    src: local('Open Sans'), local('OpenSans'),
+         url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+         url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// makes "a" elements in nested menu padding by neting level
+@mixin a-padding($level) {
+  $selector: "";
+  @for $i from 1 through $level {
+    $selector: $selector + "ul.articles li.chapter ";
+  }
+  #{$selector} {
+    a {
+      padding-left: 20px * $level;
+    }
+
+    &:not(.no-children)::before {
+      left: 20px * $level - 4px;
+    }
+  }
+
+}
+
+
+// Put element on right and float text on the left
+.right-side {
+  float: right;
+  width: 50%;
+  margin: 20px;
+}
+
+// Onedata image in content header (notice "alt"!)
+h1 img[alt='Onedata']
+{
+  height: 0.75em;
+  margin-right: 0.3em;
+}
+
+.book.font-family-1 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.book
+{
+  font-family: 'Open Sans', sans-serif;
+
+  .book-body {
+    h1 {
+      padding-bottom: 6px;
+
+      letter-spacing: .125em;
+      text-transform: uppercase;
+
+      color: $onedata-red;
+      border-bottom: $heading-line solid 1px;
+    }
+
+    /* All links in content */
+    .page-wrapper .page-inner section.normal a {
+      color: $onedata-red;
+    }
+
+    .page-wrapper .page-inner section.normal .swagger {
+      font-size: 14px;
+      //text-width: 95%;
+      //outline: 0;
+    }
+    .page-wrapper .page-inner section.normal .swagger td, th {
+      vertical-align: middle;
+    }
+
+    .page-wrapper .page-inner section.normal .swagger .panel-title {
+      margin-top: 0em;
+      margin-bottom: 0em;
+    }
+
+    .page-wrapper .page-inner section.normal {
+      .glossary-term {
+         font-style: italic;
+         text-decoration: initial;
+         color: $glossary-term;
+     }
+
+      h1 .glossary-term,
+      h2 .glossary-term,
+      h3 .glossary-term,
+      h4 .glossary-term,
+      h5 .glossary-term {
+        font-style: normal;
+        color: $onedata-red;
+      }
+
+      h1 .glossary-term:hover,
+      h2 .glossary-term:hover,
+      h3 .glossary-term:hover,
+      h4 .glossary-term:hover,
+      h5 .glossary-term:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .book-header {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .book-summary {
+    font-family: 'Open Sans', sans-serif;
+
+    width: 280px;
+
+    border-style: none;
+    background-color: transparent;
+
+
+    ul.summary > li.chapter:first-child {
+      border-top: none;
+    }
+
+    ul.summary li.chapter[data-level="0"] {
+      padding: 0;
+
+      a {
+        line-height: 48px;
+        display: inline;
+        font-size: 13pt;
+        text-transform: uppercase;
+        color: $summary-heading;
+        font-weight: bold;
+
+        &:hover {
+          color: $onedata-red;
+        }
+
+        img {
+          position: relative;
+          top: -1px;
+          height: 0.78em;
+        }
+      }
+
+      .header-logo {
+        padding-right: 0;
+      }
+    }
+
+    // collapsible TOC elements
+    ul.summary li.chapter:not([data-level="0"]) {
+      > a {
+        margin-left: 12px;
+      }
+
+      // nested menu items padding (arrows and links), leaving padding of li
+      @for $i from 1 through 10 {
+        @include a-padding($i);
+      }
+
+      &:not(.no-children) {
+        &:before {
+          position: absolute;
+          // pull down
+          top: 19px;
+          // apply some padding
+          left: 10px;
+          content: "";
+          border-style: solid;
+          border-width: 5px 0 5px 8px;
+          border-color: transparent transparent transparent $summary-fg;
+          transform: rotate(0deg);
+        }
+
+        // a triangle
+        &.active {
+          &:before {
+            transform: rotate(90deg);
+          }
+        }
+
+        &:hover, &.active {
+          &:before {
+            border-color: transparent transparent transparent $onedata-red;
+          }
+        }
+      }
+    }
+
+    ul.summary li.chapter li.chapter {
+      &:not(.no-children) {
+        &:before {
+          // apply more padding for next level
+          left: 30px;
+          // override first-level padding, because it is too large
+          top: 18px;
+        }
+      }
+    }
+
+    // all levels TOC elements
+    ul.summary {
+      li.active > a,
+      li a:hover
+      {
+        color: $onedata-red;
+      }
+
+      // ?
+      li.active span {
+        color: #999;
+      }
+
+      li.chapter {
+        position: relative;
+        padding-top: 5px;
+        border-top: $summary-separator solid 1px;
+      }
+
+      li ul {
+        padding-left: 0px;
+      }
+
+      // remove divider on end
+      li.divider
+      {
+        display: none;
+      }
+
+      // remove numbers
+      li span b,
+      li a b
+      {
+        display: none;
+      }
+    }
+
+    /* Shrink sub-chapters to 90% of chapters */
+    ul.articles li.chapter
+    {
+      font-size: 98%;
+    }
+  }
+}
+
+// hide GitBook link
+a.gitbook-link
+{
+  display: none !important;
+}
+
+/* Glossary term */
+
+.glossary-term {
+  text-decoration: none;
+}
+
+h1 .glossary-term,
+h2 .glossary-term,
+h3 .glossary-term,
+h4 .glossary-term,
+h5 .glossary-term {
+  text-decoration: none;
+}
+
+/* Figures */
+figure {
+  text-align: center;
+}
+
+// Use after YouTube placing content in float right if want to end left content
+.clearfix {
+  content:"";
+  display:table;
+  clear:both;
+}
+
+/* heading in summary - used for onedata logo */
+.summary {
+  h1 {
+    font-size: 13pt;
+    text-transform: uppercase;
+    color: $summary-heading;
+
+    img {
+      height: 0.75em;
+    }
+  }
+
+  h1:hover {
+    color: $onedata-red;
+  }
+
+}
+
+$version-string-height: 112px;
+.book-summary {
+  .version-string {
+    position: absolute;
+    bottom: 0;
+    height: $version-string-height;
+    padding: 4px;
+  }
+  .version-string ~ .summary {
+    bottom: $version-string-height !important;
+  }
+}
