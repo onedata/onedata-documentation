@@ -1,13 +1,13 @@
 # Administration panel
 
-Administration panel — in the form of the Onepanel service — is responsible for
-a range of functionalities related to managing the Oneprovider service cluster.
-Examples of tasks performed by Onepanel include:
+The administration panel — in the form of the Onepanel service — is responsible
+for a range of functionalities related to managing the Oneprovider service
+cluster. Examples of tasks performed by Onepanel include:
 
 * conducting the Oneprovider cluster installation process,
 * managing certificates,
-* adding new storages,
-* supporting spaces with existing storages,
+* adding new storage backends,
+* supporting spaces with existing storage backends,
 * and many others.
 
 All these configuration aspects are available both in the form of a web
@@ -18,14 +18,14 @@ usage can be found in the *Configuration* series of articles.
 
 Users can access the administration panel interface in two ways:
 
-1. Through the Onezone service interface.
-2. Through the emergency interface.
+1. through the Onezone service interface,
+2. through the emergency interface.
 
 ### Access via Onezone service interface
 
 This type of access is the default and also the most secure option. It is based
 on standard login to the Onezone service and then selecting the desired
-Oneprovider cluster from the *Clusters* menu.
+Oneprovider cluster from the **Clusters** tab.
 
 ![image](../../../images/admin-guide/oneprovider/administration-panel/onepanel-hosted.png#screenshot)
 
@@ -40,7 +40,7 @@ interface is usually located at the address
 `https://my.provider.domain.org:9443`, where `my.provider.domain.org` represents
 the Oneprovider domain.
 
-Click on *Sign in to emergency interface* and provide the emergency passphrase
+Click on **Sign in to emergency interface** and provide the emergency passphrase
 that allows entry into the administration panel. This passphrase was set during
 the Oneprovider cluster installation and is not connected to any user in the
 system.
@@ -57,7 +57,8 @@ loss.
 
 You can change the emergency interface passphrase if you suspect that the
 current passphrase is no longer secure. This can be done only via the emergency
-interface of administration panel (in the *Emergency passphrase* submenu).
+interface of the administration panel (in the **Clusters > *Cluster name* >
+Emergency passphrase** view).
 
 ![image](../../../images/admin-guide/oneprovider/administration-panel/change-emergency-passphrase.png#screenshot)
 
@@ -65,12 +66,13 @@ interface of administration panel (in the *Emergency passphrase* submenu).
 
 Users who are members of a specific Oneprovider cluster have access to its
 administration panel. Similar to other resources, the list of authorized users
-can be found under the *Members* submenu. In this place you can add and remove
-authorized users or change their access permissions. Read more
+can be found under the **Clusters > *Cluster name* > Members** view. In this
+place, you can add and remove authorized users or change their access
+permissions. Read more
 [here](./configuration/cluster-members.md).
 
 ::: tip
-Members settings do not apply to the emergency interface. Signing-in
+Members settings do not apply to the emergency interface. Signing in
 using the emergency passphrase always grants full management rights to the
 cluster.
 :::

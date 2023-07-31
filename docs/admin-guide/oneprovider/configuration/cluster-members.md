@@ -13,8 +13,8 @@ special emergency password. Read more
 [here](../administration-panel.md#access-via-emergency-interface).
 :::
 
-You can find the members settings by entering the *Members* submenu of a
-specific cluster.
+You can find the members settings by clicking selecting **Members** in the submenu
+of a specific cluster.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members.png#screenshot)
 
@@ -25,8 +25,7 @@ users directly or adding an entire user group.
 
 ### Inviting users
 
-To add a new user to the cluster, use the *Invite user using token* option from
-the user list menu.
+To add a new user to the cluster, open the user list actions menu and choose **Invite user using token**.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-user-options.png#screenshot)
 
@@ -38,11 +37,9 @@ to the cluster.
 Once the user receives the token, they should consume it using the dedicated
 [view](../../../user-guide/tokens.md#consuming-invite-tokens).
 
-
 ### Adding user groups
 
-To add an entire user group to the cluster, use one of the options in the group
-list menu.
+To add an entire user group to the cluster, open the groups list actions menu and choose one of the available options.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-group-options.png#screenshot)
 
@@ -63,26 +60,25 @@ create a new group and invite selected users to it. This will provide better
 control over access and privileges.
 :::
 
-
 ## Reviewing existing members
 
-Cluster members can be viewed in two modes — direct and effective. The *direct*
-view shows only those members who have been directly added to the cluster —
-either through token invitation or group membership. The *effective* view, on
-the other hand, shows all members who actually have access to the cluster. It
+Cluster members can be viewed in two modes — direct and effective. The
+**direct** view shows only those members who have been directly added to the
+cluster — either through token invitation or group membership. The **effective**
+view, on the other hand, shows all members who have access to the cluster. It
 differs from the set of direct members by including additional groups and users
 who are members of direct groups.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/effective-cluster-members.png#screenshot)
 
-By expanding each entry in the members list, you can view their privileges. In
-the direct view, only privileges granted during the member addition process are
-displayed (and editable), while in the effective view, calculated privileges
+By expanding each entry in the list of members, you can view their privileges.
+In the direct view, only privileges granted during the member addition process
+are displayed (and editable), while in the effective view, calculated privileges
 resulting from the privileges of intermediate groups are shown (read-only).
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-member-perms.png#screenshot)
 
-Furthermore, by changing the view aspect to *Memberships*, you can also see how
+Furthermore, by changing the view aspect to **Memberships**, you can also see how
 a particular member is in a membership relation with the cluster. This helps in
 finding information about through which group a user became a member of the
 cluster.
@@ -91,8 +87,7 @@ cluster.
 
 ## Removing members
 
-To remove a cluster member, use the option *Remove this member* in the menu
-corresponding to that member.
+To remove a cluster member, open the member's actions menu and choose **Remove this member**.
 
 ::: tip
 It is not possible to remove a member who is only an effective member of
@@ -105,12 +100,12 @@ belong. You can find help in identifying that group through the
 
 ::: tip
 To change privileges, you need to use the
-[*direct* members view](#reviewing-existing-members).
+[**direct** members view](#reviewing-existing-members).
 :::
 
 To change privileges, expand the entry corresponding to the specific user or
 group, toggle the desired privileges, and save the changes by clicking the
-*Save* button.
+**Save** button.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/modifies-cluster-member-perms.png#screenshot)
 
@@ -138,12 +133,12 @@ through Onezone but have the emergency passphrase for the cluster, you can
 partially configure members from the emergency administration interface. To do
 this, go to the emergency interface (read more
 [here](../administration-panel.md#access-via-emergency-interface)) and navigate
-to the *Members* submenu.
+to the **Members** submenu of your cluster.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members-in-emergency.png#screenshot)
 
 Here, you can see the current number of members and generate an inviting token
-to the cluster (by clicking *Invite user using a token*). When consumed by a
+to the cluster (by clicking **Invite user using a token**). When consumed by a
 user, this token grants full privileges set to the cluster. It serves as a way
 to regain administrative access to the cluster in case of accidental loss.
 
