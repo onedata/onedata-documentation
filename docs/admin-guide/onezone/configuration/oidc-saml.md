@@ -4,5 +4,4 @@
 
 ## Attribute mapping
 
-
 ## Entitlement mapping
