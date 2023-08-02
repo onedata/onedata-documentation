@@ -12,12 +12,12 @@ Only the members of a space have access to the stored data.
 
 A space is merely a logical container that requires at least one physical
 [storage](../admin-guide/oneprovider/configuration/storages.md)
-backend attached to be functional. Attaching a physical storage is
+backend attached to be functional. Attaching physical storage is
 called **supporting** the space and is done by a data provider -
-institution that entered the Onedata environment by configuring a
+an institution that entered the Onedata environment by configuring a
 [Oneprovider service](../intro.md#architecture) for managing access to its
 storage resources. Users can request support for their spaces, and provider
-admins can decide to grant some quota on a physical storage governed by the
+admins can decide to grant some quota on physical storage governed by the
 corresponding data center.
 
 <!-- TODO VFS-7218 this image could be better:
@@ -57,15 +57,15 @@ all supporting providers.
 ## Space members
 
 Access control to Onedata spaces is built around the concept of user and group
-memberships. A space is accessible only to its members — in a typical scenario,
+memberships. Space is accessible only to its members — in a typical scenario,
 this can be a group of scientists that work on the same research project and
 share the related datasets. They may have different affiliations, but their view
 on the common space is the same, regardless of their institution of origin. Each
 user or group can be assigned different privileges in the space, depending on
-the capabilities they should have. In case of group memberships, each member of
+the capabilities they should have. In the case of group memberships, each member of
 a group that belongs to a space inherits the group's privileges. For example,
-one may create a group called **space XYZ admins** and grant it all admin
-privileges in the **space XYZ**. Any user that is added to the group will inherit
+one may create a group called **space XYZ admins** and grant all admin
+privileges in **space XYZ**. Any user that is added to the group will inherit
 the privileges and gain access to the **space XYZ** with admin privileges.
 
 ## Space privileges
@@ -116,10 +116,10 @@ appeared and a certain quota has been assigned.
 ### Space management
 
 Navigate to the **DATA** tab and choose your space, next click on the menu button, to choose some option.
-There are a few options, which you can perform on the space: rename, leave and remove.
+There are a few options, which you can perform on the space: rename, leave, remove.
 ![image](../../images/user-guide/spaces/space-menu.png#screenshot)
 
-Also, you can copy the space's id, which is helpful to perform some [rest api](./rest-api.md) requests.
+Also, you can copy the space's id, which is helpful to perform some [REST API](./rest-api.md) requests.
 You can also open a modal with basic rest command examples, that you can perform on this space.
 ![image](../../images/user-guide/spaces/space-rest-api.png#screenshot)
 
@@ -132,7 +132,7 @@ token generation action, copy the acquired token and pass it to another user.
 
 ### Invite a group
 
-To invite one of groups that you belong to, go to the **Members** submenu and click on
+To invite one of the groups that you belong to, go to the **Members** submenu and click on
 **Add one of your groups** action from the menu on the group's header.
 ![image](../../images/user-guide/spaces/invite-group.png#screenshot)
 
@@ -146,18 +146,10 @@ and pass it to a user that has appropriate privileges in that group. To do that 
 should use the **Consume** action in the [Tokens GUI](tokens.md#consuming-invite-tokens).
 ![image](../../images/user-guide/spaces/invite-group-using-token.png#screenshot)
 
-Go back to the space menu (**DATA** tab -> **Space name** -> **Members**) and
-generate a group invite token. Copy it to the clipboard for the next step.
-![image](../../images/user-guide/spaces/7-create-group-invite-token.png#screenshot)
-
-Use the the **Consume** action in the [Tokens GUI](tokens.md#consuming-invite-tokens).
-Paste in the token — it will be identified and you will be asked which group you
-wish to add. Choose the **Space admins** group and confirm.
-
 ### Modify space privileges
 
-You can view and modify privileges for members of the space, to do that go to **Members** submenu
-and expand one of user or group and using toggles, adapt privileges for your case.
+You can view and modify privileges for members of the space, to do that go to the **Members** submenu
+and expand one of the users or groups, and using toggles, adapt privileges for your case.
 The privileges are grouped into sections — you can grant or revoke the whole section, or expand
 for a more granular setting. Make sure to save your changes afterward.
 ![image](../../images/user-guide/spaces/modify-privileges.png#screenshot)
@@ -171,13 +163,13 @@ overwrite the old ones to identical values.
 
 ### Effective members
 
-To see not only direct members, but also members that belong to space by group,
-go to **Members** submenu, expand the view options and choose **Effective**
-to view all of the members. You can see like privileges are inherited over the members.
+To see not only direct members but also members that belong to the space by group,
+go to the **Members** submenu, expand the view options, and choose **Effective**
+to view all of the members. You can see like privileges are inherited from the members.
 ![image](../../images/user-guide/spaces/effective-privileges.png#screenshot)
 
-You can also view memberships of members by switching view to **Membership**
-(optional turn on descriptions) and expand member, which show you direct and inherited memberships.
+You can also view memberships of members by switching the view to **Membership**
+(optional turn-on descriptions) and expand member, which shows you direct and inherited memberships.
 ![image](../../images/user-guide/spaces/effective-memberships.png#screenshot)
 
 ### Data browser

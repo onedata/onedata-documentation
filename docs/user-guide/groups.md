@@ -24,7 +24,7 @@ adding/removing a child group or adding/leaving a parent group.
 
 You can belong to a group directly by consuming a token invitation, or you can belong
 to a group, which belongs to that group, which is effective membership, because you
-get access by inherited it, not directly. If you belong to space not direct,
+get access by inheriting it, not directly. If you belong to space not direct,
 your privileges result from the group's privileges, to which you belong.
 That means no one can modify your privileges directly.
 
@@ -42,8 +42,8 @@ in case you received an invite token from another user.
 ### Group management
 
 Navigate to the **GROUPS** tab and choose your group, next click on the menu button, to choose some option.
-There are a few options, which you can perform on the group: rename, leave and remove.
-Also, you can copy the group's id, which is helpful to perform some [rest api](./rest-api.md) requests.
+There are a few options, which you can perform on the group: rename, leave, remove.
+Also, you can copy the group's id, which is helpful to perform some [REST API](./rest-api.md) requests.
 ![image](../../images/user-guide/groups/group-menu.png#screenshot)
 
 ### Invite a user
@@ -57,21 +57,21 @@ token generation action, copy the acquired token and pass it to another user.
 
 Navigate to the **Members** submenu. To invite an existing group, to which you belong,
 you would click on the menu and choose **Add one of your groups** actions.
-If you want to invite a group which you do not belong, choose from menu \***Invite group using token**
+If you want to invite a group to which you do not belong, choose from the menu **Invite group using token**
 and pass that token to another user.
 ![image](../../images/user-guide/groups/invite-group.png#screenshot)
 
 ### Create a subgroup
 
 Navigate to the **Members** submenu. To create a new group that already belongs to
-one of your groups, click menu and choose option **Create new group**. Then in the modal
+one of your groups, click the menu and choose the option **Create new group**. Then in the modal
 enter the name of a new group and confirm click **Create** button.
 ![image](../../images/user-guide/groups/create-subgroup.png#screenshot)
 
 ### Modify group privileges
 
-To view and modify member's privileges of some groups, go to **Groups** tab,
-choose some groups from menu, and go to **Members** submenu. Expand one of your members
+To view and modify members' privileges of some groups, go to the **Groups** tab,
+choose some groups from the menu, and go to the **Members** submenu. Expand one of your members
 and grant or revoke privileges. Remember to save your privileges modification click on the **Save** button,
 that appears when changes exist.
 ![image](../../images/user-guide/groups/modify-privileges.png#screenshot)
@@ -82,10 +82,10 @@ and grant or revoke privileges in appeared modal.
 
 ### Hierarchy view
 
-Go to your group in **GROUP** tab and choose **Hierarchy** from the submenu.
+Go to your group in the **GROUP** tab and choose **Hierarchy** from the submenu.
 This is a powerful view that helps you explore the hierarchy and relation between
 your group and your children and parents groups.
 This view helps you view and manage the structure inside your group and also
 shows to which groups your group belongs. You can manage here not only relations between
-groups like removing or adding but also modify groups.
+groups like removing or adding but also modifying groups.
 ![image](../../images/user-guide/groups/hierarchy.png#screenshot)
