@@ -4,8 +4,7 @@
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
-navigation, file upload or download) and advanced capabilities, specific for
-Onedata (e.g. Quality of Service, data distribution management,
+navigation, file upload or download) and advanced capabilities, specific to Onedata (e.g. Quality of Service, data distribution management,
 datasets & archives management).
 
 The file browser is always presented in the context of a single
@@ -31,7 +30,7 @@ simultaneously or add more files while an upload is in progress.
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
-sidebar, providing detailed view of all uploads that have been done in the
+sidebar, providing a detailed view of all uploads that have been done in the
 current browser tab. View the information in a summarized form or per the target provider.
 
 ![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
@@ -72,9 +71,9 @@ available actions appears.
 
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
 
-For better navigation in file browser, you can also change layout of it, by choosing 
-what columns of attributes you want to be displayed. Click **Configure columns** button,
-in upper-right corner of file browser, and choose desired columns.
+For better navigation in the file browser, you can also change the layout of it, by choosing 
+what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
+upper-right corner of the file browser, and choose desired columns.
 
 ![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
 
@@ -83,9 +82,9 @@ directories — new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
 
-To quickly jump to desired file or directory, type desired phrase, in 
-search bar located below the breadcrumbs, and you will be moved to the first file or
-directory which name stars with desired prefix.
+To quickly jump to the desired file or directory, type desired phrase, in the search bar 
+located below the breadcrumbs, and you will be moved to the first file or
+directory which name stars with the desired prefix.
 
 ![Jump to prefix feature](../../images/user-guide/web-file-browser/jump-to-prefix.png#screenshot)
 
@@ -217,7 +216,7 @@ storages to determine where the replicas should be stored.
 
 ![QoS visual editor: block editing](../../images/user-guide/web-file-browser/feature-qos-visual.png#screenshot)
 
-Below the requirement, there is information what storages match the requirement
+Below the requirement, there is information on what storages match the requirement
 and an action that copies the expression in textual form, to be reused when
 creating a new requirement or using the [REST API](rest-api.md).
 
@@ -230,7 +229,7 @@ confirmation and can be further edited.
 
 If the selected files have any QoS requirements defined, they are displayed on
 the list along with their status of fulfillment, matching storages, transfer statistics,
-and other information. It is possible to remove selected QoS requirements, unless they
+and other information. It is possible to remove selected QoS requirements unless they
 are inherited from any parent directory. 
 
 ![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
@@ -238,7 +237,7 @@ are inherited from any parent directory.
 
 ### Run workflow
 
-This action brings up modal containing list of all the uploaded workflows, that
+This action brings up a modal containing a list of all the uploaded workflows, that
 you can choose to run your file on. To read more about the functionality of the
 workflows head over to [autiomation guide](automation.md) 
 
@@ -246,8 +245,7 @@ workflows head over to [autiomation guide](automation.md)
 
 
 ### Rename
-
-Basic operation used to change the file name.
+The basic operation used to change the file name.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-rename.png#screenshot)
 
@@ -320,10 +318,10 @@ started, a progress bar appears at the bottom of the screen.
 ## Switching between providers
 
 The file browser view is provided by one of the providers supporting the space.
-The currently selected provider is shown on the top of file browser in the
+The currently selected provider is shown on the top of the file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
-Oneprovider...** action at the top of file browser, given that there is more
+Oneprovider...** action at the top of the file browser, given that there is more
 than one supporting provider. Alternatively, providers can be switched using a 
 world map visual representation, available under the globe icon.
 
@@ -331,7 +329,7 @@ world map visual representation, available under the globe icon.
 
 ::: tip
 After switching to another provider, the user will eventually see the same
-content, but new changes might appear with different delay. Providers
+content, but new changes might appear with different delays. Providers
 continuously synchronize the data changes within spaces, and depending on the
 system usage intensity, they can take from a couple of seconds to even hours to
 propagate. To see the changes immediately, it is recommended to choose the

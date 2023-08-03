@@ -35,7 +35,7 @@ some characters in paths should be properly escaped:
 ~$ cat /CMS\ 1/directory/images\&videos/garden.png
 ```
 
-[REST](#rest-api) or [CDMI](#cdmi) API — paths used in URLs must be url-encoded:
+[REST](#rest-api) or [CDMI](#cdmi) API — paths used in URLs must be URL-encoded:
 
 ```
 {...}/CMS%201/directory/images%26videos/garden.png
@@ -49,9 +49,7 @@ some characters in paths should be properly escaped:
 > but the order in which spaces are checked cannot be guaranteed.
 
 ### File ID
-
-
-File ID is a unique, global identifier associated with a file or directory. 
+The file ID is a unique, global identifier associated with a file or directory. 
 You can universally utilize it in the [REST](#rest-api) and [CDMI](#cdmi) APIs.
 To find out the File ID of a given file or directory, you have several options:
 
@@ -151,14 +149,14 @@ it as needed).
 
 ### Authorization
 
-The decision whether an authenticated client is allowed to perform the requested
+The decision of whether an authenticated client is allowed to perform the requested
 operation depends on a series of security checks on different levels. The
 procedure can be divided into steps as follows (the steps are processed in
 sequence unless the procedure finishes upon **access denied** or **granted**):
 
-1. The provided access token is analysed concerning
+1. The provided access token is analyzed concerning
    [caveats](tokens.md#token-caveats) that can restrict the authorization.
-   Especially the [data access caveats](tokens.md#data-access-caveats) have a
+   Especially [data access caveats](tokens.md#data-access-caveats) have a
    significant impact on data access. If the requested operation or resource is
    forbidden in regard to any caveat, **access is denied**.
 
@@ -174,7 +172,7 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
    granted** (space owners omit space privilege and permission checks).
 
 5. If the user does not have the [space privileges](spaces.md#space-privileges)
-   required for requested operation, **access is denied**. For example, no
+   required for the requested operation, **access is denied**. For example, no
    `space_write_data` privilege in case of file modification request, or no
    `space_read_data` privilege in case of directory listing request.
 
@@ -185,9 +183,9 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
 7. Otherwise, [POSIX permissions](#posix-permissions) are checked to determine
    whether access should be **denied** or **granted**.
 
-In case of an unauthenticated (**guest**) access, the steps are as follows:
+In case of unauthenticated (**guest**) access, the steps are as follows:
 
-1. The requested resource identifier is analysed if it points to a file or
+1. The requested resource identifier is analyzed if it points to a file or
    directory that is [publicly shared](shares.md) — if not, **access is
    denied**.
 
@@ -203,7 +201,7 @@ In case of an unauthenticated (**guest**) access, the steps are as follows:
 
 **Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
-for a specific principal. Onedata supports subset of CDMI ACL which are based
+for a specific principal. Onedata supports a subset of CDMI ACL which are based
 on NFSv4 standard [RFC 3530](https://tools.ietf.org/html/rfc3530).
 
 An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider
@@ -213,22 +211,22 @@ stopped.
 
 #### Access Control Entry
 
-An ACE consist of four fields: 
+An ACE consists of four fields: 
 * `who` — the principal whom the ACE affects: 
     - user or group represented by their identifier
     * `OWNER@` — the owner of the file
-    * `OWNING GROUP@` — members of space which contains  the file
+    * `OWNING GROUP@` — members of space which contain the file
     * `ANONYMOUS@` — guest client (accessing through a share)
     * `EVERYONE@` — everyone, including the anonymous users
 * `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
-* `flags` — currently only the flag indicating whether principal identifier points 
-to user or group is supported, other flags can be set or 
+* `flags` — currently only the flag indicating whether the principal identifier points to 
+the user or group is supported, other flags can be set or 
 [imported](../admin-guide/oneprovider/configuration/storage-import.md),
 but they will be ignored during ACE evaluation
 * `access_mask` — the permissions regulated by this ACE
 
 You can change permissions using the [Web file browser](web-file-browser.md#permissions)
-in the **File Details** modal, or using the [CDMI API](cdmi.md#set-file-acl).
+in the **File Details** modal or using the [CDMI API](cdmi.md#set-file-acl).
 
 #### Permissions
 
@@ -283,7 +281,7 @@ the following algorithm:
    the algorithm terminates.
 
 3. If the ACE allows any of the requested permissions, then they are added
-   to the list of granted permissions. If the list include all the requested
+   to the list of granted permissions. If the list includes all the requested
    permissions, the access is granted and the algorithm terminates.
 
 4. If the end of the ACL list is reached and permission has neither been
