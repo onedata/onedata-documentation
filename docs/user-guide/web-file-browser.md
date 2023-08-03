@@ -21,10 +21,9 @@ A new, empty space welcomes you with the following screen:
 
 ![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
 
-
-To upload new files, use the **upload** button or drag and drop them into the 
+To upload new files, use the **upload** button or drag and drop them into the
 file browser area. While the data is being uploaded, a progress panel will appear
-in the bottom-right corner of your screen. You can upload multiple files 
+in the bottom-right corner of your screen. You can upload multiple files
 simultaneously or add more files while an upload is in progress.
 
 ![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
@@ -59,8 +58,8 @@ File list navigation is slightly different on mobile devices and is covered
 [later on](#mobile-file-browser).
 :::
 
-You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
-(or `Opt` on MacOS) while clicking to select or deselect multiple files. 
+You can select or deselect files by left-clicking on them. Hold down `Ctrl`
+(or `Opt` on MacOS) while clicking to select or deselect multiple files.
 To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
@@ -71,8 +70,8 @@ available actions appears.
 
 ![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
 
-For better navigation in the file browser, you can also change the layout of it, by choosing 
-what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
+For better navigation in the file browser, you can also change the layout of it, by choosing
+what columns of attributes you want to be displayed. Click **Configure columns** button, in the
 upper-right corner of the file browser, and choose desired columns.
 
 ![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
@@ -82,12 +81,11 @@ directories — new items are dynamically loaded when the list is scrolled down.
 
 ![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
 
-To quickly jump to the desired file or directory, type desired phrase, in the search bar 
+To quickly jump to the desired file or directory, type desired phrase, in the search bar
 located below the breadcrumbs, and you will be moved to the first file or
 directory which name stars with the desired prefix.
 
 ![Jump to prefix feature](../../images/user-guide/web-file-browser/jump-to-prefix.png#screenshot)
-
 
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
@@ -97,9 +95,6 @@ attached or is marked as Dataset.
 ## DODAĆ JAKIŚ OBRAZEK Z DATASETEM I ARCHIWUM
 
 ![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
-
-
-
 
 ## File browser features
 
@@ -130,7 +125,7 @@ You can also excess the Information tab by hovering over icon of file or directo
 
 ### Download
 
-This action simply downloads chosen single file or directory. You can also download single 
+This action simply downloads chosen single file or directory. You can also download single
 files by double-clicking on them.
 
 ### Share
@@ -153,10 +148,9 @@ shares, with the possibility to copy their public links, view their details
 This action brings up **Datasets** modal, where you can assign a dataset status to
 your file or directory. Datasets are files or directories that space users identify
 as meaningful data collections to them. To read more about the functionality of the
-Datasets head over to this [page](datasets.md) 
+Datasets head over to this [page](datasets.md)
 
 ![Datasets modal](../../images/user-guide/web-file-browser/datasets-modal.png#screenshot)
-
 
 ### Metadata
 
@@ -171,11 +165,11 @@ highlighting.
 
 Invokes an editor of [permissions](data.md#permissions) assigned to the file —
 [POSIX](data.md#posix-permissions) or [Access Control List
-(ACL)](data.md#access-control-lists). 
+(ACL)](data.md#access-control-lists).
 You can assign only one permission type to each file at a time.
 To select the currently applied permission type, use the **Permissions type** toggle.
 
-Edit the POSIX permissions for each file by using the octal representation 
+Edit the POSIX permissions for each file by using the octal representation
 field or manipulating the checkboxes.
 
 ![POSIX permissions of file](../../images/user-guide/web-file-browser/feature-permissions-posix.png#screenshot)
@@ -210,7 +204,7 @@ Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
 requirements defined for the selected file(s), which are used to automatically
 manage the file data replication according to logical rules.
 
-You can put down the rules using a visual block-based expression editor. 
+You can put down the rules using a visual block-based expression editor.
 Evaluate these rules against the QoS parameters assigned to different supporting
 storages to determine where the replicas should be stored.
 
@@ -222,7 +216,7 @@ creating a new requirement or using the [REST API](rest-api.md).
 
 ![QoS visual editor: storage match and expression](../../images/user-guide/web-file-browser/feature-qos-visual-match.png#screenshot)
 
-You can also enter expressions in textual form. They will be converted to block form upon 
+You can also enter expressions in textual form. They will be converted to block form upon
 confirmation and can be further edited.
 
 ![QoS editor in text mode](../../images/user-guide/web-file-browser/feature-qos-text.png#screenshot)
@@ -230,35 +224,32 @@ confirmation and can be further edited.
 If the selected files have any QoS requirements defined, they are displayed on
 the list along with their status of fulfillment, matching storages, transfer statistics,
 and other information. It is possible to remove selected QoS requirements unless they
-are inherited from any parent directory. 
+are inherited from any parent directory.
 
 ![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
-
 
 ### Run workflow
 
 This action brings up a modal containing a list of all the uploaded workflows, that
 you can choose to run your file on. To read more about the functionality of the
-workflows head over to [autiomation guide](automation.md) 
+workflows head over to [autiomation guide](automation.md)
 
 ![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
 
-
 ### Rename
+
 The basic operation used to change the file name.
 
 ![Rename file modal](../../images/user-guide/web-file-browser/feature-rename.png#screenshot)
 
-
 ### Create symbolic link
 
-This action lets you create a symbolic link to single file or directory nad place it in a chosen destination. 
-Symbolic link also known as a symlink , is a file that acts as a reference or 
+This action lets you create a symbolic link to single file or directory nad place it in a chosen destination.
+Symbolic link also known as a symlink , is a file that acts as a reference or
 pointer to another file or directory. To place symbolic link in directory you are in,
 click on the highlighted button in top right corner.
 
 ![Create symbolic link feature](../../images/user-guide/web-file-browser/feature-sumbolic-link.png#screenshot)
-
 
 ### Create hard link
 
@@ -270,12 +261,10 @@ for a single file, and they all refer to the same underlying data on the disk
 
 To place a hardlink follow the same steps as you would with placing a symbolic link.
 As you create hardlink, the original file or directory will now display label with
-amount of hard links created to this file. You can click on the label you will 
-see the list of existing hard links in **Details** modal. 
-
+amount of hard links created to this file. You can click on the label you will
+see the list of existing hard links in **Details** modal.
 
 ![Create hard link feature](../../images/user-guide/web-file-browser/feature-hard-link.png#screenshot)
-
 
 ### Copy, Cut and Paste
 
@@ -322,7 +311,7 @@ The currently selected provider is shown on the top of the file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
 Oneprovider...** action at the top of the file browser, given that there is more
-than one supporting provider. Alternatively, providers can be switched using a 
+than one supporting provider. Alternatively, providers can be switched using a
 world map visual representation, available under the globe icon.
 
 ![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)
