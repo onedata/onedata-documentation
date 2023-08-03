@@ -50,9 +50,11 @@ all supporting providers.
 
 <!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 
-> **NOTE**: a space can be supported with an imported storage.
-> This way, a preexisting data-set can be made available in a Onedata space.
-> Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
+::: tip NOTE
+A space can be supported with an imported storage.
+This way, a preexisting data-set can be made available in a Onedata space.
+Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
+:::
 
 ## Space members
 
