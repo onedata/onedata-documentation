@@ -106,7 +106,7 @@ on the **Create another share** button will bring [a share creation modal](#shar
 ### Listing per space
 
 Open a **Space** > **Shares, Open Data** tab, which lists all shares created in the space.
-Clicking on a share item on the right pane will open [a single share management view](#share-management-view),
+Clicking on a Share item on the right pane will open [a single share management view](#share-management-view),
 while dots-menu for the provides share operations: **Rename**, **Remove share**, and
 **Copy public URL**.
 
@@ -115,7 +115,7 @@ while dots-menu for the provides share operations: **Rename**, **Remove share**,
 ### Listing all shares in all spaces accessible by you
 
 Open a **SHARES** item in the main menu, which lists all shares from all spaces accessible by
-you. Click on a share item to open [a single share management view](#share-management-view).
+you. Click on a Share item to open [a single share management view](#share-management-view).
 
 ![Managing shares of space](../../images/user-guide/shares/managing-all-shares.png#screenshot)
 
@@ -125,7 +125,7 @@ This single share management view contains:
 
 * a **Path** to the shared file or directory in the space,
 * a **Public share link** to access the share by anonymous users,
-* a **Description** tab that allows creating information page describing the share,
+* a **Description** tab that allows creating an information page describing the share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
 * a **Publish as Open Data** tab, which allows publishing the dataset as Open Data.
 
@@ -136,11 +136,11 @@ of the view.
 
 ![Share menu](../../images/user-guide/shares/share-menu.png#screenshot)
 
-### Share description
+### Share Description
 
 You can add an optional description of the share using Markdown format. After opening the
 **Description** tab, click on **Create description** and write the description using
-Markdown markup. You can use **Open preview** / **Edit markdown** buttons to switch
+Markdown markup. You can use the **Open preview** and **Edit markdown** buttons to switch
 between Markdown markup and rendered description at any time and use **Save** or
 **Discard** buttons to persist or cancel changes. The description can be edited at any
 time after saving and share publishing.
