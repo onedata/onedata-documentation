@@ -1,6 +1,6 @@
 # Shares
 
-[toc][]
+[toc]()
 
 Files in Onedata can be made public and available for unauthenticated users. The simplest
 way to achieve that is to create a **share** of a chosen file or directory (the whole
@@ -53,7 +53,7 @@ Users can normally browse these files in a read-only manner and you can addition
 restrict access to some files inside the share changing permissions of files in the file
 browser:
 
-* changing POSIX **Other** _(anonymous)_ **Read** and **Execute** flag,
+* changing POSIX **Other** *(anonymous)* **Read** and **Execute** flag,
 * or setting ACL permissions for a special **ANONYMOUS** user class.
 
 See [this](./data.md#data-access-control) chapter for more details.
@@ -73,7 +73,7 @@ Besides file browsing, an anonymous user can:
 
 ![Public share file information](../../images/user-guide/shares/share-public-file-info.png#screenshot)
 
-The file details panel also provides an **API** tab that provides _curl_ commands for
+The file details panel also provides an **API** tab that provides *curl* commands for
 retrieving information about files by unauthenticated users.
 
 ![Public share file API](../../images/user-guide/shares/share-public-file-api.png#screenshot)
@@ -175,7 +175,7 @@ share management view.
 
 ### REST share information
 
-Besides of public share URL accessible in the web browser, you can show and copy a _curl_
+Besides of public share URL accessible in the web browser, you can show and copy a *curl*
 command giving information about sharing for the CLI, selecting the **Public REST endpoint**
 option from the URL dropdown.
 
