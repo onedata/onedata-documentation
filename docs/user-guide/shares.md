@@ -139,8 +139,8 @@ of the view.
 ### Share Description
 
 You can add an optional description of the share using Markdown format. After opening the
-**Description** tab, click on **Create description** and write the description using
-Markdown markup. You can use the **Open preview** and **Edit markdown** buttons to switch
+**Description** tab, click on **Create Description** and write the description using
+Markdown markup. You can use the **Open Preview** and **Edit Markdown** buttons to switch
 between Markdown markup and rendered description at any time and use **Save** or
 **Discard** buttons to persist or cancel changes. The description can be edited at any
 time after saving and share publishing.
