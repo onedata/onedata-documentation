@@ -131,5 +131,3 @@ which can result in:
    "creationTime":1686742530
 }
 ```
-
-The Handle details contain `publicHandle` property with URL to access Open Data collection in the web browser.
