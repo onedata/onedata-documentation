@@ -12,6 +12,10 @@
     "editor.defaultFormatter": "unifiedjs.vscode-remark",
     "editor.formatOnSave": false
   },
+  "cSpell.ignoreRegExpList": [
+    // Onedata identifiers (e.g. Space ID)
+    "(?:[A-Za-z0-9+/]{38,})"
+  ],
   "cSpell.enabledLanguageIds": [
     "markdown",
     "plaintext"
