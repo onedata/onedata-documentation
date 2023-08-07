@@ -1,15 +1,11 @@
 # Open Data
 
-<!-- FIXME: VFS-10906 dopisałbym inny wstęp, co to jest w ogóle open data -->
-
-<!-- FIXME: shares z dużej litery -->
-
 [toc]()
 
 To support [Open Data](https://en.wikipedia.org/wiki/Open_data) access community use
 cases, Onedata provides means for publishing [Shares](./shares.md) as Open Data
 collections. Such collections can have assigned Open Access identifiers such as
-[DOI](http://www.doi.org/) or [PID](http://www.pidconsortium.eu/). 
+[DOI](http://www.doi.org/) or [PID](http://www.pidconsortium.eu/).
 
 The Share is assigned [Dublin Core](https://en.wikipedia.org/wiki/Dublin_Core) metadata
 (which is a standard for describing such collections), registered in an external handle
@@ -82,7 +78,6 @@ Core metadata as described in the [Share Description](./shares.md#share-descript
 section of the documentation.
 :::
 
-
 ## Publishing via REST API
 
 ::: tip
@@ -123,7 +118,7 @@ with previously obtained `HANDLE_SERVICE_ID` and `SHARE_ID`. Metadata must be
 [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dces/) compatible
 metadata in escaped XML.
 
-After successful publication, you can get created Handle ID ("`handleId`" property) using
+After successful publication, you can get created Handle ID (`handleId` property) using
 the following command line:
 
 ```shell
