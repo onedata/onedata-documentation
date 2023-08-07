@@ -65,7 +65,7 @@ which can result in:
 {"handle_services":["054900fc799a7f14451e99fac94f351ach7099"]}
 ```
 
-The share ID can, for example, be obtained from Web GUI's Public share link, which is e.g. `https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846` — in this example the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
+The share ID can, for example, be obtained from Web GUI's Public share link, which is e.g. `https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846` — in this example, the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
 
 Handles for shares can be also generated using the REST API using the following command line:
 
@@ -78,7 +78,7 @@ https://${ONEZONE_HOST}/api/v3/onezone/handles
 
 with previously obtained `HANDLE_SERVICE_ID` and `SHARE_ID`. Metadata must be [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dces/) compatible metadata in escaped XML.
 
-After successful publication, you can get created Handle ID (`handleId` property) using the following command line:
+After successful publication, you can get created Handle ID ("`handleId`" property) using the following command line:
 
 ```shell
 curl -k -u user:password https://${ONEZONE_HOST}/api/v3/onezone/shares/${SHARE_ID}
