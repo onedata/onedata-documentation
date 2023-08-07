@@ -170,8 +170,6 @@ directory links found in the **Path** section of the Share management view.
 
 <!-- ### Open Data -->
 
-<!-- TODO: VFS-10906 Open Data documentation -->
-
 ### REST Share information
 
 Besides a public Share link accessible in the web browser, you can show and copy a curl

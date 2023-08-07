@@ -92,7 +92,7 @@ words. Do add new words if needed and commit the changes.
 
 Sometimes you need to silence Code Spell Checker warnings, because text includes
 some code examples, which contains many non-dictionary words, which should not be added to
- the dictionary. Refer to **Enable / Disable checking sections of code** section of
+the dictionary. Refer to **Enable / Disable checking sections of code** section of
 [Code Spell Checker documentation](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) for more information.
 
 ### Development using a natively-installed toolkit
