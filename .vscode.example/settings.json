@@ -14,7 +14,7 @@
   },
   "cSpell.ignoreRegExpList": [
     // Onedata identifiers (e.g. Space ID)
-    "(?:[A-Za-z0-9+/]{38,})"
+    "(?:[A-FHa-fh0-9+/]{38,})"
   ],
   "cSpell.enabledLanguageIds": [
     "markdown",
