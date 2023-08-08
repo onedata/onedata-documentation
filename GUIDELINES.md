@@ -136,7 +136,8 @@ Below are some examples of how a link or reference can be introduced:
 [C]: path/to/file-three.md#section
 ```
 
-Always use references for links (like `[page][]`), never use inline links (like `[page](./path/to/page.md)`). 
+Always use references for links (like `[page][]`), never use inline links (like
+`[page](./path/to/page.md)`).
 
 Wherever it is possible, use the name of the link used in the text as a reference name, for example:
 
