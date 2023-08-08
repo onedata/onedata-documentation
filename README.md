@@ -1,15 +1,15 @@
 # Onedata documentation
 
-This documentation is built using [VuePress](https://vuepress.vuejs.org).
+This documentation is built using [VuePress][].
 
 ## Contributing
 
 Before making any changes in the docs, make sure to set up your working environment
-(see [Development](#development) below).
+(see [Development][] below).
 
 **Before creating a PR**:
 
-* Make sure your contribution **sticks to the [guidelines](GUIDELINES.md)**.
+* Make sure your contribution **sticks to the [guidelines][]**.
 * Fix any linguistic or grammatical errors detected by the plugins. If you are touching
   a file with pre-existing errors, please take some time to tidy it up a bit.
 * Make sure the build is passing (may require re-formatting, pleasing the linter or solving
@@ -51,7 +51,7 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 #### remark (`unifiedjs.vscode-remark`)
 
 Before installing this addon, you should install Node.js runtime in version 14.14+. Follow
-instructions on the [nvm website](https://github.com/nvm-sh/nvm#installing-and-updating).
+instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
 the repository root. This command will install `yarn` globally and all needed dependencies
@@ -75,9 +75,9 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 #### Grammarly (`znck.grammarly`)
 
 This extension enables Markdown and plaintext files check using
-[Grammarly](https://www.grammarly.com/) service. You can use the extension without
+[Grammarly][] service. You can use the extension without
 authentication, but it is recommended to create an account and log in to it in VSCode
-to have your personal dictionary, [customized here](https://account.grammarly.com/customize).
+to have your personal dictionary, [customized here][].
 As of July 2023, the Grammarly extension does not support personal dictionary configured locally.
 
 #### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
@@ -115,3 +115,15 @@ script during the build.
 
 After a successful build, the static HTML files are placed in `docs/.vuepress/dist`.
 Calling `make package` will pack it up into a tarball.
+
+[VuePress]: https://vuepress.vuejs.org
+
+[Development]: #development
+
+[guidelines]: GUIDELINES.md
+
+[nvm website]: https://github.com/nvm-sh/nvm#installing-and-updating
+
+[Grammarly]: https://www.grammarly.com/
+
+[customized here]: https://account.grammarly.com/customize

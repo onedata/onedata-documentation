@@ -3,7 +3,7 @@
 Unified guidelines for writing and formatting the Onedata documentation.
 
 Some of the formatting guidelines are automatically cared for with proper
-workspace configuration — make sure to set it up as described in [the README](README.md#development).
+workspace configuration — make sure to set it up as described in [the README][].
 
 ## Source file structure
 
@@ -24,8 +24,8 @@ To add an image:
   i.e. for the above-mentioned page, it would be:
   `./images/admin-guide/onezone/installation/first-step.png`,
 
-* embed the image into the Markdown page:
-  `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
+* embed the image into the Markdown
+  page: `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
 
 ## Writing tone
 
@@ -78,7 +78,7 @@ To add an image:
 Use the three backticks notation to create a multi-line code block. Whenever
 possible, specify the language for nice syntax highlighting. More tips and the
 list of supported languages can be found in the
-[Vuepress docs](https://v1.vuepress.vuejs.org/guide/markdown.html#syntax-highlighting-in-code-blocks).
+[VuePress docs][VuePress code blocks].
 
 ````
 ```js
@@ -91,8 +91,8 @@ export default {
 
 ### Custom blocks/containers
 
-Avoid using the default markdown blockquotes, but use the
-[Vuepress custom containers](https://v1.vuepress.vuejs.org/guide/markdown.html#custom-containers).
+Avoid using the default markdown blockquote, but use the
+[VuePress custom containers][].
 
 ````
 ::: tip
@@ -134,7 +134,7 @@ Below are some examples of how a link or reference can be introduced:
 
 Use consistent naming of structural GUI elements, as shown below:
 
-![GUI elements](images/guidelines/gui-elements.png)
+![GUI elements][]
 
 To refer to a named GUI element, use **bold** text style. You may also use the *italic*
 style to express a placeholder (some meta information), e.g.:
@@ -203,7 +203,7 @@ Below are some links to the REST API documentation of commonly used operations:
 
 ## Technicalities
 
-* Use the hyphen (`-`), en dash (`–`) and em dash (`—`) characters appropriately.
+* Use the hyphen (`-`), en dash (`–`), and em dash (`—`) characters appropriately.
 
   The hyphen (`-`) is used for compound terms and word division.
 
@@ -220,7 +220,7 @@ Below are some links to the REST API documentation of commonly used operations:
   > Authentication is carried by access tokens — bearer tokens that allow acting
   > on behalf of the token subject.
 
-  For more tips, see the [punctuation guide](https://www.thepunctuationguide.com/hyphen.html).
+  For more tips, see the [punctuation guide][].
 
 * To abbreviate the word `identifier`, stick to the `ID` notation rather than `Id`.
 
@@ -240,3 +240,13 @@ Below are some links to the REST API documentation of commonly used operations:
 ## Custom routes
 
 Can be placed in `./docs/.vuepress/enhanceApp.js`.
+
+[the README]: README.md#development
+
+[VuePress code blocks]: https://v1.vuepress.vuejs.org/guide/markdown.html#syntax-highlighting-in-code-blocks
+
+[VuePress custom containers]: https://v1.vuepress.vuejs.org/guide/markdown.html#custom-containers
+
+[GUI elements]: images/guidelines/gui-elements.png
+
+[punctuation guide]: https://www.thepunctuationguide.com/hyphen.html

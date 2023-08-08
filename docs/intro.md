@@ -14,7 +14,7 @@ INTRODUCTION  (landing page)
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
 
-# ![Onedata](../images/intro/heading.png) Documentation
+# ![Onedata][Onedata logo] Documentation
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
@@ -30,9 +30,9 @@ Onedata focuses on instant, transparent access to distributed data sets, without
 
 Before you start using Onedata, it's helpful to understand the basic concepts provided in the next section. There you will find out: what functionality it provides, how data is organized and what are the various components of the platform.
 
-If you would like to start using onedata as a user go to the [user quickstart](user-guide/quickstart.md).
+If you would like to start using onedata as a user go to the [user quickstart][].
 
-If you would like to deploy the onedata services on your infrastructure then you should start with the relevent quickstart for [onezone](admin-guide/onezone) or [oneprovider](admin-guide/oneprovider) found in the [admin guide](admin-guide/).
+If you would like to deploy the onedata services on your infrastructure then you should start with the relevent quickstart for [onezone][] or [oneprovider][] found in the [admin guide][].
 
 ## Basic concepts
 
@@ -56,7 +56,7 @@ Each user can have any number of *spaces*. *Spaces* can be easily shared with ot
 
 Data in spaces can be managed through a web interface as well as from command-line. Each space can be easily mounted to a local filesystem and accessed directly from a laptop, a cluster node or virtual machine deployed in the cloud.
 
-For more information about *Spaces* and *Groups* see [Space Management](user-guide/spaces.md) and [Group Management](user-guide/groups.md).
+For more information about *Spaces* and *Groups* see [Space Management][] and [Group Management][].
 
 ### Providers
 
@@ -68,9 +68,9 @@ A user can use several providers simultaneously to manage his/her data. Onedata 
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
 
-Users use *Onezone* web interfaces (like the one at [onedata.org](https://onedata.org)) in order to authenticate with Onedata and access the data located on the providers storage resources.
+Users use *Onezone* web interfaces (like the one at [onedata.org][]) in order to authenticate with Onedata and access the data located on the providers storage resources.
 
-For more information about Onedata's provider service, check out [Oneprovider Overview](admin-guide/oneprovider/overview.md) documentation.
+For more information about Onedata's provider service, check out [Oneprovider Overview][] documentation.
 
 ### Zones
 
@@ -82,7 +82,7 @@ Onedata is a distributed system divided into zones that are created by deploying
 
 As *onedata.org* is a main public zone, any provider registered there allows the users to access their data through *onedata.org* user interface.
 
-For more information about Onedata's  *Onezone* service, check out [*Onezone* Overview](admin-guide/onezone/overview.md) documentation.
+For more information about Onedata's  *Onezone* service, check out [Onezone Overview][] documentation.
 
 ## User interfaces
 
@@ -92,11 +92,11 @@ Onedata provides 4 ways to manage and access your data:
 
 The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
 
-![Example view of Onedata web interface](../images/intro/web-gui-example.png#screenshot)
+![Example view of Onedata web interface][]
 
 ### User command-line interface
 
-If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient](user-guide/oneclient.md) reference for the complete list of available features.
+If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient][] reference for the complete list of available features.
 
 ### Administrator Web interface
 
@@ -104,7 +104,7 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 
 ### API
 
-Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](user-guide/cdmi.md) and RESTful [interface](https://onedata.org/#/home/api) for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
+Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][CDMI interface] and RESTful [interface][REST interface] for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
 
 ## Architecture
 
@@ -114,3 +114,31 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface](u
                     and offering storage space for users -->
 
 architecture
+
+[Onedata logo]: ../images/intro/heading.png
+
+[user quickstart]: user-guide/quickstart.md
+
+[onezone]: admin-guide/onezone
+
+[oneprovider]: admin-guide/oneprovider
+
+[admin guide]: admin-guide/
+
+[Space Management]: user-guide/spaces.md
+
+[Group Management]: user-guide/groups.md
+
+[onedata.org]: https://onedata.org
+
+[Oneprovider Overview]: admin-guide/oneprovider/overview.md
+
+[Onezone Overview]: admin-guide/onezone/overview.md
+
+[Example view of Onedata web interface]: ../images/intro/web-gui-example.png#screenshot
+
+[oneclient]: user-guide/oneclient.md
+
+[CDMI interface]: user-guide/cdmi.md
+
+[REST interface]: https://onedata.org/#/home/api
