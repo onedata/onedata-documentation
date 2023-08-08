@@ -1,6 +1,6 @@
 .PHONY: all build dev clean
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v4-alpha.1
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v4-alpha.2
 
 all: build
 
