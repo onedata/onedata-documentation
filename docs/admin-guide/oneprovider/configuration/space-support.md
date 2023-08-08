@@ -17,7 +17,7 @@ similar to the one below:
 MDAxZWxvY2F00aW9uIGRlbW8ub25lZGF00YS5vcmcKMDA5NWlkZW500aWZpZXIgMi900bXAtMS91...
 ```
 
-It then can be passed to a provider administrator. From this point, the provider
+It can then be passed to a provider administrator. From this point, the provider
 administrator can choose whether the support should be granted and how the
 provider should handle it.
 
@@ -42,8 +42,9 @@ Read more [here](storage-import.md).
 :::
 
 ::: warning
-Remember that each provider can support a specific space only once. Hence you
-should choose the supporting storage carefully as this decision is irreversible.
+Remember that each provider can grant support for a specific space only once.
+Hence you should choose the supporting storage carefully as this decision is
+irreversible.
 :::
 
 In addition, you can turn on/off accounting and directory statistics. The latter

@@ -14,7 +14,7 @@ of use cases:
 https://my.zone.domain.org/api/v3/onepanel/{...}
 ```
 
-This works because Onepanel API endpoints are internally proxied by the
+All incoming calls to such Onepanel API endpoints are internally proxied by the
 Onezone to the underlying Onepanel.
 
 The second one becomes handy when the Onezone itself is malfunctioning (so
