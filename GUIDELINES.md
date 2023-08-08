@@ -24,8 +24,8 @@ To add an image:
   i.e. for the above-mentioned page, it would be:
   `./images/admin-guide/onezone/installation/first-step.png`,
 
-* embed the image into the Markdown
-  page: `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
+* embed the image into the Markdown page:
+  ```![image](../../../images/admin-guide/onezone/installation/first-step.png)```
 
 ## Writing tone
 
@@ -57,7 +57,7 @@ To add an image:
 
 ### Enumeration & itemization
 
-```
+```md
 * Use only the wildcard (`*`) character for bullet points — do not use the hyphen (`-`).
 
 * For multiline points, indent the content to
@@ -80,7 +80,7 @@ possible, specify the language for nice syntax highlighting. More tips and the
 list of supported languages can be found in the
 [VuePress docs][VuePress code blocks].
 
-````
+````md
 ```js
 export default {
   name: 'MyComponent',
@@ -94,7 +94,7 @@ export default {
 Avoid using the default markdown blockquote, but use the
 [VuePress custom containers][].
 
-````
+````md
 ::: tip
 This is a tip
 :::
@@ -126,9 +126,63 @@ console.log('Hello, VuePress!')
 
 Below are some examples of how a link or reference can be introduced:
 
-* `For more information about X, refer to [this page](path/to/file.md#section).`
-* `For more information about X, see the [Y](path/to/file.md#section) section/chapter.`
-* `See [this](path/to/file.md#section) chapter for more details.`
+```md
+* For more information about X, refer to [this page][A].
+* For more information about X, see the [B][] section/chapter.
+* See [this][C] chapter for more details.
+
+[A]: path/to/file-one.md#section
+[B]: path/to/file-two.md#section
+[C]: path/to/file-three.md#section
+```
+
+Always use references for links (like `[page][]`), never use inline links (like `[page](./path/to/page.md)`). 
+
+Wherever it is possible, use the name of the link used in the text as a reference name, for example:
+
+✅ Correct
+
+```md
+This is some [test][].
+
+[test]: path/to/page.md
+```
+
+❌ Incorrect
+
+```md
+This is some [test][link-1].
+
+[link-1]: path/to/page.md
+```
+
+In some cases, the reference name could be another, e.g. when you want to name the reference meaningful:
+
+✅ Correct in special cases
+
+```md
+Refer to [this][file-chapter] section of documentation.
+
+[file-chapter]: path/to/page.md
+```
+
+All references must be placed at the end of the document.
+
+✅ Correct
+
+```md
+# First
+
+First, refer to the [File Chapter][].
+
+# Second
+
+Next, go to [example.com][].
+
+[File Chapter]: path/to/page.md
+
+[example.com]: https://example.com
+```
 
 ### Referring to GUI elements
 
@@ -173,7 +227,7 @@ style to express a placeholder (some meta information), e.g.:
   ```
 
 * **Always add** the `screenshot` class to all screenshots:
-  ```
+  ```md
   ![image](../../images/user-guide/spaces/1-no_spaces.png#screenshot)
   ```
 
@@ -187,18 +241,26 @@ Do include useful links to the REST API, typically at the end of a section. Make
 to link the section with the guide on how to use the REST API of the corresponding service.
 Below is an example of how to do that.
 
-```
-You can interact with the LUMA DB using the Onepanel's REST API — see [this section](./rest-api.md) 
+```md
+You can interact with the LUMA DB using the Onepanel's REST API — see [this section][rest-api]
 for a guide on how to get started.
 
 Below are some links to the REST API documentation of commonly used operations:
 
-| Operation                             | Link to the API docs |
-|---------------------------------------|----------------------|
-| Get LUMA DB configuration             | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_config)|
-| Clear LUMA DB                         | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_clear_db)|
-| Lookup default display credentials    | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials)|
-| Lookup default display credentials    | [API](https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials)|
+| Operation                             | Link to the API docs                |
+|---------------------------------------|-------------------------------------|
+| Get LUMA DB configuration             | [API][luma-get-config]              |
+| Clear LUMA DB                         | [API][luma-clear-db]                |
+| Lookup default display credentials    | [API][luma-get-display-credentials] |
+
+[rest-api]: ./rest-api.md
+
+[luma-get-config]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_config
+
+[luma-clear-db]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_clear_db
+
+[luma-get-display-credentials]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_display_credentials
+
 ```
 
 ## Technicalities
