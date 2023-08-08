@@ -25,7 +25,7 @@ To add an image:
   `./images/admin-guide/onezone/installation/first-step.png`,
 
 * embed the image into the Markdown page:
-  ```![image](../../../images/admin-guide/onezone/installation/first-step.png)```
+  `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
 
 ## Writing tone
 
