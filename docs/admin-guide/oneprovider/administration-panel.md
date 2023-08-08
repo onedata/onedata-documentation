@@ -40,18 +40,18 @@ interface is usually located at the address
 `https://my.provider.domain.org:9443`, where `my.provider.domain.org` represents
 the Oneprovider domain.
 
+::: warning
+Try to avoid using the emergency interface. Leaking the passphrase
+to this interface can lead to unauthorized access by third parties and data
+loss.
+:::
+
 Click on **Sign in to emergency interface** and provide the emergency passphrase
 that allows entry into the administration panel. This passphrase was set during
 the Oneprovider cluster installation and is not connected to any user in the
 system.
 
 ![image](../../../images/admin-guide/oneprovider/administration-panel/onepanel-emergency-login.png#screenshot)
-
-::: warning
-Try to avoid using the emergency interface. Leaking the passphrase
-to this interface can lead to unauthorized access by third parties and data
-loss.
-:::
 
 #### Changing the emergency interface passphrase
 

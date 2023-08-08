@@ -13,7 +13,7 @@ special emergency password. Read more
 [here](../administration-panel.md#access-via-emergency-interface).
 :::
 
-You can find the members settings by clicking selecting **Members** in the submenu
+You can find the members settings by clicking **Members** in the submenu
 of a specific cluster.
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members.png#screenshot)
@@ -30,12 +30,10 @@ To add a new user to the cluster, open the user list actions menu and choose **I
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-user-options.png#screenshot)
 
 Then, copy the generated token and send it to the user you want to grant access
-to the cluster.
+to the cluster. Once the user receives the token, they should consume it using the dedicated
+[view](../../../user-guide/tokens.md#consuming-invite-tokens).
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-user-invite-token.png#screenshot)
-
-Once the user receives the token, they should consume it using the dedicated
-[view](../../../user-guide/tokens.md#consuming-invite-tokens).
 
 ### Adding user groups
 
@@ -109,8 +107,10 @@ group, toggle the desired privileges, and save the changes by clicking the
 
 ![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/modifies-cluster-member-perms.png#screenshot)
 
+::: tip
 Remember that changing privileges for a group means changing them for all users
 within that group.
+:::
 
 Full list of privileges:
 
