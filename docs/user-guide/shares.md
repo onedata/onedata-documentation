@@ -49,14 +49,13 @@ Accessing the public Share URL opens a public Share view which by default contai
 
 ![Public Share view](../../images/user-guide/shares/sharing-public-files.png#screenshot)
 
-Users can simply browse these files, in a read-only manner. You can additionally
-restrict access to some files inside the Share by changing the permissions of files in the
+Users can simply browse these files, in a read-only manner. Access to specific files can be also restricted inside the Share by modifying the following [permissions](./data.md#data-access-control) of files in the
 file browser:
 
 * changing POSIX **Other** *(anonymous)* **Read** and **Execute** flag,
 * or setting ACL permissions for a special **ANONYMOUS** user class.
 
-See [this](./data.md#data-access-control) chapter for more details.
+You can do it by navigating to the **Data > *Space name* > Files** view and choosing **Permissions** from the context menu for the file or directory to which you want to restrict access. For more information about the web file browser permissions view, refer to [this page](./web-file-browser.md#permissions).
 
 ::: tip NOTE
 Although there is a POSIX **Other — Write** flag and modification permissions
@@ -114,7 +113,9 @@ while the actions menu for the Share provides the following operations: **Rename
 
 ### Listing all shares in all your spaces
 
-To list all shares from all your spaces, open a **Shares** tab from the navigation bar, which will show the list in the Shares sidebar. Click on a Share item to open [a single Share management view](#share-management-view).
+To list all shares from all your spaces, open a **Shares** tab from the navigation bar,
+which will show the list in the Shares sidebar. Click on a Share item to open [a single
+Share management view](#share-management-view).
 
 ![All Shares management](../../images/user-guide/shares/managing-all-shares.png#screenshot)
 
