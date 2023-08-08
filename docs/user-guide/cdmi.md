@@ -1,6 +1,6 @@
 # CDMI
 
-[toc][]
+[toc]()
 
 
 ## Quickstart
