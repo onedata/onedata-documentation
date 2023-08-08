@@ -22,7 +22,7 @@ boils down to creating snapshots of the installation directory.**
 > does not cover storage data backups, you should use backup procedures
 > recommended for specific storage backend types.
 
-Below are examples how [offline](#offline-backups) and [live](#live-backups)
+Below are examples how [offline][1] and [live][2]
 backups can be performed.
 
 ### Offline backups
@@ -74,9 +74,9 @@ sudo systemctl start oneprovider
 ### Live backups
 
 The script
-[odbackup.sh](https://github.com/onedata/onedata-deployments/blob/master/bin/odbackup.sh)
+[odbackup.sh][3]
 from
-[onedata-deployments](https://github.com/onedata/onedata-deployments)
+[onedata-deployments][4]
 repository can be used to automate the backup process. It is
 particularly useful for multinode onedata deployments - see the
 `README.md` for usage details. In this procedure, the service nodes
@@ -96,12 +96,12 @@ data consistency.
 
 Some disaster recovery scenarios require creation of new VMs to
 restore the service.  The [ansible
-playbook](https://github.com/onedata/onedata-deployments/tree/master/ansible)
+playbook][5]
 from
-[onedata-deployments](https://github.com/onedata/onedata-deployments)
+[onedata-deployments][4]
 repository can be used to speed up the process. Alternatively, one can
 manually run the commands included in the
-[Installation](installation.md) section.
+[Installation][6] section.
 
 Ideally, the new VMs should have the same IP addresses and hostnames
 as the original ones. If that is not possible, additional steps will
@@ -141,3 +141,15 @@ sudo systemctl start oneprovider
 ## Upgrading
 
 ## Troubleshooting
+
+[1]: #offline-backups
+
+[2]: #live-backups
+
+[3]: https://github.com/onedata/onedata-deployments/blob/master/bin/odbackup.sh
+
+[4]: https://github.com/onedata/onedata-deployments
+
+[5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
+
+[6]: installation.md

@@ -2,11 +2,11 @@
 
 This guide is dedicated for non-admin users that would like to index the
 metadata from files in their spaces and perform queries. Consider reading the
-[counterpart documentation for admins](../admin-guide/onezone/configuration/data-discovery.md)
+[counterpart documentation for admins][1]
 that might give you more insights into the concept of **Data Discovery** in Onedata,
 especially concerning the configuration of harvesters and indices.
 
-You may also want to take a look at the [FAQ](#data-discovery-faq).
+You may also want to take a look at the [FAQ][2].
 
 ## Harvesters
 
@@ -28,7 +28,7 @@ Harvesters have two main functions:
   of the indexing harvester. Anyone with access to the harvester will be able to query the
   indices and see metadata.
 * The files to be indexed do not have conflicting metadata formats —
-  [learn more](#why-some-of-my-metadata-is-not-present-in-my-index).
+  [learn more][3].
 
 There are several ways how you can index the metadata attached to the files in
 your space by adding it to a harvester.
@@ -41,40 +41,40 @@ your space by adding it to a harvester.
 
 You do not have to be a member of a harvester to add a space to it.
 Contact the harvester owner and ask him for a
-[space invite token](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces).
+[space invite token][4].
 The invitation can be accepted using the **Consume** action in the
-[Tokens GUI](tokens.md#consuming-invite-tokens), as long as the consuming user
+[Tokens GUI][5], as long as the consuming user
 has the **Add harvester** privilege in the space.
 
 You will be asked to choose a space to be added to the harvester and
 the harvester will start processing your metadata. Keep in mind that you need to
 be a member of the harvester to query the indices, unless the harvester has
-[public access](#public-and-private-access).
+[public access][6].
 
 ### 2. Adding a space to your own harvester
 
 If you are already a member of a harvester, you can add one of your spaces as a source of metadata.
 If you have sufficient privileges, you can use the option to
-[add one of your spaces](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces)
+[add one of your spaces][4]
 to the harvester, available in the **Spaces** submenu. Otherwise, contact the
 harvester owner and ask him for a
-[space invite token](../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces).
+[space invite token][4].
 The invitation can be accepted using the **Consume** action in the
-[Tokens GUI](tokens.md#consuming-invite-tokens).
+[Tokens GUI][5].
 You will be asked to choose a space to be added to the harvester.
 After a while, your metadata should be accessible via **Data discovery** submenu of the harvester.
 
 ### 3. Creating a new harvester
 
 This method requires an action from an Onezone administrator, who has
-[sufficient privileges](#why-only-administrators-are-privileged-to-create-a-new-harvester).
+[sufficient privileges][7].
 Contact an administrator and ask to
-[create a new harvester](../admin-guide/onezone/configuration/data-discovery.md#creating-a-new-harvester).
+[create a new harvester][8].
 The administrator should then give you a
-[user invite token](../admin-guide/onezone/configuration/data-discovery.md#harvester-members).
+[user invite token][9].
 The invitation can be accepted using the **Consume** action in the
-[Tokens GUI](tokens.md#consuming-invite-tokens).
-Continue as described in [(2)](#2-adding-a-space-to-your-own-harvester) to add a space
+[Tokens GUI][5].
+Continue as described in [(2)][10] to add a space
 to the new harvester.
 
 In case of any problems with metadata indexing, contact the owner or creator of your harvester.
@@ -83,7 +83,7 @@ In case of any problems with metadata indexing, contact the owner or creator of 
 
 The harvested metadata is indexed by the backend configured for given harvester —
 e.g. an Elasticsearch cluster. The indices can be queried using the
-[Data Discovery GUI](#data-discovery-gui) or the [REST API](#rest-api).
+[Data Discovery GUI][11] or the [REST API][12].
 
 The data discovery GUI is arguably the most convenient way, providing easy to use
 tools for querying and filtering results. The REST API is dedicated for more advanced
@@ -91,84 +91,84 @@ users and automation using custom middleware or scripts.
 
 ### Public and private access
 
-Refer to the [admin documentation](../admin-guide/onezone/configuration/data-discovery.md#public-access).
+Refer to the [admin documentation][13].
 
 ## Data Discovery GUI
 
 1. Open the *Data discovery* view, where the harvester can be browsed. To see
    any results, you must make sure that there are some files in spaces attached to
-   the harvester (preferably with some [custom metadata](./metadata.md) set).
-   You might open the [public](#public-and-private-access) view of the harvester
+   the harvester (preferably with some [custom metadata][14] set).
+   You might open the [public][6] view of the harvester
    (if enabled) to enter the full-screen mode.
-   ![image](../../images/user-guide/data-discovery/1-data-discovery.png#screenshot)
+   ![image][15]
 
 2. Click on an entry to expand it and view the metadata. This example shows
    a file that has some custom JSON metadata set. Such
    file can be found in the index by its filename or queries matching the JSON
    metadata.
-   ![image](../../images/user-guide/data-discovery/2-entry-details.png#screenshot)
+   ![image][16]
 
 3. You can switch between table and JSON views.
-   ![image](../../images/user-guide/data-discovery/3-json-view.png#screenshot)
+   ![image][17]
 
 4. You can easily go to the source file using the green link (see above) -
    you will be taken to the directory that contains the indexed file.
-   ![image](../../images/user-guide/data-discovery/4-go-to-file.png#screenshot)
+   ![image][18]
 
 5. Back to the data discovery view — you can use the query builder to compose
    custom queries which will narrow your search results. Building the query starts
    with a single placeholder that can become a direct condition, or branch into
    a more complex expression using chosen operator.
-   ![image](../../images/user-guide/data-discovery/5-query-builder-1.png#screenshot)
+   ![image][19]
 
 6. If an operator is chosen, new placeholders appear in that place, which
    can be recursively filled with further conditions or operators. This example
    shows the `OR` operator, which will match a file if the left-hand expression or
    the right-hand expression matches it.
-   ![image](../../images/user-guide/data-discovery/6-query-builder-2.png#screenshot)
+   ![image][20]
 
 7. The condition expression is composed of a property name, comparator and
    value to compare against. If the condition is true for a file, it will be
    included in the results (subject to other expressions in case of a complex query).
-   ![image](../../images/user-guide/data-discovery/7-query-builder-3.png#screenshot)
+   ![image][21]
 
 8. Complete condition — matches if the `enabled` property in file metadata
    equals `true`.
-   ![image](../../images/user-guide/data-discovery/8-query-builder-4.png#screenshot)
+   ![image][22]
 
 9. Now, for the right-hand expression — another condition that matches if `id`
    is equal to `16`.
-   ![image](../../images/user-guide/data-discovery/9-query-builder-5.png#screenshot)
+   ![image][23]
 
 10. Complete query might look like the following — quick on the *Query* button
     to perform the search.
-    ![image](../../images/user-guide/data-discovery/10-query-builder-6.png#screenshot)
+    ![image][24]
 
 11. The results are presented on a paged view — you should see all the files
     that match the specified query, split to pages. Use the paging menu at the
     bottom for navigation.
-    ![image](../../images/user-guide/data-discovery/11-query-builder-7.png#screenshot)
+    ![image][25]
 
 12. Results can be sorted by desired property and in ascending or descending order.
-    ![image](../../images/user-guide/data-discovery/12-sort.png#screenshot)
+    ![image][26]
 
 13. To refine the search, you may apply some filters based on properties. In our
     example, the results constitute 17 accumulated unique properties to filter by.
-    ![image](../../images/user-guide/data-discovery/13-filter.png#screenshot)
+    ![image][27]
 
 14. Filtering is applied live. Behind the scenes, the query is not repeated -
     the unwanted properties are hidden from the view for convenient browsing,
     but the list of matching files does not change.
-    ![image](../../images/user-guide/data-discovery/14-filter-applied.png#screenshot)
+    ![image][28]
 
-15. If you wish to use the [REST API](#rest-api) for queries, you may find the
+15. If you wish to use the [REST API][12] for queries, you may find the
     `{REST API}` button useful.
-    ![image](../../images/user-guide/data-discovery/15-rest-api-button.png#screenshot)
+    ![image][29]
 
 16. Click on the button to generate a `curl` command that will perform a query
     equivalent to the one currently built in the editor, including the filters and
-    sorting parameters. See the [REST API](#rest-api) for more information.
-    ![image](../../images/user-guide/data-discovery/16-rest-api-modal.png#screenshot)
+    sorting parameters. See the [REST API][12] for more information.
+    ![image][30]
 
 ## REST API
 
@@ -228,9 +228,9 @@ curl -X POST -H "x-auth-token: ${TOKEN}" -H "content-type: application/json" \
     }'
 ```
 
-Note that the `${TOKEN}` variable must be set to an [access token](tokens.md#access-token-quickstart)
+Note that the `${TOKEN}` variable must be set to an [access token][31]
 of a user that is a member of this harvester — unless the harvester is
-[public](#public-and-private-access), then the `x-auth-token` header can be simply removed.
+[public][6], then the `x-auth-token` header can be simply removed.
 
 The response will contain the raw response from the Elasticsearch server. If
 filters are enabled, only the specified properties will be included in the
@@ -254,12 +254,12 @@ harvesters is narrowed to a privileged group of users so that the system load ca
 
 The admin privilege required to create a harvester is `oz_harvesters_create`.
 It can be granted or revoked using the
-[REST API](https://onedata.org/#/home/api/stable/onezone?anchor=operation/update_user_admin_privileges).
+[REST API][32].
 
 ### Why some of my metadata is not present in my index?
 
 The decision which metadata is (not) persisted in an index depends on its
-[index schema](../admin-guide/onezone/configuration/data-discovery.md#feeding-metadata-into-indices),
+[index schema][33],
 with rules describing an acceptable format of incoming data. If the metadata does not fit the schema,
 it is rejected and will not appear in the index.
 
@@ -272,3 +272,69 @@ only JSON metadata, then all other types of metadata will be ignored and not sub
 > number, then the **myFavField** field must always be a number (for every file). The
 > data types in harvested metadata must match all initially detected types for each field
 > in the index, otherwise submissions will be rejected.
+
+[1]: ../admin-guide/onezone/configuration/data-discovery.md
+
+[2]: #data-discovery-faq
+
+[3]: #why-some-of-my-metadata-is-not-present-in-my-index
+
+[4]: ../admin-guide/onezone/configuration/data-discovery.md#adding-new-spaces
+
+[5]: tokens.md#consuming-invite-tokens
+
+[6]: #public-and-private-access
+
+[7]: #why-only-administrators-are-privileged-to-create-a-new-harvester
+
+[8]: ../admin-guide/onezone/configuration/data-discovery.md#creating-a-new-harvester
+
+[9]: ../admin-guide/onezone/configuration/data-discovery.md#harvester-members
+
+[10]: #2-adding-a-space-to-your-own-harvester
+
+[11]: #data-discovery-gui
+
+[12]: #rest-api
+
+[13]: ../admin-guide/onezone/configuration/data-discovery.md#public-access
+
+[14]: ./metadata.md
+
+[15]: ../../images/user-guide/data-discovery/1-data-discovery.png#screenshot
+
+[16]: ../../images/user-guide/data-discovery/2-entry-details.png#screenshot
+
+[17]: ../../images/user-guide/data-discovery/3-json-view.png#screenshot
+
+[18]: ../../images/user-guide/data-discovery/4-go-to-file.png#screenshot
+
+[19]: ../../images/user-guide/data-discovery/5-query-builder-1.png#screenshot
+
+[20]: ../../images/user-guide/data-discovery/6-query-builder-2.png#screenshot
+
+[21]: ../../images/user-guide/data-discovery/7-query-builder-3.png#screenshot
+
+[22]: ../../images/user-guide/data-discovery/8-query-builder-4.png#screenshot
+
+[23]: ../../images/user-guide/data-discovery/9-query-builder-5.png#screenshot
+
+[24]: ../../images/user-guide/data-discovery/10-query-builder-6.png#screenshot
+
+[25]: ../../images/user-guide/data-discovery/11-query-builder-7.png#screenshot
+
+[26]: ../../images/user-guide/data-discovery/12-sort.png#screenshot
+
+[27]: ../../images/user-guide/data-discovery/13-filter.png#screenshot
+
+[28]: ../../images/user-guide/data-discovery/14-filter-applied.png#screenshot
+
+[29]: ../../images/user-guide/data-discovery/15-rest-api-button.png#screenshot
+
+[30]: ../../images/user-guide/data-discovery/16-rest-api-modal.png#screenshot
+
+[31]: tokens.md#access-token-quickstart
+
+[32]: https://onedata.org/#/home/api/stable/onezone?anchor=operation/update_user_admin_privileges
+
+[33]: ../admin-guide/onezone/configuration/data-discovery.md#feeding-metadata-into-indices

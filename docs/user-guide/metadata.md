@@ -1,10 +1,10 @@
 # Metadata
 
-[toc]()
+[toc][1]
 
 ## Quickstart
 
-See [Web GUI](#web-gui) usage examples for the quick guide on how to set or
+See [Web GUI][2] usage examples for the quick guide on how to set or
 obtain file/directory metadata.
 
 ## Basics
@@ -12,17 +12,17 @@ obtain file/directory metadata.
 In the Onedata system, metadata is organized into 3 levels and regards every
 file/directory:
 
-* [Filesystem attributes](#filesystem-attributes) — basic filesystem metadata
+* [Filesystem attributes][3] — basic filesystem metadata
   such as file size, creation and modification timestamps, POSIX permissions, etc.
-* [Extended attributes](#extended-attributes) — simple key-value pairs,
+* [Extended attributes][4] — simple key-value pairs,
   compatible with POSIX extended attributes.
-* [Custom metadata](#custom-metadata) — custom documents in JSON or RDF format.
+* [Custom metadata][5] — custom documents in JSON or RDF format.
 
 The filesystem and extended attributes are accessible directly via
-[POSIX](#metadata-management-with-oneclient-and-onedatafs), [CDMI](cdmi.md) and
-[REST](#rest-api) protocols. Custom metadata, on the other hand, is
-accessible directly only via [REST](#rest-api) and indirectly via
-[POSIX](#metadata-management-with-oneclient-and-onedatafs) and [CDMI](cdmi.md)
+[POSIX][6], [CDMI][7] and
+[REST][8] protocols. Custom metadata, on the other hand, is
+accessible directly only via [REST][8] and indirectly via
+[POSIX][6] and [CDMI][7]
 (as extended attributes under special names of `onedata_json` and `onedata_rdf`).
 
 ### Filesystem attributes
@@ -63,7 +63,7 @@ file in share mode (public view for unauthenticated clients). They are:
 Extended attributes are custom key-value pairs that can be assigned to any
 file/directory and are compatible with POSIX extended file attributes. **Only
 numeric and string values are allowed** — for complex, nested objects,
-[custom metadata](#custom-metadata) must be used.
+[custom metadata][5] must be used.
 
 In general, extended attributes are platform agnostic and users can choose
 arbitrary keys and values to be assigned, for instance information about the
@@ -75,10 +75,10 @@ Graphical User Interface and Open Data publishing and management.
 ### Custom metadata
 
 For each file/directory, users can assign custom documents in supported metadata formats
-(currently JSON and [RDF — Resource Description Framework](https://www.w3.org/RDF)).
+(currently JSON and [RDF — Resource Description Framework][9]).
 This level provides most flexibility as no specific schema is imposed. The custom
-metadata can be used to create complex [views](#creating-views-over-metadata) or
-[data discovery](#data-discovery) indices that consolidate metadata
+metadata can be used to create complex [views][10] or
+[data discovery][11] indices that consolidate metadata
 from multiple spaces.
 
 ## Web GUI
@@ -89,33 +89,33 @@ is using the Web GUI metadata editor.
 1. In order to edit the metadata of a file/directory, simply select **Metadata**
    from the file context menu.
 
-![image](../../images/user-guide/metadata/set_file_metadata.png#screenshot)
+![image][12]
 
 2. Metadata can also be edited for entire data space, but it has to be invoked
    from the space context menu.
 
-![image](../../images/user-guide/metadata/set_space_metadata.png#screenshot)
+![image][13]
 
-3. The first tab allows edition of the [extended attributes](#extended-attributes)
+3. The first tab allows edition of the [extended attributes][4]
    in a simple key-value editor.
 
-![image](../../images/user-guide/metadata/set_file_xattrs.png#screenshot)
+![image][14]
 
 4. In the second tab, JSON metadata can be edited in place or pasted into the
    editor, which performs live syntax validation.
 
-![image](../../images/user-guide/metadata/set_file_json_metadata.png#screenshot)
+![image][15]
 
 5. The third tab contains an RDF editor that works similarly,
    but accepts triples in the XML format.
 
-![image](../../images/user-guide/metadata/set_file_rdf_metadata.png#screenshot)
+![image][16]
 
 ## Metadata management with Oneclient and OnedataFS
 
 In an Oneclient mount, the metadata is exposed through the extended file
 attributes. It can be accessed and modified using such tools as
-[xattr](https://github.com/xattr/xattr) or `getfattr`:
+[xattr][17] or `getfattr`:
 
 ```bash
 [/mnt/oneclient/Space1]$ ls
@@ -143,7 +143,7 @@ Onedata system attributes and cannot be modified. They provide useful informatio
 about files:
 
 * `org.onedata.guid` — the internal GUID of a file/directory in Onedata
-* `org.onedata.file_id` — the universal [File ID](data.md#file-path-and-id) which can be used in REST or CDMI APIs
+* `org.onedata.file_id` — the universal [File ID][18] which can be used in REST or CDMI APIs
 * `org.onedata.space_id` — the ID of the space to which this file/directory belongs
 * `org.onedata.storage_id` — the storage ID on which this file is located
 * `org.onedata.storage_file_id` — the internal storage file identifier (e.g. file path on POSIX storage)
@@ -206,18 +206,64 @@ space.removexattr("file.json", "license")
 All operations related to file metadata can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Operation                                    | Link to API                                                                              |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Read filesystem attributes                   | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_attrs)      |
-| Set filesystem attributes                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/set_attr)       |
-| Manage extended attributes & custom metadata | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata) |
+| Operation                                    | Link to API |
+| -------------------------------------------- | ----------- |
+| Read filesystem attributes                   | [API][19]   |
+| Set filesystem attributes                    | [API][20]   |
+| Manage extended attributes & custom metadata | [API][21]   |
 
 ## Creating views over metadata
 
-Please refer to [views documentation](./views.md) for instructions on
+Please refer to [views documentation][22] for instructions on
 how to create complex database views over data collections using metadata.
 
 ## Data discovery
 
-File and directory metadata can be used to feed [data discovery](data-discovery.md)
+File and directory metadata can be used to feed [data discovery][23]
 indices that harvest metadata from multiple spaces and provide advanced search engines.
+
+[1]: <>
+
+[2]: #web-gui
+
+[3]: #filesystem-attributes
+
+[4]: #extended-attributes
+
+[5]: #custom-metadata
+
+[6]: #metadata-management-with-oneclient-and-onedatafs
+
+[7]: cdmi.md
+
+[8]: #rest-api
+
+[9]: https://www.w3.org/RDF
+
+[10]: #creating-views-over-metadata
+
+[11]: #data-discovery
+
+[12]: ../../images/user-guide/metadata/set_file_metadata.png#screenshot
+
+[13]: ../../images/user-guide/metadata/set_space_metadata.png#screenshot
+
+[14]: ../../images/user-guide/metadata/set_file_xattrs.png#screenshot
+
+[15]: ../../images/user-guide/metadata/set_file_json_metadata.png#screenshot
+
+[16]: ../../images/user-guide/metadata/set_file_rdf_metadata.png#screenshot
+
+[17]: https://github.com/xattr/xattr
+
+[18]: data.md#file-path-and-id
+
+[19]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_attrs
+
+[20]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/set_attr
+
+[21]: https://onedata.org/#/home/api/latest/oneprovider?anchor=tag/Custom-File-Metadata
+
+[22]: ./views.md
+
+[23]: data-discovery.md

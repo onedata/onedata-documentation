@@ -1,10 +1,10 @@
 # Oneclient
 
-[toc]()
+[toc][1]
 
 Onedata provides a command-line based client that is able to mount your spaces
 in your local file system tree. Oneclient is based on
-[Fuse](https://github.com/libfuse/libfuse). Follow installation
+[Fuse][2]. Follow installation
 instructions below your particular platform.
 
 ## Installation
@@ -32,8 +32,8 @@ $ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
 
 ### Anaconda
 
-Oneclient can be also installed using [Anaconda](https://anaconda.org),
-from the official [Onedata conda repository](https://anaconda.org/onedata):
+Oneclient can be also installed using [Anaconda][3],
+from the official [Onedata conda repository][4]:
 
 ```bash
 $ conda install -c onedata oneclient
@@ -57,17 +57,17 @@ $ conda install -c onedata-centos6 oneclient
 To mount your spaces using Oneclient, you need to authenticate with a
 specific Onezone service and obtain an access token suitable for Oneclient.
 Access tokens can be generated directly from the Web interface — see the
-[quickstart guide](tokens.md#access-token-quickstart). More information on
+[quickstart guide][5]. More information on
 different types of tokens, and how to create them programmatically using the
-REST API can be found [here](./tokens.md).
+REST API can be found [here][6].
 
 > IMPORTANT: Please make sure not to publish your access tokens or share them
 > with anyone. Access tokens should be treated the same way as private keys or
 > passwords — they are intended to be used only by their owners for authentication
 > with Onedata services. The only exception is when a token is consciously limited
-> by [caveats that restrict access to data](tokens.md#safely-publishing-tokens)
+> by [caveats that restrict access to data][7]
 > (e.g. read-only access to a specific subdirectory). If you wish to collaborate
-> on the same space and data with another user, simply [invite them to your space](spaces.md#invite-a-user).
+> on the same space and data with another user, simply [invite them to your space][8].
 
 If you are connecting to a provider service which does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
@@ -94,9 +94,9 @@ of your spaces. The choice of provider may depend on several factors:
 
 1. The quality of your network connection to the provider.
 2. The fact whether the provider supports the space that is to be accessed.
-3. Whether you wish to use the [direct I/O](#direct-io-and-proxy-io-modes) mode.
+3. Whether you wish to use the [direct I/O][9] mode.
 
-The hostname can be found in the [Web GUI](data.md#oneprovider-domain).
+The hostname can be found in the [Web GUI][10].
 
 In order to terminate the Oneclient application and unmount your spaces, type:
 
@@ -134,7 +134,7 @@ mode all `read` and `write` operations go to the storage indirectly through
 Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
 `truncate`) go through Oneprovider to ensure data integrity.
 
-![Oneclient proxy IO vs direct IO](../../images/user-guide/oneclient/oneclient-direct-proxy.png)
+![Oneclient proxy IO vs direct IO][11]
 
 By default `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly. The storage access detection is
@@ -511,7 +511,7 @@ $ sudo systemctl status oneclient
 
 ### Overview
 
-[Docker volume plugins](https://docs.docker.com/engine/extend/plugins_volume/)
+[Docker volume plugins][12]
 allow creation of Docker volumes independently of any containers, enabling
 automatic connection between containers and custom storage systems, without
 the necessity of installing any third party software inside the containers.
@@ -595,7 +595,7 @@ $ docker volume create --driver onedata \
 
 When connecting to a Oneprovider instance without a trusted certificate,
 `-o insecure=true` option must be added. Additionally, Onedata Docker volume
-plugins supports all regular [Oneclient command line options](#options),
+plugins supports all regular [Oneclient command line options][13],
 which must be added with `-o` followed by option name, equal sign and value
 (e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
 
@@ -657,3 +657,29 @@ user in the `docker` group to access any volumes on the host, regardless of
 which user created them. Thus, it is advisable to only use Docker volume
 plugins on machines with exclusive access or where only trusted users have
 access, as they will be able to access any Onedata volume created on this host.
+
+[1]: <>
+
+[2]: https://github.com/libfuse/libfuse
+
+[3]: https://anaconda.org
+
+[4]: https://anaconda.org/onedata
+
+[5]: tokens.md#access-token-quickstart
+
+[6]: ./tokens.md
+
+[7]: tokens.md#safely-publishing-tokens
+
+[8]: spaces.md#invite-a-user
+
+[9]: #direct-io-and-proxy-io-modes
+
+[10]: data.md#oneprovider-domain
+
+[11]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+
+[12]: https://docs.docker.com/engine/extend/plugins_volume/
+
+[13]: #options
