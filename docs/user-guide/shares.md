@@ -25,7 +25,7 @@ mentioning that nested items within the Share root directory do not have individ
 associated with them, even though they are effectively shared.
 :::
 
-After the successful Share creation, a directory details panel with the **Shares** tab
+After the successful Share creation, a right-side details panel with the **Shares** tab
 will appear containing a list of Shares created for a selected file or directory.
 
 ![Shares panel](../../images/user-guide/shares/sharing-shares-panel.png#screenshot)
@@ -38,9 +38,9 @@ etc. Creating multiple Shares can be performed using the **Create another share*
 the Shares tab of the file information panel.
 :::
 
-Clicking on a green link with a Share name opens [a Share management view](#share-management-view)
-as an authenticated user, while the public Share URL can be copied and passed to others to
-provide anonymous, read-only access to the files.
+An authenticated user can access [a Share management view](#share-management-view) by
+clicking on a green link with a Share name, whereas the public Share URL can be copied and
+shared with others to grant anonymous, read-only access to the files.
 
 ### Public Share access
 
@@ -49,8 +49,14 @@ Accessing the public Share URL opens a public Share view which by default contai
 
 ![Public Share view](../../images/user-guide/shares/sharing-public-files.png#screenshot)
 
-Users can simply browse these files, in a read-only manner. Access to specific files can
-be also restricted inside the Share by modifying the following
+By default, anonymous users can simply browse these files in a read-only manner, and also:
+
+* download files,
+* see files information like **File ID**, modification time and size,
+* read files [metadata extended attributes](./metadata.md#extended-attributes) that can be
+  set by authenticated users.
+
+Access to specific files can be restricted inside the Share by modifying the following
 [permissions](./data.md#data-access-control) of files in the file browser:
 
 * changing POSIX **Other** *(anonymous)* **Read** and **Execute** flag,
@@ -66,13 +72,6 @@ Although there is a POSIX **Other — Write** flag and modification permissions
 available for the **ANONYMOUS** special ACL user, these don't affect the ability to write
 files by anonymous users — shared files are always read-only for anonymous users.
 :::
-
-Besides file browsing, an anonymous user can:
-
-* download files,
-* see files information like **File ID**, modification time and size,
-* read files [metadata extended attributes](./metadata.md#extended-attributes) that can be
-  set by authenticated users.
 
 ![Public Share file information](../../images/user-guide/shares/share-public-file-info.png#screenshot)
 
@@ -94,9 +93,8 @@ clicking on the **Shared** badge in the file browser.
 
 ![File "Shared" badge](../../images/user-guide/shares/managing-file-badge.png#screenshot)
 
-::: tip NOTE
-On mobile devices, you can access the file Shares list by choosing **Information** from the
-file actions menu, and choosing the **Shares** tab in the right-side information panel.
+::: tip MOBILE DEVICES NOTE
+As the file badges are not clickable on mobile devices, you can access the Shares list by choosing **Information** from the file actions menu and opening the **Shares** tab in the right-side panel.
 :::
 
 The **Share** tab name includes a number with the shares count per file. Clicking on the green Share
@@ -166,7 +164,7 @@ needs.
 
 The **Files** tab provides a preview of [the public Share view file browser](#public-share-access),
 showcasing what an anonymous user will see when accessing it. This browser has limited
-functionality, allowing only read-only operations that anonymous users can perform. To
+functionality, allowing read-only operations that anonymous users can perform. To
 access the browser with all features available for authenticated users, open the
 parent directories links found in the **Path** section of the Share management view.
 
