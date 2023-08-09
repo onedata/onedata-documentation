@@ -49,13 +49,17 @@ Accessing the public Share URL opens a public Share view which by default contai
 
 ![Public Share view](../../images/user-guide/shares/sharing-public-files.png#screenshot)
 
-Users can simply browse these files, in a read-only manner. Access to specific files can be also restricted inside the Share by modifying the following [permissions](./data.md#data-access-control) of files in the
-file browser:
+Users can simply browse these files, in a read-only manner. Access to specific files can
+be also restricted inside the Share by modifying the following
+[permissions](./data.md#data-access-control) of files in the file browser:
 
 * changing POSIX **Other** *(anonymous)* **Read** and **Execute** flag,
 * or setting ACL permissions for a special **ANONYMOUS** user class.
 
-You can do it by navigating to the **Data > *Space name* > Files** view and choosing **Permissions** from the context menu for the file or directory to which you want to restrict access. For more information about the web file browser permissions view, refer to [this page](./web-file-browser.md#permissions).
+You can do it by navigating to the **Data > *Space name* > Files** view and choosing
+**Permissions** from the context menu for the file or directory to which you want to
+restrict access. For more information about the web file browser permissions view, refer
+to [this page](./web-file-browser.md#permissions).
 
 ::: tip NOTE
 Although there is a POSIX **Other — Write** flag and modification permissions
@@ -84,10 +88,9 @@ by you.
 
 ### Listing per file
 
-A single file or directory can be shared multiple times — each with a different URL.
-If there are some Shares available for the file, you can simply access the **Shares** tab
-of file information by clicking on the **Shared** file badge in the space file
-browser.
+A single file or directory can be shared multiple times — each with a different URL. If
+there are some Shares available for the file, you can simply access the **Shares** tab by
+clicking on the **Shared** badge in the file browser.
 
 ![File "Shared" badge](../../images/user-guide/shares/managing-file-badge.png#screenshot)
 
@@ -105,7 +108,7 @@ on the **"Create another share"** button will bring [a Share creation modal](#sh
 ### Listing per space
 
 To list all shares created in the space, navigate to the **Data > *Space name* > Shares, Open Data** view.
-Clicking on a Share item in the main view will open [a single Share management view](#share-management-view),
+Clicking on a Share row in the main view will open [a single Share management view](#share-management-view),
 while the actions menu for the Share provides the following operations: **Rename**, **Remove share**, and
 **Copy public URL**.
 
@@ -164,8 +167,8 @@ needs.
 The **Files** tab provides a preview of [the public Share view file browser](#public-share-access),
 showcasing what an anonymous user will see when accessing it. This browser has limited
 functionality, allowing only read-only operations that anonymous users can perform. To
-access the browser with all features available for authenticated users, utilize the
-directory links found in the **Path** section of the Share management view.
+access the browser with all features available for authenticated users, open the
+parent directories links found in the **Path** section of the Share management view.
 
 ![Share Files tab](../../images/user-guide/shares/share-files.png#screenshot)
 
@@ -202,3 +205,9 @@ would result in the following JSON response:
   "creationTime": 1685193979
 }
 ```
+
+::: tip
+For full Shares API reference, see the
+[Share](https://onedata.org/#/home/api/stable/onezone?anchor=tag/Share) chapter of the
+Onedata REST API documentation.
+:::
