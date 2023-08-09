@@ -100,27 +100,51 @@ which can result in:
 {"handle_services":["054900fc799a7f14451e99fac94f351ach7099"]}
 ```
 
-The Share ID can, for example, be obtained from Web GUI's Public Share link, which is e.g.
+The Share ID can, for example, be obtained from Web GUI's Public Share link, which is in the following format:
+
+```
+https://dev-onezone.default.svc.cluster.local/share/$SHARE_ID
+```
+
+For our example:
 
 ```
 https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846
 ```
 
-— in this example, the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
+the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
 
 Handles for Shares can be also generated using the REST API using the following command
 line:
 
 ```shell
 curl -u admin:password -X POST -H "Content-type: application/json" \
--d '{"handleServiceId": "HANDLE_SERVICE_ID", "resourceType": "Share", "resourceId": "SHARE_ID", "metadata": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<metadata xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xmlns:dc=\"http:\/\/purl.org\/dc\/elements\/1.1\/\"><dc:title>Public two<\/dc:title><dc:creator>Unnamed User<\/dc:creator> <dc:description>My description<\/dc:description><dc:date>2023-06-14<\/dc:date><\/metadata>" }' \
+-d '{"handleServiceId": "'"$HANDLE_SERVICE_ID"'", "resourceType": "Share", "resourceId": "'"$SHARE_ID"'", "metadata": "'"$METADATA"'" }' \
 https://${ONEZONE_HOST}/api/v3/onezone/handles
-
 ```
 
-with previously obtained `HANDLE_SERVICE_ID` and `SHARE_ID`. Metadata must be
+with previously obtained `$HANDLE_SERVICE_ID` and `$SHARE_ID`. `$METADATA` must be
 [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dces/) compatible
-metadata in escaped XML.
+metadata in escaped XML, for example:
+
+```shell
+METADATA='<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<metadata xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xmlns:dc=\"http:\/\/purl.org\/dc\/elements\/1.1\/\"><dc:title>Public two<\/dc:title><dc:creator>Unnamed User<\/dc:creator> <dc:description>My description<\/dc:description><dc:date>2023-06-14<\/dc:date><\/metadata>'
+```
+
+which is the one-liner version of the following metadata:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+   <dc:title>Public two</dc:title>
+   <dc:creator>Unnamed User</dc:creator>
+   <dc:description>My description</dc:description>
+   <dc:date>2023-06-14</dc:date>
+</metadata>
+```
 
 After successful publication, you can get created Handle ID (`handleId` property) using
 the following command line:
@@ -155,7 +179,8 @@ In the example, created Handle ID is `3e000b055c3d0709097fd2dbfd96f9fech0280`.
 Now you can get detailed information about the Handle using:
 
 ```shell
-curl -u user:password https://${ONEZONE_HOST}/api/v3/onezone/handles/3e000b055c3d0709097fd2dbfd96f9fech0280
+HANDLE_ID="3e000b055c3d0709097fd2dbfd96f9fech0280"
+curl -u user:password https://${ONEZONE_HOST}/api/v3/onezone/handles/${HANDLE_ID}
 ```
 
 which could result in:
