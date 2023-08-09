@@ -2,6 +2,7 @@ CDMI
 Grammarly
 mybackups
 oneclient
+onedata
 onepanel
 oneprovider
 oneproviders
