@@ -35,9 +35,9 @@ service available in the current Onezone, to publish your dataset in.
 
 After choosing the Handle service, click on **Proceed** button below the dropdown to start
 filling in a Dublin Core Metadata for your Open Data collection. You can switch between
-the default visual editor or an XML editor, which supports
+the default **Visual** editor or the **XML** editor, which supports
 [DCMES Version 1.1](https://www.dublincore.org/specifications/dublin-core/dces/) specification.
-In both editors, you can describe your collection using properties from a set of fifteen
+In both editors, you can describe your collection using properties from a set of 15
 predefined types, such as Creator, Title, or Description.
 
 ![Dublin Core metadata visual editor](../../images/user-guide/open-data/gui-publish-dublin-core-visual.png#screenshot)
@@ -91,7 +91,7 @@ First, obtain Handle service and target Share IDs. You can get available Handle 
 registered in the current Onezone using the following command line:
 
 ```shell
-curl -k -u username:password https://$ONEZONE_HOST/api/v3/onezone/user/effective_handle_services
+curl -u username:password https://$ONEZONE_HOST/api/v3/onezone/user/effective_handle_services
 ```
 
 which can result in:
@@ -101,14 +101,18 @@ which can result in:
 ```
 
 The Share ID can, for example, be obtained from Web GUI's Public Share link, which is e.g.
-`https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846`
+
+```
+https://dev-onezone.default.svc.cluster.local/share/0c2f0b363b8e681746d315025e971b5cch0846
+```
+
 — in this example, the ID is `0c2f0b363b8e681746d315025e971b5cch0846`.
 
 Handles for Shares can be also generated using the REST API using the following command
 line:
 
 ```shell
-curl -k -u admin:password -X POST -H "Content-type: application/json" \
+curl -u admin:password -X POST -H "Content-type: application/json" \
 -d '{"handleServiceId": "HANDLE_SERVICE_ID", "resourceType": "Share", "resourceId": "SHARE_ID", "metadata": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<metadata xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xmlns:dc=\"http:\/\/purl.org\/dc\/elements\/1.1\/\"><dc:title>Public two<\/dc:title><dc:creator>Unnamed User<\/dc:creator> <dc:description>My description<\/dc:description><dc:date>2023-06-14<\/dc:date><\/metadata>" }' \
 https://${ONEZONE_HOST}/api/v3/onezone/handles
 
@@ -122,7 +126,7 @@ After successful publication, you can get created Handle ID (`handleId` property
 the following command line:
 
 ```shell
-curl -k -u user:password https://${ONEZONE_HOST}/api/v3/onezone/shares/${SHARE_ID}
+curl -u user:password https://${ONEZONE_HOST}/api/v3/onezone/shares/${SHARE_ID}
 ```
 
 which could result in:
@@ -151,7 +155,7 @@ In the example, created Handle ID is `3e000b055c3d0709097fd2dbfd96f9fech0280`.
 Now you can get detailed information about the Handle using:
 
 ```shell
-curl -k -u user:password https://${ONEZONE_HOST}/api/v3/onezone/handles/3e000b055c3d0709097fd2dbfd96f9fech0280
+curl -u user:password https://${ONEZONE_HOST}/api/v3/onezone/handles/3e000b055c3d0709097fd2dbfd96f9fech0280
 ```
 
 which could result in:
