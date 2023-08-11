@@ -56,6 +56,8 @@ By default, anonymous users can simply browse these files in a read-only manner,
 * read files [metadata extended attributes](./metadata.md#extended-attributes) that can be
   set by authenticated users.
 
+![Public Share file information](../../images/user-guide/shares/share-public-file-info.png#screenshot)
+
 Access to specific files can be restricted inside the Share by modifying the following
 [permissions](./data.md#data-access-control) of files in the file browser:
 
@@ -72,8 +74,6 @@ Although there is a POSIX **Other — Write** flag and modification permissions
 available for the **ANONYMOUS** special ACL user, these don't affect the ability to write
 files by anonymous users — shared files are always read-only for anonymous users.
 :::
-
-![Public Share file information](../../images/user-guide/shares/share-public-file-info.png#screenshot)
 
 The file details panel also provides an **API** tab that provides *curl* commands for
 retrieving information about files by unauthenticated users.
@@ -164,9 +164,9 @@ needs.
 
 The **Files** tab provides a preview of [the public Share view file browser](#public-share-access),
 showcasing what an anonymous user will see when accessing it. This browser has limited
-functionality, allowing read-only operations that anonymous users can perform. To
-access the browser with all features available for authenticated users, open the
-parent directories links found in the **Path** section of the Share management view.
+functionality, allowing read-only operations that anonymous users can perform. To access
+the browser with all features available for authenticated users, open the parent directory
+link found in the **Path** section of the Share management view.
 
 ![Share Files tab](../../images/user-guide/shares/share-files.png#screenshot)
 
