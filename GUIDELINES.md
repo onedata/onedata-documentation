@@ -24,8 +24,14 @@ To add an image:
   i.e. for the above-mentioned page, it would be:
   `./images/admin-guide/onezone/installation/first-step.png`,
 
-* embed the image into the Markdown page:
-  `![image](../../../images/admin-guide/onezone/installation/first-step.png)`
+* embed the image into the Markdown page using the reference link at the end of the document:
+  ```md
+  ![image-1][]
+
+  <!-- other content -->
+
+  [image-1]: ../../../images/admin-guide/onezone/installation/first-step.png
+  ```
 
 ## Writing tone
 
@@ -229,7 +235,9 @@ style to express a placeholder (some meta information), e.g.:
 
 * **Always add** the `screenshot` class to all screenshots:
   ```md
-  ![image](../../images/user-guide/spaces/1-no_spaces.png#screenshot)
+  ![image][]{.screenshot}
+
+  [image]: ../../images/user-guide/spaces/1-no_spaces.png
   ```
 
 ## REST API examples

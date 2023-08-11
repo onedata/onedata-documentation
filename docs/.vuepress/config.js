@@ -1,4 +1,5 @@
 const slugger = require('github-slugger').slug;
+const markdownItAttrs = require('markdown-it-attrs')
 module.exports = {
   title: 'Onedata documentation',
   markdown: {
@@ -6,6 +7,9 @@ module.exports = {
     toc: {
       // changed because we want use remark-lint-no-undefined-references
       markerPattern: /^\[toc\]/im,
+    },
+    extendMarkdown: (md) => {
+      md.use(markdownItAttrs)
     },
   },
   themeConfig: {

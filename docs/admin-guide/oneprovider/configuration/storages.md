@@ -8,7 +8,7 @@ Onepanel GUI allows creating, editing and deleting storages under the *Storages*
 All storage configuration options are available during storage creation (see below picture and descriptions).
 After the storage is created, only some of the parameters can be changed so as not to break the data integrity.
 
-![Configuration of storage][2]
+![Configuration of storage][2]{.screenshot}
 
 ### Storage type
 
@@ -133,7 +133,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 [1]: <>
 
-[2]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png#screenshot
+[2]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png
 
 [3]: http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html
 

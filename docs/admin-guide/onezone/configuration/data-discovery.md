@@ -118,10 +118,10 @@ using the [Configuration][8] submenu.
 
 1. Navigate to the Discovery tab and click "Get started"
 
-![image][10]
+![image][10]{.screenshot}
 
 2. Choose the *Create a harvester* option or the **(+)** button at the top of the side menu.
-   ![image][11]
+   ![image][11]{.screenshot}
    Other options visible on the screen can be used to join an existing harvester.
 
 3. Fill in the information — choose a meaningful **name**, the plugin that will
@@ -131,22 +131,22 @@ using the [Configuration][8] submenu.
    environment will be used. **Auto setup** means that the newly created harvester will have an
    initial generic index and ready-to-use data discovery GUI. Auto setup is recommended,
    unless you are an advanced user and you want to customize configuration on your own.
-   ![image][12]
+   ![image][12]{.screenshot}
 
 4. Navigate to the **Spaces** submenu to add a space to the harvester.
 
-![image][13]
+![image][13]{.screenshot}
 
 You can generate an invitation token and pass it to another user for them to add one of
 their spaces. For this guide, choose the **Add one of your spaces**. If you don't have any,
 learn about [spaces][4].
 
-![image][14]
+![image][14]{.screenshot}
 
 After that the space will be added to the harvester — harvesting
 processes will be started and indexing of file metadata will begin.
 
-![image][15]
+![image][15]{.screenshot}
 
 5. That's it! You have a fully configured harvester and it is ready to use for data discovery.
    If files in the added space does not have any metadata, then
@@ -160,7 +160,7 @@ The harvesting results are available through
 A harvester can have many spaces attached to it. A list of them is available through
 **Spaces** submenu of your harvester.
 
-![image][15]
+![image][15]{.screenshot}
 
 #### Adding new spaces
 
@@ -168,7 +168,7 @@ At any moment you have a possibility to extend the list of spaces with new ones 
 of yours or a space of some another user. Both methods are available through *context menu*
 visible on the top right corner of the harvester spaces view.
 
-![image][18]
+![image][18]{.screenshot}
 
 **Add one of your spaces** options has already been shown in
 [creating a harvester][19] section. **Invite space using token**
@@ -176,18 +176,18 @@ opens a window with token, which should be passed to the owner of the space to b
 added to the harvester. The invitation can be accepted using the **Consume**
 action in the in the [Tokens GUI][20],
 as long as the consuming user has the **Add harvester** privilege in the space.
-![image][21]
+![image][21]{.screenshot}
 
 #### Removing spaces
 
 If you want to stop collecting metadata from one of the harvester spaces, click on the
 *context menu* on the right side of the spaces list entry and choose **Remove this space**.
 
-![image][22]
+![image][22]{.screenshot}
 
 And then click on **Remove** button to acknowledge your decision.
 
-![image][23]
+![image][23]{.screenshot}
 
 > **NOTE**: Removing space from the harvester will not remove previously indexed data from harvesting
 > backend. It will also not affect the space itself.
@@ -196,7 +196,7 @@ And then click on **Remove** button to acknowledge your decision.
 
 A harvester can have multiple indices. These can be found under **Indices** submenu of the harvester.
 
-![image][24]
+![image][24]{.screenshot}
 
 By default (if **Auto setup** was enabled during the harvester creation) there is one
 **generic-index** entry. It is a very basic index, which is designed to accept incoming
@@ -213,7 +213,7 @@ denoted by **Used by GUI** badge).
 To add a new index, click on the *context menu* visible on the top right corner of the
 harvester indices view. Then choose **Create new index**.
 
-![image][27]
+![image][27]{.screenshot}
 
 Fill in the form to set up a new index. It contains a few options to customize:
 
@@ -232,7 +232,7 @@ Fill in the form to set up a new index. It contains a few options to customize:
   schema), pruned and submitted again. This might slow down the harvesting process and cause
   nonconformant metadata to be lost.
 
-![image][28]
+![image][28]{.screenshot}
 
 When a configuration for the new index is ready, click **Create index**. New entry will
 be visible on the indices list and the harvesting process will start.
@@ -246,9 +246,9 @@ be visible on the indices list and the harvesting process will start.
 If you want to stop collecting metadata in a specific index, click on the
 *context menu* on the right side of that index and choose **Remove**.
 
-![image][29]
+![image][29]{.screenshot}
 
-![image][30]
+![image][30]{.screenshot}
 
 You can select **Remove harvested data** checkbox if you want to remove the index
 structure from the harvesting backend. Otherwise, only a binding between the harvester
@@ -264,13 +264,13 @@ progress per each pair (Oneprovider & space). You can click on each chart to see
 information. To view statistics for spaces that are no longer attached to the harvester,
 use the **Show archival spaces / providers** toggle.
 
-![image][31]
+![image][31]{.screenshot}
 
 **Settings** tab presents the configuration as set during the creation of that specific index.
 It cannot be modified during index lifecycle, as it would require a rebuild of the whole index.
 If required, a new index with different configuration should be created.
 
-![image][32]
+![image][32]{.screenshot}
 
 ### Harvester members
 
@@ -287,7 +287,7 @@ spaces and groups members concepts. For more information see
 Each harvester has two categories of configuration, both can be found under the
 **Configuration** submenu.
 
-![image][34]
+![image][34]{.screenshot}
 
 #### General settings
 
@@ -295,7 +295,7 @@ Each harvester has two categories of configuration, both can be found under the
 The only difference is the [Public][35] setting. If enabled, anyone with the public
 link can browse the harvested metadata or use the REST API for queries.
 
-![image][36]
+![image][36]{.screenshot}
 
 #### GUI plugin settings
 
@@ -311,7 +311,7 @@ which can visualise indexed data in a specialized way. Hence the term **GUI plug
 GUI plugin is a self-contained web application. After uploading, it is embedded into the
 Onezone interface. It communicates with the underlying harvesting service through Onezone.
 
-![image][37]
+![image][37]{.screenshot}
 
 ##### Uploading custom GUI plugin
 
@@ -343,7 +343,7 @@ For each required index, there are three possible options to choose:
   its schema is compatible with the schema used by the GUI plugin.
 * **Leave unassigned** — use only if you are sure that this requirement is optional and the GUI plugin can work without it.
 
-![image][38]
+![image][38]{.screenshot}
 
 ##### GUI plugin injected configuration
 
@@ -373,60 +373,60 @@ your own configuration in JSON format.
 
 [9]: ../../../user-guide/data-discovery.md#why-only-administrators-are-privileged-to-create-a-new-harvester
 
-[10]: ../../../../images/admin-guide/onezone/configuration/data-discovery/1-no-harvesters.png#screenshot
+[10]: ../../../../images/admin-guide/onezone/configuration/data-discovery/1-no-harvesters.png
 
-[11]: ../../../../images/admin-guide/onezone/configuration/data-discovery/2-get-started.png#screenshot
+[11]: ../../../../images/admin-guide/onezone/configuration/data-discovery/2-get-started.png
 
-[12]: ../../../../images/admin-guide/onezone/configuration/data-discovery/3-create-harvester.png#screenshot
+[12]: ../../../../images/admin-guide/onezone/configuration/data-discovery/3-create-harvester.png
 
-[13]: ../../../../images/admin-guide/onezone/configuration/data-discovery/4-spaces.png#screenshot
+[13]: ../../../../images/admin-guide/onezone/configuration/data-discovery/4-spaces.png
 
-[14]: ../../../../images/admin-guide/onezone/configuration/data-discovery/5-choose-space.png#screenshot
+[14]: ../../../../images/admin-guide/onezone/configuration/data-discovery/5-choose-space.png
 
-[15]: ../../../../images/admin-guide/onezone/configuration/data-discovery/6-spaces-list.png#screenshot
+[15]: ../../../../images/admin-guide/onezone/configuration/data-discovery/6-spaces-list.png
 
 [16]: ../../../user-guide/metadata.md
 
 [17]: ../../../user-guide/data-discovery.md#data-discovery-gui
 
-[18]: ../../../../images/admin-guide/onezone/configuration/data-discovery/7-spaces-list-operations.png#screenshot
+[18]: ../../../../images/admin-guide/onezone/configuration/data-discovery/7-spaces-list-operations.png
 
 [19]: #creating-a-new-harvester
 
 [20]: ../../../user-guide/tokens.md#consuming-invite-tokens
 
-[21]: ../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png#screenshot
+[21]: ../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png
 
-[22]: ../../../../images/admin-guide/onezone/configuration/data-discovery/9-spaces-list-remove.png#screenshot
+[22]: ../../../../images/admin-guide/onezone/configuration/data-discovery/9-spaces-list-remove.png
 
-[23]: ../../../../images/admin-guide/onezone/configuration/data-discovery/10-spaces-list-remove-modal.png#screenshot
+[23]: ../../../../images/admin-guide/onezone/configuration/data-discovery/10-spaces-list-remove-modal.png
 
-[24]: ../../../../images/admin-guide/onezone/configuration/data-discovery/11-indices-list.png#screenshot
+[24]: ../../../../images/admin-guide/onezone/configuration/data-discovery/11-indices-list.png
 
 [25]: ../../../user-guide/data-discovery.md#rest-api
 
 [26]: #gui-plugin-indices
 
-[27]: ../../../../images/admin-guide/onezone/configuration/data-discovery/12-indices-list-operations.png#screenshot
+[27]: ../../../../images/admin-guide/onezone/configuration/data-discovery/12-indices-list-operations.png
 
-[28]: ../../../../images/admin-guide/onezone/configuration/data-discovery/13-new-index-form.png#screenshot
+[28]: ../../../../images/admin-guide/onezone/configuration/data-discovery/13-new-index-form.png
 
-[29]: ../../../../images/admin-guide/onezone/configuration/data-discovery/14-indices-list-remove.png#screenshot
+[29]: ../../../../images/admin-guide/onezone/configuration/data-discovery/14-indices-list-remove.png
 
-[30]: ../../../../images/admin-guide/onezone/configuration/data-discovery/15-indices-list-remove-modal.png#screenshot
+[30]: ../../../../images/admin-guide/onezone/configuration/data-discovery/15-indices-list-remove-modal.png
 
-[31]: ../../../../images/admin-guide/onezone/configuration/data-discovery/16-index-progress.png#screenshot
+[31]: ../../../../images/admin-guide/onezone/configuration/data-discovery/16-index-progress.png
 
-[32]: ../../../../images/admin-guide/onezone/configuration/data-discovery/17-index-settings.png#screenshot
+[32]: ../../../../images/admin-guide/onezone/configuration/data-discovery/17-index-settings.png
 
 [33]: ../../../user-guide/groups.md#group-members
 
-[34]: ../../../../images/admin-guide/onezone/configuration/data-discovery/18-configuration.png#screenshot
+[34]: ../../../../images/admin-guide/onezone/configuration/data-discovery/18-configuration.png
 
 [35]: #public-access
 
-[36]: ../../../../images/admin-guide/onezone/configuration/data-discovery/19-configuration-public.png#screenshot
+[36]: ../../../../images/admin-guide/onezone/configuration/data-discovery/19-configuration-public.png
 
-[37]: ../../../../images/admin-guide/onezone/configuration/data-discovery/20-configuration-gui-plugin.png#screenshot
+[37]: ../../../../images/admin-guide/onezone/configuration/data-discovery/20-configuration-gui-plugin.png
 
-[38]: ../../../../images/admin-guide/onezone/configuration/data-discovery/21-configuration-gui-plugin-indices.png#screenshot
+[38]: ../../../../images/admin-guide/onezone/configuration/data-discovery/21-configuration-gui-plugin-indices.png

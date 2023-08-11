@@ -92,7 +92,7 @@ Onedata provides 4 ways to manage and access your data:
 
 The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
 
-![Example view of Onedata web interface][]
+![Example view of Onedata web interface][]{.screenshot}
 
 ### User command-line interface
 
@@ -135,7 +135,7 @@ architecture
 
 [Onezone Overview]: admin-guide/onezone/overview.md
 
-[Example view of Onedata web interface]: ../images/intro/web-gui-example.png#screenshot
+[Example view of Onedata web interface]: ../images/intro/web-gui-example.png
 
 [oneclient]: user-guide/oneclient.md
 

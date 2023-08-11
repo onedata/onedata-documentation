@@ -89,27 +89,27 @@ is using the Web GUI metadata editor.
 1. In order to edit the metadata of a file/directory, simply select **Metadata**
    from the file context menu.
 
-![image][12]
+![image][12]{.screenshot}
 
 2. Metadata can also be edited for entire data space, but it has to be invoked
    from the space context menu.
 
-![image][13]
+![image][13]{.screenshot}
 
 3. The first tab allows edition of the [extended attributes][4]
    in a simple key-value editor.
 
-![image][14]
+![image][14]{.screenshot}
 
 4. In the second tab, JSON metadata can be edited in place or pasted into the
    editor, which performs live syntax validation.
 
-![image][15]
+![image][15]{.screenshot}
 
 5. The third tab contains an RDF editor that works similarly,
    but accepts triples in the XML format.
 
-![image][16]
+![image][16]{.screenshot}
 
 ## Metadata management with Oneclient and OnedataFS
 
@@ -244,15 +244,15 @@ indices that harvest metadata from multiple spaces and provide advanced search e
 
 [11]: #data-discovery
 
-[12]: ../../images/user-guide/metadata/set_file_metadata.png#screenshot
+[12]: ../../images/user-guide/metadata/set_file_metadata.png
 
-[13]: ../../images/user-guide/metadata/set_space_metadata.png#screenshot
+[13]: ../../images/user-guide/metadata/set_space_metadata.png
 
-[14]: ../../images/user-guide/metadata/set_file_xattrs.png#screenshot
+[14]: ../../images/user-guide/metadata/set_file_xattrs.png
 
-[15]: ../../images/user-guide/metadata/set_file_json_metadata.png#screenshot
+[15]: ../../images/user-guide/metadata/set_file_json_metadata.png
 
-[16]: ../../images/user-guide/metadata/set_file_rdf_metadata.png#screenshot
+[16]: ../../images/user-guide/metadata/set_file_rdf_metadata.png
 
 [17]: https://github.com/xattr/xattr
 

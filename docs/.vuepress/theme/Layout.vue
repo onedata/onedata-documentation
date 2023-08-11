@@ -52,7 +52,9 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-img[src*=screenshot] {
+
+img.screenshot,
+p.screenshot img {
   border: 1px solid #ddd;
 }
 </style>
