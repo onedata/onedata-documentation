@@ -355,31 +355,32 @@ providers, which allows it to be fast.
 You can discover how the file blocks are distributed among providers supporting 
 the space in which it is stored with:
 
-1. `Web GUI` - click on **Data distribution** in the file context menu:
-    ![image](../../images/user-guide/data/file-distribution-gui.png) 
+1. `Web GUI` - open the context menu for the file and choose **Data distribution**:
+   ![image](../../images/user-guide/data/file-distribution-gui.png#screenshot) 
 
-    The following **Data distribution** modal, representing distribution of file 
-    blocks, will occur:
-    ![image](../../images/user-guide/data/file-distribution-modal.png)
+   and you will see **Data distribution** modal, representing the distribution 
+   of file blocks:
+   ![image](../../images/user-guide/data/file-distribution-modal.png#screenshot)
 
 2. `REST API` - use [get file distribution](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution)
    endpoint.
 
 3. `Oneclient` - check [file extended attributes](oneclient.md#file-extended-attributes) 
-    and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and 
-    `org.onedata.replication_progress` attributes:
-    ```bash
-    ~$ xattr -l results.txt
+   and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and 
+   `org.onedata.replication_progress` attributes:
+   ```bash
+   ~$ xattr -l results.txt
 
-    org.onedata.file_blocks: [#######################################.         ]
-    org.onedata.file_blocks_count: 1
-    org.onedata.replication_progress: 80% 
-    ...
-    ```
-    >**NOTE:** Note that extended attributes presents only information about 
-    > file blocks stored in provider to which the Oneclient is connected. 
-    > In order to find information about replicas of the file in other providers 
-    > Web GUI or REST API must be used.
+   org.onedata.file_blocks: [#######################################.         ]
+   org.onedata.file_blocks_count: 1
+   org.onedata.replication_progress: 80% 
+   ...
+   ```
+
+   > **NOTE:** Note that extended attributes presents only information about 
+   > file blocks stored in provider to which the Oneclient is connected. 
+   > In order to find information about replicas of the file in other providers 
+   > Web GUI or REST API must be used.
 
 ### Distribution management
 
@@ -388,11 +389,11 @@ You can manage the data distribution using:
 1. [Transfers](data-transfer.md) - allow to intentionally replicate, 
    evict and migrate file(s).
 
-2. [Quality of Service](quality-of-service.md) - allows to specify requirements 
-   which may ensure that file replicas in certain providers are automatically 
+2. [Quality of Service](quality-of-service.md) - allows specifying requirements 
+   that may ensure that file replicas in certain providers are automatically 
    updated and protected from eviction.
 
 3. [Auto-cleaning](../admin-guide/oneprovider/configuration/auto-cleaning.md) - 
-   automatically maintains storage usage at predefined level, creating space for 
-   new replicas during continuous computations.
+   automatically maintains storage usage at a predefined level, creating space 
+   for new replicas during continuous computations.
    >**NOTE:** Note that Auto-cleaning can only be configured by a space admin.

@@ -426,11 +426,13 @@ Monitoring options:
 ```
 
 ## File extended attributes
+
 Extended file attributes are used in Oneclient to expose file metadata.
-They can be accessed with tools such as [xattr](https://github.com/xattr/xattr) or `getfattr`.
-Extended attributes starting with `org.onedata.` prefix  are 
-Onedata system attributes which provide useful information about files.
-For more information on metadata management in Oneclient please look [here](metadata.md#metadata-management-with-oneclient-and-onedatafs).
+They can be accessed with tools such as [xattr](https://github.com/xattr/xattr) 
+or `getfattr`. Extended attributes, starting with `org.onedata.` prefix, are 
+Onedata system attributes that provide useful information about files.
+For more information on metadata management in Oneclient please look 
+[here](metadata.md#metadata-management-with-oneclient-and-onedatafs).
 
 ## Using Oneclient from Docker
 
