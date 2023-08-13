@@ -4,11 +4,10 @@
 
 Oneprovider service requires several TCP ports (`80`, `443`, `6665`, `9443`) 
 to be opened for proper operation. Some of these ports can be limited to 
-internal network, in particular `9443` for Onepanel management interface. 
+an intranet, in particular `9443` for Onepanel management interface. 
 
-In a multinode deployment scenario, it is necessary to expose certain additional 
-ports on all nodes where the Couchbase instance is deployed. The following ports 
-need to be exposed:
+In a multi-node deployment scenario, you need to expose certain additional 
+ports on all nodes where the Couchbase instance is deployed:
 
 * 8091 - Couchbase admin interface (Optional)
 * 8092
@@ -25,7 +24,7 @@ Ensure that these ports are only accessible within the intranet to maintain
 the integrity and security of your Couchbase deployment.
 :::
 
-For more information about ports setup see [Firewal setup](configuration/network-and-firewall.md).
+For more information about ports setup, see [Firewal setup](configuration/network-and-firewall.md).
 
 ## Health
 
@@ -91,10 +90,12 @@ available:
     In the provided XML response, each component of the Oneprovider service is
     listed with its respective status. The possible statuses include:
 
-    * `ok`: Indicates that the component is functioning correctly.
-    * `out_of_sync`: Indicates that the provider is lagging behind other 
-    providers and needs to catch up with changes.
-    * `error`: Indicates that there are issues with a particular component.
+    * `ok` - indicates that the component is functioning correctly.
+
+    * `out_of_sync` - -indicates that the provider is lagging behind other 
+      providers and needs to catch up with changes.
+
+    * `error` - indicates that there are issues with a particular component.
 
     By examining the status of each component and the overall `healthdata` 
     status, you can determine whether the service is running properly.
@@ -131,17 +132,17 @@ available:
 
 ## Logs
 
-Logging plays a crucial role in troubleshooting and monitoring of the Onedata 
-system. It provides valuable insights into the system's operation, potential 
-issues, and helps analyze and resolve problems efficiently. 
+Logging plays a crucial role in troubleshooting and monitoring Onedata system. 
+It provides valuable insights into the system's operation, and potential issues, 
+and helps analyze and resolve problems efficiently. 
 
 In case of issues related to Oneprovider deployment, registering new storage 
 backend or supporting spaces consult Onepanel logs. For any other kind of 
 problem (data management, QoS, transfers, etc.) check Oneprovider logs.
 
-### Log file Location
+### Log file location
 
-1. Docker based deployment (assuming the paths were set as in the tutorial)
+1. Docker-based deployment (assuming the paths were set as in the tutorial)
 
 ```bash
 # Onepanel logs
@@ -217,7 +218,7 @@ severity of an event.
 
 1. Debug (level *7*, abbreviation *D*)
 
-    The debug logs provides detailed information for debugging and analysis 
+    The debug logs provide detailed information for debugging and analysis 
     purposes. It includes low-level system details and extensive diagnostic 
     data.
 
@@ -227,6 +228,7 @@ severity of an event.
     Erlang console of the node and execute `logger:set_loglevel(debug).`, 
     like this:
 
+    ::: details Click me to view the steps
     ```bash
     ~$ op_worker attach-direct
     ```
@@ -240,7 +242,7 @@ severity of an event.
     (op_worker@node1.oneprovider.local)1>
     ```
 
-    Enter the command (the `.` at the end is required) and press [Enter]:
+    Enter the command (the `.` at the end is required) and press `[Enter]`:
 
     ```bash
     (op_worker@node1.oneprovider.local)1> logger:set_loglevel(debug).
@@ -270,6 +272,8 @@ severity of an event.
     > **NOTE:** You can do the same for Onepanel, just replace `op_worker` 
     > with `op_panel`.
 
+    :::
+
 2. Info (level *6*, abbreviation *I*)
 
     This severity is assigned for purely informational events providing 
@@ -283,14 +287,14 @@ severity of an event.
 
 4. Warning (level *4*, abbreviation *W*)
 
-    The warning logs signals potential issues or abnormal system actions. 
+    The warning logs signal potential issues or abnormal system actions. 
     It indicates situations that might lead to problems in the future if action 
-    in not taken now (e.g. network connectivity warnings or suspicious user 
+    is not taken now (e.g. network connectivity warnings or suspicious user 
     activities).
 
 5. Error (level *3*, abbreviation *E*)
 
-    The error logs indicates fails encountered during system operations 
+    The error logs indicate fails encountered during system operations 
     (e.g. authentication failures, or service unavailability).
 
     In case of an unforeseen or unexpected error in the Onedata system, 
@@ -375,8 +379,8 @@ debugging purposes.
 
 2. `dbsync_out_stream`
 
-    DBSync out stream logs record the sequence numbers broadcasted by provider 
-    within a particular space.
+    DBSync out stream logs record the sequence numbers broadcasted by the 
+    provider within a particular space.
 
 3. `file_access_audit.log` 
 
