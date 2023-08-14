@@ -2,8 +2,10 @@
 
 [toc]()
 
-Onezone consists of multiple zones, each specific to your organization,
-which should provide you with its domain.
+Onezone consists of multiple zones, each specific to the organization,
+which provides you with its domain. There can be multiple Onezone instances
+operated by various organizations. As a user, you have the flexibility to
+choose the instance with which you intend to collaborate, among the available options.
 
 This tutorial is based on an example of a publicly accessible zone:
 [onezone.onedata.org](https://onezone.onedata.org/), which you can use to
@@ -18,22 +20,28 @@ To access Onedata, follow these steps for logging in through Identity Providers
 
 1. Select your IdP and get redirected to its page.
 2. Accept the authentication request to log in.
-3. Once logged in, access your data based on the zone's setup.
+3. Once successfully logged in, you'll be able to access your data.
 4. To manage your account, refer to the [account-management](account-management.md) subsection.
 
-If the IdPs from [onezone.onedata.org](https://onezone.onedata.org/) don't suit you,
-contact us at *<info@onedata.org>* for a test account.
+As an alternative to using the provided IdPs from [onezone.onedata.org](https://onezone.onedata.org/),
+you can also log in using your username and password, with the process being overseen by the
+administrators of your zone. For more information or to request a test account,
+contact the administrators at *<info@onedata.org>*.
 
 ::: tip NOTE
-The green key icon is reserved for the administrator login.
+The green key icon is reserved for the login of administrators and special users created through
+the Onepanel administrative interface. Regular users should use social or institutional accounts
+to sign in.
 :::
 
 ## First steps
 
 In Onedata, all user data is organized into spaces. Spaces are containers
 that streamline data organization, providing unified storage space and access control
-for users or groups. Each space requires at least one supporting physical storage
-backend provided by data providers. For details, see the [spaces](spaces.md) chapter.
+for users or groups. Access management at the space level is through tokens, which serve various
+purposes such as connecting to an existing space, inviting someone to a space, or requesting support.
+Each space requires at least one supporting physical storage backend provided by data providers.
+For details, see the [spaces](spaces.md) chapter.
 
 This comprehensive guide will assist you in creating your initial data space
 and uploading your first files.
@@ -56,12 +64,13 @@ The table below presents some of the high-level concepts of Onedata.
 
 | Concept            | Description                                                     | Link                                                      |
 | ------------------ | --------------------------------------------------------------- | --------------------------------------------------------- |
-| Archives           | Preserve your data for long-term access.                        | [archives](archives.md)                                   |
-| Data discovery     | Index metadata from files, perform queries, or browse metadata. | [data discovery](data-discovery.md)                       |
+| Tokens             | Authorize various actions across the system.                    | [tokens](tokens.md)                                       |
 | Datasets           | Organize related files together.                                | [datasets](datasets.md)                                   |
+| Archives           | Preserve your data for long-term access.                        | [archives](archives.md)                                   |
 | Metadata           | Describe and assign custom attributes to files and directories. | [metadata](metadata.md)                                   |
+| Data discovery     | Index metadata from files, perform queries, or browse metadata. | [data discovery](data-discovery.md)                       |
 | Migration          | Replicate and remove file replicas from the source provider.    | [replication-and-migration](replication-and-migration.md) |
-| Quality of Service | Manage file replica distribution based on your requirements.    | [quality of service](quality-of-service.md)               |
 | Replication        | Replicate file blocks to the target provider.                   | [replication-and-migration](replication-and-migration.md) |
+| Quality of Service | Manage file replica distribution based on your requirements.    | [quality of service](quality-of-service.md)               |
 | Shares             | Share your data using publicly accessible links.                | [shares](shares.md)                                       |
 | Deploy Onedata     | Deploy your own Onedata services for administration purposes.   | [admin guide](../admin-guide/overview.md)                 |
