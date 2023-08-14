@@ -47,6 +47,12 @@ In Onedata, files and directories can be accessed and managed using CDMI queries
 It is recommended to use File IDs whenever possible as they provide better performance since no
 path resolution is required.
 
+::: tip NOTE
+In Onedata, the File ID replaces GUID in CDMI operations, meeting CDMI standards
+while acting as a functional equivalent of a GUID. It's tailored for CDMI compatibility,
+enabling smooth integration with operations.
+:::
+
 When referencing files through CDMI using the file path, keep in mind that Onedata
 organizes all data into spaces, and the space name is the first element in the file path.
 For example, in the path below, `CMS 1` represents the name of the space (**make sure to URL-encode
