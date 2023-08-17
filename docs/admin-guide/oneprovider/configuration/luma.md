@@ -556,6 +556,8 @@ Links to comprehensive description of requests are presented in the below table:
 | Lookup mapping of ACL group                | [API][66]   |
 | Remove mapping of ACL group                | [API][67]   |
 
+<!-- references -->
+
 [1]: <>
 
 [2]: ../../../user-guide/data.md#posix-permissions

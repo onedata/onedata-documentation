@@ -222,6 +222,8 @@ how to create complex database views over data collections using metadata.
 File and directory metadata can be used to feed [data discovery][23]
 indices that harvest metadata from multiple spaces and provide advanced search engines.
 
+<!-- references -->
+
 [1]: <>
 
 [2]: #web-gui

@@ -273,6 +273,8 @@ only JSON metadata, then all other types of metadata will be ignored and not sub
 > data types in harvested metadata must match all initially detected types for each field
 > in the index, otherwise submissions will be rejected.
 
+<!-- references -->
+
 [1]: ../admin-guide/onezone/configuration/data-discovery.md
 
 [2]: #data-discovery-faq

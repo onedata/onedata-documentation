@@ -16,6 +16,8 @@ with [*manual import mode*][2]
 
 ## Registration API
 
+<!-- references -->
+
 Currently, the only way to register files in a space is to use the
 [REST API][4].
 Space users can choose a file within the dataset that is to be accessible via Onedata and invoke

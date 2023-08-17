@@ -355,6 +355,8 @@ your own configuration in JSON format.
 > **Use defaults** button. It will fill the textarea with the example configuration
 > provided by the GUI plugin.
 
+<!-- references -->
+
 [1]: ../../../user-guide/data-discovery.md
 
 [2]: ../../../user-guide/data-discovery.md#data-discovery-faq
@@ -373,6 +375,22 @@ your own configuration in JSON format.
 
 [9]: ../../../user-guide/data-discovery.md#why-only-administrators-are-privileged-to-create-a-new-harvester
 
+[16]: ../../../user-guide/metadata.md
+
+[17]: ../../../user-guide/data-discovery.md#data-discovery-gui
+
+[19]: #creating-a-new-harvester
+
+[20]: ../../../user-guide/tokens.md#consuming-invite-tokens
+
+[25]: ../../../user-guide/data-discovery.md#rest-api
+
+[26]: #gui-plugin-indices
+
+[33]: ../../../user-guide/groups.md#group-members
+
+[35]: #public-access
+
 [screen-10]: ../../../../images/admin-guide/onezone/configuration/data-discovery/1-no-harvesters.png
 
 [screen-11]: ../../../../images/admin-guide/onezone/configuration/data-discovery/2-get-started.png
@@ -385,15 +403,7 @@ your own configuration in JSON format.
 
 [screen-15]: ../../../../images/admin-guide/onezone/configuration/data-discovery/6-spaces-list.png
 
-[16]: ../../../user-guide/metadata.md
-
-[17]: ../../../user-guide/data-discovery.md#data-discovery-gui
-
 [screen-18]: ../../../../images/admin-guide/onezone/configuration/data-discovery/7-spaces-list-operations.png
-
-[19]: #creating-a-new-harvester
-
-[20]: ../../../user-guide/tokens.md#consuming-invite-tokens
 
 [screen-21]: ../../../../images/admin-guide/onezone/configuration/data-discovery/8-spaces-invite-token.png
 
@@ -402,10 +412,6 @@ your own configuration in JSON format.
 [screen-23]: ../../../../images/admin-guide/onezone/configuration/data-discovery/10-spaces-list-remove-modal.png
 
 [screen-24]: ../../../../images/admin-guide/onezone/configuration/data-discovery/11-indices-list.png
-
-[25]: ../../../user-guide/data-discovery.md#rest-api
-
-[26]: #gui-plugin-indices
 
 [screen-27]: ../../../../images/admin-guide/onezone/configuration/data-discovery/12-indices-list-operations.png
 
@@ -419,11 +425,7 @@ your own configuration in JSON format.
 
 [screen-32]: ../../../../images/admin-guide/onezone/configuration/data-discovery/17-index-settings.png
 
-[33]: ../../../user-guide/groups.md#group-members
-
 [screen-34]: ../../../../images/admin-guide/onezone/configuration/data-discovery/18-configuration.png
-
-[35]: #public-access
 
 [screen-36]: ../../../../images/admin-guide/onezone/configuration/data-discovery/19-configuration-public.png
 

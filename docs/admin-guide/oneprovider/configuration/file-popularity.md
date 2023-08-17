@@ -162,6 +162,8 @@ Refer to the linked API documentation for detailed information and examples.
 | Get *file popularity* configuration    | [API][8]    |
 | Update *file popularity* configuration | [API][9]    |
 
+<!-- references -->
+
 [1]: <>
 
 [2]: ../../../user-guide/views.md

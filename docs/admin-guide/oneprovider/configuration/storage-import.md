@@ -131,12 +131,13 @@ It is possible to change the time resolution of the charts in the upper right co
 
 ![screen-12][]
 
+<!-- references -->
+
 [1]: storages.md#imported-storage
 
 [2]: #manual-storage-import
 
 [3]: #auto-storage-import
-
 
 [5]: ../../../user-guide/file-registration.md
 

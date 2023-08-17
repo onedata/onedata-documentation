@@ -20,4 +20,6 @@ browse the groups hierarchy. Use the context menu that shows up on hover to
 test the available actions.
 ![screen-1][]
 
+<!-- references -->
+
 [screen-1]: ../../images/user-guide/groups/12-hierarchy.png

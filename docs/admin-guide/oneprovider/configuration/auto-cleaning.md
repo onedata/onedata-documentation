@@ -88,6 +88,8 @@ Refer to the linked API documentation for detailed information and examples.
 | Trigger auto-cleaning run               | [API][8]    |
 | Get current auto-cleaning status        | [API][9]    |
 
+<!-- references -->
+
 [1]: file-popularity.md
 
 [2]: #rest-api

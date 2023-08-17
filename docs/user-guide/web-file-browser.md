@@ -272,6 +272,8 @@ Oneprovider on which the user is making them (modifying file content,
 creating new files or directories, scheduling data transfers etc).
 :::
 
+<!-- references -->
+
 [1]: <>
 
 [2]: spaces.md

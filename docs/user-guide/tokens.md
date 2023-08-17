@@ -1112,6 +1112,8 @@ offered by Onedata tokens and the token creation GUI wizard.
    such as caveats, are not modifiable as they are inscribed in the token.
    ![screen-30][]
 
+<!-- references -->
+
 [Google's macaroons]: https://ai.google/research/pubs/pub41892
 
 [1]: <>

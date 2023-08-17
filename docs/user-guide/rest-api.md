@@ -58,6 +58,8 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
 
+<!-- references -->
+
 [1]: ../intro.md#architecture
 
 [2]: https://onedata.org/#/home/api/stable/onezone

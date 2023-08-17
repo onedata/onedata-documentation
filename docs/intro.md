@@ -115,6 +115,8 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][C
 
 architecture
 
+<!-- references -->
+
 [user quickstart]: user-guide/quickstart.md
 
 [onezone]: admin-guide/onezone

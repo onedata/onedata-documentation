@@ -474,6 +474,8 @@ curl -X GET "${ENDPOINT}/cdmi_capabilities/dataobject/" -H "${CDMI_VSN_HEADER}"
 }
 ```
 
+<!-- references -->
+
 [1]: <>
 
 [2]: #examples-of-usage

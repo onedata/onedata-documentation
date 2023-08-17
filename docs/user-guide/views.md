@@ -402,6 +402,8 @@ function(id, type, meta, ctx) {
 }
 ```
 
+<!-- references -->
+
 [1]: <>
 
 [2]: https://docs.couchbase.com/server/5.5/views/views-intro.html

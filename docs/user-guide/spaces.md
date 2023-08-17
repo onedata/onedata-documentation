@@ -179,6 +179,8 @@ Go to the **Data** submenu in your space to navigate to the file browser.
 Refer to the [Web file browser][25] guide for further instructions.
 ![screen-26][]
 
+<!-- references -->
+
 [1]: data.md#file-path-and-id
 
 [2]: #space-members

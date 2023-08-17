@@ -131,6 +131,8 @@ Refer to the linked API documentation for detailed information and examples.
 | Remove storage         | [API][25]   |
 | List storage resources | [API][26]   |
 
+<!-- references -->
+
 [1]: <>
 
 [3]: http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html
