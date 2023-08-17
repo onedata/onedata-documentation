@@ -134,7 +134,7 @@ mode all `read` and `write` operations go to the storage indirectly through
 Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
 `truncate`) go through Oneprovider to ensure data integrity.
 
-![Oneclient proxy IO vs direct IO][11]
+![screen-11][]
 
 By default `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly. The storage access detection is
@@ -678,7 +678,7 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [10]: data.md#oneprovider-domain
 
-[11]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+[screen-11]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
 
 [12]: https://docs.docker.com/engine/extend/plugins_volume/
 

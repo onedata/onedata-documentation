@@ -100,75 +100,75 @@ Refer to the [admin documentation][13].
    the harvester (preferably with some [custom metadata][14] set).
    You might open the [public][6] view of the harvester
    (if enabled) to enter the full-screen mode.
-   ![image][15]{.screenshot}
+   ![screen-15][]
 
 2. Click on an entry to expand it and view the metadata. This example shows
    a file that has some custom JSON metadata set. Such
    file can be found in the index by its filename or queries matching the JSON
    metadata.
-   ![image][16]{.screenshot}
+   ![screen-16][]
 
 3. You can switch between table and JSON views.
-   ![image][17]{.screenshot}
+   ![screen-17][]
 
 4. You can easily go to the source file using the green link (see above) -
    you will be taken to the directory that contains the indexed file.
-   ![image][18]{.screenshot}
+   ![screen-18][]
 
 5. Back to the data discovery view — you can use the query builder to compose
    custom queries which will narrow your search results. Building the query starts
    with a single placeholder that can become a direct condition, or branch into
    a more complex expression using chosen operator.
-   ![image][19]{.screenshot}
+   ![screen-19][]
 
 6. If an operator is chosen, new placeholders appear in that place, which
    can be recursively filled with further conditions or operators. This example
    shows the `OR` operator, which will match a file if the left-hand expression or
    the right-hand expression matches it.
-   ![image][20]{.screenshot}
+   ![screen-20][]
 
 7. The condition expression is composed of a property name, comparator and
    value to compare against. If the condition is true for a file, it will be
    included in the results (subject to other expressions in case of a complex query).
-   ![image][21]{.screenshot}
+   ![screen-21][]
 
 8. Complete condition — matches if the `enabled` property in file metadata
    equals `true`.
-   ![image][22]{.screenshot}
+   ![screen-22][]
 
 9. Now, for the right-hand expression — another condition that matches if `id`
    is equal to `16`.
-   ![image][23]{.screenshot}
+   ![screen-23][]
 
 10. Complete query might look like the following — quick on the *Query* button
     to perform the search.
-    ![image][24]{.screenshot}
+    ![screen-24][]
 
 11. The results are presented on a paged view — you should see all the files
     that match the specified query, split to pages. Use the paging menu at the
     bottom for navigation.
-    ![image][25]{.screenshot}
+    ![screen-25][]
 
 12. Results can be sorted by desired property and in ascending or descending order.
-    ![image][26]{.screenshot}
+    ![screen-26][]
 
 13. To refine the search, you may apply some filters based on properties. In our
     example, the results constitute 17 accumulated unique properties to filter by.
-    ![image][27]{.screenshot}
+    ![screen-27][]
 
 14. Filtering is applied live. Behind the scenes, the query is not repeated -
     the unwanted properties are hidden from the view for convenient browsing,
     but the list of matching files does not change.
-    ![image][28]{.screenshot}
+    ![screen-28][]
 
 15. If you wish to use the [REST API][12] for queries, you may find the
     `{REST API}` button useful.
-    ![image][29]{.screenshot}
+    ![screen-29][]
 
 16. Click on the button to generate a `curl` command that will perform a query
     equivalent to the one currently built in the editor, including the filters and
     sorting parameters. See the [REST API][12] for more information.
-    ![image][30]{.screenshot}
+    ![screen-30][]
 
 ## REST API
 
@@ -301,37 +301,37 @@ only JSON metadata, then all other types of metadata will be ignored and not sub
 
 [14]: ./metadata.md
 
-[15]: ../../images/user-guide/data-discovery/1-data-discovery.png
+[screen-15]: ../../images/user-guide/data-discovery/1-data-discovery.png
 
-[16]: ../../images/user-guide/data-discovery/2-entry-details.png
+[screen-16]: ../../images/user-guide/data-discovery/2-entry-details.png
 
-[17]: ../../images/user-guide/data-discovery/3-json-view.png
+[screen-17]: ../../images/user-guide/data-discovery/3-json-view.png
 
-[18]: ../../images/user-guide/data-discovery/4-go-to-file.png
+[screen-18]: ../../images/user-guide/data-discovery/4-go-to-file.png
 
-[19]: ../../images/user-guide/data-discovery/5-query-builder-1.png
+[screen-19]: ../../images/user-guide/data-discovery/5-query-builder-1.png
 
-[20]: ../../images/user-guide/data-discovery/6-query-builder-2.png
+[screen-20]: ../../images/user-guide/data-discovery/6-query-builder-2.png
 
-[21]: ../../images/user-guide/data-discovery/7-query-builder-3.png
+[screen-21]: ../../images/user-guide/data-discovery/7-query-builder-3.png
 
-[22]: ../../images/user-guide/data-discovery/8-query-builder-4.png
+[screen-22]: ../../images/user-guide/data-discovery/8-query-builder-4.png
 
-[23]: ../../images/user-guide/data-discovery/9-query-builder-5.png
+[screen-23]: ../../images/user-guide/data-discovery/9-query-builder-5.png
 
-[24]: ../../images/user-guide/data-discovery/10-query-builder-6.png
+[screen-24]: ../../images/user-guide/data-discovery/10-query-builder-6.png
 
-[25]: ../../images/user-guide/data-discovery/11-query-builder-7.png
+[screen-25]: ../../images/user-guide/data-discovery/11-query-builder-7.png
 
-[26]: ../../images/user-guide/data-discovery/12-sort.png
+[screen-26]: ../../images/user-guide/data-discovery/12-sort.png
 
-[27]: ../../images/user-guide/data-discovery/13-filter.png
+[screen-27]: ../../images/user-guide/data-discovery/13-filter.png
 
-[28]: ../../images/user-guide/data-discovery/14-filter-applied.png
+[screen-28]: ../../images/user-guide/data-discovery/14-filter-applied.png
 
-[29]: ../../images/user-guide/data-discovery/15-rest-api-button.png
+[screen-29]: ../../images/user-guide/data-discovery/15-rest-api-button.png
 
-[30]: ../../images/user-guide/data-discovery/16-rest-api-modal.png
+[screen-30]: ../../images/user-guide/data-discovery/16-rest-api-modal.png
 
 [31]: tokens.md#access-token-quickstart
 

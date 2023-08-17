@@ -27,7 +27,7 @@ as presented in the below picture.
 
 > **NOTE**: *storage import* mode cannot be changed during the space lifecycle.
 
-![Supporting the space with an imported storage][4]{.screenshot}
+![screen-4][]
 
 ## Manual storage import
 
@@ -79,7 +79,7 @@ The configuration of *auto storage import* can be set when supporting the space,
 [previous picture][7]. It can also be modified later in the
 `Spaces -> "Space Name" -> Storage import > Auto storage import configuration` tab, as presented below:
 
-![Auto storage import configuration][8]{.screenshot}
+![screen-8][]
 
 The available configuration options are:
 
@@ -105,14 +105,14 @@ counters, which are presented in the right column of the tab. `Failed files` is 
 File counters include both directories and regular files.
 If the `Continuous scan` is enabled, it also displays the estimated time of the next scan.
 
-![Last scan summary][10]{.screenshot}
+![screen-10][]
 
 ### Starting a scan on demand
 
 It is possible to forcefully start a single scan of *auto storage import*, even if `Continuous scan` is disabled
 (use the green button). The scan will be started with current configuration.
 
-![Starting a scan on demand][10]{.screenshot}
+![screen-10][]
 
 > **NOTE:** A new scan can be started only if there is no scan in progress for the space.
 
@@ -120,7 +120,7 @@ It is possible to forcefully start a single scan of *auto storage import*, even 
 
 It is also possible to forcefully stop the current scan of *auto storage import* (use the red button).
 
-![Stopping a scan on demand][11]{.screenshot}
+![screen-11][]
 
 > **NOTE:** Stopping the scan is asynchronous — may take some time and does not guarantee instant effect.
 
@@ -129,7 +129,7 @@ It is also possible to forcefully stop the current scan of *auto storage import*
 Progress of the *auto storage import* can be observed on three charts, as shown below.
 It is possible to change the time resolution of the charts in the upper right corner of the charts view.
 
-![Auto storage import statistics][12]{.screenshot}
+![screen-12][]
 
 [1]: storages.md#imported-storage
 
@@ -137,7 +137,7 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [3]: #auto-storage-import
 
-[4]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png
+[screen-4]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png
 
 [5]: ../../../user-guide/file-registration.md
 
@@ -145,12 +145,12 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [7]: #configuration
 
-[8]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png
+[screen-8]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png
 
 [9]: luma.md#imported-storages
 
-[10]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png
+[screen-10]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png
 
-[11]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png
+[screen-11]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png
 
-[12]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stats.png
+[screen-12]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stats.png

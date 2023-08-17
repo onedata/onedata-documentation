@@ -34,7 +34,7 @@ The thresholds can be adjusted in the
 `Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider panel GUI (as shown below)
 or using [REST API][2].
 
-![Auto-cleaning configuration tab][3]{.screenshot}
+![screen-auto-cleaning-tab][]
 
 ## Selective rules
 
@@ -92,7 +92,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 [2]: #rest-api
 
-[3]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png
+[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png
 
 [4]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration
 

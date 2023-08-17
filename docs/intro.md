@@ -14,7 +14,7 @@ INTRODUCTION  (landing page)
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
 
-# ![Onedata][Onedata logo] Documentation
+# ![Onedata][image-heading] Documentation
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
@@ -92,7 +92,7 @@ Onedata provides 4 ways to manage and access your data:
 
 The Onedata Web Interface provides a web-based, graphical user interface that you can use to manage your spaces, control access rights and manage your user account.
 
-![Example view of Onedata web interface][]{.screenshot}
+![screen-web-gui-example][]
 
 ### User command-line interface
 
@@ -115,7 +115,7 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][C
 
 architecture
 
-[Onedata logo]: ../images/intro/heading.png
+[image-heading]: ../images/intro/heading.png
 
 [user quickstart]: user-guide/quickstart.md
 
@@ -135,7 +135,7 @@ architecture
 
 [Onezone Overview]: admin-guide/onezone/overview.md
 
-[Example view of Onedata web interface]: ../images/intro/web-gui-example.png
+[screen-web-gui-example]: ../images/intro/web-gui-example.png
 
 [oneclient]: user-guide/oneclient.md
 
