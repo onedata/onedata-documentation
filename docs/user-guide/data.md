@@ -25,7 +25,7 @@ The path-based navigation is used mainly in the Web GUI and Oneclient interfaces
 
 [Web GUI][3] — the path is represented in the file browser's breadcrumbs.
 
-![screen-4][]
+![screen-file-gui-path-and-info][]
 
 [Oneclient][5] — when using a shell to access the mounted filesystem,
 some characters in paths should be properly escaped:
@@ -55,7 +55,7 @@ There are several ways to find out the File ID of given file or directory:
 
 [Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
-![screen-4][]
+![screen-file-gui-path-and-info][]
 
 [Oneclient][5] — useful information about every file is accessible
 using the `xattr` command (that reads extended attributes) — the below command
@@ -107,7 +107,7 @@ chooses one of their Oneproviders and is aware of its domain (see below).
 
 Oneprovider's domain is required to mount a [Oneclient][5] instance or
 utilize the [REST][6] and [CDMI][7] APIs. It can be found in the Web
-GUI: ![screen-13][]
+GUI: ![screen-provider-domain][]
 
 ### Oneclient
 
@@ -400,6 +400,6 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 [37]: ../admin-guide/oneprovider/configuration/luma.md
 
-[screen-4]: ../../images/user-guide/data/file-gui-path-and-info.png
+[screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
 
-[screen-13]: ../../images/user-guide/data/provider-domain.png
+[screen-provider-domain]: ../../images/user-guide/data/provider-domain.png

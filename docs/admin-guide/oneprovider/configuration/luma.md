@@ -53,7 +53,7 @@ will be lazily queried to populate the LUMA DB.
 It is also possible to set an API key that will be send with each request to the external server.
 Example configuration of LUMA feed is presented on the below picture:
 
-![screen-12][]
+![screen-luma-config][]
 
 > **NOTE:**  Modification of the type of feed for LUMA DB results in automatic deletion of all entries in the LUMA DB for
 > given storage resource. Newly set feed will be used to populate LUMA DB once again.
@@ -690,4 +690,4 @@ Links to comprehensive description of requests are presented in the below table:
 
 [67]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_group_to_onedata_group_mapping
 
-[screen-12]: ../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png
+[screen-luma-config]: ../../../../images/admin-guide/oneprovider/configuration/luma/luma-config.png

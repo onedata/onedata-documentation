@@ -1052,7 +1052,7 @@ The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
 click on the **(+)** button and choose the template the best suits your needs.
 You can use the default settings or tailor the token to a specific use-case,
 possibly limiting it with caveats. In such case, see the detailed guide [below][19].
-![screen-20][]
+![screen-0-access-token-templates][]
 
 ### Consuming invite tokens
 
@@ -1061,7 +1061,7 @@ new members to a group or space. In case you receive any invite token, simply
 navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
-![screen-21][]
+![screen-0-consume-token][]
 
 ### Detailed guide
 
@@ -1070,13 +1070,13 @@ offered by Onedata tokens and the token creation GUI wizard.
 
 1. Navigate to the **TOKENS** tab. Click on **(+)** or **Get started** to create a new token.
    Click on **Consume** if you received an invite token in order to utilize the invitation.
-   ![screen-22][]
+   ![screen-1-no-tokens][]
 
 2. When you choose the action to create a new token, you will be presented with
    a wizard with quick templates. Choose the one most appropriate for your use case.
    Familiarize yourself with the hints displayed on the page. Go through different
    templates and examine the suggested caveats.
-   ![screen-23][]
+   ![screen-2-token-wizard][]
 
 3. Use the **Create custom token** action to create your own access token.
    Give it a meaningful name and restrict it with some [caveats][7].
@@ -1084,33 +1084,33 @@ offered by Onedata tokens and the token creation GUI wizard.
    for accessing Oneprovider services (note the service caveat). Effectively, this
    limits the available interfaces to those offered by Oneprovider: Oneclient and
    REST/CDMI API. They can be further limited using the interface caveat (the first below).
-   ![screen-24][]
+   ![screen-3-access-token][]
 
 4. Consider adding other caveats to increase your security in case the token
    is to be delegated or passed to another user. Below
    [*data access caveats*][15] would restrict the token's power
    to just reading the contents of specified directory and file. Any other
    operation will be denied by all system components.
-   ![screen-25][]
+   ![screen-4-data-access-caveats][]
 
 5. You may want to create an [identity token][4] for more
    advanced scenarios that entail [consumer][10] caveats:
-   ![screen-26][]
+   ![screen-5-identity-token][]
 
 6. Invite tokens can be created easily in the members submenu of a group / space etc.
-   ![screen-27][]
+   ![screen-6-invite-token-a][]
    though you may want to create a custom token using the wizard:
-   ![screen-28][]
+   ![screen-6-invite-token-b][]
 
 7. Created token will be listed on the left - you can view the details of a
    token and copy it in serialized form that can be used in CLI, e.g. to mount
    Oneclient or perform a request to REST/CDMI, or passed to some
    scripts / middleware.
-   ![screen-29][]
+   ![screen-7-browse-tokens][]
 
 8. Tokens can be modified to some extent - renamed or revoked. Other details,
    such as caveats, are not modifiable as they are inscribed in the token.
-   ![screen-30][]
+   ![screen-8-modify-token][]
 
 <!-- references -->
 
@@ -1154,24 +1154,24 @@ offered by Onedata tokens and the token creation GUI wizard.
 
 [19]: #detailed-guide
 
-[screen-20]: ../../images/user-guide/tokens/0-access-token-templates.png
+[screen-0-access-token-templates]: ../../images/user-guide/tokens/0-access-token-templates.png
 
-[screen-21]: ../../images/user-guide/tokens/0-consume-token.png
+[screen-0-consume-token]: ../../images/user-guide/tokens/0-consume-token.png
 
-[screen-22]: ../../images/user-guide/tokens/1-no-tokens.png
+[screen-1-no-tokens]: ../../images/user-guide/tokens/1-no-tokens.png
 
-[screen-23]: ../../images/user-guide/tokens/2-token-wizard.png
+[screen-2-token-wizard]: ../../images/user-guide/tokens/2-token-wizard.png
 
-[screen-24]: ../../images/user-guide/tokens/3-access-token.png
+[screen-3-access-token]: ../../images/user-guide/tokens/3-access-token.png
 
-[screen-25]: ../../images/user-guide/tokens/4-data-access-caveats.png
+[screen-4-data-access-caveats]: ../../images/user-guide/tokens/4-data-access-caveats.png
 
-[screen-26]: ../../images/user-guide/tokens/5-identity-token.png
+[screen-5-identity-token]: ../../images/user-guide/tokens/5-identity-token.png
 
-[screen-27]: ../../images/user-guide/tokens/6-invite-token-a.png
+[screen-6-invite-token-a]: ../../images/user-guide/tokens/6-invite-token-a.png
 
-[screen-28]: ../../images/user-guide/tokens/6-invite-token-b.png
+[screen-6-invite-token-b]: ../../images/user-guide/tokens/6-invite-token-b.png
 
-[screen-29]: ../../images/user-guide/tokens/7-browse-tokens.png
+[screen-7-browse-tokens]: ../../images/user-guide/tokens/7-browse-tokens.png
 
-[screen-30]: ../../images/user-guide/tokens/8-modify-token.png
+[screen-8-modify-token]: ../../images/user-guide/tokens/8-modify-token.png

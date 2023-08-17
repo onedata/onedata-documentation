@@ -16,7 +16,7 @@ are at the beginning of the list.
 The mechanism can be enabled for chosen space in the `Spaces -> "Space Name" -> File popularity` tab,
 in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API][4].
 
-![screen-5][]
+![screen-file-popularity-tab][]
 
 Internally, the mechanism creates the *file popularity view*. All notes presented in the
 [*Views* chapter][2]
@@ -172,7 +172,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 [4]: #rest-api
 
-[screen-5]: ../../../../images/admin-guide/oneprovider/configuration/file-popularity/file_popularity_tab.png
+[screen-file-popularity-tab]: ../../../../images/admin-guide/oneprovider/configuration/file-popularity/file-popularity-tab.png
 
 [6]: ../../../user-guide/views.md#rest-api
 

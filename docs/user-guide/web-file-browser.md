@@ -14,7 +14,7 @@ The file browser is always presented in the context of a single
 [provider][4] and can be invoked by navigating to the **DATA > *Space
 name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
-![screen-5][]
+![screen-intro-data-overview][]
 
 <!-- TODO: VFS-9382 update screenshot and mark FILES tile with rectangle -->
 
@@ -22,21 +22,21 @@ name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 A new, empty space welcomes users with the following screen:
 
-![screen-6][]
+![screen-uploading-empty][]
 
 New files can be uploaded using the **upload** button or dragging and dropping
 them in the file browser area. While the data is being uploaded, a progress
 panel appears in the bottom-right corner of the screen. It is possible to upload
 multiple files at once or add more files during an ongoing upload.
 
-![screen-7][]
+![screen-uploading-upload][]
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
 sidebar, providing detailed view of all uploads that have been done in the
 current browser tab. The information can be viewed in a summarized form or per
 the target provider.
 
-![screen-8][]
+![screen-uploading-tab][]
 
 ## File browser layout
 
@@ -52,7 +52,7 @@ described below).
 The toolbox, located in the top right corner, contains shortcuts for common
 directory actions (*upload files*, *create a new directory* and *refresh file list*).
 
-![screen-9][]
+![screen-layout-breadcrumbs][]
 
 The remainder part of the file browser presents the content of the current working
 directory in a form of a list with details.
@@ -72,19 +72,19 @@ directory) or downloads a file.
 When an item or multiple selected items are right-clicked, a context menu with
 available actions appears.
 
-![screen-11][]
+![screen-layout-context-menu][]
 
 The file browser uses the "infinite scroll" method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
-![screen-12][]
+![screen-layout-infinite-scroll][]
 
 Apart from basic details displayed on the list, additional information and
 characteristics of files is presented using tags. For instance, the tags include
 information whether a file is shared, has Quality of Service requirements
 attached or an Access Control List (ACL) assigned.
 
-![screen-13][]
+![screen-layout-file-tags][]
 
 ## File browser features
 
@@ -105,13 +105,13 @@ It is possible to invoke the context-menu for more than one selected item, but
 only some of the operations are available in this mode.
 :::
 
-![screen-15][]
+![screen-feature-file-context-menu][]
 
 ### Information
 
 This action brings up a modal with information about a single file or directory.
 
-![screen-16][]
+![screen-feature-info][]
 
 ### Share
 
@@ -120,13 +120,13 @@ accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
 modal that allows creating a new [share][17].
 
-![screen-18][]
+![screen-feature-share][]
 
 If the item has already been shared, the modal will present the list of existing
 shares, with the possibility to copy their public links, view their details
 (using the green links) or create another share.
 
-![screen-19][]
+![screen-feature-shared-already][]
 
 ### Metadata
 
@@ -135,7 +135,7 @@ This action allows browsing end editing custom file
 JSON and RDF. The last two feature a code editor with syntax checking and
 highlighting.
 
-![screen-21][]
+![screen-feature-metadata-json][]
 
 ### Permissions
 
@@ -148,13 +148,13 @@ using the **Permissions type** toggle.
 POSIX permissions are the default permissions set for each file and can be
 edited using the octal representation field or by manipulating the checkboxes.
 
-![screen-25][]
+![screen-feature-permissions-posix][]
 
 Upon switching to the **ACL** type, a different editor is presented. It allows
 creating and editing entries for different principals in the space and assigning
 allowing/denying rules for granular operations concerning the file or directory.
 
-![screen-26][]
+![screen-feature-permissions-acl][]
 
 ### Data distribution
 
@@ -164,7 +164,7 @@ visualize which blocks (fragments of the file) are stored on the storage systems
 of the corresponding providers. When more than one file is selected, the
 distribution can be viewed in a summarized or detailed manner.
 
-![screen-28][]
+![screen-feature-distribution-bar][]
 
 The handy status bar indicates ongoing [replication, migration and
 eviction][29] jobs and allows scheduling new ones for
@@ -172,7 +172,7 @@ the corresponding provider. In the detailed view, there is also a shortcut to
 the history of data transfers for the subject file (as shown in the screenshot
 above).
 
-![screen-30][]
+![screen-feature-distribution-schedule][]
 
 ### QoS
 
@@ -184,31 +184,31 @@ The rules can be put down using a visual block-based expression editor. These
 rules are evaluated against the QoS parameters assigned to different supporting
 storages in order to determine where the replicas should be stored.
 
-![screen-32][]
+![screen-feature-qos-visual][]
 
 Below the requirement, there is information what storages match the requirement
 and an action that copies the expression in textual form, to be reused when
 creating a new requirement or using the [REST API][33].
 
-![screen-34][]
+![screen-feature-qos-visual-match][]
 
 Expressions can be entered in the textual form. They are converted to block form
 upon confirmation, and then can be further edited.
 
-![screen-35][]
+![screen-feature-qos-text][]
 
 If the selected files have any QoS requirements defined, they are displayed on
 the list along with their status of fulfillment, matching storages and other
 information. It is possible to remove selected QoS requirements, unless they
 are inherited from any parent directory.
 
-![screen-36][]
+![screen-feature-qos-requirements][]
 
 ### Rename
 
 Basic operation used to change the file name.
 
-![screen-37][]
+![screen-feature-rename][]
 
 ### Copy, Cut and Paste
 
@@ -216,13 +216,13 @@ The  **copy** or **cut** action from the context-menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
 
-![screen-38][]
+![screen-feature-copy-cut][]
 
 ### Delete
 
 This action permanently deletes the selected files and directories.
 
-![screen-39][]
+![screen-feature-delete][]
 
 ## Mobile file browser
 
@@ -230,25 +230,25 @@ Onedata web file browser supports mobile devices such as smartphones or tablets.
 Available features are the same as in desktop mode, but the page layout is
 adjusted to small devices.
 
-![screen-40][]
+![screen-mobile-overview][]
 
 In the mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
 
-![screen-41][]
+![screen-mobile-download][]
 
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
 **Selection** button at the bottom of screen.
 
-![screen-42][]
+![screen-mobile-menu][]
 
 Operations on the current working directory, such as creating new directory or
 uploading files, are available in the breadcrumbs navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
 
-![screen-43][]
+![screen-mobile-upload][]
 
 ## Switching between providers
 
@@ -260,7 +260,7 @@ Oneprovider...** action at the top of file browser, given that there is more
 than one supporting provider. Alternatively, providers can be switched using a
 world map visual representation, available under the globe icon.
 
-![screen-44][]
+![screen-oneprovider-switch][]
 
 ::: tip
 After switching to another provider, the user will eventually see the same
@@ -304,60 +304,60 @@ creating new files or directories, scheduling data transfers etc).
 
 [33]: rest-api.md
 
-[screen-5]: ../../images/user-guide/web-file-browser/intro-data-overview.png
+[screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
-[screen-6]: ../../images/user-guide/web-file-browser/uploading-empty.png
+[screen-uploading-empty]: ../../images/user-guide/web-file-browser/uploading-empty.png
 
-[screen-7]: ../../images/user-guide/web-file-browser/uploading-upload.png
+[screen-uploading-upload]: ../../images/user-guide/web-file-browser/uploading-upload.png
 
-[screen-8]: ../../images/user-guide/web-file-browser/uploading-tab.png
+[screen-uploading-tab]: ../../images/user-guide/web-file-browser/uploading-tab.png
 
-[screen-9]: ../../images/user-guide/web-file-browser/layout-breadcrumbs.png
+[screen-layout-breadcrumbs]: ../../images/user-guide/web-file-browser/layout-breadcrumbs.png
 
-[screen-11]: ../../images/user-guide/web-file-browser/layout-context-menu.png
+[screen-layout-context-menu]: ../../images/user-guide/web-file-browser/layout-context-menu.png
 
-[screen-12]: ../../images/user-guide/web-file-browser/layout-infinite-scroll.png
+[screen-layout-infinite-scroll]: ../../images/user-guide/web-file-browser/layout-infinite-scroll.png
 
-[screen-13]: ../../images/user-guide/web-file-browser/layout-file-tags.png
+[screen-layout-file-tags]: ../../images/user-guide/web-file-browser/layout-file-tags.png
 
-[screen-15]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
+[screen-feature-file-context-menu]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
 
-[screen-16]: ../../images/user-guide/web-file-browser/feature-info.png
+[screen-feature-info]: ../../images/user-guide/web-file-browser/feature-info.png
 
-[screen-18]: ../../images/user-guide/web-file-browser/feature-share.png
+[screen-feature-share]: ../../images/user-guide/web-file-browser/feature-share.png
 
-[screen-19]: ../../images/user-guide/web-file-browser/feature-shared-already.png
+[screen-feature-shared-already]: ../../images/user-guide/web-file-browser/feature-shared-already.png
 
-[screen-21]: ../../images/user-guide/web-file-browser/feature-metadata-json.png
+[screen-feature-metadata-json]: ../../images/user-guide/web-file-browser/feature-metadata-json.png
 
-[screen-25]: ../../images/user-guide/web-file-browser/feature-permissions-posix.png
+[screen-feature-permissions-posix]: ../../images/user-guide/web-file-browser/feature-permissions-posix.png
 
-[screen-26]: ../../images/user-guide/web-file-browser/feature-permissions-acl.png
+[screen-feature-permissions-acl]: ../../images/user-guide/web-file-browser/feature-permissions-acl.png
 
-[screen-28]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
+[screen-feature-distribution-bar]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
 
-[screen-30]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
+[screen-feature-distribution-schedule]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
 
-[screen-32]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
+[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
 
-[screen-34]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
+[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
 
-[screen-35]: ../../images/user-guide/web-file-browser/feature-qos-text.png
+[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
 
-[screen-36]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
+[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
 
-[screen-37]: ../../images/user-guide/web-file-browser/feature-rename.png
+[screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
 
-[screen-38]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
+[screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
 
-[screen-39]: ../../images/user-guide/web-file-browser/feature-delete.png
+[screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
 
-[screen-40]: ../../images/user-guide/web-file-browser/mobile-overview.png
+[screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
 
-[screen-41]: ../../images/user-guide/web-file-browser/mobile-download.png
+[screen-mobile-download]: ../../images/user-guide/web-file-browser/mobile-download.png
 
-[screen-42]: ../../images/user-guide/web-file-browser/mobile-menu.png
+[screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
 
-[screen-43]: ../../images/user-guide/web-file-browser/mobile-upload.png
+[screen-mobile-upload]: ../../images/user-guide/web-file-browser/mobile-upload.png
 
-[screen-44]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
+[screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png

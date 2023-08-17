@@ -8,7 +8,7 @@ Onepanel GUI allows creating, editing and deleting storages under the *Storages*
 All storage configuration options are available during storage creation (see below picture and descriptions).
 After the storage is created, only some of the parameters can be changed so as not to break the data integrity.
 
-![screen-2][]
+![screen-storage-config][]
 
 ### Storage type
 
@@ -183,4 +183,4 @@ Refer to the linked API documentation for detailed information and examples.
 
 [26]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages
 
-[screen-2]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png
+[screen-storage-config]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage-config.png

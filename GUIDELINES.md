@@ -278,7 +278,7 @@ For more information, refer to the [docs][].
 
   <!-- references -->
 
-  [screen-no-spaces]: ../../images/user-guide/spaces/1-no_spaces.png
+  [screen-1-no-spaces]: ../../images/user-guide/spaces/1-no-spaces.png
   ```
 
 ## Referring to GUI elements

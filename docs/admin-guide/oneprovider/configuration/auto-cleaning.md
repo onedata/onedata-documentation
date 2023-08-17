@@ -106,4 +106,4 @@ Refer to the linked API documentation for detailed information and examples.
 
 [9]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_status
 
-[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png
+[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto-cleaning-tab.png

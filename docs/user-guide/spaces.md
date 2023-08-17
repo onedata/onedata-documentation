@@ -88,40 +88,40 @@ existing space using the **Consume** action in the
 [Tokens GUI][9], in case you
 received an invite token from another user.
 For this tutorial, create a space and give it a name of your choice.
-![screen-10][]
+![screen-1-no-spaces][]
 
 ### Request support for space
 
 In order to request support for your space, click on the **PROVIDERS** tile
 in the overview, which will invoke the **Add support** action. Alternatively,
 navigate to the space's **Providers** submenu.
-![screen-11][]
+![screen-2-space-created][]
 
 You should obtain a space support token — pass it to a provider admin so that
 they can [grant support for your space][12].
 The token is multi-use and valid for a day.
-![screen-13][]
+![screen-3-request-support][]
 
 After the support is granted, you will see that the new provider has
 appeared and a certain quota has been assigned.
-![screen-14][]
+![screen-4-space-overview][]
 
 ### Invite a user
 
 Navigate to the **Members** submenu. Here, you can manage the users and
 groups that belong to the space. To invite a new user, you would click on the
 token generation action, copy the acquired token and pass it to another user.
-![screen-15][]
+![screen-5-members][]
 
 ### Invite a group
 
 Create a new group using the `(+)` action button in the **GROUPS** menu.
 Name the group **Space admins**.
-![screen-16][]
+![screen-6-create-group][]
 
 Go back to the space menu (**DATA** tab -> **Space name** -> **Members**) and
 generate a group invite token. Copy it to the clipboard for the next step.
-![screen-17][]
+![screen-7-create-group-invite-token][]
 
 Use the the **Consume** action in the [Tokens GUI][9].
 Paste in the token — it will be identified and you will be asked which group you
@@ -131,12 +131,12 @@ wish to add. Choose the **Space admins** group and confirm.
 
 When the **Space admins** group has been added to the space, go back to the
 members menu, where you can view its privileges by expanding the entry.
-![screen-18][]
+![screen-8-privileges-1][]
 
 The privileges are grouped into sections — you can grant or revoke the whole
 section, or expand for more granular setting. Make sure to save your changes
 afterwards.
-![screen-19][]
+![screen-9-privileges-2][]
 
 ### Add your group
 
@@ -145,20 +145,20 @@ In real scenarios, you would pass the invite token to another user, who would be
 able to join with one of their groups. There is an easier way of adding groups -
 familiarize with the **Create new group** and **Add one of your groups** actions.
 Create and add **Other group** to the space using one of those methods.
-![screen-20][]
+![screen-10-add-your-group][]
 
 ### Bulk edit of privileges
 
 You can use the **Bulk edit** action after selecting several groups and/or
 users to update the privileges for all of them at once. The new settings will
 overwrite the old ones to identical values.
-![screen-21][]
+![screen-11-bulk-edit][]
 
 ### Effective members
 
 Navigate to the **GROUPS** menu and create a subgroup for the **Other group**.
 The interface is analogical to the one for spaces.
-![screen-22][]
+![screen-12-subgroup][]
 
 Go back to the space members view. Expand the view options and choose
 **Effective Privileges**. You will see that the Subgroup appears on the list.
@@ -166,18 +166,18 @@ This is because it inherits the space membership in the space from its parent
 group — **Other group**. Examine the privileges and see that they are inherited
 as well. You can play around with the privileges of the **Other group** and see
 that the inheritance is updated.
-![screen-23][]
+![screen-13-effective-privileges][]
 
 Switch to the **Effective Memberships** view, and optionally turn on
 descriptions. Expand your user entry to see all of your memberships in the
 space — direct and inherited from group memberships (effective).
-![screen-24][]
+![screen-14-effective-memberships][]
 
 ### Data browser
 
 Go to the **Data** submenu in your space to navigate to the file browser.
 Refer to the [Web file browser][25] guide for further instructions.
-![screen-26][]
+![screen-15-data][]
 
 <!-- references -->
 
@@ -203,32 +203,32 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [25]: web-file-browser.md
 
-[screen-10]: ../../images/user-guide/spaces/1-no_spaces.png
+[screen-1-no-spaces]: ../../images/user-guide/spaces/1-no-spaces.png
 
-[screen-11]: ../../images/user-guide/spaces/2-space_created.png
+[screen-2-space-created]: ../../images/user-guide/spaces/2-space-created.png
 
-[screen-13]: ../../images/user-guide/spaces/3-request_support.png
+[screen-3-request-support]: ../../images/user-guide/spaces/3-request-support.png
 
-[screen-14]: ../../images/user-guide/spaces/4-space_overview.png
+[screen-4-space-overview]: ../../images/user-guide/spaces/4-space-overview.png
 
-[screen-15]: ../../images/user-guide/spaces/5-members.png
+[screen-5-members]: ../../images/user-guide/spaces/5-members.png
 
-[screen-16]: ../../images/user-guide/spaces/6-create-group.png
+[screen-6-create-group]: ../../images/user-guide/spaces/6-create-group.png
 
-[screen-17]: ../../images/user-guide/spaces/7-create-group-invite-token.png
+[screen-7-create-group-invite-token]: ../../images/user-guide/spaces/7-create-group-invite-token.png
 
-[screen-18]: ../../images/user-guide/spaces/8-privileges-1.png
+[screen-8-privileges-1]: ../../images/user-guide/spaces/8-privileges-1.png
 
-[screen-19]: ../../images/user-guide/spaces/9-privileges-2.png
+[screen-9-privileges-2]: ../../images/user-guide/spaces/9-privileges-2.png
 
-[screen-20]: ../../images/user-guide/spaces/10-add-your-group.png
+[screen-10-add-your-group]: ../../images/user-guide/spaces/10-add-your-group.png
 
-[screen-21]: ../../images/user-guide/spaces/11-bulk-edit.png
+[screen-11-bulk-edit]: ../../images/user-guide/spaces/11-bulk-edit.png
 
-[screen-22]: ../../images/user-guide/spaces/12-subgroup.png
+[screen-12-subgroup]: ../../images/user-guide/spaces/12-subgroup.png
 
-[screen-23]: ../../images/user-guide/spaces/13-effective-privileges.png
+[screen-13-effective-privileges]: ../../images/user-guide/spaces/13-effective-privileges.png
 
-[screen-24]: ../../images/user-guide/spaces/14-effective-memberships.png
+[screen-14-effective-memberships]: ../../images/user-guide/spaces/14-effective-memberships.png
 
-[screen-26]: ../../images/user-guide/spaces/15-data.png
+[screen-15-data]: ../../images/user-guide/spaces/15-data.png

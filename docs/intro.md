@@ -64,7 +64,7 @@ Each zone is composed of a network of providers who provision their storage reso
 
 A user can use several providers simultaneously to manage his/her data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
-<img src="../images/intro/overview_3d_map_with_users.png" width="580">
+<img src="../images/intro/overview-3d-map-with-users.png" width="580">
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
 
