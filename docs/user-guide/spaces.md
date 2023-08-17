@@ -197,11 +197,13 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [9]: tokens.md#consuming-invite-tokens
 
+[12]: ../admin-guide/oneprovider/configuration/space-support.md#granting-support
+
+[25]: web-file-browser.md
+
 [screen-10]: ../../images/user-guide/spaces/1-no_spaces.png
 
 [screen-11]: ../../images/user-guide/spaces/2-space_created.png
-
-[12]: ../admin-guide/oneprovider/configuration/space-support.md#granting-support
 
 [screen-13]: ../../images/user-guide/spaces/3-request_support.png
 
@@ -226,7 +228,5 @@ Refer to the [Web file browser][25] guide for further instructions.
 [screen-23]: ../../images/user-guide/spaces/13-effective-privileges.png
 
 [screen-24]: ../../images/user-guide/spaces/14-effective-memberships.png
-
-[25]: web-file-browser.md
 
 [screen-26]: ../../images/user-guide/spaces/15-data.png

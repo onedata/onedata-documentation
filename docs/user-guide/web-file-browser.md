@@ -280,6 +280,28 @@ creating new files or directories, scheduling data transfers etc).
 
 [4]: providers.md
 
+[10]: #mobile-file-browser
+
+[14]: spaces.md#space-privileges
+
+[17]: shares.md
+
+[20]: metadata.md#web-gui
+
+[22]: data.md#permissions
+
+[23]: data.md#posix-permissions
+
+[24]: data.md#access-control-lists
+
+[27]: data.md#file-distribution
+
+[29]: replication-and-migration.md
+
+[31]: quality-of-service.md
+
+[33]: rest-api.md
+
 [screen-5]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
 [screen-6]: ../../images/user-guide/web-file-browser/uploading-empty.png
@@ -290,53 +312,31 @@ creating new files or directories, scheduling data transfers etc).
 
 [screen-9]: ../../images/user-guide/web-file-browser/layout-breadcrumbs.png
 
-[10]: #mobile-file-browser
-
 [screen-11]: ../../images/user-guide/web-file-browser/layout-context-menu.png
 
 [screen-12]: ../../images/user-guide/web-file-browser/layout-infinite-scroll.png
 
 [screen-13]: ../../images/user-guide/web-file-browser/layout-file-tags.png
 
-[14]: spaces.md#space-privileges
-
 [screen-15]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
 
 [screen-16]: ../../images/user-guide/web-file-browser/feature-info.png
-
-[17]: shares.md
 
 [screen-18]: ../../images/user-guide/web-file-browser/feature-share.png
 
 [screen-19]: ../../images/user-guide/web-file-browser/feature-shared-already.png
 
-[20]: metadata.md#web-gui
-
 [screen-21]: ../../images/user-guide/web-file-browser/feature-metadata-json.png
-
-[22]: data.md#permissions
-
-[23]: data.md#posix-permissions
-
-[24]: data.md#access-control-lists
 
 [screen-25]: ../../images/user-guide/web-file-browser/feature-permissions-posix.png
 
 [screen-26]: ../../images/user-guide/web-file-browser/feature-permissions-acl.png
 
-[27]: data.md#file-distribution
-
 [screen-28]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
-
-[29]: replication-and-migration.md
 
 [screen-30]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
 
-[31]: quality-of-service.md
-
 [screen-32]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
-
-[33]: rest-api.md
 
 [screen-34]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
 

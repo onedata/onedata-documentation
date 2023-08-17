@@ -92,8 +92,6 @@ Refer to the linked API documentation for detailed information and examples.
 
 [2]: #rest-api
 
-[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png
-
 [4]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration
 
 [5]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_space_auto_cleaning
@@ -105,3 +103,5 @@ Refer to the linked API documentation for detailed information and examples.
 [8]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/trigger_auto_cleaning
 
 [9]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_status
+
+[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png

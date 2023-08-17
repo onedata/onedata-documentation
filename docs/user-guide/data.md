@@ -334,8 +334,6 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 [3]: #web-gui
 
-[screen-4]: ../../images/user-guide/data/file-gui-path-and-info.png
-
 [5]: #oneclient
 
 [6]: #rest-api
@@ -351,8 +349,6 @@ especially concerning the above-mentioned **group** and **others** semantics.
 [11]: ../intro.md#architecture
 
 [12]: spaces.md#space-support
-
-[screen-13]: ../../images/user-guide/data/provider-domain.png
 
 [14]: oneclient.md
 
@@ -401,3 +397,7 @@ especially concerning the above-mentioned **group** and **others** semantics.
 [36]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr
 
 [37]: ../admin-guide/oneprovider/configuration/luma.md
+
+[screen-4]: ../../images/user-guide/data/file-gui-path-and-info.png
+
+[screen-13]: ../../images/user-guide/data/provider-domain.png

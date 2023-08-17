@@ -14,7 +14,7 @@ INTRODUCTION  (landing page)
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
 
-# ![Onedata][image-heading] Documentation
+# ![image-heading][] Documentation
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
@@ -115,8 +115,6 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][C
 
 architecture
 
-[image-heading]: ../images/intro/heading.png
-
 [user quickstart]: user-guide/quickstart.md
 
 [onezone]: admin-guide/onezone
@@ -135,10 +133,12 @@ architecture
 
 [Onezone Overview]: admin-guide/onezone/overview.md
 
-[screen-web-gui-example]: ../images/intro/web-gui-example.png
-
 [oneclient]: user-guide/oneclient.md
 
 [CDMI interface]: user-guide/cdmi.md
 
 [REST interface]: https://onedata.org/#/home/api
+
+[image-heading]: ../images/intro/heading.png
+
+[screen-web-gui-example]: ../images/intro/web-gui-example.png

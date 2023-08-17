@@ -301,6 +301,12 @@ only JSON metadata, then all other types of metadata will be ignored and not sub
 
 [14]: ./metadata.md
 
+[31]: tokens.md#access-token-quickstart
+
+[32]: https://onedata.org/#/home/api/stable/onezone?anchor=operation/update_user_admin_privileges
+
+[33]: ../admin-guide/onezone/configuration/data-discovery.md#feeding-metadata-into-indices
+
 [screen-15]: ../../images/user-guide/data-discovery/1-data-discovery.png
 
 [screen-16]: ../../images/user-guide/data-discovery/2-entry-details.png
@@ -332,9 +338,3 @@ only JSON metadata, then all other types of metadata will be ignored and not sub
 [screen-29]: ../../images/user-guide/data-discovery/15-rest-api-button.png
 
 [screen-30]: ../../images/user-guide/data-discovery/16-rest-api-modal.png
-
-[31]: tokens.md#access-token-quickstart
-
-[32]: https://onedata.org/#/home/api/stable/onezone?anchor=operation/update_user_admin_privileges
-
-[33]: ../admin-guide/onezone/configuration/data-discovery.md#feeding-metadata-into-indices

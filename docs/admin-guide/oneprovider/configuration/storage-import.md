@@ -137,7 +137,6 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [3]: #auto-storage-import
 
-[screen-4]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png
 
 [5]: ../../../user-guide/file-registration.md
 
@@ -145,9 +144,11 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [7]: #configuration
 
-[screen-8]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png
-
 [9]: luma.md#imported-storages
+
+[screen-4]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png
+
+[screen-8]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png
 
 [screen-10]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png
 

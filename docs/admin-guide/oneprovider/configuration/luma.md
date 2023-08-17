@@ -578,8 +578,6 @@ Links to comprehensive description of requests are presented in the below table:
 
 [11]: #external-feed
 
-[screen-12]: ../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png
-
 [13]: #storageuser
 
 [14]: #posixcredentials
@@ -689,3 +687,5 @@ Links to comprehensive description of requests are presented in the below table:
 [66]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_get_acl_group_to_onedata_group_mapping
 
 [67]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/luma_remove_acl_group_to_onedata_group_mapping
+
+[screen-12]: ../../../../images/admin-guide/oneprovider/configuration/luma/luma_config.png

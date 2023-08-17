@@ -133,8 +133,6 @@ Refer to the linked API documentation for detailed information and examples.
 
 [1]: <>
 
-[screen-2]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png
-
 [3]: http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html
 
 [4]: http://ceph.com/ceph-storage/
@@ -182,3 +180,5 @@ Refer to the linked API documentation for detailed information and examples.
 [25]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/remove_storage
 
 [26]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages
+
+[screen-2]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage_config.png

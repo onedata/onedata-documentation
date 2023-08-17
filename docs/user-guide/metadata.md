@@ -244,16 +244,6 @@ indices that harvest metadata from multiple spaces and provide advanced search e
 
 [11]: #data-discovery
 
-[screen-12]: ../../images/user-guide/metadata/set_file_metadata.png
-
-[screen-13]: ../../images/user-guide/metadata/set_space_metadata.png
-
-[screen-14]: ../../images/user-guide/metadata/set_file_xattrs.png
-
-[screen-15]: ../../images/user-guide/metadata/set_file_json_metadata.png
-
-[screen-16]: ../../images/user-guide/metadata/set_file_rdf_metadata.png
-
 [17]: https://github.com/xattr/xattr
 
 [18]: data.md#file-path-and-id
@@ -267,3 +257,13 @@ indices that harvest metadata from multiple spaces and provide advanced search e
 [22]: ./views.md
 
 [23]: data-discovery.md
+
+[screen-12]: ../../images/user-guide/metadata/set_file_metadata.png
+
+[screen-13]: ../../images/user-guide/metadata/set_space_metadata.png
+
+[screen-14]: ../../images/user-guide/metadata/set_file_xattrs.png
+
+[screen-15]: ../../images/user-guide/metadata/set_file_json_metadata.png
+
+[screen-16]: ../../images/user-guide/metadata/set_file_rdf_metadata.png
