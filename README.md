@@ -76,9 +76,9 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 
 This extension enables Markdown and plaintext files check using
 [Grammarly][] service. You can use the extension without authentication, but we recommend
-creating an account and logging in to it in VSCode to have a personal dictionary
-[customized here][Grammarly account customize]. As of July 2023, the Grammarly extension
-does not support personal dictionary configured locally.
+creating an account and logging into it in VSCode to enable the personal dictionary, which
+can be customized [here][Grammarly account customize]. As of July 2023, the Grammarly
+extension does not support personal dictionary configured locally.
 
 #### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
 
