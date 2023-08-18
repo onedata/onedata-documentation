@@ -17,25 +17,25 @@ This functionality should be used in two setups:
 > and dedicated exclusively for being accessed by the Oneprovider software. This should be the preferred setup, except
 > for the two above-mentioned cases.
 
-*storage import* can be enabled only if the space is supported with an [*Imported storage*](storages.md#imported-storage).
+*storage import* can be enabled only if the space is supported with an [*Imported storage*][1].
 
 ## Configuration
 
-There are 2 possible modes of *storage import*: [*manual*](#manual-storage-import) and [*auto*](#auto-storage-import).
-The mode is chosen when the space is being supported with an [*Imported storage*](storages.md#imported-storage)
+There are 2 possible modes of *storage import*: [*manual*][2] and [*auto*][3].
+The mode is chosen when the space is being supported with an [*Imported storage*][1]
 as presented in the below picture.
 
 > **NOTE**: *storage import* mode cannot be changed during the space lifecycle.
 
-![Supporting the space with an imported storage](../../../../images/admin-guide/oneprovider/configuration/storage-import/storage_import_config.png#screenshot)
+![screen-storage-import-config][]
 
 ## Manual storage import
 
-In case of *manual* mode, the files must be [registered manually](../../../user-guide/file-registration.md) by the space users.
+In case of *manual* mode, the files must be [registered manually][5] by the space users.
 Registration of directories is not supported.
 
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does
-not support [automatic import scans](#auto-storage-import).
+not support [automatic import scans][3].
 
 ### Storage configuration for manual import:
 
@@ -51,7 +51,7 @@ not support [automatic import scans](#auto-storage-import).
 * `Swift`
 * `Ceph RADOS`
 
-> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type).
+> **NOTE**: The storage must have [*canonical path type*][6].
 > Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
 
 ## Auto storage import
@@ -70,21 +70,21 @@ assigned space.
 * `XRootD`
 * `S3`
 
-> **NOTE**: The storage must have [*canonical path type*](storages.md#storage-path-type).
+> **NOTE**: The storage must have [*canonical path type*][6].
 > Moreover, on S3 the `Block size` parameter **must be set to `0` !**
 
 ### Configuration
 
 The configuration of *auto storage import* can be set when supporting the space, as presented in the
-[previous picture](#configuration). It can also be modified later in the
+[previous picture][7]. It can also be modified later in the
 `Spaces -> "Space Name" -> Storage import > Auto storage import configuration` tab, as presented below:
 
-![Auto storage import configuration](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_config.png#screenshot)
+![screen-auto-storage-import-config][]
 
 The available configuration options are:
 
 * `Max depth` — Maximum depth of filesystem tree that will be traversed during the scan. By default it is 65535.
-* `Synchronize ACL` — Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB](luma.md#imported-storages).
+* `Synchronize ACL` — Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB][9].
 * `Detect modifications` — If disabled, the storage will be treated as immutable — changes of already imported files
   will not be detected. Relevant only if more than one scan is performed.
 * `Detect deletions` — Flag determining that deletions of already imported files will be detected and reflected.
@@ -105,14 +105,14 @@ counters, which are presented in the right column of the tab. `Failed files` is 
 File counters include both directories and regular files.
 If the `Continuous scan` is enabled, it also displays the estimated time of the next scan.
 
-![Last scan summary](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png#screenshot)
+![screen-auto-storage-import-info][]
 
 ### Starting a scan on demand
 
 It is possible to forcefully start a single scan of *auto storage import*, even if `Continuous scan` is disabled
 (use the green button). The scan will be started with current configuration.
 
-![Starting a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_info.png#screenshot)
+![screen-auto-storage-import-info][]
 
 > **NOTE:** A new scan can be started only if there is no scan in progress for the space.
 
@@ -120,7 +120,7 @@ It is possible to forcefully start a single scan of *auto storage import*, even 
 
 It is also possible to forcefully stop the current scan of *auto storage import* (use the red button).
 
-![Stopping a scan on demand](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stop.png#screenshot)
+![screen-auto-storage-import-stop][]
 
 > **NOTE:** Stopping the scan is asynchronous — may take some time and does not guarantee instant effect.
 
@@ -129,4 +129,30 @@ It is also possible to forcefully stop the current scan of *auto storage import*
 Progress of the *auto storage import* can be observed on three charts, as shown below.
 It is possible to change the time resolution of the charts in the upper right corner of the charts view.
 
-![Auto storage import statistics](../../../../images/admin-guide/oneprovider/configuration/storage-import/auto_storage_import_stats.png#screenshot)
+![screen-auto-storage-import-stats][]
+
+<!-- references -->
+
+[1]: storages.md#imported-storage
+
+[2]: #manual-storage-import
+
+[3]: #auto-storage-import
+
+[5]: ../../../user-guide/file-registration.md
+
+[6]: storages.md#storage-path-type
+
+[7]: #configuration
+
+[9]: luma.md#imported-storages
+
+[screen-storage-import-config]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage-import-config.png
+
+[screen-auto-storage-import-config]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto-storage-import-config.png
+
+[screen-auto-storage-import-info]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto-storage-import-info.png
+
+[screen-auto-storage-import-stop]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto-storage-import-stop.png
+
+[screen-auto-storage-import-stats]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/auto-storage-import-stats.png

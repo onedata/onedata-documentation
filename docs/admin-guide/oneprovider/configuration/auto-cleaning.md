@@ -1,12 +1,12 @@
 # Auto-cleaning
 
 As a prerequisite for understanding this chapter, we advise to familiarize with
-the mechanism of [*file popularity*](file-popularity.md).
+the mechanism of [*file popularity*][1].
 
 The purpose of the *auto-cleaning* mechanism is to automatically maintain storage usage at a certain
 level and ensure that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the
-[*file popularity*](file-popularity.md) to determine
+[*file popularity*][1] to determine
 the least popular file replicas and evict them.
 The process is safe — only redundant replicas (duplicated on remote providers) are evicted.
 Eviction of replicas is coordinated among providers using a custom algorithm.
@@ -21,8 +21,8 @@ storage space.
 The mechanism can be enabled in the space configuration tab in Oneprovider panel.
 
 > *NOTE:*
-> The [*file popularity*](file-popularity.md) mechanism must be enabled to turn *auto-cleaning* on.
-> Disabling [*file popularity*](file-popularity.md) disables *auto-cleaning* as well.
+> The [*file popularity*][1] mechanism must be enabled to turn *auto-cleaning* on.
+> Disabling [*file popularity*][1] disables *auto-cleaning* as well.
 
 The user interface allows specifying **low** and **high** thresholds,
 corresponding to the amount of data stored on the local storage supporting given space:
@@ -32,14 +32,14 @@ corresponding to the amount of data stored on the local storage supporting given
 
 The thresholds can be adjusted in the
 `Spaces -> "Space Name" -> Auto-cleaning` tab, in the Spaces menu of Oneprovider panel GUI (as shown below)
-or using [REST API](#rest-api).
+or using [REST API][2].
 
-![Auto-cleaning configuration tab](../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto_cleaning_tab.png#screenshot)
+![screen-auto-cleaning-tab][]
 
 ## Selective rules
 
 It is possible to filter the list of files obtained from the
-[*file popularity*](file-popularity.md) by enabling *selective rules*.
+[*file popularity*][1] by enabling *selective rules*.
 
 There are six rules for which ranges might be provided:
 
@@ -79,11 +79,31 @@ placed below space occupancy bar.
 All operations related to auto-cleaning can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                                 | Link to API                                                                                                     |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Get auto-cleaning configuration         | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration)    |
-| Update auto-cleaning configuration      | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_space_auto_cleaning)            |
-| Get list of auto-cleaning runs' reports | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_reports) |
-| Get the report of auto-cleaning run     | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_report)  |
-| Trigger auto-cleaning run               | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/trigger_auto_cleaning)                    |
-| Get current auto-cleaning status        | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_status)  |
+| Request                                 | Link to API |
+| --------------------------------------- | ----------- |
+| Get auto-cleaning configuration         | [API][4]    |
+| Update auto-cleaning configuration      | [API][5]    |
+| Get list of auto-cleaning runs' reports | [API][6]    |
+| Get the report of auto-cleaning run     | [API][7]    |
+| Trigger auto-cleaning run               | [API][8]    |
+| Get current auto-cleaning status        | [API][9]    |
+
+<!-- references -->
+
+[1]: file-popularity.md
+
+[2]: #rest-api
+
+[4]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_space_auto_cleaning_configuration
+
+[5]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_space_auto_cleaning
+
+[6]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_reports
+
+[7]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_report
+
+[8]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/trigger_auto_cleaning
+
+[9]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_provider_space_auto_cleaning_status
+
+[screen-auto-cleaning-tab]: ../../../../images/admin-guide/oneprovider/configuration/auto-cleaning/auto-cleaning-tab.png
