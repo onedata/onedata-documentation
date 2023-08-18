@@ -172,8 +172,6 @@ Refer to the linked API documentation for detailed information and examples.
 
 [4]: #rest-api
 
-[screen-file-popularity-tab]: ../../../../images/admin-guide/oneprovider/configuration/file-popularity/file-popularity-tab.png
-
 [6]: ../../../user-guide/views.md#rest-api
 
 [7]: ../../../user-guide/views.md#file-popularity-model
@@ -181,3 +179,5 @@ Refer to the linked API documentation for detailed information and examples.
 [8]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration
 
 [9]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity
+
+[screen-file-popularity-tab]: ../../../../images/admin-guide/oneprovider/configuration/file-popularity/file-popularity-tab.png

@@ -75,10 +75,10 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 #### Grammarly (`znck.grammarly`)
 
 This extension enables Markdown and plaintext files check using
-[Grammarly][] service. You can use the extension without
-authentication, but it is recommended to create an account and log in to it in VSCode
-to have your personal dictionary, [customized here][].
-As of July 2023, the Grammarly extension does not support personal dictionary configured locally.
+[Grammarly][] service. You can use the extension without authentication, but we recommend
+creating an account and logging in to it in VSCode to have a personal dictionary
+[customized here][Grammarly account customize]. As of July 2023, the Grammarly extension
+does not support personal dictionary configured locally.
 
 #### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
 
@@ -126,4 +126,4 @@ Calling `make package` will pack it up into a tarball.
 
 [Grammarly]: https://www.grammarly.com/
 
-[customized here]: https://account.grammarly.com/customize
+[Grammarly account customize]: https://account.grammarly.com/customize
