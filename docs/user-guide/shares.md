@@ -117,8 +117,7 @@ while the actions menu for the Share provides the following operations: **Rename
 ### Listing all shares in all your spaces
 
 To list all shares from all your spaces, open a **Shares** tab from the navigation bar,
-which will show the list in the Shares sidebar. Click on a Share item to open [a single
-Share management view][Share management view].
+which will show the list in the Shares sidebar. Click on a Share item to open a [Share management view][].
 
 ![screen-managing-all-shares][]
 
