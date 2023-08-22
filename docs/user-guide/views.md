@@ -1,6 +1,6 @@
 # Views
 
-[toc]()
+[toc][1]
 
 Onedata supports creation of custom database views for indexing file metadata. They can be used for:
 
@@ -12,24 +12,24 @@ Onedata supports creation of custom database views for indexing file metadata. T
 Views are a result of continuous indexing of documents.
 Documents are mapped using a user-defined mapping function. Optionally, results of
 the mapping can also be reduced using a reduce function if it is provided by the user.
-Internally, views are based on [Couchbase Views](https://docs.couchbase.com/server/5.5/views/views-intro.html).
+Internally, views are based on [Couchbase Views][2].
 Please visit this site for more detailed explanation of concepts used within this documentation.
 
 There are two types of views that can be created:
 
-* [map-reduce views](https://docs.couchbase.com/server/5.5/views/views-writing.html) — a perspective on the data stored
+* [map-reduce views][3] — a perspective on the data stored
   in a database in a format that can be used to represent the data in a specific way, define and filter the information,
   and provide a basis for searching or querying the data in the database based on the content.
-* [spatial views](https://docs.couchbase.com/server/5.5/views/sv-writing-views.html) —
+* [spatial views][4] —
   spatial views are similar to map-reduce views. They are suited for querying multi-dimensional data.
   The main difference is that they don't have a reduce function.
 
 Currently, views can be created on the following models storing file metadata:
 
-* [`file_meta`](#file-meta-model)
-* [`times`](#times-model)
-* [`custom_metadata`](#custom-metadata-model)
-* [`file_popularity`](#file-popularity-model)
+* [`file_meta`][5]
+* [`times`][6]
+* [`custom_metadata`][7]
+* [`file_popularity`][8]
 
 ## Concepts
 
@@ -42,7 +42,7 @@ the *mapping* name is used for both terms, as they must comply with the same rul
 In order to create a view, it is necessary to provide a mapping function in JavaScript.
 It is used to map the data stored in a document to the value which should be indexed.
 Mapping is performed using `emit()` function. Each call to `emit()` results in a new row of data in the view result.
-More information on mapping functions can be found [here](https://docs.couchbase.com/server/5.5/views/views-writing-map.html).
+More information on mapping functions can be found [here][9].
 
 In the *views* API, the mapping function submitted by the user is wrapped inside
 additional Javascript code, in order to comply with Couchbase API.
@@ -55,7 +55,7 @@ The mapping function must accept 4 arguments:
   * `"times"`
   * `"custom_metadata"`
   * `"file_popularity"`
-* `meta` — values stored in the document being mapped (formats are described [further on](#indexable-metadata-models))
+* `meta` — values stored in the document being mapped (formats are described [further on][10])
 * `ctx` — additional information that might be helpful during indexing:
   * `providerId`
   * `spaceId`
@@ -117,7 +117,7 @@ Valid formats of the mapping function are presented below. `key` and `value` can
   }
   ```
 
-A few examples of the mapping function are presented [here](#mapping-function-examples).
+A few examples of the mapping function are presented [here][11].
 
 #### Spatial view key format
 
@@ -136,7 +136,7 @@ There are 3 accepted ways of defining a key in a spatial function:
   * GeometryCollection
 
 Above formats of defining keys might be combined. The only constraint is that GeoJSON object must be the first element of the list.
-Defining spatial view keys is thoroughly described [here](https://docs.couchbase.com/server/5.5/views/sv-writing-views-keys.html).
+Defining spatial view keys is thoroughly described [here][12].
 
 ### Reduce function (optional)
 
@@ -146,14 +146,14 @@ input data, or to provide sum or other calculations on the input data.
 
 Contrary to the mapping function, the reduce function is not wrapped by any
 additional Javascript code. It is passed as it is to the Couchbase and therefore all
-information and notices presented [here](https://docs.couchbase.com/server/5.5/views/views-writing-reduce.html)
+information and notices presented [here][13]
 are relevant, in particular:
 
 * built-in reduce functions:
-  * [`_count`](https://docs.couchbase.com/server/5.5/views/views-writing-count.html)
-  * [`_sum`](https://docs.couchbase.com/server/5.5/views/views-writing-sum.html)
-  * [`_stats`](https://docs.couchbase.com/server/5.5/views/views-writing-stats.html)
-* writing [custom reduce functions](https://docs.couchbase.com/server/5.5/views/views-writing-custom-reduce.html)
+  * [`_count`][14]
+  * [`_sum`][15]
+  * [`_stats`][16]
+* writing [custom reduce functions][17]
 
 ## Indexable metadata models
 
@@ -166,7 +166,7 @@ Model that stores basic file metadata:
 * `name` — name of the file
 * `type` — type of the file. One of: regular file (`REG`), directory (`DIR`)
 * `mode` — POSIX access mode as a decimal integer
-* `acl` — [access control list](data.md#access-control-lists)
+* `acl` — [access control list][18]
 * `owner` — ID of an owner of the file
 * `provider_id` – ID of a provider on which the file was created
 * `deleted` – flag informing that file was marked to be deleted
@@ -213,7 +213,7 @@ times = {
 
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "custom_metadata"`.
 
-Model used for storing [extended attributes](metadata.md#extended-attributes) and [custom metadata](metadata.md#custom-metadata).
+Model used for storing [extended attributes][19] and [custom metadata][20].
 Currently, views can operate on both extended attributes as well as JSON metadata, RDF metadata backend
 indexing is not yet supported.
 The model has the following fields:
@@ -238,9 +238,9 @@ custom_metadata = {
 
 Indexed by the `emit(id, type, meta, ctx)` function where `type === "file_popularity"`.
 
-Model used for tracking [*file popularity*](../admin-guide/oneprovider/configuration/file-popularity.md).
+Model used for tracking [*file popularity*][21].
 These documents are available only if collecting *file popularity* statistics is
-[enabled in the given space](../admin-guide/oneprovider/configuration/file-popularity.md) by a Oneprovider admin.
+[enabled in the given space][21] by a Oneprovider admin.
 It can be turned on only by space admin via Onepanel.
 The *file popularity* document is available only for files which have been opened at least once on a given provider.\
 It stores:
@@ -277,16 +277,16 @@ file_popularity = {
 All operations on views can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                     | Link to API                                                                                           |
-| --------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Create view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view)           |
-| Get view                    | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view)              |
-| Update view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view)           |
-| Remove view                 | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view)           |
-| Update view reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function) |
-| Remove view reduce function | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function) |
-| List views                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views)             |
-| Query view                  | [API](https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view)            |
+| Request                     | Link to API |
+| --------------------------- | ----------- |
+| Create view                 | [API][22]   |
+| Get view                    | [API][23]   |
+| Update view                 | [API][24]   |
+| Remove view                 | [API][25]   |
+| Update view reduce function | [API][26]   |
+| Remove view reduce function | [API][27]   |
+| List views                  | [API][28]   |
+| Query view                  | [API][29]   |
 
 ## Mapping function examples
 
@@ -401,3 +401,63 @@ function(id, type, meta, ctx) {
     }
 }
 ```
+
+<!-- references -->
+
+[1]: <>
+
+[2]: https://docs.couchbase.com/server/5.5/views/views-intro.html
+
+[3]: https://docs.couchbase.com/server/5.5/views/views-writing.html
+
+[4]: https://docs.couchbase.com/server/5.5/views/sv-writing-views.html
+
+[5]: #file-meta-model
+
+[6]: #times-model
+
+[7]: #custom-metadata-model
+
+[8]: #file-popularity-model
+
+[9]: https://docs.couchbase.com/server/5.5/views/views-writing-map.html
+
+[10]: #indexable-metadata-models
+
+[11]: #mapping-function-examples
+
+[12]: https://docs.couchbase.com/server/5.5/views/sv-writing-views-keys.html
+
+[13]: https://docs.couchbase.com/server/5.5/views/views-writing-reduce.html
+
+[14]: https://docs.couchbase.com/server/5.5/views/views-writing-count.html
+
+[15]: https://docs.couchbase.com/server/5.5/views/views-writing-sum.html
+
+[16]: https://docs.couchbase.com/server/5.5/views/views-writing-stats.html
+
+[17]: https://docs.couchbase.com/server/5.5/views/views-writing-custom-reduce.html
+
+[18]: data.md#access-control-lists
+
+[19]: metadata.md#extended-attributes
+
+[20]: metadata.md#custom-metadata
+
+[21]: ../admin-guide/oneprovider/configuration/file-popularity.md
+
+[22]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/create_space_view
+
+[23]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_view
+
+[24]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_space_view
+
+[25]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_space_view
+
+[26]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/update_view_reduce_function
+
+[27]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/remove_view_reduce_function
+
+[28]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/get_space_views
+
+[29]: https://onedata.org/#/home/api/latest/oneprovider?anchor=operation/query_space_view

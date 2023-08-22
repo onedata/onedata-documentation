@@ -18,4 +18,8 @@ and even allows cycles. Play around to see how a group can become its own
 effective parent and child at the same time. Visit the **Hierarchy** tab to
 browse the groups hierarchy. Use the context menu that shows up on hover to
 test the available actions.
-![image](../../images/user-guide/groups/12-hierarchy.png#screenshot)
+![screen-12-hierarchy][]
+
+<!-- references -->
+
+[screen-12-hierarchy]: ../../images/user-guide/groups/12-hierarchy.png
