@@ -93,7 +93,7 @@ words. Do add new words if needed and commit the changes.
 Sometimes you need to silence Code Spell Checker warnings, because text includes
 some code examples, which contains many non-dictionary words, which should not be added to
 the dictionary. Refer to **Enable / Disable checking sections of code** section of
-[Code Spell Checker documentation](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) for more information.
+[Code Spell Checker documentation][1] for more information.
 
 ### Development using a natively-installed toolkit
 
@@ -132,3 +132,5 @@ Calling `make package` will pack it up into a tarball.
 [Grammarly]: https://www.grammarly.com/
 
 [Grammarly account customize]: https://account.grammarly.com/customize
+
+[1]: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker

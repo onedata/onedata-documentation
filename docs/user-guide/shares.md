@@ -117,8 +117,7 @@ while the actions menu for the Share provides the following operations: **Rename
 ### Listing all shares in all your spaces
 
 To list all shares from all your spaces, open a **Shares** tab from the navigation bar,
-which will show the list in the Shares sidebar. Click on a Share item to open [a single
-Share management view][Share management view].
+which will show the list in the Shares sidebar. Click on a Share item to open a [Share management view][].
 
 ![screen-managing-all-shares][]
 
@@ -131,7 +130,7 @@ as well as configure it. The view consists of:
 * a **Public share link** to access the Share by anonymous users,
 * a **Description** tab that allows creating an information page describing the Share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
-* a **Publish as Open Data** tab, which allows [publishing the dataset as Open Data](./open-data.md).
+* a **Publish as Open Data** tab, which allows [publishing the dataset as Open Data][].
 
 ![screen-share-root-view][]
 
@@ -224,6 +223,8 @@ documentation.
 [web-file-browser-permissions]: ./web-file-browser.md#permissions
 
 [Share creation modal]: #sharing-a-file-or-directory
+
+[publishing the dataset as Open Data]: ./open-data.md
 
 [public Share view file browser]: #public-share-access
 

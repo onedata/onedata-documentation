@@ -1,55 +1,55 @@
 # Open Data
 
-[toc]()
+[toc][1]
 
-To support [Open Data](https://en.wikipedia.org/wiki/Open_data) access community use
-cases, Onedata provides means for publishing [Shares](./shares.md) as Open Data
+To support [Open Data][] access community use
+cases, Onedata provides means for publishing [Shares][] as Open Data
 collections. Such collections can have assigned Open Access identifiers such as
-[DOI](http://www.doi.org/) or [PID](http://www.pidconsortium.eu/).
+[DOI][] or [PID][].
 
-The Share is assigned [Dublin Core](https://en.wikipedia.org/wiki/Dublin_Core) metadata
+The Share is assigned [Dublin Core][] metadata
 (which is a standard for describing such collections), registered in an external handle
-service, and advertised by [OAI-PMH](https://www.openarchives.org/pmh/) protocol — so that
+service, and advertised by [OAI-PMH][] protocol — so that
 Open Data indexing services can add the dataset to their searchable databases.
 
 Open-access identifiers can be generated and assigned to Shares by users who have access
-to a [Handle](http://handle.net/) system-based service within the current Onezone.
+to a [Handle][handle-www] system-based service within the current Onezone.
 
 ::: tip NOTE
 Handle services can be registered in Onezone by users who have access rights to specific
 Handle registers. For more information about registering and managing handle-based
-services in Onedata, see the [Handle services](../admin-guide/onezone/configuration/handle-services.md)
+services in Onedata, see the [Handle services][]
 chapter of the Admin guide.
 :::
 
 ## Publishing via Web GUI
 
 First, you need to create a Share of a file or directory and visit its Share management
-view — see the [Shares](./shares.md) chapter for the guide.
+view — see the [Shares][] chapter for the guide.
 
-In the [Share management view](./shares.md#share-management-view), open a
+In the [Share management view][], open a
 **Publish as Open Data** tab, where you can see a selector allowing you to choose a Handle
 service available in the current Onezone, to publish your dataset in.
 
-![Publish as Open Data tab](../../images/user-guide/open-data/gui-publish-tab.png#screenshot)
+![Publish as Open Data tab][screen-gui-publish-tab]
 
 After choosing the Handle service, click on **Proceed** button below the dropdown to start
 filling in a Dublin Core Metadata for your Open Data collection. You can switch between
 the default **Visual** editor or the **XML** editor, which supports
-[DCMES Version 1.1](https://www.dublincore.org/specifications/dublin-core/dces/) specification.
+[DCMES Version 1.1][dublin-core-DCES-www] specification.
 In both editors, you can describe your collection using properties from a set of 15
 predefined types, such as Creator, Title, or Description.
 
-![Dublin Core metadata visual editor](../../images/user-guide/open-data/gui-publish-dublin-core-visual.png#screenshot)
+![Dublin Core metadata visual editor][screen-gui-publish-dublin-core-visual]
 
-![Dublin Core metadata XML editor](../../images/user-guide/open-data/gui-publish-dublin-core-xml.png#screenshot)
+![Dublin Core metadata XML editor][screen-gui-publish-dublin-core-xml]
 
 After you complete filling in the metadata, click on the **Publish as Open Data** button
 at the end of the form to perform collection publication. When the process of publishing
 completes, the current tab of a Share management view will change its name to **Open Data**
 and you could see a preview of your metadata as it can be viewed by anonymous users.
 
-![Preview of Dublin Core metadata after collection publish](../../images/user-guide/open-data/gui-publish-open-data-preview.png#screenshot)
+![Preview of Dublin Core metadata after collection publish][screen-gui-publish-open-data-preview]
 
 ::: tip NOTE
 Please keep in mind that once published, your dataset should not be removed.
@@ -58,7 +58,7 @@ Please keep in mind that once published, your dataset should not be removed.
 Now you can find a link to the public Handle in the box where a public Share link was
 presented before, choosing **Public handle link** options from the dropdown.
 
-![Public handle link](../../images/user-guide/open-data/gui-publish-public-handle-link.png#screenshot)
+![Public handle link][screen-gui-publish-public-handle-link]
 
 ::: tip NOTE
 Although the **Public handle link** is displayed by default in the link box, you
@@ -68,23 +68,21 @@ can still use the **Public share link** by choosing it in the dropdown.
 Visit the public Handle URL to open your Open Data collection, available publicly on the
 Internet.
 
-![Public Open Data view: Open Data tab](../../images/user-guide/open-data/gui-public-open-data.png#screenshot)
+![Public Open Data view: Open Data tab][screen-gui-public-open-data]
 
-![Public Open Data view: files tab](../../images/user-guide/open-data/gui-public-files.png#screenshot)
+![Public Open Data view: files tab][screen-gui-public-files]
 
 ::: tip NOTE
 You can still add the description of the Share besides the Open Data Dublin
-Core metadata as described in the [Share Description](./shares.md#share-description)
+Core metadata as described in the [Share Description][]
 section of the documentation.
 :::
 
 ## Publishing via REST API
 
 ::: tip
-For full API reference, see the
-[Handle](https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle)
-and the [Handle Service](https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service)
-chapters of the Onedata REST API documentation.
+For full API reference, see the [Handle][Handle API] and the
+[Handle Service][Handle Service API] chapters of the Onedata REST API documentation.
 :::
 
 First, obtain Handle service and target Share IDs. You can get available Handle services
@@ -124,7 +122,7 @@ https://${ONEZONE_HOST}/api/v3/onezone/handles
 ```
 
 with previously obtained `$HANDLE_SERVICE_ID` and `$SHARE_ID`. `$METADATA` must be
-[Dublin Core](https://www.dublincore.org/specifications/dublin-core/dces/) compatible
+[Dublin Core][dublin-core-DCES-www] compatible
 metadata in escaped XML, for example:
 
 ```shell
@@ -201,3 +199,47 @@ which could result in:
    "creationTime":1686742530
 }
 ```
+
+<!-- references -->
+
+[1]: <>
+
+[Open Data]: https://en.wikipedia.org/wiki/Open_data
+
+[Shares]: ./shares.md
+
+[DOI]: http://www.doi.org/
+
+[PID]: http://www.pidconsortium.eu/
+
+[Dublin Core]: https://en.wikipedia.org/wiki/Dublin_Core
+
+[OAI-PMH]: https://www.openarchives.org/pmh/
+
+[handle-www]: http://handle.net/
+
+[Handle services]: ../admin-guide/onezone/configuration/handle-services.md
+
+[Share management view]: ./shares.md#share-management-view
+
+[dublin-core-DCES-www]: https://www.dublincore.org/specifications/dublin-core/dces/
+
+[Share description]: ./shares.md#share-description
+
+[Handle API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle
+
+[Handle Service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
+
+[screen-gui-publish-tab]: ../../images/user-guide/open-data/gui-publish-tab.png
+
+[screen-gui-publish-dublin-core-visual]: ../../images/user-guide/open-data/gui-publish-dublin-core-visual.png
+
+[screen-gui-publish-dublin-core-xml]: ../../images/user-guide/open-data/gui-publish-dublin-core-xml.png
+
+[screen-gui-publish-open-data-preview]: ../../images/user-guide/open-data/gui-publish-open-data-preview.png
+
+[screen-gui-publish-public-handle-link]: ../../images/user-guide/open-data/gui-publish-public-handle-link.png
+
+[screen-gui-public-open-data]: ../../images/user-guide/open-data/gui-public-open-data.png
+
+[screen-gui-public-files]: ../../images/user-guide/open-data/gui-public-files.png
