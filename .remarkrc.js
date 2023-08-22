@@ -22,5 +22,10 @@ module.exports = {
     "remark-frontmatter": true,
     "remark-lint-table-pipes" : true,
     "remark-emoji": true,
+    "remark-reference-links": true,
+    "remark-lint-no-unneeded-full-reference-link": true,
+    "remark-lint-no-unneeded-full-reference-image": true,
+    "remark-lint-double-link": true,
+    "remark-lint-final-definition": true,
   }
 };
