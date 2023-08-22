@@ -1,6 +1,6 @@
 # Web file browser
 
-[toc]()
+[toc][1]
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
@@ -8,18 +8,18 @@ navigation, file upload or download) and advanced capabilities, specific to Oned
 (e.g. Quality of Service, data distribution management, datasets & archives management).
 
 The file browser is always presented in the context of a single
-[space](spaces.md). It becomes available when the space is
-[supported](spaces.md#request-support-for-space) by at least one
-[provider](providers.md) and can be invoked by navigating to the **DATA > *Space
+[space][2]. It becomes available when the space is
+[supported][3] by at least one
+[provider][4] and can be invoked by navigating to the **DATA > *Space
 name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
-![Location of file browser in the data tab](../../images/user-guide/web-file-browser/intro-data-overview.png#screenshot)
+![screen-intro-data-overview][]
 
 ## Uploading data
 
 A file browser of a new, empty space welcomes you with the following screen:
 
-![View of empty data space](../../images/user-guide/web-file-browser/uploading-empty.png#screenshot)
+![screen-uploading-empty][]
 
 
 To upload new files, use the **upload** button or drag and drop them into the 
@@ -27,13 +27,13 @@ file browser area. While the data is being uploaded, a progress panel will appea
 in the bottom-right corner of your screen. You can upload multiple files 
 simultaneously or add more files while an upload is in progress.
 
-![Uploading files to an empty directory](../../images/user-guide/web-file-browser/uploading-upload.png#screenshot)
+![screen-uploading-upload][]
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
 sidebar, providing a detailed view of all uploads that have been done in the
 current browser tab. View the information in a summarized form or per the target provider.
 
-![Upload tab](../../images/user-guide/web-file-browser/uploading-tab.png#screenshot)
+![screen-uploading-tab][]
 
 ## File browser layout
 
@@ -49,14 +49,14 @@ described below).
 The toolbox, located in the top right corner, contains shortcuts for common
 directory actions (*upload files*, *create a new directory* and *refresh file list*).
 
-![Directory breadcrumbs](../../images/user-guide/web-file-browser/layout-breadcrumbs.png#screenshot)
+![screen-layout-breadcrumbs][]
 
 The remainder part of the file browser presents the content of the current working
 directory in a form of a list with details.
 
 ::: tip NOTE
 File list navigation is slightly different on mobile devices and is covered
-[later on](#mobile-file-browser).
+[later on][10].
 :::
 
 You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
@@ -69,7 +69,7 @@ directory) or downloads a file.
 When an item or multiple selected items are right-clicked, a context menu with
 available actions appears.
 
-![Context menu for selected files](../../images/user-guide/web-file-browser/layout-context-menu.png#screenshot)
+![screen-layout-context-menu][]
 
 For better navigation in the file browser, you can also change the layout of it, by choosing 
 what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
@@ -80,7 +80,7 @@ upper-right corner of the file browser, and choose desired columns.
 The file browser uses the "infinite scroll" method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
-![Dynamically loaded file list](../../images/user-guide/web-file-browser/layout-infinite-scroll.png#screenshot)
+![screen-layout-infinite-scroll][]
 
 To quickly jump to the desired file or directory, type desired phrase, in the search bar 
 located below the breadcrumbs, and you will be moved to the first file or
@@ -94,7 +94,7 @@ characteristics of files are presented using tags. For instance, the tags includ
 on whether a file is shared, has Quality of Service requirements
 attached or is marked as Dataset.
 
-![Example of additional information about files using tags](../../images/user-guide/web-file-browser/layout-file-tags.png#screenshot)
+![screen-layout-file-tags][]
 
 
 
@@ -106,7 +106,7 @@ context menu invoked with a right-click or using the three-dots button on
 the right of each list entry.
 
 ::: tip
-Some operations require appropriate [privileges](spaces.md#space-privileges)
+Some operations require appropriate [privileges][14]
 in the space and are disabled in the menu in case the user's privileges are not
 sufficient.
 :::
@@ -116,13 +116,13 @@ It is possible to invoke the context menu for more than one selected item, but
 only some of the operations are available in this mode.
 :::
 
-![Context menu for single file](../../images/user-guide/web-file-browser/feature-file-context-menu.png#screenshot)
+![screen-feature-file-context-menu][]
 
 ### Information
 
 This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
 
-![Information about file](../../images/user-guide/web-file-browser/feature-info.png#screenshot)
+![screen-feature-info][]
 
 You can also excess the Information tab by hovering over the icon of the file or directory.
 
@@ -136,15 +136,19 @@ file by double-clicking on them.
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
+<<<<<<< HEAD
 modal that allows the creation of a new [share](shares.md)](shares.md).
+=======
+modal that allows creating a new [share][17].
+>>>>>>> future
 
-![Share directory modal](../../images/user-guide/web-file-browser/feature-share.png#screenshot)
+![screen-feature-share][]
 
 If the item has already been shared, you will see the list of existing
 shares, with the possibility to copy their public links, view their details
 (using the green links) or create another share.
 
-![Share directory modal](../../images/user-guide/web-file-browser/feature-shared-already.png#screenshot)
+![screen-feature-shared-already][]
 
 ### Datasets
 
@@ -159,52 +163,69 @@ Datasets head over to this [page](datasets.md).
 ### Metadata
 
 This action allows browsing end editing custom file
+<<<<<<< HEAD
 [metadata](metadata.md), divided into three classes: basic (key-value),
+=======
+[metadata][20], divided into three classes: basic (key-value),
+>>>>>>> future
 JSON and RDF. The last two feature a code editor with syntax checking and
 highlighting.
 
-![Share directory modal](../../images/user-guide/web-file-browser/feature-metadata-json.png#screenshot)
+![screen-feature-metadata-json][]
 
 ### Permissions
 
+<<<<<<< HEAD
 Invokes an editor of [permissions](data.md#permissions) assigned to the file —
 [POSIX](data.md#posix-permissions) or [Access Control List
 (ACL)](data.md#access-control-lists). 
 You can assign only one permission type to each file at a time.
 To select the currently applied permission type, use the **Permissions type** toggle.
+=======
+Invokes an editor of [permissions][22] assigned to the file —
+[POSIX][23] or [Access Control List
+(ACL)][24]. Each file can use only one of the
+permission types at the same time, and the currently applied one is selected
+using the **Permissions type** toggle.
+>>>>>>> future
 
 Edit the POSIX permissions for each file by using the octal representation 
 field or manipulating the checkboxes.
 
-![POSIX permissions of file](../../images/user-guide/web-file-browser/feature-permissions-posix.png#screenshot)
+![screen-feature-permissions-posix][]
 
 Upon switching to the **ACL** type, a different editor is presented. It allows
 creating and editing entries for different principals in the space and assigning
 allowing/denying rules for granular operations concerning the file or directory.
 
-![ACL of file](../../images/user-guide/web-file-browser/feature-permissions-acl.png#screenshot)
+![screen-feature-permissions-acl][]
 
 ### Data distribution
 
+<<<<<<< HEAD
 This tab is used to monitor and manage the [distribution of file
 data](data.md#file-distribution) among supporting providers. The green bars
+=======
+This submenu is used to monitor and manage the [distribution of file
+data][27] among supporting providers. The green bars
+>>>>>>> future
 visualize which blocks (fragments of the file) are stored on the storage systems
 of the corresponding providers. When more than one file is selected, the
 distribution can be viewed in a summarized or detailed manner.
 
-![Data distribution charts](../../images/user-guide/web-file-browser/feature-distribution-bar.png#screenshot)
+![screen-feature-distribution-bar][]
 
 The handy status bar indicates ongoing [replication, migration and
-eviction](replication-and-migration.md) jobs and allows scheduling new ones for
+eviction][29] jobs and allows scheduling new ones for
 the corresponding provider. In the detailed view, there is also a shortcut to
 the history of data transfers for the subject file (as shown in the screenshot
 above).
 
-![Data distribution actions](../../images/user-guide/web-file-browser/feature-distribution-schedule.png#screenshot)
+![screen-feature-distribution-schedule][]
 
 ### QoS
 
-Brings up an editor of [Quality of Service](quality-of-service.md) (QoS)
+Brings up an editor of [Quality of Service][31] (QoS)
 requirements defined for the selected file(s), which are used to automatically
 manage the file data replication according to logical rules.
 
@@ -212,25 +233,25 @@ You can put down the rules using a visual block-based expression editor.
 Evaluate these rules against the QoS parameters assigned to different supporting
 storages to determine where the replicas should be stored.
 
-![QoS visual editor: block editing](../../images/user-guide/web-file-browser/feature-qos-visual.png#screenshot)
+![screen-feature-qos-visual][]
 
 Below the requirement, there is information on what storages match the requirement
 and an action that copies the expression in textual form, to be reused when
-creating a new requirement or using the [REST API](rest-api.md).
+creating a new requirement or using the [REST API][33].
 
-![QoS visual editor: storage match and expression](../../images/user-guide/web-file-browser/feature-qos-visual-match.png#screenshot)
+![screen-feature-qos-visual-match][]
 
 You can also enter expressions in textual form. They will be converted to block form upon 
 confirmation and can be further edited.
 
-![QoS editor in text mode](../../images/user-guide/web-file-browser/feature-qos-text.png#screenshot)
+![screen-feature-qos-text][]
 
 If the selected files have any QoS requirements defined, they are displayed on
 the list along with their status of fulfillment, matching storages, transfer statistics,
 and other information. It is possible to remove selected QoS requirements unless they
 are inherited from any parent directory. 
 
-![QoS requirements browser](../../images/user-guide/web-file-browser/feature-qos-requirements.png#screenshot)
+![screen-feature-qos-requirements][]
 
 
 ### Run workflow
@@ -245,7 +266,7 @@ workflows head over to [autiomation guide](automation.md)
 ### Rename
 The basic operation used to change the file name.
 
-![Rename file modal](../../images/user-guide/web-file-browser/feature-rename.png#screenshot)
+![screen-feature-rename][]
 
 
 ### Create symbolic link
@@ -280,36 +301,41 @@ The **copy** or **cut**** action from the context menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
 
-![Copy, cut and paste feature](../../images/user-guide/web-file-browser/feature-copy-cut.png#screenshot)
+![screen-feature-copy-cut][]
 
 ### Delete
 
 This action permanently deletes the selected files and directories.
 
-![Rename file modal](../../images/user-guide/web-file-browser/feature-delete.png#screenshot)
+![screen-feature-delete][]
 
 ## Mobile file browser
 
 Onedata web file browser supports mobile devices such as smartphones or tablets.
 Available features are the same as in desktop mode, but the page layout is adjusted for small devices.
 
-![Mobile web file browser - overview](../../images/user-guide/web-file-browser/mobile-overview.png#screenshot)
+![screen-mobile-overview][]
 
 In mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
 
+<<<<<<< HEAD
+=======
+![screen-mobile-download][]
+
+>>>>>>> future
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
 **Selection** button at the bottom of the screen.
 
-![Mobile web file browser - context menu](../../images/user-guide/web-file-browser/mobile-menu.png#screenshot)
+![screen-mobile-menu][]
 
 Operations on the current working directory, such as creating a new directory or
 uploading files, are available in the breadcrumbs navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
 
-![Mobile web file browser - upload](../../images/user-guide/web-file-browser/mobile-upload.png#screenshot)
+![screen-mobile-upload][]
 
 ## Switching between providers
 
@@ -321,7 +347,7 @@ Oneprovider...** action at the top of the file browser, given that there is more
 than one supporting provider. Alternatively, providers can be switched using a 
 world map visual representation, available under the globe icon.
 
-![Switch supporting provider view](../../images/user-guide/web-file-browser/oneprovider-switch.png#screenshot)
+![screen-oneprovider-switch][]
 
 ::: tip
 After switching to another provider, the user will eventually see the same
@@ -332,3 +358,93 @@ propagate. To see the changes immediately, it is recommended to choose the
 Oneprovider on which the user is making them (modifying file content,
 creating new files or directories, scheduling data transfers, etc).
 :::
+
+<!-- references -->
+
+[1]: <>
+
+[2]: spaces.md
+
+[3]: spaces.md#request-support-for-space
+
+[4]: providers.md
+
+[10]: #mobile-file-browser
+
+[14]: spaces.md#space-privileges
+
+[17]: shares.md
+
+[20]: metadata.md#web-gui
+
+[22]: data.md#permissions
+
+[23]: data.md#posix-permissions
+
+[24]: data.md#access-control-lists
+
+[27]: data.md#file-distribution
+
+[29]: replication-and-migration.md
+
+[31]: quality-of-service.md
+
+[33]: rest-api.md
+
+[screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
+
+[screen-uploading-empty]: ../../images/user-guide/web-file-browser/uploading-empty.png
+
+[screen-uploading-upload]: ../../images/user-guide/web-file-browser/uploading-upload.png
+
+[screen-uploading-tab]: ../../images/user-guide/web-file-browser/uploading-tab.png
+
+[screen-layout-breadcrumbs]: ../../images/user-guide/web-file-browser/layout-breadcrumbs.png
+
+[screen-layout-context-menu]: ../../images/user-guide/web-file-browser/layout-context-menu.png
+
+[screen-layout-infinite-scroll]: ../../images/user-guide/web-file-browser/layout-infinite-scroll.png
+
+[screen-layout-file-tags]: ../../images/user-guide/web-file-browser/layout-file-tags.png
+
+[screen-feature-file-context-menu]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
+
+[screen-feature-info]: ../../images/user-guide/web-file-browser/feature-info.png
+
+[screen-feature-share]: ../../images/user-guide/web-file-browser/feature-share.png
+
+[screen-feature-shared-already]: ../../images/user-guide/web-file-browser/feature-shared-already.png
+
+[screen-feature-metadata-json]: ../../images/user-guide/web-file-browser/feature-metadata-json.png
+
+[screen-feature-permissions-posix]: ../../images/user-guide/web-file-browser/feature-permissions-posix.png
+
+[screen-feature-permissions-acl]: ../../images/user-guide/web-file-browser/feature-permissions-acl.png
+
+[screen-feature-distribution-bar]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
+
+[screen-feature-distribution-schedule]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
+
+[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
+
+[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
+
+[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
+
+[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
+
+[screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
+
+[screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
+
+[screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
+
+[screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
+
+[screen-mobile-download]: ../../images/user-guide/web-file-browser/mobile-download.png
+
+[screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
+
+[screen-mobile-upload]: ../../images/user-guide/web-file-browser/mobile-upload.png
+
+[screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
