@@ -1,10 +1,10 @@
 # Tokens
 
-[toc]()
+[toc][1]
 
 ## Quickstart
 
-See the [GUI guide](#gui-guide) for examples how to quickly obtain basic tokens
+See the [GUI guide][2] for examples how to quickly obtain basic tokens
 and consume invite tokens.
 
 ## Basics
@@ -12,27 +12,27 @@ and consume invite tokens.
 A token is an alphanumeric string acting as a proof of authorization that can be
 used across the system.
 
-There are three types of tokens in Onedata: [access tokens](#access-tokens),
-[identity tokens](#identity-tokens) and [invite tokens](#invite-tokens).
+There are three types of tokens in Onedata: [access tokens][3],
+[identity tokens][4] and [invite tokens][5].
 
 Regardless of the above-mentioned type, each token can be
-[named or temporary](#named-and-temporary-tokens).
+[named or temporary][6].
 
 Tokens are passed around the system in a serialized form — an alphanumeric
 string that looks like the following:
 `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgRHR00WTg5dH...`
 
 The implementation of tokens in Onedata is based on [Google's macaroons][] and utilizes
-their fundamental concept of [caveats](#token-caveats) — contextual confinements.
+their fundamental concept of [caveats][7] — contextual confinements.
 
 All tokens are created in Onezone and can only be verified by Onezone.
 
-Tokens can be created and managed using the [wizard](#gui-guide) in Onezone web
-GUI or the [REST API](#using-rest-api).
+Tokens can be created and managed using the [wizard][2] in Onezone web
+GUI or the [REST API][8].
 
 In general, **tokens must be kept secret**. It is possible to strongly confine a
 token with proper caveats and make it safe to be [passed to another party or
-published](#safely-publishing-tokens), but it must be done with great care.
+published][9], but it must be done with great care.
 
 ## Access tokens
 
@@ -56,7 +56,7 @@ this example:
    the requesting client (token bearer) was Alice or Bob.
 
 Access tokens carry authorization to perform operations in the system on behalf
-of the subject. The authorization can be limited by [caveats](#token-caveats).
+of the subject. The authorization can be limited by [caveats][7].
 
 > **NOTE**: If there are no caveats, the token carries **absolute power to
 > perform any operation** on behalf of the subject – similar to user's password.
@@ -79,7 +79,7 @@ token's caveats. For example, for Bob to be able to create a file in space
 
 Access tokens are a powerful tool for authority delegation, but at the same time
 require caution – they must be kept secret, similarly to user passwords. However,
-thanks to support for [caveats](#token-caveats) (contextual confinements),
+thanks to support for [caveats][7] (contextual confinements),
 tokens can be limited with fine granularity, making it safer to delegate them to
 other users or services. Nevertheless, you should never disclose your tokens to
 a party that is not trusted.
@@ -88,8 +88,8 @@ a party that is not trusted.
 
 Identity tokens are a proof of subject's identity. Other than that, they carry
 no authorization to perform any operation in the system. Proving identity with
-an identity token is required to satisfy a [`consumer` caveat](#consumer) in
-another token. An identity token can have [caveats](#token-caveats), which limit
+an identity token is required to satisfy a [`consumer` caveat][10] in
+another token. An identity token can have [caveats][7], which limit
 the context in which the token is accepted (e.g. shortlisting the allowed IP
 addresses from which the token can be used).
 
@@ -97,13 +97,13 @@ addresses from which the token can be used).
 > as whoever possesses such token can impersonate the subject. They can be safely
 > sent to the **Onezone** service. When using such token in a **Oneprovider**
 > service, it is strongly recommended to add a short TTL for the token with a
-> [`time` caveat](#token-caveats).
+> [`time` caveat][7].
 
 ## Invite tokens
 
 Invite tokens in Onedata are used to create relations in the system. They can be
 consumed by anyone who possesses the token (unless the token has a
-[`consumer` caveat](#consumer)). Typical scenario is that the inviting
+[`consumer` caveat][10]). Typical scenario is that the inviting
 user (token subject) generates a token and passes it to somebody that they wish
 to invite, and the other user consumes the token and is added to the target
 entity (e.g. group or space).
@@ -113,9 +113,9 @@ which is chosen by the inviting user. It means that the token consumer does not
 choose where they are joining and does not need to know the target group, space
 etc. beforehand – the token itself is enough to join it.
 
-The [Onezone Web GUI](#gui-guide) provides a comprehensive wizard for creating
+The [Onezone Web GUI][2] provides a comprehensive wizard for creating
 invite tokens with different parameters. Below is some technical information about
-the invite tokens which might be useful for [REST API](#using-rest-api) users.
+the invite tokens which might be useful for [REST API][8] users.
 
 Invite tokens can have one of the following types, determining the action
 applied when the token is consumed:
@@ -154,10 +154,10 @@ token can be created by a member of the target space that has the
 being consumed - if the creator has lost the right to invite, the token cannot
 be consumed.
 
-An invite token can have [caveats](#token-caveats), which limit the context in
+An invite token can have [caveats][7], which limit the context in
 which the token can be consumed.
 
-[Named](#named-and-temporary-tokens) invite tokens can have additional parameters,
+[Named][6] invite tokens can have additional parameters,
 which are optional:
 
 1. Carried privileges (if applicable) - defines what privileges will be granted
@@ -183,7 +183,7 @@ shown in below table.
 | cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>                                        | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
 | non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>                                            | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
 | must have limited lifespan <br/><sub style="color: #06f;">max permitted lifespan is configurable by the Onezone admin</sub>        | can have infinite lifespan                                                                  |
-| no accounting, cannot be listed                                                                                                    | can be listed in [REST API](#using-rest-api) or viewed in [WEB GUI](#gui-guide)             |
+| no accounting, cannot be listed                                                                                                    | can be listed in [REST API][8] or viewed in [WEB GUI][2]                                    |
 | useful for automated software / middleware / scripting                                                                             | require more management but ensure full control                                             |
 
 ## Token caveats
@@ -211,7 +211,7 @@ without knowing the original token. Consider this example:
    recognized as Bob. Cryptography ensures that it is computationally
    implausible to infer token `Alpha` knowing only `Alpha*`. If Bob wishes to
    publish his experiment data online, he can safely make the token `Alpha*`
-   public (see [safely publishing tokens](#safely-publishing-tokens)) - nobody
+   public (see [safely publishing tokens][9]) - nobody
    will be able to use it in other way than to read the `My experiment` data.
    Bob can temporarily revoke or completely delete the token `Alpha` at any
    time, which will immediately disable the original token `Alpha` and all
@@ -221,11 +221,11 @@ without knowing the original token. Consider this example:
    the `My experiment` space, which becomes immediately visible for the users
    that have the `Alpha*` token.
 
-The [Onezone Web GUI](#gui-guide) offers a convenient wizard for adding caveats to
+The [Onezone Web GUI][2] offers a convenient wizard for adding caveats to
 tokens. Further, you will find technical details and considerations about token caveats.
 
 Below is the list of all recognized caveats in Onedata. Provided examples of
-caveats are in JSON format, recognized by the [REST API](#using-rest-api)
+caveats are in JSON format, recognized by the [REST API][8]
 (consult for more information about allowed values and usage).
 
 * `time` - limits the validity of the token to a certain point in time,
@@ -313,11 +313,11 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
   > NOTE: as the client region detection depends on client's IP, this caveat
   > has the same considerations as the `ip` caveat when requests are proxied.
 
-* `service` - limits the [services](#service) that can process the token. Imposes
-  implicit [API limitations](#service-caveat-considerations). If the caveat is
+* `service` - limits the [services][11] that can process the token. Imposes
+  implicit [API limitations][12]. If the caveat is
   present, the service must prove its identity by sending its
-  [identity token](#identity-tokens) in the `x-onedata-service-token` header.
-  The services  must be encoded using the proper [service format](#service-types).
+  [identity token][4] in the `x-onedata-service-token` header.
+  The services  must be encoded using the proper [service format][13].
   If no such caveat is included in a token, it can be used in any service.
   ```json
   {
@@ -335,10 +335,10 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
   > Proxying happens when the Oneprovider that received your request does not
   > support the concerned space.
 
-* `consumer` - limits the [consumers](#consumer) that can utilize the token. If
+* `consumer` - limits the [consumers][10] that can utilize the token. If
   the caveat is present, the consumer must prove their identity by sending their
-  [identity token](#identity-tokens) in the `x-onedata-consumer-token` header.
-  The consumers must be encoded using the proper [consumer format](#consumer-types).
+  [identity token][4] in the `x-onedata-consumer-token` header.
+  The consumers must be encoded using the proper [consumer format][14].
   If no such caveat is included in a token, it can be used by any bearer.
   ```json
   {
@@ -354,7 +354,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
 * `interface` - limits the available interfaces on which the token can be used
   to a certain one — `rest`, `oneclient` or `graphsync`. If the `oneclient`
   interface is specified, this caveat is treated as a
-  [*data access caveat*](#data-access-caveats). The `graphsync` interface is
+  [*data access caveat*][15]. The `graphsync` interface is
   used internally for communication between services and does not make sense
   in tokens created by users. If no such caveat is included in a token, it can
   be used on all interfaces.
@@ -381,7 +381,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
   ```
 
 * `data.readonly` - allows only read access to user files. This is a
-  [*data access caveat*](#data-access-caveats). If no such caveat is included in
+  [*data access caveat*][15]. If no such caveat is included in
   a token, it can be used for both reading and writing data.
   ```json
   {
@@ -393,7 +393,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
   The paths must be canonical - starting with a slash + space ID, and without
   a trailing slash - and must be base64 encoded. If a directory path is given,
   the token allows to access all nested files and directories starting from
-  the specified directory. This is a [*data access caveat*](#data-access-caveats).
+  the specified directory. This is a [*data access caveat*][15].
   If no such caveat is included in a token, it can be used for accessing all
   user files.
   ```json
@@ -414,7 +414,7 @@ caveats are in JSON format, recognized by the [REST API](#using-rest-api)
   token. The object IDs comply with the CDMI format and can be used in the
   Oneprovider's REST and CDMI APIs. If a directory object ID is given, the
   token allows to access all nested files and directories starting from the
-  specified directory. This is a [*data access caveat*](#data-access-caveats).
+  specified directory. This is a [*data access caveat*][15].
   If no such caveat is included in a token, it can be used for accessing all
   user files.
   ```json
@@ -485,7 +485,7 @@ token intended for data access is delegated. For example, it is possible to
 create a token with `data.path` and `data.readonly` caveats, limiting the rights
 to readonly access in a single directory. Such token can be published online
 without the risk of malicious utilization
-(see [safely publishing tokens](#safely-publishing-tokens)) - the token forbids
+(see [safely publishing tokens][9]) - the token forbids
 any API operations and can be used solely to read the specified directory.
 
 > These restrictions improve security, but the downside is that it is not
@@ -627,7 +627,7 @@ identity by sending its identity token to Onezone.
 ### Service types
 
 There are 4 service types in Onedata. Note the serialized format in the table
-below if you wish to use the [REST API](#using-rest-api) for creating tokens
+below if you wish to use the [REST API][8] for creating tokens
 with `service` caveats - the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding Oneprovider or special
 `onezone` keyword for the Onezone service.
@@ -673,7 +673,7 @@ caveat that limits the allowed consumers to Alice:
 * `5c9dfb35db55bef7e8a51dfb35ba93a2` - Alice's user ID
 
 Then, Bob passes the confined token to Alice. In such case, Alice has to prove
-her identity by adding her [identity token](#identity-tokens) to the request:
+her identity by adding her [identity token][4] to the request:
 
 ```bash
 ~$ curl -H "x-auth-token: ${BOBS_ACCESS_TOKEN}" \
@@ -687,7 +687,7 @@ request will fail with unverified caveat error.
 ### Consumer types
 
 There are 3 consumer types in Onedata. Note the serialized format in the table
-below if you wish to use the [REST API](#using-rest-api) for creating tokens
+below if you wish to use the [REST API][8] for creating tokens
 with `consumer` caveats - the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding user / group / Oneprovider.
 
@@ -714,13 +714,13 @@ anyone might be able to tinker with user's account and data.
 
 When creating a token for public use, consider the following:
 
-* Make sure to include carefully chosen [*data access caveats*](#data-access-caveats)
+* Make sure to include carefully chosen [*data access caveats*][15]
   in the token (`data_readonly`, `data_path`, `data_objectid`). In a typical scenario,
   you may want to allow readonly access to a certain subset of your data.
 
 * In rare cases, you can use an `api` caveat to enable a very specific API
   operation that you want to be publicly available in your name. Remember that
-  `api` and *data access caveats* [do not go together](#data-access-caveats).
+  `api` and *data access caveats* [do not go together][15].
 
 * It may be reasonable to use an `interface` caveat and specify the interface
   on which the token will be exclusively accepted. For example, if `oneclient`
@@ -744,7 +744,7 @@ or delegating access tokens:
   token that has been properly limited by caveats.
 
 * It is strongly recommended to include a
-  [service caveat](#service-caveat-considerations) in all tokens that are used
+  [service caveat][12] in all tokens that are used
   outside of Onezone service.
 
 * When a Oneprovider or Oneprovider panel service receives a request along with
@@ -758,14 +758,14 @@ or delegating access tokens:
   It is not possible to utilize the token in an untrusted Oneprovider, which
   protects from data exfiltration.
 
-* Tokens with [*data access caveats*](#data-access-caveats) can be used only on
+* Tokens with [*data access caveats*][15] can be used only on
   Oneprovider interfaces (Oneclient / REST / CDMI). When using such token, the
   bearer is not able to learn token subject's account information or private data.
   The information is processed by the Oneprovider to handle the request, but never
   disclosed to the client. As stated in previous point, the Oneprovider must be
   supporting the subject user, which implies that it is trusted.
 
-* *Data access caveats* [implicitly limit the available APIs](#caveats-impact-on-services)
+* *Data access caveats* [implicitly limit the available APIs][16]
   to a minimum so that the token bearer cannot perform any modifications to
   subject's account or read private information.
 
@@ -776,7 +776,7 @@ or delegating access tokens:
 
 Below are some examples how the REST API can be used to manage user tokens. For
 detailed documentation of all endpoints, refer to the
-[API documentation](https://onedata.org/#/home/api/latest/onezone?anchor=tag/Token).
+[API documentation][17].
 
 Below examples assume that the following envs are exported:
 
@@ -856,7 +856,7 @@ mounting Oneclient.
 #### Create a named token for readonly access in a specific directory
 
 Assume that `39592D594E736C676D0000002B43592D347247454C535F6` is the
-[File ID](data.md#file-path-and-id) of the directory that is to be available with the token.
+[File ID][18] of the directory that is to be available with the token.
 
 ```bash
 curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/named -d '{
@@ -890,7 +890,7 @@ directory (and its subdirectories).
 
 #### Create a named token valid only for a colleague
 
-Refer to the scenario [described before](#consumer). Assume that Bob
+Refer to the scenario [described before][10]. Assume that Bob
 wishes to create a token for Alice (user ID `461698917aa4c176fd86a111b6e7231ca998f1`)
 that would allow data access in whole space `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 Note:
@@ -1051,8 +1051,8 @@ The token can be used again.
 The easiest way to obtain an access token is to navigate to the **TOKENS** tab,
 click on the **(+)** button and choose the template the best suits your needs.
 You can use the default settings or tailor the token to a specific use-case,
-possibly limiting it with caveats. In such case, see the detailed guide [below](#detailed-guide).
-![image](../../images/user-guide/tokens/0-access-token-templates.png#screenshot)
+possibly limiting it with caveats. In such case, see the detailed guide [below][19].
+![screen-0-access-token-templates][]
 
 ### Consuming invite tokens
 
@@ -1061,7 +1061,7 @@ new members to a group or space. In case you receive any invite token, simply
 navigate to the **TOKENS** tab and use the **Consume** action. Paste the token
 into the visible text field. Shortly afterwards you should see the details of
 the invitation carried by the token. Confirm to accept the invitation.
-![image](../../images/user-guide/tokens/0-consume-token.png#screenshot)
+![screen-0-consume-token][]
 
 ### Detailed guide
 
@@ -1070,46 +1070,108 @@ offered by Onedata tokens and the token creation GUI wizard.
 
 1. Navigate to the **TOKENS** tab. Click on **(+)** or **Get started** to create a new token.
    Click on **Consume** if you received an invite token in order to utilize the invitation.
-   ![image](../../images/user-guide/tokens/1-no-tokens.png#screenshot)
+   ![screen-1-no-tokens][]
 
 2. When you choose the action to create a new token, you will be presented with
    a wizard with quick templates. Choose the one most appropriate for your use case.
    Familiarize yourself with the hints displayed on the page. Go through different
    templates and examine the suggested caveats.
-   ![image](../../images/user-guide/tokens/2-token-wizard.png#screenshot)
+   ![screen-2-token-wizard][]
 
 3. Use the **Create custom token** action to create your own access token.
-   Give it a meaningful name and restrict it with some [caveats](#token-caveats).
+   Give it a meaningful name and restrict it with some [caveats][7].
    Below example would create a token with a limited lifespan that can be used only
    for accessing Oneprovider services (note the service caveat). Effectively, this
    limits the available interfaces to those offered by Oneprovider: Oneclient and
    REST/CDMI API. They can be further limited using the interface caveat (the first below).
-   ![image](../../images/user-guide/tokens/3-access-token.png#screenshot)
+   ![screen-3-access-token][]
 
 4. Consider adding other caveats to increase your security in case the token
    is to be delegated or passed to another user. Below
-   [*data access caveats*](#data-access-caveats) would restrict the token's power
+   [*data access caveats*][15] would restrict the token's power
    to just reading the contents of specified directory and file. Any other
    operation will be denied by all system components.
-   ![image](../../images/user-guide/tokens/4-data-access-caveats.png#screenshot)
+   ![screen-4-data-access-caveats][]
 
-5. You may want to create an [identity token](#identity-tokens) for more
-   advanced scenarios that entail [consumer](#consumer) caveats:
-   ![image](../../images/user-guide/tokens/5-identity-token.png#screenshot)
+5. You may want to create an [identity token][4] for more
+   advanced scenarios that entail [consumer][10] caveats:
+   ![screen-5-identity-token][]
 
 6. Invite tokens can be created easily in the members submenu of a group / space etc.
-   ![image](../../images/user-guide/tokens/6-invite-token-a.png#screenshot)
+   ![screen-6-invite-token-a][]
    though you may want to create a custom token using the wizard:
-   ![image](../../images/user-guide/tokens/6-invite-token-b.png#screenshot)
+   ![screen-6-invite-token-b][]
 
 7. Created token will be listed on the left - you can view the details of a
    token and copy it in serialized form that can be used in CLI, e.g. to mount
    Oneclient or perform a request to REST/CDMI, or passed to some
    scripts / middleware.
-   ![image](../../images/user-guide/tokens/7-browse-tokens.png#screenshot)
+   ![screen-7-browse-tokens][]
 
 8. Tokens can be modified to some extent - renamed or revoked. Other details,
    such as caveats, are not modifiable as they are inscribed in the token.
-   ![image](../../images/user-guide/tokens/8-modify-token.png#screenshot)
+   ![screen-8-modify-token][]
+
+<!-- references -->
 
 [Google's macaroons]: https://ai.google/research/pubs/pub41892
+
+[1]: <>
+
+[2]: #gui-guide
+
+[3]: #access-tokens
+
+[4]: #identity-tokens
+
+[5]: #invite-tokens
+
+[6]: #named-and-temporary-tokens
+
+[7]: #token-caveats
+
+[8]: #using-rest-api
+
+[9]: #safely-publishing-tokens
+
+[10]: #consumer
+
+[11]: #service
+
+[12]: #service-caveat-considerations
+
+[13]: #service-types
+
+[14]: #consumer-types
+
+[15]: #data-access-caveats
+
+[16]: #caveats-impact-on-services
+
+[17]: https://onedata.org/#/home/api/latest/onezone?anchor=tag/Token
+
+[18]: data.md#file-path-and-id
+
+[19]: #detailed-guide
+
+[screen-0-access-token-templates]: ../../images/user-guide/tokens/0-access-token-templates.png
+
+[screen-0-consume-token]: ../../images/user-guide/tokens/0-consume-token.png
+
+[screen-1-no-tokens]: ../../images/user-guide/tokens/1-no-tokens.png
+
+[screen-2-token-wizard]: ../../images/user-guide/tokens/2-token-wizard.png
+
+[screen-3-access-token]: ../../images/user-guide/tokens/3-access-token.png
+
+[screen-4-data-access-caveats]: ../../images/user-guide/tokens/4-data-access-caveats.png
+
+[screen-5-identity-token]: ../../images/user-guide/tokens/5-identity-token.png
+
+[screen-6-invite-token-a]: ../../images/user-guide/tokens/6-invite-token-a.png
+
+[screen-6-invite-token-b]: ../../images/user-guide/tokens/6-invite-token-b.png
+
+[screen-7-browse-tokens]: ../../images/user-guide/tokens/7-browse-tokens.png
+
+[screen-8-modify-token]: ../../images/user-guide/tokens/8-modify-token.png

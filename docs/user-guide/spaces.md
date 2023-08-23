@@ -1,21 +1,23 @@
 # Spaces
 
+[toc][1]
+
 Spaces are a fundamental concept of user data organization in Onedata. A **space**
 can be perceived as a logical container for data — a layer that hides the complexity
 of different storage systems and the physical location of files. It offers
 a unified storage space in the Onedata virtual file system, where files and
-directories are referenced by [logical paths or global IDs](data.md#file-path-and-id).
-Each space can have multiple [members](#space-members) — users or groups.
+directories are referenced by [logical paths or global IDs][].
+Each space can have multiple [members][] — users or groups.
 Only the members of a space have access to the stored data.
 
 ## Space support
 
 A space is merely a logical container that requires at least one physical
-[storage](../admin-guide/oneprovider/configuration/storages.md)
+[storage][]
 backend attached to be functional. Attaching physical storage is
 called **supporting** the space and is done by a data provider -
 an institution that entered the Onedata environment by configuring a
-[Oneprovider service](../intro.md#architecture) for managing access to its
+[Oneprovider service][] for managing access to its
 storage resources. Users can request support for their spaces, and provider
 admins can decide to grant some quota on physical storage governed by the
 corresponding data center.
@@ -27,7 +29,7 @@ corresponding data center.
 
  -->
 
-![image](../../images/user-guide/spaces/space-support.svg)
+![screen-space-support][]
 
 Each space may be supported by one or more providers and the data produced by
 the space users will be distributed among the assigned storages. Users do not
@@ -38,8 +40,8 @@ the distribution works and consciously managing it can greatly improve the
 performance of data access, e.g. by pre-staging data sets in the provider
 in which computations are to be performed. There are several tools in Onedata
 that can be used by advanced users to manage the underlying physical distribution
-and redundancy of data (such as [data transfers](replication-and-migration.md)
-or [QoS](quality-of-service.md)).
+and redundancy of data (such as [data transfers][]
+or [QoS][]).
 
 When a file within a space is written (e.g. uploaded), its content is written to
 one of the supporting physical storages. Similarly, during a file read, the
@@ -53,7 +55,7 @@ all supporting providers.
 ::: tip NOTE
 A space can be supported with an imported storage.
 This way, a preexisting data-set can be made available in a Onedata space.
-Learn more [here](../admin-guide/oneprovider/configuration/storage-import.md).
+Learn more [here][].
 :::
 
 ## Space members
@@ -83,8 +85,8 @@ modifying and removing space, and viewing or setting privileges.
 After creating a space, you begin to be an owner of that space, which means
 that you are authorized to perform all operations, regardless of the assigned
 privileges. As an owner, you can pass ownership to another user that belongs
-to that space, but in the space, it must be always at least one owner,
-but it may be more. As an owner you can not leave the space if there are no other
+to that space, but in the space, there must be always at least one owner,
+but there may be more. As an owner you can not leave the space if there are no other
 owners in that space, first, you should pass ownership to another user.
 
 ## GUI guide
@@ -95,58 +97,58 @@ Below is a section showing how to create a space and perform basic operations in
 
 Navigate to the **DATA** tab to create your first space. You may also join an
 existing space using the **Consume** action in the
-[Tokens GUI](tokens.md#consuming-invite-tokens), in case you
+[Tokens GUI][], in case you
 received an invite token from another user.
-![image](../../images/user-guide/spaces/no-spaces.png#screenshot)
+![screen-no-spaces][]
 
 ### Request support for space
 
 To request support for your space, click on the **PROVIDERS** tile
 in the overview, which will invoke the **Add support** action. Alternatively,
 navigate to the space's **Providers** submenu.
-![image](../../images/user-guide/spaces/space-created.png#screenshot)
+![screen-space-created][]
 
 You should obtain a space support token — pass it to a provider admin so that
-they can [grant support for your space](../admin-guide/oneprovider/configuration/space-support.md#granting-support).
+they can [grant support for your space][].
 The token is multi-use and valid for a day.
-![image](../../images/user-guide/spaces/request-support.png#screenshot)
+![screen-request-support][]
 
 After the support is granted, you will see that the new provider has
 appeared and a certain quota has been assigned.
-![image](../../images/user-guide/spaces/space-overview.png#screenshot)
+![screen-space-overview][]
 
 ### Space management
 
 Navigate to the **DATA** tab and choose your space, next click on the menu button, to choose some option.
 There are a few options, which you can perform on the space: rename, leave, remove.
-![image](../../images/user-guide/spaces/space-menu.png#screenshot)
+![screen-space-menu][]
 
-Also, you can copy the space's id, which is helpful to perform some [REST API](./rest-api.md) requests.
+Also, you can copy the space's id, which is helpful for performing some [REST API][16] requests.
 You can also open a modal with basic rest command examples, that you can perform on this space.
-![image](../../images/user-guide/spaces/space-rest-api.png#screenshot)
+![screen-space-rest-api][]
 
 ### Invite a user
 
 Navigate to the **Members** submenu. Here, you can manage the users and
 groups that belong to the space. To invite a new user, you would click on the
 token generation action, copy the acquired token and pass it to another user.
-![image](../../images/user-guide/spaces/invite-user.png#screenshot)
+![screen-invite-user][]
 
 ### Invite a group
 
 To invite one of the groups that you belong to, go to the **Members** submenu and click on
 **Add one of your groups** action from the menu on the group's header.
-![image](../../images/user-guide/spaces/invite-group.png#screenshot)
+![screen-invite-group][]
 
-You can also create a new group, that already will be belonging to that space and choose
+You can also create a new group, that will belong to that space and choose
 from menu appropriate option.
-![image](../../images/user-guide/spaces/invite-new-group.png#screenshot)
+![screen-invite-new-group][]
 
 If you want to invite a group, that you do not belong to, create a group invite token
 and pass it to a user that has appropriate privileges in that group. To do that click on the
 **Invite group using token** action from the menu on the group's header. A user that gets that token
-should use the **Consume** action in the [Tokens GUI](tokens.md#consuming-invite-tokens).
-![image](../../images/user-guide/spaces/invite-group-using-token.png#screenshot)
+should use the **Consume** action in the [Tokens GUI][9].
+![screen-invite-group-using-token][]
 
 ### Modify space privileges
 
@@ -154,28 +156,84 @@ You can view and modify privileges for members of the space, to do that go to th
 and expand one of the users or groups, and using toggles, adapt privileges for your case.
 The privileges are grouped into sections — you can grant or revoke the whole section, or expand
 for a more granular setting. Make sure to save your changes afterward.
-![image](../../images/user-guide/spaces/modify-privileges.png#screenshot)
+![screen-modify-privileges][]
 
 ### Bulk edit of privileges
 
 You can use the **Bulk edit** action after selecting several groups and/or
 users to update the privileges for all of them at once. The new settings will
 overwrite the old ones to identical values.
-![image](../../images/user-guide/spaces/bulk-edit.png#screenshot)
+![screen-bulk-edit][]
 
 ### Effective members
 
 To see not only direct members but also members that belong to the space by group,
 go to the **Members** submenu, expand the view options, and choose **Effective**
-to view all of the members. You can see like privileges are inherited from the members.
-![image](../../images/user-guide/spaces/effective-privileges.png#screenshot)
+to view all of the members. You can see that privileges are inherited from the members.
+![screen-effective-privileges][]
 
 You can also view memberships of members by switching the view to **Membership**
 (optional turn-on descriptions) and expand member, which shows you direct and inherited memberships.
-![image](../../images/user-guide/spaces/effective-memberships.png#screenshot)
+![screen-effective-memberships][]
 
 ### Data browser
 
 Go to the **Data** submenu in your space to navigate to the file browser.
-Refer to the [Web file browser](web-file-browser.md) guide for further instructions.
-![image](../../images/user-guide/spaces/data.png#screenshot)
+Refer to the [Web file browser][] guide for further instructions.
+![screen-data][]
+
+<!-- references -->
+
+[1]: <>
+
+[logical paths or global IDs]: data.md#file-path-and-id
+
+[members]: #space-members
+
+[storage]: ../admin-guide/oneprovider/configuration/storages.md
+
+[Oneprovider service]: ../intro.md#architecture
+
+[data transfers]: replication-and-migration.md
+
+[QoS]: quality-of-service.md
+
+[here]: ../admin-guide/oneprovider/configuration/storage-import.md
+
+[Tokens GUI]: tokens.md#consuming-invite-tokens
+
+[grant support for your space]: ../admin-guide/oneprovider/configuration/space-support.md#granting-support
+
+[Web file browser]: web-file-browser.md
+
+[screen-space-support]: ../../images/user-guide/spaces/space-support.svg
+
+[screen-no-spaces]: ../../images/user-guide/spaces/no-spaces.png
+
+[screen-space-created]: ../../images/user-guide/spaces/space-created.png
+
+[screen-request-support]: ../../images/user-guide/spaces/request-support.png
+
+[screen-space-overview]: ../../images/user-guide/spaces/space-overview.png
+
+[screen-space-menu]: ../../images/user-guide/spaces/space-menu.png
+
+[screen-space-rest-api]: ../../images/user-guide/spaces/space-rest-api.png
+
+[screen-invite-user]: ../../images/user-guide/spaces/invite-user.png
+
+[screen-invite-group]: ../../images/user-guide/spaces/invite-group.png
+
+[screen-invite-new-group]: ../../images/user-guide/spaces/invite-new-group.png
+
+[screen-invite-group-using-token]: ../../images/user-guide/spaces/invite-group-using-token.png
+
+[screen-modify-privileges]: ../../images/user-guide/spaces/modify-privileges.png
+
+[screen-bulk-edit]: ../../images/user-guide/spaces/bulk-edit.png
+
+[screen-effective-privileges]: ../../images/user-guide/spaces/effective-privileges.png
+
+[screen-effective-memberships]: ../../images/user-guide/spaces/effective-memberships.png
+
+[screen-data]: ../../images/user-guide/spaces/data.png
