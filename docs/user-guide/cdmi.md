@@ -1,20 +1,20 @@
 # CDMI
 
-[toc]()
+[toc][1]
 
 ## Quickstart
 
-Refer to the [usage examples](#examples-of-usage) for a quick guide on how to perform basic CDMI requests.
+Refer to the [usage examples][] for a quick guide on how to perform basic CDMI requests.
 
 ## CDMI vs. REST API
 
-Consider using Onedata's [REST](data.md#rest-api) interface, which provides counterparts for most CDMI operations with
+Consider using Onedata's [REST][] interface, which provides counterparts for most CDMI operations with
 more straightforward API and better performance. This is mainly because CDMI uses Base64 encoded strings for binary
 file content transmission, resulting in approximately 33% larger I/O traffic compared to REST,
 which works with plain binaries.
 
 You can find the documentation for the file management API based on OpenAPI (a.k.a. Swagger)
-[here](https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations).
+[here][Basic-File-Operations].
 
 ## Introduction
 
@@ -30,11 +30,11 @@ is as follows:
 | :----------- | :-------------------------------------- |
 | Containers   | directories (including space directory) |
 | Data Objects | regular files stored in user's Spaces   |
-| Object ID    | [File ID](data.md#file-path-and-id)     |
+| Object ID    | [File ID][]                             |
 
 At present, Onedata supports CDMI version `1.1.1`.
 
-For more information about CDMI, visit the official [website](http://www.snia.org/cdmi).
+For more information about CDMI, visit the [official website][CDMI specification].
 
 ## Endpoints
 
@@ -42,16 +42,10 @@ In Onedata, files and directories can be accessed and managed using CDMI queries
 
 * `/cdmi/${FILE_PATH}`: This endpoint allows you to interact with files or directories using their logical path.
 * `/cdmi/cdmi_objectid/${FILE_ID}`: This endpoint enables you to work with files or directories using their unique
-  [File ID](data.md#file-path-and-id) across the system.
+  [File ID][] across the system.
 
 It is recommended to use File IDs whenever possible as they provide better performance since no
 path resolution is required.
-
-::: tip NOTE
-In Onedata, the File ID replaces GUID in CDMI operations, meeting CDMI standards
-while acting as a functional equivalent of a GUID. It's tailored for CDMI compatibility,
-enabling smooth integration with operations.
-:::
 
 When referencing files through CDMI using the file path, keep in mind that Onedata
 organizes all data into spaces, and the space name is the first element in the file path.
@@ -78,7 +72,7 @@ Note that the examples provided below cover only a portion of the available API 
 
 To use Onedata CDMI, a valid Onedata access token must be provided.
 You can generate an access token either in the Web GUI or via REST API (refer
-to the [tokens chapter](./tokens.md)).
+to the [tokens][] chapter).
 
 The following examples assume that below environment variables are exported.
 
@@ -105,8 +99,7 @@ Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, and `$ONEPROVIDER_DOMAIN` v
 ### Create new file
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file)
-REST endpoint instead, as it provides a more straightforward API and better performance.
+Consider using the [create file][] REST endpoint instead, as it provides a more straightforward API and better performance.
 :::
 
 To create a new file using CDMI, you can make a PUT request to the following endpoint:
@@ -146,8 +139,7 @@ Response example:
 ### Get selected file attributes
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_attrs)
-REST endpoint instead.
+Consider using the [get attributes][] REST endpoint instead.
 :::
 
 To retrieve selected attributes of a file using CDMI, you can make a GET request to the following endpoint:
@@ -173,8 +165,7 @@ Response example:
 ### Get part of the file content
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/download_file_content)
-REST endpoint instead.
+Consider using the [download file content][] REST endpoint instead.
 :::
 
 To retrieve a specific part of the content of a file using CDMI, you can make a GET request to the following endpoint:
@@ -197,8 +188,7 @@ Response example: (original file content is `"Test content"`)
 ### Update file content
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/update_file_content)
-REST endpoint instead.
+Consider using the [update file content][] REST endpoint instead.
 :::
 
 CDMI, starting from version 1.0.2, supports partial uploads, where a subrange of the
@@ -229,8 +219,7 @@ The original file content is "Test content". Upon successful execution, the file
 ### Delete file
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/remove_file)
-REST endpoint instead.
+Consider using [remove file][] REST endpoint instead.
 :::
 
 To delete a file using CDMI, you can make a DELETE request to the following endpoint:
@@ -246,8 +235,7 @@ file ID of the file you want to delete.
 ### Create new directory
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file)
-REST endpoint instead.
+Consider using [create file][] REST endpoint instead.
 :::
 
 To create a new directory using CDMI, you can make a PUT request to the following endpoint:
@@ -285,8 +273,7 @@ Response example:
 ### List 3 first files in the directory
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/list_children)
-REST endpoint instead.
+Consider using the [list children][] REST endpoint instead.
 :::
 
 To list the first 3 files in a directory using CDMI, you can make a GET request to the following endpoint:
@@ -318,8 +305,7 @@ files that are included in the response.
 ### Delete directory
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/remove_file)
-REST endpoint instead.
+Consider using [remove file][] REST endpoint instead.
 :::
 
 To delete a directory using CDMI, you can make a DELETE request to the following endpoint:
@@ -334,8 +320,7 @@ This CDMI query will delete the `dir_test` directory located in the MySpace spac
 ### Set file metadata
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_xattr)
-REST endpoint instead.
+Consider using [set metadata][] REST endpoint instead.
 :::
 
 To set metadata for a file using CDMI, you can make a PUT request to the following endpoint:
@@ -357,8 +342,7 @@ You can include multiple metadata fields in the request payload.
 ### Get all file metadata
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs)
-REST endpoint instead.
+Consider using [get metadata][] REST endpoint instead.
 :::
 
 To retrieve all metadata for a file using CDMI, you can make a GET request to the following endpoint:
@@ -390,8 +374,7 @@ This CDMI query will fetch all the metadata associated with the `file.txt` file 
 ### Get selected file metadata
 
 ::: tip NOTE
-Consider using [this](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs)
-REST endpoint instead.
+Consider using [get metadata][] REST endpoint instead.
 :::
 
 To retrieve specific metadata fields for a file using CDMI, you can make a GET request to the following endpoint:
@@ -415,7 +398,7 @@ This CDMI query will fetch the selected metadata field `onedata_json` for the fi
 
 ### Set file ACL
 
-For more information about ACL, refer to [this page](data.md#access-control-lists).
+For more information about ACL, refer to the [ACL][] page.
 
 To set the Access Control List (ACL) for a file using CDMI, you can make a PUT request to the following endpoint:
 
@@ -442,7 +425,7 @@ the ACL allows read access (`READ_OBJECT`, `READ_ATTRIBUTES`, `READ_METADATA`, `
 
 ### Get file ACL
 
-For more information about ACL, refer to [this page](data.md#access-control-lists).
+For more information about ACL, refer to the [ACL][] page.
 
 To retrieve the ACL for a file using CDMI, you can make a GET request to the following endpoint:
 
@@ -580,4 +563,38 @@ The response will contain the supported capabilities for the **dataobject** enti
 
 By inspecting these capability endpoints, you can determine the supported operations and parameters for each entity
 type in Onedata. For more detailed information on using these operations and parameters, refer to the
-[CDMI specification](http://www.snia.org/cdmi).
+[CDMI specification][].
+
+<!-- references -->
+
+[1]: <>
+
+[usage examples]: #examples-of-usage
+
+[REST]: data.md#rest-api
+
+[Basic-File-Operations]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations
+
+[File ID]: data.md#file-path-and-id
+
+[CDMI specification]: http://www.snia.org/cdmi
+
+[tokens]: ./tokens.md
+
+[create file]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file
+
+[get attributes]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_attrs
+
+[download file content]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/download_file_content
+
+[update file content]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/update_file_content
+
+[remove file]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/remove_file
+
+[list children]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/list_children
+
+[set metadata]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_xattr
+
+[get metadata]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs
+
+[ACL]: data.md#access-control-lists
