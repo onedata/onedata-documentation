@@ -123,7 +123,7 @@ Navigate to the **DATA** tab and choose your space, next click on the menu butto
 There are a few options, which you can perform on the space: rename, leave, remove.
 ![screen-space-menu][]
 
-Also, you can copy the space's id, which is helpful for performing some [REST API][16] requests.
+Also, you can copy the space's id, which is helpful for performing some [REST API][] requests.
 You can also open a modal with basic rest command examples, that you can perform on this space.
 ![screen-space-rest-api][]
 
@@ -147,7 +147,7 @@ from menu appropriate option.
 If you want to invite a group, that you do not belong to, create a group invite token
 and pass it to a user that has appropriate privileges in that group. To do that click on the
 **Invite group using token** action from the menu on the group's header. A user that gets that token
-should use the **Consume** action in the [Tokens GUI][9].
+should use the **Consume** action in the [Tokens GUI][].
 ![screen-invite-group-using-token][]
 
 ### Modify space privileges
@@ -201,6 +201,8 @@ Refer to the [Web file browser][] guide for further instructions.
 [here]: ../admin-guide/oneprovider/configuration/storage-import.md
 
 [Tokens GUI]: tokens.md#consuming-invite-tokens
+
+[REST API]: ./rest-api.md
 
 [grant support for your space]: ../admin-guide/oneprovider/configuration/space-support.md#granting-support
 
