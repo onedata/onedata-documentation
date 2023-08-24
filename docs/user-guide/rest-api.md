@@ -1,7 +1,5 @@
 # REST API
 
-[toc][1]
-
 This chapter provides a brief introduction to the usage of the Onedata REST API.
 
 ## Available APIs (services)
@@ -9,27 +7,26 @@ This chapter provides a brief introduction to the usage of the Onedata REST API.
 Onedata consists of three main types of services that form its [architecture][].
 Each service has its corresponding API, which is documented using OpenAPI (also known as Swagger):
 
-* Onezone: This API is used for managing high-level objects such as users, groups, spaces, and more. You can access
-  the [Onezone REST API][] documentation for detailed information.
+* Onezone — API for managing high-level objects such as users, groups, spaces,
+  etc. — see the [docs][Onezone REST API].
 
-* Oneprovider: This API is focused on data management. You can access the
-  [Oneprovider REST API][] documentation for comprehensive details.
-  Additionally, there is a [CDMI API][] available as well. However, it is recommended only for advanced
-  use cases that explicitly require the CDMI protocol, as it has lower efficiency.
+* Oneprovider — API for data management, complemented by [CDMI API][]
+  (recommended only for advanced use cases that explicitly require the CDMI
+  protocol, due to its worse efficiency) — see the [docs][Oneprovider REST API].
 
-* Onepanel: This API is specifically designed for administrators to manage service clusters,
-  including Onezone or Oneprovider instances. You can refer to the
-  [Onepanel REST API][] documentation for more information on its usage.
+* Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
+  see the [docs][Onepanel REST API].
 
 ## Endpoints
 
-The REST APIs are accessible through endpoints based on the service type and domain.
-In the environment, assume the following domains:
+The REST API endpoint location depends on the service type and domain.
+
+Assume the following domains:
 
 * Onezone: `onezone.plgrid.pl`
 * Oneprovider: `oneprovider.cyfronet.pl`
 
-Based on this, the APIs can be accessed using the following endpoints:
+Then, the APIs can be accessed using the following endpoints:
 
 | Service                         | API endpoint                                                                                                                          |
 | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ |
@@ -39,19 +36,20 @@ Based on this, the APIs can be accessed using the following endpoints:
 | Oneprovider panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
 ::: tip NOTE
-the Onepanel API endpoints are accessible under Onezone and Oneprovider
+The Onepanel API endpoints are accessible under Onezone and Oneprovider
 domains, and internally routed to Onepanel. Port `9443` can be used to
 directly access the Onepanel API from within the cluster's local network.
 :::
 
-Users should be aware of the Onezone domain as it serves as their entry point to the system,
-providing them with a login page. Instructions on how to determine the domain of
-Oneprovider service can be found [here][oneprovider_domain].
+Users should be aware of the Onezone domain as it serves as their entry point to
+the system, providing them with a login page — see the [user quickstart
+guide][]. Instructions on how to determine the domain of Oneprovider service can
+be found [here][oneprovider domain].
 
 ### Access tokens
 
 Access tokens are universally used to authorize API requests in all services.
-Follow this [quickstart guide][] to acquire an access token.
+Follow this [guide][token quickstart guide] to acquire an access token.
 
 ### Oneprovider ID
 
@@ -63,6 +61,11 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
      
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
+
+Alternatively, the ID can be retrieved from the GUI:
+
+FIXME screenshot showing how to copy the id
+
 
 <!-- references -->
 
@@ -78,6 +81,8 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 
 [Onepanel REST API]: https://onedata.org/#/home/api/stable/onepanel
 
-[oneprovider_domain]: data.md#oneprovider-domain
+[user quickstart guide]: quickstart.md
 
-[quickstart guide]: ./tokens.md#access-token-quickstart
+[oneprovider domain]: data.md#oneprovider-domain
+
+[token quickstart guide]: ./tokens.md#access-token-quickstart

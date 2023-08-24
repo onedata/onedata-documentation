@@ -28,6 +28,8 @@ To add an image:
 
 ## Writing tone
 
+* Be concise and try to pass condensed knowledge in as little text as possible.
+
 * Always use the second person and imperative mood to address the user. Don't be
   overly polite (avoid using `please` when giving commands).
 
@@ -336,6 +338,9 @@ Below are some links to the REST API documentation of commonly used operations:
 
 ## Technicalities
 
+* Include the table of contents (`[toc][1]`) only when a chapter is long and has 
+  multiple subsections.
+
 * Use the hyphen (`-`), en dash (`–`), and em dash (`—`) characters appropriately.
 
   The hyphen (`-`) is used for compound terms and word division.
@@ -369,6 +374,15 @@ Below are some links to the REST API documentation of commonly used operations:
 
 * Use the term **storage backend** to refer to an instance of a storage system, do not use
   the legacy name (**storage**, **storages**).
+
+* Grammarly **will complain** about some article usage situations as it does not
+  know our nomenclature typical for Onedata. You have to be strong and ignore
+  such suggestions. All the below examples **are correct**:
+  * "In a Onedata space" — it will suggest using the article "an", not knowing
+    the pronunciation.
+  * "Install a Oneprovider cluster" — as above.
+  * "Select a space for the new file" — it will suggest that "space" is
+    uncountable and does not need an article.
 
 ## Custom routes
 

@@ -8,13 +8,14 @@ the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
 
-Files and directories in Onedata can be globally identified using unique file
-IDs or logical paths. Whenever possible, it is recommended to use File IDs,
-due to better performance and no need for escaping or encoding.
+Any file in Onedata (regular, directory, symbolic links and hard links) can be
+globally identified using their unique File IDs or logical paths. Whenever
+possible, it is recommended to use File IDs, due to better performance and no
+need for escaping or encoding.
 
 ### File path
 
-All logical paths in Onedata use the slash `/` delimiter and must start with a
+All logical paths in Onedata use the slash (`/`) delimiter and must start with a
 space name:
 
 ```
@@ -34,7 +35,7 @@ some characters in paths should be properly escaped:
 ~$ cat /CMS\ 1/directory/images\&videos/garden.png
 ```
 
-[REST][6] or [CDMI][7] API — paths used in URLs must be url-encoded:
+[REST][6] or [CDMI][7] API — paths used in URLs must be URL-encoded:
 
 ```
 {...}/CMS%201/directory/images%26videos/garden.png
@@ -49,9 +50,12 @@ some characters in paths should be properly escaped:
 
 ### File ID
 
-File ID is a unique, global identifier associated with a file or directory and
-can be used universally in the [REST][6] and [CDMI][7] APIs.
-There are several ways to find out the File ID of given file or directory:
+File ID is a unique, global identifier associated with a file and
+can be used universally in the [REST][6] and [CDMI][7] APIs. It applies
+to all logical elements of the filesystem - regular files, directories,
+symbolic links and hard links.
+
+There are several ways to find out the File ID of a file:
 
 [Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
