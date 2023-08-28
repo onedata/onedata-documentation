@@ -10,13 +10,13 @@ access to the cluster.
 An exception is access to the administration panel through the emergency
 interface. In this case, access to cluster resources is granted by providing a
 special emergency password. Read more
-[here](../administration-panel.md#access-via-emergency-interface).
+[here][access-via-emergency-interface].
 :::
 
 You can find the members settings by clicking **Members** in the submenu
 of a specific cluster.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members.png#screenshot)
+![screen-cluster-members][]
 
 ## Adding new members
 
@@ -27,27 +27,27 @@ users directly or adding an entire user group.
 
 To add a new user to the cluster, open the user list actions menu and choose **Invite user using token**.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-user-options.png#screenshot)
+![screen-adding-cluster-user-options][]
 
 Then, copy the generated token and send it to the user you want to grant access
 to the cluster. Once the user receives the token, they should consume it using the dedicated
-[view](../../../user-guide/tokens.md#consuming-invite-tokens).
+[view][consuming-invite-tokens].
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-user-invite-token.png#screenshot)
+![screen-cluster-user-invite-token][]
 
 ### Adding user groups
 
 To add an entire user group to the cluster, open the groups list actions menu and choose one of the available options.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-group-options.png#screenshot)
+![screen-adding-cluster-group-options][]
 
 These options allow you to:
 
 1. Create a new empty user group. To grant access to users, you will need to
    invite them to the newly created group.
 2. Add an existing group from those you have access to.
-3. Invite a group using a token. This mechanism is similar to [inviting
-   users](#inviting-users), with the difference that you need to pass the token
+3. Invite a group using a token. This mechanism is similar to
+   [inviting users][], with the difference that you need to pass the token
    to the administrator of the invited group.
 
 ::: warning
@@ -67,21 +67,21 @@ view, on the other hand, shows all members who have access to the cluster. It
 differs from the set of direct members by including additional groups and users
 who are members of direct groups.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/effective-cluster-members.png#screenshot)
+![screen-effective-cluster-members][]
 
 By expanding each entry in the list of members, you can view their privileges.
 In the direct view, only privileges granted during the member addition process
 are displayed (and editable), while in the effective view, calculated privileges
 resulting from the privileges of intermediate groups are shown (read-only).
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-member-perms.png#screenshot)
+![screen-cluster-member-perms][]
 
 Furthermore, by changing the view aspect to **Memberships**, you can also see how
 a particular member is in a membership relation with the cluster. This helps in
 finding information about through which group a user became a member of the
 cluster.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-member-membership.png#screenshot)
+![screen-cluster-member-membership][]
 
 ## Removing members
 
@@ -91,21 +91,21 @@ To remove a cluster member, open the member's actions menu and choose **Remove t
 It is not possible to remove a member who is only an effective member of
 the cluster. To revoke their access, you need to remove the group to which they
 belong. You can find help in identifying that group through the
-[membership information](#reviewing-existing-members).
+[membership information][].
 :::
 
 ## Changing member privileges
 
 ::: tip
 To change privileges, you need to use the
-[**direct** members view](#reviewing-existing-members).
+[direct members view][membership information].
 :::
 
 To change privileges, expand the entry corresponding to the specific user or
 group, toggle the desired privileges, and save the changes by clicking the
 **Save** button.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/modifies-cluster-member-perms.png#screenshot)
+![screen-modifies-cluster-member-perms][]
 
 ::: tip
 Remember that changing privileges for a group means changing them for all users
@@ -132,10 +132,10 @@ If, for some reason, you don't have access to the administration interface
 through Onezone but have the emergency passphrase for the cluster, you can
 partially configure members from the emergency administration interface. To do
 this, go to the emergency interface (read more
-[here](../administration-panel.md#access-via-emergency-interface)) and navigate
+[here][access-via-emergency-interface]) and navigate
 to the **Members** submenu of your cluster.
 
-![image](../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members-in-emergency.png#screenshot)
+![screen-cluster-members-in-emergency][]
 
 Here, you can see the current number of members and generate an inviting token
 to the cluster (by clicking **Invite user using a token**). When consumed by a
@@ -155,19 +155,73 @@ All operations related to the cluster members can be performed using the Onezone
 REST API. Refer to the linked API documentation for detailed information and
 examples.
 
-| Request                                   | Link to API                                                                                                   |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| List cluster's users                      | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_users)                      |
-| Add user to cluster                       | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/add_cluster_user)                        |
-| Remove user from cluster                  | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/remove_cluster_user)                     |
-| List user's cluster privileges            | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_user_cluster_privileges)            |
-| Update user's cluster privileges          | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/update_user_cluster_privileges)          |
-| List cluster's effective users            | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_effective_users)            |
-| List effective user's cluster privileges  | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_effective_user_cluster_privileges)  |
-| List cluster's groups                     | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_groups)                     |
-| Add group to cluster                      | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/add_group_to_cluster)                    |
-| Remove group from cluster                 | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/remove_cluster_group)                    |
-| List group's cluster privileges           | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_group_cluster_privileges)           |
-| Update group's cluster privileges         | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/update_group_cluster_privileges)         |
-| List cluster's effective groups           | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_effective_groups)           |
-| List effective group's cluster privileges | [API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_effective_group_cluster_privileges) |
+| Request                                   | Link to API                                        |
+| ----------------------------------------- | -------------------------------------------------- |
+| List cluster's users                      | [API][api-list-cluster-users]                      |
+| Add user to cluster                       | [API][api-add-cluster-user]                        |
+| Remove user from cluster                  | [API][api-remove-cluster-user]                     |
+| List user's cluster privileges            | [API][api-list-user-cluster-privileges]            |
+| Update user's cluster privileges          | [API][api-update-user-cluster-privileges]          |
+| List cluster's effective users            | [API][api-list-cluster-effective-users]            |
+| List effective user's cluster privileges  | [API][api-list-effective-user-cluster-privileges]  |
+| List cluster's groups                     | [API][api-list-cluster-groups]                     |
+| Add group to cluster                      | [API][api-add-group-to-cluster]                    |
+| Remove group from cluster                 | [API][api-remove-cluster-group]                    |
+| List group's cluster privileges           | [API][api-list-group-cluster-privileges]           |
+| Update group's cluster privileges         | [API][api-update-group-cluster-privileges]         |
+| List cluster's effective groups           | [API][api-list-cluster-effective-groups]           |
+| List effective group's cluster privileges | [API][api-list-effective-group-cluster-privileges] |
+
+[access-via-emergency-interface]: ../administration-panel.md#access-via-emergency-interface
+
+[consuming-invite-tokens]: ../../../user-guide/tokens.md#consuming-invite-tokens
+
+[inviting users]: #inviting-users
+
+[membership information]: #reviewing-existing-members
+
+[api-list-cluster-users]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_users
+
+[api-add-cluster-user]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/add_cluster_user
+
+[api-remove-cluster-user]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/remove_cluster_user
+
+[api-list-user-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_user_cluster_privileges
+
+[api-update-user-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/update_user_cluster_privileges
+
+[api-list-cluster-effective-users]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_effective_users
+
+[api-list-effective-user-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_effective_user_cluster_privileges
+
+[api-list-cluster-groups]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_groups
+
+[api-add-group-to-cluster]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/add_group_to_cluster
+
+[api-remove-cluster-group]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/remove_cluster_group
+
+[api-list-group-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_group_cluster_privileges
+
+[api-update-group-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/update_group_cluster_privileges
+
+[api-list-cluster-effective-groups]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_cluster_effective_groups
+
+[api-list-effective-group-cluster-privileges]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/list_effective_group_cluster_privileges
+
+[screen-cluster-members]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members.png
+
+[screen-adding-cluster-user-options]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-user-options.png
+
+[screen-cluster-user-invite-token]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-user-invite-token.png
+
+[screen-adding-cluster-group-options]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/adding-cluster-group-options.png
+
+[screen-effective-cluster-members]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/effective-cluster-members.png
+
+[screen-cluster-member-perms]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-member-perms.png
+
+[screen-cluster-member-membership]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-member-membership.png
+
+[screen-modifies-cluster-member-perms]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/modifies-cluster-member-perms.png
+
+[screen-cluster-members-in-emergency]: ../../../../images/admin-guide/oneprovider/configuration/cluster-members/cluster-members-in-emergency.png
