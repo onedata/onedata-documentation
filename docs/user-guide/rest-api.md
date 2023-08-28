@@ -12,7 +12,7 @@ Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger
 
 * Oneprovider — API for data management — [REST API][3],
   complemented by [CDMI API][4] (recommended only for advanced use cases
-  that explicitly require the CDMI protocol, due to its worse efficiency)
+  that explicitly require the CDMI protocol, due to its worse efficiency).
 
 * Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
   [REST API][5]. You can read more about its usage in chapters
@@ -71,9 +71,9 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 
 [5]: https://onedata.org/#/home/api/stable/onepanel
 
-[Onezone admin REST API] ../admin-guide/onezone/configuration/rest-api.md
+[Onezone admin REST API]: ../admin-guide/onezone/configuration/rest-api.md
 
-[Oneprovider admin REST API] ../admin-guide/oneprovider/configuration/rest-api.md
+[Oneprovider admin REST API]: ../admin-guide/oneprovider/configuration/rest-api.md
 
 [6]: data.md#oneprovider-domain
 
