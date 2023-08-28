@@ -1,11 +1,11 @@
 # OnedataFS
 
-[toc]()
+[toc][1]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system,
-an alternative to [Oneclient](onedatafs.md) that offers a POSIX interface.
-As a [PyFilesystem](https://www.pyfilesystem.org/) plugin,
-[OnedataFS](https://github.com/onedata/fs-onedatafs/) allows you to work with
+an alternative to [Oneclient][2] that offers a POSIX interface.
+As a [PyFilesystem][3] plugin,
+[OnedataFS][4] allows you to work with
 Onedata in the same way as any other supported filesystem.
 
 ## Installation
@@ -29,7 +29,7 @@ $ sh oneclient.sh python3-fs-plugin-onedatafs
 ### CentOS
 
 Please note that CentOS packages are distributed according to the
-[Software Collections](https://www.softwarecollections.org/en/) standard.
+[Software Collections][5] standard.
 
 ```bash
 $ wget https://get.onedata.org/oneclient.sh
@@ -48,8 +48,8 @@ $ scl enable onedata2002 bash
 ### Anaconda
 
 OnedataFS can be installed using
-[Anaconda](https://anaconda.org), from the official
-[Onedata conda repository](https://anaconda.org/onedata):
+[Anaconda][6], from the official
+[Onedata conda repository][7]:
 
 > NOTE: Currently only Python 3 version (3.6, 3.7) are supported.
 
@@ -91,14 +91,14 @@ space.listdir('/')
 ```
 
 From then on, `space` can be used as any `PyFilesystem` instance. Refer
-to the [PyFilesystem API documentation](https://docs.pyfilesystem.org/en/latest/interface.html)
+to the [PyFilesystem API documentation][8]
 for all operations available on a filesystem object.
 
 The complete list of options which can be provided to the OnedataFS constructor
 can be found below (only `host` and `token` are required).
 
-* `host` — provider hostname — follow the same guidelines as for [Oneclient](oneclient.md#basic-usage)
-* `token` — Onedata user access token — follow the same guidelines as for [Oneclient](oneclient.md#authentication)
+* `host` — provider hostname — follow the same guidelines as for [Oneclient][9]
+* `token` — Onedata user access token — follow the same guidelines as for [Oneclient][10]
 * `port` — provider port (defaults to 443)
 * `space` — the list of space names which should be listed (defaults to all user spaces)
 * `space_id` — the list of space IDs which should be listed (defaults to all user spaces)
@@ -120,7 +120,7 @@ can be found below (only `host` and `token` are required).
 * `cli_args` — any other Oneclient command line arguments can be passed as a
   value of this argument as single string, e.g. `'--storage-timeout=120 --storage-helper-thread-count=20`
 
-Refer to the [Oneclient options](oneclient.md#options) documentation for more details.
+Refer to the [Oneclient options][11] documentation for more details.
 
 ### Advanced usage
 
@@ -213,3 +213,27 @@ Finally to remove an extended attribute:
 ```python
 space.removexattr("file.txt", "license")
 ```
+
+<!-- references -->
+
+[1]: <>
+
+[2]: onedatafs.md
+
+[3]: https://www.pyfilesystem.org/
+
+[4]: https://github.com/onedata/fs-onedatafs/
+
+[5]: https://www.softwarecollections.org/en/
+
+[6]: https://anaconda.org
+
+[7]: https://anaconda.org/onedata
+
+[8]: https://docs.pyfilesystem.org/en/latest/interface.html
+
+[9]: oneclient.md#basic-usage
+
+[10]: oneclient.md#authentication
+
+[11]: oneclient.md#options

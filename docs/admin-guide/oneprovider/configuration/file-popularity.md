@@ -1,31 +1,31 @@
 # File popularity
 
-[toc]()
+[toc][1]
 
 As a prerequisite for understanding this chapter we advise to familiarize with
-the concept of [*views*](../../../user-guide/views.md).
+the concept of [*views*][2].
 
 The *file popularity* mechanism enables tracking of usage statistics for files in a space.
 It allows listing File IDs sorted in ascending order by the
-[*popularity function*](#the-popularity-function), so that the least popular files
+[*popularity function*][3], so that the least popular files
 are at the beginning of the list.
 
 > **NOTE:** Usage statistics can be collected only for local storage supporting the space.
 > It is impossible to obtain *file popularity* statistics gathered by a remote provider.
 
 The mechanism can be enabled for chosen space in the `Spaces -> "Space Name" -> File popularity` tab,
-in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API](#rest-api).
+in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API][4].
 
-![File popularity configuration tab](../../../../images/admin-guide/oneprovider/configuration/file-popularity/file_popularity_tab.png#screenshot)
+![screen-file-popularity-tab][]
 
 Internally, the mechanism creates the *file popularity view*. All notes presented in the
-[*Views* chapter](../../../user-guide/views.md)
+[*Views* chapter][2]
 applies also to the *file popularity view*.
 
 > **NOTE:** The *file popularity view* is a special view, therefore it is forbidden to create
 > a view with such name. Furthermore, it is forbidden and impossible to
 > modify or delete the view using
-> [*Views API*](../../../user-guide/views.md).
+> [*Views API*][2].
 
 ## Querying the file popularity view
 
@@ -38,8 +38,8 @@ curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spa
 An example of such request is presented in the *file popularity* configuration tab of Onepanel GUI.
 The example request returns 10 least popular files in the space.
 
-For more information on querying [*views*](../../../user-guide/views.md), see
-[here](../../../user-guide/views.md#rest-api).
+For more information on querying [*views*][2], see
+[here][6].
 
 ## Advanced topics
 
@@ -66,7 +66,7 @@ where:
 Entries in the views are modified only when associated document
 in the database is modified. It means that an entry in the *file popularity view*
 is modified only when the
-[file popularity model](../../../user-guide/views.md#file-popularity-model)
+[file popularity model][7]
 document is updated, which happens on each file close operation.
 The downside of this approach is that the `avgOpenCountPerDay` may not be recalculated in certain
 circumstances and the file may be indexed as "popular" forever, contrary to the actual popularity.
@@ -140,7 +140,7 @@ w2 := 20.0
 The three parameters of the function: `w1`, `w2` and `MAX_AVG_OPEN_COUNT_PER_DAY`
 can be modified in the *file popularity* configuration panel.
 
-> **NOTE:** Modification of the [*popularity function*](#the-popularity-function)
+> **NOTE:** Modification of the [*popularity function*][3]
 > parameters results in modification of the mapping function of the
 > *file popularity view*. It means that all already indexed files need to be
 > re-indexed. Such operation can be very time-consuming, depending on the number
@@ -150,14 +150,34 @@ can be modified in the *file popularity* configuration panel.
 > Disabling the view results in its deletion, therefore re-enabling the view
 > results in re-indexing of all files in the space.
 
-> <span style="color:red">MODIFICATION OF THE [*POPULARITY FUNCTION*](#the-popularity-function) MUST BE PERFORMED WITH CARE!!!</span>
+> <span style="color:red">MODIFICATION OF THE [*POPULARITY FUNCTION*][3] MUST BE PERFORMED WITH CARE!!!</span>
 
 ### REST API
 
 All operations related to file popularity can be performed using the REST API.
 Refer to the linked API documentation for detailed information and examples.
 
-| Request                                | Link to API                                                                                              |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| Get *file popularity* configuration    | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration) |
-| Update *file popularity* configuration | [API](https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity)         |
+| Request                                | Link to API |
+| -------------------------------------- | ----------- |
+| Get *file popularity* configuration    | [API][8]    |
+| Update *file popularity* configuration | [API][9]    |
+
+<!-- references -->
+
+[1]: <>
+
+[2]: ../../../user-guide/views.md
+
+[3]: #the-popularity-function
+
+[4]: #rest-api
+
+[6]: ../../../user-guide/views.md#rest-api
+
+[7]: ../../../user-guide/views.md#file-popularity-model
+
+[8]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/get_file_popularity_configuration
+
+[9]: https://onedata.org/#/home/api/latest/onepanel?anchor=operation/configure_file_popularity
+
+[screen-file-popularity-tab]: ../../../../images/admin-guide/oneprovider/configuration/file-popularity/file-popularity-tab.png

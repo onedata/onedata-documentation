@@ -4,19 +4,19 @@ This chapter contains basics about Onedata REST API usage.
 
 ## Available APIs (services)
 
-There are essentially three types of services in Onedata that make up its [architecture](../intro.md#architecture).
+There are essentially three types of services in Onedata that make up its [architecture][1].
 Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger):
 
-* Onezone — API for managing high-level objects such as users, groups, spaces, etc. —
-  [REST API](https://onedata.org/#/home/api/stable/onezone).
+* Onezone — API for managing high-level objects such as users, groups, spaces etc. —
+  [REST API][2].
 
-* Oneprovider — API for data management — [REST API](https://onedata.org/#/home/api/stable/oneprovider),
-  complemented by [CDMI API](cdmi.md) (recommended only for advanced use cases
+* Oneprovider — API for data management — [REST API][3],
+  complemented by [CDMI API][4] (recommended only for advanced use cases
   that explicitly require the CDMI protocol, due to its worse efficiency)
 
 * Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
-  [REST API](https://onedata.org/#/home/api/stable/onepanel). You can read more
-  about its usage in chapters [Onezone admin REST API](../admin-guide/onezone/configuration/rest-api.md) and [Oneprovider admin REST API](../admin-guide/oneprovider/configuration/rest-api.md)
+  [REST API][5]. You can read more about its usage in chapters
+  [Onezone admin REST API][] and [Oneprovider admin REST API][].
 
 ## Endpoints
 
@@ -41,12 +41,12 @@ In such cases, the APIs are available under the following endpoints:
 
 The Onezone domain should be known to the users as this is their entry point
 to the system, presenting them with a login page. Instructions on how to find
-the domain of a Oneprovider service can be found [here](data.md#oneprovider-domain).
+the domain of a Oneprovider service can be found [here][6].
 
 ### Access tokens
 
 Access tokens are used universally to authorize API requests in all services.
-Follow this [quickstart guide](./tokens.md#access-token-quickstart) to acquire an access token.
+Follow this [quickstart guide][7] to acquire an access token.
 
 ### Oneprovider ID
 
@@ -58,3 +58,23 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
+
+<!-- references -->
+
+[1]: ../intro.md#architecture
+
+[2]: https://onedata.org/#/home/api/stable/onezone
+
+[3]: https://onedata.org/#/home/api/stable/oneprovider
+
+[4]: cdmi.md
+
+[5]: https://onedata.org/#/home/api/stable/onepanel
+
+[Onezone admin REST API] ../admin-guide/onezone/configuration/rest-api.md
+
+[Oneprovider admin REST API] ../admin-guide/oneprovider/configuration/rest-api.md
+
+[6]: data.md#oneprovider-domain
+
+[7]: ./tokens.md#access-token-quickstart
