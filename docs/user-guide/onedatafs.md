@@ -3,8 +3,8 @@
 [toc][1]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system,
-an alternative to [Oneclient][oneclient] that offers a POSIX interface.
-As a [PyFilesystem][pyfilesystem] plugin, [OnedataFS][fs-onedatafs] allows you
+an alternative to [Oneclient][] that offers a POSIX interface.
+As a [PyFilesystem][] plugin, [OnedataFS][fs-onedatafs] allows you
 to work with Onedata in the same way as any other supported filesystem.
 
 ## Installation
@@ -24,7 +24,7 @@ $ sh oneclient.sh python3-fs-plugin-onedatafs
 ### CentOS
 
 Please note that CentOS packages are distributed according to the
-[Software Collections][software collections] standard.
+[Software Collections][] standard.
 
 ```bash
 $ curl -sSO https://get.onedata.org/oneclient.sh
@@ -45,8 +45,7 @@ $ PYTHONPATH="${ONEDATA_PYTHON3_PATH}" python3
 
 ### Anaconda
 
-OnedataFS can be installed using
-[Anaconda][anaconda], from the official
+OnedataFS can be installed using [Anaconda][], from the official
 [Onedata conda repository][anaconda onedata]:
 
 > **NOTE:** Currently for release 21.02.*, only Python 3 version 3.9 is supported.
@@ -120,7 +119,7 @@ can be found below (only `host` and `token` are required).
 * `cli_args` — any other Oneclient command line arguments can be passed as a
   value of this argument as a single string, e.g. `'--storage-timeout=120 --storage-helper-thread-count=20`
 
-Refer to the [Oneclient options][oneclient options] documentation for more details.
+Refer to the [Oneclient options][] documentation for more details.
 
 ### Advanced usage
 

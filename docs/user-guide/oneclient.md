@@ -4,14 +4,14 @@
 
 
 Onedata provides a command-line client that can mount your spaces in your local
-file system tree. Oneclient is based on [Fuse][fuse].
+file system tree. Oneclient is based on [Fuse][].
 Follow the installation instructions below for your particular platform.
 
 ## Installation
 
 Oneclient is supported on several major Linux platforms including Ubuntu
 (Xenial, Bionic, Focal, Jammy) and CentOS 7. It can be installed using packages
-or using [Anaconda][anaconda] package manager.
+or using [Anaconda][] package manager.
 
 ### Packages
 
@@ -33,7 +33,7 @@ to add your account to the `fuse` group.
 
 ### Anaconda
 
-Oneclient can be also installed using [Anaconda][anaconda],
+Oneclient can be also installed using [Anaconda][],
 from the official [Onedata conda repository][anaconda onedata]:
 
 ```bash
@@ -58,7 +58,7 @@ $ conda --experimental-solver=libmamba install -c onedata-centos6 -c conda-forge
 To mount your spaces using Oneclient, you need to authenticate with a
 specific Onezone service and obtain an access token suitable for Oneclient.
 Access tokens can be generated directly from the Web interface — see the
-[tokens quickstart guide][tokens quickstart guide]. More information on
+[tokens quickstart guide][]. More information on
 different types of tokens, and how to create them programmatically using the
 REST API can be found [here][tokens].
 
@@ -141,7 +141,7 @@ mode all `read` and `write` operations go to the storage indirectly through
 Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
 `truncate`) go through Oneprovider to ensure data integrity.
 
-![oneclient-direct-proxy][]
+![image-oneclient-direct-proxy][]
 
 By default, `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly. The storage access detection is
@@ -543,4 +543,4 @@ $ sudo systemctl status oneclient
 
 [oneprovider-domain]: data.md#oneprovider-domain
 
-[oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+[image-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
