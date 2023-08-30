@@ -82,10 +82,10 @@ modifying and removing space, and viewing or setting privileges.
 
 ## Space owner
 
-After creating a space, you begin to be an owner of that space, which means
+After creating a space, you become an owner of that space, which means
 that you are authorized to perform all operations, regardless of the assigned
 privileges. As an owner, you can pass ownership to another user that belongs
-to that space, but in the space, there must be always at least one owner,
+to that space. The space must always have at least one owner,
 but there may be more. As an owner you can not leave the space if there are no other
 owners in that space, first, you should pass ownership to another user.
 
@@ -167,13 +167,13 @@ overwrite the old ones to identical values.
 
 ### Effective members
 
-To see not only direct members but also members that belong to the space by group,
+To see not only direct members but also members that belong to the space indirectly through groups,
 go to the **Members** submenu, expand the view options, and choose **Effective**
 to view all of the members. You can see that privileges are inherited from the members.
 ![screen-effective-privileges][]
 
 You can also view memberships of members by switching the view to **Membership**
-(optional turn-on descriptions) and expand member, which shows you direct and inherited memberships.
+(optional toggle **Show descriptions** switch) and expand member, which shows you direct and inherited memberships.
 ![screen-effective-memberships][]
 
 ### Data browser
