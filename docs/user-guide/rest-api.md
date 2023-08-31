@@ -64,12 +64,9 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 
 Alternatively, the ID can be retrieved from the GUI:
 
-FIXME screenshot showing how to copy the id
-
+![screen-copy-provider-id][]
 
 <!-- references -->
-
-[1]: <>
 
 [architecture]: ../intro.md#architecture
 
@@ -86,3 +83,5 @@ FIXME screenshot showing how to copy the id
 [oneprovider domain]: data.md#oneprovider-domain
 
 [token quickstart guide]: ./tokens.md#access-token-quickstart
+
+[screen-copy-provider-id]: ../../images/user-guide/rest-api/copy-provider-id.png
