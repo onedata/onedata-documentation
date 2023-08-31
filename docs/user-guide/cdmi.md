@@ -8,29 +8,30 @@ Refer to the [usage examples][] for a quick guide on how to perform basic CDMI r
 
 ## CDMI vs. REST API
 
-Consider using Onedata's [REST][] interface, which provides counterparts for most CDMI operations with
-more straightforward API and better performance. This is mainly because CDMI uses Base64 encoded strings for binary
-file content transmission, resulting in approximately 33% larger I/O traffic compared to REST,
-which works with plain binaries.
+Consider using Onedata's [REST][] interface, which provides counterparts for
+most CDMI operations with more straightforward API and better performance. This
+is mainly because CDMI uses Base64 encoded strings for binary file content
+transmission, resulting in approximately 33% larger I/O traffic compared to
+REST, which works with plain binaries.
 
-You can find the documentation for the file management API based on OpenAPI (a.k.a. Swagger)
-[here][Basic-File-Operations].
+You can find the documentation for the file management API based on OpenAPI
+(a.k.a. Swagger) [here][basic-file-api-reference].
 
 ## Introduction
 
-The **Cloud Data Management Interface (CDMI)** defines a universal, vendor-agnostic
-interface for discovering the capabilities of storage providers, managing Cloud
-storage, and accessing data stored within it.
+The **Cloud Data Management Interface (CDMI)** defines a universal,
+vendor-agnostic interface for discovering the capabilities of storage providers,
+managing Cloud storage, and accessing data stored within it.
 
-CDMI utilizes specific terms such as **data object** or **container** to refer
-to various storage elements. The mapping between the main CDMI and Onedata concepts
-is as follows:
+CDMI uses specific terms such as **data object** or **container** to refer to
+various storage elements. The correspondence between the CDMI and Onedata
+concepts is as follows:
 
-| CDMI         | Onedata                                 |
-| :----------- | :-------------------------------------- |
-| Containers   | directories (including space directory) |
-| Data Objects | regular files stored in user's Spaces   |
-| Object ID    | [File ID][]                             |
+| CDMI         | Onedata                                          |
+| :----------- | :----------------------------------------------- |
+| Containers   | directories (including root [space][] directory) |
+| Data Objects | regular files stored in user's [spaces][space]   |
+| Object ID    | [File ID][]                                      |
 
 At present, Onedata supports CDMI version `1.1.1`.
 
@@ -38,29 +39,30 @@ For more information about CDMI, visit the [official website][CDMI specification
 
 ## Endpoints
 
-In Onedata, files and directories can be accessed and managed using CDMI queries on the following paths:
+In Onedata, files and directories can be accessed and managed using CDMI queries
+on the following paths:
 
-* `/cdmi/${FILE_PATH}`: This endpoint allows you to interact with files or directories using their logical path.
-* `/cdmi/cdmi_objectid/${FILE_ID}`: This endpoint enables you to work with files or directories using their unique
-  [File ID][] across the system.
+* `/cdmi/${FILE_PATH}`: for interacting with files or directories using their logical path.
+* `/cdmi/cdmi_objectid/${FILE_ID}`: for interacting with files or directories
+  using their unique [File ID][].
 
-It is recommended to use File IDs whenever possible as they provide better performance since no
-path resolution is required.
+It is recommended to use File IDs whenever possible as they offer better
+performance, since no path resolution is required.
 
-When referencing files through CDMI using the file path, keep in mind that Onedata
-organizes all data into spaces, and the space name is the first element in the file path.
-For example, in the path below, `CMS 1` represents the name of the space (**make sure to URL-encode
-the path**):
+When referencing files through CDMI using the file path, keep in mind that
+Onedata organizes all data into [spaces][space], and the space name is the first
+element in the file path. For example, in the path below, `CMS 1` represents the
+name of the space (**make sure to URL-encode the path**):
 
 ```bash
 /cdmi/CMS%201/file.txt
 ```
 
-::: tip NOTE
+::: warning NOTE
 CDMI imposes strict rules regarding the trailing slash in paths:
 
-* directory-path must always end with `/` — e.g. `/cdmi/MysSpace/dir1/`,
-* file-path must have no trailing slash — e.g. `/cdmi/MysSpace/file1.txt`.
+* directory-path must always end with `/` — e.g. `/cdmi/MySpace/dir1/`,
+* file-path must have no trailing slash — e.g. `/cdmi/MySpace/file1.txt`.
 
 :::
 
@@ -70,13 +72,14 @@ Note that the examples provided below cover only a portion of the available API 
 
 ### Prerequisites
 
-To use Onedata CDMI, a valid Onedata access token must be provided.
-You can generate an access token either in the Web GUI or via REST API (refer
-to the [tokens][] chapter).
+Prepare a valid access token. You can generate an access token either in the Web
+GUI or via REST API (refer to the [tokens][] chapter).
 
 The following examples assume that below environment variables are exported.
 
 ```bash
+export ONEPROVIDER_DOMAIN="provider.example.com"  # replace with actual
+
 export FILE_ID="39592D594E736C676D0000002B4345F6...."  # replace with actual
 
 export ACCESS_TOKEN="MDAyMGxvY2F00aW9uIG96LAyL3Rt..."  # replace with actual
@@ -89,8 +92,6 @@ export CT_CONTAINER="Content-Type: application/cdmi-container"
 
 export CT_DATAOBJECT="Content-Type: application/cdmi-object"
 
-export ONEPROVIDER_DOMAIN="provider.example.com"  # replace with actual
-
 export ENDPOINT="https://${ONEPROVIDER_DOMAIN}/cdmi"
 ```
 
@@ -98,11 +99,10 @@ Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, and `$ONEPROVIDER_DOMAIN` v
 
 ### Create new file
 
-::: tip NOTE
-Consider using the [create file][] REST endpoint instead, as it provides a more straightforward API and better performance.
+::: tip
+Consider using the [create file][] REST endpoint instead, as it provides a more
+straightforward API and better performance.
 :::
-
-To create a new file using CDMI, you can make a PUT request to the following endpoint:
 
 ```bash
 curl -X PUT "${ENDPOINT}/MySpace/file.txt" \
@@ -111,8 +111,9 @@ curl -X PUT "${ENDPOINT}/MySpace/file.txt" \
 }' 
 ```
 
-This CDMI query will create a file named `file.txt` in the `MySpace` space. The content of the file is
-specified in the request body `("value": "Test content")`.
+This CDMI query will create a file named `file.txt` in the `MySpace` space. The
+content of the file is specified in the request body `("value": "Test
+content")`.
 
 Response example:
 
@@ -138,11 +139,9 @@ Response example:
 
 ### Get selected file attributes
 
-::: tip NOTE
+::: tip
 Consider using the [get attributes][] REST endpoint instead.
 :::
-
-To retrieve selected attributes of a file using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "${ENDPOINT}/MySpace/file.txt?valuetransferencoding;mimetype;objectName" \
@@ -164,11 +163,9 @@ Response example:
 
 ### Get part of the file content
 
-::: tip NOTE
+::: tip
 Consider using the [download file content][] REST endpoint instead.
 :::
-
-To retrieve a specific part of the content of a file using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "${ENDPOINT}/MySpace/file.txt?value:5-11" \
@@ -187,13 +184,13 @@ Response example: (original file content is `"Test content"`)
 
 ### Update file content
 
-::: tip NOTE
+::: tip
 Consider using the [update file content][] REST endpoint instead.
 :::
 
-CDMI, starting from version 1.0.2, supports partial uploads, where a subrange of the
-value field can be provided as a byte range using the URL attribute `?value:<START_OFFSET>-<END_OFFSET>`.
-The value sent must be Base64 encoded.
+CDMI, starting from version 1.0.2, supports partial uploads, where a subrange of
+the value field can be provided as a byte range using the URL attribute
+`?value:<START_OFFSET>-<END_OFFSET>`. The value sent must be Base64 encoded.
 
 ```bash
 echo -n ABCD | base64
@@ -201,44 +198,38 @@ echo -n ABCD | base64
 QUJDRA==
 ```
 
-To update the first 4 bytes of the `file.txt` file to "ABCD", you can make a PUT request to the following endpoint:
-
 ```bash
-
 curl -X PUT "$ENDPOINT/MySpace/file.txt?value:0-3" \
 -H "X-CDMI-Partial: true" -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}" -d '{
   "value": "QUJDRA=="
 }'
 ```
 
-This CDMI query will update the first 4 bytes of the file `file.txt` in the `MySpace` space to "ABCD".
-The value "QUJDRA==" represents the Base64 encoding of "ABCD".
+This CDMI query will update the first 4 bytes of the file `file.txt` in the
+`MySpace` space to "ABCD". The value `QUJDRA==` represents the Base64 encoding
+of "ABCD".
 
-The original file content is "Test content". Upon successful execution, the file's content will be "ABCD content".
+The original file content set in a previous example is "Test content". Upon
+successful execution, the file's content will be "ABCD content".
 
 ### Delete file
 
-::: tip NOTE
+::: tip
 Consider using [remove file][] REST endpoint instead.
 :::
-
-To delete a file using CDMI, you can make a DELETE request to the following endpoint:
 
 ```bash
 curl -X DELETE "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}" -H "${CT_DATAOBJECT}"
 ```
 
-This CDMI query will delete the file identified by ${FILE\_ID}. The ${FILE\_ID} should be replaced with the actual
-file ID of the file you want to delete.
+This CDMI query will delete the file identified by `${FILE_ID}`.
 
 ### Create new directory
 
-::: tip NOTE
+::: tip
 Consider using [create file][] REST endpoint instead.
 :::
-
-To create a new directory using CDMI, you can make a PUT request to the following endpoint:
 
 ```bash
 curl -X PUT "${ENDPOINT}/MySpace/dir_test/" \
@@ -270,20 +261,18 @@ Response example:
 }
 ```
 
-### List 3 first files in the directory
+### List 3 first files in a directory
 
-::: tip NOTE
+::: tip
 Consider using the [list children][] REST endpoint instead.
 :::
-
-To list the first 3 files in a directory using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "$ENDPOINT/MySpace/dir_test/?children:0-2;childrenrange" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
 ```
 
-This CDMI query will retrieve the first 3 files in the `dirt_est` directory located in the `MySpace` space.
+This CDMI query will retrieve the first 3 files in the `dir_test` directory located in the `MySpace` space.
 
 Response example:
 
@@ -298,17 +287,14 @@ Response example:
 }
 ```
 
-This response provides the list of children files in the directory, which includes
-`test1.txt`, `test2.txt`, and `test3.txt`. The `childrenrange` attribute specifies the range of children
-files that are included in the response.
+The `childrenrange` attribute specifies the range of children files that are
+included in the response.
 
 ### Delete directory
 
-::: tip NOTE
+::: tip
 Consider using [remove file][] REST endpoint instead.
 :::
-
-To delete a directory using CDMI, you can make a DELETE request to the following endpoint:
 
 ```bash
 curl -X DELETE "${ENDPOINT}/MySpace/dir_test/" \
@@ -319,11 +305,9 @@ This CDMI query will delete the `dir_test` directory located in the MySpace spac
 
 ### Set file metadata
 
-::: tip NOTE
+::: tip
 Consider using [set metadata][] REST endpoint instead.
 :::
-
-To set metadata for a file using CDMI, you can make a PUT request to the following endpoint:
 
 ```bash
 curl -X PUT "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
@@ -336,23 +320,22 @@ curl -X PUT "${ENDPOINT}/cdmi_objectid/${FILE_ID}" \
 }'
 ```
 
-This CDMI query will set the metadata for the specified file identified by ${FILE\_ID}.
+This CDMI query will set the metadata for the specified file identified by `${FILE_ID}`.
 You can include multiple metadata fields in the request payload.
 
 ### Get all file metadata
 
-::: tip NOTE
+::: tip
 Consider using [get metadata][] REST endpoint instead.
 :::
-
-To retrieve all metadata for a file using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "${ENDPOINT}/MySpace/file.txt?metadata" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
 ```
 
-This CDMI query will fetch all the metadata associated with the `file.txt` file located in the `MySpace` space.
+This CDMI query will fetch all the metadata associated with the `file.txt` file
+located in the `MySpace` space.
 
 ```json
 {
@@ -373,18 +356,16 @@ This CDMI query will fetch all the metadata associated with the `file.txt` file 
 
 ### Get selected file metadata
 
-::: tip NOTE
+::: tip
 Consider using [get metadata][] REST endpoint instead.
 :::
-
-To retrieve specific metadata fields for a file using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "${ENDPOINT}/cdmi_objectid/${FILE_ID}?metadata:onedata_json" \
 -H "${TOKEN_HEADER}" -H "${CDMI_VSN_HEADER}"
 ```
 
-This CDMI query will fetch the selected metadata field `onedata_json` for the file identified by ${FILE\_ID}.
+This CDMI query will fetch the selected metadata field `onedata_json` for the file identified by `${FILE_ID}`.
 
 ```json
 {
@@ -397,10 +378,6 @@ This CDMI query will fetch the selected metadata field `onedata_json` for the fi
 ```
 
 ### Set file ACL
-
-For more information about ACL, refer to the [ACL][] page.
-
-To set the Access Control List (ACL) for a file using CDMI, you can make a PUT request to the following endpoint:
 
 ```bash
 curl -X PUT "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
@@ -418,16 +395,14 @@ curl -X PUT "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
 }'
 ```
 
-This CDMI query will set the ACL for the file named `file.txt` in the `MySpace` space.
-The ACL defines access permissions for the specified identifier. In the example provided,
-the ACL allows read access (`READ_OBJECT`, `READ_ATTRIBUTES`, `READ_METADATA`, `READ_ACL`) for the identifier
-`EVERYONE@`.
+This CDMI query will set the ACL for the file named `file.txt` in the `MySpace`
+space. The ACL defines access permissions for the specified identifier. In the
+example provided, the ACL allows read access (`READ_OBJECT`, `READ_ATTRIBUTES`,
+`READ_METADATA`, `READ_ACL`) for the identifier `EVERYONE@`.
+
+Refer to the [documentation][ACL] to learn about ACL. 
 
 ### Get file ACL
-
-For more information about ACL, refer to the [ACL][] page.
-
-To retrieve the ACL for a file using CDMI, you can make a GET request to the following endpoint:
 
 ```bash
 curl -X GET "$ENDPOINT/MySpace/file.txt?metadata:cdmi_acl" \
@@ -451,22 +426,22 @@ This CDMI query will fetch the ACL metadata (`cdmi_acl`) for the file named `fil
 }
 ```
 
+Refer to the [documentation][ACL] to learn about ACL. 
+
 ### Advanced operations
 
 Onedata implements a certain subset of CDMI specification and not all available
-operations are covered in this guide.  You can use the capability discovery endpoints to find out which
-operations are supported. The following examples demonstrate how to retrieve the supported capabilities.
+operations are covered in this guide. You can use the capability discovery
+endpoints to find out which operations are supported, as demonstrated below.
 
 ### Get supported capabilities
-
-To retrieve the supported capabilities of the system, you can send a GET request to the `cdmi_capabilities`
-endpoint as follows:
 
 ```bash
 curl -X GET "${ENDPOINT}/cdmi_capabilities/" -H "${CDMI_VSN_HEADER}"
 ```
 
-The response will contain information about the supported entities and their capabilities. For example:
+The response will contain information about the supported entities and their
+capabilities. For example:
 
 ```json
 {
@@ -488,15 +463,13 @@ The response will contain information about the supported entities and their cap
 }
 ```
 
-In the above example, system capabilities declare support for **container** and
+In the above response sample, the system declares support for **container** and
 **dataobject** entities (`children`). Their supported capabilities can be
 similarly checked using the following queries:
 
 ```bash
 curl -X GET "${ENDPOINT}/cdmi_capabilities/container/" -H "${CDMI_VSN_HEADER}"
 ```
-
-The response will contain the supported capabilities for the **container** entity. For example:
 
 ```json
 {
@@ -527,14 +500,9 @@ The response will contain the supported capabilities for the **container** entit
 }
 ```
 
-Similarly, to retrieve the capabilities supported by the **dataobject** entity, you can send a GET request to the
-`cdmi_capabilities/dataobject` endpoint:
-
 ```bash
 curl -X GET "${ENDPOINT}/cdmi_capabilities/dataobject/" -H "${CDMI_VSN_HEADER}"
 ```
-
-The response will contain the supported capabilities for the **dataobject** entity. For example:
 
 ```json
 {
@@ -561,9 +529,8 @@ The response will contain the supported capabilities for the **dataobject** enti
 }
 ```
 
-By inspecting these capability endpoints, you can determine the supported operations and parameters for each entity
-type in Onedata. For more detailed information on using these operations and parameters, refer to the
-[CDMI specification][].
+For more detailed information on CDMI operations and their parameters,
+refer to the [CDMI specification][].
 
 <!-- references -->
 
@@ -573,7 +540,9 @@ type in Onedata. For more detailed information on using these operations and par
 
 [REST]: data.md#rest-api
 
-[Basic-File-Operations]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations
+[basic-file-api-reference]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations
+
+[space]: spaces.md
 
 [File ID]: data.md#file-path-and-id
 

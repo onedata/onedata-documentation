@@ -9,6 +9,7 @@ onepanel
 oneprovider
 oneproviders
 onezone
+quickstart
 remarkrc
 unifiedjs
 vuepress

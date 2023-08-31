@@ -1,23 +1,21 @@
 # File registration
 
-[toc][1]
-
-File registration is dedicated to reflecting external datasets in an Onedata space.
-Space users can register files by providing the location of a file on external storage,
-along with optional attributes. Upon registration, the file becomes accessible in the
-space under the requested path. No data is copied in the process; instead,
-a file metadata entry is created in the space, containing a reference to the external storage.
-The Oneprovider will contact the external storage whenever the file is accessed.
+File registration is dedicated to reflecting external datasets in a Onedata
+[space][]. Space users can register files by providing the location of a regular
+file on external storage, along with optional attributes. Upon registration, the
+file becomes accessible in the space under the requested path. No data is copied
+in the process; instead, a file metadata entry is created in the space,
+containing a reference to the external storage. The Oneprovider will contact the
+external [storage backend][] whenever the file is accessed.
 
 ::: tip NOTE
 Registration of directories is not supported.
 :::
 
-File registration is available only for storage backends that support the space and are configured
-as [imported storage][]
-with [manual import mode][]
-(as opposed to [auto import mode][],
-where the registration is done automatically).
+File registration is available only for storage backends that support the
+space and that are configured as [imported storage][] with [manual import
+mode][] (as opposed to [auto import mode][], where the registration is done
+automatically).
 
 ## Registration API
 
@@ -28,7 +26,9 @@ The file will become visible immediately.
 
 <!-- references -->
 
-[1]: <>
+[space]: spaces.md
+
+[storage backend]: spaces.md#storage-backends
 
 [imported storage]: ../admin-guide/oneprovider/configuration/storages.md#imported-storage
 
