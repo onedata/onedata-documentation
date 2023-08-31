@@ -79,6 +79,7 @@ the privileges and gain access to the **space XYZ** with admin privileges.
 ## Storage backends
 
 <!-- TODO VFS-7218 documentation for storage backends -->
+
 <!-- TODO VFS-7218 cross references with the admin guide -->
 
 ## GUI guide

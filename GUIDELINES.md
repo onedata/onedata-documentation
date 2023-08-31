@@ -338,7 +338,7 @@ Below are some links to the REST API documentation of commonly used operations:
 
 ## Technicalities
 
-* Include the table of contents (`[toc][1]`) only when a chapter is long and has 
+* Include the table of contents (`[toc][1]`) only when a chapter is long and has
   multiple subsections.
 
 * Use the hyphen (`-`), en dash (`–`), and em dash (`—`) characters appropriately.

@@ -400,7 +400,7 @@ space. The ACL defines access permissions for the specified identifier. In the
 example provided, the ACL allows read access (`READ_OBJECT`, `READ_ATTRIBUTES`,
 `READ_METADATA`, `READ_ACL`) for the identifier `EVERYONE@`.
 
-Refer to the [documentation][ACL] to learn about ACL. 
+Refer to the [documentation][ACL] to learn about ACL.
 
 ### Get file ACL
 
@@ -426,7 +426,7 @@ This CDMI query will fetch the ACL metadata (`cdmi_acl`) for the file named `fil
 }
 ```
 
-Refer to the [documentation][ACL] to learn about ACL. 
+Refer to the [documentation][ACL] to learn about ACL.
 
 ### Advanced operations
 
