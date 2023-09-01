@@ -208,7 +208,7 @@ evaluates ACEs strictly in the same order as they were added, top-down. If any
 of the ACEs denies or grants access to the considered principal, evaluation is
 stopped.
 
-#### Access Control Entry
+#### Access Control Entrybamboos
 
 An ACE consists of four fields: 
 * `who` — the principal whom the ACE affects: 
@@ -335,11 +335,12 @@ must be properly set up for each storage supporting a space. This is required so
 that file permissions are accurately enforced in the space and the permissions in
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
+<!--- TODO VFS-7218
 
 ## File distribution
 
 <!-- link to replication & migration -->
-
+-->
 <!-- references -->
 
 [1]: <>

@@ -75,7 +75,7 @@ For better navigation in the file browser, you can also change the layout of it,
 what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
 upper-right corner of the file browser, and choose desired columns.
 
-![Example of column configuration feature](../../images/user-guide/web-file-browser/feature-configure-columns.png#screenshot)
+![screen-column-configuration][]
 
 The file browser uses the "infinite scroll" method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
@@ -86,7 +86,7 @@ To quickly jump to the desired file or directory, type desired phrase, in the se
 located below the breadcrumbs, and you will be moved to the first file or
 directory which name starts with the desired prefix.
 
-![Jump to prefix feature](../../images/user-guide/web-file-browser/jump-to-prefix.png#screenshot)
+![screen-prefix-search][]
 
 
 Apart from basic details displayed on the list, additional information and
@@ -95,7 +95,6 @@ on whether a file is shared, has Quality of Service requirements
 attached or is marked as Dataset.
 
 ![screen-layout-file-tags][]
-
 
 
 
@@ -136,11 +135,7 @@ file by double-clicking on them.
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
-<<<<<<< HEAD
-modal that allows the creation of a new [share](shares.md)](shares.md).
-=======
-modal that allows creating a new [share][17].
->>>>>>> future
+modal that allows the creation of a new [share][17].
 
 ![screen-feature-share][]
 
@@ -157,17 +152,13 @@ your file or directory. Datasets are files or directories that space users ident
 as meaningful data collections to them. To read more about the functionality of the
 Datasets head over to this [page](datasets.md). 
 
-![Datasets modal](../../images/user-guide/web-file-browser/datasets-modal.png#screenshot)
+![screen-feature-datasets][]
 
 
 ### Metadata
 
 This action allows browsing end editing custom file
-<<<<<<< HEAD
-[metadata](metadata.md), divided into three classes: basic (key-value),
-=======
 [metadata][20], divided into three classes: basic (key-value),
->>>>>>> future
 JSON and RDF. The last two feature a code editor with syntax checking and
 highlighting.
 
@@ -175,19 +166,11 @@ highlighting.
 
 ### Permissions
 
-<<<<<<< HEAD
-Invokes an editor of [permissions](data.md#permissions) assigned to the file —
-[POSIX](data.md#posix-permissions) or [Access Control List
-(ACL)](data.md#access-control-lists). 
-You can assign only one permission type to each file at a time.
-To select the currently applied permission type, use the **Permissions type** toggle.
-=======
 Invokes an editor of [permissions][22] assigned to the file —
 [POSIX][23] or [Access Control List
-(ACL)][24]. Each file can use only one of the
-permission types at the same time, and the currently applied one is selected
-using the **Permissions type** toggle.
->>>>>>> future
+(ACL)][24]. 
+You can assign only one permission type to each file at a time.
+To select the currently applied permission type, use the **Permissions type** toggle.
 
 Edit the POSIX permissions for each file by using the octal representation 
 field or manipulating the checkboxes.
@@ -202,13 +185,8 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-<<<<<<< HEAD
 This tab is used to monitor and manage the [distribution of file
-data](data.md#file-distribution) among supporting providers. The green bars
-=======
-This submenu is used to monitor and manage the [distribution of file
-data][27] among supporting providers. The green bars
->>>>>>> future
+data][27] among supporting providers. The blue bars
 visualize which blocks (fragments of the file) are stored on the storage systems
 of the corresponding providers. When more than one file is selected, the
 distribution can be viewed in a summarized or detailed manner.
@@ -253,15 +231,17 @@ are inherited from any parent directory.
 
 ![screen-feature-qos-requirements][]
 
+<!--- TODO VFS-7218
 
 ### Run workflow
 
 This action brings up a modal containing a list of all the uploaded workflows, that
 you can choose to run your file on. To read more about the functionality of the
-workflows head over to [autiomation guide](automation.md) 
+workflows head over to [autiomation guide](automation.md).
 
 ![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
 
+--->
 
 ### Rename
 The basic operation used to change the file name.
@@ -276,7 +256,7 @@ This action lets you create a symbolic link to a single file or directory and pl
 pointer to another file or directory. To place a symbolic link in the directory you are in,
 click on the highlighted button in the top right corner.
 
-![Create symbolic link feature](../../images/user-guide/web-file-browser/feature-sumbolic-link.png#screenshot)
+![screen-feature-symlink][]
 
 
 ### Create hard link
@@ -293,7 +273,7 @@ with the number of hard links created to this file. You can click on the label y
 see the list of existing hard links in the **Details** modal. 
 
 
-![Create hard link feature](../../images/user-guide/web-file-browser/feature-hard-link.png#screenshot)
+![screen-feature-hardlink][]
 
 
 ### Copy, Cut and Paste
@@ -319,11 +299,8 @@ Available features are the same as in desktop mode, but the page layout is adjus
 In mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
 
-<<<<<<< HEAD
-=======
 ![screen-mobile-download][]
 
->>>>>>> future
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
@@ -334,8 +311,6 @@ file can be invoked using the three-dots menu in the file row or the
 Operations on the current working directory, such as creating a new directory or
 uploading files, are available in the breadcrumbs navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
-
-![screen-mobile-upload][]
 
 ## Switching between providers
 
@@ -409,9 +384,15 @@ creating new files or directories, scheduling data transfers, etc).
 
 [screen-feature-file-context-menu]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
 
+[screen-column-configuration]: ../../images/user-guide/web-file-browser/feature-configure-columns.png
+
+[screen-prefix-search]: ../../images/user-guide/web-file-browser/jump-to-prefix.png
+
 [screen-feature-info]: ../../images/user-guide/web-file-browser/feature-info.png
 
 [screen-feature-share]: ../../images/user-guide/web-file-browser/feature-share.png
+
+[screen-feature-datasets]: ../../images/user-guide/web-file-browser/datasets-modal.png
 
 [screen-feature-shared-already]: ../../images/user-guide/web-file-browser/feature-shared-already.png
 
@@ -434,6 +415,10 @@ creating new files or directories, scheduling data transfers, etc).
 [screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
 
 [screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
+
+[screen-feature-symlink]: ../../images/user-guide/web-file-browser/feature-sumbolic-link.png
+
+[screen-feature-hardlink]: ../../images/user-guide/web-file-browser/feature-hard-link.png
 
 [screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
 
