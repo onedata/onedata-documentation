@@ -208,7 +208,7 @@ evaluates ACEs strictly in the same order as they were added, top-down. If any
 of the ACEs denies or grants access to the considered principal, evaluation is
 stopped.
 
-#### Access Control Entrybamboos
+#### Access Control Entry
 
 An ACE consists of four fields: 
 * `who` — the principal whom the ACE affects: 
@@ -339,8 +339,10 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 ## File distribution
 
-<!-- link to replication & migration -->
+ link to replication & migration 
+
 -->
+
 <!-- references -->
 
 [1]: <>
