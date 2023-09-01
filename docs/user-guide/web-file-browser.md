@@ -299,14 +299,14 @@ Available features are the same as in desktop mode, but the page layout is adjus
 In mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
 
-![screen-mobile-download][]
-
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
 **Selection** button at the bottom of the screen.
 
 ![screen-mobile-menu][]
+
+![screen-mobile-upload][]
 
 Operations on the current working directory, such as creating a new directory or
 uploading files, are available in the breadcrumbs navigator. When an upload is
@@ -425,8 +425,6 @@ creating new files or directories, scheduling data transfers, etc).
 [screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
 
 [screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
-
-[screen-mobile-download]: ../../images/user-guide/web-file-browser/mobile-download.png
 
 [screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
 
