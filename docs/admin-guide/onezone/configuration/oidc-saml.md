@@ -2590,7 +2590,7 @@ required to insert the Client Id and Secret in the config.
 {egi, #{
     displayName => "EGI",
     iconPath => "/assets/images/auth-providers/egi.svg",
-    iconBackgroundColor => "#0455A1",
+    iconBackgroundColor => "#FFFFFF",
     protocol => openid,
     protocolConfig => #{
         plugin => default_oidc_plugin,
