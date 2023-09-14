@@ -52,7 +52,8 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-img[src*=screenshot] {
+
+img[alt^="screen-"] {
   border: 1px solid #ddd;
 }
 </style>

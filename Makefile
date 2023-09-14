@@ -1,11 +1,14 @@
 .PHONY: all build dev clean
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v2
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v4
 
 all: build
 
 lint:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
+
+format-all:
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all
 
 build:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} build
