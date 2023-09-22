@@ -1,42 +1,50 @@
 <template>
-  <div
-    class="theme-container"
-    :class="pageClasses"
-    @touchstart="onTouchStart"
-    @touchend="onTouchEnd"
-  >
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
+    <div
+	class="theme-container"
+	:class="pageClasses"
+	@touchstart="onTouchStart"
+	@touchend="onTouchEnd"
+    >
+	<Navbar
+	    v-if="shouldShowNavbar"
+	    @toggle-sidebar="toggleSidebar"
+	/>
+	 	
+  	<div
+	    class="sidebar-mask"
+	    @click="toggleSidebar(false)"
+	/>
+	
+	<Sidebar
+	    :items="sidebarItems"
+	    @toggle-sidebar="toggleSidebar"
+	>
+	    <template #top>
+		<slot name="sidebar-top" />
+		<style>
+		 .search-box ul.suggestions {
+		     right: auto !important;
+		     left: 0 !important;
+		     width: 100%;
+		     z-index: 1;
+		 }
+		</style>
+   		<SearchBox style="margin-top:1cm;" />
+	    </template>
+	    <template #bottom>
+		<slot name="sidebar-bottom" />
+	    </template>
+	</Sidebar>
 
-    <template>
-      <h1>Testing...</h1>
-    </template>
-
-    <div class="sidebar-mask" @click="toggleSidebar(false)" />
-
-    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
-      <template #top>
-        <slot name="sidebar-top" />
-        <style>
-          .search-box ul.suggestions {
-            right: auto !important;
-            left: 0 !important;
-            width: 100%;
-            z-index: 1;
-          }
-        </style>
-        <SearchBox style="margin-top: 1cm" />
-      </template>
-      <template #bottom>
-        <slot name="sidebar-bottom" />
-      </template>
-    </Sidebar>
-
-    <Home v-if="$page.frontmatter.home" />
-
-    <Page v-else :sidebar-items="sidebarItems">
-      <template #top>
-        <slot name="page-top" />
-      </template>
+	<Home v-if="$page.frontmatter.home" />
+	
+	<Page
+	    v-else
+	    :sidebar-items="sidebarItems"
+	>
+	    <template #top>
+		<slot name="page-top" />
+	    </template>
       <template #bottom>
         <slot name="page-bottom" />
       </template>
