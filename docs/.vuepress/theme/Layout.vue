@@ -134,6 +134,11 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
+
+    // Jump to heading after docs render
+    if (window.location.hash) {
+      window.location = window.location.href;
+    }
   },
 
   methods: {
