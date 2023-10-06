@@ -28,6 +28,7 @@ module.exports = {
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
+          '/user-guide/data-distribution',
           '/user-guide/web-file-browser',
           '/user-guide/shares',
           '/user-guide/open-data',

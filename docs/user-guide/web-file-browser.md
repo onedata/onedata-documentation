@@ -180,30 +180,6 @@ Brings up an editor of [Quality of Service][31] (QoS)
 requirements defined for the selected file(s), which are used to automatically
 manage the file data replication according to logical rules.
 
-The rules can be put down using a visual block-based expression editor. These
-rules are evaluated against the QoS parameters assigned to different supporting
-storages in order to determine where the replicas should be stored.
-
-![screen-feature-qos-visual][]
-
-Below the requirement, there is information what storages match the requirement
-and an action that copies the expression in textual form, to be reused when
-creating a new requirement or using the [REST API][33].
-
-![screen-feature-qos-visual-match][]
-
-Expressions can be entered in the textual form. They are converted to block form
-upon confirmation, and then can be further edited.
-
-![screen-feature-qos-text][]
-
-If the selected files have any QoS requirements defined, they are displayed on
-the list along with their status of fulfillment, matching storages and other
-information. It is possible to remove selected QoS requirements, unless they
-are inherited from any parent directory.
-
-![screen-feature-qos-requirements][]
-
 ### Rename
 
 Basic operation used to change the file name.
@@ -300,9 +276,7 @@ creating new files or directories, scheduling data transfers etc).
 
 [29]: replication-and-migration.md
 
-[31]: qos.md
-
-[33]: rest-api.md
+[31]: qos.md#web-gui-guide
 
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
@@ -337,14 +311,6 @@ creating new files or directories, scheduling data transfers etc).
 [screen-feature-distribution-bar]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
 
 [screen-feature-distribution-schedule]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
-
-[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
-
-[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
-
-[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
-
-[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
 
 [screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
 
