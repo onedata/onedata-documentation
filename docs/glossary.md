@@ -201,7 +201,7 @@ Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
 
 [19]: #storage-import
 
-[20]: admin-guide/oneprovider/configuration/storages.md#imported-storage
+[20]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
 [21]: admin-guide/oneprovider/configuration/luma.md
 
@@ -225,7 +225,7 @@ Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
 
 [31]: #onepanel
 
-[32]: admin-guide/oneprovider/configuration/storages.md
+[32]: admin-guide/oneprovider/configuration/storage-backends.md
 
 [33]: admin-guide/oneprovider/configuration/storage-import.md
 

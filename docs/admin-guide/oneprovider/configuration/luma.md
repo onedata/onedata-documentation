@@ -136,7 +136,7 @@ The record has one of the two schemes:
 {
     "mappingScheme": "onedataUser" | "idpUser",
     // fields for "onedataUser" scheme
-    "onedataUserId": String,     
+    "onedataUserId": String,
     // fields for "idpUser" scheme
     "idp": String,
     "subjectId": String
@@ -389,7 +389,7 @@ Below is the full API specification of the external LUMA feed server.
             "subjectId": String,
             "username": String,
             "emails": [String],
-            "custom": JSON       
+            "custom": JSON
         ]
     }
 }
@@ -576,7 +576,7 @@ Links to comprehensive description of requests are presented in the below table:
 
 [9]: #storage-acl-group-to-onedata-group-mapping
 
-[10]: storages.md#configuration
+[10]: storage-backends.md#configuration
 
 [11]: #external-feed
 
@@ -592,7 +592,7 @@ Links to comprehensive description of requests are presented in the below table:
 
 [18]: ../../onezone/configuration/oidc-saml.md#entitlement-mapping
 
-[19]: storages.md#imported-storage
+[19]: storage-backends.md#imported-storage
 
 [20]: storage-import.md
 

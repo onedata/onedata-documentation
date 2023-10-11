@@ -23,7 +23,7 @@ Currently, the only way to register files in a space is to use the
 Space users can choose a file within the dataset that is to be accessible via Onedata and invoke
 the registration in a Oneprovider supporting the space. The file will become visible immediately.
 
-[1]: ../admin-guide/oneprovider/configuration/storages.md#imported-storage
+[1]: ../admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
 [2]: ../admin-guide/oneprovider/configuration/storage-import.md#manual-storage-import
 

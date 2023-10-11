@@ -103,7 +103,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/dns-config',
                   '/admin-guide/oneprovider/configuration/web-certificate',
                   '/admin-guide/oneprovider/configuration/cluster-members',
-                  '/admin-guide/oneprovider/configuration/storages',
+                  '/admin-guide/oneprovider/configuration/storage-backends',
                   '/admin-guide/oneprovider/configuration/space-support',
                   '/admin-guide/oneprovider/configuration/storage-import',
                   '/admin-guide/oneprovider/configuration/luma',

@@ -22,9 +22,9 @@ corresponding data center.
 
 <!-- TODO VFS-7218 this image could be better:
     1. present providers, not only storages
-    2. present the mapping between logical and physical paths 
+    2. present the mapping between logical and physical paths
        (file path on the storage vs. file path in the space)
- 
+
  -->
 
 ![image][5]
@@ -185,7 +185,7 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [2]: #space-members
 
-[3]: ../admin-guide/oneprovider/configuration/storages.md
+[3]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [4]: ../intro.md#architecture
 
