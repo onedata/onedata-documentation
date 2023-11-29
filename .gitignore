@@ -1,10 +1,13 @@
 node_modules
 yarn-cache/
 yarn-error.log
-docs/.vuepress/dist
 *~
 .idea
 *.iml
 .DS_Store
 .vscode/**
 !.vscode/extensions.json
+rel/
+
+# FIXME: legacy build directory
+docs/.vuepress/dist

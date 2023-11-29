@@ -5,7 +5,7 @@
 
 RELEASE_FILE="./RELEASE"
 RELEASE_PLACEHOLDER="\${RELEASE}"
-DIST_DIRECTORY="./docs/.vuepress/dist"
+DIST_DIRECTORY="./rel/future-documentation"
 
 cd "$(dirname "$0")"
 

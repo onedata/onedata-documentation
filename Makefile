@@ -1,6 +1,6 @@
 .PHONY: all build dev clean
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v4
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v5-alpha.1
 
 all: build
 
@@ -25,7 +25,7 @@ submodules:
 	git submodule update --init --recursive ${submodule}
 
 preview: build
-	@bash -c "sleep 1; echo 'opening http://localhost:8080/intro.html ...'; xdg-open http://localhost:8080/intro.html" &
+	@bash -c "sleep 1; echo 'opening http://localhost:8080/future-documentation/intro.html ...'; xdg-open http://localhost:8080/future-documentation/intro.html" &
 	@cd docs/.vuepress/dist && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 
 clean:
