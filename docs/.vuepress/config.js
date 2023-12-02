@@ -1,6 +1,7 @@
 const slugger = require('github-slugger').slug;
 module.exports = {
   title: 'Onedata documentation',
+  base: '/future-documentation/',
   markdown: {
     slugify: slugger,
     toc: {

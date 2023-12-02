@@ -98,7 +98,8 @@ installed Node (v14.14+ is required) install the Node packages using `npm run de
 the repository root and use package scripts with `npm run`:
 
 * `npm run docs:dev` - runs a development server with livereload,
-* `npm run docs:build` - builds static documentation to `docs/.vuepress/dist` directory,
+* `npm run docs:build` - builds static documentation to `rel/` directory (notice the
+  `future-documentation` subdirectory which is a subpath for serving),
 * `npm run docs:lint` - launches a remark linter on all Markdown documents,
 * `npm run docs:format-all` - applies standardized formatting on all Markdown documents.
 
@@ -113,7 +114,7 @@ script during the build.
 
 ## Build artifact
 
-After a successful build, the static HTML files are placed in `docs/.vuepress/dist`.
+After a successful build, the static HTML files are placed in `rel/future-documentation`.
 Calling `make package` will pack it up into a tarball.
 
 [VuePress]: https://vuepress.vuejs.org

@@ -1,10 +1,11 @@
 node_modules
 yarn-cache/
 yarn-error.log
-docs/.vuepress/dist
 *~
 .idea
 *.iml
 .DS_Store
 .vscode/**
 !.vscode/extensions.json
+rel/
+onedata_documentation.tar.gz
