@@ -15,7 +15,7 @@ build:
 	./inject-release.sh
 
 package:
-	cd docs/.vuepress/dist && tar zcf ../../../onedata_documentation.tar.gz .
+	cd rel/ && tar zcf ../onedata_documentation.tar.gz .
 
 dev:
 	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
@@ -26,10 +26,10 @@ submodules:
 
 preview: build
 	@bash -c "sleep 1; echo 'opening http://localhost:8080/future-documentation/intro.html ...'; xdg-open http://localhost:8080/future-documentation/intro.html" &
-	@cd docs/.vuepress/dist && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
+	@cd rel/ && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 
 clean:
-	@rm -rf node_modules yarn-cache docs/.vuepress/dist
+	@rm -rf node_modules yarn-cache rel/
 
 codetag-tracker:
-	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,docs/.vuepress/dist
+	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,rel
