@@ -8,6 +8,3 @@ yarn-error.log
 .vscode/**
 !.vscode/extensions.json
 rel/
-
-# FIXME: legacy build directory
-docs/.vuepress/dist
