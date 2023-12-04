@@ -117,7 +117,7 @@ Storage operation timeout in milliseconds. This parameter is optional, the defau
 
 ### QoS Parameters
 
-Quality of Service parameters - refer to the [QoS documentation][]. 
+Quality of Service parameters - refer to the [QoS documentation][].
 
 ## REST API
 

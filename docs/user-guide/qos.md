@@ -188,7 +188,7 @@ Below are some links to the REST API documentation of commonly used operations:
 
 [file browser]: web-file-browser.md#qos
 
-[storage backends]: ../admin-guide/oneprovider/configuration/storages.md
+[storage backends]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [7]: web-file-browser.md#switching-between-providers
 

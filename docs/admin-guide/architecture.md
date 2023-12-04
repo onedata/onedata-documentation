@@ -15,6 +15,7 @@ functional components.
 ## Services
 
 ### Onezone
+
 Onezone is a main component of Onedata enabling federated authentication and
 authorization.
 Onezone acts as an intermediary in a network of cooperating Oneproviders. It
@@ -25,6 +26,7 @@ As such, Onezone does not handle any actual data transfers and does not need
 high-performance connectivity to any storage resources.
 
 #### OnezoneWorker
+
 OnezoneWorker serves as a worker process of Onezone service. The main
 objective of OnezoneWorker is to provide logic for coordinating the Oneprovider
 instances. Onezone service requires at least one OnezoneWorker instance. Adding
@@ -55,7 +57,7 @@ ClusterManager can be found in the process tree under the name `cluster_manager`
 
 #### Couchbase
 
-[Couchbase][couchbase] is a highly scalable JSON database,
+[Couchbase][] is a highly scalable JSON database,
 which can be scaled to several nodes. This component is necessary for running
 Onezone service, and it is responsible for storing all information about user
 spaces, registered providers, etc. When deploying Onedata using a Docker
@@ -63,7 +65,7 @@ container or Kubernetes, Couchbase is started automatically.
 
 #### Elasticsearch
 
-Deployment of [Elasticsearch][elasticsearch] along with
+Deployment of [Elasticsearch][] along with
 Onezone, enables an Onedata feature called `Harvesters`, which allows performing
 data and metadata queries on user spaces.
 Elasticsearch is used to transparently index all data and metadata in an Onedata
@@ -72,14 +74,15 @@ space, which can then be queried using Onedata REST API.
 #### Handle Proxy
 
 Onedata supports Open Access identifier registration services based on Handle
-systems such as [DOI][doi]. Since different identifier minting 
+systems such as [DOI][]. Since different identifier minting
 services provide different API's, Onezone administrator has to deploy and
 register a handle proxy service, which implements a bridge between Onezone handle
-API and an actual handle minting service, such as [DataCite][datacite].
+API and an actual handle minting service, such as [DataCite][].
 
 An example implementation for B2HANDLE is available [here][hpsb2handle].
 
 ### Oneprovider
+
 The main objective of Oneprovider service as a whole, is to unify access to
 files stored at heterogeneous data storage systems that belong to
 geographically distributed organizations.
@@ -127,7 +130,7 @@ process tree under the name `link`.
 
 #### Couchbase
 
-[Couchbase][couchbase] is a highly scalable JSON database,
+[Couchbase][] is a highly scalable JSON database,
 which can be scaled to several nodes. This component is necessary for running
 Oneprovider service, and it is responsible for storing all filesystem-related metadata.
 It has to be ensured that sufficient disk space is available for this database,
@@ -137,7 +140,7 @@ started automatically.
 
 #### OpenFaaS
 
-[OpenFaaS][openfaas] is a serverless Docker-based function
+[OpenFaaS][] is a serverless Docker-based function
 management and execution service, which enables seamless integration of custom
 data or metadata processing logic. In Onedata, OpenFaaS is used to execute
 user-defined workflows over their data spaces. Each function can run on top of a
@@ -148,7 +151,7 @@ including REST API, CDMI or S3.
 ### Oneclient
 
 Oneclient is a command line Onedata client. It provides a POSIX interface to
-the user's files in Onedata system based on [FUSE][fuse].
+the user's files in Onedata system based on [FUSE][].
 
 Oneclient can be deployed by the users on their local resources, as well as
 administrators for instance on HPC access or worker nodes.
@@ -163,7 +166,7 @@ all data transfers will go via Oneprovider.
 
 OnedataFS is a Python library, which provides high-performance access to
 Onedata virtual filesystem directly from Python. OnedataFS implements the
-[PyFilesystem2][pyfilesystem2] API.
+[PyFilesystem2][] API.
 
 > **NOTE:** OnedataFS can be preinstalled on user worker nodes using distribution
 > packages, however it cannot be installed using `pip` due to native library
@@ -179,25 +182,26 @@ deployed in the same network as Oneprovider, however, it can be scaled to any nu
 of nodes, in which case it will handle data transfers, while Oneprovider instances
 will only handle metadata management.
 
-
 <!-- references -->
+
+[1]: <>
 
 [0]: #oneclient
 
 [architecture]: ../../images/admin-guide/architecture/onedata-architecture-overview.png
 
-[couchbase]: https://www.couchbase.com
+[Couchbase]: https://www.couchbase.com
 
-[elasticsearch]: https://www.elastic.co/elasticsearch/
+[Elasticsearch]: https://www.elastic.co/elasticsearch/
 
-[doi]: https://www.doi.org/
+[DOI]: https://www.doi.org/
 
-[datacite]: https://doi.datacite.org/
+[DataCite]: https://doi.datacite.org/
 
 [hpsb2handle]: https://github.com/onedata/hps-b2handle
 
-[openfaas]: https://www.openfaas.com/
+[OpenFaaS]: https://www.openfaas.com/
 
-[fuse]: https://github.com/libfuse/libfuse
+[FUSE]: https://github.com/libfuse/libfuse
 
-[pyfilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
+[PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2

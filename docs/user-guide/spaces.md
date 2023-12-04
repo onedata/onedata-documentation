@@ -13,8 +13,7 @@ Only the members of a space have access to the stored data.
 ## Space support
 
 A space is merely a logical container that requires at least one physical
-[storage][]
-backend attached to be functional. Attaching physical storage is
+[storage backend][] attached to be functional. Attaching physical storage is
 called **supporting** the space and is done by a data provider -
 an institution that entered the Onedata environment by configuring a
 [Oneprovider service][] for managing access to its
@@ -42,13 +41,13 @@ in which computations are to be performed. There are several tools in Onedata
 that can be used by advanced users to manage the underlying physical distribution
 and redundancy of data (such as [data transfers][] or [QoS][]).
 
-When a file within a space is written (e.g. uploaded), its content is written to 
-one of the supporting physical storages. Similarly, during a file read, the 
-physical data is read from the storage and then returned to the requesting client. 
-Onedata stores information about the mapping between logical and physical files 
-in the file metadata, which is replicated and synchronized between 
+When a file within a space is written (e.g. uploaded), its content is written to
+one of the supporting physical storages. Similarly, during a file read, the
+physical data is read from the storage and then returned to the requesting client.
+Onedata stores information about the mapping between logical and physical files
+in the file metadata, which is replicated and synchronized between
 all supporting providers. You can learn more about file distribution
-[here](data.md#file-distribution). 
+[here][2].
 
 <!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 
@@ -196,13 +195,13 @@ Refer to the [Web file browser][] guide for further instructions.
 
 [members]: #space-members
 
-[storage]: ../admin-guide/oneprovider/configuration/storages.md
+[storage backend]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [Oneprovider service]: ../intro.md#architecture
 
-[data transfers]: replication-and-migration.md
+[data transfers]: data-transfer.md
 
-[QoS]: quality-of-service.md
+[QoS]: qos.md
 
 [here]: ../admin-guide/oneprovider/configuration/storage-import.md
 
@@ -210,7 +209,7 @@ Refer to the [Web file browser][] guide for further instructions.
 
 [REST API]: ./rest-api.md
 
-[grant support for your space]: ../admin-guide/oneprovider/configuration/space-support.md#granting-support
+[grant support for your space]: ../admin-guide/oneprovider/configuration/space-support.md#granting-space-support
 
 [Web file browser]: web-file-browser.md
 
@@ -245,3 +244,5 @@ Refer to the [Web file browser][] guide for further instructions.
 [screen-effective-memberships]: ../../images/user-guide/spaces/effective-memberships.png
 
 [screen-data]: ../../images/user-guide/spaces/data.png
+
+[2]: data.md#file-distribution

@@ -2,7 +2,6 @@
 
 [toc][1]
 
-
 Onedata provides a command-line client that can mount your spaces in your local
 file system tree. Oneclient is based on [Fuse][].
 Follow the installation instructions below for your particular platform.
@@ -105,6 +104,7 @@ To terminate the Oneclient application and unmount your spaces, type:
 ```bash
 $ fusermount -uz <MOUNT_POINT>
 ```
+
 or (depending on version and platform):
 
 ```bash
@@ -443,11 +443,11 @@ Monitoring options:
 ## File extended attributes
 
 Extended file attributes are used in Oneclient to expose file metadata.
-They can be accessed with tools such as [xattr](https://github.com/xattr/xattr) 
-or `getfattr`. Extended attributes, starting with `org.onedata.` prefix, are 
+They can be accessed with tools such as [xattr][2]
+or `getfattr`. Extended attributes, starting with `org.onedata.` prefix, are
 Onedata system attributes that provide useful information about files.
-For more information on metadata management in Oneclient please look 
-[here](metadata.md#metadata-management-with-oneclient-and-onedatafs).
+For more information on metadata management in Oneclient please look
+[here][3].
 
 ## Using Oneclient from Docker
 
@@ -530,6 +530,7 @@ $ sudo systemctl stop oneclient
 # Check oneclient status
 $ sudo systemctl status oneclient
 ```
+
 <!-- references -->
 
 [1]: <>
@@ -553,3 +554,7 @@ $ sudo systemctl status oneclient
 [oneprovider-domain]: data.md#oneprovider-domain
 
 [image-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+
+[2]: https://github.com/xattr/xattr
+
+[3]: metadata.md#metadata-management-with-oneclient-and-onedatafs

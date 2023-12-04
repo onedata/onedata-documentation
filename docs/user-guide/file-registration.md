@@ -30,7 +30,7 @@ The file will become visible immediately.
 
 [storage backend]: spaces.md#storage-backends
 
-[imported storage]: ../admin-guide/oneprovider/configuration/storages.md#imported-storage
+[imported storage]: ../admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
 [manual import mode]: ../admin-guide/oneprovider/configuration/storage-import.md#manual-storage-import
 

@@ -48,7 +48,7 @@ $ PYTHONPATH="${ONEDATA_PYTHON3_PATH}" python3
 OnedataFS can be installed using [Anaconda][], from the official
 [Onedata conda repository][anaconda onedata]:
 
-> **NOTE:** Currently for release 21.02.*, only Python 3 version 3.9 is supported.
+> **NOTE:** Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
 
 ```bash
 $ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs
