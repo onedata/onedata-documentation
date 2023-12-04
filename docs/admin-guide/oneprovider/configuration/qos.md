@@ -2,7 +2,7 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
+This section is still a work-in-progress and may have errors or missing information.
 
 [toc][1]
 
@@ -73,6 +73,8 @@ curl -H "${AUTH_HEADER}" -H "${CT}" -X PATCH {$PANEL_API}/provider/storages/$STO
     }
 }'
 ```
+
+<!-- references -->
 
 [1]: <>
 

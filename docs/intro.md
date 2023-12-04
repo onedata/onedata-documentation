@@ -8,8 +8,8 @@ title: 'Introduction'
 
 This documentation is a work-in-progress and may have errors or missing information.
 
-Here are the [current official docs](https://onedata.org/#/home/documentation), 
-though some sections may be a bit outdated.   
+Here are the [current official docs][1],
+though some sections may be a bit outdated.
 
 Begging your patience as we finalize the transition.
 
@@ -155,3 +155,5 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][C
 [image-heading]: ../images/intro/heading.png
 
 [screen-web-gui-example]: ../images/intro/web-gui-example.png
+
+[1]: https://onedata.org/#/home/documentation

@@ -202,7 +202,7 @@ Embed images into the Markdown page by means of a reference link at the end of t
 [screen-first-step]: ../../../images/admin-guide/onezone/installation/first-step.png
 ```
 
-**Always add** `image-` and `screenshot-` prefixes to reference names for regular
+**Always add** `image-` and `screen-` prefixes to reference names for regular
 images and screenshots, accordingly. This ensures unified styling and helps keep
 everything in order. After the prefix, put the name of the image file (without extension).
 

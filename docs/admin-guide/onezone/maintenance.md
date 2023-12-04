@@ -4,7 +4,7 @@
 
 ### 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[running].html).
+This section is coming soon. For now, see the counterpart in the [legacy docs][7].
 
 <!-- TODO VFS-7218 restart too -->
 
@@ -146,13 +146,13 @@ sudo systemctl start onezone
 
 ### 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[upgrading].html).
+This section is coming soon. For now, see the counterpart in the [legacy docs][8].
 
 ## Troubleshooting
 
 ### 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[monitoring].html).
+This section is coming soon. For now, see the counterpart in the [legacy docs][9].
 
 <!-- references -->
 
@@ -167,3 +167,9 @@ This section is coming soon. For now, see the counterpart in the [legacy docs](h
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
+
+[7]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[running].html
+
+[8]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[upgrading].html
+
+[9]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[monitoring].html

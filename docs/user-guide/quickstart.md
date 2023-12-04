@@ -105,9 +105,9 @@ The table below presents some of the high-level concepts of Onedata.
 
 [data discovery]: data-discovery.md
 
-[replication and migration]: replication-and-migration.md
+[replication and migration]: data-transfer.md
 
-[quality of service]: quality-of-service.md
+[quality of service]: qos.md
 
 [shares]: shares.md
 

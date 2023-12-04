@@ -1,22 +1,24 @@
 # Onezone Google IdP tutorial
 
+[toc][]
+
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
-
-<!-- toc -->
+This section is still a work-in-progress and may have errors or missing information.
 
 ## Prerequisites
-* Already deployed onezone instance is required for this tutorial. See [here](../onezone_quick_tutorial.md) if onezone is not installed yet.
+
+* Already deployed onezone instance is required for this tutorial. See [here][1] if onezone is not installed yet.
 * Access to a google account.
 
 ## Procedure
 
-1. Login to Google https://accounts.google.com/
-2. Open https://search.google.com/search-console/ and add the onezone
-    service domain. You will find the link at the left upper corner. 
-2. Copy and save the google verification token.
-3. Place a static dns txt record with the token. Insert it in data/persistence/configs/overlay.config, e.g.:
+1. Login to Google [https://accounts.google.com/][2]
+2. Open [https://search.google.com/search-console/][3] and add the onezone
+   service domain. You will find the link at the left upper corner.
+3. Copy and save the google verification token.
+4. Place a static dns txt record with the token. Insert it in data/persistence/configs/overlay.config, e.g.:
+
 ```
 [
     {oz_worker, [
@@ -28,16 +30,18 @@ This section is still a work-in-progress and may have errors or missing informat
     ]}
 ].
 ```
-  and restart onezone.\
-4. When onezone gets up click Verify.\
-5. Open https://console.developers.google.com.\
-6. Create a new project or switch to existing.\
-7. Add your domain: API->domain verification->add domain->enter domain->add domain\
-8. Configure consent screen: 
-   API-->oauth consent screen->external->create->fill(application name, logo, email, authorized domain)->Save.\
-9. Create credentials: API->Credentials->CREATE CREDENTIALS->OAuth Client ID->Web Application->fill(name: "onedata", Authorized JavaScript origins: `https://example.com`, Authorized redirect URIs: `https://example.com/validate_login`)->Create.\
-10. Place the credentials (client id and secret) in auth.conf 
-(see [here](./oidc-saml.md#config-file-structure) for more datails). For example:\
+
+and restart onezone.\
+4\. When onezone gets up click Verify.\
+5\. Open [https://console.developers.google.com.\\][4]
+6\. Create a new project or switch to existing.\
+7\. Add your domain: API->domain verification->add domain->enter domain->add domain\
+8\. Configure consent screen:
+API-->oauth consent screen->external->create->fill(application name, logo, email, authorized domain)->Save.\
+9\. Create credentials: API->Credentials->CREATE CREDENTIALS->OAuth Client ID->Web Application->fill(name: "onedata", Authorized JavaScript origins: `https://example.com`, Authorized redirect URIs: `https://example.com/validate_login`)->Create.\
+10\. Place the credentials (client id and secret) in auth.conf
+(see [here][5] for more datails). For example:\\
+
 ```
 ...
         {google, #{
@@ -62,7 +66,23 @@ This section is still a work-in-progress and may have errors or missing informat
         }},
 ...
 ```
+
 11. Restart onezone.
+
 ```
 $ sudo systemctl restart onezone
 ```
+
+<!-- references -->
+
+[toc]: <>
+
+[1]: ../quickstart.md
+
+[2]: https://accounts.google.com/
+
+[3]: https://search.google.com/search-console/
+
+[4]: https://console.developers.google.com.\
+
+[5]: ./oidc-saml.md#config-file-structure

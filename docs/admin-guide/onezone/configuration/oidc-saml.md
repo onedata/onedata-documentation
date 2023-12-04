@@ -1,146 +1,146 @@
 # OIDC/SAML
+
 **Config version 3**
 
 <!-- @TODO VFS-7218 missing chapter -->
 
-This documentation is valid for Onezone versions `19.02.*` or newer. 
+This documentation is valid for Onezone versions `19.02.*` or newer.
 
-OpenID and SAML are the main authentication methods used in Onedata. 
-They allow users to reuse their accounts from other websites such as social 
+OpenID and SAML are the main authentication methods used in Onedata.
+They allow users to reuse their accounts from other websites such as social
 networks or infrastructure portals.
 
 When configuring Onedata, it is necessary to decide which Identity Providers
-should be supported by the Onezone service. This can be achieved by editing 
-the `/etc/oz_worker/auth.config` file on the Onezone node. In docker-compose 
+should be supported by the Onezone service. This can be achieved by editing
+the `/etc/oz_worker/auth.config` file on the Onezone node. In docker-compose
 based deployments, the most straightforward method is to mount the `auth.config`
-file in the volumes section. 
+file in the volumes section.
 
 > NOTE: the `auth.config` file must be present on all cluster nodes hosting the
-Onezone worker service, and must be identical.
+> Onezone worker service, and must be identical.
 
 ## Quickstart
 
 By default, Onezone is packaged with config that enables only basic
 authentication, placed in `/etc/oz_worker/auth.config`. After deploying Onezone,
-a default user `admin` will be created, with password equal to the emergency 
-passphrase provided in Onepanel during deployment - this way you can log in to a 
+a default user `admin` will be created, with password equal to the emergency
+passphrase provided in Onepanel during deployment - this way you can log in to a
 fresh Onezone installation without further setup.
 
 > NOTE that deployment examples using docker-compose overwrite the `auth.config`
-file with a mount from host. Simply remove this mount to use the default config 
-(especially when you are not sure how to fill it out, because mounting an 
-incorrect config will disable all login methods). 
-[Here](#minimal-config) is the minimal `auth.config` that is installed by default.
+> file with a mount from host. Simply remove this mount to use the default config
+> (especially when you are not sure how to fill it out, because mounting an
+> incorrect config will disable all login methods).
+> [Here][1] is the minimal `auth.config` that is installed by default.
 
-You can follow this [tutorial](./google_idp_tutorial.md) in case the Google IdP will be used.
+You can follow this [tutorial][2] in case the Google IdP will be used.
 
 ### Automatic config upgrade
 
-During the first startup after upgrading Onezone to a newer version, Onezone will 
-attempt to automatically upgrade the config file to the latest version. 
-In such case, the old config file (`auth.config`) will be backed up to 
-`auth.config.v{vsn}.bak`. Information whether the upgrade was successful will be 
-present in [Onezone logs](./onezone_tutorial.md#logs). Always examine the 
+During the first startup after upgrading Onezone to a newer version, Onezone will
+attempt to automatically upgrade the config file to the latest version.
+In such case, the old config file (`auth.config`) will be backed up to
+`auth.config.v{vsn}.bak`. Information whether the upgrade was successful will be
+present in [Onezone logs][]. Always examine the
 upgraded `auth.config` file to make sure that it was correctly converted.
 
-## Prerequisites 
+## Prerequisites
 
-To integrate with an OpenID or SAML Identity Provider, you need to have 
-a basic knowledge of those protocols and interact with the Identity Providers to 
+To integrate with an OpenID or SAML Identity Provider, you need to have
+a basic knowledge of those protocols and interact with the Identity Providers to
 obtain all required information, register your services etc. In general, the
 necessary steps are:
-
 
 ### OpenID Connect
 
 1. Make sure your Onezone service is up and running on your domain, let it be
-`onezone.example.com` for the sake of this example.
+   `onezone.example.com` for the sake of this example.
 
-2. Visit the official documentation or website of the Identity Provider you 
-want to integrate with. Explore their resources to find the specific process 
-of integration, as it can vary for each Identity Provider. The integration process 
-may involve an automatic setup through an online form or control panel, or it might 
-require contacting the administrators for further assistance. Follow the provided 
-instructions to proceed with the integration.
+2. Visit the official documentation or website of the Identity Provider you
+   want to integrate with. Explore their resources to find the specific process
+   of integration, as it can vary for each Identity Provider. The integration process
+   may involve an automatic setup through an online form or control panel, or it might
+   require contacting the administrators for further assistance. Follow the provided
+   instructions to proceed with the integration.
 
-3. You will have to register your OpenID Connect client (Onezone), providing 
-information such as domain, service name etc. When asked for 
-*Redirection Endpoint (URL)*, specify the following:
+3. You will have to register your OpenID Connect client (Onezone), providing
+   information such as domain, service name etc. When asked for
+   *Redirection Endpoint (URL)*, specify the following:
+
 ```Erlang
 https://onezone.example.com/validate_login
 ```
 
-4. After finishing the registration process, you will be issued a Client Id and 
-Client Secret.
+4. After finishing the registration process, you will be issued a Client Id and
+   Client Secret.
 
-5. In the [supported IdPs list](#supported-idps), create a new element by choosing 
-a unique identifier (e.g. `google`). Fill out all the required information, including
-the Client Id and Secret associated with the chosen Identity Provider. The `protocol` 
-attribute must be set to `openid`.
+5. In the [supported IdPs list][4], create a new element by choosing
+   a unique identifier (e.g. `google`). Fill out all the required information, including
+   the Client Id and Secret associated with the chosen Identity Provider. The `protocol`
+   attribute must be set to `openid`.
 
 6. Depending on the IdP, there might be more configuration options regarding the
-OpenID flow - some of them are reflected in the [pluginConfig](#openid-example).
+   OpenID flow - some of them are reflected in the [pluginConfig][5].
 
-7. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config` 
-and wait for up to a minute (default config caching time), or restart the 
-Onezone service for immediate effect.
+7. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config`
+   and wait for up to a minute (default config caching time), or restart the
+   Onezone service for immediate effect.
 
-8. You should see your IdP on the [login page](#the-login-page), verify that it 
-works correctly by clicking on its icon to go through the login process. In case 
-of any errors, examine [Onezone logs](../onezone_tutorial.md#logs).
+8. You should see your IdP on the [login page][6], verify that it
+   works correctly by clicking on its icon to go through the login process. In case
+   of any errors, examine [Onezone logs][].
 
-9. At any time, you can use the [test login page](#test-login-page) to test your 
-auth.config without interrupting the Onezone service.
+9. At any time, you can use the [test login page][8] to test your
+   auth.config without interrupting the Onezone service.
 
 ### SAML
 
 1. Make sure your Onezone service is up and running on your domain, let it be
-`onezone.example.com` for the sake of this example.
+   `onezone.example.com` for the sake of this example.
 
 2. Generate a strong RSA x509 key pair (can be self signed) and put them on your
-Onezone host - a tutorial can be found 
-[here](https://www.switch.ch/aai/support/certificates/embeddedcerts-requirements-appendix-a/)
+   Onezone host - a tutorial can be found
+   [here][9]
 
-3. Decide on your SAML Entity Id which is typically constructed using your domain, 
-e.g. `https://onezone.example.com/sp`. It does not have to point to an existing resource, 
+3. Decide on your SAML Entity Id which is typically constructed using your domain,
+   e.g. `https://onezone.example.com/sp`. It does not have to point to an existing resource,
 
-4. Fill out the [SAML Config](#saml-config) section of the `auth.config`, 
-putting down all the required information, including the Entity Id and paths
-to the key and cert.
+4. Fill out the [SAML Config][10] section of the `auth.config`,
+   putting down all the required information, including the Entity Id and paths
+   to the key and cert.
 
-5. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config` 
-and wait for up to a minute (default config caching time), or restart the 
-Onezone service for immediate effect.
+5. Put the `auth.config` on the Onezone host under `/etc/oz_worker/auth.config`
+   and wait for up to a minute (default config caching time), or restart the
+   Onezone service for immediate effect.
 
 6. Visit `https://onezone.example.com/saml/sp.xml` and verify that the advertised
-metadata is correct. In case of any errors, examine 
-[Onezone logs](../onezone_tutorial.md#logs).
+   metadata is correct. In case of any errors, examine
+   [Onezone logs][].
 
 7. Visit the official website of the Identity Provider or organization (e.g. eduGAIN)
-you want to integrate with. Explore their resources to find the specific process 
-of integration, as it can vary for each Identity Provider. The integration process 
-may involve an automatic setup through an online form or control panel, or it might 
-require contacting the administrators for further assistance. Follow the provided 
-instructions to proceed with the integration.
+   you want to integrate with. Explore their resources to find the specific process
+   of integration, as it can vary for each Identity Provider. The integration process
+   may involve an automatic setup through an online form or control panel, or it might
+   require contacting the administrators for further assistance. Follow the provided
+   instructions to proceed with the integration.
 
-8. Register your SAML Service Provider (Onezone). During the process, you will 
-most probably be required to provide the URL to the SAML SP Metadata (pt. 6), or 
-provide a static XML with the metadata (which can be simply downloaded from this 
-endpoint).
+8. Register your SAML Service Provider (Onezone). During the process, you will
+   most probably be required to provide the URL to the SAML SP Metadata (pt. 6), or
+   provide a static XML with the metadata (which can be simply downloaded from this
+   endpoint).
 
-9. Create a new element in the [supported IdPs list](#supported-idps), choosing 
-a unique identifier (e.g. `elixir`), and fill out all the information. The 
-`protocol` attribute must be set to `saml`.
+9. Create a new element in the [supported IdPs list][4], choosing
+   a unique identifier (e.g. `elixir`), and fill out all the information. The
+   `protocol` attribute must be set to `saml`.
 
 10. Reload the `auth.config` again (pt. 5).
 
-11. You should see your IdP on the [login page](#the-login-page), verify that it 
-works correctly by clicking on its icon to go through the login process. In case 
-of any errors, examine [Onezone logs](../onezone_tutorial.md#logs).
+11. You should see your IdP on the [login page][6], verify that it
+    works correctly by clicking on its icon to go through the login process. In case
+    of any errors, examine [Onezone logs][].
 
-12. At any time, you can use the [test login page](#test-login-page) to test your 
-auth.config without interrupting the Onezone service.
-
+12. At any time, you can use the [test login page][8] to test your
+    auth.config without interrupting the Onezone service.
 
 ### The login page
 
@@ -150,30 +150,28 @@ the first 6 will be shown and the rest hidden in the `...` button.
 
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page.png#screenshot">
-<!-- FIXME - replace with actual one -->
 
+<!-- FIXME - replace with actual one -->
 
 ## Config file structure
 
-This section presents and discusses an exemplary `auth.config`, section by 
-section. The whole file is presented at the end. A template ready to fill out 
-can be found in `/etc/oz_worker/template.auth.config` or 
-[at the end of this section](#complete-example).
-
+This section presents and discusses an exemplary `auth.config`, section by
+section. The whole file is presented at the end. A template ready to fill out
+can be found in `/etc/oz_worker/template.auth.config` or
+[at the end of this section][11].
 
 ### General remarks
 
 The `auth.config` file is written in Erlang format, quite similar to JSON:
 
 * `#{Key1 => Value1, Key2 => Value2}` is a key-value map (can be nested)
-* `[ ... ]` is a list 
+* `[ ... ]` is a list
 * `{A, B}` is a two value tuple
-* `undefined` is a special `atom` indicating that given parameter is not 
-specified (`null`)
+* `undefined` is a special `atom` indicating that given parameter is not
+  specified (`null`)
 * `"some text"` is a string
 * `% ...` is a comment
 * `true` or `false` is a boolean
-
 
 ### Main sections
 
@@ -209,15 +207,15 @@ assumed. Used by Onezone to determine if an upgrade is required.
 
 ### basicAuth Config
 
-`basicAuthConfig` - this section enables or disables basicAuth - the possibility 
-to log in to Onezone using username & password. This also controls the 
+`basicAuthConfig` - this section enables or disables basicAuth - the possibility
+to log in to Onezone using username & password. This also controls the
 possibility to authorize Onezone REST API operations using basic credentials.
 
 > Note that to allow for login via Onezone GUI, `basicAuth` must be enabled,
-and present on the list of supported IdPs ([see below](#supported-idps)).
+> and present on the list of supported IdPs ([see below][4]).
 
 > Default "admin" user is always created during installation process. Additional
-users can be created [using the API](../creating_user_accounts.md).
+> users can be created using the API. <!-- FIXME: link to crete user using API -->
 
 ### OpenID config
 
@@ -302,29 +300,28 @@ that will be inherited by all OpenID IdPs. Please examine this snippet from the
 
 More details:
 
-* `plugin` - specifies the Erlang module that handles the login process. If not 
-specified, it defaults to `default_oidc_plugin`, which can handle most of
-standard OpenID Connect IdPs. It is possible to implement your own, specialized 
-plugin - see more in [Auth plugins](#auth-plugins). Currently, Onezone supports
-one OpenID 1.0 IdP - the PLGrid organization that uses `plgrid_openid_plugin` - 
-see [this example](#plgrid-config-openid-20). 
+* `plugin` - specifies the Erlang module that handles the login process. If not
+  specified, it defaults to `default_oidc_plugin`, which can handle most of
+  standard OpenID Connect IdPs. It is possible to implement your own, specialized
+  plugin - see more in [Auth plugins][13]. Currently, Onezone supports
+  one OpenID 1.0 IdP - the PLGrid organization that uses `plgrid_openid_plugin` -
+  see [this example][14].
 
-* `pluginConfig` - config specific for the `default_oidc_plugin`, 
-[see below](#openid-example)
+* `pluginConfig` - config specific for the `default_oidc_plugin`,
+  [see below][5]
 
-* `authorityDelegation` - [see below](#authority-delegation)
+* `authorityDelegation` - [see below][15]
 
-* `offlineAccess` - [see below](#offline-access)
+* `offlineAccess` - [see below][16]
 
-* `attributeMapping` - [see below](#attribute-mapping)
+* `attributeMapping` - [see below][17]
 
-* `entitlementMapping` - [see below](#entitlement-mapping)
-
+* `entitlementMapping` - [see below][18]
 
 ### SAML config
 
 `samlConfig` - similarly to `openidConfig`, this section contains common SAML
-configuration and defaults that will be inherited by all SAML IdPs. 
+configuration and defaults that will be inherited by all SAML IdPs.
 Please examine this snippet from the `/etc/oz_worker/template.auth.config`:
 
 ```Erlang
@@ -396,16 +393,15 @@ Please examine this snippet from the `/etc/oz_worker/template.auth.config`:
 
 More details:
 
-* `spConfig` - information put here will be used to build the SAML 
-Service Provider XML, which will be advertised under 
-`https://onezone.example.com/saml/sp.xml`. Remember that paths provided in 
-key / cert field must point to existing files, otherwise the XML will not be 
-generated. Refer to SAML documentation for details on certain fields. 
+* `spConfig` - information put here will be used to build the SAML
+  Service Provider XML, which will be advertised under
+  `https://onezone.example.com/saml/sp.xml`. Remember that paths provided in
+  key / cert field must point to existing files, otherwise the XML will not be
+  generated. Refer to SAML documentation for details on certain fields.
 
-* `attributeMapping` - [see below](#attribute-mapping)
+* `attributeMapping` - [see below][17]
 
-* `entitlementMapping` - [see below](#entitlement-mapping)
-
+* `entitlementMapping` - [see below][18]
 
 ### Supported IdPs
 
@@ -450,32 +446,33 @@ this section. The general structure of this section is as follows:
 
 More details:
 
-* *IdP identifier* (`myIdP` in this example) - must be unique across the 
-`auth.config` file and be an Erlang atom (basically starting with a lowercase 
-letter and containing only letters or underscores; refer to Erlang documentation 
-for more). 
-> Note that the identifier *basicAuth* is reserved for 
-[basicAuth](#basicauth-example) and *more* is reserved for 
-internal purposes and cannot be used.
+* *IdP identifier* (`myIdP` in this example) - must be unique across the
+  `auth.config` file and be an Erlang atom (basically starting with a lowercase
+  letter and containing only letters or underscores; refer to Erlang documentation
+  for more).
 
-* `iconPath` - path to the static image file that will be used for the IdP icon 
-on the login page. Some predefined icons are available under the path
-`/assets/images/auth-providers/<icon>.svg`, to see the full list visit the 
-[Onezone GUI repo](https://github.com/onedata/onezone-gui/tree/develop/src/public/assets/images/auth-providers).
-To learn how you can add your own icons to the login page, see 
-[custom icon guidelines](#custom-icon-guidelines). If not specified, `iconPath` 
-defaults to `/assets/images/auth-providers/default.svg`.
+> Note that the identifier *basicAuth* is reserved for
+> [basicAuth][19] and *more* is reserved for
+> internal purposes and cannot be used.
+
+* `iconPath` - path to the static image file that will be used for the IdP icon
+  on the login page. Some predefined icons are available under the path
+  `/assets/images/auth-providers/<icon>.svg`, to see the full list visit the
+  [Onezone GUI repo][20].
+  To learn how you can add your own icons to the login page, see
+  [custom icon guidelines][21]. If not specified, `iconPath`
+  defaults to `/assets/images/auth-providers/default.svg`.
 
 * `protocol` - one of `basicAuth`, `saml`, `openid`.
 
-* `protocolConfig` - depends on the protocol, see the following sections for 
-config examples for each protocol.
+* `protocolConfig` - depends on the protocol, see the following sections for
+  config examples for each protocol.
 
 > Note that if you disable any protocol in the `basicAuthConfig`,
-`openidConfig`, or `samlConfig` sections, it will result in the
-disabling of all Identity Providers (IdPs) that use that particular
-protocol. Consequently, those disabled IdPs will be hidden from the
-login screen.
+> `openidConfig`, or `samlConfig` sections, it will result in the
+> disabling of all Identity Providers (IdPs) that use that particular
+> protocol. Consequently, those disabled IdPs will be hidden from the
+> login screen.
 
 #### basicAuth example
 
@@ -502,7 +499,6 @@ login screen.
             protocol => basicAuth
         }},
 ```
-
 
 #### OpenID example
 
@@ -617,24 +613,26 @@ login screen.
         }},
 ```
 
-This IdP will inherit all configuration from 
+This IdP will inherit all configuration from
 `openidConfig -> defaultProtocolConfig`, apart from the parameters that are
-overriden here. 
+overriden here.
+
 > Note: to nullify a parameter specified in the default config, it must be
-explicitly set to `undefined` in IdP config - otherwise it will be inherited.
+> explicitly set to `undefined` in IdP config - otherwise it will be inherited.
 
 More details on `pluginConfig`:
 
 * `endpoints` - this section defines how to resolve standard OpenID
-endpoints (`authorize`, `accessToken`, `userInfo`). Most IdPs use an
-XRDS endpoint to serve a JSON containing all required URLs. To utilize
-the XRDS, simply specify the `xrds` field and reference the desired
-keys from the JSON, as demonstrated in the example above.
-Alternatively, you can directly enter the URLs, eliminating the need
-for an XRDS endpoint.  The `userInfo` endpoint is a special case that
-allows you to specify multiple endpoints. Information gathered from
-them will be aggregated. Consider the following example, which
-demonstrates the use of direct URLs and multiple userInfo endpoints:
+  endpoints (`authorize`, `accessToken`, `userInfo`). Most IdPs use an
+  XRDS endpoint to serve a JSON containing all required URLs. To utilize
+  the XRDS, simply specify the `xrds` field and reference the desired
+  keys from the JSON, as demonstrated in the example above.
+  Alternatively, you can directly enter the URLs, eliminating the need
+  for an XRDS endpoint.  The `userInfo` endpoint is a special case that
+  allows you to specify multiple endpoints. Information gathered from
+  them will be aggregated. Consider the following example, which
+  demonstrates the use of direct URLs and multiple userInfo endpoints:
+
 ```Erlang
 endpoints => #{
     authorize => "https://github.com/login/oauth/authorize",
@@ -645,33 +643,33 @@ endpoints => #{
     ]
 },
 ```
+
 In the above example, JSON collected from `"https://api.github.com/user"` will
-be appended as-is to user attributes, and the JSON from 
+be appended as-is to user attributes, and the JSON from
 `"https://api.github.com/user/emails"` will be inserted under the key `"emails"`.
 
-* `scope` - what attributes are requested from the IdP. Defaults to 
-`"openid email profile"`.
+* `scope` - what attributes are requested from the IdP. Defaults to
+  `"openid email profile"`.
 
 * `accessTokenAcquireMethod` - `get` or `post`, defines the HTTP method used
-to exchange auth code for an access token. Defaults to `post`.
+  to exchange auth code for an access token. Defaults to `post`.
 
 * `clientSecretPassMethod` - `urlencoded` or `inAuthHeader`, defines how the
-Client Id and Secret should be sent to the IdP's access token endpoint. 
-Defaults to `urlencoded`.
+  Client Id and Secret should be sent to the IdP's access token endpoint.
+  Defaults to `urlencoded`.
 
 * `accessTokenPassMethod` - `urlencoded` or `inAuthHeader`, defines how the
-Access Token should be sent to the IdP's userinfo endpoint. 
-Defaults to `urlencoded`.
+  Access Token should be sent to the IdP's userinfo endpoint.
+  Defaults to `urlencoded`.
 
 * `customData` - allows to augment requests to the IdP with arbitrary data,
-appended to the request data (query string or post body) or headers. Can be
-specified for `accessToken` or `userInfo` endpoints.
+  appended to the request data (query string or post body) or headers. Can be
+  specified for `accessToken` or `userInfo` endpoints.
 
 Refer to the IdP's documentation to find out what should be inserted in the
-attributes: `endpoints`, `scope`, `accessTokenAcquireMethod`, 
-`clientSecretPassMethod`, `accessTokenPassMethod`, `customData`. 
+attributes: `endpoints`, `scope`, `accessTokenAcquireMethod`,
+`clientSecretPassMethod`, `accessTokenPassMethod`, `customData`.
 Note that some of them can be configurable on the IdP side too.
-
 
 #### SAML example
 
@@ -738,29 +736,28 @@ Note that some of them can be configurable on the IdP side too.
     ]
 ```
 
-This IdP will inherit all configuration from 
+This IdP will inherit all configuration from
 `samlConfig -> defaultProtocolConfig`, apart from the parameters that are
-overriden here. 
+overriden here.
+
 > Note: to nullify a parameter specified in default config, it must be
-explicitly set to undefined in IdP config - otherwise it will be inherited.
+> explicitly set to undefined in IdP config - otherwise it will be inherited.
 
 Unlike `openid`, SAML IdPs do not have pluginable handlers and hence there is
-no `plugin` or `pluginConfig` section (all config is expressed on the 
+no `plugin` or `pluginConfig` section (all config is expressed on the
 `procotolConfig` level).
-
 
 #### OpenID & SAML similarities
 
-Note that the following sections in `protocolConfig` of `openid` and `saml` 
+Note that the following sections in `protocolConfig` of `openid` and `saml`
 protocols are syntactically and functionally the same:
 
-* `attributeMapping` - [see below](#attribute-mapping)
+* `attributeMapping` - [see below][17]
 
-* `entitlementMapping` - [see below](#entitlement-mapping)
+* `entitlementMapping` - [see below][18]
 
-However, only the `openid` protocol supports 
-[authorityDelegation](#authority-delegation) and [offlineAccess](#offline-access).
-
+However, only the `openid` protocol supports
+[authorityDelegation][15] and [offlineAccess][16].
 
 ### Authority Delegation
 
@@ -768,7 +765,7 @@ Onezone service supports authority delegation using other OpenID connect
 providers. When enabled, it allows users to directly use their access tokens
 (e.g. from GitHub) to authorize operations in Onezone.
 
-In order to enable this feature for specific IdP, an `authorityDelegation` 
+In order to enable this feature for specific IdP, an `authorityDelegation`
 section has to be added to the IdP's protocol config, for instance:
 
 ```Erlang
@@ -783,15 +780,16 @@ authorityDelegation => #{
 ```
 
 In such case, users can directly access the Onezone API using access tokens
-obtained from the IdP by prefixing the access token and placing it in the 
+obtained from the IdP by prefixing the access token and placing it in the
 `X-Auth-Token` or `Authorization: Bearer <token>` header:
+
 ```
 X-Auth-Token: github/e72e16c7e42f292c6912e7710c838347ae178b4a
 Authorization: Bearer github/e72e16c7e42f292c6912e7710c838347ae178b4a
 ```
-where `e72e16c7e42f292c6912e7710c838347ae178b4a` is the actual GitHub access 
-token.
 
+where `e72e16c7e42f292c6912e7710c838347ae178b4a` is the actual GitHub access
+token.
 
 ### Offline access
 
@@ -809,44 +807,45 @@ config, for instance:
 offlineAccess => true,
 ```
 
-> NOTE: Enabling `offlineAccess` will cause Onezone to add the 
-`access_type=offline` parameter to OIDC authorization request. Some IdPs might
-also require adding the `offline_access` scope, in which case you must add it
-manually in the `scope` field of the plugin config. 
+> NOTE: Enabling `offlineAccess` will cause Onezone to add the
+> `access_type=offline` parameter to OIDC authorization request. Some IdPs might
+> also require adding the `offline_access` scope, in which case you must add it
+> manually in the `scope` field of the plugin config.
 
 > NOTE: When combined with enabled authority delegation, it is
-important to consider the security implications. With authority
-delegation, every IdP actively used by a user will have the ability
-to acquire the user's IdP access token. As a result, these IdPs will
-be able to gain full authorization on behalf of the user.
+> important to consider the security implications. With authority
+> delegation, every IdP actively used by a user will have the ability
+> to acquire the user's IdP access token. As a result, these IdPs will
+> be able to gain full authorization on behalf of the user.
 
-IdP access tokens can be acquired using the Onezone 
-[REST API](https://onedata.org/#/home/api/latest/onezone?anchor=operation/acquire_idp_access_token).
-
+IdP access tokens can be acquired using the Onezone
+[REST API][22].
 
 ### Attribute Mapping
 
 Onezone collects information about users from SAML / OpenID, including:
+
 * `subjectId` - user's unique, permanent id assigned by the IdP, mandatory
-(login will fail if mapping cannot be found),
+  (login will fail if mapping cannot be found),
 
 * `fullName` - given names and surname, e.g. "John Doe",
 
-* `username` - a human-readable identifier, unique across the system, 
-e.g. "johndoe13". This makes it easier to identify the user and can be used for 
-signing in with password (if this sign-in method is enabled for given user),
+* `username` - a human-readable identifier, unique across the system,
+  e.g. "johndoe13". This makes it easier to identify the user and can be used for
+  signing in with password (if this sign-in method is enabled for given user),
 
 * `emails` - a list of user's emails,
 
 * `entitlements` - a list of user's entitlements to groups in the IdP, which
-can later be mapped to groups in Onedata using 
-[entitlement mapping](#entitlement-mapping),
+  can later be mapped to groups in Onedata using
+  [entitlement mapping][18],
 
 * `custom` - arbitrary JSON received from the IdP, which can be useful
-during later integration with storage systems ([LUMA](#luma-integration)).
+  during later integration with storage systems ([LUMA][23]).
 
-These attributes constitute a linked account object. It can be expressed in JSON 
+These attributes constitute a linked account object. It can be expressed in JSON
 format:
+
 ```JSON
 {
 	"idp": "elixir",
@@ -861,15 +860,16 @@ format:
 	}
 }
 ```
+
 Attribute mapping is used to map attributes received from Identity Providers
 into linked account objects in Onedata.
-
 
 #### Merging linked accounts into Onedata user
 
 Every user in Onedata can have one or more linked accounts. Upon the first
 login, a new Onedata user is created based on information gathered from the IdP
 that he logged in with:
+
 ```
 userId: md5(<IdP>:<subjectId>)
 fullName: <fullName>        % can be undefined
@@ -877,17 +877,19 @@ username: <username>        % can be undefined
 emails: <emails>
 linkedAccounts: [<linked-acc-json>]
 ```
+
 From now on, `userId` in Onedata will not change (i.e. it is derived from the
 `subjectId` in the first IdP the user has logged in with). `fullName` and
-`username` will also be unchanged by consecutive log-ins, even if the IdP 
-attributes change. `emails` are always a list of emails aggregated from all 
+`username` will also be unchanged by consecutive log-ins, even if the IdP
+attributes change. `emails` are always a list of emails aggregated from all
 linked accounts.
 
 > New accounts can be linked after logging in, in user profile menu. It is not
-possible to link the same account to two different users.
+> possible to link the same account to two different users.
 
-Complete user data, after logging in with the above Elixir account, would look 
+Complete user data, after logging in with the above Elixir account, would look
 like the following:
+
 ```JSON
 {
 	"userId": "fa81af19783e3eea7d7e80c1d89f5370",
@@ -908,8 +910,10 @@ like the following:
     }]
 }
 ```
-Assume that user links another account, e.g. from Indigo, which yield the 
+
+Assume that user links another account, e.g. from Indigo, which yield the
 following linked account object:
+
 ```JSON
 {
     "idp": "indigo",
@@ -923,7 +927,9 @@ following linked account object:
 	}
 }
 ```
+
 After that operation, the complete user data would look like the following:
+
 ```JSON
 {
 	"userId": "fa81af19783e3eea7d7e80c1d89f5370",
@@ -954,17 +960,18 @@ After that operation, the complete user data would look like the following:
     }]
 }
 ```
-This user data constitutes input in [Local User Mapping](#luma-integration) - 
+
+This user data constitutes input in [Local User Mapping][23] -
 when mapping Onedata users into storage users within Oneprovider.
 
-> User data can also be retrieved using the 
-[REST API](/#/home/api/latest/onezone?anchor=operation/get_current_user).
-
+> User data can also be retrieved using the
+> [REST API][24].
 
 #### Attribute mapping rules
 
-Attribute mapping is performed based on the IdP configuration in  `auth.config`. 
+Attribute mapping is performed based on the IdP configuration in  `auth.config`.
 The section looks like the following:
+
 ```Erlang
 attributeMapping => #{
   subjectId => {required, <rule>},
@@ -977,22 +984,24 @@ attributeMapping => #{
 ```
 
 Allowed mappings are:
-* `undefined` - this attribute is not mapped at all, it is equivalent to 
-deleting the attribute mapping completely from the config.
 
-* `{required, <rule>}` - this attribute will be mapped according to `<rule>`, if 
-it's not possible to resolve the attribute the login will fail.
+* `undefined` - this attribute is not mapped at all, it is equivalent to
+  deleting the attribute mapping completely from the config.
 
-* `{optional, <rule>}` - this attribute will be mapped according to `<rule>`, if 
-it's not possible to resolve the attribute the mapped value will be empty 
-(undefined).
+* `{required, <rule>}` - this attribute will be mapped according to `<rule>`, if
+  it's not possible to resolve the attribute the login will fail.
 
-* `{plugin, Module}` - allows to use arbitrary plugin to perform the mapping. 
-`Module:map_attribute(Attr, IdPAttributes)` will be called and should return the 
-resolved attribute value as `{ok, Value}`, or `{error, Reason}` if it could not 
-be found. The IdPAttributes argument is an Erlang map (keys are binaries). The module must be 
-placed in the auth [plugins directory](#auth-plugins). For more info, refer to 
-[attribute mapper](#attribute-mapper). Here is an example:
+* `{optional, <rule>}` - this attribute will be mapped according to `<rule>`, if
+  it's not possible to resolve the attribute the mapped value will be empty
+  (undefined).
+
+* `{plugin, Module}` - allows to use arbitrary plugin to perform the mapping.
+  `Module:map_attribute(Attr, IdPAttributes)` will be called and should return the
+  resolved attribute value as `{ok, Value}`, or `{error, Reason}` if it could not
+  be found. The IdPAttributes argument is an Erlang map (keys are binaries). The module must be
+  placed in the auth [plugins directory][13]. For more info, refer to
+  [attribute mapper][25]. Here is an example:
+
 ```Erlang
 fullName => {plugin, my_attr_mapper}
 % would call my_attr_mapper:map_attribute(fullName, IdPAttributes)
@@ -1001,14 +1010,16 @@ fullName => {plugin, my_attr_mapper}
 `<rule>` can be a complex, nested term built from the following expressions:
 
 * `"attrName"` - name of an attribute. If such key is present in attributes
-received from IdP, the rule is expanded to its value. Here is an example:
+  received from IdP, the rule is expanded to its value. Here is an example:
+
 ```Erlang
 id => {required, "id"}
 emails => {optional, "mail"}
 ```
 
 * `{keyValue, "attrName"}` - similar to the "attrName" rule, but the result
-will contain both the attribute key and value as a JSON object. Here is an example:
+  will contain both the attribute key and value as a JSON object. Here is an example:
+
 ```Erlang
 custom => {optional, {keyValue, "schacHomeOrganization"}}
 % would set user's custom value to
@@ -1018,8 +1029,9 @@ custom => {optional, {keyValue, "schacHomeOrganization"}}
 ```
 
 * `{keyValue, "keyName", <rule>}` - similar to the `{keyValue, "attrName"}`, but
-`<rule>` can expand to any value and the key in result JSON can be specified 
-explicitly. Here is an example:
+  `<rule>` can expand to any value and the key in result JSON can be specified
+  explicitly. Here is an example:
+
 ```Erlang
 custom => {optional, {keyValue, "organization", "schacHomeOrganization"}}
 % would set user's custom value to:
@@ -1027,21 +1039,24 @@ custom => {optional, {keyValue, "organization", "schacHomeOrganization"}}
 ```
 
 * `{str, "literal"}` - the rule will be expanded to the literal string. Here is an example:
+
 ```Erlang
 fullName => {required, {str, "John Doe"}}
 % would make all users have the same fullName; `"John Doe"
 ```
 
 * `{str_list, ["str1", "str2"]}` - the rule will be expanded to a list of
-literal strings. Here is an example:
+  literal strings. Here is an example:
+
 ```Erlang
 entitlements => {required, {str_list, ["group1", "group2, "group3"]}}
 % would make all users have the same three entitlements
 ```
 
-* `{nested, ["key1", "key2", {list, "key3"}]}` - the rule will be expanded to a 
-value nested in a JSON. The special expression `{list, key}` can be used to parse a
-list of JSON objects, where each object has a specific key. Here is an example:
+* `{nested, ["key1", "key2", {list, "key3"}]}` - the rule will be expanded to a
+  value nested in a JSON. The special expression `{list, key}` can be used to parse a
+  list of JSON objects, where each object has a specific key. Here is an example:
+
 ```Erlang
 emails => {nested, ["emails", {list, "email"}]}
 % would parse the following JSON:
@@ -1054,12 +1069,12 @@ emails => {nested, ["emails", {list, "email"}]}
 ```
 
 * `{replace, "regex", "replacement", <rule>}` - this rule replaces matching
-substrings with the specified replacement. `<rule>` can expand to a string or a
-list of strings, in which case the operation will be repeated on each
-string. The replacement operation utilizes Erlang's `re:replace/4` function, so
-the regular expressions and replacements must be constructed according to
-Erlang's regex format, which differs slightly from other formats. Here is an
-example:
+  substrings with the specified replacement. `<rule>` can expand to a string or a
+  list of strings, in which case the operation will be repeated on each
+  string. The replacement operation utilizes Erlang's `re:replace/4` function, so
+  the regular expressions and replacements must be constructed according to
+  Erlang's regex format, which differs slightly from other formats. Here is an
+  example:
 
 ```Erlang
 fullName => {replace, "(.*) (.*) (.*)", "\\1 \\3", "fullName"}
@@ -1068,12 +1083,13 @@ fullName => {replace, "(.*) (.*) (.*)", "\\1 \\3", "fullName"}
 ```
 
 * `{concat, [<ruleA>, <ruleB>, ...]}` - concatenates a list of strings into one
-string, one by one: `((<ruleA> + <ruleB>) + <ruleC>) + <ruleD> ...`. 
-Every `<rule>` must expand to a string or a list of strings. If a single string 
-is concatenated with a list, it is concatenated with every element of the list. 
-If two lists are concatenated, the elements are concatenated in pairs, creating 
-a new list. If any of the lists is shorter, it is padded with empty strings. 
-Examine possible combinations:
+  string, one by one: `((<ruleA> + <ruleB>) + <ruleC>) + <ruleD> ...`.
+  Every `<rule>` must expand to a string or a list of strings. If a single string
+  is concatenated with a list, it is concatenated with every element of the list.
+  If two lists are concatenated, the elements are concatenated in pairs, creating
+  a new list. If any of the lists is shorter, it is padded with empty strings.
+  Examine possible combinations:
+
 ```Erlang
 {concat, []} ->
     undefined
@@ -1090,15 +1106,18 @@ Examine possible combinations:
 {concat, [{str_list, ["a", "b", "c", "d"]}, {str_list, ["1", "2"]}]} -> 
     ["a1", "b2", "c", "d"]
 ```
+
 Example:
+
 ```Erlang
 {entitlements => {concat, [{str, "group:"}, "groups"]}
 % would prefix every user's entitlement with "group:"
 ```
 
 * `{join, "joinWith", <rule>}` - joins a list of strings with given string.
-`<rule>` must expand to a list of strings, or a single string (in which case 
-the join just return the string unchanged). Here is an example:
+  `<rule>` must expand to a list of strings, or a single string (in which case
+  the join just return the string unchanged). Here is an example:
+
 ```Erlang
 {join, " ", "nameTokens"}
 % would parse the following JSON:
@@ -1108,9 +1127,10 @@ the join just return the string unchanged). Here is an example:
 ```
 
 * `{split, "splitWith", <rule>}` - splits a string into a list of strings on
-given "splitWith" string. `<rule>` must expand to a string, or a list of strings 
-in which case the results of splitting every string will be appended in one 
-result list. Here is an example:
+  given "splitWith" string. `<rule>` must expand to a string, or a list of strings
+  in which case the results of splitting every string will be appended in one
+  result list. Here is an example:
+
 ```Erlang
 {entitlements => {optional, {split, ",", "groups"}}
 % would parse the following JSON:
@@ -1123,9 +1143,10 @@ result list. Here is an example:
 ["group1", "group2", "team3", "team4"]
 ```
 
-* `{append, [<ruleA>, <ruleB>, ...]}` - appends lists or JSON objects together. 
-Every `<rule>` must expand to a string, list or JSON. Examine possible 
-combinations:
+* `{append, [<ruleA>, <ruleB>, ...]}` - appends lists or JSON objects together.
+  Every `<rule>` must expand to a string, list or JSON. Examine possible
+  combinations:
+
 ```Erlang
 {append, []} ->
    []
@@ -1138,24 +1159,28 @@ combinations:
 {append, [{keyValue, "groups"}, {keyValue, "teams"}]} ->
    {"groups": [...], "teams": [...]}
 ```
+
 Example:
+
 ```Erlang
 {custom => {append, [{keyValue, "organization"}, "customAttrs"]}
 % provided that "customAttrs" is a nested JSON, would give something like:
 {"organization": "my-org", "cusAttr1": "val1", "cusAttr2": "val2"}
 ```
 
-* `{filter, "regex", <rule>}` - filters a list, leaving only the strings that 
-match given "regex". `<rule>` must expand to a list of strings, or a string, 
-in which case it will be treated as a list with one element. Here is an example:
+* `{filter, "regex", <rule>}` - filters a list, leaving only the strings that
+  match given "regex". `<rule>` must expand to a list of strings, or a string,
+  in which case it will be treated as a list with one element. Here is an example:
+
 ```Erlang
 {emails => {filter, ".*@gmail.com", "emails"}
 % would leave only the emails from gmail.com
 ```
 
 * `{any, [<ruleA>, <ruleB>, ...]}` - tries all rules one by one until any of
-them gives a valid result. In case all of them fail, returns undefined value. 
-Here is an example:
+  them gives a valid result. In case all of them fail, returns undefined value.
+  Here is an example:
+
 ```Erlang
 {fullName => {optional, {any, [{concat, [{str, "John "}, "surName"]}, "userName"]}}
 % would set all users' names to:
@@ -1166,6 +1191,7 @@ Here is an example:
 ```
 
 The following example which use all possible rules:
+
 ```Erlang
 attributeMapping => #{
     subjectId => {required, {replace, "c", "x", "id"}},
@@ -1186,7 +1212,9 @@ attributeMapping => #{
     ]}}
 }
 ```
+
 would parse the following JSON:
+
 ```JSON
 {
 	"id": "abcdef1c2c3c4c",
@@ -1215,7 +1243,9 @@ would parse the following JSON:
 	}
 }
 ```
+
 into the following Onedata user attributes:
+
 ```JSON
 {
 	"idp": "my-idp",
@@ -1239,10 +1269,12 @@ into the following Onedata user attributes:
 ```
 
 #### Attribute mapping inheritance
+
 If attribute mapping is specified in defaultProtocolConfig, it will be inherited
-by all IdPs using that protocol (openid or saml) - just like all other 
-attributes. It is possible to override each key in the IdP config. For example, 
+by all IdPs using that protocol (openid or saml) - just like all other
+attributes. It is possible to override each key in the IdP config. For example,
 the following config (default and IdP specific):
+
 ```Erlang
 defaultProtocolConfig => #{
     attributeMapping => #{
@@ -1265,7 +1297,9 @@ defaultProtocolConfig => #{
     }
 }
 ```
+
 is equivalent to the following config for the given IdP:
+
 ```Erlang
 {my_idp, #{
     protocolConfig => #{
@@ -1284,11 +1318,12 @@ is equivalent to the following config for the given IdP:
 
 Bear in mind that typical attributes received via OpenID and SAML are different.
 They differ depending on the IdP - refer to their documentation to correctly
-build attribute mapping rules. Nevertheless, there is a certain set of 
-universally used attributes. Please examine the following examples that use 
+build attribute mapping rules. Nevertheless, there is a certain set of
+universally used attributes. Please examine the following examples that use
 fairly common attributes:
 
 OpenID attributes example (Indigo IAM)
+
 ```JSON
 {
 	"sub": "12345678-1234-1234-1234-12345678",
@@ -1306,6 +1341,7 @@ OpenID attributes example (Indigo IAM)
 ```
 
 SAML attributes example (Elixir Europe)
+
 ```JSON
 {
 	"eduPersonUniqueId": "1234567890@elixir-europe.org",
@@ -1322,18 +1358,19 @@ SAML attributes example (Elixir Europe)
 	"schacHomeOrganization": "google.com"
 }
 ```
-> Although the SAML attributes are received in SAML assertions in the XML
-format, they are internally normalized to JSON and treated analogically to 
-OpenID attributes during attribute mapping.
 
-SAML specification defines a certain set of attributes that can be served by 
-IdPs. Onezone recognizes the most commonly used ones - see the table below. 
-It presents the attribute type identifiers and their human-readable aliases used 
+> Although the SAML attributes are received in SAML assertions in the XML
+> format, they are internally normalized to JSON and treated analogically to
+> OpenID attributes during attribute mapping.
+
+SAML specification defines a certain set of attributes that can be served by
+IdPs. Onezone recognizes the most commonly used ones - see the table below.
+It presents the attribute type identifiers and their human-readable aliases used
 in Onezone. All received attributes with below identifiers will be translated
-to corresponding aliases - and you must use the aliases in attribute mapping 
+to corresponding aliases - and you must use the aliases in attribute mapping
 rules. Of course, the IdP might send attributes that are not listed in the
-below table, or are completely customary for given organization. Then, in your 
-attribute mapping rules, use the literal type identifiers that appear in the 
+below table, or are completely customary for given organization. Then, in your
+attribute mapping rules, use the literal type identifiers that appear in the
 assertion XML. They might be custom strings, usually starting with `urn:oid:`,
 or URIs (as in above example for Elixir) - refer to the IdP's documentation to
 find out the list of supported attributes.
@@ -1359,6 +1396,7 @@ find out the list of supported attributes.
 | "employeeType"               | urn:oid:2.16.840.1.113730.3.1.4   |
 
 Exemplary attribute mapping using known and custom SAML attributes:
+
 ```Erlang
  attributeMapping => #{
     subjectId => {required, "eduPersonTargetedID"},
@@ -1373,13 +1411,14 @@ Exemplary attribute mapping using known and custom SAML attributes:
  }
 ```
 
-
 ### Entitlement Mapping
+
 Entitlement mapping is used to automatically map users entitlements in an IdP
 to group memberships in Onedata. Entitlements can be understood as the right to
-be a member of a group (or, possibly, a group structure) with certain 
-privileges. The section in `auth.config` concerning the Entitlement Mapping has 
+be a member of a group (or, possibly, a group structure) with certain
+privileges. The section in `auth.config` concerning the Entitlement Mapping has
 the following structure (example):
+
 ```Erlang
  entitlementMapping => #{
      enabled => true,
@@ -1398,30 +1437,30 @@ the following structure (example):
 
 * `enabled` - enable / disable entitlement mapping for given IdP.
 
-* `voGroupName` - if specified, a special VO group will be created and all 
-groups originating from given IdP will be added as members (subgroups) to it.
-Note that if an entitlement overlaps with the `voGroupName`, it will be 
-considered the same as the VO group. See the below table for examples how 
-different entitlements would be mapped assuming that the `voGroupName` is set 
-to `myVO`:
+* `voGroupName` - if specified, a special VO group will be created and all
+  groups originating from given IdP will be added as members (subgroups) to it.
+  Note that if an entitlement overlaps with the `voGroupName`, it will be
+  considered the same as the VO group. See the below table for examples how
+  different entitlements would be mapped assuming that the `voGroupName` is set
+  to `myVO`:
 
-| entitlement            | group structure in Onedata |
-| ---------------------- | -------------------------- |
-| `members`              | `myVO/members`             |
-| `myVO`                 | `myVO`                     |
-| `myVO/members`         | `myVO/members`             |
-| `users/admins`         | `myVO/users/admins`        |
+| entitlement    | group structure in Onedata |
+| -------------- | -------------------------- |
+| `members`      | `myVO/members`             |
+| `myVO`         | `myVO`                     |
+| `myVO/members` | `myVO/members`             |
+| `users/admins` | `myVO/users/admins`        |
 
 * `adminGroup` - (formerly known as Super Group) if specified, it defines an
-Admin Group for the given IdP. The adminGroup should be an existing entitlement,
-formatted in the same way as the output of your entitlement mapping rules (refer
-to the [example below](#entitlement-parsers)). The Admin Group will be granted
-admin privileges to all groups originating from the specified IdP. Consequently,
-all members of the Admin Group will inherit admin privileges for all groups from
-that IdP.  For example, if there is an `"admins"` group in an IdP, and it is
-specified as the adminGroup, users of the original `"admins"` group will be
-mapped to the Onedata `"admins"` group and will automatically acquire admin
-privileges in the groups associated with the IdP.
+  Admin Group for the given IdP. The adminGroup should be an existing entitlement,
+  formatted in the same way as the output of your entitlement mapping rules (refer
+  to the [example below][26]). The Admin Group will be granted
+  admin privileges to all groups originating from the specified IdP. Consequently,
+  all members of the Admin Group will inherit admin privileges for all groups from
+  that IdP.  For example, if there is an `"admins"` group in an IdP, and it is
+  specified as the adminGroup, users of the original `"admins"` group will be
+  mapped to the Onedata `"admins"` group and will automatically acquire admin
+  privileges in the groups associated with the IdP.
 
 * `parser` & `parserConfig` - see below
 
@@ -1431,18 +1470,19 @@ Entitlement parsers are used to convert user entitlements from an IdP to group
 memberships in Onedata. There are two predefined parsers that can handle the
 majority of common use cases:
 
-* `flat_idp_group_parser` - converts every entitlement into a single group membership 
-in Onedata. Each created group has a configured [group type](#group-types) 
-(`groupType`) and the user with the corresponding entitlement is added to the group with 
-a specified set of [privileges](#privileges-in-entitlements) (`userPrivileges`). The 
-name of the group is derived from the entitlement but normalized to comply with allowed 
-chars. If the IdP has a specified `voGroupName`, the group will be added as a 
-subgroup with the designated set of [privileges](#privileges-in-entitlements)
-(`groupPrivilegesInVo`). However, if the `voGroupName` is not specified this parameter has no 
-effect.
+* `flat_idp_group_parser` - converts every entitlement into a single group membership
+  in Onedata. Each created group has a configured [group type][27]
+  (`groupType`) and the user with the corresponding entitlement is added to the group with
+  a specified set of [privileges][28] (`userPrivileges`). The
+  name of the group is derived from the entitlement but normalized to comply with allowed
+  chars. If the IdP has a specified `voGroupName`, the group will be added as a
+  subgroup with the designated set of [privileges][28]
+  (`groupPrivilegesInVo`). However, if the `voGroupName` is not specified this parameter has no
+  effect.
 
 Example:\
 Let's consider the following entitlementMapping config:
+
 ```Erlang
 entitlementMapping => #{
      enabled => true,
@@ -1456,21 +1496,27 @@ entitlementMapping => #{
      }
 }
 ```
+
 Suppose that the following JSON is received from the IdP:
+
 ```JSON
 {
      "groups": ["developers", "admins"],
      ...
 }
 ```
-And the [attribute mapping rules](#attribute-mapping-rules) are:
+
+And the [attribute mapping rules][29] are:
+
 ```Erlang
 attributeMapping => #{
      entitlements => {optional, "groups"},
      ...
 }
 ```
+
 Then, the following group structure would be created after the user logs in:
+
 ```
              my-organization [organization]
                  u     u
@@ -1484,21 +1530,22 @@ Then, the following group structure would be created after the user logs in:
 ```
 
 * `nested_entitlement_parser` - converts every entitlement into a chain of
-nested groups in Onedata by splitting the input using the specified `splitWith` string. The created 
-groups have configured [type](#group-types) (`topGroupType`, `subGroupsType`), 
-based on their position in the structure. The user with the corresponding entitlement is
-added only to the bottom group with the provided set of 
-[privileges](#privileges-in-entitlements) (`userPrivileges`). The names of the 
-groups are derrived from the splitting of the entitlement, but normalized 
-to comply with allowed chars. If the IdP has a specified `voGroupName`, the top group will
-be added as a subgroup to it with the designated set of 
-[privileges](#privileges-in-entitlements) (`topGroupPrivilegesInVo`). All nested 
-groups will have the [type](#group-types) of `subGroupsType` and the set of 
-[privileges](#privileges-in-entitlements) specified in 
-`subGroupsPrivilegesInParent` towards their parent group.
+  nested groups in Onedata by splitting the input using the specified `splitWith` string. The created
+  groups have configured [type][27] (`topGroupType`, `subGroupsType`),
+  based on their position in the structure. The user with the corresponding entitlement is
+  added only to the bottom group with the provided set of
+  [privileges][28] (`userPrivileges`). The names of the
+  groups are derrived from the splitting of the entitlement, but normalized
+  to comply with allowed chars. If the IdP has a specified `voGroupName`, the top group will
+  be added as a subgroup to it with the designated set of
+  [privileges][28] (`topGroupPrivilegesInVo`). All nested
+  groups will have the [type][27] of `subGroupsType` and the set of
+  [privileges][28] specified in
+  `subGroupsPrivilegesInParent` towards their parent group.
 
 Example:\
 Let's consider the following entitlementMapping config:
+
 ```Erlang
 entitlementMapping => #{
      enabled => true,
@@ -1516,7 +1563,9 @@ entitlementMapping => #{
          userPrivileges => manager
      }
 ```
+
 Suppose that the following JSON is received from the IdP:
+
 ```JSON
 {
      "groups": [
@@ -1526,14 +1575,18 @@ Suppose that the following JSON is received from the IdP:
      ...
 }
 ```
-And the [attribute mapping rules](#attribute-mapping-rules) are:
+
+And the [attribute mapping rules][29] are:
+
 ```Erlang
 attributeMapping => #{
      entitlements => {optional, "groups"},
      ...
 }
 ```
+
 Then, the following group structure would be created after the user logs in:
+
 ```
                 all_users [unit]
                  u     u
@@ -1558,30 +1611,31 @@ Note how the adminGroup (`"all_users:admins"`) is added to all groups in the IdP
 with admin privileges. The user will inherit all those privileges and will
 effectively be an admin in all those groups.
 
-
 #### Group types
-There are four group types in Onedata. Their purpose is to facilitate reflecting 
-existing organizational hierarchies. Apart from the visual representation in GUI 
-and intuitive meaning, the group type does not have a functional effect on the 
-system usage. Their interpretation is up to the admins and users, but the 
-recommended usage of the types is:
-* `organization` - represents an organization; institution or virtual
-organization (VO), e.g. "Elixir Europe"
 
-* `unit` - represents a unit in organization, e.g. "R&D department"
+There are four group types in Onedata. Their purpose is to facilitate reflecting
+existing organizational hierarchies. Apart from the visual representation in GUI
+and intuitive meaning, the group type does not have a functional effect on the
+system usage. Their interpretation is up to the admins and users, but the
+recommended usage of the types is:
+
+* `organization` - represents an organization; institution or virtual
+  organization (VO), e.g. "Elixir Europe"
+
+* `unit` - represents a unit in organization, e.g. "R\&D department"
 
 * `team` - represents a collaborating team of users that address a
-specific issue / topic, e.g. "WP5.1"
+  specific issue / topic, e.g. "WP5.1"
 
 * `role_holders` - groups people that posses a certain role, e.g. "Admins"
-(in Onedata, there is no concept of roles - rather than that, users with the 
-same role/privileges should be organized in groups)
-
+  (in Onedata, there is no concept of roles - rather than that, users with the
+  same role/privileges should be organized in groups)
 
 #### Privileges in entitlements
-It is possible to specify privileges of the user towards the bottom group of the 
-nested structure or privileges of the groups in the nested chain towards their 
-parents. 
+
+It is possible to specify privileges of the user towards the bottom group of the
+nested structure or privileges of the groups in the nested chain towards their
+parents.
 
 User privileges in the bottom group are set when the membership is created
 and each time the privileges resulting from the entitlement mapping change.
@@ -1595,14 +1649,15 @@ entitlement mapping changes received from an IdP. Here is an example:
    has "admin" privileges.
 4. User logs in again with "developers:member", which causes his privileges
    to be changed down to "member" - manual changes have been overwritten.
-   
+
 For child groups, the privileges are set only when creating a new
 membership - later changes in the corresponding entitlement will NOT be
 taken into account. The privileges can be changed manually without the risk
 of being overwritten by the entitlement mapping.
 
-There are four possible sets of privileges: `none`, `member`, `manager`, `admin`. 
+There are four possible sets of privileges: `none`, `member`, `manager`, `admin`.
 They expand to a certain set of Onedata group privileges:
+
 * none -> `[]`
 
 * member -> `[group_view]`
@@ -1612,7 +1667,7 @@ They expand to a certain set of Onedata group privileges:
      group_add_parent, group_leave_parent,
      group_add_child, group_remove_child,
      group_add_harvester, group_remove_harvester]`
-     
+
 * admin -> `[group_view, group_view_privileges,
      group_add_user, group_remove_user,
      group_add_parent, group_leave_parent,
@@ -1625,12 +1680,13 @@ They expand to a certain set of Onedata group privileges:
      group_create_handle_service, group_leave_handle_service,
      group_create_handle, group_leave_handle]`
 
-
 #### Custom entitlement parsers (advanced)
-Entitlement parsers are Erlang modules that implement 
-`entitlement_parser_behaviour`. They are used to convert a raw entitlement 
-coming from an IdP into Onedata's internal, unified format, which looks like 
+
+Entitlement parsers are Erlang modules that implement
+`entitlement_parser_behaviour`. They are used to convert a raw entitlement
+coming from an IdP into Onedata's internal, unified format, which looks like
 this:
+
 ```Erlang
 #idp_entitlement{
      idp = myIdP,
@@ -1643,12 +1699,14 @@ this:
      privileges = admin
 }
 ```
+
 Such an entitlement expresses that a chain of nested groups should be created,
 and the user should be added to the bottom group with the specified set of
-[privileges](#privileges-in-entitlements). Each entry in the path denotes the
+[privileges][28]. Each entry in the path denotes the
 type and name of the group in Onedata, as well as the privileges of that group
 in its parent group (if it exists). The provided entitlement would result in the
 following group structure in Onezone:
+
 ```
  my-organization [organization]
      u
@@ -1664,8 +1722,10 @@ following group structure in Onezone:
              |
              <user>
 ```
+
 If an `adminGroup` is specified for myIdP, let's call it `"admins"`, and
 the user has the following entitlements (after the mapping):
+
 ```
 [
      #idp_entitlement{
@@ -1687,7 +1747,9 @@ the user has the following entitlements (after the mapping):
      }
 ]
 ```
+
 Then, the following group structure would be created:
+
 ```
                          my-organization [organization]
                          u   u
@@ -1706,9 +1768,11 @@ Then, the following group structure would be created:
    (manager privs>|                   |
                   '----------------- <user>
 ```
-Furthermore, if `voGroupName` is specified as `"my-vo-group"`, the whole 
-structure is added as children to that VO (organization) group. In such case, 
+
+Furthermore, if `voGroupName` is specified as `"my-vo-group"`, the whole
+structure is added as children to that VO (organization) group. In such case,
 the above entitlements would result in the following group structure:
+
 ```
            my-vo-group [organization]
               u   u
@@ -1732,22 +1796,22 @@ the above entitlements would result in the following group structure:
                            '----------------- <user>
 ```
 
-To implement your own entitlement parser, see 
-[entitlement parser](#entitlement-parser).
-
+To implement your own entitlement parser, see
+[entitlement parser][30].
 
 ## Auth plugins
+
 Auth plugins are user-defined Erlang modules that can be injected into the
-Onezone service and used to customize OIDC / SAML sing-on procedure. All plugins 
-must be Erlang files with `".erl"` extension which are expected to be found in the 
+Onezone service and used to customize OIDC / SAML sing-on procedure. All plugins
+must be Erlang files with `".erl"` extension which are expected to be found in the
 plugins directory `/var/lib/oz_worker/plugins`.
 
-The plugins are loaded upon Onezone startup. When using a deployment with more 
+The plugins are loaded upon Onezone startup. When using a deployment with more
 than one node, the same plugins must be provisioned on all nodes.
 
-> If you wish to implement your own auth plugin, we recommend to contact us 
-(e.g. create an issue on [GitHub](https://github.com/onedata/)) to make the
-process as smooth as possible.
+> If you wish to implement your own auth plugin, we recommend to contact us
+> (e.g. create an issue on [GitHub][31]) to make the
+> process as smooth as possible.
 
 Plugins must conform to predefined API that is specified in Erlang behaviour
 modules. Please refer to the oz-worker source code for the behaviours and
@@ -1759,100 +1823,98 @@ callback - `type/0`, that returns the type of the plugin:
 
 > See the corresponding behaviours for more info.
 > `entitlement_parser` and `attribute_mapper` support validation examples that
-will be evaluated upon startup and the results will be logged in Onezone logs.
-
+> will be evaluated upon startup and the results will be logged in Onezone logs.
 
 ### Attribute mapper
-This auth plugin maps IdP attributes into Onedata attributes. It must implement
-the `onezone_plugin_behaviour` that returns the `attribute_mapper` atom from the 
-`type/0` callback, and the `attribute_mapper_behaviour`. Refer to the
-[oz-worker source code](https://github.com/onedata/oz-worker) for the
-behaviour module and implementation details. An exemplary custom attribute 
-mapper (`custom_attribute_mapper.erl`) can be found in the 
-[plugins directory](#auth-plugins).
 
+This auth plugin maps IdP attributes into Onedata attributes. It must implement
+the `onezone_plugin_behaviour` that returns the `attribute_mapper` atom from the
+`type/0` callback, and the `attribute_mapper_behaviour`. Refer to the
+[oz-worker source code][32] for the
+behaviour module and implementation details. An exemplary custom attribute
+mapper (`custom_attribute_mapper.erl`) can be found in the
+[plugins directory][13].
 
 ### Entitlement parser
-This auth plugin maps IdP entitlements into Onedata entitlements 
-(group memberships). It must implement the `onezone_plugin_behaviour` that returns 
-the `entitlement_parser` atom from the `type/0` callback, and the 
-`entitlement_parser_behaviour`. Refer to the
-[oz-worker source code](https://github.com/onedata/oz-worker) for the
-behaviour module and implementation details. An exemplary custom entitlement 
-parser that supports EGI group format (`custom_entitlement_parser.erl`) can be 
-found in the [plugins directory](#auth-plugins).
 
+This auth plugin maps IdP entitlements into Onedata entitlements
+(group memberships). It must implement the `onezone_plugin_behaviour` that returns
+the `entitlement_parser` atom from the `type/0` callback, and the
+`entitlement_parser_behaviour`. Refer to the
+[oz-worker source code][32] for the
+behaviour module and implementation details. An exemplary custom entitlement
+parser that supports EGI group format (`custom_entitlement_parser.erl`) can be
+found in the [plugins directory][13].
 
 ### OpenID plugin
-This auth plugin handles the Open ID login process. It must implement the 
-`onezone_plugin_behaviour` that returns the `openid_plugin` atom from the `type/0` 
-callback, and the `openid_plugin_behaviour`. Refer to the
-[oz-worker source code](https://github.com/onedata/oz-worker) for the
-behaviour module and implementation details. 
 
+This auth plugin handles the Open ID login process. It must implement the
+`onezone_plugin_behaviour` that returns the `openid_plugin` atom from the `type/0`
+callback, and the `openid_plugin_behaviour`. Refer to the
+[oz-worker source code][32] for the
+behaviour module and implementation details.
 
 ## Troubleshooting
 
-If any of the features is not working as expected, please go through this 
+If any of the features is not working as expected, please go through this
 checklist that might help identify the problem:
 
 * Make sure that you have correctly placed or overwritten the `auth.config` file. Go
-to the Onezone node and examine `/etc/oz_worker/auth.config`. Especially in
-docker-based deployments, it is possible that changes made to the file on your
-host may not be reflected in the container.
+  to the Onezone node and examine `/etc/oz_worker/auth.config`. Especially in
+  docker-based deployments, it is possible that changes made to the file on your
+  host may not be reflected in the container.
 
-* Wait for the `auth.config` to be reloaded - the config is cached for 60 
-seconds, and any changes you introduce might take up to this time to be visible.
+* Wait for the `auth.config` to be reloaded - the config is cached for 60
+  seconds, and any changes you introduce might take up to this time to be visible.
 
 * If any error occurs during the login process, see what page you are currently
-on:
-    * **The IdP page** - either your `auth.config` has errors (the error on the 
-    IdP page should indicate the reason), or the problem is on the IdP side. In 
+  on:
+  * **The IdP page** - either your `auth.config` has errors (the error on the
+    IdP page should indicate the reason), or the problem is on the IdP side. In
     any case, try contacting the administrators, who can examine their logs and
     give you hints on the reason.
 
-    * **The Onezone GUI** - see the image below. The error page will contain 
-    basic information about the error. If that is not enough to identify the 
-    problem, copy the request state identifier from the error page and check the 
-    logs - see the next point.
-    
-    <img style="display:block;margin:0 auto;"
+  * **The Onezone GUI** - see the image below. The error page will contain
+    basic information about the error. If that is not enough to identify the
+    problem, copy the request state identifier from the error page and check the
+    logs - see the next point. <img style="display:block;margin:0 auto;"
     src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page-error.png#screenshot">
     <!-- FIXME - replace with actual one -->
 
-* Check [Onezone logs](../onezone_tutorial.md#logs) for any hints what might 
-have gone wrong:
-    * Errors in `auth.config` are logged on the `alert` loglevel, they should 
+* Check [Onezone logs][] for any hints what might
+  have gone wrong:
+  * Errors in `auth.config` are logged on the `alert` loglevel, they should
     give clear information on how to fix the config.
-    
-    * Erroneous requests are logged on different loglevels, depending on the 
-    error severity. They always include the request state identifier (see the 
+
+  * Erroneous requests are logged on different loglevels, depending on the
+    error severity. They always include the request state identifier (see the
     image above), so they are easy to look up.
-    
-    * Some of the errors with low severity are logged on the `debug` loglevel, 
-    which is disabled by default. If needed, you can 
-    [turn on the `debug` logs](../onezone_tutorial.md#enabling-debug-logs) 
-    (keep in mind that they have negative impact on the system performance). 
-    After doing so, go through the login process again and take the request 
-    state identifier. You will get detailed logs from the whole login process - 
-    look them up using the state identifier. Remember to turn off the debug logs 
+
+  * Some of the errors with low severity are logged on the `debug` loglevel,
+    which is disabled by default. If needed, you can
+    turn on the `debug` logs <!-- FIXME: add a link to "turn on debug logs" -->
+    (keep in mind that they have negative impact on the system performance).
+    After doing so, go through the login process again and take the request
+    state identifier. You will get detailed logs from the whole login process -
+    look them up using the state identifier. Remember to turn off the debug logs
     when you are finished.
 
-
 ## LUMA Integration
-The attributes and entitlements collected from IdPs can be very useful for 
-mapping storage users to Onedata users - see 
-[Local User MApping (LUMA)](../luma.md). 
+
+The attributes and entitlements collected from IdPs can be very useful for
+mapping storage users to Onedata users - see
+[Local User MApping (LUMA)][].
 When a provider requests LUMA to resolve storage credentials such as uid and
 gid, it includes the attributes collected from IdPs. These attributes can be
 utilized to differentiate and identify the storage users effectively.
 
 ## Custom icon guidelines
 
-To use your custom icon on the login page, place it on the Onezone host under the 
-path `/var/www/html/oz_worker/custom/<path>` and reference it in the config like 
-this: `iconPath => "/custom/<path>"`. If you are using docker-compose, simply 
-mount your icon by adding a volume, for example: 
+To use your custom icon on the login page, place it on the Onezone host under the
+path `/var/www/html/oz_worker/custom/<path>` and reference it in the config like
+this: `iconPath => "/custom/<path>"`. If you are using docker-compose, simply
+mount your icon by adding a volume, for example:
+
 ```
 # docker-compose.yaml
 
@@ -1869,64 +1931,66 @@ mount your icon by adding a volume, for example:
     ...
 ```
 
-> NOTE: The path has changed from `/var/www/html/custom/oz_worker/<path>` 
-compared to previous config version.
+> NOTE: The path has changed from `/var/www/html/custom/oz_worker/<path>`
+> compared to previous config version.
 
 Please follow the guidelines below for the best visual effects:
+
 * The preferred image format is vector graphics in SVG.
 * Avoid raster (bitmap) graphics embedded in an SVG - some browsers
-(e.g. Firefox) do not handle them well.
-* If you don't have an SVG version, PNG with transparency is preferred over JPG. 
+  (e.g. Firefox) do not handle them well.
+* If you don't have an SVG version, PNG with transparency is preferred over JPG.
 * It's best if your icon is placed on a square canvas (see the image below).
 * The canvas should be transparent, in such case `iconBackground` color will be
-visible underneath. You can use a custom background, but make sure you fill the
-whole canvas with it and make it a perfect square, otherwise the background 
-color might show through.
+  visible underneath. You can use a custom background, but make sure you fill the
+  whole canvas with it and make it a perfect square, otherwise the background
+  color might show through.
 * In case of a bitmap image (PNG, JPG), the canvas size should be 50x50 pixels,
-or any multiple of it. Consider the size of 200x200 pixels for good quality on 
-retina displays.
-* The icon canvas takes up the whole space on the login button. It means that 
-there are no automatic margins - you should introduce the desired margins on 
-the canvas (see the image below).
+  or any multiple of it. Consider the size of 200x200 pixels for good quality on
+  retina displays.
+* The icon canvas takes up the whole space on the login button. It means that
+  there are no automatic margins - you should introduce the desired margins on
+  the canvas (see the image below).
 * Make sure to center you icon on the image canvas (unless, of course, you want
-it to be asymmetric).
+  it to be asymmetric).
 
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/custom-icon.png#screenshot">
-<!-- FIXME - replace with actual one -->
 
+<!-- FIXME - replace with actual one -->
 
 ## Test login page
 
-It is possible to test your `auth.config` using the 
+It is possible to test your `auth.config` using the
 test login page without interrupting the Onezone service. It also serves as a
 way to diagnose problems during integration with IdPs, including attribute or
-entitlement mapping. To use the test login page, place your `auth.config` on the 
+entitlement mapping. To use the test login page, place your `auth.config` on the
 Onezone host under the path `/etc/oz_worker/test.auth.config`. The test config
-coexists with the production `/etc/oz_worker/auth.config` with no interference. 
-It is not cached at all, so that you can introduce changes while the Onezone 
-service is online and verify the results immediately. To go through the test 
-login process, go to `https://onezone.example.com/#/test/login`. You will see 
-the IdPs that are specified in your `test.auth.config` and an indication that 
-this is a test login page (see the first image below). By choosing one of the 
-IdPs, you will go through a simulation of the login process and receive a 
-summary at the end (see the second image below). While it uses the standard flow 
-in the IdP, on the Onezone side no users or groups (resulting from entitlements) 
-are created in the process. The summary expresses what information would be 
-gathered if it were a production login flow, and includes detailed logs from the 
-whole login process. 
+coexists with the production `/etc/oz_worker/auth.config` with no interference.
+It is not cached at all, so that you can introduce changes while the Onezone
+service is online and verify the results immediately. To go through the test
+login process, go to `https://onezone.example.com/#/test/login`. You will see
+the IdPs that are specified in your `test.auth.config` and an indication that
+this is a test login page (see the first image below). By choosing one of the
+IdPs, you will go through a simulation of the login process and receive a
+summary at the end (see the second image below). While it uses the standard flow
+in the IdP, on the Onezone side no users or groups (resulting from entitlements)
+are created in the process. The summary expresses what information would be
+gathered if it were a production login flow, and includes detailed logs from the
+whole login process.
 
 > The SAML SP metadata XML based on `test.auth.config` can be viewed under the
-following URL: `https://onezone.example.com/saml/sp.xml?test=true`
+> following URL: `https://onezone.example.com/saml/sp.xml?test=true`
 
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/test-login-page.png#screenshot">
+
 <!-- FIXME - replace with actual one -->
 
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/test-login-output.png#screenshot">
-<!-- FIXME - replace with actual one -->
 
+<!-- FIXME - replace with actual one -->
 
 ## Complete example
 
@@ -2269,7 +2333,7 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
 
 ## Minimal config
 
-Minimal config that enables only basic auth (username & password login) - 
+Minimal config that enables only basic auth (username & password login) -
 included by default in Onezone installation.
 
 ```Erlang
@@ -2299,15 +2363,14 @@ included by default in Onezone installation.
 }.
 ```
 
-
 ## Exemplary entries for selected IdPs
 
 Below are some working config examples that use predefined icons, to be placed
-in the `supportedIdps` section of the config. In case of OpenID IdPs, it is 
+in the `supportedIdps` section of the config. In case of OpenID IdPs, it is
 required to insert the Client Id and Secret in the config.
 
-
 ### username & password login
+
 ```Erlang
 {basicAuth, #{
     displayName => "username & password",
@@ -2317,8 +2380,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### KeyCloak config (OpenID Connect)
+
 ```Erlang
 {keycloakIdP, #{
     displayName => "RHEA KeyCloak",
@@ -2375,8 +2438,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### Google+ config (OpenID Connect)
+
 ```Erlang
 {google, #{
     displayName => "Google",
@@ -2422,8 +2485,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### Facebook config (OpenID Connect)
+
 ```Erlang
 {facebook, #{
     displayName => "Facebook",
@@ -2473,8 +2536,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### GitHub config (OpenID Connect)
+
 ```Erlang
 {github, #{
     displayName => "Github",
@@ -2527,8 +2590,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### Indigo config (OpenID Connect)
+
 ```Erlang
 {indigo, #{
     displayName => "Indigo",
@@ -2584,8 +2647,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### EGI config (OpenID Connect)
+
 ```Erlang
 {egi, #{
     displayName => "EGI",
@@ -2632,8 +2695,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### PLGrid config (OpenID 2.0)
+
 ```Erlang
 {plgrid, #{
      displayName => "PLGrid OpenID",
@@ -2672,8 +2735,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### CERN config (SAML)
+
 ```Erlang
 {cern, #{
     displayName => <<"CERN (eduGAIN)">>,
@@ -2706,8 +2769,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### CNRS config (SAML)
+
 ```Erlang
 {cnrs, #{
     displayName => <<"CNRS (eduGAIN)">>,
@@ -2740,8 +2803,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### DESY config (SAML)
+
 ```Erlang
 {desy, #{
     displayName => <<"DESY (eduGAIN)">>,
@@ -2774,8 +2837,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### Elixir config (SAML)
+
 ```Erlang
 {elixir, #{
     displayName => <<"Elixir">>,
@@ -2808,8 +2871,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### EMBL config (SAML)
+
 ```Erlang
 {embl, #{
     displayName => <<"EMBL (eduGAIN)">>,
@@ -2842,8 +2905,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### ESRF config (SAML)
+
 ```Erlang
 {esrf, #{
     displayName => <<"ESRF (eduGAIN)">>,
@@ -2876,8 +2939,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### IFAE config (SAML)
+
 ```Erlang
 {ifae, #{
     displayName => <<"IFAE (eduGAIN)">>,
@@ -2910,8 +2973,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### INFN config (SAML)
+
 ```Erlang
 {infn, #{
     displayName => <<"INFN (eduGAIN)">>,
@@ -2944,8 +3007,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### KIT config (SAML)
+
 ```Erlang
 {kit, #{
     displayName => <<"KIT (eduGAIN)">>,
@@ -2978,8 +3041,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### STFC config (SAML)
+
 ```Erlang
 {stfc, #{
     displayName => <<"STFC (eduGAIN)">>,
@@ -3012,8 +3075,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### SurfSara config (SAML)
+
 ```Erlang
 {surfsara, #{
     displayName => <<"SURFSara (eduGAIN)">>,
@@ -3046,8 +3109,8 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
-
 ### UnitedID config (SAML)
+
 ```Erlang
 {unitedid, #{
     displayName => <<"UnitedID">>,
@@ -3080,3 +3143,66 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
+<!-- references -->
+
+[1]: #minimal-config
+
+[2]: ./google_idp_tutorial.md
+
+[Onezone logs]: ../maintenance.md#troubleshooting
+
+[4]: #supported-idps
+
+[5]: #openid-example
+
+[6]: #the-login-page
+
+[8]: #test-login-page
+
+[9]: https://www.switch.ch/aai/support/certificates/embeddedcerts-requirements-appendix-a/
+
+[10]: #saml-config
+
+[11]: #complete-example
+
+[13]: #auth-plugins
+
+[14]: #plgrid-config-openid-20
+
+[15]: #authority-delegation
+
+[16]: #offline-access
+
+[17]: #attribute-mapping
+
+[18]: #entitlement-mapping
+
+[19]: #basicauth-example
+
+[20]: https://github.com/onedata/onezone-gui/tree/develop/src/public/assets/images/auth-providers
+
+[21]: #custom-icon-guidelines
+
+[22]: https://onedata.org/#/home/api/latest/onezone?anchor=operation/acquire_idp_access_token
+
+[23]: #luma-integration
+
+[24]: /#/home/api/latest/onezone?anchor=operation/get_current_user
+
+[25]: #attribute-mapper
+
+[26]: #entitlement-parsers
+
+[27]: #group-types
+
+[28]: #privileges-in-entitlements
+
+[29]: #attribute-mapping-rules
+
+[30]: #entitlement-parser
+
+[31]: https://github.com/onedata/
+
+[32]: https://github.com/onedata/oz-worker
+
+[Local User MApping (LUMA)]: ../../oneprovider/configuration/luma.md

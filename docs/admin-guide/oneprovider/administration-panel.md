@@ -1,10 +1,12 @@
 # Administration panel
 
+[toc][]
+
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
+This section is still a work-in-progress and may have errors or missing information.
 
-[toc][1]
+## Overview
 
 The administration panel — in the form of the Onepanel service — is responsible
 for a range of functionalities related to managing the Oneprovider service
@@ -82,6 +84,10 @@ Members settings do not apply to the emergency interface. Signing in
 using the emergency passphrase always grants full management rights to the
 cluster.
 :::
+
+<!-- references -->
+
+[toc]: <>
 
 [REST API]: ./configuration/rest-api.md
 
