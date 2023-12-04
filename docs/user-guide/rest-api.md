@@ -7,15 +7,16 @@ This chapter contains basics about Onedata REST API usage.
 There are essentially three types of services in Onedata that make up its [architecture][1].
 Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger):
 
-* Onezone — API for managing high level objects such as users, groups, spaces etc. —
+* Onezone — API for managing high-level objects such as users, groups, spaces etc. —
   [REST API][2].
 
 * Oneprovider — API for data management — [REST API][3],
-  complemented by [CDMI API][4] (recommended only for advanced use-cases
-  that explicitly require the CDMI protocol, due to its worse efficiency)
+  complemented by [CDMI API][4] (recommended only for advanced use cases
+  that explicitly require the CDMI protocol, due to its worse efficiency).
 
 * Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
-  [REST API][5].
+  [REST API][5]. You can read more about its usage in chapters
+  [Onezone admin REST API][] and [Oneprovider admin REST API][].
 
 ## Endpoints
 
@@ -25,7 +26,7 @@ Assume the following domains in the environment:
 * Onezone: `onezone.plgrid.pl`
 * Oneprovider: `oneprovider.cyfronet.pl`
 
-In such case, the APIs are available under the following endpoints:
+In such cases, the APIs are available under the following endpoints:
 
 | Service                         | API endpoint                                                                                                                          |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +55,7 @@ ID. You can find it with the following REST query:
 
 ```bash
 curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
-     
+
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
 
@@ -69,6 +70,10 @@ curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .prov
 [4]: cdmi.md
 
 [5]: https://onedata.org/#/home/api/stable/onepanel
+
+[Onezone admin REST API]: ../admin-guide/onezone/configuration/rest-api.md
+
+[Oneprovider admin REST API]: ../admin-guide/oneprovider/configuration/rest-api.md
 
 [6]: data.md#oneprovider-domain
 
