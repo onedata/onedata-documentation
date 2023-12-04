@@ -185,7 +185,7 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [2]: #space-members
 
-[3]: ../admin-guide/oneprovider/configuration/storages.md
+[3]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [4]: ../intro.md#architecture
 
