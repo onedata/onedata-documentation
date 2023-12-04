@@ -2,6 +2,8 @@
 title: 'Introduction'
 ---
 
+# ![image-heading][]
+
 # 🚧 Under construction! 🚧
 
 This documentation is a work-in-progress and may have errors or missing information.
@@ -23,7 +25,7 @@ INTRODUCTION  (landing page)
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
 
-# ![image-heading][] Documentation
+# Documentation
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
