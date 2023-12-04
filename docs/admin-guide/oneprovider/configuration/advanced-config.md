@@ -94,6 +94,8 @@ to consult the official documentation or seek assistance from a qualified
 administrator.
 :::
 
+<!-- references -->
+
 [1]: https://github.com/onedata/op-worker/blob/develop/rel/files/app.config
 
 [2]: https://github.com/onedata/onepanel/blob/develop/rel/files/app.config.template
