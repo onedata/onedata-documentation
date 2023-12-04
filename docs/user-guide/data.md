@@ -215,6 +215,7 @@ stopped.
 An ACE consists of four fields:
 
 * `who` — the principal whom the ACE affects:
+
   * user or group represented by their identifier
 
   <!---->

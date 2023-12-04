@@ -4,8 +4,7 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
-
+This section is still a work-in-progress and may have errors or missing information.
 
 ## Overview
 
@@ -34,11 +33,11 @@ There are three types of data transfers supported:
 
 You can initiate data transfer using [Data distribution][1]
 modal:
-![image][2]
+![screen-initiate-transfer][]
 
 For each space, under **Data > *Space name* > Transfers** view, a dedicated
 transfer management page is available:
-![image][3]
+![screen-transfer-page][]
 
 > **NOTE:** The presented view is specific to the current provider, meaning it
 > provides information available to that particular provider. Due to possible
@@ -51,13 +50,13 @@ This view consists of three main elements:
    with intuitive visual cues. Each line represents an ongoing transfer, with
    the transferring provider indicated by an exploding circle (outgoing data)
    and the receiving provider represented by an imploding circle (incoming data).
-   ![image][4]
+   ![screen-ongoing-transfers-map][]
 
 2. `ONEPROVIDERS THROUGHPUT` - this section presents inbound and outbound
    throughput, providing a summary of data transfers incoming to and outgoing
    from each provider. The measurements can be viewed either individually per
    provider or combined on a single chart.
-   ![image][5]
+   ![screen-oneprovider-throughput][]
 
    Available time series:
 
@@ -79,7 +78,7 @@ This view consists of three main elements:
    * cancel transfer if it is still ongoing
    * rerun transfer if it has already ended (this initiates a new transfer with
      the same parameters as the original one)
-     ![image][6]
+     ![screen-transfers-history][]
 
 ## REST API
 
@@ -126,17 +125,21 @@ function (id, type, meta, ctx) {
 > **NOTE:** Currently, scheduling operations on replicas works only for files.
 > Directory Ids are ignored in the results.
 
+<!-- references -->
+
+[toc]: <>
+
 [1]: data.md#file-distribution
 
-[2]: ../../images/user-guide/data-transfer/initiate-transfer.png#screenshot
+[screen-initiate-transfer]: ../../images/user-guide/data-transfer/initiate-transfer.png
 
-[3]: ../../images/user-guide/data-transfer/transfer-page.png#screenshot
+[screen-transfer-page]: ../../images/user-guide/data-transfer/transfer-page.png
 
-[4]: ../../images/user-guide/data-transfer/ongoing-transfers-map.png#screenshot
+[screen-ongoing-transfers-map]: ../../images/user-guide/data-transfer/ongoing-transfers-map.png
 
-[5]: ../../images/user-guide/data-transfer/oneprovider-throughput.png#screenshot
+[screen-oneprovider-throughput]: ../../images/user-guide/data-transfer/oneprovider-throughput.png
 
-[6]: ../../images/user-guide/data-transfer/transfers-history.png#screenshot
+[screen-transfers-history]: ../../images/user-guide/data-transfer/transfers-history.png
 
 [7]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_all_transfers
 

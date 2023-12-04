@@ -41,7 +41,7 @@ During the first startup after upgrading Onezone to a newer version, Onezone wil
 attempt to automatically upgrade the config file to the latest version.
 In such case, the old config file (`auth.config`) will be backed up to
 `auth.config.v{vsn}.bak`. Information whether the upgrade was successful will be
-present in [Onezone logs][3]. Always examine the
+present in [Onezone logs][]. Always examine the
 upgraded `auth.config` file to make sure that it was correctly converted.
 
 ## Prerequisites
@@ -88,7 +88,7 @@ https://onezone.example.com/validate_login
 
 8. You should see your IdP on the [login page][6], verify that it
    works correctly by clicking on its icon to go through the login process. In case
-   of any errors, examine [Onezone logs][7].
+   of any errors, examine [Onezone logs][].
 
 9. At any time, you can use the [test login page][8] to test your
    auth.config without interrupting the Onezone service.
@@ -115,7 +115,7 @@ https://onezone.example.com/validate_login
 
 6. Visit `https://onezone.example.com/saml/sp.xml` and verify that the advertised
    metadata is correct. In case of any errors, examine
-   [Onezone logs][7].
+   [Onezone logs][].
 
 7. Visit the official website of the Identity Provider or organization (e.g. eduGAIN)
    you want to integrate with. Explore their resources to find the specific process
@@ -137,7 +137,7 @@ https://onezone.example.com/validate_login
 
 11. You should see your IdP on the [login page][6], verify that it
     works correctly by clicking on its icon to go through the login process. In case
-    of any errors, examine [Onezone logs][7].
+    of any errors, examine [Onezone logs][].
 
 12. At any time, you can use the [test login page][8] to test your
     auth.config without interrupting the Onezone service.
@@ -215,7 +215,7 @@ possibility to authorize Onezone REST API operations using basic credentials.
 > and present on the list of supported IdPs ([see below][4]).
 
 > Default "admin" user is always created during installation process. Additional
-> users can be created [using the API][12].
+> users can be created using the API. <!-- FIXME: link to crete user using API -->
 
 ### OpenID config
 
@@ -1877,12 +1877,11 @@ checklist that might help identify the problem:
   * **The Onezone GUI** - see the image below. The error page will contain
     basic information about the error. If that is not enough to identify the
     problem, copy the request state identifier from the error page and check the
-    logs - see the next point.
-  <img style="display:block;margin:0 auto;"
-  src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page-error.png#screenshot">
+    logs - see the next point. <img style="display:block;margin:0 auto;"
+    src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page-error.png#screenshot">
     <!-- FIXME - replace with actual one -->
 
-* Check [Onezone logs][7] for any hints what might
+* Check [Onezone logs][] for any hints what might
   have gone wrong:
   * Errors in `auth.config` are logged on the `alert` loglevel, they should
     give clear information on how to fix the config.
@@ -1893,7 +1892,7 @@ checklist that might help identify the problem:
 
   * Some of the errors with low severity are logged on the `debug` loglevel,
     which is disabled by default. If needed, you can
-    [turn on the `debug` logs][33]
+    turn on the `debug` logs <!-- FIXME: add a link to "turn on debug logs" -->
     (keep in mind that they have negative impact on the system performance).
     After doing so, go through the login process again and take the request
     state identifier. You will get detailed logs from the whole login process -
@@ -1904,7 +1903,7 @@ checklist that might help identify the problem:
 
 The attributes and entitlements collected from IdPs can be very useful for
 mapping storage users to Onedata users - see
-[Local User MApping (LUMA)][34].
+[Local User MApping (LUMA)][].
 When a provider requests LUMA to resolve storage credentials such as uid and
 gid, it includes the attributes collected from IdPs. These attributes can be
 utilized to differentiate and identify the storage users effectively.
@@ -3144,19 +3143,19 @@ required to insert the Client Id and Secret in the config.
 }}
 ```
 
+<!-- references -->
+
 [1]: #minimal-config
 
 [2]: ./google_idp_tutorial.md
 
-[3]: ./onezone_tutorial.md#logs
+[Onezone logs]: ../maintenance.md#troubleshooting
 
 [4]: #supported-idps
 
 [5]: #openid-example
 
 [6]: #the-login-page
-
-[7]: ../onezone_tutorial.md#logs
 
 [8]: #test-login-page
 
@@ -3165,8 +3164,6 @@ required to insert the Client Id and Secret in the config.
 [10]: #saml-config
 
 [11]: #complete-example
-
-[12]: ../creating_user_accounts.md
 
 [13]: #auth-plugins
 
@@ -3208,6 +3205,4 @@ required to insert the Client Id and Secret in the config.
 
 [32]: https://github.com/onedata/oz-worker
 
-[33]: ../onezone_tutorial.md#enabling-debug-logs
-
-[34]: ../luma.md
+[Local User MApping (LUMA)]: ../../oneprovider/configuration/luma.md

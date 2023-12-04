@@ -142,7 +142,7 @@ sudo systemctl start oneprovider
 
 ### 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/oneprovider_tutorial[upgrading].html).
+This section is coming soon. For now, see the counterpart in the [legacy docs][7].
 
 ## Troubleshooting
 
@@ -159,3 +159,5 @@ This section is coming soon. For now, see the counterpart in the [legacy docs](h
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
+
+[7]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/oneprovider_tutorial[upgrading].html

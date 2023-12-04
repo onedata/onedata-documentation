@@ -2,7 +2,7 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
+This section is still a work-in-progress and may have errors or missing information.
 
 [toc][1]
 

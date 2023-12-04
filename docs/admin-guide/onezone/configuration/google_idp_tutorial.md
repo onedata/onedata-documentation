@@ -4,7 +4,7 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is still a work-in-progress and may have errors or missing information.  
+This section is still a work-in-progress and may have errors or missing information.
 
 ## Prerequisites
 
@@ -72,6 +72,8 @@ API-->oauth consent screen->external->create->fill(application name, logo, email
 ```
 $ sudo systemctl restart onezone
 ```
+
+<!-- references -->
 
 [toc]: <>
 
