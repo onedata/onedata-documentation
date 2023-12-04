@@ -25,9 +25,15 @@ Learn more [here][5].
 
 ## Cluster
 
+### 🚧 Under construction! 🚧
+
 ## Cluster manager
 
+### 🚧 Under construction! 🚧
+
 ## Couchbase
+
+### 🚧 Under construction! 🚧
 
 ## Data Discovery
 
@@ -68,9 +74,15 @@ Learn more [here][15].
 
 ## Group
 
+### 🚧 Under construction! 🚧
+
 ## Handle
 
+### 🚧 Under construction! 🚧
+
 ## Handle service
+
+### 🚧 Under construction! 🚧
 
 ## Harvester
 
@@ -86,6 +98,8 @@ Enables [*Storage import*][19] when used to support a space.
 Learn more [here][20].
 
 ## Let’s Encrypt
+
+### 🚧 Under construction! 🚧
 
 ## LUMA
 
@@ -115,15 +129,21 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
 
+### 🚧 Under construction! 🚧
+
 <!-- TODO: VFS-7218 piece of software that is installed at a data provider site -->
 
 ## Onezone
+
+### 🚧 Under construction! 🚧
 
 ## Provider
 
 <!-- TODO: VFS-7218 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
+
+### 🚧 Under construction! 🚧
 
 ## Space
 

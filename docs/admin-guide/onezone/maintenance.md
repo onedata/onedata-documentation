@@ -2,6 +2,10 @@
 
 ## Startup & shutdown
 
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[running].html).
+
 <!-- TODO VFS-7218 restart too -->
 
 <!-- TODO VFS-9376 find a way to reuse templates for repetitive chapters and use it here -->
@@ -140,7 +144,15 @@ sudo systemctl start onezone
 
 ## Upgrading
 
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[upgrading].html).
+
 ## Troubleshooting
+
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs](https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[monitoring].html).
 
 <!-- references -->
 
