@@ -589,7 +589,7 @@ After the deployment is complete, the following message will be shown, with conn
 
 [22]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
 
-[23]: ../../../images/admin-guide/oneprovider/installation/configuration/space-supports
+[23]: configuration/space-support.md
 
 [24]: ../../../images/admin-guide/oneprovider/installation/onedatify_create_space.png
 
