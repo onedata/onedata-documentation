@@ -130,7 +130,7 @@ as well as configure it. The view consists of:
 * a **Public share link** to access the Share by anonymous users,
 * a **Description** tab that allows creating an information page describing the Share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
-* a **Publish as Open Data** tab, which allows publishing the dataset as Open Data.
+* a **Publish as Open Data** tab, which allows [publishing the dataset as Open Data][].
 
 ![screen-share-root-view][]
 
@@ -172,8 +172,6 @@ link found in the **Path** section of the Share management view.
 ![screen-share-files][]
 
 <!-- ### Open Data -->
-
-<!-- TODO: VFS-10906 Open Data documentation -->
 
 ### REST Share information
 
@@ -225,6 +223,8 @@ documentation.
 [web-file-browser-permissions]: ./web-file-browser.md#permissions
 
 [Share creation modal]: #sharing-a-file-or-directory
+
+[publishing the dataset as Open Data]: ./open-data.md
 
 [public Share view file browser]: #public-share-access
 
