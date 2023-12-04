@@ -1,5 +1,11 @@
 # Administration panel
 
+## 🚧 Under construction! 🚧
+
+This section is still a work-in-progress and may have errors or missing information.  
+
+[toc][1]
+
 The administration panel — in the form of the Onepanel service — is responsible
 for a range of functionalities related to managing the Oneprovider service
 cluster. Examples of tasks performed by Onepanel include:

@@ -1,5 +1,9 @@
 # Quality of Service
 
+## 🚧 Under construction! 🚧
+
+This section is still a work-in-progress and may have errors or missing information.  
+
 [toc][1]
 
 Quality of Service (QoS) is used to manage file [replica distribution][] and redundancy

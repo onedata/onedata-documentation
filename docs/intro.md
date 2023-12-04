@@ -2,6 +2,15 @@
 title: 'Introduction'
 ---
 
+# 🚧 Under construction! 🚧
+
+This documentation is a work-in-progress and may have errors or missing information.
+
+Here are the [current official docs](https://onedata.org/#/home/documentation), 
+though some sections may be a bit outdated.   
+
+Begging your patience as we finalize the transition.
+
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
     - a couple of words about Onedata
@@ -108,12 +117,12 @@ Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][C
 
 ## Architecture
 
+### 🚧 Under construction! 🚧
+
 <!-- TODO VFS-6805: description of architecture: Onezones, Oneproviders, Onepanels, glossary -->
 
 <!-- TODO VFS-6805: describe the concept of Oneprovider being a service deployed in a data provider institution 
                     and offering storage space for users -->
-
-architecture
 
 <!-- references -->
 
