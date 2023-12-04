@@ -4,6 +4,7 @@ Grammarly
 LUMA
 mybackups
 oneclient
+onedata
 onepanel
 oneprovider
 oneproviders
