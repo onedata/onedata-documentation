@@ -37,8 +37,8 @@ module.exports = {
           '/user-guide/oneclient',
           '/user-guide/onedatafs',
           '/user-guide/rest-api',
-          '/user-guide/replication-and-migration',
           '/user-guide/qos',
+          '/user-guide/data-transfer',
           '/user-guide/metadata',
           '/user-guide/data-discovery',
 //          '/user-guide/datasets',  % @TODO VFS-7218

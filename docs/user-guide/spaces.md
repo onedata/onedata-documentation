@@ -42,12 +42,13 @@ in which computations are to be performed. There are several tools in Onedata
 that can be used by advanced users to manage the underlying physical distribution
 and redundancy of data (such as [data transfers][] or [QoS][]).
 
-When a file within a space is written (e.g. uploaded), its content is written to
-one of the supporting physical storages. Similarly, during a file read, the
-physical data is read from the storage and then returned to the requesting client.
-Onedata stores information about the mapping between logical and physical files
-in the file metadata, which is replicated and synchronized between
-all supporting providers.
+When a file within a space is written (e.g. uploaded), its content is written to 
+one of the supporting physical storages. Similarly, during a file read, the 
+physical data is read from the storage and then returned to the requesting client. 
+Onedata stores information about the mapping between logical and physical files 
+in the file metadata, which is replicated and synchronized between 
+all supporting providers. You can learn more about file distribution
+[here](data.md#file-distribution). 
 
 <!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 

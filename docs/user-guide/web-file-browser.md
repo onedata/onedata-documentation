@@ -193,11 +193,10 @@ distribution can be viewed in a summarized or detailed manner.
 
 ![screen-feature-distribution-bar][]
 
-The handy status bar indicates ongoing [replication, migration and
-eviction][29] jobs and allows scheduling new ones for
-the corresponding provider. In the detailed view, there is also a shortcut to
-the history of data transfers for the subject file (as shown in the screenshot
-above).
+The handy status bar indicates ongoing [replication, migration and eviction][] jobs and
+allows scheduling new ones for the corresponding provider. In the detailed view, there is
+also a shortcut to the history of data transfers for the subject file (as shown in the
+screenshot above).
 
 ![screen-feature-distribution-schedule][]
 
@@ -336,7 +335,7 @@ creating new files or directories, scheduling data transfers, etc).
 
 [27]: data.md#file-distribution
 
-[29]: replication-and-migration.md
+[replication, migration and eviction]: replication-and-migration.md
 
 [31]: qos.md#web-gui-guide
 

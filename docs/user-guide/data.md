@@ -48,17 +48,22 @@ some characters in paths should be properly escaped:
 > but the order in which spaces are checked cannot be guaranteed.
 
 ### File ID
+
 The file ID is a unique, global identifier associated with a file or directory. 
 You can universally utilize it in the [REST][6] and [CDMI][7] APIs.
 To find out the File ID of a given file or directory, you have several options:
 
-[Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
-file/directory context menu:
+File ID is a unique, global identifier associated with a file or directory and
+can be used universally in the [REST][6] and [CDMI][7] APIs.
+There are several ways to find out the File ID of given file or directory:
+
+[Web GUI][3] — click on **Information** in the file/directory context menu and look
+for `File ID`:
 ![screen-file-gui-path-and-info][]
 
-[Oneclient][5] — useful information about every file is accessible
-using the `xattr` command (that reads extended attributes) — the below command
-returns specifically the File ID attribute:
+[Oneclient][14] — use the `xattr` command (which reads extended attributes) 
+to access useful information about any file or directory. The below command returns 
+specifically the File ID attribute:
 
 ```bash
 ~$ xattr -p org.onedata.file_id garden.png
@@ -85,8 +90,7 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 
 > **NOTE:** Paths used in URLs must be URL-encoded.
 
-> **NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
-> [below][10].
+> **NOTE:** See [below][10] to learn how to obtain the `${ONEPROVIDER_DOMAIN}.
 
 ## Interfaces
 
@@ -335,13 +339,82 @@ must be properly set up for each storage supporting a space. This is required so
 that file permissions are accurately enforced in the space and the permissions in
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
-<!--- TODO VFS-7218
 
-## File distribution
+## File distribution 
 
- link to replication & migration 
+ On the physical level, Onedata organizes files into blocks of various sizes. 
+These file blocks can then be distributed across different providers that 
+support the space in which the files are stored. Each provider contains 
+a list of local file blocks, forming what we call a `file replica`. 
+Information about the mapping between logical and physical files is stored 
+in the file metadata, which is replicated and synchronized between all 
+supporting providers.
 
--->
+When you read a whole file or its part, and some blocks are not present in the 
+provider you're connected to, the missing blocks will be replicated on demand 
+from other providers. 
+
+When you write to a file in a given provider, the overlapping blocks replicated 
+to other providers are invalidated. To read the file, the provider with 
+invalidated blocks must once again replicate missing blocks from the provider 
+with the newest version of the blocks.
+
+Simultaneous modifications of a file may occur when many users access it. 
+If the ranges of simultaneous modifications do not overlap, all modifications 
+are safely applied. In case of a conflict, a conflict resolution algorithm is 
+used. This allows all supporting providers to determine a consistent, final 
+version of the file. Conflict resolution is performed independently by each 
+provider without the need to coordinate the resolution with other supporting 
+providers, which allows it to be fast.
+
+### Discovering file distribution
+
+You can discover how the file blocks are distributed among providers supporting 
+the space in which it is stored with:
+
+1. `Web GUI` - open the context menu for the file and choose **Data distribution**:
+   ![image](../../images/user-guide/data/file-distribution-gui.png#screenshot) 
+
+   and you will see **Data distribution** modal, representing the distribution 
+   of file blocks:
+   ![image](../../images/user-guide/data/file-distribution-modal.png#screenshot)
+
+2. `REST API` - use [get file distribution](https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution)
+   endpoint.
+
+3. `Oneclient` - check [file extended attributes](oneclient.md#file-extended-attributes) 
+   and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and 
+   `org.onedata.replication_progress` attributes:
+   ```bash
+   ~$ xattr -l results.txt
+
+   org.onedata.file_blocks: [#######################################.         ]
+   org.onedata.file_blocks_count: 1
+   org.onedata.replication_progress: 80% 
+   ...
+   ```
+
+   > **NOTE:** Note that extended attributes presents only information about 
+   > file blocks stored in provider to which the Oneclient is connected. 
+   > In order to find information about replicas of the file in other providers 
+   > Web GUI or REST API must be used.
+
+### Distribution management
+
+You can manage the data distribution using:
+
+1. [Transfers](data-transfer.md) - allow to intentionally replicate, 
+   evict and migrate file(s).
+
+2. [Quality of Service](quality-of-service.md) - allows specifying requirements 
+   that may ensure that file replicas in certain providers are automatically 
+   updated and protected from eviction.
+
+3. [Auto-cleaning](../admin-guide/oneprovider/configuration/auto-cleaning.md) - 
+   automatically maintains storage usage at a predefined level, creating space 
+   for new replicas during continuous computations.
+   >**NOTE:** Note that Auto-cleaning can only be configured by a space admin.
+
 
 <!-- references -->
 

@@ -440,6 +440,15 @@ Monitoring options:
   --graphite-namespace-prefix <name>  Graphite namespace prefix.
 ```
 
+## File extended attributes
+
+Extended file attributes are used in Oneclient to expose file metadata.
+They can be accessed with tools such as [xattr](https://github.com/xattr/xattr) 
+or `getfattr`. Extended attributes, starting with `org.onedata.` prefix, are 
+Onedata system attributes that provide useful information about files.
+For more information on metadata management in Oneclient please look 
+[here](metadata.md#metadata-management-with-oneclient-and-onedatafs).
+
 ## Using Oneclient from Docker
 
 Oneclient can also be started without installation using our official Docker images:
