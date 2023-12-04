@@ -1,6 +1,6 @@
 # Data Discovery
 
-This guide is dedicated for non-admin users that would like to index the
+This guide is dedicated to non-admin users that would like to index the
 metadata from files in their spaces and perform queries. Consider reading the
 [counterpart documentation for admins][1]
 that might give you more insights into the concept of **Data Discovery** in Onedata,

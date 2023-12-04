@@ -113,12 +113,7 @@ Storage operation timeout in milliseconds. This parameter is optional, the defau
 
 ### QoS Parameters
 
-<!-- TODO VFS-6815: After dividing the chapter, update below link to point to
-     the QoS parameters in the admin chapter.
- -->
-
-Quality of service parameters.
-For more information on configuration of *Quality of Service* mechanism, see [here][qos].
+Quality of Service parameters - refer to the [QoS documentation][]. 
 
 ## REST API
 
@@ -175,8 +170,6 @@ Refer to the linked API documentation for detailed information and examples.
 
 [luma configuration]: luma.md#configuration
 
-[qos]: quality-of-service.md#qos-params
-
 [get storage details]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details
 
 [modify storage]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/modify_storage
@@ -186,3 +179,5 @@ Refer to the linked API documentation for detailed information and examples.
 [get storage]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storages
 
 [screen-storage-config]: ../../../../images/admin-guide/oneprovider/configuration/storages/storage-config.png
+
+[QoS documentation]: qos.md#qos-parameters
