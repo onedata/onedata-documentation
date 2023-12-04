@@ -2,16 +2,16 @@
 
 [toc][1]
 
-The Onedata system organizes all user data into logical containers called spaces.
-Please refer to [this][2] chapter for details about this concept and how
+The Onedata system organizes all user data into logical containers called spaces. 
+Refer to [this][2] chapter for details about this concept and how 
 the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
 
-Any file in Onedata (regular, directory, symbolic links and hard links) can be
-globally identified using their unique File IDs or logical paths. Whenever
-possible, it is recommended to use File IDs, due to better performance and no
-need for escaping or encoding.
+
+You can globally identify files and directories in Onedata using unique file IDs
+or logical paths. Whenever possible, it is recommended to use File IDs for better
+performance and no need for escaping or encoding.
 
 ### File path
 
@@ -41,7 +41,6 @@ some characters in paths should be properly escaped:
 {...}/CMS%201/directory/images%26videos/garden.png
 ```
 
-<!-- TODO VFS-9288 unify all NOTE blocks -->
 
 > **NOTE:** Duplicate space names are generally allowed. For that reason,
 > referencing files by path may be ambiguous. During file path resolution, the
@@ -49,13 +48,9 @@ some characters in paths should be properly escaped:
 > but the order in which spaces are checked cannot be guaranteed.
 
 ### File ID
-
-File ID is a unique, global identifier associated with a file and
-can be used universally in the [REST][6] and [CDMI][7] APIs. It applies
-to all logical elements of the filesystem - regular files, directories,
-symbolic links and hard links.
-
-There are several ways to find out the File ID of a file:
+The file ID is a unique, global identifier associated with a file or directory. 
+You can universally utilize it in the [REST][6] and [CDMI][7] APIs.
+To find out the File ID of a given file or directory, you have several options:
 
 [Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
@@ -88,7 +83,7 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 }
 ```
 
-> **NOTE:** Paths used in URLs must be url-encoded.
+> **NOTE:** Paths used in URLs must be URL-encoded.
 
 > **NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
 > [below][10].
@@ -96,18 +91,15 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 ## Interfaces
 
 Onedata offers several ways of accessing and managing user data.
-Regardless of the interface, the user is presented with a coherent view on all
-his files. All data management interfaces are available in the [Oneprovider
-service][11]. Depending on the environment, there might be
-several Oneprovider services [supporting user spaces][12]
-that can be used to access the data. While the [Web GUI][3] offers
-natural navigation between services, the other interfaces require that the user
-chooses one of their Oneproviders and is aware of its domain (see below).
+Regardless of the interface you choose, you will have a unified view of all your files.
+All data management interfaces are available in the [Oneprovider service][11].
+Depending on the environment, there might be several Oneprovider services 
+[supporting user spaces][12] that you can use to access the data.
+While the [Web GUI][3] offers natural navigation between services,
+the other interfaces require that the user chooses one of their Oneproviders
+and is aware of its domain (see below).
 
 ### Oneprovider domain
-
-<!-- TODO VFS-7218 this should be moved somewhere else — maybe a new chapter with providers GUI
-     from the user's point of view? -->
 
 Oneprovider's domain is required to mount a [Oneclient][5] instance or
 utilize the [REST][6] and [CDMI][7] APIs. It can be found in the Web
@@ -126,7 +118,7 @@ Oneprovider service offers a comprehensive REST API for data management. All
 endpoints use [File IDs][15] to identify files and directories. The
 documentation based on OpenAPI (a.k.a. Swagger) can be found
 [here][16]. General information
-on using the REST APIs in Onedata are covered in [this chapter][17].
+on using the REST APIs in Onedata is covered in [this chapter][17].
 
 ### CDMI
 
@@ -134,9 +126,9 @@ Oneprovider implements a subset of **Cloud Data Management Interface**
 specification, as described in [this chapter][18].
 
 ### Web GUI
+The most end-user friendly method of data management. 
+You can find a visual guide in [this chapter][19].
 
-The most end-user friendly method of data management. A visual guide can be
-found in [this chapter][19].
 
 ## Data Access Control
 
@@ -156,14 +148,14 @@ it as needed).
 
 ### Authorization
 
-The decision whether an authenticated client is allowed to perform the requested
+The decision of whether an authenticated client is allowed to perform the requested
 operation depends on a series of security checks on different levels. The
 procedure can be divided into steps as follows (the steps are processed in
 sequence unless the procedure finishes upon **access denied** or **granted**):
 
-1. The provided access token is analysed concerning
+1. The provided access token is analyzed concerning
    [caveats][21] that can restrict the authorization.
-   Especially the [data access caveats][22] have a
+   Especially [data access caveats][22] have a
    significant impact on data access. If the requested operation or resource is
    forbidden in regard to any caveat, **access is denied**.
 
@@ -179,7 +171,7 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
    granted** (space owners omit space privilege and permission checks).
 
 5. If the user does not have the [space privileges][26]
-   required for requested operation, **access is denied**. For example, no
+   required for the requested operation, **access is denied**. For example, no
    `space_write_data` privilege in case of file modification request, or no
    `space_read_data` privilege in case of directory listing request.
 
@@ -190,9 +182,9 @@ sequence unless the procedure finishes upon **access denied** or **granted**):
 7. Otherwise, [POSIX permissions][28] are checked to determine
    whether access should be **denied** or **granted**.
 
-In case of an unauthenticated (**guest**) access, the steps are as follows:
+In case of unauthenticated (**guest**) access, the steps are as follows:
 
-1. The requested resource identifier is analysed if it points to a file or
+1. The requested resource identifier is analyzed if it points to a file or
    directory that is [publicly shared][29] — if not, **access is
    denied**.
 
@@ -208,8 +200,8 @@ In case of an unauthenticated (**guest**) access, the steps are as follows:
 
 **Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
-for a specific principal. Onedata supports subset of CDMI ACL which are based
-on NFSv4 standard [RFC 3530][31].
+for a specific principal. Onedata supports a subset of CDMI ACL which are based
+on NFSv4 standard [RFC 3530]([31].
 
 An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider
 evaluates ACEs strictly in the same order as they were added, top-down. If any
@@ -218,24 +210,22 @@ stopped.
 
 #### Access Control Entry
 
-An ACE consist of four fields:
-
+An ACE consists of four fields: 
+* `who` — the principal whom the ACE affects: 
+    - user or group represented by their identifier
+    * `OWNER@` — the owner of the file
+    * `OWNING GROUP@` — members of space which contain the file
+    * `ANONYMOUS@` — guest client (accessing through a share)
+    * `EVERYONE@` — everyone, including the anonymous users
 * `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
-* `who` — the principal whom the ACE affects:
-
-  * user or group represented by their identifier
-  * `OWNER@` — the owner of the file
-  * `GROUP@` — members of space containing the file
-  * `ANONYMOUS@` — guest client (accessing through a share)
-  * `EVERYONE@` — everyone, including the anonymous users
-* `flags` — currently only the flag indicating whether principal identifier points
-  to user or group is supported, other flags can be set or
-  [imported][32],
-  but they will be ignored during ACE evaluation
+* `flags` — currently only the flag indicating whether the principal identifier points to 
+the user or group is supported, other flags can be set or 
+[imported][32],
+but they will be ignored during ACE evaluation
 * `access_mask` — the permissions regulated by this ACE
 
-Permissions can be changed using the [Web file browser][33] in
-the **ACL** context menu, or using the [CDMI API][34].
+You can change permissions using the [Web file browser][33]
+in the **File Details** modal or using the [CDMI API][34].
 
 #### Permissions
 
@@ -243,20 +233,38 @@ ACL provides more fine-grained control of access to resources than POSIX permiss
 
 All available permissions and their meaning for files or directories are presented below.
 
-| Permissions        | File                  | Directory                                  |
-| ------------------ | --------------------- | ------------------------------------------ |
-| Read/List          | open file for read    | list directory content                     |
-| Write/Add file     | open file for write   | add file to directory                      |
-| Add subdirectory   | —                     | add subdirectory to directory              |
-| Traverse directory | —                     | traverse directory                         |
-| Delete             | delete file           | delete directory                           |
-| Delete child       | —                     | delete file or subdirectory from directory |
-| Read attributes    | read file attributes  | read attributes metadata                   |
-| Write attributes   | write file attributes | write attributes metadata                  |
-| Read metadata      | read file metadata    | read directory metadata                    |
-| Write metadata     | write file metadata   | write directory metadata                   |
-| Read ACL           | read file acl         | read directory acl                         |
-| Write ACL          | write file acl        | write directory acl                        |
+#### ACL for file
+
+| Permissions      |                                                |
+|------------------|------------------------------------------------|
+| Read             | open file for read                             |
+| Write            | open file for write                            |
+| Read ACL         | read file ACL                                  |
+| Change ACL       | write file ACL                                 |
+| Read metadata    | read file metadata                             |
+| Write metadata   | write file metadata                            |
+| Read attributes  | read metadata associated with file attributes  |
+| Write attributes | write metadata associated with file attributes |
+| Delete           | delete file                                    |
+
+#### ACL for directory
+
+| Permissions        |                                                     |
+|--------------------|-----------------------------------------------------|
+| List files         | list directory content                              |
+| Add files          | add file to directory                               |
+| Add subdirectory   | add subdirectory to directory                       |
+| Traverse directory | navigate through a directory structure              |
+| Delete child       | delete file or subdirectory from directory          |
+| Read ACL           | read attributes metadata                            |
+| Change ACL         | change attributes metadata                          |
+| Read metadata      | read directory metadata                             |
+| Write metadata     | write directory metadata                            |
+| Read attributes    | read metadata associated with directory attributes  |
+| Write attributes   | write metadata associated with directory attributes |
+| Delete             | delete directory                                    |
+
+
 
 #### Evaluation
 
@@ -272,7 +280,7 @@ the following algorithm:
    the algorithm terminates.
 
 3. If the ACE allows any of the requested permissions, then they are added
-   to the list of granted permissions. If the list include all the requested
+   to the list of granted permissions. If the list includes all the requested
    permissions, the access is granted and the algorithm terminates.
 
 4. If the end of the ACL list is reached and permission has neither been
@@ -282,8 +290,8 @@ the following algorithm:
 ### POSIX permissions
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
-systems for specifying access rights to files or directories. However, there is
-one important nuance — all space members are treated as a virtual group which is
+systems for specifying access rights to files or directories. 
+However, all space members are treated as a virtual group which is
 the **group** owner of all files in the space. This means that whenever a file
 is accessed by a space member who is not the owner of the file, the **group**
 permissions are taken into consideration. Permissions for **others** are
@@ -314,11 +322,11 @@ permissions are denied for **others**.
 
 Default permissions (for newly created files/directories) are as follows:
 
-* files: `r-x r-x r--` (octal: `664`)
+* files: `rw- rw- r--` (octal: `664`)
 * directories: `rwx rwx r-x` (octal: `775`)
 
-Permissions can be changed using the [Web file browser][19] in
-the **Permissions** context menu, or using the
+You can change permissions using the [Web file browser][19] in
+the **Permissions** tab in **File Details modal**, or using the 
 [REST API][36].
 
 Oneprovider admins should keep in mind that the
@@ -327,10 +335,13 @@ must be properly set up for each storage supporting a space. This is required so
 that file permissions are accurately enforced in the space and the permissions in
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
+<!--- TODO VFS-7218
 
 ## File distribution
 
-<!-- link to replication & migration -->
+ link to replication & migration 
+
+-->
 
 <!-- references -->
 

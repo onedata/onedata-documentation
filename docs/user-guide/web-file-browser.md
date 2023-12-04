@@ -4,9 +4,8 @@
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
-navigation, file upload or download) and advanced capabilities, specific for
-Onedata (e.g. Quality of Service, data distribution management, dataset
-management).
+navigation, file upload or download) and advanced capabilities, specific to Onedata 
+(e.g. Quality of Service, data distribution management, datasets & archives management).
 
 The file browser is always presented in the context of a single
 [space][2]. It becomes available when the space is
@@ -16,25 +15,23 @@ name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
 
 ![screen-intro-data-overview][]
 
-<!-- TODO: VFS-9382 update screenshot and mark FILES tile with rectangle -->
-
 ## Uploading data
 
-A new, empty space welcomes users with the following screen:
+A file browser of a new, empty space welcomes you with the following screen:
 
 ![screen-uploading-empty][]
 
-New files can be uploaded using the **upload** button or dragging and dropping
-them in the file browser area. While the data is being uploaded, a progress
-panel appears in the bottom-right corner of the screen. It is possible to upload
-multiple files at once or add more files during an ongoing upload.
+
+To upload new files, use the **upload** button or drag and drop them into the 
+file browser area. While the data is being uploaded, a progress panel will appear
+in the bottom-right corner of your screen. You can upload multiple files 
+simultaneously or add more files while an upload is in progress.
 
 ![screen-uploading-upload][]
 
 After any upload is started, the **UPLOADS** tab will appear in the main menu
-sidebar, providing detailed view of all uploads that have been done in the
-current browser tab. The information can be viewed in a summarized form or per
-the target provider.
+sidebar, providing a detailed view of all uploads that have been done in the
+current browser tab. View the information in a summarized form or per the target provider.
 
 ![screen-uploading-tab][]
 
@@ -62,9 +59,9 @@ File list navigation is slightly different on mobile devices and is covered
 [later on][10].
 :::
 
-Files can be selected or deselected by left-clicking on them. By holding down
-`Ctrl` (or `Opt` on MacOS) while clicking, it is possible to select/deselect
-multiple files. A range of files can be selected by holding down `Shift`.
+You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
+(or `Opt` on MacOS) while clicking to select or deselect multiple files. 
+To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
 directory) or downloads a file.
@@ -74,25 +71,38 @@ available actions appears.
 
 ![screen-layout-context-menu][]
 
+For better navigation in the file browser, you can also change the layout of it, by choosing 
+what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
+upper-right corner of the file browser, and choose desired columns.
+
+![screen-column-configuration][]
+
 The file browser uses the "infinite scroll" method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
 ![screen-layout-infinite-scroll][]
 
+To quickly jump to the desired file or directory, type desired phrase, in the search bar 
+located below the breadcrumbs, and you will be moved to the first file or
+directory which name starts with the desired prefix.
+
+![screen-prefix-search][]
+
+
 Apart from basic details displayed on the list, additional information and
-characteristics of files is presented using tags. For instance, the tags include
-information whether a file is shared, has Quality of Service requirements
-attached or an Access Control List (ACL) assigned.
+characteristics of files are presented using tags. For instance, the tags include information 
+on whether a file is shared, has Quality of Service requirements
+attached or is marked as Dataset.
 
 ![screen-layout-file-tags][]
 
-## File browser features
 
-<!-- TODO: VFS-9383 documentation of features introduced in 21.02 -->
+
+## File browser features
 
 All file management operations offered by the file browser are available in the
 context menu invoked with a right-click or using the three-dots button on
-the left of each list entry.
+the right of each list entry.
 
 ::: tip
 Some operations require appropriate [privileges][14]
@@ -101,7 +111,7 @@ sufficient.
 :::
 
 ::: tip
-It is possible to invoke the context-menu for more than one selected item, but
+It is possible to invoke the context menu for more than one selected item, but
 only some of the operations are available in this mode.
 :::
 
@@ -109,24 +119,41 @@ only some of the operations are available in this mode.
 
 ### Information
 
-This action brings up a modal with information about a single file or directory.
+This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
 
 ![screen-feature-info][]
 
+You can also excess the Information tab by hovering over the icon of the file or directory.
+
+### Download
+
+This action simply downloads chosen single file or directory. You can also download single 
+file by double-clicking on them.
+
 ### Share
 
-Using the **Share** submenu, it is possible to make a file or directory publicly
-accessible by anyone knowing the share link (no authentication or account in
+Using the **Share** tab in the **Details** modal, you can make a file or
+directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
-modal that allows creating a new [share][17].
+modal that allows the creation of a new [share][17].
 
 ![screen-feature-share][]
 
-If the item has already been shared, the modal will present the list of existing
+If the item has already been shared, you will see the list of existing
 shares, with the possibility to copy their public links, view their details
 (using the green links) or create another share.
 
 ![screen-feature-shared-already][]
+
+### Datasets
+
+This action brings up the **Datasets** modal, where you can assign a dataset status to
+your file or directory. Datasets are files or directories that space users identify
+as meaningful data collections to them. To read more about the functionality of the
+Datasets head over to this [page](datasets.md). 
+
+![screen-feature-datasets][]
+
 
 ### Metadata
 
@@ -141,12 +168,12 @@ highlighting.
 
 Invokes an editor of [permissions][22] assigned to the file —
 [POSIX][23] or [Access Control List
-(ACL)][24]. Each file can use only one of the
-permission types at the same time, and the currently applied one is selected
-using the **Permissions type** toggle.
+(ACL)][24]. 
+You can assign only one permission type to each file at a time.
+To select the currently applied permission type, use the **Permissions type** toggle.
 
-POSIX permissions are the default permissions set for each file and can be
-edited using the octal representation field or by manipulating the checkboxes.
+Edit the POSIX permissions for each file by using the octal representation 
+field or manipulating the checkboxes.
 
 ![screen-feature-permissions-posix][]
 
@@ -158,8 +185,8 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-This submenu is used to monitor and manage the [distribution of file
-data][27] among supporting providers. The green bars
+This tab is used to monitor and manage the [distribution of file
+data][27] among supporting providers. The blue bars
 visualize which blocks (fragments of the file) are stored on the storage systems
 of the corresponding providers. When more than one file is selected, the
 distribution can be viewed in a summarized or detailed manner.
@@ -180,15 +207,53 @@ Brings up an editor of [Quality of Service][31] (QoS)
 requirements defined for the selected file(s), which are used to automatically
 manage the file data replication according to logical rules.
 
-### Rename
+<!--- TODO VFS-7218
 
-Basic operation used to change the file name.
+### Run workflow
+
+This action brings up a modal containing a list of all the uploaded workflows, that
+you can choose to run your file on. To read more about the functionality of the
+workflows head over to [autiomation guide](automation.md).
+
+![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
+
+--->
+
+### Rename
+The basic operation used to change the file name.
 
 ![screen-feature-rename][]
 
-### Copy, Cut and Paste
 
-The  **copy** or **cut** action from the context-menu can be used on one or
+### Create symbolic link
+
+This action lets you create a symbolic link to a single file or directory and place it in a chosen destination.
+ A symbolic link also known as a symlink, is a file that acts as a reference or 
+pointer to another file or directory. To place a symbolic link in the directory you are in,
+click on the highlighted button in the top right corner.
+
+![screen-feature-symlink][]
+
+
+### Create hard link
+
+As above this action lets you create a hard link to a single file and place it in a chosen
+destination. A hard link is a reference to a file that points directly to the
+underlying data of that file on a file system. In simpler terms, a hard link is
+an additional name or entry for an existing file. Multiple hard links can exist
+for a single file, and they all refer to the same underlying data on the disk.
+
+To place a hard link follow the same steps as you would with placing a symbolic link.
+As you create a hard link, the original file will now display a label 
+with the number of hard links created to this file. You can click on the label you will 
+see the list of existing hard links in the **Details** modal. 
+
+
+![screen-feature-hardlink][]
+
+
+### Copy, Cut and Paste
+The **copy** or **cut**** action from the context menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
 
@@ -203,49 +268,46 @@ This action permanently deletes the selected files and directories.
 ## Mobile file browser
 
 Onedata web file browser supports mobile devices such as smartphones or tablets.
-Available features are the same as in desktop mode, but the page layout is
-adjusted to small devices.
+Available features are the same as in desktop mode, but the page layout is adjusted for small devices.
 
 ![screen-mobile-overview][]
 
-In the mobile mode, the navigation is adapted for touch screens. Instead of a
+In mobile mode, the navigation is adapted for touch screens. Instead of a
 double click, a tap gesture is used to download a file or open a directory.
-
-![screen-mobile-download][]
 
 Selection is performed by pressing and holding on a file for about a second, and
 then selecting further files is done by tapping on them. The context menu for a
 file can be invoked using the three-dots menu in the file row or the
-**Selection** button at the bottom of screen.
+**Selection** button at the bottom of the screen.
 
 ![screen-mobile-menu][]
 
-Operations on the current working directory, such as creating new directory or
+![screen-mobile-upload][]
+
+Operations on the current working directory, such as creating a new directory or
 uploading files, are available in the breadcrumbs navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
-
-![screen-mobile-upload][]
 
 ## Switching between providers
 
 The file browser view is provided by one of the providers supporting the space.
-The currently selected provider is shown on the top of file browser in the
+The currently selected provider is shown on the top of the file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
-Oneprovider...** action at the top of file browser, given that there is more
-than one supporting provider. Alternatively, providers can be switched using a
+Oneprovider...** action at the top of the file browser, given that there is more
+than one supporting provider. Alternatively, providers can be switched using a 
 world map visual representation, available under the globe icon.
 
 ![screen-oneprovider-switch][]
 
 ::: tip
 After switching to another provider, the user will eventually see the same
-content, but new changes might appear with different delay. Providers
+content, but new changes might appear with different delays. Providers
 continuously synchronize the data changes within spaces, and depending on the
 system usage intensity, they can take from a couple of seconds to even hours to
 propagate. To see the changes immediately, it is recommended to choose the
 Oneprovider on which the user is making them (modifying file content,
-creating new files or directories, scheduling data transfers etc).
+creating new files or directories, scheduling data transfers, etc).
 :::
 
 <!-- references -->
@@ -296,9 +358,15 @@ creating new files or directories, scheduling data transfers etc).
 
 [screen-feature-file-context-menu]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
 
+[screen-column-configuration]: ../../images/user-guide/web-file-browser/feature-configure-columns.png
+
+[screen-prefix-search]: ../../images/user-guide/web-file-browser/jump-to-prefix.png
+
 [screen-feature-info]: ../../images/user-guide/web-file-browser/feature-info.png
 
 [screen-feature-share]: ../../images/user-guide/web-file-browser/feature-share.png
+
+[screen-feature-datasets]: ../../images/user-guide/web-file-browser/datasets-modal.png
 
 [screen-feature-shared-already]: ../../images/user-guide/web-file-browser/feature-shared-already.png
 
@@ -314,13 +382,15 @@ creating new files or directories, scheduling data transfers etc).
 
 [screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
 
+[screen-feature-symlink]: ../../images/user-guide/web-file-browser/feature-sumbolic-link.png
+
+[screen-feature-hardlink]: ../../images/user-guide/web-file-browser/feature-hard-link.png
+
 [screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
 
 [screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
 
 [screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
-
-[screen-mobile-download]: ../../images/user-guide/web-file-browser/mobile-download.png
 
 [screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
 
