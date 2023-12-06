@@ -40,8 +40,8 @@ module.exports = {
           '/user-guide/quality-of-service',
           '/user-guide/metadata',
           '/user-guide/data-discovery',
-//          '/user-guide/datasets',  % @TODO VFS-7218
-//          '/user-guide/archives',
+          '/user-guide/datasets',
+          '/user-guide/archives',
 //          '/user-guide/automation',
           '/user-guide/file-registration',
           '/user-guide/views',
