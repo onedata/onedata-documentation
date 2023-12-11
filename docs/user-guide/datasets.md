@@ -19,10 +19,10 @@ Datasets can be nested, allowing users to compose arbitrary [hierarchical][hiera
 
 ![dataset-hierarchy][]
 
-The diagram above shows the filesystem tree, where some of the directories are marked as datasets (_Experiment A_ and _Results_). Regular files also can be marked as datasets (_Statistics.csv_). The file or directory is marked as a dataset by [establishing][establishing datasets] the dataset on it.
+The diagram above shows the filesystem tree, where some of the directories are marked as datasets (_Experiment A_ and _Results_). Regular files also can be marked as datasets (_Statistics.csv_). The file or directory is marked as a dataset by [establishing][establishing datasets] the datasets on it.
 
 ## Establishing datasets
-
+<!-- FIXME: w archives mam wypunktowanie -->
 To establish a dataset, navigate to the [file browser][], open the context for a file or directory, and choose **Datasets**.
 
 <!-- FIXME: screeny powinny być z odpowiedniej wielkości ekranu i zooma - teraz są robocze -->
@@ -78,7 +78,7 @@ Note, that the file or directory **effective** protection is presented using the
 <!-- FIXME: screen taba i widoku -->
 <!-- FIXME: link do dokumentacji -->
 
-The archives tab label displays the current number of snapshots created from the selected dataset. Inside the tab, you will find an archives list for the dataset — explained in detail in the archives tab documentation.
+The archives tab label displays the current number of snapshots created from the selected dataset. Inside the tab, you will find an [archives list][] for the dataset — explained in detail in the archives tab documentation.
 
 ## Datasets hierarchy
 
@@ -130,7 +130,7 @@ You can modify protection flags in the [dataset hierarchy table][] of the file o
 
 ## Creating snapshots — archives
 
-A snapshot of a dataset created at a certain point in time is called an **archive**.
+A snapshot of a dataset created at a certain point in time is called an [archive][archives].
 
 Archives are immutable and stored within a space, lying in a special directory detached
 from the regular file tree. They can be accessed using the specialized browser of
@@ -178,10 +178,12 @@ archives**.
 
 <!-- FIXME: dopisać: Deleting archives of the dataset is described here. -->
 
-You can remove an archiveless dataset, using the **Remove** action in the [dataset
+You can remove a dataset without an archive, using the **Remove** action in the [dataset
 actions][].
 
 <!-- FIXME: screen z akcją remove -->
+
+<!-- FIXME: dodatkowa sekcja: uprawnienia -->
 
 <!-- references -->
 
@@ -210,6 +212,8 @@ actions][].
 [file browser]: web-file-browser.md
 
 [archives]: archives.md
+
+[archives list]: archives.md#browsing-archives
 
 [dataset-hierarchy]: ../../images/user-guide/datasets/dataset-hierarchy.svg
 
