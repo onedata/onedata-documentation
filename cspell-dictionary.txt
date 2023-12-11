@@ -1,10 +1,14 @@
-CDMI
-CEPH
-DCMES
+archivisation
+aws-cli
+cdmi
+ceph
+dcmes
 Grammarly
 handleId
-LUMA
+hardlinked
+luma
 mybackups
+oais
 oneclient
 onedata
 onepanel
@@ -12,6 +16,7 @@ oneprovider
 oneproviders
 onezone
 quickstart
+rclone
 remarkrc
 unifiedjs
 vuepress
