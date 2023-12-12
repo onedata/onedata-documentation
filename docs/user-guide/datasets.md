@@ -81,6 +81,7 @@ Note, that the file or directory **effective** protection is presented using the
 The archives tab label displays the current number of snapshots created from the selected dataset. Inside the tab, you will find an [archives list][] for the dataset — explained in detail in the archives tab documentation.
 
 ## Datasets hierarchy
+<!-- FIXME: to można przenieść w okolice Overview, blisko diagramu, bo w tej chwili dataset hierarchy table jest przed zdefiniowaniem czym jest hierarchia -->
 
 <!-- FIXME: datasety tworzą hierarchię - wystarczy wejść do środka i na pliku lub katalogu otworzyć panel datasetów i dać establish; wtedy w tabeli mamy dodatkowe rzeczy w hierarchii -->
 

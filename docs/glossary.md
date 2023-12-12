@@ -4,6 +4,8 @@
 
 <!-- TODO: VFS-7218 fill missing entries -->
 
+<!-- FIXME: dodać definicje dataset i archive? -->
+
 ## ACL
 
 Mechanism for granting and denying access to files and directories.
