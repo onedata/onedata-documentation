@@ -140,7 +140,19 @@ no storage space). **Only the modified and new files are copied**.
 
 ![screen-archive-incremental][]
 
-### Creating an incremental archive
+The above diagram shows two modes of creating subsequent archives for the dataset:
+
+* the **Experiment A** dataset's most recent archive is created using the **incremental**
+  option, which shares the unmodified files with the former archive using hard links,
+* while the **Results** dataset's archives are created separately — each archive has a
+  separate copy of the, even unmodified, data.
+
+::: tip NOTE
+You can safely **delete** the **base** archive without loss of data in the incremental
+archives — the data remains until the last reference of the shared file data is deleted.
+:::
+
+### Creating incremental archives
 
 1. Open the **Archives** tab of the **Datasets** panel for a file or directory that
    contains an [archives list][] view.
@@ -161,16 +173,65 @@ no storage space). **Only the modified and new files are copied**.
 
 Upon the creation, you can browse the contents of the archive and notice that the files
 that haven't been changed, compared to the base archive, have a **hard links** badge — the
-number of hard links typically indicates how many archives share the data.
+number of hard links typically indicates how many archives share the data. You can
+check hard link locations by clicking on the **hard links** badge  — it should
+present paths to files in the other archives.
 
-::: tip NOTE
-You can safely delete the **base** archives without loss of data in the later incremental
-archives — the data remains until the last hard link of the file is deleted.
-:::
+<!-- FIXME: screen z hardlinkami -->
 
 ## Nested archives
 
-<!-- FIXME: napisać -->
+Nesting datasets allow composing structures of desired granularity. An [embedded dataset][dataset hierarchy]
+can be a logical whole that's useful individually, and at the same time be a part of a
+bigger data collection, vital for its completeness.
+
+Those nested structures are also important when archives are created; on the ancestor
+dataset level, users may choose to create a **monolithic** archive or **create nested
+archives** in the process. This way, a set of linked archives will be created.
+
+![screen-archive-nested][]
+
+The above diagram shows the **nested** archives concept placed in the [dataset hierarchy][]
+tree. The **Experiment A** dataset, which has the **Results** embedded dataset, creates an
+archive with the **nested** option enabled. This option causes an automatic creation of
+archives for all the embedded datasets inside the **Experiment A** datasets tree — in this
+case, the **Results** dataset.
+
+The **Results** directory, which occurs in the **Experiment A** archive filesystem tree, is
+**symbolically linked** to the archive filesystem created from the embedded **Results**
+dataset. This way, while you browse down the contents of the **Results** directory inside
+the archive created from **Experiment A**, you technically browse the contents of an
+automatically created archive from the **Results** dataset. You can also browse the
+archive created from the **Results** dataset directly, starting from the **Results**
+directory.
+
+::: tip NOTE
+Archive created for the hierarchical dataset **without the nested option** (which is the default, **monolithic** mode) ignores the nested dataset hierarchy and does not trigger child archives to be created. The filesystem of the archive simply contains copied files and directories of the nested datasets.
+:::
+
+::: tip NOTE
+The child of the nested archive is referenced by the symbolic link in the parent archive. **Deleting** the child archive is **not allowed**, because it would cause an inconsistency of the parent archive.
+:::
+
+
+### Creating nested archives
+
+You need to have a [dataset hierarchy][] — essentially a dataset established inside the
+filesystem tree of the other dataset.
+
+1. Open the **Archives** tab of the **Datasets** panel for a file or directory that has a
+   dataset established and has a child dataset.
+
+2. Open the **Create archive** modal as described in the [creating archives][create
+   archive] section.
+
+3. Enable the **Create nested archives** toggle.
+
+4. Click on the **Create button**.
+
+Upon successful creation, you should see the newly created archive on the list. Browse its file — note, that the nested dataset directories are symbolic links. These links point to directories copied into the archives that were created from those nested datasets.
+
+Close the **Datasets** panel, and navigate to the nested datasets in the web file browser, opening their **Datasets** panel. These nested datasets have a new archive automatically created at the time, the nested archive was created for the parent dataset. Note, that the description of the child archive is the same as that of the parent archive. Browse the archive to find out, that its root is the snapshot of the child dataset root.
 
 ## Symbolic links in archives
 
@@ -220,8 +281,12 @@ archives — the data remains until the last hard link of the file is deleted.
 
 [dataset actions]: ./datasets.md#dataset-actions
 
+[dataset hierarchy]: ./datasets.md#datasets-hierarchy
+
 [web file browser]: ./web-file-browser.md
 
 [Open Archival Information System]: http://www.oais.info/
 
 [screen-archive-incremental]: ../../images/user-guide/archives/archive-incremental.svg
+
+[screen-archive-nested]: ../../images/user-guide/archives/archive-nested.svg
