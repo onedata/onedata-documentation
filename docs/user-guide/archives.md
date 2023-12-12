@@ -95,6 +95,7 @@ The archive files browser works just as a regular [web file browser][] except it
 <!-- FIXME: napisać wzmiankę, że może być AIP/DIP? -->
 <!-- FIXME: link do qos i transfers -->
 <!-- FIXME: ustalić co pisać o przechowywaniu plików archiwów na storydżach, co ze ścieżkami? -->
+<!-- FIXME: napisać m.in. o operacji sherowania, size stats -->
 
 ### Archive actions
 
@@ -129,9 +130,9 @@ In rare cases, the file data also be archived, but the data has been not success
 
 ## Incremental archives
 
-A **regular archive** is a **full copy** of the [dataset][] contents, occupying an additional
-storage quota. Storage space can be saved by creating incremental archives, whenever
-possible.
+A default, **regular archive** is a **full copy** of the [dataset][] contents, occupying
+an additional storage quota. Storage space can be saved by creating incremental archives,
+whenever possible.
 
 An **incremental archive** is created upon the chosen base archive and reuses all files
 that haven't been modified between the snapshots, creating hard links to them (which take
@@ -148,7 +149,7 @@ The above diagram shows two modes of creating subsequent archives for the datase
   separate copy of the, even unmodified, data.
 
 ::: tip NOTE
-You can safely **delete** the **base** archive without loss of data in the incremental
+You can [delete][deleting] the **base** archive without loss of data in the incremental
 archives — the data remains until the last reference of the shared file data is deleted.
 :::
 
@@ -181,13 +182,17 @@ present paths to files in the other archives.
 
 ## Nested archives
 
-Nesting datasets allow composing structures of desired granularity. An [embedded dataset][dataset hierarchy]
-can be a logical whole that's useful individually, and at the same time be a part of a
-bigger data collection, vital for its completeness.
+[Nesting datasets][dataset hierarchy] allow composing structures of desired granularity.
+An embedded dataset can be a logical whole that's useful individually, and at the same
+time be a part of a bigger data collection, vital for its completeness.
 
-Those nested structures are also important when archives are created; on the ancestor
-dataset level, users may choose to create a **monolithic** archive or **create nested
-archives** in the process. This way, a set of linked archives will be created.
+A default, **monolithic archive** is a snapshot of the whole dataset regardless it has
+children datasets or not. The filesystem of the archive simply contains copied dataset
+filesystem tree.
+
+As the dataset nested structures are also important when archives are created, on the
+ancestor dataset level, users may choose to **create nested archives** in the process.
+This way, a set of linked archives will be created.
 
 ![screen-archive-nested][]
 
@@ -206,11 +211,7 @@ archive created from the **Results** dataset directly, starting from the **Resul
 directory.
 
 ::: tip NOTE
-Archive created for the hierarchical dataset **without the nested option** (which is the default, **monolithic** mode) ignores the nested dataset hierarchy and does not trigger child archives to be created. The filesystem of the archive simply contains copied files and directories of the nested datasets.
-:::
-
-::: tip NOTE
-The child of the nested archive is referenced by the symbolic link in the parent archive. **Deleting** the child archive is **not allowed**, because it would cause an inconsistency of the parent archive.
+As the child of the nested archive is referenced by the symbolic link in the parent archive, [deleting][] the child archive is **not allowed**, because it would cause an inconsistency in the parent archive.
 :::
 
 
@@ -235,7 +236,21 @@ Close the **Datasets** panel, and navigate to the nested datasets in the web fil
 
 ## Symbolic links in archives
 
-<!-- FIXME: napisać -->
+**Following the symbolic links** during an archive creation, which is done by default,
+allows the files or directories to be included from outside the source dataset. Valid
+links are resolved and their target files/directories are copied to the archive in
+their place. Invalid symbolic links (not resolvable to a valid path in the space) are
+ignored and not included in the archive.
+
+If you disable the **symbolic links following** option upon archive creation, symbolic
+links are copied to the resulting archive, and their target paths are not modified. Note
+that these symbolic links may target **modifiable** files in the space.
+
+::: tip NOTE
+Symbolic links pointing to files inside the dataset are always preserved, regardless of
+this setting. Their target paths are reconstructed to point to the corresponding files in
+the resulting archive.
+:::
 
 ## BagIt and DIP
 
