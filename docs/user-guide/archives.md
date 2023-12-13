@@ -6,7 +6,12 @@
 
 <!-- FIXME: nie wiem czy ten wstęp o OAIS jest poprawny i czy jest potrzebny -->
 
-An [Open Archival Information System][] (OAIS) reference model describes a conceptual framework for an archival system dedicated to preserving and maintaining access to digital information over the long term. Onedata implements the core principles of the framework with the **archives** feature. The concept of the archives is highly coupled with the **datasets** feature of Onedata, so it is recommended to read the [datasets documentation][dataset] first.
+An [Open Archival Information System][] (OAIS) reference model describes a conceptual
+framework for an archival system dedicated to preserving and maintaining access to digital
+information over the long term. Onedata implements the core principles of the framework
+with the **archives** feature. The concept of the archives is highly coupled with the
+**datasets** feature of Onedata, so it is recommended to read the [datasets
+documentation][dataset] first.
 
 ### Submission Information Package (SIP)
 
@@ -43,12 +48,12 @@ datasets and archives.
 The archive creation process comes with several options:
 <!-- FIXME: linki do sekcji -->
 - different **layouts** — the structure of the files in the created archive; support for
-  BagIt,
-- creation of **nested archives** — hierarchically-created archives for datasets with
+  [BagIt][],
+- creation of [nested archives][] — hierarchically-created archives for datasets with
   nested structure,
-- **incremental** archives — reusing the unchanged files between snapshots,
-- **including DIP** — a Dissemination Information Package,
-- possibility to **follow symbolic links** if they are present in the dataset.
+- [incremental archives][] — reusing the unchanged files between snapshots,
+- **including DIP** — adding a Dissemination Information Package view for the archive,
+- possibility to [follow symbolic links][] if they are present in the dataset.
 
 ## Creating archives
 
@@ -77,20 +82,27 @@ To create archives of a file or directory, you should [establish a dataset][] on
 
 <!-- FIXME: napisać -->
 
-A list of snapshots created from a single [dataset][] can be browsed using the **archives list** view consisting of:
+A list of snapshots created from a single [dataset][] can be browsed using the **archives
+list** view consisting of:
 
-* **breadcrumbs** — showing the root of the dataset archives list, selected archive, and path of a browsed directory inside the archive,
-* **the refresh button** — for optional view refresh, which is not needed in regular usage, because the list is auto-updated,
-* **table column headers** — which you can configure just like in the regular [web file browser][], <!-- TODO:  -->
+* **breadcrumbs** — showing the root of the dataset archives list, selected archive, and
+  path of a browsed directory inside the archive,
+* **the refresh button** — for optional view refresh, which is not needed in regular
+  usage, because the list is auto-updated,
+* **table column headers** — which you can configure just like in the regular [web file
+  browser][], <!-- TODO:  -->
 * **archives/files list** — showing the
   * dataset archives when you are in the dataset root,
   * or the [files][] inside the archive if you enter some archive.
 <!-- FIXME: wyjaśnić kolumny? -->
-From the archives list view, you can open the [context menu][archive actions] for an archive or [browse][files] its contents by double-clicking on it.
+From the archives list view, you can open the [context menu][archive actions] for an
+archive or [browse][files] its contents by double-clicking on it.
 
 ### Archive files browser
  
-The archive files browser works just as a regular [web file browser][] except it offers read-only access both for data and metadata. You can also manage QoS and transfers of the data between providers.
+The archive files browser works just as a regular [web file browser][] except it offers
+read-only access both for data and metadata. You can also manage QoS and transfers of the
+data between providers.
 <!-- FIXME: screen -->
 <!-- FIXME: napisać wzmiankę, że może być AIP/DIP? -->
 <!-- FIXME: link do qos i transfers -->
@@ -102,14 +114,18 @@ The archive files browser works just as a regular [web file browser][] except it
 An archive item in the browser offers the following context actions:
 
 <!-- FIXME: linki do sekcji o archive details -->
-* **Properties** — opening the archive properties tab in the [archive details panel][], which shows the basic info about archive configuration,
+* **Properties** — opening the archive properties tab in the [archive details panel][],
+  which shows the basic info about archive configuration,
 * **Edit description** — editing the archive description,
-* **Show audit log** — showing the archivisation audit log tab in the [archive details panel][],
+* **Show audit log** — showing the archivisation audit log tab in the [archive details
+  panel][],
 * **Copy archive ID** — instantly copying the archive ID into the clipboard,
-* **Create incremental archive** — opening the [create archive][] modal with a subject archive selected as a base for the [incremental archive][],
+* **Create incremental archive** — opening the [create archive][] modal with a subject
+  archive selected as a base for the [incremental archive][],
 * **Recall to...** — opening the modal for [recalling][] the archive,
 * **Download (tar)** — downloading the _tar_ package with the archive contents,
-* **Browse DIP** — opening the [DIP][] (Dissemination Information Package) view of the archive files browser (if available),
+* **Browse DIP** — opening the DIP (Dissemination Information Package) view of the archive
+  files browser (if available),
 * **Delete archive** — opening the modal for [deleting][] the archive.
 
 ### Archive details panel
@@ -187,7 +203,7 @@ An embedded dataset can be a logical whole that's useful individually, and at th
 time be a part of a bigger data collection, vital for its completeness.
 
 A default, **monolithic archive** is a snapshot of the whole dataset regardless it has
-children datasets or not. The filesystem of the archive simply contains copied dataset
+child datasets or not. The filesystem of the archive simply contains a copied dataset
 filesystem tree.
 
 As the dataset nested structures are also important when archives are created, on the
@@ -211,9 +227,10 @@ archive created from the **Results** dataset directly, starting from the **Resul
 directory.
 
 ::: tip NOTE
-As the child of the nested archive is referenced by the symbolic link in the parent archive, [deleting][] the child archive is **not allowed**, because it would cause an inconsistency in the parent archive.
+As the child of the nested archive is referenced by the symbolic link in the parent
+archive, [deleting][] the child archive is **not allowed**, because it would cause an
+inconsistency in the parent archive.
 :::
-
 
 ### Creating nested archives
 
@@ -230,9 +247,15 @@ filesystem tree of the other dataset.
 
 4. Click on the **Create button**.
 
-Upon successful creation, you should see the newly created archive on the list. Browse its file — note, that the nested dataset directories are symbolic links. These links point to directories copied into the archives that were created from those nested datasets.
+Upon successful creation, you should see the newly created archive on the list. Browse its
+contents — note, that the nested dataset directories are symbolic links. These links point
+to directories copied into the archives that were created from those nested datasets.
 
-Close the **Datasets** panel, and navigate to the nested datasets in the web file browser, opening their **Datasets** panel. These nested datasets have a new archive automatically created at the time, the nested archive was created for the parent dataset. Note, that the description of the child archive is the same as that of the parent archive. Browse the archive to find out, that its root is the snapshot of the child dataset root.
+Close the **Datasets** panel, and navigate to the nested datasets in the web file browser,
+opening their **Datasets** panel. These nested datasets have a new archive automatically
+created at the time, the nested archive was created for the parent dataset. Note, that the
+description of the child archive is the same as that of the parent archive. Browse the
+archive to find out, that its root is the snapshot of the child dataset root.
 
 ## Symbolic links in archives
 
@@ -252,15 +275,99 @@ this setting. Their target paths are reconstructed to point to the corresponding
 the resulting archive.
 :::
 
-## BagIt and DIP
+## BagIt archives and DIP
 
-<!-- FIXME: napisać -->
+[BagIt][] is a set of hierarchical file system conventions for organizing and transferring
+digital content.
 
-## Recalling archives
+A **"bag"** consists of the **"payload"** (actual content) with **"tags"** serving as
+metadata files documenting storage and transfer details. A mandatory tag file includes a
+manifest listing every file and its corresponding checksums.
 
-<!-- FIXME: napisać -->
+The term "BagIt" is inspired by the "enclose and deposit" method, also known as **"bag it
+and tag it"**.
+
+An archive created in BagIt format contains extra **tag** files in the filesystem tree
+compared to the source dataset (**payload**). By default, you access the Archival
+Information Package of the archive, which presents the extra BagIt structure, but thanks
+to **including the DIP**, you can have also a view of only the payload of the filesystem,
+which mirrors the dataset filesystem snapshot.
+
+### Creating BagIt archives with DIP
+
+<!-- FIXME: screeny -->
+
+1. Start archive creation using the [create archive][] modal.
+
+2. In the modal:
+   * set **Layout** to **BagIt**,
+   * enable the **Include DIP** toggle.
+
+3. Click on the **Create** button.
+
+Upon successful creation, you should see the newly created archive on the list. Browse its
+contents — note, that the **AIP/DIP switch** in the **Files** column is active and set to AIP.
+
+You can see the extra files created in compliance with the BagIt format:
+
+* `bagit.txt`,
+* `data` directory,
+* `manifest-*.txt`,
+* `metadata.json`,
+* `tagmanifest-*.txt`.
+
+The structure of the BagIt archive is described in [The BagIt File Packaging Format RFC Structure section][].
+
+The `data` directory contains the payload — a snapshot of the dataset filesystem.
+
+You can use the **AIP/DIP** switch in the **Files** column to switch to the **DIP** view. Now, the file browser shows the exact filesystem structure of the payload without BagIt extra files.
+
+::: tip NOTE
+AIP and DIP archives are technically two separate archives, but the hard links are used to
+share the **payload**, so no additional storage quota is used with the **include DIP**
+option. This is the reason, why you see the **hard links** tag on the files of payload.
+:::
+
+## Archive recall
+
+While archives serve as immutable snapshots, the dataset may evolve in time as the data in
+the space changes. Sometimes it is desirable to bring back a certain snapshot into the
+space filesystem to work on it.
+
+To do that, users may **recall** the archive. The process copies the data at the chosen
+path in the space, creating a new file/directory that is **not logically linked** to the
+original dataset.
+
+### Recalling archives
+
+1. Go to the **Archives** tab in the **Datasets** panel of the selected file or directory.
+
+2. Open the context menu for an archive you wish to **recall** and choose **Recall to...**
+
+3. In the **Recall archive** panel that has appeared, navigate to the parent directory
+   where you want to recall the archive.
+<!-- FIXME: screenshot -->
+4. Set the **Target directory name** at the bottom (if the archive is file-based, then it
+   would be a **Target file name**). See the result target path at the bottom — the
+   archive will be recalled to that location.
+
+5. Click on the **Recall** button at the bottom-right corner of the panel.
+
+Close the remaining **Datasets** panel and navigate to the recall target directory. Depending on the current recall status you can see the following badge on the file/directory row:
+* if the recall process is still in progress — a green **Recalling** badge showing the recall progress,
+* if the recall has been completed successfully — a blue **Recalled** badge,
+* if the recall has been completed with some errors — a red **Recall failed** badge.
+<!-- FIXME: screenshot trzykolumnowy/potrójny - recall in progress, recalled, recall failed -->
+
+Regardless the recall is in progress or is completed, you can click on the badge to open the **Archive recall information** panel, where you can see various information about the working or completed recall process, such as source archive and dataset, start and finish times, and amount of recalled data.
+<!-- FIXME: screenshot dwukolumnowy - recall in progress i recalled panel -->
+
+If the recall failed, the **Archive recall information** panel contains information about files that have failed to be recalled. In the **Error log** tab of the panel, you can browse information about the particular file recall error: time of occurrence, link to the file in the source archive, and the error reason. 
+<!-- FIXME: screen z panelu z błędami-->
 
 ## Deleting archives
+
+<!-- FIXME: nagłówki tutaj i w archives są takie, że są rzeczownikowe, a wewnątrz są "akcje" - zobaczyć jak jest gdzieś indziej i ujednolicić -->
 
 <!-- FIXME: napisać -->
 
@@ -288,9 +395,13 @@ the resulting archive.
 
 [deleting]: #deleting-archives
 
-[DIP]: #bagit-and-dip
-
 [log]: #archive-audit-log
+
+[follow symbolic links]: #symbolic-links-in-archives
+
+[nested archives]: #nested-archives
+
+[incremental archives]: #incremental-archives
 
 [establish a dataset]: ./datasets.md#establishing-datasets
 
@@ -299,6 +410,10 @@ the resulting archive.
 [dataset hierarchy]: ./datasets.md#datasets-hierarchy
 
 [web file browser]: ./web-file-browser.md
+
+[BagIt]: https://datatracker.ietf.org/doc/html/rfc8493
+
+[The BagIt File Packaging Format RFC Structure section]: https://datatracker.ietf.org/doc/html/rfc8493#section-2
 
 [Open Archival Information System]: http://www.oais.info/
 

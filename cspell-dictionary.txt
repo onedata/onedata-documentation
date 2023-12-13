@@ -1,5 +1,6 @@
 archivisation
 aws-cli
+bagit
 cdmi
 ceph
 dcmes
@@ -18,6 +19,7 @@ onezone
 quickstart
 rclone
 remarkrc
+tagmanifest
 unifiedjs
 vuepress
 xattrs
