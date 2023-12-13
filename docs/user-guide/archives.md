@@ -121,7 +121,7 @@ An archive item in the browser offers the following context actions:
   panel][],
 * **Copy archive ID** — instantly copying the archive ID into the clipboard,
 * **Create incremental archive** — opening the [create archive][] modal with a subject
-  archive selected as a base for the [incremental archive][],
+  archive selected as a base for the [incremental archive][incremental archives],
 * **Recall to...** — opening the modal for [recalling][] the archive,
 * **Download (tar)** — downloading the _tar_ package with the archive contents,
 * **Browse DIP** — opening the DIP (Dissemination Information Package) view of the archive
@@ -367,11 +367,23 @@ If the recall failed, the **Archive recall information** panel contains informat
 
 ## Deleting archives
 
-<!-- FIXME: nagłówki tutaj i w archives są takie, że są rzeczownikowe, a wewnątrz są "akcje" - zobaczyć jak jest gdzieś indziej i ujednolicić -->
+1. Go to the **Archives** tab in the **Datasets** panel of the selected file or directory.
 
-<!-- FIXME: napisać -->
+2. Open the context menu for an archive you wish to **delete** and choose **Delete archive**.
 
-🚧 Under construction! 🚧
+3. To delete the archive, you need to retype the text info displayed in the modal and
+   click on the **Delete archive** button.
+
+After successful deletion, the archive will disappear from the list.
+
+::: tip NOTE
+Archives can be deleted as long as their deletion will not cause loss of the data of
+another archive. That means while deleting the monolithic or [base archives][incremental
+archives] is allowed, you cannot delete the [nested archives][] until it is not a top-most
+ancestor of the hierarchy.
+:::
+
+<!-- FIXME: sekcja uprawnień -->
 
 <!-- references -->
 
@@ -389,7 +401,7 @@ If the recall failed, the **Archive recall information** panel contains informat
 
 [archive details panel]: #archive-details-panel
 
-[incremental archive]: #incremental-archives
+[incremental archives]: #incremental-archives
 
 [recalling]: #recalling-archives
 
@@ -400,8 +412,6 @@ If the recall failed, the **Archive recall information** panel contains informat
 [follow symbolic links]: #symbolic-links-in-archives
 
 [nested archives]: #nested-archives
-
-[incremental archives]: #incremental-archives
 
 [establish a dataset]: ./datasets.md#establishing-datasets
 
