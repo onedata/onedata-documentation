@@ -4,7 +4,7 @@
 
 ## Overview
 
-<!-- FIXME: verify the OAIS introdution correctness -->
+<!-- FIXME: verify the OAIS introduction correctness -->
 
 An [Open Archival Information System][] (OAIS) reference model describes a conceptual
 framework for an archival system dedicated to preserving and maintaining access to digital
@@ -76,7 +76,8 @@ first.
 
 4. You should see the [archives list][] including the newly
    created archive, going through the following stages:
-   * **Building** — when the archivisation is still in progress, showing updating archived files and size counters,
+   * **Building** — when the archivisation is still in progress, showing updating archived
+     files and size counters,
    * **Verifying** — when data archivisation is finished and archive integrity is checked,
    * **Preserved** — when the archive data copy is completed.
 
@@ -85,9 +86,11 @@ first.
 In case the archivisation process **fails**, the state of the archive becomes:
 
 * **Failed** — when some data could not be archived,
-* **Verification failed** — when data have been copied, but it is inconsistent with the source.
+* **Verification failed** — when data have been copied, but it is inconsistent with the
+  source.
 
-You can click on the **Failed** badge and open an archivisation [audit log][] with error reason information.
+You can click on the **Failed** badge and open an archivisation [audit log][] with error
+reason information.
 
 ![screen-archive-failed-row][]
 
@@ -107,7 +110,8 @@ Archivisation process can be cancelled.
 
 3. Click on the **Yes** button to confirm canceling.
 
-If you have decided to delete the partially created archive, it will disappear from the list.
+If you have decided to delete the partially created archive, it will disappear from the
+list.
 
 If you unchecked the prompt, the archive will stay on the list with the data copied so far
 — it can be normally browsed. You can [delete][] it at any time.
@@ -127,8 +131,13 @@ The view consists of:
   path of a browsed directory inside the archive,
 * **the refresh button** — for optional view refresh, which is not needed in regular
   usage, because the list is auto-updated,
-* **table column headers** — which you can configure just like in the regular [web file
-  browser][], <!-- TODO:  -->
+* **table column headers** — presenting information about archives:
+  * **State** — what stage of lifecycle the archive is in and how much it contains data
+    (also when the archive is still creating),
+  * **Base archive** — the base of the [incremental archive][incremental archives] (if
+    applicable),
+  * **Creator** — Onedata user that created the archive (can be different from dataset
+    owner),
 * **archives/files list** — showing the
   * dataset archives when you are in the dataset root,
   * or the [files][] inside the archive if you enter some archive.
@@ -142,15 +151,10 @@ archive or [browse][files] its contents by double-clicking on it.
 ### Archive files browser
  
 The archive files browser works just as a regular [web file browser][] except it offers
-read-only access both for data and metadata. You can also manage QoS and transfers of the
-data between providers.
+read-only access both for data and metadata. You can also [share][] the archived
+files/directories, manage [QoS][] and [transfer][] the data between providers.
 
 ![screen-archive-files-browser][]
-
-<!-- FIXME: napisać wzmiankę, że może być AIP/DIP? -->
-<!-- FIXME: link do qos i transfers -->
-<!-- FIXME: ustalić co pisać o przechowywaniu plików archiwów na storydżach, co ze ścieżkami? -->
-<!-- FIXME: napisać m.in. o operacji sherowania, size stats -->
 
 ### Archive actions
 
@@ -169,8 +173,8 @@ An archive item in the browser offers the following context actions:
   archive selected as a base for the [incremental archive][incremental archives],
 * **Recall to...** — opening the modal for [recalling][] the archive,
 * **Download (tar)** — downloading the _tar_ package with the archive contents,
-* **Browse DIP** — opening the [DIP][layouts] (Dissemination Information Package) view of the archive
-  files browser (if available),
+* **Browse DIP** — opening the [DIP][layouts] (Dissemination Information Package) view of
+  the archive files browser (if available),
 * **Delete archive** — opening the modal for [deleting][delete] the archive.
 
 ### Archive details panel
@@ -183,18 +187,21 @@ The panel consists of two tabs:
 
 ![screen-details-panel-properties][]
 
-* **Properties** — showing the basic information about the archive, including the editable archive description and initial configuration set when the archive was [created][create archive],
+* **Properties** — showing the basic information about the archive, including the editable
+  archive description and initial configuration set when the archive was [created][create
+  archive],
 
 * **Audit log** — allowing you to browse the [log][audit log] from the archive creation.
 
-<!-- FIXME: można przenieść tą sekcję do poziomu II, żeby była lepiej eksponowana (ktoś kto czyta TOC od razu zobaczy, że jest audit log) -->
 ### Archive audit log
 
 The archive audit log consists of entries for every file or directory that was archived.
 
 ![screen-audit-log][]
 
-The file or directory could be archived successfully or not, and in both cases the log entry shows granulated details about the process, such as archivisation times, file location, and its ID.
+The file or directory could be archived successfully or not, and in both cases the log
+entry shows granulated details about the process, such as archivisation times, file
+location, and its ID.
 
 ![screen-audit-log-details][]
 
@@ -217,7 +224,6 @@ whenever possible.
 An **incremental archive** is created upon the chosen base archive and reuses all files
 that haven't been modified between the snapshots, creating hard links to them (which take
 no storage space). **Only the modified and new files are copied**.
-<!-- FIXME: link do hard links w information panel jak będzie? -->
 
 ![image-archive-incremental][]
 
@@ -268,7 +274,9 @@ present paths to files in the other archives.
 ![screen-incremental-archive-files][]
 
 ::: tip NOTE
-You can create incremental archives from any archive in the dataset, not only the latest one. The difference in the data will be determined from that particular snapshot.
+You can create incremental archives from any archive in the dataset, not only
+the latest one. The difference in the data will be determined from that particular
+snapshot.
 :::
 
 ## Nested archives
@@ -287,14 +295,13 @@ This way, a set of linked archives will be created.
 
 ![image-archive-nested][]
 
-The above diagram shows the **nested** archives concept placed in the [dataset hierarchy][]
-tree. The **Experiment A** dataset, which has the **Results** embedded dataset, creates an
-archive with the **nested** option enabled. This option causes an automatic creation of
-archives for all the embedded datasets inside the **Experiment A** datasets tree — in this
-case, the **Results** dataset.
+The above diagram shows the **nested** archives concept placed in the [dataset hierarchy][] tree. The **Experiment A**
+dataset, which has the **Results** embedded dataset, creates an archive with the **nested** option enabled. This option
+causes an automatic creation of archives for all the embedded datasets inside the **Experiment A** datasets tree — in
+this case, the **Results** dataset.
 
-The **Results** directory, which occurs in the **Experiment A** archive filesystem tree, is
-**symbolically linked** to the archive filesystem created from the embedded **Results**
+The **Results** directory, which occurs in the **Experiment A** archive filesystem tree,
+is **symbolically linked** to the archive filesystem created from the embedded **Results**
 dataset. This way, while you browse down the contents of the **Results** directory inside
 the archive created from **Experiment A**, you technically browse the contents of an
 automatically created archive from the **Results** dataset. You can also browse the
@@ -302,9 +309,9 @@ archive created from the **Results** dataset directly, starting from the **Resul
 directory.
 
 ::: tip NOTE
-As the child of the nested archive is referenced by the symbolic link in the parent
-archive, [deleting][delete] the child archive is **not allowed**, because it would cause an
-inconsistency in the parent archive.
+As the child of the nested archive is referenced by the symbolic link in the
+parent archive, [deleting][delete] the child archive is **not allowed**, because it would
+cause an inconsistency in the parent archive.
 :::
 
 ### Creating nested archives
@@ -394,7 +401,8 @@ which mirrors the dataset filesystem snapshot.
 3. Click on the **Create** button.
 
 Upon successful creation, you should see the newly created archive on the list. Browse its
-contents — note, that the **AIP/DIP switcher** in the **Files** column is active and set to AIP.
+contents — note, that the **AIP/DIP switcher** in the **Files** column is active and set
+to AIP.
 
 ![screen-bagit-archive-files][]
 
@@ -451,29 +459,38 @@ original dataset.
 
 5. Click on the **Recall** button at the bottom-right corner of the panel.
 
-Close the remaining **Datasets** panel and navigate to the recall target directory. Depending on the current recall status you can see the following badge on the file/directory row:
-* if the recall process is still in progress — a green **Recalling** badge showing the recall progress,
-![screen-recall-tag-green][]
+Close the remaining **Datasets** panel and navigate to the recall target directory.
+Depending on the current recall status you can see the following badge on the
+file/directory row:
+* if the recall process is still in progress — a green **Recalling** badge showing the
+  recall progress, ![screen-recall-tag-green][]
 * if the recall has been completed successfully — a blue **Recalled** badge,
 ![screen-recall-tag-blue][]
 * if the recall has been completed with some errors — a red **Recall failed** badge.
 ![screen-recall-tag-red][]
 
-Regardless the recall is in progress or is completed, you can click on the badge to open the **Archive recall information** panel, where you can see various information about the working or completed recall process, such as source archive and dataset, start and finish times, and amount of recalled data.
+Regardless the recall is in progress or is completed, you can click on the badge to open
+the **Archive recall information** panel, where you can see various information about the
+working or completed recall process, such as source archive and dataset, start and finish
+times, and amount of recalled data.
 
 ![screen-file-recalled-panel][]
 
-If the recall failed, the **Archive recall information** panel contains information about files that have failed to be recalled.
+If the recall failed, the **Archive recall information** panel contains information about
+files that have failed to be recalled.
 
 ![screen-file-recall-panel-failed][]
 
-In the **Error log** tab of the panel, you can browse information about the particular file recall error: time of occurrence, link to the file in the source archive, and the error reason. 
+In the **Error log** tab of the panel, you can browse information about the particular
+file recall error: time of occurrence, link to the file in the source archive, and the
+error reason. 
 
 ![screen-file-recall-log][]
 
 ### Cancelling archive recall
 
-While the recall is in progress, you can cancel the process using the **Cancel** button at the bottom-left corner of the **Archive recall information panel**:
+While the recall is in progress, you can cancel the process using the **Cancel** button at
+the bottom-left corner of the **Archive recall information panel**:
 
 ![screen-file-recall-cancel][]
 
@@ -540,6 +557,12 @@ ancestor of the hierarchy.
 [dataset actions]: ./datasets.md#dataset-actions
 
 [dataset hierarchy]: ./datasets.md#datasets-hierarchy
+
+[share]: ./shares.md
+
+[QoS]: ./qos.md
+
+[transfer]: ./data-transfer.md
 
 [web file browser]: ./web-file-browser.md
 
