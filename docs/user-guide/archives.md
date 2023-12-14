@@ -2,6 +2,8 @@
 
 [toc][]
 
+<!-- TODO: VFS-11610 Add info about Datasets, Archive tab when new datasets "Tree" view will be finished -->
+
 ## Overview
 
 <!-- FIXME: verify the OAIS introduction correctness -->
@@ -96,9 +98,9 @@ reason information.
 
 ### Cancelling archivisation
 
-Archivisation process can be cancelled.
+The archivisation process can be cancelled.
 
-1. Open the context menu for archive in the **Building** state and choose **Cancel**.
+1. Open the context menu for an archive in the **Building** state and choose **Cancel**.
 
 ![screen-cancel-menu][]
 
@@ -141,7 +143,6 @@ The view consists of:
 * **archives/files list** — showing the
   * dataset archives when you are in the dataset root,
   * or the [files][] inside the archive if you enter some archive.
-<!-- FIXME: wyjaśnić kolumny? -->
 
 You can open the [context menu][archive actions] for an
 archive or [browse][files] its contents by double-clicking on it.
@@ -162,7 +163,6 @@ An archive item in the browser offers the following context actions:
 
 ![screen-archive-menu][]
 
-<!-- FIXME: linki do sekcji o archive details -->
 * **Properties** — opening the archive properties tab in the [archive details panel][],
   which shows the basic info about archive configuration,
 * **Edit description** — editing the archive description,
