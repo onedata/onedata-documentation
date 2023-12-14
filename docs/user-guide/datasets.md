@@ -136,8 +136,6 @@ has been assigned a persistent identifier and referenced in scientific works.
 To prevent changes in the dataset, users can set temporary **protection** flags, which
 cause the files and directories in the dataset to be protected from, accordingly:
 
-<!-- FIXME: napisać szczegółowo? -->
-
 * **Data protection** — modifying their content or being deleted,
 * **Metadata protection** — modifying their metadata, such as custom JSON/RDF/xattr
   metadata, permissions, or ACLs.
@@ -164,10 +162,6 @@ You can create archives using the **Create archive** [action][dataset actions] o
 archives tab of the [file browser datasets panel][].
 
 See [this][archives] chapter for more details.
-
-<!-- FIXME: link do opisu archives view -->
-
-<!-- FIXME: wrzucić 2 małe screeny z datasets panel action i archives tab -->
 
 ## Space "Datasets, Archives" tab
 
@@ -201,16 +195,8 @@ archives**.
 
 For more information about deleting archives, refer to [this page][deleting archives].
 
-<!-- FIXME: screen z "remove not available" -->
-
-<!-- FIXME: dopisać: Deleting archives of the dataset is described here. -->
-
 You can remove a dataset without an archive, using the **Remove** action in the [dataset
 actions][].
-
-<!-- FIXME: screen z akcją remove -->
-
-<!-- FIXME: dodatkowa sekcja: uprawnienia -->
 
 <!-- references -->
 
