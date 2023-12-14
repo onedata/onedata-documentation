@@ -9,6 +9,7 @@ representing data collections relevant to them. They can be used to organize dat
 a space in a systematic way.
 
 Datasets offer additional features, compared to regular files and directories:
+
 * optional data and metadata write [protection][],
 * [dataset structure][hierarchy] tracking using the [dataset browser][Datasets, Archives tab],
 * ability to [create persistent snapshots][create archive] of the physical dataset
@@ -20,8 +21,8 @@ structures.
 ![dataset-hierarchy][]
 
 The diagram above shows the filesystem tree, where some of the directories are marked as
-datasets (_Experiment A_ and _Results_). Regular files also can be marked as datasets
-(_Statistics.csv_). The file or directory is marked as a dataset by
+datasets (*Experiment A* and *Results*). Regular files also can be marked as datasets
+(*Statistics.csv*). The file or directory is marked as a dataset by
 [establishing][establishing datasets] the datasets on it.
 
 ## Establishing datasets
@@ -118,6 +119,7 @@ detail in the [archives][] documentation.
 ## Data and metadata write protection
 
 The lifecycle of a dataset can look like the following:
+
 * acquisition — creating and collecting,
 * consolidation and aggregation,
 * processing/analysis,
@@ -133,7 +135,9 @@ has been assigned a persistent identifier and referenced in scientific works.
 
 To prevent changes in the dataset, users can set temporary **protection** flags, which
 cause the files and directories in the dataset to be protected from, accordingly:
+
 <!-- FIXME: napisać szczegółowo? -->
+
 * **Data protection** — modifying their content or being deleted,
 * **Metadata protection** — modifying their metadata, such as custom JSON/RDF/xattr
   metadata, permissions, or ACLs.
