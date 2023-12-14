@@ -332,6 +332,8 @@ creating new files or directories, scheduling data transfers, etc).
 
 [31]: qos.md#web-gui-guide
 
+[5]: datasets.md
+
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
 [screen-uploading-empty]: ../../images/user-guide/web-file-browser/uploading-empty.png
@@ -389,5 +391,3 @@ creating new files or directories, scheduling data transfers, etc).
 [screen-mobile-upload]: ../../images/user-guide/web-file-browser/mobile-upload.png
 
 [screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
-
-[5]: datasets.md

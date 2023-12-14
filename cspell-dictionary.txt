@@ -19,6 +19,7 @@ onezone
 quickstart
 rclone
 remarkrc
+snapshotted
 tagmanifest
 unifiedjs
 vuepress
