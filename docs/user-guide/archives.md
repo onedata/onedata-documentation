@@ -67,17 +67,18 @@ first.
 1. Open the [datasets panel][] for a selected file or directory and click on the **Create
    archive** action of the [dataset actions][] context menu.
 
-  ![screen-create-archive][]
+![screen-create-archive][]
 
 2. In the **Create archive** modal, write a description of the archive and use the
    default archiving settings.
 
-  ![screen-create-archive-modal][]
+![screen-create-archive-modal][]
 
 3. Click on the **Create** button.
 
 4. You should see the [archives list][] including the newly
    created archive, going through the following stages:
+
    * **Building** — when the archivisation is still in progress, showing updating archived
      files and size counters,
    * **Verifying** — when data archivisation is finished and archive integrity is checked,
@@ -150,7 +151,7 @@ archive or [browse][files] its contents by double-clicking on it.
 ![screen-browsing-archives][]
 
 ### Archive files browser
- 
+
 The archive files browser works just as a regular [web file browser][] except it offers
 read-only access both for data and metadata. You can also [share][] the archived
 files/directories, manage [QoS][] and [transfer][] the data between providers.
@@ -172,7 +173,7 @@ An archive item in the browser offers the following context actions:
 * **Create incremental archive** — opening the [create archive][] modal with a subject
   archive selected as a base for the [incremental archive][incremental archives],
 * **Recall to...** — opening the modal for [recalling][] the archive,
-* **Download (tar)** — downloading the _tar_ package with the archive contents,
+* **Download (tar)** — downloading the *tar* package with the archive contents,
 * **Browse DIP** — opening the [DIP][layouts] (Dissemination Information Package) view of
   the archive files browser (if available),
 * **Delete archive** — opening the modal for [deleting][delete] the archive.
@@ -245,15 +246,15 @@ archives — the data remains until the last reference of the shared file data i
    contains an [archives list][] view. Make sure that you have at least one archive
    already created — if not, create one.
 
-3. Make sure that the contents of the dataset have been modified since the last taken
+2. Make sure that the contents of the dataset have been modified since the last taken
    snapshot, e.g. upload new files into the dataset.
 
-2. Open the context menu for an archive that should serve as a base for a new incremental
+3. Open the context menu for an archive that should serve as a base for a new incremental
    archive, and choose **Create incremental archive**. Files that haven't been modified in
    the dataset, compared to the selected archive, will be hardlinked instead of being
    copied.
 
-3. The **Incremental** toggle should be enabled and locked in the **Create archive**
+4. The **Incremental** toggle should be enabled and locked in the **Create archive**
    modal. The **Base archive** should indicate the chosen one.
 
 ![screen-create-incremental-archive][]
@@ -462,12 +463,13 @@ original dataset.
 Close the remaining **Datasets** panel and navigate to the recall target directory.
 Depending on the current recall status you can see the following badge on the
 file/directory row:
+
 * if the recall process is still in progress — a green **Recalling** badge showing the
   recall progress, ![screen-recall-tag-green][]
 * if the recall has been completed successfully — a blue **Recalled** badge,
-![screen-recall-tag-blue][]
+  ![screen-recall-tag-blue][]
 * if the recall has been completed with some errors — a red **Recall failed** badge.
-![screen-recall-tag-red][]
+  ![screen-recall-tag-red][]
 
 Regardless the recall is in progress or is completed, you can click on the badge to open
 the **Archive recall information** panel, where you can see various information about the
@@ -483,7 +485,7 @@ files that have failed to be recalled.
 
 In the **Error log** tab of the panel, you can browse information about the particular
 file recall error: time of occurrence, link to the file in the source archive, and the
-error reason. 
+error reason.
 
 ![screen-file-recall-log][]
 
