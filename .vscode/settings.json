@@ -1,0 +1,80 @@
+{
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark",
+    "editor.formatOnSave": false
+  },
+  "editor.rulers": [{
+      "column": 90,
+      "color": "#99999944"
+    },
+    {
+      "column": 120,
+      "color": "#ff000044"
+    },
+  ],
+  "ltex.additionalRules.enablePickyRules": false,
+  "ltex.markdown.nodes": {
+    "ImageRef": "ignore"
+  },
+  "ltex.configurationTarget": {
+    "dictionary": "workspace",
+    "disabledRules": "workspace",
+    "hiddenFalsePositives": "workspace"
+  },
+  "ltex.disabledRules": {
+    "en-US": [
+      "PASSIVE_VOICE",
+      "THREE_NN",
+      "ELLIPSIS",
+      "EN_QUOTES"
+    ]
+  },
+  "ltex.dictionary": {
+    "en-US": [
+      "ACEs",
+      "archivisation",
+      "aws-cli",
+      "BagIt",
+      "CDMI",
+      "ceph",
+      "Couchbase",
+      "dcmes",
+      "filesystem",
+      "Grammarly",
+      "handleId",
+      "hardlinked",
+      "LUMA",
+      "mybackups",
+      "OAIS",
+      "Oneclient",
+      "onedata.org",
+      "Onedata",
+      "Onepanel",
+      "Oneprovider",
+      "Oneproviders",
+      "Onezone",
+      "OpenAPI",
+      "QoS",
+      "quickstart",
+      "Quickstart",
+      "rclone",
+      "remarkrc",
+      "snapshotted",
+      "tagmanifest",
+      "toc",
+      "unifiedjs",
+      "VuePress",
+      "xattrs",
+      "znck"
+    ]
+  },
+  "ltex.hiddenFalsePositives": {
+    "en-US": [
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"^\\\\QAnyone can become a Onedata provider by installing Oneprovider service, attaching storage resources and registering it in a particular Onezone service.\\\\E$\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QAs onedata.org is a main public zone, any provider registered there allows the users to access their data through onedata.org user interface.\\\\E$\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QIf you prefer to work from the terminal, Onedata provides the oneclient command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console.\\\\E$\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QUsers use Onezone web interfaces (like the one at onedata.org) in order to authenticate with Onedata and access the data located on the providers storage resources.\\\\E$\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QUsers use Onezone web interfaces (like the one at onedata.org) in order to authenticate with Onedata and access the data located on the providers' storage resources.\\\\E$\"}"
+    ]
+  }
+}
