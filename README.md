@@ -23,8 +23,8 @@ Most Makefile targets use our build-docker with all dependencies installed.
 These scripts are suitable for most developers and documentation users.
 
 * `make build` builds the documentation, producing an artifact.
-* `make dev` prepares a local preview with livereload, allowing
-  convenient development. The livereload might not cope with some structural
+* `make dev` prepares a local preview with `livereload`, allowing
+  convenient development. The `livereload` might not cope with some structural
   changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
   Note that in this mode, the `RELEASE` version is not injected, only the
   placeholders are visible, as opposed to the `make preview` target.
@@ -32,6 +32,8 @@ These scripts are suitable for most developers and documentation users.
   statically, giving a preview of what's in the build artifact. **This task is not
   performed using a docker**, so Python 2 or 3 is required to be installed.
 * `make lint` launches Markdown linter on all documents.
+* `make check-language` launches LanguageTool toolkit for checking text grammar and
+  spelling.
 * `make format-all` performs auto-formatting on all Markdown documents.
   Note that this task will modify Markdown files where needed, so it is
   recommended to use it after staging current changes.
@@ -40,9 +42,9 @@ These scripts are suitable for most developers and documentation users.
 
 The recommended IDE to develop the documentation is Visual Studio Code (VSCode).
 
-You can set up recommended VSCode workspace configuration using
-`./setup-vscode.sh`, that will apply settings from the `.vscode.example` directory to your
-workspace configuration.
+The VSCode workspace configuration is checked out in the repository, so please be careful
+to not commit your personal changes. Only changes that should be shared amongst the other
+users should be committed, like `LTeX` configuration.
 
 There are a few recommended extensions for documentation development. You should be
 asked to install them when opening this workspace in VSCode (as they are listed in
@@ -50,7 +52,7 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this addon, you should install Node.js runtime in version 14.14+. Follow
+Before installing this add-on, you should install Node.js runtime in version 14.14+. Follow
 instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
@@ -62,7 +64,7 @@ that is configured in `.remarkrc.js` file, and enables code auto-formatter. By d
 you can format your code using `Format Document` VSCode command (accessible
 using `ctrl+shift+p`). If it does not work, try restarting VSCode.
 
-It is also recommended to change your workspace settings to enable auto-formatting on each
+It is also recommended changing your workspace settings to enable auto-formatting on each
 file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 
 ```json
@@ -72,23 +74,24 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-#### Grammarly (`znck.grammarly`)
+#### LTeX – LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
 
-This extension enables Markdown and plaintext files check using
-[Grammarly][] service. You can use the extension without authentication, but we recommend
-creating an account and logging into it in VSCode to enable the personal dictionary, which
-can be customized [here][Grammarly account customize]. As of July 2023, the Grammarly
-extension does not support personal dictionary configured locally.
+[LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
+Note, that the LanguageTool server is automatically downloaded to your local filesystem
+and launched locally — no data is sent to the LanguageTool servers. Also note, that the
+free version of LanguageTool launched locally lacks some checking made in the cloud
+version.
 
-#### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
+A configuration of the LTeX is placed entirely in the `.vscode/settings.json` file. It is
+also used by `make check-language` which uses the LTeX server to perform checking outside
+the IDE. The `dictionary`, `disabledRules`, and `hiddenFalsePositives` lists in the
+configuration must be placed in the `settings.json` file due to the `ltex-cli` limitations
+(as of version 16.0.0).
 
-Code Spell Checker adds an offline spell check. However, as the Grammarly addon also
-performs spell checking that cannot be turned off (as of July 2023), you can resign from
-using this extension.
-
-If you applied the default configuration for the workspace (using `setup-vscode.sh`
-script), the Code Spell Check extension uses `cspell-dictionary.txt` file with known
-words. Do add new words if needed and commit the changes.
+You can add words to dictionary, disable rules and hide false positives using the IDE
+"quick fix" functionality (hover over the underlined language problem). These
+words/rules/false positives will be added to the `settings.json` file, and the changes
+should be committed.
 
 ### Development using a natively-installed toolkit
 
@@ -97,7 +100,7 @@ which does not require installing Node.js with Node packages locally. To use loc
 installed Node (v14.14+ is required) install the Node packages using `npm run deps` in
 the repository root and use package scripts with `npm run`:
 
-* `npm run docs:dev` - runs a development server with livereload,
+* `npm run docs:dev` - runs a development server with `livereload`,
 * `npm run docs:build` - builds static documentation to `rel/` directory (notice the
   `future-documentation` subdirectory which is a subpath for serving),
 * `npm run docs:lint` - launches a remark linter on all Markdown documents,
@@ -125,6 +128,6 @@ Calling `make package` will pack it up into a tarball.
 
 [nvm website]: https://github.com/nvm-sh/nvm#installing-and-updating
 
-[Grammarly]: https://www.grammarly.com/
+[LTeX]: https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex
 
-[Grammarly account customize]: https://account.grammarly.com/customize
+[LanguageTool]: https://languagetool.org

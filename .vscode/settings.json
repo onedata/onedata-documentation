@@ -43,11 +43,12 @@
       "Grammarly",
       "handleId",
       "hardlinked",
+      "LTeX",
       "LUMA",
       "mybackups",
+      "nvm",
       "OAIS",
       "Oneclient",
-      "onedata.org",
       "Onedata",
       "Onepanel",
       "Oneprovider",
@@ -60,9 +61,11 @@
       "rclone",
       "remarkrc",
       "snapshotted",
+      "subpath",
       "tagmanifest",
       "toc",
       "unifiedjs",
+      "VSCode",
       "VuePress",
       "xattrs",
       "znck"
@@ -74,7 +77,8 @@
       "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QAs onedata.org is a main public zone, any provider registered there allows the users to access their data through onedata.org user interface.\\\\E$\"}",
       "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QIf you prefer to work from the terminal, Onedata provides the oneclient command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console.\\\\E$\"}",
       "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QUsers use Onezone web interfaces (like the one at onedata.org) in order to authenticate with Onedata and access the data located on the providers storage resources.\\\\E$\"}",
-      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QUsers use Onezone web interfaces (like the one at onedata.org) in order to authenticate with Onedata and access the data located on the providers' storage resources.\\\\E$\"}"
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"^\\\\QUsers use Onezone web interfaces (like the one at onedata.org) in order to authenticate with Onedata and access the data located on the providers' storage resources.\\\\E$\"}",
+      "{\"rule\":\"UPPERCASE_SENTENCE_START\",\"sentence\":\"^\\\\Qremark (\\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q)\\\\E$\"}"
     ]
   }
 }
