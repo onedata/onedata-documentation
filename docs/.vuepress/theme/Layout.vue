@@ -7,24 +7,48 @@
   >
     <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-    <template>
-      <h1>Testing...</h1>
-    </template>
-
     <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
     <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
       <template #top>
         <slot name="sidebar-top" />
         <style>
+          .search-box {
+            width: 254px;
+            margin: 0;
+            padding: 0;
+            margin-left: 1.25rem;
+          }
+          .search-box input {
+            width: auto;
+          }
           .search-box ul.suggestions {
             right: auto !important;
             left: 0 !important;
             width: 100%;
             z-index: 1;
           }
+          .header-logo {
+            padding: 15px;
+            padding-left: 1.25rem;
+          }
+          .header-logo img, .sidebar-header-text {
+            margin: 0;
+          }
+          .sidebar-header-text {
+            color: #000;
+            font-weight: 600;
+            font-size: 16px;
+          }
+          .header-logo img {
+            width: 254px;
+          }
         </style>
-        <SearchBox style="margin-top: 1cm" />
+        <a href="/" class="header-logo">
+          <!-- no whitespace between logo and text for Firefox -->
+          <img src="./images/sidebar-logo-dark.svg" />
+        </a>
+        <SearchBox />
       </template>
       <template #bottom>
         <slot name="sidebar-bottom" />
