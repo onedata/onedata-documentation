@@ -93,7 +93,7 @@ Provide the hostname of a chosen provider — one that supports at least one
 of your spaces. The choice of provider may depend on several factors:
 
 1. The quality of your network connection to the provider.
-2. The fact whether the provider supports the space that is to be accessed.
+2. Whether the provider supports the space that is to be accessed.
 3. Whether you wish to use the [direct I/O][9] mode.
 
 The hostname can be found in the [Web GUI][10].
@@ -588,7 +588,7 @@ from a specific Oneprovider and with a specific access token is as follows:
 
 ```bash
 $ docker volume create --driver onedata \
-        -o host=$ONEPROVIDER_HOSTNAME \
+        -o host=$PROVIDER_DOMAIN \
         -o token=$ACCESS_TOKEN \
         my_volume
 ```
@@ -678,7 +678,7 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [9]: #direct-io-and-proxy-io-modes
 
-[10]: data.md#oneprovider-domain
+[10]: data.md#provider-domain
 
 [12]: https://docs.docker.com/engine/extend/plugins_volume/
 
