@@ -74,13 +74,13 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-#### LTeX – LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
+#### LTeX — LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
 
 [LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
-Note, that the LanguageTool server is automatically downloaded to your local filesystem
-and launched locally — no data is sent to the LanguageTool servers. Also note, that the
-free version of LanguageTool launched locally lacks some checking made in the cloud
-version.
+Note, that the add-on automatically downloads a LanguageTool server to your local
+filesystem and launched locally — it doesn't send any data to the LanguageTool servers.
+Also note, that the free version of LanguageTool launched locally lacks some checking made
+in the cloud version (e.g., articles usage).
 
 A configuration of the LTeX is placed entirely in the `.vscode/settings.json` file. It is
 also used by `make check-language` which uses the LTeX server to perform checking outside
@@ -89,9 +89,53 @@ configuration must be placed in the `settings.json` file due to the `ltex-cli` l
 (as of version 16.0.0).
 
 You can add words to dictionary, disable rules and hide false positives using the IDE
-"quick fix" functionality (hover over the underlined language problem). These
-words/rules/false positives will be added to the `settings.json` file, and the changes
-should be committed.
+(hover over the underlined language problem). These words/rules/false positives will be
+added to the `settings.json` file, and the changes should be committed.
+
+After adding the above entries to the settings, you should apply some manual fixes:
+
+- words in `dictionary` should be sorted alphabetically, case-insensitively,
+- `hiddenFalsePositives` should be a minimal sentence instead the one generated (explained
+  below).
+
+An example of a `hiddenFalsePositives` entry added with quick fix is:
+
+```
+"{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"^\\\\QUse the term \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q when referring to a Onedata provider in most contexts, except when talking about a service or a piece of software — use \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q then.\\\\E$\"}"
+```
+
+The above is the full sentence with the `a Onedata` false positive detected by
+LanguageTool (LanguageTool doesn't know the pronunciation of Onedata, so it assumes that
+“an” should be used). The drawback of this rule is that when you change anything in this
+sentence, then you must create another rule to match the changed sentence. The other
+drawback is that any other sentence with `a Onedata` will be a false positive and must be
+treated separately.
+
+To solve these issues, convert auto-generated rules into the simpler form containing only
+the false positive cause:
+
+```
+"{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata.\"}"
+```
+
+**Note, that whole sentences with `a Onedata` phrase will not be checked** — this is due
+to LTeX limitations.
+
+##### Special characters
+
+LanguageTool has been configured to guard usage of special characters:
+
+* dashes (`-` → `-`, `–`, `—`),
+* quotes (`""` → `“”`),
+* ellipsis (`...` → `…`).
+
+The linter proposes these replacements with `quick fix` functionality of IDE when you try
+to use regular dashes, quotes or three dots.
+
+##### Ignored Markdown elements
+
+Content in the code-fences, ``` `backticks` ``` and `**strong**` is **not checked** by
+LanguageTool.
 
 ### Development using a natively-installed toolkit
 
@@ -100,13 +144,13 @@ which does not require installing Node.js with Node packages locally. To use loc
 installed Node (v14.14+ is required) install the Node packages using `npm run deps` in
 the repository root and use package scripts with `npm run`:
 
-* `npm run docs:dev` - runs a development server with `livereload`,
-* `npm run docs:build` - builds static documentation to `rel/` directory (notice the
+* `npm run docs:dev` — runs a development server with `livereload`,
+* `npm run docs:build` — builds static documentation to `rel/` directory (notice the
   `future-documentation` subdirectory which is a subpath for serving),
-* `npm run docs:lint` - launches a remark linter on all Markdown documents,
-* `npm run docs:format-all` - applies standardized formatting on all Markdown documents.
+* `npm run docs:lint` — launches a remark linter on all Markdown documents,
+* `npm run docs:format-all` — applies standardized formatting on all Markdown documents.
 
-Note, that for the local development, the `yarn` package manager is used, so do not try
+Note, that Makefile uses the `yarn` package manager for dependencies, so do not try
 installing dependencies using `npm install`.
 
 ## Versioning
