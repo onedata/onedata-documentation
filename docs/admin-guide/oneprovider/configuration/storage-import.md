@@ -1,5 +1,7 @@
 # Storage import
 
+[toc][0]
+
 *Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
 the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
 the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
@@ -37,7 +39,7 @@ Registration of directories is not supported.
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does
 not support [automatic import scans][3].
 
-### Storage configuration for manual import:
+### Storage configuration for manual import
 
 *Manual storage import* is supported on the following storage backends:
 
@@ -59,7 +61,7 @@ not support [automatic import scans][3].
 In case of *auto* mode, the storage is automatically scanned and data is imported from storage into the
 assigned space.
 
-### Storage configuration for auto import:
+### Storage configuration for auto import
 
 *Auto storage import* is supported on the following storage backends:
 
@@ -132,6 +134,8 @@ It is possible to change the time resolution of the charts in the upper right co
 ![screen-auto-storage-import-stats][]
 
 <!-- references -->
+
+[0]: <>
 
 [1]: storages.md#imported-storage
 

@@ -28,8 +28,12 @@ To add an image:
 
 ## Writing tone
 
+* Be concise; try to pass condensed knowledge in as little text as possible.
+
+* Avoid passive voice.
+
 * Always use the second person and imperative mood to address the user. Don't be
-  overly polite (avoid using `please` when giving commands).
+  overly polite (avoid using **please** when giving commands).
 
   ✅ To upload a file, click on the corresponding button in the top toolbar.
 
@@ -131,17 +135,17 @@ links and images (including screenshots).
 Below are some examples of how a link (external or internal) can be introduced:
 
 ```md
-* For more information about X, refer to [this page][A].
+* For more information about X, refer to [this page][page-about-x].
 * For more information about X, see the [installation][] section/chapter.
-* See [this][C] chapter for more details.
+* See [this][other-chapter] chapter for more details.
 
 <!-- references -->
 
-[A]: https://example.com/docs
+[page-about-x]: https://example.com/docs
 
 [installation]: path/to/installation-guide.md#section
 
-[C]: path/to/file-three.md#section
+[other-chapter]: path/to/file-three.md#section
 ```
 
 Always use references for links (like `[page][]`), never use inline links (like
@@ -169,9 +173,9 @@ This is some [test][link-1].
 [link-1]: path/to/page.md
 ```
 
-In some cases, depending on the context, the reference name could be different:
+Sometimes, you may need to insert a link with text different than the reference name:
 
-✅ Correct in special cases
+✅ Correct in justified cases
 
 ```md
 Refer to [this][file-chapter] section of documentation.
@@ -213,7 +217,7 @@ like the following:
 * images
 * screenshots
 
-Within the groups, reflect the order of appearance.
+Within the groups, the order of references can be arbitrary.
 
 Place the `<!-- references -->` separator before the references section.
 
@@ -304,11 +308,11 @@ style to express a placeholder (some meta information), e.g.:
 
 ## REST API examples
 
-In general, avoid including REST API call examples in the docs — this is what the API (swaggers)
+In general, **avoid including REST API call examples** in the docs — this is what the API (swaggers)
 docs are for. There are some exceptions to this rule though. If the REST API is complicated,
 it may be a good idea to include one or two examples to give the reader a kickstart.
 
-Do include useful links to the REST API, typically at the end of a section. Make sure
+**Do include useful links to the REST API**, typically at the end of a section. Make sure
 to link the section with the guide on how to use the REST API of the corresponding service.
 Below is an example of how to do that.
 
@@ -335,6 +339,10 @@ Below are some links to the REST API documentation of commonly used operations:
 ```
 
 ## Technicalities
+
+* Include the table of contents (`[toc][]`) only when a chapter is long and has
+  multiple subsections. To make the linter happy, you will need to add a `[toc]: <>`
+  placeholder to the references section.
 
 * Use the hyphen (`-`), en dash (`–`), and em dash (`—`) characters appropriately.
 
@@ -369,6 +377,15 @@ Below are some links to the REST API documentation of commonly used operations:
 
 * Use the term **storage backend** to refer to an instance of a storage system, do not use
   the legacy name (**storage**, **storages**).
+
+* Language checkers **will complain** about some article usage situations as it does not
+  know our nomenclature typical for Onedata. In such cases, exceptions should be added to
+  the language checker config. All the below examples **are correct**:
+  * "In a Onedata space" — it will suggest using the article "an", not knowing
+    the pronunciation.
+  * "Install a Oneprovider cluster" — as above.
+  * "Select a space for the new file" — it will suggest that "space" is
+    uncountable and does not need an article, but in Onedata, spaces are countable.
 
 ## Custom routes
 

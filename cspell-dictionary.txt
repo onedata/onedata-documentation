@@ -4,10 +4,12 @@ Grammarly
 LUMA
 mybackups
 oneclient
+onedata
 onepanel
 oneprovider
 oneproviders
 onezone
+quickstart
 remarkrc
 unifiedjs
 vuepress

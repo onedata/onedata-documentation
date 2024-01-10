@@ -1,6 +1,6 @@
 # File popularity
 
-[toc][1]
+[toc][]
 
 As a prerequisite for understanding this chapter we advise to familiarize with
 the concept of [*views*][2].
@@ -164,7 +164,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
 [2]: ../../../user-guide/views.md
 

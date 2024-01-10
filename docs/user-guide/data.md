@@ -8,50 +8,31 @@ the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
 
-Files and directories in Onedata can be globally identified using unique file
-IDs or logical paths. Whenever possible, it is recommended to use File IDs,
-due to better performance and no need for escaping or encoding.
+Any file in Onedata (**regular**, **directory**, **symbolic link**, or **hard
+link**) can be globally identified using its unique **File ID** or **logical
+path**.
 
-### File path
-
-All logical paths in Onedata use the slash `/` delimiter and must start with a
-space name:
+**Logical path** specifies the location of a file or directory in the Onedata filesystem.
+It uses the slash (`/`) delimiter and must start with a leading slash followed by a space name:
 
 ```
 /CMS 1/directory/images&videos/garden.png
 ```
 
-The path-based navigation is used mainly in the Web GUI and Oneclient interfaces.
-
-[Web GUI][3] — the path is represented in the file browser's breadcrumbs.
-
-![screen-file-gui-path-and-info][]
-
-[Oneclient][5] — when using a shell to access the mounted filesystem,
-some characters in paths should be properly escaped:
+**File ID** is a unique, global identifier associated with a file, structured as
+a string of alphanumeric characters:
 
 ```
-~$ cat /CMS\ 1/directory/images\&videos/garden.png
+094576776E667431723230677767776C6B497031394E445F6E3868677873...
 ```
 
-[REST][6] or [CDMI][7] API — paths used in URLs must be url-encoded:
+The path-based navigation is used mainly in the [Web GUI][3] and [Oneclient][5]
+interfaces. In the [REST][6] and [CDMI][7] APIs, it is **recommended to use File
+IDs**, due to better performance and no need for escaping or encoding.
 
-```
-{...}/CMS%201/directory/images%26videos/garden.png
-```
+### Find out the File ID
 
-<!-- TODO VFS-9288 unify all NOTE blocks -->
-
-> **NOTE:** Duplicate space names are generally allowed. For that reason,
-> referencing files by path may be ambiguous. During file path resolution, the
-> first space whose name matches the first segment of the path is always taken,
-> but the order in which spaces are checked cannot be guaranteed.
-
-### File ID
-
-File ID is a unique, global identifier associated with a file or directory and
-can be used universally in the [REST][6] and [CDMI][7] APIs.
-There are several ways to find out the File ID of given file or directory:
+There are several ways to find out the File ID of a file:
 
 [Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
 file/directory context menu:
@@ -70,12 +51,11 @@ returns specifically the File ID attribute:
 
 [REST][6] — use the File ID
 [resolution endpoint][8].
-The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name
-(consult [file path][9]):
+The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name:
 
 ```bash
-curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
--X POST "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/lookup-file-id/CMS%201/directory/images%26videos/garden.png"
+curl -H "X-Auth-Token: ${ACCESS_TOKEN}" -X POST \
+"https://${PROVIDER_DOMAIN}/api/v3/oneprovider/lookup-file-id/CMS%201/directory/images%26videos/garden.png"
 ```
 
 ```json
@@ -86,8 +66,33 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" \
 
 > **NOTE:** Paths used in URLs must be url-encoded.
 
-> **NOTE:** The `${ONEPROVIDER_DOMAIN}` can be obtained as shown
-> [below][10].
+> **NOTE:** The `${PROVIDER_DOMAIN}` can be obtained as shown [below][10].
+
+### Working with file paths
+
+[Web GUI][3] — the path is represented in the file browser's breadcrumbs.
+
+![screen-file-gui-path-and-info][]
+
+[Oneclient][5] — when using a shell to access the mounted filesystem,
+some characters in paths should be properly escaped:
+
+```
+~$ cat /CMS\ 1/directory/images\&videos/garden.png
+```
+
+[REST][6] or [CDMI][7] API — make sure to URL-encode paths used in URLs:
+
+```
+{...}/CMS%201/directory/images%26videos/garden.png
+```
+
+<!-- TODO VFS-9288 unify all NOTE blocks -->
+
+> **NOTE:** Duplicate space names are generally allowed. For that reason,
+> referencing files by path may be ambiguous. During file path resolution, the
+> first space whose name matches the first segment of the path is always taken,
+> but the order in which spaces are checked cannot be guaranteed.
 
 ## Interfaces
 
@@ -98,31 +103,31 @@ service][11]. Depending on the environment, there might be
 several Oneprovider services [supporting user spaces][12]
 that can be used to access the data. While the [Web GUI][3] offers
 natural navigation between services, the other interfaces require that the user
-chooses one of their Oneproviders and is aware of its domain (see below).
+chooses one of their providers and is aware of its domain (see below).
 
-### Oneprovider domain
+### Provider domain
 
 <!-- TODO VFS-7218 this should be moved somewhere else — maybe a new chapter with providers GUI
      from the user's point of view? -->
 
-Oneprovider's domain is required to mount a [Oneclient][5] instance or
-utilize the [REST][6] and [CDMI][7] APIs. It can be found in the Web
-GUI: ![screen-provider-domain][]
+Provider's domain is required to mount a [Oneclient][5] instance or utilize the
+[REST][6] and [CDMI][7] APIs. It can be found in the Web GUI:
+![screen-provider-domain][]
 
 ### Oneclient
 
 Oneclient is a command-line based application used for mounting
 Onedata spaces in the local file system tree. To that end, Oneclient requires a
-network connection to chosen Oneprovider instance. [This chapter][14]
+network connection to the chosen Oneprovider service. [This chapter][14]
 covers information about its setup and usage.
 
 ### REST API
 
 Oneprovider service offers a comprehensive REST API for data management. All
-endpoints use [File IDs][15] to identify files and directories. The
-documentation based on OpenAPI (a.k.a. Swagger) can be found
-[here][16]. General information
-on using the REST APIs in Onedata are covered in [this chapter][17].
+endpoints use [File IDs][file-path-and-id] to identify files and directories,
+though some endpoints work on file paths. The documentation based on OpenAPI
+(a.k.a. Swagger) can be found [here][16]. General information on using the REST
+APIs in Onedata is covered in [this chapter][17].
 
 ### CDMI
 
@@ -207,14 +212,14 @@ and directories using hierarchical rules that grant and deny granular operations
 for a specific principal. Onedata supports subset of CDMI ACL which are based
 on NFSv4 standard [RFC 3530][31].
 
-An ACL is an ordered list of **ACEs (Access Control Entries)**. Oneprovider
-evaluates ACEs strictly in the same order as they were added, top-down. If any
+An ACL is an ordered list of **ACEs (Access Control Entries)**. ACEs are
+evaluated strictly in the same order as they were added, top-down. If any
 of the ACEs denies or grants access to the considered principal, evaluation is
 stopped.
 
 #### Access Control Entry
 
-An ACE consist of four fields:
+An ACE consists of four fields:
 
 * `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 * `who` — the principal whom the ACE affects:
@@ -224,10 +229,9 @@ An ACE consist of four fields:
   * `GROUP@` — members of space containing the file
   * `ANONYMOUS@` — guest client (accessing through a share)
   * `EVERYONE@` — everyone, including the anonymous users
-* `flags` — currently only the flag indicating whether principal identifier points
-  to user or group is supported, other flags can be set or
-  [imported][32],
-  but they will be ignored during ACE evaluation
+* `flags` — currently only the flag indicating whether the principal identifier
+  points to the user or group is supported, other flags can be set or
+  [imported][32], but they will be ignored during ACE evaluation
 * `access_mask` — the permissions regulated by this ACE
 
 Permissions can be changed using the [Web file browser][33] in
@@ -256,10 +260,10 @@ All available permissions and their meaning for files or directories are present
 
 #### Evaluation
 
-Each ACE in an ACL either allows or denies some set of permissions.
-Oneprovider will evaluate the resource (file or directory) ACEs until
-all requested permissions are granted or any of them is denied using
-the following algorithm:
+Each ACE in an ACL either allows or denies some set of permissions. The request
+handling provider will evaluate the resource (file or directory) ACEs until all
+requested permissions are granted or any of them is denied using the following
+algorithm:
 
 1. The ACE is checked for applicability. ACEs that do not refer to the principal
    requesting the operation or any requested permission are ignored.
@@ -344,9 +348,7 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 [8]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
 
-[9]: #file-path
-
-[10]: #oneprovider-domain
+[10]: #provider-domain
 
 [11]: ../intro.md#architecture
 
@@ -354,7 +356,7 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 [14]: oneclient.md
 
-[15]: #file-id
+[file-path-and-id]: #file-path-and-id
 
 [16]: https://onedata.org/#/home/api/stable/oneprovider
 
