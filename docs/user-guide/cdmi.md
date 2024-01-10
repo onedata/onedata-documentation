@@ -1,6 +1,6 @@
 # CDMI
 
-[toc][1]
+[toc][]
 
 ## Quickstart
 
@@ -31,7 +31,7 @@ concepts is as follows:
 | :----------- | :----------------------------------------------- |
 | Containers   | directories (including root [space][] directory) |
 | Data Objects | regular files stored in user's [spaces][space]   |
-| Object ID    | [File ID][]                                      |
+| Object ID    | [FILE ID][file-path-and-id]                      |
 
 At present, Onedata supports CDMI version `1.1.1`.
 
@@ -42,12 +42,12 @@ For more information about CDMI, visit the [official website][CDMI specification
 In Onedata, files and directories can be accessed and managed using CDMI queries
 on the following paths:
 
-* `/cdmi/${FILE_PATH}`: for interacting with files or directories using their logical path.
+* `/cdmi/${FILE_PATH}`: for interacting with files or directories using their [logical path][file-path-and-id].
 * `/cdmi/cdmi_objectid/${FILE_ID}`: for interacting with files or directories
-  using their unique [File ID][].
+  using their unique [FILE ID][file-path-and-id].
 
-It is recommended to use File IDs whenever possible as they offer better
-performance, since no path resolution is required.
+It is **recommended to use File IDs** whenever possible as they offer better
+performance since no path resolution is required.
 
 When referencing files through CDMI using the file path, keep in mind that
 Onedata organizes all data into [spaces][space], and the space name is the first
@@ -61,8 +61,8 @@ name of the space (**make sure to URL-encode the path**):
 ::: warning NOTE
 CDMI imposes strict rules regarding the trailing slash in paths:
 
-* directory-path must always end with `/` — e.g. `/cdmi/MySpace/dir1/`,
-* file-path must have no trailing slash — e.g. `/cdmi/MySpace/file1.txt`.
+* directory path must always end with `/` — e.g. `/cdmi/MySpace/dir1/`,
+* file path must have no trailing slash — e.g. `/cdmi/MySpace/file1.txt`.
 
 :::
 
@@ -75,10 +75,10 @@ Note that the examples provided below cover only a portion of the available API 
 Prepare a valid access token. You can generate an access token either in the Web
 GUI or via REST API (refer to the [tokens][] chapter).
 
-The following examples assume that below environment variables are exported.
+The following examples assume that the environment variables below are exported.
 
 ```bash
-export ONEPROVIDER_DOMAIN="provider.example.com"  # replace with actual
+export PROVIDER_DOMAIN="provider.example.com"  # replace with actual
 
 export FILE_ID="39592D594E736C676D0000002B4345F6...."  # replace with actual
 
@@ -92,10 +92,10 @@ export CT_CONTAINER="Content-Type: application/cdmi-container"
 
 export CT_DATAOBJECT="Content-Type: application/cdmi-object"
 
-export ENDPOINT="https://${ONEPROVIDER_DOMAIN}/cdmi"
+export ENDPOINT="https://${PROVIDER_DOMAIN}/cdmi"
 ```
 
-Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, and `$ONEPROVIDER_DOMAIN` variables.
+Make sure to adjust the `$FILE_ID`, `$ACCESS_TOKEN`, and `$PROVIDER_DOMAIN` variables.
 
 ### Create new file
 
@@ -534,7 +534,7 @@ refer to the [CDMI specification][].
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
 [usage examples]: #examples-of-usage
 
@@ -544,7 +544,7 @@ refer to the [CDMI specification][].
 
 [space]: spaces.md
 
-[File ID]: data.md#file-path-and-id
+[file-path-and-id]: data.md#file-path-and-id
 
 [CDMI specification]: http://www.snia.org/cdmi
 

@@ -40,7 +40,7 @@ Learn more [here][8].
 ## File ID
 
 A unique, global identifier associated with a file or directory.
-Learn more [here][9].
+Learn more [here][file-path-and-id].
 
 ## File metadata
 
@@ -51,8 +51,8 @@ Learn more [here][10].
 
 ## File path
 
-Uniquely specifies the location of a file or directory.
-Learn more [here][11].
+Specifies the location of a file or directory in the Onedata filesystem.
+Learn more [here][file-path-and-id].
 
 ## File popularity
 
@@ -179,11 +179,9 @@ Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
 
 [8]: user-guide/data-discovery.md
 
-[9]: user-guide/data.md#file-id
+[file-path-and-id]: user-guide/data.md#file-path-and-id
 
 [10]: user-guide/metadata.md
-
-[11]: user-guide/data.md#file-path
 
 [12]: #auto-cleaning
 
