@@ -1,0 +1,59 @@
+$fonts-root = '/future-documentation/assets/fonts'
+$open-sans-name = 'Open Sans'
+$source-code-pro-name = 'Source Code Pro'
+
+/// Import OpenSans Regular
+@font-face
+  font-family $open-sans-name
+  src url($fonts-root + '/opensans/OpenSans-Regular-webfont.woff') format('woff')
+  font-weight normal
+  font-style normal
+
+/// Import OpenSans Semibold
+@font-face
+  font-family $open-sans-name
+  src url($fonts-root + '/opensans/OpenSans-Semibold-webfont.woff') format('woff')
+  font-weight 600
+  font-style normal
+
+/// Import Source Code Pro Regular
+@font-face
+  font-family $source-code-pro-name
+  font-style normal
+  font-weight normal
+  src url($fonts-root + '/sourcecodepro/source-code-pro-regular.woff2') format('woff2'),
+      url($fonts-root + '/sourcecodepro/source-code-pro-regular.woff') format('woff')
+
+body
+  font-family $open-sans-name, sans-serif
+
+code, kbd, .line-number
+  font-family $source-code-pro-name, monospace
+
+a
+  font-weight 600
+
+aside.sidebar
+  .search-box
+    width 254px
+    margin 0
+    padding 0
+    margin-left 1.25rem
+    input
+      width auto
+    ul.suggestions
+      right: auto !important;
+      left: 0 !important;
+      width: 100%;
+      z-index: 1;
+  .header-logo
+    padding 15px
+    padding-left 1.25rem
+  .header-logo img, .sidebar-header-text
+    margin 0
+  .header-logo img
+    width 254px
+  .sidebar-header-text
+    color #000
+    font-weight 600
+    font-size 16px

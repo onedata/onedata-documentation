@@ -30,9 +30,9 @@ Onedata focuses on instant, transparent access to distributed data sets, without
 
 Before you start using Onedata, it's helpful to understand the basic concepts provided in the next section. There you will find out: what functionality it provides, how data is organized and what are the various components of the platform.
 
-If you would like to start using onedata as a user go to the [user quickstart][].
+If you would like to start using Onedata as a user go to the [user quickstart][].
 
-If you would like to deploy the onedata services on your infrastructure then you should start with the relevent quickstart for [onezone][] or [oneprovider][] found in the [admin guide][].
+If you would like to deploy the Onedata services on your infrastructure then you should start with the relevent quickstart for [Onezone][] or [Oneprovider][] found in the [admin guide][].
 
 ## Basic concepts
 
@@ -119,11 +119,11 @@ architecture
 
 [user quickstart]: user-guide/quickstart.md
 
-[onezone]: admin-guide/onezone
+[Onezone]: admin-guide/onezone/quickstart.md
 
-[oneprovider]: admin-guide/oneprovider
+[Oneprovider]: admin-guide/oneprovider/quickstart.md
 
-[admin guide]: admin-guide/
+[admin guide]: admin-guide/overview.md
 
 [Space Management]: user-guide/spaces.md
 
