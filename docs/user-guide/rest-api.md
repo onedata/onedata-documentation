@@ -8,7 +8,7 @@ Onedata consists of three main types of services that form its [architecture][].
 Each service has its corresponding API, which is documented using OpenAPI (also known as Swagger):
 
 * Onezone — API for managing high-level resources such as users, groups, spaces,
-  etc, realized by the **Onezone Worker** server — see the [docs][Onezone REST API]. 
+  etc, realized by the **Onezone Worker** server — see the [docs][Onezone REST API].
 
 * Oneprovider — API for data management, complemented by [CDMI API][], realized
   by the **Oneprovider Worker** server — see the [docs][Oneprovider REST API].
@@ -56,7 +56,7 @@ Follow this [guide][token quickstart guide] to acquire an access token.
 
 Some endpoints (e.g. in Oneprovider's Data Transfers API) require the provider
 ID. You can find it with the following REST query (you will need the provider
-[domain][provider domain]): 
+[domain][provider domain]):
 
 ```bash
 curl "https://${PROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId

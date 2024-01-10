@@ -94,7 +94,6 @@ some characters in paths should be properly escaped:
 > first space whose name matches the first segment of the path is always taken,
 > but the order in which spaces are checked cannot be guaranteed.
 
-
 ## Interfaces
 
 Onedata offers several ways of accessing and managing user data.
