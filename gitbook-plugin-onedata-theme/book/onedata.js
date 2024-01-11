@@ -64,6 +64,7 @@ require(["gitbook"], function(gitbook) {
             var headingPath = gitbook.state.bookRoot + '/doc/img/heading.png';
             var indexLink = $('[data-path="index.html"] a');
             indexLink.before('<a href="/" class="header-logo"><img src="'+headingPath+'" /></a>');
+            indexLink.addClass('index-link-text');
             $('.header-logo').on('click', function(e) { e.stopPropagation(); });
             indexLink.html('documentation');
 

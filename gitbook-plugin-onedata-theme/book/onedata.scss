@@ -19,6 +19,14 @@ $summary-fg: #364149;
     font-style: normal;
 }
 
+@font-face {
+  font-family: 'Open Sans';
+  src: url('gitbook/plugins/gitbook-plugin-onedata-theme/fonts/OpenSans-Semibold-webfont.woff') format('woff');
+  // Note: using Semibold font for bold content to look like other parts of Onedata
+  font-weight: bold;
+  font-style: normal;
+}
+
 // makes "a" elements in nested menu padding by neting level
 @mixin a-padding($level) {
   $selector: "";
@@ -161,6 +169,9 @@ h1 img[alt='Onedata'] {
           // Adjust position to DOCUMENTATION text
           margin-bottom: 0.09em
         }
+      }
+      .index-link-text {
+        padding-right: 0;
       }
     }
 
