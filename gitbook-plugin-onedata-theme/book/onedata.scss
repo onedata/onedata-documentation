@@ -46,10 +46,10 @@ $summary-fg: #364149;
 }
 
 // Onedata image in content header (notice "alt"!)
-h1 img[alt='Onedata']
-{
+h1 img[alt='Onedata'] {
   height: 0.75em;
   margin-right: 0.3em;
+  margin-bottom: 0.2em;
 }
 
 .book.font-family-1 {
@@ -157,6 +157,10 @@ h1 img[alt='Onedata']
 
       .header-logo {
         padding-right: 0;
+        img {
+          // Adjust position to DOCUMENTATION text
+          margin-bottom: 0.09em
+        }
       }
     }
 
