@@ -60,7 +60,7 @@ For more information about *Spaces* and *Groups* see [Space Management][] and [G
 
 ### Providers
 
-Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata by installing *Oneprovider* service, attaching storage resources and registering it in a particular Onezone service.
+Each zone is composed of a network of providers who provision their storage resources to users. Anyone can become a Onedata provider by installing *Oneprovider* service, attaching storage resources and registering it in a particular Onezone service.
 
 A user can use several providers simultaneously to manage his/her data. Onedata exposes combined storage space of all providers to the user and ensures that access to user's data is instant and transparent.
 
