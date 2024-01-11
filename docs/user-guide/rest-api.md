@@ -1,75 +1,91 @@
 # REST API
 
-This chapter contains basics about Onedata REST API usage.
+This chapter provides a brief introduction to the usage of the Onedata REST API.
 
 ## Available APIs (services)
 
-There are essentially three types of services in Onedata that make up its [architecture][1].
-Each of them has its corresponding API, documented using OpenAPI (a.k.a. Swagger):
+Onedata consists of three main types of services that form its [architecture][].
+Each service has its corresponding API, which is documented using OpenAPI (also known as Swagger):
 
-* Onezone — API for managing high level objects such as users, groups, spaces etc. —
-  [REST API][2].
+* Onezone — API for managing high-level resources such as users, groups, spaces,
+  etc, realized by the **Onezone Worker** server — see the [docs][Onezone REST API].
 
-* Oneprovider — API for data management — [REST API][3],
-  complemented by [CDMI API][4] (recommended only for advanced use-cases
-  that explicitly require the CDMI protocol, due to its worse efficiency)
+* Oneprovider — API for data management, complemented by [CDMI API][], realized
+  by the **Oneprovider Worker** server — see the [docs][Oneprovider REST API].
 
-* Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
-  [REST API][5].
+* Onepanel — admin API for managing service clusters, realized by the **Onezone
+  Panel** or **Oneprovider Panel** server — see the [docs][Onepanel REST API].
+
+![image-rest-api-services][]
 
 ## Endpoints
 
-The REST APIs are available under endpoints depending on the service type and domain.
-Assume the following domains in the environment:
+The REST API endpoint location depends on the service type and domain.
+
+Assume the following domains:
 
 * Onezone: `onezone.plgrid.pl`
 * Oneprovider: `oneprovider.cyfronet.pl`
 
-In such case, the APIs are available under the following endpoints:
+Then, the APIs can be accessed using the following endpoints:
 
 | Service                         | API endpoint                                                                                                                          |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Onezone                         | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
-| Oneprovider                     | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
-| Onezone panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
-| Oneprovider panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
+| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ |
+| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
+| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
+| Onezone Panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
+| Oneprovider Panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
-> **NOTE:** the Onepanel API endpoints are available under Onezone and Oneprovider
-> domains and internally proxied to Onepanel. The port `9443` can be used to
-> access the Onepanel API directly from within the cluster's local network.
+::: tip NOTE
+The Onepanel API endpoints are exposed by Onezone and Oneprovider Worker
+servers and proxied to Onepanel servers. Port `9443` can be used to
+directly access the Onepanel server from within the cluster's local network.
+:::
 
-The Onezone domain should be known to the users as this is their entry point
-to the system, presenting them with a login page. Instructions on how to find
-the domain of a Oneprovider service can be found [here][6].
+Users should be aware of the Onezone domain as it serves as their entry point to
+the system, providing them with a login page — see the [user quickstart
+guide][]. Instructions on how to determine the domain of a Oneprovider service can
+be found [here][provider domain].
 
 ### Access tokens
 
-Access tokens are used universally to authorize API requests in all services.
-Follow this [quickstart guide][7] to acquire an access token.
+Access tokens are universally used to authorize API requests in all services.
+Follow this [guide][token quickstart guide] to acquire an access token.
 
 ### Oneprovider ID
 
 Some endpoints (e.g. in Oneprovider's Data Transfers API) require the provider
-ID. You can find it with the following REST query:
+ID. You can find it with the following REST query (you will need the provider
+[domain][provider domain]):
 
 ```bash
-curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
+curl "https://${PROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
      
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
 
+Alternatively, the ID can be retrieved from the GUI:
+
+![screen-copy-provider-id][]
+
 <!-- references -->
 
-[1]: ../intro.md#architecture
+[architecture]: ../intro.md#architecture
 
-[2]: https://onedata.org/#/home/api/stable/onezone
+[Onezone REST API]: https://onedata.org/#/home/api/stable/onezone
 
-[3]: https://onedata.org/#/home/api/stable/oneprovider
+[Oneprovider REST API]: https://onedata.org/#/home/api/stable/oneprovider
 
-[4]: cdmi.md
+[CDMI API]: cdmi.md
 
-[5]: https://onedata.org/#/home/api/stable/onepanel
+[Onepanel REST API]: https://onedata.org/#/home/api/stable/onepanel
 
-[6]: data.md#oneprovider-domain
+[user quickstart guide]: quickstart.md
 
-[7]: ./tokens.md#access-token-quickstart
+[provider domain]: data.md#provider-domain
+
+[token quickstart guide]: ./tokens.md#access-token-quickstart
+
+[image-rest-api-services]: ../../images/user-guide/rest-api/rest-api-services.svg
+
+[screen-copy-provider-id]: ../../images/user-guide/rest-api/copy-provider-id.png

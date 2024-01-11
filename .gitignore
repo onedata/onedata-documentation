@@ -7,5 +7,6 @@ yarn-error.log
 .DS_Store
 .vscode/**
 !.vscode/extensions.json
+!.vscode/settings.json
 rel/
 onedata_documentation.tar.gz
