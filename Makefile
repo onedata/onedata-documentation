@@ -1,7 +1,7 @@
 .PHONY: all build dev clean
 
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v5
-LANGUAGETOOL_IMG=docker.onedata.org/languagetool:v1.0-alpha.1
+LANGUAGETOOL_IMG=docker.onedata.org/languagetool:v1
 
 all: build
 
