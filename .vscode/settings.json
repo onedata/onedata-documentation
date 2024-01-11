@@ -1,0 +1,76 @@
+{
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark",
+    "editor.formatOnSave": false
+  },
+  "editor.rulers": [{
+      "column": 90,
+      "color": "#99999944"
+    },
+    {
+      "column": 120,
+      "color": "#ff000044"
+    },
+  ],
+  "ltex.additionalRules.enablePickyRules": true,
+  "ltex.markdown.nodes": {
+    "ImageRef": "ignore",
+    "StrongEmphasis": "dummy"
+  },
+  "ltex.configurationTarget": {
+    "dictionary": "workspace",
+    "disabledRules": "workspace",
+    "hiddenFalsePositives": "workspace"
+  },
+  "ltex.disabledRules": {
+    "en-US": [
+    ]
+  },
+  "ltex.dictionary": {
+    "en-US": [
+      "ACEs",
+      "archivisation",
+      "aws-cli",
+      "BagIt",
+      "CDMI",
+      "ceph",
+      "Couchbase",
+      "dcmes",
+      "filesystem",
+      "Grammarly",
+      "handleId",
+      "hardlinked",
+      "LTeX",
+      "LUMA",
+      "mybackups",
+      "nvm",
+      "OAIS",
+      "Oneclient",
+      "Onedata",
+      "Onepanel",
+      "Oneprovider",
+      "Oneproviders",
+      "Onezone",
+      "OpenAPI",
+      "QoS",
+      "quickstart",
+      "Quickstart",
+      "rclone",
+      "remarkrc",
+      "snapshotted",
+      "subpath",
+      "tagmanifest",
+      "toc",
+      "unifiedjs",
+      "VSCode",
+      "VuePress",
+      "xattrs",
+      "znck"
+    ]
+  },
+  "ltex.hiddenFalsePositives": {
+    "en-US": [
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}"
+    ]
+  }
+}

@@ -363,6 +363,11 @@ Below are some links to the REST API documentation of commonly used operations:
 
   For more tips, see the [punctuation guide][].
 
+* Use smart quotes `“”` instead of regular quotes `""` in text. These can be replaced
+  using the quick fix functionality of VSCode IDE.
+
+* Use ellipsis `…` instead of `...` in text. It can be replaced using the IDE quick fix.
+
 * To abbreviate the word `identifier`, stick to the `ID` notation rather than `Id`.
 
 * Use the term `provider` when referring to a Onedata provider in most contexts,
