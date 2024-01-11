@@ -94,8 +94,8 @@ added to the `settings.json` file, and the changes should be committed.
 
 After adding the above entries to the settings, you should apply some manual fixes:
 
-- words in `dictionary` should be sorted alphabetically, case-insensitively,
-- `hiddenFalsePositives` should be a minimal sentence instead the one generated (explained
+* words in `dictionary` should be sorted alphabetically, case-insensitively,
+* `hiddenFalsePositives` should be a minimal sentence instead the one generated (explained
   below).
 
 An example of a `hiddenFalsePositives` entry added with quick fix is:
@@ -134,7 +134,7 @@ to use regular dashes, quotes or three dots.
 
 ##### Ignored Markdown elements
 
-Content in the code-fences, ``` `backticks` ``` and `**strong**` is **not checked** by
+Content in the code-fences, `` `backticks` `` and `**strong**` is **not checked** by
 LanguageTool.
 
 ### Development using a natively-installed toolkit
