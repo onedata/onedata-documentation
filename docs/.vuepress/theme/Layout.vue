@@ -7,9 +7,6 @@
     <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
       <template #top>
         <slot name="sidebar-top" />
-        <a href="/" class="header-logo">
-          <img src="./images/sidebar-logo-dark.svg" />
-        </a>
         <SearchBox />
       </template>
       <template #bottom>

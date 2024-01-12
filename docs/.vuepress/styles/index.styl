@@ -35,22 +35,23 @@ a
 
 aside.sidebar
   .search-box
-    width 254px
+    width 13.2rem
     margin 0
+    margin-top 1.5rem
     padding 0
     margin-left 1.25rem
     input
-      width auto
+      padding-left 2rem
+      padding-right 0.5rem
+      width "calc(100% - %s - %s)" % (@padding-left @padding-right)
     ul.suggestions
       right auto !important;
       left 0 !important;
       width 100%;
       z-index 1;
     @media (max-width: $MQNarrow)
-      width 218px
       input
         cursor text
-        width 10rem
         border-color darken($borderColor, 10%)
         &:focus
           border-color $accentColor
@@ -59,23 +60,8 @@ aside.sidebar
     @media (max-width: $MQMobile)
       input
         left 0
-
-  .header-logo
-    padding 15px
-    padding-left 1.25rem
-
-  .header-logo img, .sidebar-header-text
-    margin 0
-    
-  .header-logo img
-    height 15px
-    @media (max-width: $MQNarrow) 
-      height 13px
-    
-  .sidebar-header-text
-    color #000
-    font-weight 600
-    font-size 16px
+  .search-box + .sidebar-links
+    padding-top: 1rem
 
 .toggle-sidebar-button
   display none
@@ -102,3 +88,7 @@ aside.sidebar
 // until Homepage integration styles are loaded.
 .onedata-homepage-element
   display none
+
+img.intro-header
+  margin-left 0
+  margin-bottom 0
