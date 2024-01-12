@@ -39,7 +39,7 @@ $summary-fg: #364149;
     }
 
     &:not(.no-children)::before {
-      left: 20px * $level - 4px;
+      left: 10px + 20px * $level - 4px;
     }
   }
 
@@ -141,44 +141,10 @@ h1 img[alt='Onedata'] {
       border-top: none;
     }
 
-    ul.summary li.chapter[data-level="0"] {
-      padding: 0;
-
-      a {
-        line-height: 48px;
-        display: inline;
-        font-size: 13pt;
-        text-transform: uppercase;
-        color: $summary-heading;
-        font-weight: bold;
-
-        &:hover {
-          color: $onedata-red;
-        }
-
-        img {
-          position: relative;
-          top: -1px;
-          height: 0.78em;
-        }
-      }
-
-      .header-logo {
-        padding-right: 0;
-        img {
-          // Adjust position to DOCUMENTATION text
-          margin-bottom: 0.09em
-        }
-      }
-      .index-link-text {
-        padding-right: 0;
-      }
-    }
-
     // collapsible TOC elements
     ul.summary li.chapter:not([data-level="0"]) {
       > a {
-        margin-left: 12px;
+        margin-left: 22px;
       }
 
       // nested menu items padding (arrows and links), leaving padding of li
@@ -192,7 +158,7 @@ h1 img[alt='Onedata'] {
           // pull down
           top: 19px;
           // apply some padding
-          left: 10px;
+          left: 20px;
           content: "";
           border-style: solid;
           border-width: 5px 0 5px 8px;
@@ -219,7 +185,7 @@ h1 img[alt='Onedata'] {
       &:not(.no-children) {
         &:before {
           // apply more padding for next level
-          left: 30px;
+          left: 40px;
           // override first-level padding, because it is too large
           top: 18px;
         }
