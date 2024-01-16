@@ -10,7 +10,7 @@
     {
       "column": 120,
       "color": "#ff000044"
-    },
+    }
   ],
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.markdown.nodes": {
@@ -25,6 +25,10 @@
   "ltex.disabledRules": {
     "en-US": [
     ]
+  },
+  "ltex.diagnosticSeverity": {
+    "PASSIVE_VOICE": "hint",
+    "default": "information"
   },
   "ltex.dictionary": {
     "en-US": [
