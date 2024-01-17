@@ -21,6 +21,8 @@ settings_json_path = '.vscode/settings.json'
 tmp_settings_json_path = '/tmp/'
 config_diagnostic_severity = 'ltex.diagnosticSeverity'
 config_disabled_rules = 'ltex.disabledRules'
+config_enabled_rules = 'ltex.enabledRules'
+config_en_us = 'en-US'
 
 re_success_exception = re.compile(
     r'^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more$',
@@ -44,6 +46,73 @@ args = parser.parse_args()
 
 input_path = args.input
 
+##
+# The list of "picky"-level rules that are normally enabled in VSCode linter using the `"ltex.additionalRules.enablePickyRules": true` setting, but this does not work when using standalone LTeX CLI - we must add enable manually "picky" rules.
+#
+# The list is created by reading the source code of `languagetool` (https://github.com/languagetool-org/languagetool). The following files contain rules for English:
+# - languagetool-language-modules/en/src/main/resources/org/languagetool/rules/en/en-US/grammar.xml
+# - languagetool-language-modules/en/src/main/resources/org/languagetool/rules/en/en-US/style.xml
+#
+# The picky rules are tagged with `tags="picky"` in XML.
+#
+PICKY_RULES = [
+    'CHILDISH_LANGUAGE',
+    'CIRCUMSTANCES_SURROUNDING',
+    'COVID_19',
+    'DASH_RULE',
+    'DO_MAKE_PRP_VBG',
+    'DOES_XX_CAN',
+    'DT_JJ_NO_NOUN',
+    'EG_NO_COMMA',
+    'EITHER_NOR',
+    'ELLIPSIS',
+    'EN_QUOTES',
+    'FOUR_NN',
+    'HAPPY_CHRISTMAS',
+    'HONEST_TRUTH',
+    'HYPHEN_TO_EN',
+    'HYPOTHESIS_TYPOGRAPHY',
+    'IE_NO_COMMA',
+    'IN_A_X_MANNER',
+    'LITTLE_BIT',
+    'MISSING_PERIOD_AFTER_ABBREVIATION',
+    'MULTIPLICATION_SIGN',
+    'NON_STANDARD_COMMA',
+    'NON_STANDARD_QUESTION_MARK',
+    'NUMEROUS_DIFFERENT',
+    'OCCASION_TRANSITIVE_VERB_VERY_FORMAL',
+    'PASSIVE_VOICE',
+    'PASSIVE_VOICE_SIMPLE',
+    'PLUS_MINUS',
+    'PPL',
+    'PREVENT_FROM',
+    'PROFANITY',
+    'PROFANITY_TYPOS',
+    'REASON_WHY',
+    'REP_PASSIVE_VOICE',
+    'RUDE_SARCASTIC',
+    'SENT_START_CONJUNCTION',
+    'SENT_START_NUM',
+    'SENTENCE_FRAGMENT',
+    'SERIAL_COMMA_ON',
+    'SOME_OF_THE',
+    'TAG_QUESTIONS_SVA',
+    'TELL_IT',
+    'THE_PROOF_IS_IN_THE_PUDDING',
+    'THREE_NN',
+    'TOO_TO_EITHER',
+    'TRY_AND',
+    'TWITTER_X',
+    'TWO_HYPHENS',
+    'TYPEWRITER_APOSTROPHE',
+    'TYPOGRAPHICAL_APOSTROPHE',
+    'UNIT_SPACE',
+    'WHO_WHOM',
+    'WHOLE_OTHER',
+    'WILL_ALLOW',
+    'WORD_CONTAINS_UNDERSCORE',
+]
+
 
 def create_settings_content():
     with open(settings_json_path, 'r') as settings_reader:
@@ -52,7 +121,7 @@ def create_settings_content():
 
         custom_severity_rules: dict[str,
                                     str] = settings_data[config_diagnostic_severity]
-        disabled_rules: list[str] = settings_data[config_disabled_rules]['en-US']
+        disabled_rules: list[str] = settings_data[config_disabled_rules][config_en_us]
         hint_rules = list(filter(
             lambda rule_key: rule_key != 'default' and custom_severity_rules[rule_key] == 'hint',
             custom_severity_rules
@@ -62,7 +131,18 @@ def create_settings_content():
             disabled_rules.append(rule_key)
             del custom_severity_rules[rule_key]
 
+        # FIXME: tylko jeśli ltex.additionalRules.enablePickyRules == true
+        add_picky_rules(settings_data)
+
         return json.dumps(settings_data, indent='  ')
+
+
+def add_picky_rules(settings_data: dict[str, str]):
+    # FIXME: nadal nie chce sprawdzać PASSIVE_VOICE
+    if (not config_enabled_rules in settings_data) or (not config_en_us in settings_data[config_en_us]):
+        settings_data[config_enabled_rules] = {config_en_us: []}
+    settings_data[config_enabled_rules][config_en_us].extend(PICKY_RULES)
+    # FIXME: nie dodawać jak rule jest w disabledRules
 
 
 def exec_with_settings(settings_content: str, quiet=False):
@@ -114,6 +194,8 @@ def exec_with_settings(settings_content: str, quiet=False):
 
 def main() -> int:
     settings_content = create_settings_content()
+    # FIXME: print config
+    # print(settings_content)
     return exec_with_settings(settings_content)
 
 
