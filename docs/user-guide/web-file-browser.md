@@ -193,29 +193,28 @@ distribution can be viewed in a summarized or detailed manner.
 
 ![screen-feature-distribution-bar][]
 
-The handy status bar indicates ongoing [replication, migration and
-eviction][29] jobs and allows scheduling new ones for
-the corresponding provider. In the detailed view, there is also a shortcut to
-the history of data transfers for the subject file (as shown in the screenshot
-above).
+The handy status bar indicates ongoing [replication, migration, and eviction][29] jobs and
+allows scheduling new ones for the corresponding provider. In the detailed view, there is
+also a shortcut to the history of data transfers for the subject file (as shown in the
+screenshot above).
 
 ![screen-feature-distribution-schedule][]
 
 ### QoS
 
-Brings up an editor of [Quality of Service][31] (QoS)
-requirements defined for the selected file(s), which are used to automatically
-manage the file data replication according to logical rules.
+The QoS tab brings up an editor of [Quality of Service][31] requirements defined for the
+selected file(s), which are used to automatically manage the replication of file data
+according to logical rules.
 
-You can put down the rules using a visual block-based expression editor. 
-Evaluate these rules against the QoS parameters assigned to different supporting
-storages to determine where the replicas should be stored.
+You can put down the rules using a visual block-based expression editor. These rules are
+evaluated against the QoS parameters assigned to different supporting storage backends 
+to determine where the replicas should be stored.
 
 ![screen-feature-qos-visual][]
 
-Below the requirement, there is information on what storages match the requirement
-and an action that copies the expression in textual form, to be reused when
-creating a new requirement or using the [REST API][33].
+Below the requirement, it is displayed what storage backends match the requirement
+and an action that copies the expression in textual form, to be reused when creating a new
+requirement or using the [REST API][33].
 
 ![screen-feature-qos-visual-match][]
 
@@ -225,9 +224,9 @@ confirmation and can be further edited.
 ![screen-feature-qos-text][]
 
 If the selected files have any QoS requirements defined, they are displayed on
-the list along with their status of fulfillment, matching storages, transfer statistics,
-and other information. It is possible to remove selected QoS requirements unless they
-are inherited from any parent directory. 
+the list along with their status of fulfillment, matching storage backends, transfer
+statistics, and other information. It is possible to remove selected QoS requirements
+unless they are inherited from any parent directory.
 
 ![screen-feature-qos-requirements][]
 
@@ -276,8 +275,8 @@ see the list of existing hard links in the **Details** modal.
 ![screen-feature-hardlink][]
 
 
-### Copy, Cut and Paste
-The **copy** or **cut**** action from the context menu can be used on one or
+### Copy, Cut, and Paste
+The **copy** or **cut** action from the context menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
 
@@ -309,7 +308,7 @@ file can be invoked using the three-dots menu in the file row or the
 ![screen-mobile-upload][]
 
 Operations on the current working directory, such as creating a new directory or
-uploading files, are available in the breadcrumbs navigator. When an upload is
+uploading files, are available in the breadcrumb navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
 
 ## Switching between providers
@@ -329,7 +328,7 @@ After switching to another provider, the user will eventually see the same
 content, but new changes might appear with different delays. Providers
 continuously synchronize the data changes within spaces, and depending on the
 system usage intensity, they can take from a couple of seconds to even hours to
-propagate. To see the changes immediately, it is recommended to choose the
+propagate. To see the changes immediately, it is advisable to choose the
 Oneprovider on which the user is making them (modifying file content,
 creating new files or directories, scheduling data transfers, etc).
 :::

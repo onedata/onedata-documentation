@@ -21,7 +21,7 @@ admins can decide to grant some quota on a physical storage governed by the
 corresponding data center.
 
 <!-- TODO VFS-7218 this image could be better:
-    1. present providers, not only storages
+    1. present providers, not only storage backends
     2. present the mapping between logical and physical paths 
        (file path on the storage vs. file path in the space)
  
@@ -29,24 +29,21 @@ corresponding data center.
 
 ![image][5]
 
-Each space may be supported by one or more providers and the data produced by
-the space users will be distributed among the assigned storages. Users do not
-need to be aware of the physical distribution of the data to use the platform,
-as all the files are visible in a unified logical space and universally
-available under the logical paths and global IDs. However, understanding how
-the distribution works and consciously managing it can greatly improve the
-performance of data access, e.g. by pre-staging data sets in the provider
-in which computations are to be performed. There are several tools in Onedata
-that can be used by advanced users to manage the underlying physical distribution
-and redundancy of data (such as [data transfers][6]
-or [QoS][7]).
+Each space may be supported by one or more providers and the data produced by the space
+users will be distributed among the assigned storage backends. Users do not need to be
+aware of the physical distribution of the data to use the platform, as all the files are
+visible in a unified logical space and universally available under the logical paths and
+global IDs. However, understanding how the distribution works and consciously managing it
+can greatly improve the performance of data access, e.g. by pre-staging data sets in the
+provider in which computations are to be performed. There are several tools in Onedata
+that can be used by advanced users to manage the underlying physical distribution and
+redundancy of data (such as [data transfers][6] or [QoS][7]).
 
-When a file within a space is written (e.g. uploaded), its content is written to
-one of the supporting physical storages. Similarly, during a file read, the
-physical data is read from the storage and then returned to the requesting client.
-Onedata stores information about the mapping between logical and physical files
-in the file metadata, which is replicated and synchronized between
-all supporting providers.
+When a file within a space is written (e.g. uploaded), its content is written to one of
+the supporting physical storage backends. Similarly, during a file read, the physical data
+is read from the storage and then returned to the requesting client. Onedata stores
+information about the mapping between logical and physical files in the file metadata,
+which is replicated and synchronized between all supporting providers.
 
 <!-- TODO VFS-9288 globally unify the formatting of NOTEs in all docs -->
 
@@ -75,6 +72,12 @@ the privileges and gain access to the **space XYZ** with admin privileges.
 ## Space owner
 
 <!-- TODO VFS-7218 documentation for space owner concept -->
+
+## Storage backends
+
+<!-- TODO VFS-7218 documentation for storage backends -->
+
+<!-- TODO VFS-7218 cross references with the admin guide -->
 
 ## GUI guide
 
@@ -185,7 +188,7 @@ Refer to the [Web file browser][25] guide for further instructions.
 
 [2]: #space-members
 
-[3]: ../admin-guide/oneprovider/configuration/storages.md
+[3]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [4]: ../intro.md#architecture
 

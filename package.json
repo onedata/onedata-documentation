@@ -3,7 +3,7 @@
     "scripts": {
         "deps": "npm install -g yarn && yarn install",
         "docs:dev": "vuepress dev docs",
-        "docs:build": "vuepress build docs",
+        "docs:build": "vuepress build docs --dest rel/future-documentation",
         "docs:lint": "remark docs",
         "docs:format-all": "remark . --output"
     },
