@@ -178,17 +178,17 @@ above).
 
 Brings up an editor of [Quality of Service][31] (QoS)
 requirements defined for the selected file(s), which are used to automatically
-manage the file data replication according to logical rules.
+manage the replication of file data according to logical rules.
 
-The rules can be put down using a visual block-based expression editor. These
-rules are evaluated against the QoS parameters assigned to different supporting
-storages in order to determine where the replicas should be stored.
+The rules can be put down using a visual block-based expression editor. These rules are
+evaluated against the QoS parameters assigned to different supporting storage backends in
+order to determine where the replicas should be stored.
 
 ![screen-feature-qos-visual][]
 
-Below the requirement, there is information what storages match the requirement
-and an action that copies the expression in textual form, to be reused when
-creating a new requirement or using the [REST API][33].
+Below the requirement, there is information what storage backends match the requirement
+and an action that copies the expression in textual form, to be reused when creating a new
+requirement or using the [REST API][33].
 
 ![screen-feature-qos-visual-match][]
 
@@ -198,7 +198,7 @@ upon confirmation, and then can be further edited.
 ![screen-feature-qos-text][]
 
 If the selected files have any QoS requirements defined, they are displayed on
-the list along with their status of fulfillment, matching storages and other
+the list along with their status of fulfillment, matching storage backends and other
 information. It is possible to remove selected QoS requirements, unless they
 are inherited from any parent directory.
 
@@ -267,7 +267,7 @@ After switching to another provider, the user will eventually see the same
 content, but new changes might appear with different delay. Providers
 continuously synchronize the data changes within spaces, and depending on the
 system usage intensity, they can take from a couple of seconds to even hours to
-propagate. To see the changes immediately, it is recommended to choose the
+propagate. To see the changes immediately, it is advisable to choose the
 Oneprovider on which the user is making them (modifying file content,
 creating new files or directories, scheduling data transfers etc).
 :::

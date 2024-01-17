@@ -5,8 +5,8 @@ title: 'Introduction'
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
     - a couple of words about Onedata
-    - are you a user? – go here: [USER GUIDE]
-    - are you an admin? – go here: [ADMIN GUIDE]
+    - are you a user? — go here: [USER GUIDE]
+    - are you an admin? — go here: [ADMIN GUIDE]
       <these three should fit onto one screen>
     - broader description of Onedata
         - architecture
@@ -38,9 +38,9 @@ If you would like to deploy the Onedata services on your infrastructure then you
 
 The most important concepts of the platform to understand at the beginning include:
 
-* **Spaces** – distributed virtual volumes, where users can organize their data
-* **Providers** – entities who support user spaces with actual storage resources exposed via *Oneprovider* services
-* **Zones** – federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
+* **Spaces** — distributed virtual volumes, where users can organize their data
+* **Providers** — entities who support user spaces with actual storage resources exposed via *Oneprovider* services
+* **Zones** — federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
 
 ### Spaces
 

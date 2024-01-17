@@ -147,11 +147,11 @@ a brief increase of latency.
 
 This feature can be controlled using 2 command line options:
 
-* `--force-proxy-io` – disables Direct I/O mode, all data transfers will go
+* `--force-proxy-io` — disables Direct I/O mode, all data transfers will go
   via Oneprovider service using so called Proxy I/O, which in most cases will
   be somewhat slower, and definitely less scalable than Direct I/O when running
   large number of Oneclient instances connected to a single Oneprovider service
-* `--force-direct-io` – forces Direct I/O mode, any `read` or `write`
+* `--force-direct-io` — forces Direct I/O mode, any `read` or `write`
   operation will return `Operation not supported` error. The only exception
   is when the file is not accessible due to incorrect permissions on the
   storage, in such case the file will be accessed using proxy I/O mode.
@@ -161,33 +161,32 @@ This feature can be controlled using 2 command line options:
 
 ### Buffering
 
-`oneclient` employs an in-memory buffer for input and output data blocks, which
-can significantly improve performance for various types of storages, in
-particular object based storages such as S3.
+`oneclient` employs an in-memory buffer for input and output data blocks, which can
+significantly improve performance for various types of storage backends, in particular
+object based ones such as S3.
 
 If for some reason this in-memory buffer is undesired, it can be disabled using
 `--no-buffer` option.
 
 The buffer size can be also fine-tuned using the following options:
 
-* `--read-buffer-min-size` – minimum size of the read buffer for a single opened file,
-* `--read-buffer-max-size` – maximum size of the read buffer for a single opened file,
-* `--read-buffer-total-size` – maximum size of read buffer for all opened
+* `--read-buffer-min-size` — minimum size of the read buffer for a single opened file,
+* `--read-buffer-max-size` — maximum size of the read buffer for a single opened file,
+* `--read-buffer-total-size` — maximum size of read buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
-* `--write-buffer-min-size` – minimum size of the write buffer for a single
+* `--write-buffer-min-size` — minimum size of the write buffer for a single
   opened file,
-* `--write-buffer-max-size` – maximum size of the write buffer for a single
+* `--write-buffer-max-size` — maximum size of the write buffer for a single
   opened file,
-* `--write-buffer-total-size` – maximum size of write buffer for all opened
+* `--write-buffer-total-size` — maximum size of write buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
 
-Oneclient allows to override certain storage helper parameters in order to
-customize direct access to storage from a Oneclient host to the storage. Use
-cases for this feature include specifying custom mounpoint for POSIX storages,
-alternate IP addresses for network storages (e.g. available over local network
-from Oneclient host), etc.
+Oneclient allows overriding certain storage helper parameters in order to customize direct
+access to storage from a Oneclient host to the storage. Use cases for this feature include
+specifying custom mount-point for POSIX storage backends, alternate IP addresses for
+network storage backends (e.g. available over local network from Oneclient host), etc.
 
 For example, to tell Oneclient that a NFS storage is mounted at
 `/home/user1/nfs` on the Oneclient host the following option should be added to
@@ -197,11 +196,11 @@ the Oneclient command line:
 
 The `--override` option takes 3 arguments separated by `:`:
 
-* `storage ID` – this is Onedata internal storage Id, which can be obtained
+* `storage ID` — this is Onedata internal storage Id, which can be obtained
   from Onepanel administrator interface or using REST API
-* `parameter name` – this is the name of the storage helper parameter, these
+* `parameter name` — this is the name of the storage helper parameter, these
   are specific to particular type of storage
-* `parameter value` – a value, which should override the value specified in the
+* `parameter value` — a value, which should override the value specified in the
   Oneprovider when registering the storage
 
 ### Logging
@@ -209,11 +208,11 @@ The `--override` option takes 3 arguments separated by `:`:
 In order to enable a verbose log, `oneclient` provides a `-v` flag, which takes
 a single integer argument which determines the log verbosity:
 
-* `-v 0` – *(default)* only serious errors
-* `-v 1` – warnings and errors which are not fatal
-* `-v 2` – verbose information on requests and their handling
-* `-v 3` – trace function calls along with their arguments
-* `-v 4` – binary messages between Oneclient and Oneprovider
+* `-v 0` — *(default)* only serious errors
+* `-v 1` — warnings and errors which are not fatal
+* `-v 2` — verbose information on requests and their handling
+* `-v 3` — trace function calls along with their arguments
+* `-v 4` — binary messages between Oneclient and Oneprovider
 
 > **NOTE**: above level 2, the size of the logs can be substantial thus
 > it is necessary to monitor free disk space. When the machine runs out of disk

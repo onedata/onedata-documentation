@@ -36,7 +36,7 @@ that scans the space by incrementally iterating over all changes that have been 
 locally (a.k.a. changes stream). Types of changes handled by the harvesting mechanism are:
 
 * creation and deletion of a file,
-* metadata change (xattrs, JSON or RDF),
+* metadata change (extended attributes, JSON or RDF),
 * file name change.
 
 Each change triggers a metadata submission, which is posted in batches to the
@@ -80,7 +80,7 @@ The index schema describes:
 The index schema format depends on the type of used harvesting backend.
 In most cases, there is no need to define a custom index schema.
 
-Backends are pluginable — by default, Onezone comes with one predefined backend plugin for
+Backends are pluggable — by default, Onezone comes with one predefined backend plugin for
 Elasticsearch. Its documentation concerning index schemas can be found
 [here][6].
 
@@ -116,7 +116,7 @@ using the [Configuration][8] submenu.
 > **NOTE**: To create a harvester you need to have the `oz_harvesters_create` admin privilege.
 > Learn more [here][9].
 
-1. Navigate to the Discovery tab and click "Get started"
+1. Navigate to the Discovery tab and click “Get started”
 
 ![screen-1-no-harvesters][]
 
@@ -130,7 +130,7 @@ using the [Configuration][8] submenu.
    optional — if not specified, default endpoint configured for the
    environment will be used. **Auto setup** means that the newly created harvester will have an
    initial generic index and ready-to-use data discovery GUI. Auto setup is recommended,
-   unless you are an advanced user and you want to customize configuration on your own.
+   unless you are an advanced user, and you want to customize configuration on your own.
    ![screen-3-create-harvester][]
 
 4. Navigate to the **Spaces** submenu to add a space to the harvester.

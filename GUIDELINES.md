@@ -2,14 +2,14 @@
 
 Unified guidelines for writing and formatting the Onedata documentation.
 
-Some of the formatting guidelines are automatically cared for with proper
+Some formatting guidelines are automatically cared for with proper
 workspace configuration — make sure to set it up as described in [the README][].
 
 ## Source file structure
 
 The source files reside in `./docs/` and the images reside in `./images/`,
 with the mirrored directory structure (the image path should correspond to
-the markdown source path where it is used - see below).
+the markdown source path where it is used — see below).
 
 To add a new page:
 
@@ -94,7 +94,7 @@ export default {
 
 ### Custom blocks/containers
 
-Avoid using the default markdown blockquote, but use the
+Avoid using the default markdown's blockquote, but use the
 [VuePress custom containers][].
 
 ````md
@@ -173,7 +173,7 @@ This is some [test][link-1].
 [link-1]: path/to/page.md
 ```
 
-Sometimes, you may need to insert a link with text different than the reference name:
+Sometimes, you may need to insert a link with text different from the reference name:
 
 ✅ Correct in justified cases
 
@@ -213,9 +213,9 @@ everything in order. After the prefix, put the name of the image file (without e
 All references must be placed at the end of the document. Always group the references
 like the following:
 
-* links
-* images
-* screenshots
+* links,
+* images,
+* screenshots.
 
 Within the groups, the order of references can be arbitrary.
 
@@ -264,8 +264,8 @@ For more information, refer to the [docs][].
   to reproduce the steps. Consecutive ones can be then cropped.
 
 * When taking screenshots, use browser zoom to get better-quality images.
-  Satisfying zoom level depends on the screenshot region size, but quite often
-  is about 125% for a 1920x1080 window. Verify the quality of screenshots
+  Satisfying zoom level depends on the screenshot's region size, but quite often
+  is about 125% for a 1920×1080 window. Verify the quality of screenshots
   in the docs preview; if the image is not clear, try different zoom levels.
 
 * Don't overdo it; avoid screenshots of obvious steps such as a confirmation
@@ -310,7 +310,7 @@ style to express a placeholder (some meta information), e.g.:
 
 In general, **avoid including REST API call examples** in the docs — this is what the API (swaggers)
 docs are for. There are some exceptions to this rule though. If the REST API is complicated,
-it may be a good idea to include one or two examples to give the reader a kickstart.
+it may be a good idea to include one or two examples to give the reader a kick-start.
 
 **Do include useful links to the REST API**, typically at the end of a section. Make sure
 to link the section with the guide on how to use the REST API of the corresponding service.
@@ -352,7 +352,7 @@ Below are some links to the REST API documentation of commonly used operations:
 
   The en dash (`–`) is used for ranges, scores and conflict, connection, or direction:
 
-  > The years 2021–2022 brought rapid improvement of the POSIX–CEPH transfer performance.
+  > The years 2021–2022 brought rapid improvement of the POSIX–Ceph transfer performance.
 
   The em dash (`—`) is a versatile punctuation mark that can take the place of
   commas, parentheses, or colons, depending on the context. Always put a space
@@ -386,10 +386,10 @@ Below are some links to the REST API documentation of commonly used operations:
 * Language checkers **will complain** about some article usage situations as it does not
   know our nomenclature typical for Onedata. In such cases, exceptions should be added to
   the language checker config. All the below examples **are correct**:
-  * "In a Onedata space" — it will suggest using the article "an", not knowing
+  * “In a Onedata space” — it will suggest using the article “an”, not knowing
     the pronunciation.
-  * "Install a Oneprovider cluster" — as above.
-  * "Select a space for the new file" — it will suggest that "space" is
+  * “Install a Oneprovider cluster” — as above.
+  * “Select a space for the new file” — it will suggest that “space” is
     uncountable and does not need an article, but in Onedata, spaces are countable.
 
 ## Custom routes

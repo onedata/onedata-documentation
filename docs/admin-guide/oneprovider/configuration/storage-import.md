@@ -19,12 +19,12 @@ This functionality should be used in two setups:
 > and dedicated exclusively for being accessed by the Oneprovider software. This should be the preferred setup, except
 > for the two above-mentioned cases.
 
-*storage import* can be enabled only if the space is supported with an [*Imported storage*][1].
+*storage import* can be enabled only if the space is supported with an [Imported storage][1].
 
 ## Configuration
 
-There are 2 possible modes of *storage import*: [*manual*][2] and [*auto*][3].
-The mode is chosen when the space is being supported with an [*Imported storage*][1]
+There are 2 possible modes of *storage import*: [manual][2] and [auto][3].
+The mode is chosen when the space is being supported with an [Imported storage][1]
 as presented in the below picture.
 
 > **NOTE**: *storage import* mode cannot be changed during the space lifecycle.
@@ -53,8 +53,8 @@ not support [automatic import scans][3].
 * `Swift`
 * `Ceph RADOS`
 
-> **NOTE**: The storage must have [*canonical path type*][6].
-> Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
+> **NOTE**: The storage must have [canonical path type][6]. Moreover, on object storage
+> backends: S3, SWIFT and Ceph Rados the `Block size` parameter **must be set to `0`!**
 
 ## Auto storage import
 
@@ -72,7 +72,7 @@ assigned space.
 * `XRootD`
 * `S3`
 
-> **NOTE**: The storage must have [*canonical path type*][6].
+> **NOTE**: The storage must have [canonical path type][6].
 > Moreover, on S3 the `Block size` parameter **must be set to `0` !**
 
 ### Configuration
@@ -85,7 +85,7 @@ The configuration of *auto storage import* can be set when supporting the space,
 
 The available configuration options are:
 
-* `Max depth` — Maximum depth of filesystem tree that will be traversed during the scan. By default it is 65535.
+* `Max depth` — Maximum depth of filesystem tree that will be traversed during the scan. By default, it is 65535.
 * `Synchronize ACL` — Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB][9].
 * `Detect modifications` — If disabled, the storage will be treated as immutable — changes of already imported files
   will not be detected. Relevant only if more than one scan is performed.
@@ -137,7 +137,7 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [0]: <>
 
-[1]: storages.md#imported-storage
+[1]: storage-backends.md#imported-storage
 
 [2]: #manual-storage-import
 
@@ -145,11 +145,11 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [5]: ../../../user-guide/file-registration.md
 
-[6]: storages.md#storage-path-type
+[6]: storage-backends.md#storage-path-type
 
 [7]: #configuration
 
-[9]: luma.md#imported-storages
+[9]: luma.md#imported-storage-backends
 
 [screen-storage-import-config]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage-import-config.png
 
