@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Checks Markdown files using dockerized LanguageTool toolkit for language errors.
-Compatible with Python 3.7+, needs the Docker installed.
+Compatible with Python 3.5+, needs the Docker installed.
 """
 
 __author__ = "Jakub Liput"
@@ -146,9 +146,9 @@ def create_arg_parser():
     return parser
 
 
-def disable_hint_rules(settings_data: dict):
-    custom_severity_rules: dict = settings_data[CONFIG_DIAGNOSTIC_SEVERITY]
-    disabled_rules: list = settings_data[CONFIG_DISABLED_RULES][CONFIG_EN_US]
+def disable_hint_rules(settings_data):
+    custom_severity_rules = settings_data[CONFIG_DIAGNOSTIC_SEVERITY]
+    disabled_rules = settings_data[CONFIG_DISABLED_RULES][CONFIG_EN_US]
     hint_rules = list(
         filter(
             lambda rule_key: rule_key != "default"
@@ -167,9 +167,9 @@ def read_settings_content():
         return settings_reader.read()
 
 
-def create_settings_content(show_hints: bool = False) -> str:
-    settings_content: str = read_settings_content()
-    settings_data: dict = json.loads(settings_content)
+def create_settings_content(show_hints=False):
+    settings_content = read_settings_content()
+    settings_data = json.loads(settings_content)
 
     if not show_hints and CONFIG_DIAGNOSTIC_SEVERITY in settings_data:
         disable_hint_rules(settings_data)
@@ -180,7 +180,7 @@ def create_settings_content(show_hints: bool = False) -> str:
     return json.dumps(settings_data, indent="  ")
 
 
-def add_picky_rules(settings_data: dict):
+def add_picky_rules(settings_data):
     if (not CONFIG_ENABLED_RULES in settings_data) or (
         not CONFIG_EN_US in settings_data[CONFIG_EN_US]
     ):
@@ -193,11 +193,11 @@ def add_picky_rules(settings_data: dict):
     settings_data[CONFIG_ENABLED_RULES][CONFIG_EN_US].extend(non_disabled_picky_rules)
 
 
-def color_text(text: str, color_code: int) -> str:
-    return f"\033[0;{color_code}m{text}\033[0m"
+def color_text(text, color_code):
+    return "\033[0;{}m{}\033[0m".format(color_code, text)
 
 
-def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
+def exec_with_settings(settings_content, input_path, quiet):
     with tempfile.NamedTemporaryFile(mode="a") as tmp_settings_file:
         tmp_settings_file.write(settings_content)
         tmp_settings_file.flush()
@@ -212,19 +212,22 @@ def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
             "-e",
             "TERM=xterm-256color",
             "-v",
-            f"{os.getcwd()}:{docker_project_root}",
+            "{}:{}".format(os.getcwd(), docker_project_root),
             "-v",
-            f"{tmp_settings_file.name}:/settings.json",
+            "{}:/settings.json".format(tmp_settings_file.name),
             LANGUAGETOOL_IMG,
             "--client-configuration=/settings.json",
             os.path.join(docker_project_root, input_path),
         ]
 
         result = subprocess.run(
-            process_args, capture_output=True, text=True, check=False
+            process_args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
         )
 
-        output = result.stdout
+        output = result.stdout.decode("utf-8")
 
     if result.returncode == 0:
         output = RE_SUCCESS_EXCEPTION.sub("", output)
@@ -234,7 +237,7 @@ def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
             "The latest language error spans accross mulitple lines. Due to "
             + "the bug in LTeX, the check stopped here. Fix the error and run check-language again."
         )
-        output += f"\n{color_text(multiline_error_text, TEXT_COLOR_RED)}"
+        output += "\n{}".format(color_text(multiline_error_text, TEXT_COLOR_RED))
 
     output = re.sub(r"\s*$", "", output, re.MULTILINE)
 
@@ -249,7 +252,7 @@ def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
     return result.returncode
 
 
-def main(args) -> int:
+def main(args):
     settings_content = create_settings_content(show_hints=args.show_hints)
     return exec_with_settings(
         settings_content=settings_content, input_path=args.input_path, quiet=args.quiet
