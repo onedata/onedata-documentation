@@ -2,30 +2,29 @@
 
 [toc][]
 
-As a prerequisite for understanding this chapter we advise to familiarize with
-the concept of [*views*][2].
+As a prerequisite for understanding this chapter, we recommend that you familiarize
+yourself with the concept of [views][2].
 
 The *file popularity* mechanism enables tracking of usage statistics for files in a space.
 It allows listing File IDs sorted in ascending order by the
-[*popularity function*][3], so that the least popular files
+[popularity function][3], so that the least popular files
 are at the beginning of the list.
 
 > **NOTE:** Usage statistics can be collected only for local storage supporting the space.
 > It is impossible to obtain *file popularity* statistics gathered by a remote provider.
 
 The mechanism can be enabled for chosen space in the `Spaces -> "Space Name" -> File popularity` tab,
-in the Spaces menu of Oneprovider panel GUI (as shown below) or using [REST API][4].
+in the Oneprovider panel GUI (as shown below), or using the [REST API][4].
 
 ![screen-file-popularity-tab][]
 
 Internally, the mechanism creates the *file popularity view*. All notes presented in the
-[*Views* chapter][2]
-applies also to the *file popularity view*.
+[Views chapter][2] apply also to the *file popularity view*.
 
 > **NOTE:** The *file popularity view* is a special view, therefore it is forbidden to create
 > a view with such name. Furthermore, it is forbidden and impossible to
 > modify or delete the view using
-> [*Views API*][2].
+> [Views API][2].
 
 ## Querying the file popularity view
 
@@ -35,10 +34,10 @@ The *file popularity view* can be queried using the following request:
 curl -sS -k -H "X-Auth-Token:$TOKEN" -X GET https://$HOST/api/v3/oneprovider/spaces/$SPACE_ID/views/file-popularity/query
 ```
 
-An example of such request is presented in the *file popularity* configuration tab of Onepanel GUI.
-The example request returns 10 least popular files in the space.
+An example of such a request is presented in the *file popularity* configuration tab of Onepanel GUI.
+The example request returns the 10 least popular files in the space.
 
-For more information on querying [*views*][2], see
+For more information on querying [views][2], see
 [here][6].
 
 ## Advanced topics
@@ -46,7 +45,7 @@ For more information on querying [*views*][2], see
 ### The popularity function
 
 The key that is emitted to the *file popularity view* is the value of the
-*popularity function* for given file.
+\*popularity *function* for a given file.
 The function is defined as follows:
 
 ```
@@ -55,25 +54,23 @@ P(lastOpenHour, avgOpenCountPerDay) = w1 * lastOpenHour + w2 * min(avgOpenCountP
 
 where:
 
-* `lastOpenHour` — parameter which is equal to timestamp (in hours since 01.01.1970)
-  of last open operation on given file
-* `w1` — weight of lastOpenHour parameter
-* `avgOpenCountPerDay` — parameter equal to moving average of number of open
-  operations on given file per day. The value is calculated over last 30 days.
-* `w2` — weight of avgOpenCountPerDay parameter
-* `MAX_AVG_OPEN_COUNT_PER_DAY` — upper boundary for avgOpenCountPerDay parameter
+* `lastOpenHour` — parameter which is equal to the timestamp (in hours since 01.01.1970)
+  of the last open operation on the file,
+* `w1` — the weight of the `lastOpenHour` parameter,
+* `avgOpenCountPerDay` — parameter equal to the moving average of the number of open
+  operations on the file per day — the value is calculated over the last 30 days,
+* `w2` — weight of the `avgOpenCountPerDay` parameter,
+* `MAX_AVG_OPEN_COUNT_PER_DAY` — upper boundary for the `avgOpenCountPerDay` parameter.
 
-Entries in the views are modified only when associated document
-in the database is modified. It means that an entry in the *file popularity view*
-is modified only when the
-[file popularity model][7]
-document is updated, which happens on each file close operation.
-The downside of this approach is that the `avgOpenCountPerDay` may not be recalculated in certain
-circumstances and the file may be indexed as "popular" forever, contrary to the actual popularity.
-This is possible when the file that has been intensively used for some time but hasn't been opened
-since then, so that no recalculation could be triggered to update its popularity. This is why the
-`lastOpenHour` parameter is used in the *popularity function* — to balance the importance of
-`avgOpenCountPerDay` parameter.
+Entries in the views are modified only when the associated document in the database is
+modified. It means that an entry in the *file popularity view* is modified only when the
+[file popularity model][7] document is updated, which happens on each file close
+operation. The downside of this approach is that the `avgOpenCountPerDay` may not be
+recalculated in certain circumstances and the file may be indexed as “popular” forever,
+contrary to the actual popularity. This is possible when the file has been intensively
+used for some time but hasn't been opened since then so that no recalculation could be
+triggered to update its popularity. This is why the `lastOpenHour` parameter is used in
+the *popularity function* — to balance the importance of `avgOpenCountPerDay` parameter.
 
 ### Default parameters
 
@@ -84,13 +81,13 @@ The default values of the *file popularity view* are as follows:
 * `MAX_AVG_OPEN_COUNT_PER_DAY = 100`
 
 The default value of `MAX_AVG_OPEN_COUNT_PER_DAY` makes all files with `avgOpenCountPerDay > 100`
-to be treated as equally popular.
+be treated as equally popular.
 
 The above values of `w1` and `w2` cause the below two files to have similar calculated popularity:
 
 * a file that has been opened just once
-* a file that had been opened about 1000 times in the month preceding the last open, and the open was
-  performed a month before opening the former file
+* a file that had been opened about 1000 times in the month preceding the last open and
+  the open was performed a month before opening the former file
 
 These weights were estimated using the following approach:
 
@@ -137,10 +134,10 @@ w2 := 20.0
 
 ### Tuning the file popularity function
 
-The three parameters of the function: `w1`, `w2` and `MAX_AVG_OPEN_COUNT_PER_DAY`
-can be modified in the *file popularity* configuration panel.
+The three parameters of the function: `w1`, `w2`, and `MAX_AVG_OPEN_COUNT_PER_DAY` can be
+modified in the *file popularity* configuration panel.
 
-> **NOTE:** Modification of the [*popularity function*][3]
+> **NOTE:** Modification of the [popularity function][3]
 > parameters results in modification of the mapping function of the
 > *file popularity view*. It means that all already indexed files need to be
 > re-indexed. Such operation can be very time-consuming, depending on the number
@@ -150,7 +147,7 @@ can be modified in the *file popularity* configuration panel.
 > Disabling the view results in its deletion, therefore re-enabling the view
 > results in re-indexing of all files in the space.
 
-> <span style="color:red">MODIFICATION OF THE [*POPULARITY FUNCTION*][3] MUST BE PERFORMED WITH CARE!!!</span>
+> <span style="color:red">MODIFICATION OF THE [POPULARITY FUNCTION][3] MUST BE PERFORMED WITH CARE!!!</span>
 
 ### REST API
 

@@ -59,11 +59,11 @@ Access tokens carry authorization to perform operations in the system on behalf
 of the subject. The authorization can be limited by [caveats][7].
 
 > **NOTE**: If there are no caveats, the token carries **absolute power to
-> perform any operation** on behalf of the subject – similar to user's password.
+> perform any operation** on behalf of the subject — similar to user's password.
 > Users are strongly recommended **NOT** to create such tokens, as there is always
 > a risk of a token being intercepted by a malicious party.
 
-Authorization in Onedata depends on the token's subject, their relations and
+Authorization in Onedata depends on the token's subject, their relations, and
 privileges (e.g. space membership and the privileges in the space), as well as
 token's caveats. For example, for Bob to be able to create a file in space
 `My experiment`, all below requirements need to be satisfied:
@@ -78,7 +78,7 @@ token's caveats. For example, for Bob to be able to create a file in space
    (or to be accurate, token caveats must not forbid writing in the space)
 
 Access tokens are a powerful tool for authority delegation, but at the same time
-require caution – they must be kept secret, similarly to user passwords. However,
+require caution — they must be kept secret, similarly to user passwords. However,
 thanks to support for [caveats][7] (contextual confinements),
 tokens can be limited with fine granularity, making it safer to delegate them to
 other users or services. Nevertheless, you should never disclose your tokens to
@@ -93,11 +93,10 @@ another token. An identity token can have [caveats][7], which limit
 the context in which the token is accepted (e.g. shortlisting the allowed IP
 addresses from which the token can be used).
 
-> Identity tokens must not be disclosed to other users or untrusted services,
-> as whoever possesses such token can impersonate the subject. They can be safely
-> sent to the **Onezone** service. When using such token in a **Oneprovider**
-> service, it is strongly recommended to add a short TTL for the token with a
-> [`time` caveat][7].
+> Identity tokens must not be disclosed to other users or untrusted services, as whoever
+> possesses such token can impersonate the subject. They can be safely sent to the
+> **Onezone** service. When using such token in a **Oneprovider** service, it is strongly
+> recommended that you add a short TTL for the token with a [`time` caveat][7].
 
 ## Invite tokens
 
@@ -111,7 +110,7 @@ entity (e.g. group or space).
 Each token has inscribed information about the target entity of the invitation
 which is chosen by the inviting user. It means that the token consumer does not
 choose where they are joining and does not need to know the target group, space
-etc. beforehand – the token itself is enough to join it.
+etc. beforehand — the token itself is enough to join it.
 
 The [Onezone Web GUI][2] provides a comprehensive wizard for creating
 invite tokens with different parameters. Below is some technical information about
@@ -120,38 +119,38 @@ the invite tokens which might be useful for [REST API][8] users.
 Invite tokens can have one of the following types, determining the action
 applied when the token is consumed:
 
-* `userJoinGroup` - join the target group of the invitation as a user
+* `userJoinGroup` — join the target group of the invitation as a user
 
-* `groupJoinGroup` - join the target group (parent) of the invitation as a group (child)
+* `groupJoinGroup` — join the target group (parent) of the invitation as a group (child)
 
-* `userJoinSpace` - join the target space of the invitation as a user
+* `userJoinSpace` — join the target space of the invitation as a user
 
-* `groupJoinSpace` - join the target space of the invitation as a group
+* `groupJoinSpace` — join the target space of the invitation as a group
 
-* `supportSpace` - grant support (storage space) to the target space of the
+* `supportSpace` — grant support (storage space) to the target space of the
   invitation (consumed by a Oneprovider)
 
-* `harvesterJoinSpace` - join the target space of the invitation as a harvester,
+* `harvesterJoinSpace` — join the target space of the invitation as a harvester,
   so that the space becomes a metadata source for the harvester.
 
-* `registerOneprovider` - register a new Oneprovider and link it to the target
+* `registerOneprovider` — register a new Oneprovider and link it to the target
   user (who becomes an admin of the Oneprovider service)
 
-* `userJoinCluster` - join the target cluster of the invitation as a user
+* `userJoinCluster` — join the target cluster of the invitation as a user
 
-* `groupJoinCluster` - join the target cluster of the invitation as a group
+* `groupJoinCluster` — join the target cluster of the invitation as a group
 
-* `userJoinHarvester` - join the target harvester of the invitation as a user
+* `userJoinHarvester` — join the target harvester of the invitation as a user
 
-* `groupJoinHarvester` - join the target harvester of the invitation as a group
+* `groupJoinHarvester` — join the target harvester of the invitation as a group
 
-* `spaceJoinHarvester` - join the target harvester of the invitation as a space,
+* `spaceJoinHarvester` — join the target harvester of the invitation as a space,
   so that the space becomes a metadata source for the harvester.
 
 Invite tokens can be created by authorized users, for example a `userJoinSpace`
 token can be created by a member of the target space that has the
 `space_add_user` privilege. The privilege is also checked when the token is
-being consumed - if the creator has lost the right to invite, the token cannot
+being consumed — if the creator has lost the right to invite, the token cannot
 be consumed.
 
 An invite token can have [caveats][7], which limit the context in
@@ -160,17 +159,17 @@ which the token can be consumed.
 [Named][6] invite tokens can have additional parameters,
 which are optional:
 
-1. Carried privileges (if applicable) - defines what privileges will be granted
+1. Carried privileges (if applicable) — defines what privileges will be granted
    for the joining member upon token consumption. If not specified, default
    member privileges will be granted.
 
-2. Usage limit - defines how many times the token can be used. If not specified,
+2. Usage limit — defines how many times the token can be used. If not specified,
    there is no limit.
 
 ## Named and temporary tokens
 
 Tokens in Onedata can be temporary or named, regardless of the type (access,
-invite or identity). Temporary tokens are short lived and not persisted, while
+invite, or identity). Temporary tokens are short-lived and not persisted, while
 named tokens are linked to user's account and retrievable. All differences are
 shown in below table.
 
@@ -178,7 +177,7 @@ shown in below table.
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | no identification in the system                                                                                                    | must have a unique name                                                                     |
 | not persisted                                                                                                                      | persisted                                                                                   |
-| cannot be retrieved <br/> <sub style="color: #06f;">you must store the token upon creation</sub>                                   | linked to subject's account                                                                 |
+| cannot be retrieved<br/> <sub style="color: #06f;">you must store the token upon creation</sub>                                    | linked to subject's account                                                                 |
 | shared secret <br/><sub style="color: #06f;">the secret can be regenerated, which invalidates all subject's temporary tokens</sub> | individual secret                                                                           |
 | cannot be deleted individually <br/><sub style="color: #06f;">see shared secret above</sub>                                        | can be deleted <br/><sub style="color: #06f;">(the token immediately becomes invalid)</sub> |
 | non-revocable individually <br/><sub style="color: #06f;">see shared secret above</sub>                                            | revocable <br/><sub style="color: #06f;">revocation can be undone at will</sub>             |
@@ -190,32 +189,32 @@ shown in below table.
 
 Each token can have any number of caveats (including none). Caveats are a
 fundamental concept of [Google's macaroons][] (which are used for token
-implementation in Onedata). Caveats are contextual confinements - they limit the
+implementation in Onedata). Caveats are contextual confinements — they limit the
 context in which a token is valid. They are inscribed in the token itself,
 which enables powerful delegation features. Thanks to cryptographic signatures,
 caveats cannot be removed from a token. However, they can be added to any token
 by any party that possesses the token. Such operation further limits the token,
-making it carry less power that the original one. The limited token can be
+making it carry less power than the original one. The limited token can be
 safely passed to another party, which won't be able to overcome the limitations
 without knowing the original token. Consider this example:
 
 1. Bob creates a named token `Alpha` for accessing his data, but only in the
-   space `My experiment` - using the `data.path` caveat.
+   space `My experiment` — using the `data.path` caveat.
 
-2. Bob confines the token `Alpha` - adds the `data.readonly` caveat - and
+2. Bob confines the token `Alpha` — adds the `data.readonly` caveat — and
    obtains token `Alpha*` with different signature.
 
 3. Bob passes the token `Alpha*` to Alice. Alice is able to read the space
    `My experiment`, but cannot modify any files. The space is accessed on
-   behalf of Bob - from the system's point of view, whoever bears the token is
+   behalf of Bob — from the system's point of view, whoever bears the token is
    recognized as Bob. Cryptography ensures that it is computationally
    implausible to infer token `Alpha` knowing only `Alpha*`. If Bob wishes to
    publish his experiment data online, he can safely make the token `Alpha*`
-   public (see [safely publishing tokens][9]) - nobody
+   public (see [safely publishing tokens][9]) — nobody
    will be able to use it in other way than to read the `My experiment` data.
    Bob can temporarily revoke or completely delete the token `Alpha` at any
    time, which will immediately disable the original token `Alpha` and all
-   tokens derived from it - including the published `Alpha*` token.
+   tokens derived from it — including the published `Alpha*` token.
 
 4. In the meantime, Bob still uses the original token `Alpha` to write data in
    the `My experiment` space, which becomes immediately visible for the users
@@ -228,7 +227,7 @@ Below is the list of all recognized caveats in Onedata. Provided examples of
 caveats are in JSON format, recognized by the [REST API][8]
 (consult for more information about allowed values and usage).
 
-* `time` - limits the validity of the token to a certain point in time,
+* `time` — limits the validity of the token to a certain point in time,
   specified as an absolute timestamp in seconds (UNIX Epoch time). If no such
   caveat is included in a token, it is valid infinitely. Note, however, that
   temporary tokens **require** a time caveat, contrary to named tokens.
@@ -239,7 +238,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
 
-* `ip` - limits the allowed client IPs to a certain whitelist. Supports IP
+* `ip` — limits the allowed client IPs to a certain whitelist. Supports IP
   masks. If no such caveat is included in a token, it can be used from any IP.
   ```json
   {
@@ -257,7 +256,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   > new request's client). Proxying happens when the Oneprovider that received
   > your request does not support the concerned space.
 
-* `asn` - limits the ASNs (Autonomous System Number) from which the token can be
+* `asn` — limits the ASNs (Autonomous System Number) from which the token can be
   utilized. The client's ASN is resolved based on client's IP and MaxMind's
   GeoLite database. If no such caveat is included in a token, it can be used
   from any ASN.
@@ -272,7 +271,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   > NOTE: as the client ASN detection depends on client's IP, this caveat
   > has the same considerations as the `ip` caveat when requests are proxied.
 
-* `geo.country` - limits the countries from which the token can be utilized.
+* `geo.country` — limits the countries from which the token can be utilized.
   Supports whitelists and blacklist. The client's country is resolved based on
   client's IP and MaxMind's GeoLite database. If no such caveat is included in
   a token, it can be used from any country.
@@ -288,7 +287,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   > NOTE: as the client country detection depends on client's IP, this caveat
   > has the same considerations as the `ip` caveat when requests are proxied.
 
-* `geo.region` - limits the geographical regions from which the token can be
+* `geo.region` — limits the geographical regions from which the token can be
   utilized. The available values are the 7 continents (`"Oceania"` covers
   Australia and the pacific islands) or the `"EU"` meta region, which matches
   member countries of the European Union. The client's region is resolved
@@ -313,7 +312,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   > NOTE: as the client region detection depends on client's IP, this caveat
   > has the same considerations as the `ip` caveat when requests are proxied.
 
-* `service` - limits the [services][11] that can process the token. Imposes
+* `service` — limits the [services][11] that can process the token. Imposes
   implicit [API limitations][12]. If the caveat is
   present, the service must prove its identity by sending its
   [identity token][4] in the `x-onedata-service-token` header.
@@ -335,7 +334,7 @@ caveats are in JSON format, recognized by the [REST API][8]
   > Proxying happens when the Oneprovider that received your request does not
   > support the concerned space.
 
-* `consumer` - limits the [consumers][10] that can utilize the token. If
+* `consumer` — limits the [consumers][10] that can utilize the token. If
   the caveat is present, the consumer must prove their identity by sending their
   [identity token][4] in the `x-onedata-consumer-token` header.
   The consumers must be encoded using the proper [consumer format][14].
@@ -351,10 +350,10 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
 
-* `interface` - limits the available interfaces on which the token can be used
+* `interface` — limits the available interfaces on which the token can be used
   to a certain one — `rest`, `oneclient` or `graphsync`. If the `oneclient`
   interface is specified, this caveat is treated as a
-  [*data access caveat*][15]. The `graphsync` interface is
+  [data access caveat][15]. The `graphsync` interface is
   used internally for communication between services and does not make sense
   in tokens created by users. If no such caveat is included in a token, it can
   be used on all interfaces.
@@ -365,10 +364,10 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
 
-* `api` - limits the API operations that can be performed with the token. The
-  operations are whitelisted using the Onedata API matchspec format, which
+* `api` — limits the API operations that can be performed with the token. The
+  operations are whitelisted using the Onedata `API matchspec` format, which
   however is currently used only internally. Adding information how to build
-  matchspecs is on the roadmap for official API documentation. If no such
+  `matchspecs` is on the roadmap for official API documentation. If no such
   caveat is included in a token, it can be used for all API calls.
   ```json
   {
@@ -380,8 +379,8 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
 
-* `data.readonly` - allows only read access to user files. This is a
-  [*data access caveat*][15]. If no such caveat is included in
+* `data.readonly` — allows only read access to user files. This is a
+  [data access caveat][15]. If no such caveat is included in
   a token, it can be used for both reading and writing data.
   ```json
   {
@@ -389,11 +388,11 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
 
-* `data.path` - limits the paths in which data can be accessed with the token.
-  The paths must be canonical - starting with a slash + space ID, and without
-  a trailing slash - and must be base64 encoded. If a directory path is given,
+* `data.path` — limits the paths in which data can be accessed with the token.
+  The paths must be canonical — starting with a slash + space ID, and without
+  a trailing slash — and must be base64 encoded. If a directory path is given,
   the token allows to access all nested files and directories starting from
-  the specified directory. This is a [*data access caveat*][15].
+  the specified directory. This is a [data access caveat][15].
   If no such caveat is included in a token, it can be used for accessing all
   user files.
   ```json
@@ -410,11 +409,11 @@ caveats are in JSON format, recognized by the [REST API][8]
   "LzhkZjFlYjkwYTcvZGlyL2ZpbGUudHh0Cg=="  ==  base64("/8df1eb90a7/dir/file.txt")
   ```
 
-* `data.objectid` - limits the object IDs in which data can be accessed with the
+* `data.objectid` — limits the object IDs in which data can be accessed with the
   token. The object IDs comply with the CDMI format and can be used in the
   Oneprovider's REST and CDMI APIs. If a directory object ID is given, the
   token allows to access all nested files and directories starting from the
-  specified directory. This is a [*data access caveat*][15].
+  specified directory. This is a [data access caveat][15].
   If no such caveat is included in a token, it can be used for accessing all
   user files.
   ```json
@@ -427,10 +426,10 @@ caveats are in JSON format, recognized by the [REST API][8]
   }
   ```
   > NOTE: `data.objectid` caveats are computationally heavier than `data.path`
-  > caveats - you should use the latter whenever possible for performance
+  > caveats — you should use the latter whenever possible for performance
   > reasons. Nevertheless, `data.objectid` have the advantage that they remain
   > valid even if the target file is moved / renamed (given that the File ID
-  > does not change in the process) - contrary to `data.path` caveats.
+  > does not change in the process) — contrary to `data.path` caveats.
 
 ### Caveats compatibility
 
@@ -438,9 +437,9 @@ Below table shows compatibility of caveats with access, identity and invite
 tokens. Note that adding an unrecognized or incompatible caveat causes the token
 to always fail verification (renders it unusable in practice).
 
-* <span style="color:#480"> allowed </span> - the caveat is recognized and will
+* <span style="color:#480"> allowed </span> — the caveat is recognized and will
   be checked against the request context
-* <span style="color:red"> rejected </span> - presence of this caveat will cause
+* <span style="color:red"> rejected </span> — presence of this caveat will cause
   immediate token verification failure
 
 | Caveat        |               Access tokens               |              Identity tokens              |               Invite tokens               |
@@ -485,12 +484,12 @@ token intended for data access is delegated. For example, it is possible to
 create a token with `data.path` and `data.readonly` caveats, limiting the rights
 to readonly access in a single directory. Such token can be published online
 without the risk of malicious utilization
-(see [safely publishing tokens][9]) - the token forbids
+(see [safely publishing tokens][9]) — the token forbids
 any API operations and can be used solely to read the specified directory.
 
 > These restrictions improve security, but the downside is that it is not
 > possible to grant somebody restricted access to files and the system API at the
-> same time with one token - two different tokens must be created. The alternative
+> same time with one token — two different tokens must be created. The alternative
 > would be to make no implicit restrictions and expect users to consciously limit
 > the token with `api` caveats whenever they wish to safely publish it. That,
 > however, was deemed too obscure, unintuitive and risky, as it would require a
@@ -500,16 +499,16 @@ any API operations and can be used solely to read the specified directory.
 
 Each caveat can have a big impact on the token usability in the system,
 depending on the type. Above-mentioned *data access caveats* are a good
-example - their presence in the token greatly restricts the available services.
+example — their presence in the token greatly restricts the available services.
 Beside that, there are some other considerations of token caveat usage,
 summarized in the below tables.
 
-* <span style="color:#480"> allowed </span> - the caveat is recognized and will
+* <span style="color:#480"> allowed </span> — the caveat is recognized and will
   be checked against the request context
-* <span style="color:red"> rejected </span> - presence of this caveat will cause
+* <span style="color:red"> rejected </span> — presence of this caveat will cause
   immediate token verification failure
-* <span style="color:#aa0"> restricted </span> - the caveat is allowed only in
-  certain circumstances - see footnotes for details
+* <span style="color:#aa0"> restricted </span> — the caveat is allowed only in
+  certain circumstances — see footnotes for details
 
 #### Onezone
 
@@ -536,7 +535,7 @@ Oneprovider and Onepanel and omitted in tables that follow.
 
 <sup>2</sup>
 The interface caveat must match the interface on which the request has been
-made, as shown in the table. There is one exception - the Oneprovider GraphSync
+made, as shown in the table. There is one exception — the Oneprovider GraphSync
 channel, where Onezone accepts all types of tokens that were delegated by users
 to Oneproviders, but the included caveats can impose further restrictions
 (e.g. when interface is equal to `"oneclient"`).
@@ -628,7 +627,7 @@ identity by sending its identity token to Onezone.
 
 There are 4 service types in Onedata. Note the serialized format in the table
 below if you wish to use the [REST API][8] for creating tokens
-with `service` caveats - the first three letters denote the type, and the rest
+with `service` caveats — the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding Oneprovider or special
 `onezone` keyword for the Onezone service.
 
@@ -646,7 +645,7 @@ after the hyphen is the ID of the corresponding Oneprovider or special
 
 Service caveats impose implicit API limitations depending on the whitelisted
 services. It is **strongly recommended** to include a service caveat in all tokens
-that are used to access services other than Onezone - this way, the service
+that are used to access services other than Onezone — this way, the service
 is given limited power to perform operations on behalf of the user, restricted
 to the necessary minimum. For example, a token used to mount a Oneclient should
 be confined with a service caveat that whitelists just the Oneprovider service.
@@ -655,7 +654,7 @@ which ensures security even if the Oneprovider service is not fully trusted.
 
 ## Consumer
 
-Consumer is the token bearer that utilizes the token - performs a request with
+Consumer is the token bearer that utilizes the token — performs a request with
 an access token or attempts to consume an invite token. It is possible to create
 a token that will only be consumable by whitelisted subjects. Consider Bob, who
 creates an access token allowing to access his space and adds a `consumer`
@@ -670,7 +669,7 @@ caveat that limits the allowed consumers to Alice:
 }
 ```
 
-* `5c9dfb35db55bef7e8a51dfb35ba93a2` - Alice's user ID
+* `5c9dfb35db55bef7e8a51dfb35ba93a2` — Alice's user ID
 
 Then, Bob passes the confined token to Alice. In such case, Alice has to prove
 her identity by adding her [identity token][4] to the request:
@@ -688,7 +687,7 @@ request will fail with unverified caveat error.
 
 There are 3 consumer types in Onedata. Note the serialized format in the table
 below if you wish to use the [REST API][8] for creating tokens
-with `consumer` caveats - the first three letters denote the type, and the rest
+with `consumer` caveats — the first three letters denote the type, and the rest
 after the hyphen is the ID of the corresponding user / group / Oneprovider.
 
 | Consumer    |             Examples (serialized format)             |
@@ -714,7 +713,7 @@ anyone might be able to tinker with user's account and data.
 
 When creating a token for public use, consider the following:
 
-* Make sure to include carefully chosen [*data access caveats*][15]
+* Make sure to include carefully chosen [data access caveats][15]
   in the token (`data_readonly`, `data_path`, `data_objectid`). In a typical scenario,
   you may want to allow readonly access to a certain subset of your data.
 
@@ -750,7 +749,7 @@ or delegating access tokens:
 * When a Oneprovider or Oneprovider panel service receives a request along with
   an access token, it is required that the token's subject user trusts the service
   and is entitled to use it. In case of Oneprovider, the user must be supported
-  by the Oneprovider - must have access to at least one space that is supported by
+  by the Oneprovider — must have access to at least one space that is supported by
   the Oneprovider, which implies bidirectional trust between the user and the
   Oneprovider. To use a Oneprovider panel service, the user must be a member of
   the cluster corresponding to the Oneprovider. If above conditions are not met,
@@ -758,7 +757,7 @@ or delegating access tokens:
   It is not possible to utilize the token in an untrusted Oneprovider, which
   protects from data exfiltration.
 
-* Tokens with [*data access caveats*][15] can be used only on
+* Tokens with [data access caveats][15] can be used only on
   Oneprovider interfaces (Oneclient / REST / CDMI). When using such token, the
   bearer is not able to learn token subject's account information or private data.
   The information is processed by the Oneprovider to handle the request, but never
@@ -770,7 +769,7 @@ or delegating access tokens:
   subject's account or read private information.
 
 * `data_path` and `data_objectid` caveats imply in which spaces the token can be
-  used - other spaces are completely invisible and inaccessible to the token bearer.
+  used — other spaces are completely invisible and inaccessible to the token bearer.
 
 ## Using REST API
 
@@ -821,7 +820,7 @@ curl -H "${AUTH_HEADER}" -H "${CT}" -X POST ${REST_API}/user/tokens/temporary -d
 
 #### Create a named access token for mounting Oneclient in specific Oneprovider
 
-Identify the ID of the desired Oneprovider - you can visit the web GUI and go to
+Identify the ID of the desired Oneprovider — you can visit the web GUI and go to
 the Overview tab in the Oneprovider. Assume the ID is `3fe8f8eafb53c7205eeffde461a50348chfaf0`.
 
 ```bash
@@ -965,7 +964,7 @@ Now, Alice can use the tokens like below for accessing the data in the space:
 
 #### Create a named invite token for requesting space support with 4 uses
 
-Identify the ID of the desired space - you can visit the web GUI and go to
+Identify the ID of the desired space — you can visit the web GUI and go to
 the Overview tab in the space. Assume the ID is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
@@ -993,7 +992,7 @@ token to four different Oneproviders and ask for support.
 
 #### Create a named invite token for inviting space members with certain privileges
 
-Identify the ID of the desired space - you can visit the web GUI and go to
+Identify the ID of the desired space — you can visit the web GUI and go to
 the Overview tab in the space. Assume the ID is `e8df04bb7a8f9a644a773daf24fe631bchd5c2`.
 
 ```bash
@@ -1088,7 +1087,7 @@ offered by Onedata tokens and the token creation GUI wizard.
 
 4. Consider adding other caveats to increase your security in case the token
    is to be delegated or passed to another user. Below
-   [*data access caveats*][15] would restrict the token's power
+   [data access caveats][15] would restrict the token's power
    to just reading the contents of specified directory and file. Any other
    operation will be denied by all system components.
    ![screen-4-data-access-caveats][]
@@ -1102,13 +1101,13 @@ offered by Onedata tokens and the token creation GUI wizard.
    though you may want to create a custom token using the wizard:
    ![screen-6-invite-token-b][]
 
-7. Created token will be listed on the left - you can view the details of a
+7. Created token will be listed on the left — you can view the details of a
    token and copy it in serialized form that can be used in CLI, e.g. to mount
    Oneclient or perform a request to REST/CDMI, or passed to some
    scripts / middleware.
    ![screen-7-browse-tokens][]
 
-8. Tokens can be modified to some extent - renamed or revoked. Other details,
+8. Tokens can be modified to some extent — renamed or revoked. Other details,
    such as caveats, are not modifiable as they are inscribed in the token.
    ![screen-8-modify-token][]
 

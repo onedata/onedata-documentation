@@ -24,53 +24,73 @@
   },
   "ltex.disabledRules": {
     "en-US": [
+      "EG_NO_COMMA",
+      "IE_NO_COMMA"
     ]
+  },
+  "ltex.diagnosticSeverity": {
+    "default": "information",
+    "PASSIVE_VOICE": "hint",
+    "UPPERCASE_SENTENCE_START": "hint"
   },
   "ltex.dictionary": {
     "en-US": [
       "ACEs",
-      "archivisation",
       "aws-cli",
       "BagIt",
       "CDMI",
       "ceph",
+      "Ceph",
       "Couchbase",
-      "dcmes",
       "filesystem",
+      "GIDs",
+      "GlusterFS",
       "Grammarly",
-      "handleId",
-      "hardlinked",
+      "IdP",
       "LTeX",
       "LUMA",
-      "mybackups",
+      "NullDevice",
       "nvm",
       "OAIS",
       "Oneclient",
       "Onedata",
+      "OnedataFS",
       "Onepanel",
       "Oneprovider",
       "Oneproviders",
       "Onezone",
       "OpenAPI",
+      "proxied",
+      "PyFilesystem",
       "QoS",
       "quickstart",
       "Quickstart",
+      "RADOS",
       "rclone",
       "remarkrc",
-      "snapshotted",
       "subpath",
-      "tagmanifest",
       "toc",
+      "UIDs",
       "unifiedjs",
       "VSCode",
       "VuePress",
-      "xattrs",
+      "XRootD",
       "znck"
     ]
   },
   "ltex.hiddenFalsePositives": {
     "en-US": [
-      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}"
+      "{\"rule\":\"AN_INVITE\",\"sentence\":\"invite token\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneclient\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneprovider\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"not persisted persisted\"}",
+      "{\"rule\":\"POSSESSIVE_APOSTROPHE\",\"sentence\":\"Views chapter\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"[Aa]uto storage import\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"API\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
     ]
   }
 }

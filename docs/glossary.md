@@ -14,8 +14,8 @@ Learn more [here][1].
 Mechanism that automatically maintains storage usage at a certain
 level and ensures that there is enough space for new replicas when performing continuous computations.
 The mechanism uses the statistics collected by the
-[*file popularity*][2] to determine
-the least popular file replicas in a [*space*][3] and to evict them.
+[file popularity][2] to determine
+the least popular file replicas in a [space][3] and to evict them.
 Learn more [here][4].
 
 ## CDMI
@@ -56,8 +56,8 @@ Learn more [here][file-path-and-id].
 
 ## File popularity
 
-Enables tracking of usage statistics for files in a [*space*][3].
-Used by [*auto-cleaning*][12] mechanism to clean up the least popular file replicas.
+Enables tracking of usage statistics for files in a [space][3].
+Used by [auto-cleaning][12] mechanism to clean up the least popular file replicas.
 Learn more [here][13].
 
 ## File registration
@@ -81,8 +81,8 @@ different privileges. Learn more [here][8].
 
 ## Imported storage
 
-[*Storage resource*][18] marked as `Imported storage` in the configuration.
-Enables [*Storage import*][19] when used to support a space.
+[Storage resource][18] marked as `Imported storage` in the configuration.
+Enables [Storage import][19] when used to support a space.
 Learn more [here][20].
 
 ## Let’s Encrypt
@@ -108,7 +108,7 @@ Learn more [here][25].
 
 ## Onepanel
 
-Service dedicated for administration of a [*cluster*][26] ([*Onezone*][27] or [*Oneprovider*][28]) and,
+Service dedicated for administration of a [cluster][26] ([Onezone][27] or [Oneprovider][28]) and,
 at the same time, an integral part of the cluster. Referred to as *Onezone panel* or *Oneprovider panel* throughout the documentation.
 Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interface (`https://$HOST:9443`)
 and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
@@ -127,22 +127,22 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Space
 
-A logical container for data, fundamental for user data organization in Onedata.
-Accessible only to its members – users or [groups][17] – that are assigned
-fine grained privileges. Learn more [here][29].
+A logical container for data, fundamental for organizing user data in Onedata.
+Accessible only to its members — users or [groups][17] — that are assigned
+fine-grained privileges. Learn more [here][29].
 
 <!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
 
 ## Storage
 
-Storage resource recognized by a [*Oneprovider*][28] and used to [*support*][30] Onedata [*spaces*][3].
-Storages are registered in the [*Oneprovider panel*][31], using the GUI or REST API.
+Storage resource recognized by a [Oneprovider][28] and used to [support][30] Onedata [spaces][3].
+Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
 Learn more [here][32].
 
 ## Storage import
 
-Mechanism dedicated for importing files located on a storage by registering them in a [*space*][3] supported by
-the [*storage*][18], without copying the data.
+Mechanism dedicated for importing files located on a storage by registering them in a [space][3] supported by
+the [storage][18], without copying the data.
 Learn more [here][33].
 
 ## Support
@@ -158,8 +158,8 @@ across the system to authenticate (**access token**), prove identity
 (**identity token**) or gain access to some resources (**invite token**). Tokens
 must be kept secret, just like passwords or private keys/certificates. A token
 can look like the following: `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`.
-Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
-[*CDMI*][36] or [*Oneclient*][37]. Learn more [here][38].
+Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
+[CDMI][36] or [Oneclient][37]. Learn more [here][38].
 
 <!-- references -->
 
@@ -199,7 +199,7 @@ Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
 
 [19]: #storage-import
 
-[20]: admin-guide/oneprovider/configuration/storages.md#imported-storage
+[20]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
 [21]: admin-guide/oneprovider/configuration/luma.md
 
@@ -223,7 +223,7 @@ Tokens are a universal way of accessing Onedata interfaces: [*REST API*][35],
 
 [31]: #onepanel
 
-[32]: admin-guide/oneprovider/configuration/storages.md
+[32]: admin-guide/oneprovider/configuration/storage-backends.md
 
 [33]: admin-guide/oneprovider/configuration/storage-import.md
 
