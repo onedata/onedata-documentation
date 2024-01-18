@@ -38,21 +38,27 @@ re_success_exception = re.compile(
 )
 
 parser = argparse.ArgumentParser(
-    prog='check-language',
-    description='FIXME:',
+    description='FIXME: description',
 )
 
 # FIXME: zawijanie wierszy w stringach
 parser.add_argument(
-    'input',
+    'input_path',
     nargs='?',
     default='docs',
     help='A relative path starting from the project root to directory with Markdown files (scanned recursively) or a single Markdown file path to check. Paths outside the project directory are invalid.'
 )
 
+parser.add_argument(
+    '--show-hints',
+    default=False,
+    action='store_true',
+    help='FIXME:'
+)
+
 args = parser.parse_args()
 
-input_path = args.input
+input_path = args.input_path
 
 ##
 # The list of "picky"-level rules that are normally enabled in VSCode linter using the `"ltex.additionalRules.enablePickyRules": true` setting, but this does not work when using standalone LTeX CLI - we must add enable manually "picky" rules.
@@ -139,11 +145,12 @@ def read_settings_content():
     with open(settings_json_path, 'r') as settings_reader:
         return settings_reader.read()
 
+
 def create_settings_content():
     settings_content: str = read_settings_content()
     settings_data: dict[str, str] = json.loads(settings_content)
 
-    if config_diagnostic_severity in settings_data:
+    if not args.show_hints and config_diagnostic_severity in settings_data:
         disable_hint_rules(settings_data)
 
     if config_picky_rules in settings_data and settings_data[config_picky_rules] == True:
