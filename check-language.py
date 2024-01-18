@@ -37,6 +37,12 @@ RE_SUCCESS_EXCEPTION = re.compile(
     re.MULTILINE,
 )
 
+RE_MULTILINE_ERROR_EXCEPTION = re.compile(
+    r"^java\.lang\.StringIndexOutOfBoundsException(.|\n)*at org\.bsplines\.lspcli\.LspCliLauncher"
+    + r"\.main\(LspCliLauncher\.kt\)$",
+    re.MULTILINE,
+)
+
 ##
 # The list of "picky"-level rules that are normally enabled in VSCode linter using the
 # `"ltex.additionalRules.enablePickyRules": true` setting, but this does not work when using
@@ -222,7 +228,15 @@ def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
 
     if result.returncode == 0:
         output = RE_SUCCESS_EXCEPTION.sub("", output)
-        output = re.sub(r"\s*$", "", output, re.MULTILINE)
+    elif RE_MULTILINE_ERROR_EXCEPTION.search(output):
+        output = RE_MULTILINE_ERROR_EXCEPTION.sub("", output)
+        multiline_error_text = (
+            "The latest language error spans accross mulitple lines. Due to "
+            + "the bug in LTeX, the check stopped here. Fix the error and run check-language again."
+        )
+        output += f"\n{color_text(multiline_error_text, TEXT_COLOR_RED)}"
+
+    output = re.sub(r"\s*$", "", output, re.MULTILINE)
 
     if not quiet:
         if output != "":
