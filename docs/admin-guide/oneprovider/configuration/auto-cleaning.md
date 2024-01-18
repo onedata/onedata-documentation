@@ -6,7 +6,7 @@ yourself with the mechanism of [file popularity][1].
 The purpose of the *auto-cleaning* mechanism is to automatically maintain storage usage at
 a certain level and ensure that there is enough space for new replicas when performing
 continuous computations. The mechanism uses the statistics collected by the [file
-popularity*][1] to determine the least popular file replicas and evict them. The process
+popularity\*][1] to determine the least popular file replicas and evict them. The process
 is safe — only redundant replicas (duplicated on remote providers) are evicted. Eviction
 of replicas is coordinated among providers using a custom algorithm. It ensures that there
 is no risk of data loss, even in the case of simultaneous requests for deletion of

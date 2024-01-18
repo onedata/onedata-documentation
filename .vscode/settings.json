@@ -22,11 +22,6 @@
     "disabledRules": "workspace",
     "hiddenFalsePositives": "workspace"
   },
-  "ltex.enabledRules": {
-    "en-US": [
-      "PASSIVE_VOICE"
-    ]
-  },
   "ltex.disabledRules": {
     "en-US": [
       "EG_NO_COMMA",
@@ -70,7 +65,7 @@
       "QoS",
       "quickstart",
       "Quickstart",
-      "Rados",
+      "RADOS",
       "rclone",
       "remarkrc",
       "subpath",

@@ -54,7 +54,7 @@ not support [automatic import scans][3].
 * `Ceph RADOS`
 
 > **NOTE**: The storage must have [canonical path type][6]. Moreover, on object storage
-> backends: S3, SWIFT and Ceph Rados the `Block size` parameter **must be set to `0`!**
+> backends: S3, SWIFT and Ceph RADOS the `Block size` parameter **must be set to `0`!**
 
 ## Auto storage import
 

@@ -135,8 +135,6 @@ fine-grained privileges. Learn more [here][29].
 
 ## Storage
 
-fixme gwiazdka naroznik
-
 Storage resource recognized by a [Oneprovider][28] and used to [support][30] Onedata [spaces][3].
 Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
 Learn more [here][32].

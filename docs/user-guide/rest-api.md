@@ -29,10 +29,10 @@ Assume the following domains:
 
 Then, the APIs can be accessed using the following endpoints:
 
-| Service                         | API endpoint                                                                                                                          |
-| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ |
-| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
-| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
+| Service                         | API endpoint                                                                                                                        |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
+| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                    |
+| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                          |
 | Onezone Panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br />or<br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
 | Oneprovider Panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br />or<br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
