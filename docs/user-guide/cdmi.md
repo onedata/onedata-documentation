@@ -75,7 +75,7 @@ Note that the examples provided below cover only a portion of the available API 
 Prepare a valid access token. You can generate an access token either in the Web
 GUI or via REST API (refer to the [tokens][] chapter).
 
-The following examples assume that the environment variables below are exported.
+The following examples assume that you have exported the below environment variables.
 
 ```bash
 export PROVIDER_DOMAIN="provider.example.com"  # replace with actual
@@ -188,9 +188,11 @@ Response example: (original file content is `"Test content"`)
 Consider using the [update file content][] REST endpoint instead.
 :::
 
-CDMI, starting from version 1.0.2, supports partial uploads, where a subrange of
+CDMI, starting from version 1.0.2, supports partial uploads, where a sub-range of
 the value field can be provided as a byte range using the URL attribute
 `?value:<START_OFFSET>-<END_OFFSET>`. The value sent must be Base64 encoded.
+
+Change first 4 bytes of test.txt file to `ABCD`:
 
 ```bash
 echo -n ABCD | base64
@@ -206,11 +208,11 @@ curl -X PUT "$ENDPOINT/MySpace/file.txt?value:0-3" \
 ```
 
 This CDMI query will update the first 4 bytes of the file `file.txt` in the
-`MySpace` space to "ABCD". The value `QUJDRA==` represents the Base64 encoding
-of "ABCD".
+`MySpace` space to `ABCD`. The value `QUJDRA==` represents the Base64 encoding
+of `ABCD`.
 
-The original file content set in a previous example is "Test content". Upon
-successful execution, the file's content will be "ABCD content".
+The original file content set in a previous example is `Test content`. Upon
+successful execution, the file's content will be `ABCD content`.
 
 ### Delete file
 
@@ -433,6 +435,9 @@ Refer to the [documentation][ACL] to learn about ACL.
 Onedata implements a certain subset of CDMI specification and not all available
 operations are covered in this guide. You can use the capability discovery
 endpoints to find out which operations are supported, as demonstrated below.
+
+Refer to the [CDMI specification][] for information on how to use other supported
+operations and parameters.
 
 ### Get supported capabilities
 

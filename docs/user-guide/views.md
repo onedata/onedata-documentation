@@ -168,8 +168,8 @@ Model that stores basic file metadata:
 * `mode` — POSIX access mode as a decimal integer
 * `acl` — [access control list][18]
 * `owner` — ID of an owner of the file
-* `provider_id` – ID of a provider on which the file was created
-* `deleted` – flag informing that file was marked to be deleted
+* `provider_id` — ID of a provider on which the file was created
+* `deleted` — flag informing that file was marked to be deleted
 * other fields that are hardly useful in views: `shares`, `is_scope`, `parent_uuid`
 
 ```javascript 1.8
@@ -197,9 +197,9 @@ Indexed by the `emit(id, type, meta, ctx)` function where `type === "times"`.
 This model was extracted from the `file_meta` due to efficiency reasons.
 It stores classical Unix timestamps (in seconds since Epoch):
 
-* `atime` – Unix last access timestamp
-* `mtime` – Unix last modification timestamp
-* `ctime` – Unix last status timestamp
+* `atime` — Unix last access timestamp
+* `mtime` — Unix last modification timestamp
+* `ctime` — Unix last status timestamp
 
 ```javascript 1.8
 times = {
@@ -218,9 +218,9 @@ Currently, views can operate on both extended attributes as well as JSON metadat
 indexing is not yet supported.
 The model has the following fields:
 
-* `onedata_json` – map of JSON metadata values
-* `onedata_rdf` – RDF metadata in plain text
-* extended attributes set by users – a key-value map on the top level of the object
+* `onedata_json` — map of JSON metadata values
+* `onedata_rdf` — RDF metadata in plain text
+* extended attributes set by users — a key-value map on the top level of the object
 
 ```javascript 1.8
 custom_metadata = {
@@ -245,18 +245,18 @@ It can be turned on only by space admin via Onepanel.
 The *file popularity* document is available only for files which have been opened at least once on a given provider.\
 It stores:
 
-* `size` – total sum of the file's blocks stored on given provider
-* `open_count` – number of `open` operations on the file
-* `last_open` – timestamp fo last `open` on the file
-* `hr_hist`  – hourly histogram of number of `open` operations on the file per hour, in the last 24 hours, represented as
+* `size` — total sum of the file's blocks stored on given provider
+* `open_count` — number of `open` operations on the file
+* `last_open` — timestamp fo last `open` on the file
+* `hr_hist`  — hourly histogram of number of `open` operations on the file per hour, in the last 24 hours, represented as
   a list of 24 integers
-* `dy_hist`  – daily histogram of number of `open` operations on the file per day, in the last 30 days, represented as
+* `dy_hist`  — daily histogram of number of `open` operations on the file per day, in the last 30 days, represented as
   a list of 30 integers
-* `mth_hist` – monthly histogram of number of `open` operations on the file per month, in the last 12 months, represented as
+* `mth_hist` — monthly histogram of number of `open` operations on the file per month, in the last 12 months, represented as
   a list of 12 integers
-* `hr_mov_avg` – moving average of number of `open` operations on the file per hour
-* `dy_mov_avg` – moving average of number of `open` operations on the file per day
-* `mth_mov_avg` – moving average of number of `open` operations on the file per month
+* `hr_mov_avg` — moving average of number of `open` operations on the file per hour
+* `dy_mov_avg` — moving average of number of `open` operations on the file per day
+* `mth_mov_avg` — moving average of number of `open` operations on the file per month
 
 ```javascript 1.8
 file_popularity = {

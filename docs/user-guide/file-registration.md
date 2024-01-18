@@ -1,12 +1,11 @@
 # File registration
 
-File registration is used to reflect read-only, external datasets in a Onedata
-[space][]. Space users can register files by providing the location of a regular
-file on external storage, along with optional attributes. Upon registration, the
-file becomes accessible in the space under the requested path. No data is copied
-in the process; instead, a file metadata entry is created in the space,
-containing a reference to the external storage. The Oneprovider will contact the
-external [storage backend][] whenever the file is accessed.
+File registration is used to reflect read-only, external datasets in a Onedata [space][].
+Space users can register files by providing the location of a regular file on external
+storage, along with optional attributes. Upon registration, the file becomes accessible in
+the space under the requested path. No data is copied in the process; instead, a metadata
+entry is created in the space, containing a reference to the external storage. The
+Oneprovider will contact the external [storage backend][] whenever the file is accessed.
 
 The typical use case for file registration is exposing publicly available data
 lying on an HTTP server via a Onedata [space][], by providing URLs to the files
@@ -34,7 +33,7 @@ The file will become visible immediately.
 
 [storage backend]: spaces.md#storage-backends
 
-[imported storage]: ../admin-guide/oneprovider/configuration/storages.md#imported-storage
+[imported storage]: ../admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
 [manual import mode]: ../admin-guide/oneprovider/configuration/storage-import.md#manual-storage-import
 

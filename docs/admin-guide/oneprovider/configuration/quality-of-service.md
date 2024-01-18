@@ -9,4 +9,4 @@
      the QoS parameters in the admin chapter.
 -->
 
-## QoS params
+## QoS parameters

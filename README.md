@@ -1,6 +1,6 @@
 # Onedata documentation
 
-This documentation is built using [VuePress][].
+This documentation uses the [VuePress][] framework.
 
 ## Contributing
 
@@ -12,8 +12,8 @@ Before making any changes in the docs, make sure to set up your working environm
 * Make sure your contribution **sticks to the [guidelines][]**.
 * Fix any linguistic or grammatical errors detected by the plugins. If you are touching
   a file with pre-existing errors, please take some time to tidy it up a bit.
-* Make sure the build is passing (may require re-formatting, pleasing the linter or solving
-  forgotten code tags).
+* Make sure the build is passing (may require re-formatting, pleasing the linter, or
+  solving forgotten code tags).
 
 ## Building and developing
 
@@ -43,7 +43,7 @@ These scripts are suitable for most developers and documentation users.
 The recommended IDE to develop the documentation is Visual Studio Code (VSCode).
 
 The VSCode workspace configuration is checked out in the repository, so please be careful
-to not commit your personal changes. Only changes that should be shared amongst the other
+to not commit personal changes. Only changes that should be shared amongst the other
 users should be committed, like `LTeX` configuration.
 
 There are a few recommended extensions for documentation development. You should be
@@ -77,9 +77,9 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 #### LTeX — LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
 
 [LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
-Note, that the add-on automatically downloads a LanguageTool server to your local
-filesystem and launched locally — it doesn't send any data to the LanguageTool servers.
-Also note, that the free version of LanguageTool launched locally lacks some checking made
+Note that the add-on automatically downloads a LanguageTool server to your local
+filesystem and launches it locally — it doesn't send any data to the LanguageTool servers.
+Also note that the free version of LanguageTool launched locally lacks some checking made
 in the cloud version (e.g., articles usage).
 
 A configuration of the LTeX is placed entirely in the `.vscode/settings.json` file. It is
@@ -88,17 +88,17 @@ the IDE. The `dictionary`, `disabledRules`, and `hiddenFalsePositives` lists in 
 configuration must be placed in the `settings.json` file due to the `ltex-cli` limitations
 (as of version 16.0.0).
 
-You can add words to dictionary, disable rules and hide false positives using the IDE
+You can add words to the dictionary, disable rules, and hide false positives using the IDE
 (hover over the underlined language problem). These words/rules/false positives will be
 added to the `settings.json` file, and the changes should be committed.
 
 After adding the above entries to the settings, you should apply some manual fixes:
 
 * words in `dictionary` should be sorted alphabetically, case-insensitively,
-* `hiddenFalsePositives` should be a minimal sentence instead the one generated (explained
+* `hiddenFalsePositives` should be a minimal sentence instead of the one generated (explained
   below).
 
-An example of a `hiddenFalsePositives` entry added with quick fix is:
+An example of a `hiddenFalsePositives` entry added with a quick fix is:
 
 ```
 "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"^\\\\QUse the term \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q when referring to a Onedata provider in most contexts, except when talking about a service or a piece of software — use \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q then.\\\\E$\"}"
@@ -118,23 +118,23 @@ the false positive cause:
 "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata.\"}"
 ```
 
-**Note, that whole sentences with `a Onedata` phrase will not be checked** — this is due
+**Note that whole sentences with `a Onedata` phrase will not be checked** — this is due
 to LTeX limitations.
 
 ##### Special characters
 
-LanguageTool has been configured to guard usage of special characters:
+LanguageTool has been configured to guard the usage of special characters:
 
 * dashes (`-` → `-`, `–`, `—`),
 * quotes (`""` → `“”`),
 * ellipsis (`...` → `…`).
 
 The linter proposes these replacements with `quick fix` functionality of IDE when you try
-to use regular dashes, quotes or three dots.
+to use regular dashes, quotes, or three dots.
 
 ##### Ignored Markdown elements
 
-Content in the code-fences, `` `backticks` `` and `**strong**` is **not checked** by
+Content in the code fences, `` `backticks` ``, and `**strong**` is **not checked** by
 LanguageTool.
 
 ### Development using a natively-installed toolkit
@@ -150,7 +150,7 @@ the repository root and use package scripts with `npm run`:
 * `npm run docs:lint` — launches a remark linter on all Markdown documents,
 * `npm run docs:format-all` — applies standardized formatting on all Markdown documents.
 
-Note, that Makefile uses the `yarn` package manager for dependencies, so do not try
+Note that Makefile uses the `yarn` package manager for dependencies, so do not try
 installing dependencies using `npm install`.
 
 ## Versioning
