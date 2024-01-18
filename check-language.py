@@ -33,13 +33,13 @@ TEXT_COLOR_RED = 31
 TEXT_COLOR_GREEN = 32
 
 RE_SUCCESS_EXCEPTION = re.compile(
-    r"^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more$",
+    r"^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more\s*$",
     re.MULTILINE,
 )
 
 RE_MULTILINE_ERROR_EXCEPTION = re.compile(
     r"^java\.lang\.StringIndexOutOfBoundsException(.|\n)*at org\.bsplines\.lspcli\.LspCliLauncher"
-    + r"\.main\(LspCliLauncher\.kt\)$",
+    + r"\.main\(LspCliLauncher\.kt\)\s*$",
     re.MULTILINE,
 )
 
