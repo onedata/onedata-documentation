@@ -6,6 +6,8 @@ This software is released under the MIT license cited in 'LICENSE.txt'
 Checks Markdown files using dockerized LanguageTool toolkit for language errors.
 """
 
+# FIXME: formatowanie i uwagi analogiczne do brancha onepanel-swagger z emberem 3.12
+
 import argparse
 import json
 import os
@@ -13,6 +15,8 @@ import re
 import subprocess
 import sys
 import tempfile
+
+# FIXME: pewnie wielkie litery
 
 version_re = re.compile(r'(\d+)\.(\d+)\.(\d+)')
 
@@ -23,6 +27,10 @@ config_diagnostic_severity = 'ltex.diagnosticSeverity'
 config_disabled_rules = 'ltex.disabledRules'
 config_enabled_rules = 'ltex.enabledRules'
 config_en_us = 'en-US'
+config_picky_rules = 'ltex.additionalRules.enablePickyRules'
+
+TEXT_COLOR_RED = 31
+TEXT_COLOR_GREEN = 32
 
 re_success_exception = re.compile(
     r'^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more$',
@@ -114,35 +122,47 @@ PICKY_RULES = [
 ]
 
 
-def create_settings_content():
+def disable_hint_rules(settings_data: dict[str, str]):
+    custom_severity_rules: dict[str, str] = settings_data[config_diagnostic_severity]
+    disabled_rules: list[str] = settings_data[config_disabled_rules][config_en_us]
+    hint_rules = list(filter(
+        lambda rule_key: rule_key != 'default' and custom_severity_rules[rule_key] == 'hint',
+        custom_severity_rules
+    ))
+
+    for rule_key in hint_rules:
+        disabled_rules.append(rule_key)
+        del custom_severity_rules[rule_key]
+
+
+def read_settings_content():
     with open(settings_json_path, 'r') as settings_reader:
-        settings_content = settings_reader.read()
-        settings_data = json.loads(settings_content)
+        return settings_reader.read()
 
-        custom_severity_rules: dict[str,
-                                    str] = settings_data[config_diagnostic_severity]
-        disabled_rules: list[str] = settings_data[config_disabled_rules][config_en_us]
-        hint_rules = list(filter(
-            lambda rule_key: rule_key != 'default' and custom_severity_rules[rule_key] == 'hint',
-            custom_severity_rules
-        ))
+def create_settings_content():
+    settings_content: str = read_settings_content()
+    settings_data: dict[str, str] = json.loads(settings_content)
 
-        for rule_key in hint_rules:
-            disabled_rules.append(rule_key)
-            del custom_severity_rules[rule_key]
+    if config_diagnostic_severity in settings_data:
+        disable_hint_rules(settings_data)
 
-        # FIXME: tylko jeśli ltex.additionalRules.enablePickyRules == true
+    if config_picky_rules in settings_data and settings_data[config_picky_rules] == True:
         add_picky_rules(settings_data)
 
-        return json.dumps(settings_data, indent='  ')
+    return json.dumps(settings_data, indent='  ')
 
 
 def add_picky_rules(settings_data: dict[str, str]):
-    # FIXME: nadal nie chce sprawdzać PASSIVE_VOICE
     if (not config_enabled_rules in settings_data) or (not config_en_us in settings_data[config_en_us]):
         settings_data[config_enabled_rules] = {config_en_us: []}
-    settings_data[config_enabled_rules][config_en_us].extend(PICKY_RULES)
-    # FIXME: nie dodawać jak rule jest w disabledRules
+
+    disabled_rules = settings_data[config_disabled_rules][config_en_us]
+    non_disabled_picky_rules = filter(lambda rule: rule not in disabled_rules, PICKY_RULES)
+    settings_data[config_enabled_rules][config_en_us].extend(non_disabled_picky_rules)
+
+
+def color_text(text: str, color_code: int):
+    return f'\033[0;{color_code}m{text}\033[0m'
 
 
 def exec_with_settings(settings_content: str, quiet=False):
@@ -185,17 +205,15 @@ def exec_with_settings(settings_content: str, quiet=False):
             if output != '':
                 print(output)
             if (result.returncode == 0):
-                print('\033[0;32mNo language problems found.\033[0m')
+                print(color_text('No language problems found.', TEXT_COLOR_GREEN))
             else:
-                print('\033[0;31mSome language problems have been found.\033[0m')
+                print(color_text('Some language problems have been found.', TEXT_COLOR_RED))
 
         return result.returncode
 
 
 def main() -> int:
     settings_content = create_settings_content()
-    # FIXME: print config
-    # print(settings_content)
     return exec_with_settings(settings_content)
 
 
