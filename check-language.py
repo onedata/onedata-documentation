@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
 Checks Markdown files using dockerized LanguageTool toolkit for language errors.
+Compatible with Python 3.7+, needs the Docker installed.
 """
 
 __author__ = "Jakub Liput"
 __copyright__ = "Copyright (C) 2024 ACK CYFRONET AGH"
 __license__ = "This software is released under the MIT license cited in LICENSE.txt"
-
-# FIXME: formatowanie i uwagi analogiczne do brancha onepanel-swagger z emberem 3.12
 
 import argparse
 import json
@@ -17,54 +16,38 @@ import subprocess
 import sys
 import tempfile
 
-# FIXME: pewnie wielkie litery
-
-version_re = re.compile(r"(\d+)\.(\d+)\.(\d+)")
+VERSION_RE = re.compile(r"(\d+)\.(\d+)\.(\d+)")
 
 LANGUAGETOOL_IMG = "docker.onedata.org/languagetool:v1"
-settings_json_path = ".vscode/settings.json"
-tmp_settings_json_path = "/tmp/"
-config_diagnostic_severity = "ltex.diagnosticSeverity"
-config_disabled_rules = "ltex.disabledRules"
-config_enabled_rules = "ltex.enabledRules"
-config_en_us = "en-US"
-config_picky_rules = "ltex.additionalRules.enablePickyRules"
+
+SETTINGS_JSON_PATH = ".vscode/settings.json"
+TMP_SETTINGS_JSON_PATH = "/tmp/"
+
+CONFIG_DIAGNOSTIC_SEVERITY = "ltex.diagnosticSeverity"
+CONFIG_DISABLED_RULES = "ltex.disabledRules"
+CONFIG_ENABLED_RULES = "ltex.enabledRules"
+CONFIG_EN_US = "en-US"
+CONFIG_PICKY_RULES = "ltex.additionalRules.enablePickyRules"
 
 TEXT_COLOR_RED = 31
 TEXT_COLOR_GREEN = 32
 
-re_success_exception = re.compile(
+RE_SUCCESS_EXCEPTION = re.compile(
     r"^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more$",
     re.MULTILINE,
 )
 
-parser = argparse.ArgumentParser(
-    description="FIXME: description",
-)
-
-# FIXME: zawijanie wierszy w stringach
-parser.add_argument(
-    "input_path",
-    nargs="?",
-    default="docs",
-    help="A relative path starting from the project root to directory with Markdown files (scanned recursively) or a single Markdown file path to check. Paths outside the project directory are invalid.",
-)
-
-parser.add_argument("--show-hints", default=False, action="store_true", help="FIXME:")
-
-args = parser.parse_args()
-
-input_path = args.input_path
-
 ##
-# The list of "picky"-level rules that are normally enabled in VSCode linter using the `"ltex.additionalRules.enablePickyRules": true` setting, but this does not work when using standalone LTeX CLI - we must add enable manually "picky" rules.
+# The list of "picky"-level rules that are normally enabled in VSCode linter using the
+# `"ltex.additionalRules.enablePickyRules": true` setting, but this does not work when using
+# standalone LTeX CLI - we must add enable manually "picky" rules.
 #
-# The list is created by reading the source code of `languagetool` (https://github.com/languagetool-org/languagetool). The following files contain rules for English:
+# The list is created by reading the source code of `languagetool`
+# (https://github.com/languagetool-org/languagetool). The following files contain rules for English:
 # - languagetool-language-modules/en/src/main/resources/org/languagetool/rules/en/en-US/grammar.xml
 # - languagetool-language-modules/en/src/main/resources/org/languagetool/rules/en/en-US/style.xml
 #
 # The picky rules are tagged with `tags="picky"` in XML.
-#
 PICKY_RULES = [
     "CHILDISH_LANGUAGE",
     "CIRCUMSTANCES_SURROUNDING",
@@ -124,9 +107,42 @@ PICKY_RULES = [
 ]
 
 
-def disable_hint_rules(settings_data: dict[str, str]):
-    custom_severity_rules: dict[str, str] = settings_data[config_diagnostic_severity]
-    disabled_rules: list[str] = settings_data[config_disabled_rules][config_en_us]
+def create_arg_parser():
+    parser = argparse.ArgumentParser(
+        description="Checks Markdown files using dockerized LanguageTool toolkit for language "
+        + "errors.",
+    )
+
+    parser.add_argument(
+        "input_path",
+        nargs="?",
+        default="docs",
+        help="A relative path starting from the project root to directory with Markdown files "
+        + "(scanned recursively) or a single Markdown file path to check. Paths outside the "
+        + "project directory are invalid.",
+    )
+
+    parser.add_argument(
+        "--show-hints",
+        default=False,
+        action="store_true",
+        help='Enables checking rules that have "hint" severity in original settings.json. '
+        + 'By default rules with "hint" severity are not checked.',
+    )
+
+    parser.add_argument(
+        "--quiet",
+        default=False,
+        action="store_true",
+        help="Disables the output.",
+    )
+
+    return parser
+
+
+def disable_hint_rules(settings_data: dict):
+    custom_severity_rules: dict = settings_data[CONFIG_DIAGNOSTIC_SEVERITY]
+    disabled_rules: list = settings_data[CONFIG_DISABLED_RULES][CONFIG_EN_US]
     hint_rules = list(
         filter(
             lambda rule_key: rule_key != "default"
@@ -141,44 +157,41 @@ def disable_hint_rules(settings_data: dict[str, str]):
 
 
 def read_settings_content():
-    with open(settings_json_path, "r") as settings_reader:
+    with open(SETTINGS_JSON_PATH, "r") as settings_reader:
         return settings_reader.read()
 
 
-def create_settings_content():
+def create_settings_content(show_hints: bool = False) -> str:
     settings_content: str = read_settings_content()
-    settings_data: dict[str, str] = json.loads(settings_content)
+    settings_data: dict = json.loads(settings_content)
 
-    if not args.show_hints and config_diagnostic_severity in settings_data:
+    if not show_hints and CONFIG_DIAGNOSTIC_SEVERITY in settings_data:
         disable_hint_rules(settings_data)
 
-    if (
-        config_picky_rules in settings_data
-        and settings_data[config_picky_rules] == True
-    ):
+    if CONFIG_PICKY_RULES in settings_data and settings_data[CONFIG_PICKY_RULES]:
         add_picky_rules(settings_data)
 
     return json.dumps(settings_data, indent="  ")
 
 
-def add_picky_rules(settings_data: dict[str, str]):
-    if (not config_enabled_rules in settings_data) or (
-        not config_en_us in settings_data[config_en_us]
+def add_picky_rules(settings_data: dict):
+    if (not CONFIG_ENABLED_RULES in settings_data) or (
+        not CONFIG_EN_US in settings_data[CONFIG_EN_US]
     ):
-        settings_data[config_enabled_rules] = {config_en_us: []}
+        settings_data[CONFIG_ENABLED_RULES] = {CONFIG_EN_US: []}
 
-    disabled_rules = settings_data[config_disabled_rules][config_en_us]
+    disabled_rules = settings_data[CONFIG_DISABLED_RULES][CONFIG_EN_US]
     non_disabled_picky_rules = filter(
         lambda rule: rule not in disabled_rules, PICKY_RULES
     )
-    settings_data[config_enabled_rules][config_en_us].extend(non_disabled_picky_rules)
+    settings_data[CONFIG_ENABLED_RULES][CONFIG_EN_US].extend(non_disabled_picky_rules)
 
 
-def color_text(text: str, color_code: int):
+def color_text(text: str, color_code: int) -> str:
     return f"\033[0;{color_code}m{text}\033[0m"
 
 
-def exec_with_settings(settings_content: str, quiet=False):
+def exec_with_settings(settings_content: str, input_path: str, quiet: bool):
     with tempfile.NamedTemporaryFile(mode="a") as tmp_settings_file:
         tmp_settings_file.write(settings_content)
         tmp_settings_file.flush()
@@ -195,7 +208,6 @@ def exec_with_settings(settings_content: str, quiet=False):
             "-v",
             f"{os.getcwd()}:{docker_project_root}",
             "-v",
-            # FIXME: odporność na spacje?
             f"{tmp_settings_file.name}:/settings.json",
             LANGUAGETOOL_IMG,
             "--client-configuration=/settings.json",
@@ -203,36 +215,33 @@ def exec_with_settings(settings_content: str, quiet=False):
         ]
 
         result = subprocess.run(
-            process_args,
-            capture_output=True,
-            text=True,
+            process_args, capture_output=True, text=True, check=False
         )
 
         output = result.stdout
 
+    if result.returncode == 0:
+        output = RE_SUCCESS_EXCEPTION.sub("", output)
+        output = re.sub(r"\s*$", "", output, re.MULTILINE)
+
+    if not quiet:
+        if output != "":
+            print(output)
         if result.returncode == 0:
-            output = re_success_exception.sub("", output)
-            output = re.sub(r"\s*$", "", output, re.MULTILINE)
+            print(color_text("No language problems found.", TEXT_COLOR_GREEN))
+        else:
+            print(color_text("Some language problems have been found.", TEXT_COLOR_RED))
 
-        if not quiet:
-            if output != "":
-                print(output)
-            if result.returncode == 0:
-                print(color_text("No language problems found.", TEXT_COLOR_GREEN))
-            else:
-                print(
-                    color_text(
-                        "Some language problems have been found.", TEXT_COLOR_RED
-                    )
-                )
-
-        return result.returncode
+    return result.returncode
 
 
-def main() -> int:
-    settings_content = create_settings_content()
-    return exec_with_settings(settings_content)
+def main(args) -> int:
+    settings_content = create_settings_content(show_hints=args.show_hints)
+    return exec_with_settings(
+        settings_content=settings_content, input_path=args.input_path, quiet=args.quiet
+    )
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    arg_parser = create_arg_parser()
+    sys.exit(main(arg_parser.parse_args()))
