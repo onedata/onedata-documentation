@@ -1,6 +1,29 @@
 #!/usr/bin/env python3
 """
 Checks Markdown files using dockerized LanguageTool toolkit for language errors.
+
+This script is a wrapper for dockerized LTeX language server CLI
+(https://github.com/valentjn/ltex-ls), which internally uses LanguageTool server
+(https://github.com/languagetool-org/languagetool). When docs are developed in Visual Studio Code,
+we use LTeX VSCode addon, which also uses whe LTeX language server, but not the CLI. The CLI can
+utilize the `settings.json` file but unfortunately there are some bugs/differences compared to the
+addon:
+- the CLI does not respect "picky rules" setting,
+- the CLI returns non-zero exit code when rules marked as "hint" are detected,
+- the CLI always throws an exception on the successful run,
+- the CLI throws an exception when the language error spans accross multiple lines and stops
+  checking the rest of file.
+
+To fix these inconsistences/bugs this script performs some additional operations when wrapping
+execution of the LTeX CLI:
+- it adds list of known "picky rules" manually using `enabledRules` settings (see `PICKY_RULES`
+  list documentation in the code),
+- it changes hint-rules into disabled rules by default and allows to specify `--show-hint` flag to
+  check the hint-rules,
+- it eats the "successful exception" from the output (see `RE_SUCCESS_EXCEPTION` regexp)
+- it shows a reliable message when the multiple-lines exception is thrown (see
+  `RE_MULTILINE_ERROR_EXCEPTION` regexp).
+
 Compatible with Python 3.5+, needs the Docker installed.
 """
 
@@ -32,11 +55,13 @@ CONFIG_PICKY_RULES = "ltex.additionalRules.enablePickyRules"
 TEXT_COLOR_RED = 31
 TEXT_COLOR_GREEN = 32
 
+# Matches the "successful run exception" - see more in module doc.
 RE_SUCCESS_EXCEPTION = re.compile(
     r"^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more\s*$",
     re.MULTILINE,
 )
 
+# Matches the "multiline error exception" - see more in module doc.
 RE_MULTILINE_ERROR_EXCEPTION = re.compile(
     r"^java\.lang\.StringIndexOutOfBoundsException(.|\n)*at org\.bsplines\.lspcli\.LspCliLauncher"
     + r"\.main\(LspCliLauncher\.kt\)\s*$",
