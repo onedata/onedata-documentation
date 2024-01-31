@@ -45,8 +45,8 @@ Learn more [here][8].
 ## Dataset
 
 File or directory marked by space users as representing data collections
-relevant to them. They can be used to organize data in a space in a systematic way and add
-an ability to create persistent [snapshots][archive]. Learn more [here][dataset-more].
+relevant to them. They can be used to organize data in a space systematically and add
+an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
 ## File ID
 
@@ -248,7 +248,7 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [38]: user-guide/tokens.md
 
-[archive]: #archive
+[archives]: #archive
 
 [dataset]: #dataset
 

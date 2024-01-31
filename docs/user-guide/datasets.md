@@ -6,11 +6,11 @@
 
 Datasets are essentially files or directories that have been marked by space users as
 representing data collections relevant to them. They can be used to organize data in
-a space in a systematic way.
+a space systematically.
 
 Datasets offer additional features, compared to regular files and directories:
 
-* optional data and metadata write [protection][],
+* optional [data and metadata write protection][protection],
 * [dataset structure][hierarchy] tracking using the [dataset browser][Datasets, Archives tab],
 * ability to [create persistent snapshots][create archive] of the physical dataset
   contents — [archives][].
@@ -20,7 +20,7 @@ structures.
 
 ![dataset-hierarchy][]
 
-The diagram above shows the filesystem tree, where some of the directories are marked as
+The diagram above shows the filesystem tree, where some directories are marked as
 datasets (*Experiment A* and *Results*). Regular files also can be marked as datasets
 (*Statistics.csv*). The file or directory is marked as a dataset by
 [establishing][establishing datasets] the datasets on it.
@@ -49,16 +49,16 @@ directory.
 Datasets can be established on files or directories lying inside other datasets. This way,
 a **hierarchy** of datasets can be built and then embraced to create [nested archives][].
 
-You can simply establish a dataset on a file or directory inside the other dataset using
-the datasets panel in the web file browser. Before establishment, the panel will show the
-existing hierarchy of the ancestor datasets. The **Establish** button is placed above the
-ancestor table.
+Navigate inside a directory with dataset established and open the **Datasets** panel for
+selected file or directory. The panel will show the existing hierarchy of the ancestor
+datasets. You can establish a nested dataset using the **Establish** button placed above
+the ancestor table.
 
 ![screen-before-establishing-nested][]
 
 ## File browser datasets panel
 
-The datasets panel for a file or directory presents information about the dataset
+The **Datasets** panel for a file or directory presents information about the dataset
 established on the file/directory and its optional dataset ancestors. The view consists
 of:
 
@@ -67,8 +67,8 @@ of:
 * **Archives** tab — containing dataset snapshots ([archives][]) browser,
 * **write protection badges** in the header — showing the effective write [protection][]
   of the selected file or directory,
-* **Show in dataset browser** button in the footer — navigating to space's [Datasets,
-  Archives tab][], focusing on the selected dataset.
+* **Show in dataset browser** button in the footer — navigating to [Datasets,
+  Archives tab][] within the space, with a focus on the selected dataset.
 
 ![screen-datasets-panel][]
 
@@ -100,7 +100,7 @@ show effective [protection][] status inherited from the ancestors.
 Rows for the ancestors contain links to the directories with datasets established and
 allow configuring the protection of each. The last row of the table shows information
 about the dataset established on the current file or directory and allows configuring the
-direct protection of the datasets.
+direct protection of this datasets.
 
 ::: tip NOTE
 File's or directory's **effective** protection is presented using the badges at
@@ -112,7 +112,7 @@ protection sum.
 
 The archives tab label displays the current number of snapshots created from the selected
 dataset. Inside the tab, you will find an [archives list][] for the dataset — explained in
-detail in the [archives][] documentation.
+detail in the [archives][]' documentation.
 
 ![screen-archives-tab][]
 
@@ -137,8 +137,8 @@ To prevent changes in the dataset, users can set temporary **protection** flags,
 cause the files and directories in the dataset to be protected from, accordingly:
 
 * **Data protection** — modifying their content or being deleted,
-* **Metadata protection** — modifying their metadata, such as custom JSON/RDF/xattr
-  metadata, permissions, or ACLs.
+* **Metadata protection** — modifying their metadata, such as custom JSON/RDF/extended
+  attributes metadata, permissions, or ACLs.
 
 The protection flags are inherited by children datasets — datasets lower in the
 [hierarchy][] tree have protection at least as strong as their ancestors.
@@ -146,6 +146,9 @@ The protection flags are inherited by children datasets — datasets lower in th
 You can modify protection flags in the [dataset hierarchy table][] of the file or
 directory datasets panel. When the file or directory has the protection enabled, the
 **Datasets** badge for the file has additional icons representing the applied protection.
+
+The following screenshot presents data and metadata protection set on the **FirstDataset**
+directory, which makes impossible to rename files inside.
 
 ![screen-data-protected-dir][]
 
@@ -163,7 +166,7 @@ archives tab of the [file browser datasets panel][].
 
 See [this][archives] chapter for more details.
 
-## Space "Datasets, Archives" tab
+## Space “Datasets, Archives” tab
 
 🚧 Under construction 🚧
 
@@ -171,8 +174,8 @@ See [this][archives] chapter for more details.
 
 ## Detaching datasets
 
-Datasets that are no longer needed (from the space data PoV) can be **detached**. A
-detached dataset is decoupled from its root file/directory and serves only archival
+Datasets that are no longer needed (from the space data point of view) can be **detached**.
+A detached dataset is decoupled from its root file/directory and serves only archival
 purposes. **All the archives created from the dataset are retained.** The dataset does not
 correspond to any physical content in the space file tree, but it shows up in the dataset
 browser.
