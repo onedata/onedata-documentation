@@ -10,3 +10,13 @@ yarn-error.log
 !.vscode/settings.json
 rel/
 onedata_documentation.tar.gz
+
+# Files below are auto-generated in build-time by template rendered and should reflect
+# targets mirroring files in /templates dir, but with /docs prefix.
+# Do not remove "TEMPLATE TARGETS *" comments as they are parsed by
+# remove-template-targes.js script.
+
+# TEMPLATE TARGETS BEGIN
+docs/admin-guide/oneprovider/maintenance.md
+docs/admin-guide/onezone/maintenance.md
+# TEMPLATE TARGETS END

@@ -9,6 +9,9 @@ module.exports = {
       markerPattern: /^\[toc\]/im,
     },
   },
+  plugins: [
+    require('./plugin-template-renderer.js'),
+  ],
   themeConfig: {
     navbar: false,
     sidebar: [

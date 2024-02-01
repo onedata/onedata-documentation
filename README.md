@@ -153,6 +153,75 @@ the repository root and use package scripts with `npm run`:
 Note that Makefile uses the `yarn` package manager for dependencies, so do not try
 installing dependencies using `npm install`.
 
+## Template system
+
+The documentation has scripts for generating pages from templates:
+
+- if you want to include content of one Markdown file (partial) into another (template),
+- if you want to replace some text in Markdown file content.
+
+Templates and partials are placed outside the main `/docs` directory — they are not used
+directly by the VuePress. Instead, templates are placed in `/templates` directory,
+processed and copied into the mirrored path into `/docs`. Templates use partial files from
+the `/partials` directory. Partials can have optional placeholders to replace during the
+processing time.
+
+For example:
+
+There is a template: `/templates/user-guide/page.md` with the content:
+
+```md
+# Hello
+
+<!-- @include something.md -->
+
+One way or another.
+
+<!-- @include /one/other.md { "name": "Johnny", "surname": "English" } -->
+```
+
+There are two partials:
+
+`/partials/something.md`
+
+```md
+Something from nothing.
+```
+
+`/partials/one/other.md`
+
+```md
+My name is **@insert surname**. **@insert name** **@insert surname**!
+```
+
+After the processing, which is done automatically during the build (`make build` or `make
+dev`), the file is generated:
+
+`/docs/user-guide/page.md`
+
+with content:
+
+```md
+# Hello
+
+Something from nothing.
+
+One way or another.
+
+My name is English. Johnny English!
+```
+
+Note that:
+
+- the auto-generated file should be added to `.gitignore` into the `TEMPLATE TARGETS`
+  section,
+- generation is not triggered on files change, due to some issues with VuePress build
+  chain; if you want to update the file manually during the `make dev` session, you should
+  invoke the `make render-templates`.
+
+For more information about template system read comments in
+`docs/.vuepress/template-renderer.js` code.
+
 ## Versioning
 
 The current Onedata version to which the docs correspond is placed in the
