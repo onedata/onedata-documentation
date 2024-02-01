@@ -1,8 +1,7 @@
-const { logger } = require('@vuepress/shared-utils');
 const process = require('process');
 const TemplateRenderer = require('./template-renderer');
 
-logger.info('Generating pages from templates...');
+console.log('Generating pages from templates...');
 const templateGenerator = new TemplateRenderer(process.cwd());
 templateGenerator.generateAllTemplates();
 

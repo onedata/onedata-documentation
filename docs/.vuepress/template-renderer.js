@@ -33,10 +33,8 @@
  * @license This software is released under the MIT license cited in 'LICENSE.txt'.
  */
 
-const {
-  fs,
-  path
-} = require('@vuepress/shared-utils');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = class TemplateRenderer {
   static get generatedComment() {
