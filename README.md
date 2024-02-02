@@ -157,8 +157,8 @@ installing dependencies using `npm install`.
 
 The documentation has scripts for generating pages from templates:
 
-- if you want to include content of one Markdown file (partial) into another (template),
-- if you want to replace some text in Markdown file content.
+* if you want to include content of one Markdown file (partial) into another (template),
+* if you want to replace some text in Markdown file content.
 
 Templates and partials are placed outside the main `/docs` directory — they are not used
 directly by the VuePress. Instead, templates are placed in `/templates` directory,
@@ -213,9 +213,9 @@ My name is English. Johnny English!
 
 Note that:
 
-- the auto-generated file should be added to `.gitignore` into the `TEMPLATE TARGETS`
+* the auto-generated file should be added to `.gitignore` into the `TEMPLATE TARGETS`
   section,
-- generation is not triggered on files change, due to some issues with VuePress build
+* generation is not triggered on files change, due to some issues with VuePress build
   chain; if you want to update the file manually during the `make dev` session, you should
   invoke the `make render-templates`.
 
