@@ -100,10 +100,9 @@ module.exports = class TemplateRenderer {
       (match, partialFileName, suffix, specRawJson) => {
         const partialPath = this.partialsDir + '/' + partialFileName;
         const specData = specRawJson ? JSON.parse(specRawJson) : null;
-        const partialContent = fs.readFileSync(partialPath, {
-          encoding: 'utf8'
-        });
-        return specData ? this.replaceVariables(partialContent, specData) : partialContent;
+        const partialContent = fs.readFileSync(partialPath, { encoding: 'utf8' });
+        return specData ?
+          this.replaceVariables(partialContent, specData) : partialContent;
       });
     newContent = newContent.replace(
       /^(#.*\n)/m,

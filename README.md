@@ -52,8 +52,8 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this add-on, you should install Node.js runtime in version 14.14+. Follow
-instructions on the [nvm website][].
+Before installing this add-on, you should install Node.js runtime in version 16.20+.
+Follow instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
 the repository root. This command will install `yarn` globally and all needed dependencies
