@@ -76,11 +76,11 @@ first.
 
 3. Click on the **Create** button.
 
-4. You should see the [archives list][] for the current dataset, including the newly
-   created archive, going through the following stages:
+4. You should see the [archives list][] for the current dataset. It includes the newly
+   created archive and shows archiving progress through the following stages:
 
-   * **Building** — when the archiving is still in progress, showing updating archived
-     files and size counters,
+   * **Building** — when the archiving is still in progress; shows counters of currently
+     archived files and data size,
    * **Verifying** — when data archiving is finished and archive integrity is checked,
    * **Preserved** — when the archive data copy is completed.
 
@@ -131,8 +131,10 @@ list**.
 
 The view consists of:
 
-* **breadcrumbs** — showing the root of the dataset archives list, selected archive, and
-  path of a browsed directory inside the archive,
+* **breadcrumbs** — showing
+  * the root of the dataset archives list,
+  * selected archive,
+  * path of a browsed directory inside the archive,
 * **the refresh button** — for optional view refresh, which is not needed in regular
   usage, because the list is auto-updated,
 * **table column headers** — presenting information about archives:
@@ -142,15 +144,15 @@ The view consists of:
     applicable),
   * **Creator** — Onedata user that created the archive (can be different from dataset
     owner),
-* **archives/files list** — showing the
-  * dataset archives when you are in the dataset root,
+* **archives/files list** — showing
+  * the dataset archives when you are in the dataset root,
   * or the [files][] inside the archive if you enter some archive.
 
 You can open the [context menu][archive actions] for an
 archive or [browse][files] its contents by double-clicking on it.
 
-The archive row can also contain various state- or properties-description badges like
-“DIP” or “BagIt”, described later.
+The archive row can also contain various state or property description badges like
+“DIP” or “BagIt” (described later).
 
 ![screen-browsing-archives][]
 
@@ -338,7 +340,7 @@ filesystem tree of the other dataset.
 
 ![screen-create-nested-archive][]
 
-4. Click on the **Create button**.
+4. Click on the **Create** button.
 
 Upon successful creation, you should see the newly created archive on the list. Browse its
 contents — note, that the snapshots of nested dataset directories are symbolic links.
@@ -411,7 +413,7 @@ which mirrors the dataset filesystem snapshot.
 
 Upon successful creation, you should see the newly created archive on the list. Browse its
 contents — note, that the **AIP/DIP** switcher in the **Files** column is active and set
-to AIP.
+to **AIP**.
 
 ![screen-bagit-archive-files][]
 
@@ -482,7 +484,7 @@ file/directory row:
 Regardless the recall is in progress or is completed, you can click on the badge to open
 the **Archive recall information** panel. It contains various information about the
 working or completed recall process, such as source archive and dataset, start and finish
-times, and amount of recalled data.
+times, or amount of recalled data.
 
 ![screen-file-recalled-panel][]
 

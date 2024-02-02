@@ -45,7 +45,7 @@ Learn more [here][8].
 ## Dataset
 
 File or directory marked by space users as representing data collections
-relevant to them. They can be used to organize data in a space systematically and add
+relevant to them. They can be used to organize data in a space systematically and provide
 an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
 ## File ID

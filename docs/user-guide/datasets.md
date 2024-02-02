@@ -51,7 +51,7 @@ a **hierarchy** of datasets can be built and then embraced to create [nested arc
 
 Navigate inside a directory with dataset established and open the **Datasets** panel for
 selected file or directory. The panel will show the existing hierarchy of the ancestor
-datasets. You can establish a nested dataset using the **Establish** button placed above
+datasets. You can establish a nested dataset using the **Establish dataset** button placed above
 the ancestor table.
 
 ![screen-before-establishing-nested][]
@@ -189,7 +189,7 @@ This can be done using the **Re-attach** action in the [dataset actions][].
 ## Removing datasets
 
 Removing a dataset is essentially disabling the dataset-related features for a file or
-directory, leaving the data untouched. The dataset also disappears from the [dataset
+directory, leaving the data untouched, and causes the dataset to disappear from the [dataset
 tree][hierarchy].
 
 While detaching a dataset is not a harmful operation from the archive's perspective,
