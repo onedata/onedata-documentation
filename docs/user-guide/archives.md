@@ -277,11 +277,11 @@ archives — the data remains until the last reference of the shared file data i
 
 ![screen-incremental-archive-on-list][]
 
-Upon the creation, you can browse the contents of the archive and notice that the files
-that haven't been changed, compared to the base archive, have a **hard links** badge — the
-number of hard links typically indicates how many archives share the data. You can
-check hard link locations by clicking on the **hard links** badge — it should
-present paths to files in the other archives.
+Upon the creation, you can browse the contents of the archive. You will notice that the
+files, which haven't been changed compared to the base archive, have a **hard links**
+badge. The number of hard links typically indicates how many archives share the data. You
+can check hard link locations by clicking on the **hard links** badge — it should present
+paths to files in the other archives.
 
 ![screen-incremental-archive-files][]
 
