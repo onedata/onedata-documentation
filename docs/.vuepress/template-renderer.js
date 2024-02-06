@@ -81,7 +81,9 @@ module.exports = class TemplateRenderer {
     const templates = readdirSync(this.templatesDir).filter(name => name.endsWith('.md'));
     templates.forEach(templatePath => {
       const outputPath = templatePath.replace(this.templatesDir, this.sourceDir);
-      console.log(`${templatePath} -> ${outputPath}`);
+      const relTemplatePath = templatePath.split(this.projectDir + '/')[1];
+      const relOutputPath = outputPath.split(this.projectDir + '/')[1];
+      console.log(`Render template: ${relTemplatePath} -> ${relOutputPath}`);
       const originalContent = fs.readFileSync(templatePath, {
         encoding: 'utf8'
       });
