@@ -14,7 +14,7 @@ INTRODUCTION  (landing page)
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
 
-# ![image-heading][] Documentation
+# <img src="../images/intro/logo-dark.svg" class="intro-header" width="210">
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
@@ -119,11 +119,11 @@ architecture
 
 [user quickstart]: user-guide/quickstart.md
 
-[onezone]: admin-guide/onezone
+[Onezone]: admin-guide/onezone/quickstart.md
 
-[oneprovider]: admin-guide/oneprovider
+[Oneprovider]: admin-guide/oneprovider/quickstart.md
 
-[admin guide]: admin-guide/
+[admin guide]: admin-guide/overview.md
 
 [Space Management]: user-guide/spaces.md
 
@@ -140,7 +140,5 @@ architecture
 [CDMI interface]: user-guide/cdmi.md
 
 [REST interface]: https://onedata.org/#/home/api
-
-[image-heading]: ../images/intro/heading.png
 
 [screen-web-gui-example]: ../images/intro/web-gui-example.png
