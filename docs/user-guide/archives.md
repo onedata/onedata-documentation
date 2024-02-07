@@ -1,7 +1,5 @@
 # Archives
 
-## 🚧 Under construction! 🚧
-
 [toc][]
 
 <!-- TODO: VFS-11610 Add info about Datasets, Archive tab when new datasets "Tree" view will be finished -->
