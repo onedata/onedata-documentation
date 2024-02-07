@@ -16,8 +16,8 @@ Begging your patience as we finalize the transition.
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
     - a couple of words about Onedata
-    - are you a user? – go here: [USER GUIDE]
-    - are you an admin? – go here: [ADMIN GUIDE]
+    - are you a user? — go here: [USER GUIDE]
+    - are you an admin? — go here: [ADMIN GUIDE]
       <these three should fit onto one screen>
     - broader description of Onedata
         - architecture
@@ -41,17 +41,17 @@ Onedata focuses on instant, transparent access to distributed data sets, without
 
 Before you start using Onedata, it's helpful to understand the basic concepts provided in the next section. There you will find out: what functionality it provides, how data is organized and what are the various components of the platform.
 
-If you would like to start using onedata as a user go to the [user quickstart][].
+If you would like to start using Onedata as a user go to the [user quickstart][].
 
-If you would like to deploy the onedata services on your infrastructure then you should start with the relevent quickstart for [onezone][] or [oneprovider][] found in the [admin guide][].
+If you would like to deploy the Onedata services on your infrastructure then you should start with the relevant quickstart for [Onezone][] or [Oneprovider][] found in the [admin guide][].
 
 ## Basic concepts
 
 The most important concepts of the platform to understand at the beginning include:
 
-* **Spaces** – distributed virtual volumes, where users can organize their data
-* **Providers** – entities who support user spaces with actual storage resources exposed via *Oneprovider* services
-* **Zones** – federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
+* **Spaces** — distributed virtual volumes, where users can organize their data
+* **Providers** — entities who support user spaces with actual storage resources exposed via *Oneprovider* services
+* **Zones** — federations of providers, which enable creation of closed or interconnected communities, managed by *Onezone* services.
 
 ### Spaces
 
@@ -79,7 +79,7 @@ A user can use several providers simultaneously to manage his/her data. Onedata 
 
 Providers deploy *Oneprovider* services near physical storage resources, i.e. in computing and data centers or even personal computers. Providers have full control over which users can use their storage resources and in what amount.
 
-Users use *Onezone* web interfaces (like the one at [onedata.org][]) in order to authenticate with Onedata and access the data located on the providers storage resources.
+Users use *Onezone* web interfaces (like the one at [onedata.org][]) in order to authenticate with Onedata and access the data located on the providers' storage resources.
 
 For more information about Onedata's provider service, check out [Oneprovider Overview][] documentation.
 
@@ -93,7 +93,7 @@ Onedata is a distributed system divided into zones that are created by deploying
 
 As *onedata.org* is a main public zone, any provider registered there allows the users to access their data through *onedata.org* user interface.
 
-For more information about Onedata's  *Onezone* service, check out [Onezone Overview][] documentation.
+For more information about Onedata's *Onezone* service, check out [Onezone Overview][] documentation.
 
 ## User interfaces
 
@@ -107,7 +107,7 @@ The Onedata Web Interface provides a web-based, graphical user interface that yo
 
 ### User command-line interface
 
-If you prefer to work from the terminal, Onedata provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [oneclient][] reference for the complete list of available features.
+If you prefer to work from the terminal, "Onedata" provides the *oneclient* command-line tool, which allows you to mount your spaces in a Linux filesystem and access your data directly from console. See the [Oneclient][] reference for the complete list of available features.
 
 ### Administrator Web interface
 
@@ -115,7 +115,7 @@ Dedicated web interface for installation and management of *Oneprovider* and *On
 
 ### API
 
-Currently Onedata exposes a CDMI (Cloud Data Management Interface) [interface][CDMI interface] and RESTful [interface][REST interface] for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
+Currently, Onedata exposes a CDMI (Cloud Data Management Interface) [interface][CDMI interface] and RESTful [interface][REST interface] for integration with other services, which allows developers to directly access and manage spaces, groups, authorization rights and data.
 
 ## Architecture
 

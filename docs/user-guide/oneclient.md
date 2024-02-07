@@ -154,11 +154,11 @@ cause a brief increase in latency.
 
 This feature can be controlled using 2 command line options:
 
-* `--force-proxy-io` – disables Direct I/O mode, all data transfers will go
-  via Oneprovider service, which in most cases will be slower, and less scalable
-  than Direct I/O when running a large number of Oneclient instances connected
-  to a single Oneprovider service
-* `--force-direct-io` – forces Direct I/O mode, any `read` or `write`
+* `--force-proxy-io` — disables Direct I/O mode, all data transfers will go
+  via Oneprovider service using so-called Proxy I/O, which in most cases will
+  be somewhat slower, and definitely less scalable than Direct I/O when running
+  a large number of Oneclient instances connected to a single Oneprovider service
+* `--force-direct-io` — forces Direct I/O mode, any `read` or `write`
   operation will return `Operation not supported` error. The only exception
   is when the file is not accessible due to incorrect permissions on the
   storage, in such case the file will be accessed using proxy I/O mode.
@@ -170,33 +170,32 @@ This feature can be controlled using 2 command line options:
 
 ### Buffering
 
-`oneclient` employs an in-memory buffer for input and output data blocks, which
-can significantly improve performance for various types of storages, in
-particular object-based storages such as S3.
+`oneclient` employs an in-memory buffer for input and output data blocks, which can
+significantly improve performance for various types of storage backends, in particular
+object based ones such as S3.
 
 If for some reason this in-memory buffer is undesired, it can be disabled using
 `--no-buffer` option.
 
 The buffer size can be also fine-tuned using the following options:
 
-* `--read-buffer-min-size` – the minimum size of the read buffer for a single opened file,
-* `--read-buffer-max-size` – the maximum size of the read buffer for a single opened file,
-* `--read-buffer-total-size` – the maximum size of the read buffer for all opened
+* `--read-buffer-min-size` — the minimum size of the read buffer for a single opened file,
+* `--read-buffer-max-size` — the maximum size of the read buffer for a single opened file,
+* `--read-buffer-total-size` — the maximum size of the read buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
-* `--write-buffer-min-size` – the minimum size of the write buffer for a single
+* `--write-buffer-min-size` — the minimum size of the write buffer for a single
   opened file,
-* `--write-buffer-max-size` – the maximum size of the write buffer for a single
+* `--write-buffer-max-size` — the maximum size of the write buffer for a single
   opened file,
-* `--write-buffer-total-size` – the maximum size of the write buffer for all opened
+* `--write-buffer-total-size` — the maximum size of the write buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
 
-Oneclient allows overriding certain storage helper parameters to
-customize direct access to storage from a Oneclient host. Use
-cases for this feature include specifying custom mountpoint for POSIX storages,
-alternate IP addresses for network storages (e.g. available over the local
-network from Oneclient host), etc.
+Oneclient allows overriding certain storage helper parameters in order to customize direct
+access to storage from a Oneclient host to the storage. Use cases for this feature include
+specifying custom mount-point for POSIX storage backends, alternate IP addresses for
+network storage backends (e.g. available over local network from Oneclient host), etc.
 
 For example, to tell Oneclient that an NFS storage is mounted at
 `/home/user1/nfs` on the Oneclient host the following option should be added to
@@ -206,11 +205,11 @@ the Oneclient command line:
 
 The `--override` option takes 3 arguments separated by `:`:
 
-* `storage ID` – Onedata internal storage Id, which can be obtained
+* `storage ID` — Onedata internal storage ID, which can be obtained
   from the Onepanel administrator interface or using REST API
-* `parameter name` – the name of the storage helper parameter, these
+* `parameter name` — the name of the storage helper parameter, these
   are specific to each type of storage
-* `parameter value` – a value, which should override the value specified in the
+* `parameter value` — a value, which should override the value specified in the
   Oneprovider storage settings
 
 ### Logging
@@ -218,11 +217,11 @@ The `--override` option takes 3 arguments separated by `:`:
 To enable a verbose log, `oneclient` provides a `-v` flag, which takes
 a single integer argument that determines the logging verbosity:
 
-* `-v 0` – *(default)* only serious errors
-* `-v 1` – information, warnings and errors that are not fatal
-* `-v 2` – verbose information on requests and their handling
-* `-v 3` – trace function calls along with their arguments
-* `-v 4` – binary messages between Oneclient and Oneprovider
+* `-v 0` — *(default)* only serious errors
+* `-v 1` — information, warnings, and errors that are not fatal
+* `-v 2` — verbose information on requests and their handling
+* `-v 3` — trace function calls along with their arguments
+* `-v 4` — binary messages between Oneclient and Oneprovider
 
 > **NOTE**: above level 2, the size of the logs can be substantial thus
 > it is necessary to monitor free disk space. When the machine runs out of
@@ -531,6 +530,157 @@ $ sudo systemctl stop oneclient
 $ sudo systemctl status oneclient
 ```
 
+## Docker Volume Plugin
+
+### Overview
+
+[Docker volume plugins][12]
+allow creation of Docker volumes independently of any containers, enabling
+automatic connection between containers and custom storage systems, without
+the necessity of installing any third party software inside the containers.
+
+Onedata volume plugin allows to create volumes for your spaces. Each volume
+represents a specific Oneclient set of settings in terms of Oneprovider host
+and access token, i.e. multiple users can have different volumes on the same
+host machine.
+
+Using Onedata Docker volume plugins enables users to access Onedata spaces
+from their containers without having to manually start Oneclient neither on the
+host or within the container.
+
+### Installation
+
+The Onedata Docker volume plugin can be installed using packages which are
+provided for Ubuntu and CentOS.
+
+The easiest way is to use the oneclient.sh automated installation script:
+
+```bash
+$ wget -qO- http://packages.onedata.org/oneclient.sh
+$ sh oneclient.sh docker-volume-onedata
+```
+
+The script should automatically install the plugin and oneclient CLI.
+This can be verified using:
+
+```bash
+$ oneclient -V
+Oneclient: ${RELEASE}
+FUSE library: 2.9
+```
+
+Onedata Docker volume plugin is installed as a systemd service, and can be
+managed using `systemctl` command. After installation is complete it should
+be enabled and started as follows:
+
+```bash
+$ sudo systemctl enable docker-volume-onedata.service
+$ sudo systemctl start docker-volume-onedata.service
+```
+
+In order to check that the service is running properly, the following command
+can be used and the expected output should look similar to this example:
+
+```
+$ sudo systemctl status docker-volume-onedata.service
+
+● docker-volume-onedata.service - Onedata Docker volume plugin
+   Loaded: loaded (/usr/lib/systemd/system/docker-volume-onedata.service; disabled; vendor preset: enabled)
+   Active: active (running) since Wed 2017-08-02 11:08:59 CEST; 1h 56min ago
+ Main PID: 5481 (docker-volume-o)
+    Tasks: 3
+   Memory: 1.2M
+      CPU: 182ms
+   CGroup: /system.slice/docker-volume-onedata.service
+           └─5481 /usr/bin/docker-volume-onedata /var/lib/docker/plugins
+
+Aug 02 22:08:59 ubuntu systemd[1]: Started Onedata Docker volume plugin.
+Aug 02 22:08:59 ubuntu docker-volume-onedata[5481]: Plugins root: /var/lib/docker/plugins
+Aug 02 22:08:59 ubuntu docker-volume-onedata[5481]: time="2017-08-02T11:08:59+02:00" level=info msg="Listening on Unix socket: /run/docker/plugins/onedata.so
+```
+
+### Usage
+
+Once the Onedata Docker volume plugin service is running, all users in the
+`docker` group can create their volumes.
+
+#### Creating volumes
+
+A basic command to create a volume named `my_volume`, which mounts user spaces
+from a specific Oneprovider and with a specific access token is as follows:
+
+```bash
+$ docker volume create --driver onedata \
+        -o host=$PROVIDER_DOMAIN \
+        -o token=$ACCESS_TOKEN \
+        my_volume
+```
+
+When connecting to a Oneprovider instance without a trusted certificate,
+`-o insecure=true` option must be added. Additionally, Onedata Docker volume
+plugins supports all regular [Oneclient command line options][13],
+which must be added with `-o` followed by option name, equal sign and value
+(e.g. `-o force-direct-io=true -o read-buffer-max-size=52428800`):
+
+After the volume is created successfully, its settings can be checked using:
+
+```bash
+$ docker volume inspect my_volume
+
+[
+    {
+        "Driver": "onedata",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/plugins/volumes/6a539918ac2c5baf8c0dbf324fe3826f",
+        "Name": "my_volume",
+        "Options": {
+            "host": "oneprovider.example.com",
+            "insecure": "true",
+            "token": "MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500aWZpZXIgRHR00WTg5dHNHOFZxSzVBZkJhamtaa004wMU5ocWc00azI3WkV00Z00ZkdDJSawowMDFhY2lkIHRpbWUgPCAxNTE5NDgyNDc4CjAwMmZzaWduYXR1cmUgt01Zu6WZ2Wqt3s02nUItRAVDBMYWx6BlBTNQ5KBNqQSDI1"
+        },
+        "Scope": "local"
+    }
+]
+```
+
+Creating a volume does not automatically invoke Oneclient and does cause
+connection to Oneprovider in anyway. Only when a container is started with this
+volume attached, the Oneclient is mounted. If multiple containers have the same
+volume attached, the Oneclient is automatically unmounted after the last
+container is stopped.
+
+To remove a volume, run:
+
+```bash
+$ docker volume rm my_volume
+```
+
+This command will not remove any data, it will simply remove the volume entry
+from local Docker configuration on the host.
+
+#### Using volumes in containers
+
+In order to attach a volume to container, start any Docker image and
+mount the Onedata volume to some directory within the container, e.g.:
+
+```bash
+$ docker run -v my_volume:/spaces -it alpine ls /spaces
+
+MySpace1
+MySpace2
+```
+
+Please note that the Docker image doesn't require any Onedata specific packages
+installed.
+
+#### Security
+
+Docker volume plugins do have a serious security limitation, which allows any
+user in the `docker` group to access any volumes on the host, regardless of
+which user created them. Thus, it is advisable to only use Docker volume
+plugins on machines with exclusive access or where only trusted users have
+access, as they will be able to access any Onedata volume created on this host.
+
 <!-- references -->
 
 [1]: <>
@@ -551,10 +701,14 @@ $ sudo systemctl status oneclient
 
 [direct-io]: #direct-io-and-proxy-io-modes
 
-[oneprovider-domain]: data.md#oneprovider-domain
+[oneprovider-domain]: data.md#provider-domain
 
 [image-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
 
 [2]: https://github.com/xattr/xattr
 
 [3]: metadata.md#metadata-management-with-oneclient-and-onedatafs
+
+[12]: https://docs.docker.com/engine/extend/plugins_volume/
+
+[13]: #options

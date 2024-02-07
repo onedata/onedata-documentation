@@ -1,6 +1,6 @@
 # Onedata documentation
 
-This documentation is built using [VuePress][].
+This documentation uses the [VuePress][] framework.
 
 ## Contributing
 
@@ -12,8 +12,8 @@ Before making any changes in the docs, make sure to set up your working environm
 * Make sure your contribution **sticks to the [guidelines][]**.
 * Fix any linguistic or grammatical errors detected by the plugins. If you are touching
   a file with pre-existing errors, please take some time to tidy it up a bit.
-* Make sure the build is passing (may require re-formatting, pleasing the linter or solving
-  forgotten code tags).
+* Make sure the build is passing (may require re-formatting, pleasing the linter, or
+  solving forgotten code tags).
 
 ## Building and developing
 
@@ -23,8 +23,8 @@ Most Makefile targets use our build-docker with all dependencies installed.
 These scripts are suitable for most developers and documentation users.
 
 * `make build` builds the documentation, producing an artifact.
-* `make dev` prepares a local preview with livereload, allowing
-  convenient development. The livereload might not cope with some structural
+* `make dev` prepares a local preview with `livereload`, allowing
+  convenient development. The `livereload` might not cope with some structural
   changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
   Note that in this mode, the `RELEASE` version is not injected, only the
   placeholders are visible, as opposed to the `make preview` target.
@@ -32,6 +32,8 @@ These scripts are suitable for most developers and documentation users.
   statically, giving a preview of what's in the build artifact. **This task is not
   performed using a docker**, so Python 2 or 3 is required to be installed.
 * `make lint` launches Markdown linter on all documents.
+* `make check-language` launches LanguageTool toolkit for checking text grammar and
+  spelling.
 * `make format-all` performs auto-formatting on all Markdown documents.
   Note that this task will modify Markdown files where needed, so it is
   recommended to use it after staging current changes.
@@ -40,9 +42,9 @@ These scripts are suitable for most developers and documentation users.
 
 The recommended IDE to develop the documentation is Visual Studio Code (VSCode).
 
-You can set up recommended VSCode workspace configuration using
-`./setup-vscode.sh`, that will apply settings from the `.vscode.example` directory to your
-workspace configuration.
+The VSCode workspace configuration is checked out in the repository, so please be careful
+to not commit personal changes. Only changes that should be shared amongst the other
+users should be committed, like `LTeX` configuration.
 
 There are a few recommended extensions for documentation development. You should be
 asked to install them when opening this workspace in VSCode (as they are listed in
@@ -50,7 +52,7 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this addon, you should install Node.js runtime in version 14.14+. Follow
+Before installing this add-on, you should install Node.js runtime in version 14.14+. Follow
 instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
@@ -62,7 +64,7 @@ that is configured in `.remarkrc.js` file, and enables code auto-formatter. By d
 you can format your code using `Format Document` VSCode command (accessible
 using `ctrl+shift+p`). If it does not work, try restarting VSCode.
 
-It is also recommended to change your workspace settings to enable auto-formatting on each
+It is also recommended changing your workspace settings to enable auto-formatting on each
 file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
 
 ```json
@@ -72,28 +74,68 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-#### Grammarly (`znck.grammarly`)
+#### LTeX — LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
 
-This extension enables Markdown and plaintext files check using
-[Grammarly][] service. You can use the extension without authentication, but we recommend
-creating an account and logging into it in VSCode to enable the personal dictionary, which
-can be customized [here][Grammarly account customize]. As of July 2023, the Grammarly
-extension does not support personal dictionary configured locally.
+[LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
+Note that the add-on automatically downloads a LanguageTool server to your local
+filesystem and launches it locally — it doesn't send any data to the LanguageTool servers.
+Also note that the free version of LanguageTool launched locally lacks some checking made
+in the cloud version (e.g., articles usage).
 
-#### Code Spell Checker (`streetsidesoftware.code-spell-checker`)
+A configuration of the LTeX is placed entirely in the `.vscode/settings.json` file. It is
+also used by `make check-language` which uses the LTeX server to perform checking outside
+the IDE. The `dictionary`, `disabledRules`, and `hiddenFalsePositives` lists in the
+configuration must be placed in the `settings.json` file due to the `ltex-cli` limitations
+(as of version 16.0.0).
 
-Code Spell Checker adds an offline spell check. However, as the Grammarly addon also
-performs spell checking that cannot be turned off (as of July 2023), you can resign from
-using this extension.
+You can add words to the dictionary, disable rules, and hide false positives using the IDE
+(hover over the underlined language problem). These words/rules/false positives will be
+added to the `settings.json` file, and the changes should be committed.
 
-If you applied the default configuration for the workspace (using `setup-vscode.sh`
-script), the Code Spell Check extension uses `cspell-dictionary.txt` file with known
-words. Do add new words if needed and commit the changes.
+After adding the above entries to the settings, you should apply some manual fixes:
 
-Sometimes you need to silence Code Spell Checker warnings, because text includes
-some code examples, which contains many non-dictionary words, which should not be added to
-the dictionary. Refer to **Enable / Disable checking sections of code** section of
-[Code Spell Checker documentation][1] for more information.
+* words in `dictionary` should be sorted alphabetically, case-insensitively,
+* `hiddenFalsePositives` should be a minimal sentence instead of the one generated (explained
+  below).
+
+An example of a `hiddenFalsePositives` entry added with a quick fix is:
+
+```
+"{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"^\\\\QUse the term \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q when referring to a Onedata provider in most contexts, except when talking about a service or a piece of software — use \\\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\\\Q then.\\\\E$\"}"
+```
+
+The above is the full sentence with the `a Onedata` false positive detected by
+LanguageTool (LanguageTool doesn't know the pronunciation of Onedata, so it assumes that
+“an” should be used). The drawback of this rule is that when you change anything in this
+sentence, then you must create another rule to match the changed sentence. The other
+drawback is that any other sentence with `a Onedata` will be a false positive and must be
+treated separately.
+
+To solve these issues, convert auto-generated rules into the simpler form containing only
+the false positive cause:
+
+```
+"{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata.\"}"
+```
+
+**Note that whole sentences with `a Onedata` phrase will not be checked** — this is due
+to LTeX limitations.
+
+##### Special characters
+
+LanguageTool has been configured to guard the usage of special characters:
+
+* dashes (`-` → `-`, `–`, `—`),
+* quotes (`""` → `“”`),
+* ellipsis (`...` → `…`).
+
+The linter proposes these replacements with `quick fix` functionality of IDE when you try
+to use regular dashes, quotes, or three dots.
+
+##### Ignored Markdown elements
+
+Content in the code fences, `` `backticks` ``, and `**strong**` is **not checked** by
+LanguageTool.
 
 ### Development using a natively-installed toolkit
 
@@ -102,13 +144,13 @@ which does not require installing Node.js with Node packages locally. To use loc
 installed Node (v14.14+ is required) install the Node packages using `npm run deps` in
 the repository root and use package scripts with `npm run`:
 
-* `npm run docs:dev` - runs a development server with livereload,
-* `npm run docs:build` - builds static documentation to `rel/` directory (notice the
+* `npm run docs:dev` — runs a development server with `livereload`,
+* `npm run docs:build` — builds static documentation to `rel/` directory (notice the
   `future-documentation` subdirectory which is a subpath for serving),
-* `npm run docs:lint` - launches a remark linter on all Markdown documents,
-* `npm run docs:format-all` - applies standardized formatting on all Markdown documents.
+* `npm run docs:lint` — launches a remark linter on all Markdown documents,
+* `npm run docs:format-all` — applies standardized formatting on all Markdown documents.
 
-Note, that for the local development, the `yarn` package manager is used, so do not try
+Note that Makefile uses the `yarn` package manager for dependencies, so do not try
 installing dependencies using `npm install`.
 
 ## Versioning
@@ -130,8 +172,6 @@ Calling `make package` will pack it up into a tarball.
 
 [nvm website]: https://github.com/nvm-sh/nvm#installing-and-updating
 
-[Grammarly]: https://www.grammarly.com/
+[LTeX]: https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex
 
-[Grammarly account customize]: https://account.grammarly.com/customize
-
-[1]: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+[LanguageTool]: https://languagetool.org

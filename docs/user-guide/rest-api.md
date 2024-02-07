@@ -7,15 +7,16 @@ This chapter provides a brief introduction to the usage of the Onedata REST API.
 Onedata consists of three main types of services that form its [architecture][].
 Each service has its corresponding API, which is documented using OpenAPI (also known as Swagger):
 
-* Onezone — API for managing high-level objects such as users, groups, spaces,
-  etc. — see the [docs][Onezone REST API].
+* Onezone — API for managing high-level resources such as users, groups, spaces,
+  etc, realized by the **Onezone Worker** server — see the [docs][Onezone REST API].
 
-* Oneprovider — API for data management, complemented by [CDMI API][]
-  (recommended only for advanced use cases that explicitly require the CDMI
-  protocol, due to its worse efficiency) — see the [docs][Oneprovider REST API].
+* Oneprovider — API for data management, complemented by [CDMI API][], realized
+  by the **Oneprovider Worker** server — see the [docs][Oneprovider REST API].
 
-* Onepanel — admin API for managing service clusters (Onezone or Oneprovider) —
-  see the [docs][Onepanel REST API].
+* Onepanel — admin API for managing service clusters, realized by the **Onezone
+  Panel** or **Oneprovider Panel** server — see the [docs][Onepanel REST API].
+
+![image-rest-api-services][]
 
 ## Endpoints
 
@@ -28,23 +29,23 @@ Assume the following domains:
 
 Then, the APIs can be accessed using the following endpoints:
 
-| Service                         | API endpoint                                                                                                                          |
-| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ |
-| Onezone                         | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
-| Oneprovider                     | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
-| Onezone panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
-| Oneprovider panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br /> or <br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
+| Service                         | API endpoint                                                                                                                        |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
+| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                    |
+| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                          |
+| Onezone Panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br />or<br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
+| Oneprovider Panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br />or<br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
 ::: tip NOTE
-The Onepanel API endpoints are accessible under Onezone and Oneprovider
-domains, and internally routed to Onepanel. Port `9443` can be used to
-directly access the Onepanel API from within the cluster's local network.
+The Onepanel API endpoints are exposed by Onezone and Oneprovider Worker
+servers and proxied to Onepanel servers. Port `9443` can be used to
+directly access the Onepanel server from within the cluster's local network.
 :::
 
 Users should be aware of the Onezone domain as it serves as their entry point to
 the system, providing them with a login page — see the [user quickstart
-guide][]. Instructions on how to determine the domain of Oneprovider service can
-be found [here][oneprovider domain].
+guide][]. Instructions on how to determine the domain of a Oneprovider service can
+be found [here][provider domain].
 
 ### Access tokens
 
@@ -54,7 +55,8 @@ Follow this [guide][token quickstart guide] to acquire an access token.
 ### Oneprovider ID
 
 Some endpoints (e.g. in Oneprovider's Data Transfers API) require the provider
-ID. You can find it with the following REST query:
+ID. You can find it with the following REST query (you will need the provider
+[domain][provider domain]):
 
 ```bash
 curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
@@ -80,8 +82,10 @@ Alternatively, the ID can be retrieved from the GUI:
 
 [user quickstart guide]: quickstart.md
 
-[oneprovider domain]: data.md#oneprovider-domain
+[provider domain]: data.md#provider-domain
 
 [token quickstart guide]: ./tokens.md#access-token-quickstart
+
+[image-rest-api-services]: ../../images/user-guide/rest-api/rest-api-services.svg
 
 [screen-copy-provider-id]: ../../images/user-guide/rest-api/copy-provider-id.png

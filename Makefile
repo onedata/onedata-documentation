@@ -7,6 +7,9 @@ all: build
 lint:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
 
+check-language:
+	./check-language.py
+
 format-all:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all
 

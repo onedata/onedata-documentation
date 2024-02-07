@@ -1,12 +1,12 @@
 # Storage import
 
-[toc][1]
+[toc][0]
 
-*Storage import* is dedicated for importing files located on a storage backend by registering them in the space supported
-by the storage backend. The file registration process **does not copy any data**, it simply creates the necessary metadata
-so that the files pre-existing on the storage backend are reflected and accessible in the supported space. It is possible
-to configure the storage backend to detect consecutive changes made directly on the storage backend after the initial import
-(during the space lifecycle) — using the continuous scan option, by manually triggering scans or by re-registering files.
+*Storage import* is dedicated for importing files located on a storage by registering them in the space supported by
+the storage. The file registration process **does not copy any data**, it simply creates the necessary metadata so that
+the files pre-existing on the storage are reflected and accessible in the supported space. It is possible to configure
+the storage to detect consecutive changes made directly on the storage after the initial import (during the space
+lifecycle) — using the continuous scan option, by manually triggering scans or by re-registering files.
 
 This functionality should be used in two setups:
 
@@ -19,12 +19,12 @@ This functionality should be used in two setups:
 > and dedicated exclusively for being accessed by the Oneprovider software. This should be the preferred setup, except
 > for the two above-mentioned cases.
 
-*storage import* can be enabled only if the space is supported with an *[Imported storage][]*.
+*storage import* can be enabled only if the space is supported with an [Imported storage][1].
 
 ## Configuration
 
-There are 2 possible modes of *storage import*: *[manual][]* and *[auto][]*.
-The mode is chosen when the space is being supported with an *[Imported storage][]*
+There are 2 possible modes of *storage import*: [manual][] and [auto][].
+The mode is chosen when the space is being supported with an [Imported storage][1]
 as presented in the below picture.
 
 > **NOTE**: *storage import* mode cannot be changed during the space lifecycle.
@@ -39,7 +39,7 @@ Registration of directories is not supported.
 This option is preferred when only a part of the dataset is to be imported, but required if the storage backend does
 not support [automatic import scans][auto].
 
-### Storage configuration for manual import:
+### Storage configuration for manual import
 
 *Manual storage import* is supported on the following storage backends:
 
@@ -53,15 +53,15 @@ not support [automatic import scans][auto].
 * `Swift`
 * `Ceph RADOS`
 
-> **NOTE**: The storage must have *[canonical path type][]*.
-> Moreover, on object storages: S3, SWIFT and CEPHRADOS the `Block size` parameter **must be set to `0`!**
+> **NOTE**: The storage must have [canonical path type][6]. Moreover, on object storage
+> backends: S3, SWIFT and Ceph RADOS the `Block size` parameter **must be set to `0`!**
 
 ## Auto storage import
 
 In case of *auto* mode, the storage is automatically scanned and data is imported from storage backend into the
 assigned space.
 
-### Storage configuration for auto import:
+### Storage configuration for auto import
 
 *Auto storage import* is supported on the following storage backends:
 
@@ -72,7 +72,7 @@ assigned space.
 * `XRootD`
 * `S3`
 
-> **NOTE**: The storage must have *[canonical path type][]*.
+> **NOTE**: The storage must have [canonical path type][6].
 > Moreover, on S3 the `Block size` parameter **must be set to `0` !**
 
 ### Configuration
@@ -85,8 +85,8 @@ The configuration of *auto storage import* can be set when supporting the space,
 
 The available configuration options are:
 
-* `Max depth` — Maximum depth of filesystem tree that will be traversed during the scan. By default it is 65535.
-* `Synchronize ACL` — Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB][].
+* `Max depth` — Maximum depth of filesystem tree that will be traversed during the scan. By default, it is 65535.
+* `Synchronize ACL` — Enables import of NFSv4 ACLs. Note that this option requires proper [mappings in LUMA DB][9].
 * `Detect modifications` — If disabled, the storage will be treated as immutable — changes of already imported files
   will not be detected. Relevant only if more than one scan is performed.
 * `Detect deletions` — Flag determining that deletions of already imported files will be detected and reflected.
@@ -136,9 +136,9 @@ It is possible to change the time resolution of the charts in the upper right co
 
 <!-- references -->
 
-[1]: <>
+[0]: <>
 
-[Imported storage]: storage-backends.md#imported-storage
+[1]: storage-backends.md#imported-storage
 
 [manual]: #manual-storage-import
 
@@ -146,11 +146,11 @@ It is possible to change the time resolution of the charts in the upper right co
 
 [registered manually]: ../../../user-guide/file-registration.md
 
-[canonical path type]: storage-backends.md#storage-path-type
+[6]: storage-backends.md#storage-path-type
 
 [configuration]: #configuration
 
-[mappings in LUMA DB]: luma.md#imported-storages
+[9]: luma.md#imported-storage-backends
 
 [screen-storage-import-config]: ../../../../images/admin-guide/oneprovider/configuration/storage-import/storage-import-config.png
 

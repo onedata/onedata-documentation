@@ -1,0 +1,100 @@
+{
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark",
+    "editor.formatOnSave": false,
+    "editor.rulers": [{
+        "column": 90,
+        "color": "#99999944"
+      },
+      {
+        "column": 120,
+        "color": "#ff000044"
+      }]
+  },
+  "[python]": {
+    "editor.rulers": [{
+      "column": 100
+    }]
+  },
+  "ltex.additionalRules.enablePickyRules": true,
+  "ltex.markdown.nodes": {
+    "ImageRef": "ignore",
+    "StrongEmphasis": "dummy"
+  },
+  "ltex.configurationTarget": {
+    "dictionary": "workspace",
+    "disabledRules": "workspace",
+    "hiddenFalsePositives": "workspace"
+  },
+  "ltex.disabledRules": {
+    "en-US": [
+      "EG_NO_COMMA",
+      "IE_NO_COMMA"
+    ]
+  },
+  "ltex.diagnosticSeverity": {
+    "default": "information",
+    "PASSIVE_VOICE": "hint",
+    "UPPERCASE_SENTENCE_START": "hint"
+  },
+  "ltex.dictionary": {
+    "en-US": [
+      "ACEs",
+      "aws-cli",
+      "BagIt",
+      "CDMI",
+      "ceph",
+      "Ceph",
+      "Couchbase",
+      "filesystem",
+      "GIDs",
+      "GlusterFS",
+      "Grammarly",
+      "IdP",
+      "LTeX",
+      "LUMA",
+      "NullDevice",
+      "nvm",
+      "OAIS",
+      "Oneclient",
+      "Onedata",
+      "OnedataFS",
+      "Onepanel",
+      "Oneprovider",
+      "Oneproviders",
+      "Onezone",
+      "OpenAPI",
+      "proxied",
+      "PyFilesystem",
+      "QoS",
+      "quickstart",
+      "Quickstart",
+      "RADOS",
+      "rclone",
+      "remarkrc",
+      "subpath",
+      "toc",
+      "UIDs",
+      "unifiedjs",
+      "VSCode",
+      "VuePress",
+      "XRootD",
+      "znck"
+    ]
+  },
+  "ltex.hiddenFalsePositives": {
+    "en-US": [
+      "{\"rule\":\"AN_INVITE\",\"sentence\":\"invite token\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneclient\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneprovider\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"not persisted persisted\"}",
+      "{\"rule\":\"POSSESSIVE_APOSTROPHE\",\"sentence\":\"Views chapter\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"[Aa]uto storage import\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"API\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
+    ]
+  }
+}

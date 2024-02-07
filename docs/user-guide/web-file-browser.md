@@ -199,19 +199,31 @@ screenshot above).
 
 Brings up an editor of [Quality of Service][31] (QoS)
 requirements defined for the selected file(s), which are used to automatically
-manage the file data replication according to logical rules.
+manage the replication of file data according to logical rules.
 
-<!--- TODO VFS-7218
+The rules can be put down using a visual block-based expression editor. These rules are
+evaluated against the QoS parameters assigned to different supporting storage backends in
+order to determine where the replicas should be stored.
 
-### Run workflow
+![screen-feature-qos-visual][]
 
-This action brings up a modal containing a list of all the uploaded workflows, that
-you can choose to run your file on. To read more about the functionality of the
-workflows head over to [autiomation guide](automation.md).
+Below the requirement, there is information what storage backends match the requirement
+and an action that copies the expression in textual form, to be reused when creating a new
+requirement or using the [REST API][].
 
-![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
+![screen-feature-qos-visual-match][]
 
---->
+Expressions can be entered in the textual form. They are converted to block form
+upon confirmation, and then can be further edited.
+
+![screen-feature-qos-text][]
+
+If the selected files have any QoS requirements defined, they are displayed on
+the list along with their status of fulfillment, matching storage backends and other
+information. It is possible to remove selected QoS requirements, unless they
+are inherited from any parent directory.
+
+![screen-feature-qos-requirements][]
 
 ### Rename
 
@@ -297,7 +309,7 @@ After switching to another provider, the user will eventually see the same
 content, but new changes might appear with different delays. Providers
 continuously synchronize the data changes within spaces, and depending on the
 system usage intensity, they can take from a couple of seconds to even hours to
-propagate. To see the changes immediately, it is recommended to choose the
+propagate. To see the changes immediately, it is advisable to choose the
 Oneprovider on which the user is making them (modifying file content,
 creating new files or directories, scheduling data transfers, etc).
 :::
@@ -311,6 +323,8 @@ creating new files or directories, scheduling data transfers, etc).
 [3]: spaces.md#request-support-for-space
 
 [4]: providers.md
+
+[5]: datasets.md
 
 [10]: #mobile-file-browser
 
@@ -331,6 +345,8 @@ creating new files or directories, scheduling data transfers, etc).
 [replication, migration and eviction]: data-transfer.md
 
 [31]: qos.md#web-gui-guide
+
+[REST API]: rest-api.md
 
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
@@ -382,6 +398,14 @@ creating new files or directories, scheduling data transfers, etc).
 
 [screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
 
+[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
+
+[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
+
+[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
+
+[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
+
 [screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
 
 [screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
@@ -390,4 +414,3 @@ creating new files or directories, scheduling data transfers, etc).
 
 [screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
 
-[5]: datasets.md
