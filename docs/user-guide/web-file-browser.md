@@ -348,8 +348,6 @@ creating new files or directories, scheduling data transfers, etc).
 
 [REST API]: rest-api.md
 
-[5]: datasets.md
-
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
 [screen-uploading-empty]: ../../images/user-guide/web-file-browser/uploading-empty.png

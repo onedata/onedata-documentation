@@ -148,5 +148,3 @@ Currently, Onedata exposes a CDMI (Cloud Data Management Interface) [interface][
 [REST interface]: https://onedata.org/#/home/api
 
 [screen-web-gui-example]: ../images/intro/web-gui-example.png
-
-[1]: https://onedata.org/#/home/documentation
