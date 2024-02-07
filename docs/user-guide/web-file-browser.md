@@ -413,4 +413,3 @@ creating new files or directories, scheduling data transfers, etc).
 [screen-mobile-upload]: ../../images/user-guide/web-file-browser/mobile-upload.png
 
 [screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
-

@@ -163,6 +163,7 @@ read-only access both for data and metadata. You can also [share][] the archived
 files/directories, manage QoS and transfer the data between providers.
 
 <!-- TODO: VFS-6815 add link to QoS [QoS]: ./qos.md -->
+
 <!-- TODO: VFS-7989 add link to transfer [transfer]: ./data-transfer.md -->
 
 ![screen-archive-files-browser][]
