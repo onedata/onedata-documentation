@@ -168,8 +168,8 @@ This section is coming soon. For now, see the counterpart in the [legacy docs][9
 
 [6]: installation.md
 
-[7]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[running].html
+[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[running].html
 
-[8]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[upgrading].html
+[8]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[upgrading].html
 
-[9]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/onezone_tutorial[monitoring].html
+[9]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[monitoring].html

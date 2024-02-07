@@ -2,14 +2,11 @@
 title: 'Introduction'
 ---
 
-# ![image-heading][]
+# <img src="../images/intro/logo-dark.svg" class="intro-header" width="210">
 
 # 🚧 Under construction! 🚧
 
 This documentation is a work-in-progress and may have errors or missing information.
-
-Here are the [current official docs][1],
-though some sections may be a bit outdated.
 
 Begging your patience as we finalize the transition.
 
@@ -24,8 +21,6 @@ INTRODUCTION  (landing page)
      - rework user interfaces, move them somewhere else (data management interfaces are already on the data page, but
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
-
-# <img src="../images/intro/logo-dark.svg" class="intro-header" width="210">
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
