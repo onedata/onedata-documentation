@@ -219,6 +219,9 @@ Note that:
   chain; if you want to update the file manually during the `make dev` session, you should
   invoke the `make render-templates`.
 
+Remember, that when you add new template, you should also manually add its target path
+to `.gitignore` (see comments in `.gitignore`).
+
 For more information about template system read comments in
 `docs/.vuepress/template-renderer.js` code.
 
