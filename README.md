@@ -213,14 +213,11 @@ My name is English. Johnny English!
 
 Note that:
 
-* the auto-generated file should be added to `.gitignore` into the `TEMPLATE TARGETS`
-  section,
+* you should add the auto-generated file path to `.gitignore` into the `TEMPLATE TARGETS`
+  section (see comments in `.gitignore`),
 * generation is not triggered on files change, due to some issues with VuePress build
   chain; if you want to update the file manually during the `make dev` session, you should
   invoke the `make render-templates`.
-
-Remember, that when you add new template, you should also manually add its target path
-to `.gitignore` (see comments in `.gitignore`).
 
 For more information about template system read comments in
 `docs/.vuepress/template-renderer.js` code.

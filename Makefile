@@ -1,6 +1,6 @@
 .PHONY: all build dev clean render-templates
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v6.0-alpha.5
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v6
 
 all: build
 
