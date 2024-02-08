@@ -9,6 +9,11 @@
 Mechanism for granting and denying access to files and directories.
 Learn more [here][1].
 
+## Archive
+
+Snapshot of a [dataset][] created at a certain point in time.
+Learn more [here][archive-more].
+
 ## Auto-cleaning
 
 Mechanism that automatically maintains storage usage at a certain
@@ -42,6 +47,12 @@ files in multiple [spaces][3] and submit it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][7]
 that can have different configuration and source spaces.
 Learn more [here][8].
+
+## Dataset
+
+File or directory marked by space users as representing data collections
+relevant to them. They can be used to organize data in a space systematically and provide
+an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
 ## File ID
 
@@ -256,3 +267,11 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [37]: #oneclient
 
 [38]: user-guide/tokens.md
+
+[archives]: #archive
+
+[dataset]: #dataset
+
+[archive-more]: user-guide/archives.md
+
+[dataset-more]: user-guide/datasets.md

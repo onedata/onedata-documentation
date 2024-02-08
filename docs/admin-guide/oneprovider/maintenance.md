@@ -160,4 +160,4 @@ This section is coming soon. For now, see the counterpart in the [legacy docs][7
 
 [6]: installation.md
 
-[7]: https://onedata.org/#/home/documentation/stable/doc/administering_onedata/oneprovider_tutorial[upgrading].html
+[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/oneprovider_tutorial[upgrading].html
