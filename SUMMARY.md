@@ -1,4 +1,4 @@
-* [Onedata Documentation](INTRO.md)
+* [Introduction](INTRO.md)
 
 * [Getting Started]()
   * [What is Onedata?](doc/getting_started/what_is_onedata.md)

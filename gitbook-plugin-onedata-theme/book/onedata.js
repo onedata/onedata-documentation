@@ -58,15 +58,6 @@ require(["gitbook"], function(gitbook) {
 
             $('.nano').nanoScroller({alwaysVisible: true});
 
-
-            /// Add a onedata logo before link to index
-            // Note: it must exist in a gitbook files
-            var headingPath = gitbook.state.bookRoot + '/doc/img/heading.png';
-            var indexLink = $('[data-path="index.html"] a');
-            indexLink.before('<a href="/" class="header-logo"><img src="'+headingPath+'" /></a>');
-            $('.header-logo').on('click', function(e) { e.stopPropagation(); });
-            indexLink.html('documentation');
-
             /// Remove all li's from summary which are not chapters (!)
             $('.summary').find('li:not(.chapter)').remove();
 
