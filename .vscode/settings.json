@@ -95,6 +95,7 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"[Aa]uto storage import\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"API\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
     ]

@@ -1,9 +1,9 @@
 # Data
 
-[toc][1]
+[toc][]
 
-The Onedata system organizes all user data into logical containers called spaces.
-Refer to [this][2] chapter for details about this concept and how
+The Onedata system organizes all user data into logical containers called **spaces**. 
+Refer to [this][spaces] chapter for details about this concept and how 
 the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
@@ -26,15 +26,15 @@ a string of alphanumeric characters:
 094576776E667431723230677767776C6B497031394E445F6E3868677873...
 ```
 
-The path-based navigation is used mainly in the [Web GUI][3] and [Oneclient][5]
-interfaces. In the [REST][6] and [CDMI][7] APIs, it is **recommended to use File
+The path-based navigation is used mainly in the [Web GUI][] and [Oneclient][]
+interfaces. In the [REST][] and [CDMI][] APIs, it is **recommended to use File
 IDs**, due to better performance and no need for escaping or encoding.
 
 ### Find out the File ID
 
 There are several ways to find out the File ID of a file:
 
-[Web GUI][3] — click on **Information** in the file/directory context menu and look
+[Web GUI][] — click on **Information** in the file/directory context menu and look
 for `File ID`:
 ![screen-file-gui-path-and-info][]
 
@@ -49,9 +49,8 @@ specifically the File ID attribute:
 
 > **NOTE:** Use `xattr -l garden.png` to list all available attributes.
 
-[REST][6] — use the File ID
-[resolution endpoint][8].
-The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name:
+[REST][] — use the [File ID resolution endpoint][]. The below example returns the File ID
+of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name:
 
 ```bash
 curl -H "X-Auth-Token: ${ACCESS_TOKEN}" -X POST \
@@ -66,22 +65,22 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" -X POST \
 
 > **NOTE:** Paths used in URLs must be URL-encoded.
 
-> **NOTE:** The `${PROVIDER_DOMAIN}` can be obtained as shown [below][10].
+> **NOTE:** The `${PROVIDER_DOMAIN}` can be obtained as shown [below][Provider domain].
 
 ### Working with file paths
 
-[Web GUI][3] — the path is represented in the file browser's breadcrumbs.
+[Web GUI][] — the path is represented in the file browser's breadcrumbs.
 
 ![screen-file-gui-path-and-info][]
 
-[Oneclient][5] — when using a shell to access the mounted filesystem,
+[Oneclient][] — when using a shell to access the mounted filesystem,
 some characters in paths should be properly escaped:
 
 ```
 ~$ cat /CMS\ 1/directory/images\&videos/garden.png
 ```
 
-[REST][6] or [CDMI][7] API — make sure to URL-encode paths used in URLs:
+[REST][] or [CDMI][] API — make sure to URL-encode paths used in URLs:
 
 ```
 {...}/CMS%201/directory/images%26videos/garden.png
@@ -100,7 +99,7 @@ Onedata offers several ways of accessing and managing user data. Regardless of t
 interface you choose, you will have a unified view of all your files. All data management
 interfaces are available in Onedata [Providers][11] that build a distributed environment.
 You can use any provider that [supports your spaces][12] to access the data. While the
-[Web GUI][3] offers natural navigation between services, the other interfaces require that
+[Web GUI][] offers natural navigation between services, the other interfaces require that
 you choose one of your providers and are aware of its domain (see below).
 
 ### Provider domain
@@ -108,15 +107,15 @@ you choose one of your providers and are aware of its domain (see below).
 <!-- TODO VFS-7218 this should be moved somewhere else — maybe a new chapter with providers GUI
      from the user's point of view? -->
 
-Provider's domain is required to mount a [Oneclient][5] instance or utilize the
-[REST][6] and [CDMI][7] APIs. It can be found in the Web GUI:
+Provider's domain is required to mount a [Oneclient][] instance or utilize the
+[REST][] and [CDMI][] APIs. It can be found in the Web GUI:
 
 ![screen-provider-domain][]
 
 
 ### Web GUI
 The most user-friendly method of data management. You can find a visual guide in 
-[this chapter][19].
+[this chapter][Web file browser].
 
 ### Oneclient
 
@@ -150,7 +149,7 @@ Each operation is done in the context of a specific authenticated user. If the r
 client provides no authentication, it is treated as **guest**, who is entitled only to
 publicly accessible data. Authentication is carried by [access tokens][20] — bearer tokens
 issued in the name of a specific subject (e.g. user). Access tokens are used uniformly in
-the system, in [REST API][17], [Oneclient][14], or [Web GUI][3] (the Web application
+the system, in [REST API][17], [Oneclient][14], or [Web GUI][] (the Web application
 obtains an access token after a user logs in and refreshes it as needed).
 
 ### Authorization
@@ -208,7 +207,7 @@ In case of unauthenticated (**guest**) access, the steps are as follows:
 **Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
 for a specific principal. Onedata supports a subset of CDMI ACL which are based
-on NFSv4 standard [RFC 3530][31].
+on NFSv4 standard [RFC 3530][].
 
 An ACL is an ordered list of **ACEs (Access Control Entries)**. ACEs are
 evaluated strictly in the same order as they were added, top-down. If any
@@ -306,7 +305,7 @@ permissions are taken into consideration. Permissions for **others** are
 considered when a [public share][29] is accessed (as an anonymous
 **guest**). These differences stem from the fact that unlike in POSIX systems,
 there is an additional layer of access control imposed by membership in
-[spaces][2] (which are completely separated logical data containers),
+[spaces][] (which are completely separated logical data containers),
 and the concepts of POSIX **group** and Onedata [group][35] are
 different.
 
@@ -333,7 +332,7 @@ Default permissions (for newly created files/directories) are as follows:
 * files: `rw- rw- r--` (octal: `664`)
 * directories: `rwx rwx r-x` (octal: `775`)
 
-You can change permissions using the [Web file browser][19] in
+You can change permissions using the [Web file browser][] in
 the **Permissions** tab in the **File Information** modal or using the 
 [REST API][36].
 
@@ -422,21 +421,21 @@ You can manage the data distribution using:
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
-[2]: spaces.md
+[spaces]: spaces.md
 
-[3]: #web-gui
+[Web GUI]: #web-gui
 
-[5]: #oneclient
+[Oneclient]: #oneclient
 
-[6]: #rest-api
+[REST]: #rest-api
 
-[7]: #cdmi
+[CDMI]: #cdmi
 
-[8]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
+[File ID resolution endpoint]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
 
-[10]: #provider-domain
+[Provider domain]: #provider-domain
 
 [11]: ../intro.md#architecture  <!-- TODO VFS-10933 link to the providers section -->
 
@@ -452,7 +451,7 @@ You can manage the data distribution using:
 
 [18]: cdmi.md
 
-[19]: web-file-browser.md
+[Web file browser]: web-file-browser.md
 
 [20]: tokens.md#access-tokens
 
@@ -476,7 +475,7 @@ You can manage the data distribution using:
 
 [30]: #access-control-entry
 
-[31]: https://tools.ietf.org/html/rfc3530
+[RFC 3530]: https://tools.ietf.org/html/rfc3530
 
 [32]: ../admin-guide/oneprovider/configuration/storage-import.md
 
