@@ -21,7 +21,7 @@ storage resources. Users can request support for their spaces, and provider
 admins can decide to grant some quota on physical storage governed by the
 corresponding data center.
 
-<!-- TODO VFS-7218 this image could be better:
+<!-- TODO VFS-11766 this image could be better:
     1. present providers, not only storage backends
     2. present the mapping between logical and physical paths 
        (file path on the storage vs. file path in the space)
@@ -87,9 +87,9 @@ owners in that space, first, you should pass ownership to another user.
 
 ## Storage backends
 
-<!-- TODO VFS-7218 documentation for storage backends -->
+<!-- TODO VFS-11766 documentation for storage backends -->
 
-<!-- TODO VFS-7218 cross references with the admin guide -->
+<!-- TODO VFS-11766 cross references with the admin guide -->
 
 ## GUI guide
 

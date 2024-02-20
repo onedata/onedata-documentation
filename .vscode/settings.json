@@ -29,7 +29,8 @@
   "ltex.disabledRules": {
     "en-US": [
       "EG_NO_COMMA",
-      "IE_NO_COMMA"
+      "IE_NO_COMMA",
+      "TYPOGRAPHICAL_APOSTROPHE"
     ]
   },
   "ltex.diagnosticSeverity": {
@@ -46,6 +47,7 @@
       "ceph",
       "Ceph",
       "Couchbase",
+      "copyable",
       "filesystem",
       "GIDs",
       "GlusterFS",
@@ -86,14 +88,17 @@
   },
   "ltex.hiddenFalsePositives": {
     "en-US": [
+      "{\"rule\":\"ALLOW_TO_DO\",\"sentence\":\"allow write access\"}",
       "{\"rule\":\"AN_INVITE\",\"sentence\":\"invite token\"}",
       "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneclient\"}",
       "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}",
       "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneprovider\"}",
-      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"not persisted persisted\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_BEGINNING_RULE\",\"sentence\":\"Bob\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_BEGINNING_RULE\",\"sentence\":\"If\"}",
       "{\"rule\":\"POSSESSIVE_APOSTROPHE\",\"sentence\":\"Views chapter\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"[Aa]uto storage import\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"API\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"conflict resolution algorithm\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",

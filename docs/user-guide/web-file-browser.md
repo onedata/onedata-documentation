@@ -142,8 +142,7 @@ shares, with the possibility to copy their public links, view their details
 
 This action brings up the **Datasets** modal, where you can assign a dataset status to
 your file or directory. Datasets are files or directories that space users identify
-as meaningful data collections to them. To read more about the functionality of the
-Datasets head over to this [page][5].
+as meaningful data collections to them, as described in [this chapter][datasets].
 
 ![screen-feature-datasets][]
 
@@ -312,7 +311,7 @@ directories, scheduling data transfers, etc.).
 
 [space]: spaces.md
 
-<!-- TODO VFS-7218 improve when the support docs are there -->
+<!-- TODO VFS-11766 improve when the support docs are there -->
 [space-support]: spaces.md#request-support-for-space
 
 [provider]: providers.md
@@ -331,12 +330,14 @@ directories, scheduling data transfers, etc.).
 
 [acl]: data.md#access-control-lists
 
-<!-- TODO VFS-7218 change to a valid link -->
-[data-distribution]: replication-and-migration.md
+<!-- TODO VFS-11766 change to a valid link -->
+[data-distribution]: data.md#file-distribution
 
-[replication-migration]: replication-and-migration.md
+[replication-migration]: data-transfer.md
 
-[Quality of Service]: quality-of-service.md
+[Quality of Service]: qos.md
+
+[datasets]: datasets.md
 
 [REST API]: rest-api.md
 

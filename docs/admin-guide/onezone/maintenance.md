@@ -6,7 +6,7 @@
 
 This section is coming soon. For now, see the counterpart in the [legacy docs][7].
 
-<!-- TODO VFS-7218 restart too -->
+<!-- TODO VFS-11766 restart too -->
 
 <!-- TODO VFS-9376 find a way to reuse templates for repetitive chapters and use it here -->
 

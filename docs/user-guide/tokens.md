@@ -156,11 +156,10 @@ be consumed.
 An invite token can have [caveats][7], which limit the context in
 which the token can be consumed.
 
-[Named][6] invite tokens can have additional parameters,
-which are optional:
+[Named][6] invite tokens can have additional optional parameters:
 
-1. Carried privileges (if applicable) — defines what privileges will be granted
-   for the joining member upon token consumption. If not specified, default
+1. Carried privileges (if applicable) — define what privileges will be granted
+   to the joining member upon token consumption. If not specified, default
    member privileges will be granted.
 
 2. Usage limit — defines how many times the token can be used. If not specified,
@@ -204,17 +203,15 @@ without knowing the original token. Consider this example:
 2. Bob confines the token `Alpha` — adds the `data.readonly` caveat — and
    obtains token `Alpha*` with different signature.
 
-3. Bob passes the token `Alpha*` to Alice. Alice is able to read the space
-   `My experiment`, but cannot modify any files. The space is accessed on
-   behalf of Bob — from the system's point of view, whoever bears the token is
-   recognized as Bob. Cryptography ensures that it is computationally
-   implausible to infer token `Alpha` knowing only `Alpha*`. If Bob wishes to
-   publish his experiment data online, he can safely make the token `Alpha*`
-   public (see [safely publishing tokens][9]) — nobody
-   will be able to use it in other way than to read the `My experiment` data.
-   Bob can temporarily revoke or completely delete the token `Alpha` at any
-   time, which will immediately disable the original token `Alpha` and all
-   tokens derived from it — including the published `Alpha*` token.
+3. Bob passes the token `Alpha*` to Alice. Alice can read the space `My experiment`, but
+   cannot modify any files. The space is accessed on behalf of Bob — from the system's
+   point of view, whoever bears the token is recognized as Bob. Cryptography ensures that
+   it is computationally implausible to infer token `Alpha` knowing only `Alpha*`. If Bob
+   wishes to publish his experiment data online, he can safely make the token `Alpha*`
+   public (see [safely publishing tokens][9]) — nobody will be able to use it in other way
+   than to read the `My experiment` data. Bob can temporarily revoke or completely delete
+   the token `Alpha` at any time, which will immediately disable the original token
+   `Alpha` and all tokens derived from it — including the published `Alpha*` token.
 
 4. In the meantime, Bob still uses the original token `Alpha` to write data in
    the `My experiment` space, which becomes immediately visible for the users

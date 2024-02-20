@@ -2,7 +2,7 @@
 
 [toc][]
 
-<!-- TODO: VFS-11610 Add info about Datasets, Archive tab when new datasets "Tree" view will be finished -->
+<!-- TODO VFS-11610 Add info about Datasets, Archive tab when new datasets "Tree" view will be finished -->
 
 ## Overview
 
@@ -162,9 +162,9 @@ The archive files browser works just as a regular [web file browser][] except it
 read-only access both for data and metadata. You can also [share][] the archived
 files/directories, manage QoS and transfer the data between providers.
 
-<!-- TODO: VFS-6815 add link to QoS [QoS]: ./qos.md -->
+<!-- TODO VFS-6815 add link to QoS [QoS]: ./qos.md -->
 
-<!-- TODO: VFS-7989 add link to transfer [transfer]: ./data-transfer.md -->
+<!-- TODO VFS-7989 add link to transfer [transfer]: ./data-transfer.md -->
 
 ![screen-archive-files-browser][]
 

@@ -170,7 +170,7 @@ See [this][archives] chapter for more details.
 
 🚧 Under construction 🚧
 
-<!-- TODO: VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
+<!-- TODO VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
 
 ## Detaching datasets
 

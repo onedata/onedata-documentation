@@ -2,7 +2,7 @@
 
 **Config version 3**
 
-<!-- @TODO VFS-7218 missing chapter -->
+<!-- @TODO VFS-11766 missing chapter -->
 
 This documentation is valid for Onezone versions `19.02.*` or newer.
 
