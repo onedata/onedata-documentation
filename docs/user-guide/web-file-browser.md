@@ -1,23 +1,22 @@
 # Web file browser
 
-[toc][1]
+[toc][]
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
-navigation, file upload or download) and advanced capabilities, specific to Onedata
-(e.g. Quality of Service, data distribution management, datasets & archives management).
+navigation, file upload or download) and advanced capabilities, specific to Onedata 
+(e.g. Quality of Service, data distribution, datasets & archives).
 
-The file browser is always presented in the context of a single
-[space][2]. It becomes available when the space is
-[supported][3] by at least one
-[provider][4] and can be invoked by navigating to the **DATA > *Space
-name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
+The file browser is always presented in the context of a single [space][]. It becomes
+available when the space is [supported][space-support] by at least one [provider][] and
+can be invoked by navigating to the **DATA > *Space name* > Files** tab, or clicking the
+**FILES** tile in the space **Overview**.
 
 ![screen-intro-data-overview][]
 
 ## Uploading data
 
-A file browser of a new, empty space welcomes you with the following screen:
+An empty space will welcome you with the following screen:
 
 ![screen-uploading-empty][]
 
@@ -46,20 +45,20 @@ actions for the directory (identical to the context menus on the file list,
 described below).
 
 The toolbox, located in the top right corner, contains shortcuts for common
-directory actions (*upload files*, *create a new directory* and *refresh file list*).
+directory actions (*upload files*, *create a new directory*, and *refresh the file list*).
 
 ![screen-layout-breadcrumbs][]
 
 The remainder part of the file browser presents the content of the current working
-directory in a form of a list with details.
+directory as a list with details.
 
 ::: tip NOTE
 File list navigation is slightly different on mobile devices and is covered
-[later on][10].
+[later on][mobile-file-browser].
 :::
 
-You can select or deselect files by left-clicking on them. Hold down `Ctrl`
-(or `Opt` on MacOS) while clicking to select or deselect multiple files.
+You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
+(or `Opt` on macOS) while clicking to select or deselect multiple files. 
 To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
@@ -70,27 +69,25 @@ available actions appears.
 
 ![screen-layout-context-menu][]
 
-For better navigation in the file browser, you can also change the layout of it, by choosing
-what columns of attributes you want to be displayed. Click **Configure columns** button, in the
-upper-right corner of the file browser, and choose desired columns.
+You can customize the file browser layout by specifying what columns (file attributes) are
+displayed. Click the **Configure columns** button, in the upper-right corner of the file
+browser, and choose the desired columns.
 
 ![screen-column-configuration][]
 
-The file browser uses the "infinite scroll" method to display large
+The file browser uses the “infinite scroll” method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
 ![screen-layout-infinite-scroll][]
 
-To quickly jump to the desired file or directory, type desired phrase, in the search bar
-located below the breadcrumbs, and you will be moved to the first file or
-directory which name starts with the desired prefix.
+To quickly jump to a file or directory, type the beginning of its name in the search bar
+located below the breadcrumbs.
 
 ![screen-prefix-search][]
 
-Apart from basic details displayed on the list, additional information and
-characteristics of files are presented using tags. For instance, the tags include information
-on whether a file is shared, has Quality of Service requirements
-attached or is marked as Dataset.
+Apart from basic details displayed on the list, additional information and characteristics
+of files are presented using tags. For instance, the tags include information on whether a
+file is shared, has Quality of Service requirements attached, or is marked as Dataset.
 
 ![screen-layout-file-tags][]
 
@@ -101,14 +98,14 @@ context menu invoked with a right-click or using the three-dots button on
 the right of each list entry.
 
 ::: tip
-Some operations require appropriate [privileges][14]
+Some operations require appropriate [privileges][space-privileges]
 in the space and are disabled in the menu in case the user's privileges are not
 sufficient.
 :::
 
 ::: tip
-It is possible to invoke the context menu for more than one selected item, but
-only some of the operations are available in this mode.
+It is possible to invoke the context menu for more than one selected item, but only some
+operations are available in this mode.
 :::
 
 ![screen-feature-file-context-menu][]
@@ -119,25 +116,25 @@ This action brings up the **Info** tab in a **Details** modal with information a
 
 ![screen-feature-info][]
 
-You can also excess the Information tab by hovering over the icon of the file or directory.
+You can also access the Information tab by hovering over the icon of a file or directory.
 
 ### Download
 
-This action simply downloads chosen single file or directory. You can also download single
-file by double-clicking on them.
+This action simply downloads the chosen single file or directory. You can also download
+a single file with a double-click.
 
 ### Share
 
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
-modal that allows the creation of a new [share][17].
+modal that allows the creation of a new [share][].
 
 ![screen-feature-share][]
 
 If the item has already been shared, you will see the list of existing
 shares, with the possibility to copy their public links, view their details
-(using the green links) or create another share.
+(using the green links), or create another share.
 
 ![screen-feature-shared-already][]
 
@@ -152,23 +149,20 @@ Datasets head over to this [page][5].
 
 ### Metadata
 
-This action allows browsing end editing custom file
-[metadata][20], divided into three classes: basic (key-value),
-JSON and RDF. The last two feature a code editor with syntax checking and
-highlighting.
+This action allows browsing end editing custom file [metadata][metadata-gui], divided into three
+classes: basic (key-value), JSON, and RDF. The last two feature a code editor with syntax
+checking and highlighting.
 
 ![screen-feature-metadata-json][]
 
 ### Permissions
 
-Invokes an editor of [permissions][22] assigned to the file —
-[POSIX][23] or [Access Control List
-(ACL)][24].
-You can assign only one permission type to each file at a time.
-To select the currently applied permission type, use the **Permissions type** toggle.
+Invokes an editor of [permissions][] assigned to the file — [POSIX][posix-permissions] or 
+[Access Control List (ACL)][acl]. A file can use only one of the permission types at a
+time. To select the currently applied one, use the **Permissions type** toggle.
 
-Edit the POSIX permissions for each file by using the octal representation
-field or manipulating the checkboxes.
+POSIX permissions are the default type for every new file. You can edit them by using the
+octal representation field or manipulating the checkboxes.
 
 ![screen-feature-permissions-posix][]
 
@@ -180,15 +174,14 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-This tab is used to monitor and manage the [distribution of file
-data][27] among supporting providers. The blue bars
-visualize which blocks (fragments of the file) are stored on the storage systems
-of the corresponding providers. When more than one file is selected, the
-distribution can be viewed in a summarized or detailed manner.
+This tab is used to monitor and manage the [distribution of file data][data-distribution]
+among supporting providers. The blue bars visualize which blocks (fragments of the file)
+are stored on the storage systems of the corresponding providers. When more than one file
+is selected, the distribution can be viewed in a summarized or detailed manner.
 
 ![screen-feature-distribution-bar][]
 
-The handy status bar indicates ongoing [replication, migration, and eviction][29] jobs and
+The handy status bar indicates ongoing [replication, migration, and eviction][replication-migration] jobs and
 allows scheduling new ones for the corresponding provider. In the detailed view, there is
 also a shortcut to the history of data transfers for the subject file (as shown in the
 screenshot above).
@@ -197,7 +190,7 @@ screenshot above).
 
 ### QoS
 
-The QoS tab brings up an editor of [Quality of Service][31] requirements defined for the
+The QoS tab brings up an editor of [Quality of Service][] requirements defined for the
 selected file(s), which are used to automatically manage the replication of file data
 according to logical rules.
 
@@ -233,25 +226,25 @@ The basic operation used to change the file name.
 
 ### Create symbolic link
 
-This action lets you create a symbolic link to a single file or directory and place it in a chosen destination.
-A symbolic link also known as a symlink, is a file that acts as a reference or
-pointer to another file or directory. To place a symbolic link in the directory you are in,
-click on the highlighted button in the top right corner.
+A symbolic link, also known as a symlink, is a special file that acts as a reference or
+pointer to another file or directory. First, use the **Create symbolic link** action on
+the target file or directory. Then, navigate to the directory where the symbolic link
+should be placed and click on the highlighted button in the top right corner.
 
 ![screen-feature-symlink][]
 
 ### Create hard link
 
-As above this action lets you create a hard link to a single file and place it in a chosen
-destination. A hard link is a reference to a file that points directly to the
-underlying data of that file on a file system. In simpler terms, a hard link is
-an additional name or entry for an existing file. Multiple hard links can exist
-for a single file, and they all refer to the same underlying data on the disk.
+A hard link is a reference to a file that points directly to the underlying data of that
+file on a file system. In simpler terms, a hard link is an additional name or entry for an
+existing file. Multiple hard links can exist for a single file, and they all refer to the
+same underlying data on the disk.
 
-To place a hard link follow the same steps as you would with placing a symbolic link.
-As you create a hard link, the original file will now display a label
-with the number of hard links created to this file. You can click on the label you will
-see the list of existing hard links in the **Details** modal.
+To place a hard link, follow the same steps as for a symbolic link. As you create a hard
+link, both the original file and the hard link will now display a label with the number of
+hard links referencing the same file. You can click on the label to view the list of hard
+links. 
+
 
 ![screen-feature-hardlink][]
 
@@ -304,49 +297,49 @@ world map visual representation, available under the globe icon.
 
 ![screen-oneprovider-switch][]
 
-::: tip
-After switching to another provider, the user will eventually see the same
-content, but new changes might appear with different delays. Providers
-continuously synchronize the data changes within spaces, and depending on the
-system usage intensity, they can take from a couple of seconds to even hours to
-propagate. To see the changes immediately, it is advisable to choose the
-Oneprovider on which the user is making them (modifying file content,
-creating new files or directories, scheduling data transfers, etc).
+::: tip 
+After switching to another provider, you will eventually see the same content, but new
+changes might appear with different delays. Providers continuously synchronize the data
+changes within spaces, and depending on the resource usage, they can take from a couple of
+seconds to even hours to propagate. To see the changes immediately, you should choose the
+Oneprovider on which you are making them (modifying file content, creating new files or
+directories, scheduling data transfers, etc.). 
 :::
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
-[2]: spaces.md
+[space]: spaces.md
 
-[3]: spaces.md#request-support-for-space
+<!-- TODO VFS-7218 improve when the support docs are there -->
+[space-support]: spaces.md#request-support-for-space
 
-[4]: providers.md
+[provider]: providers.md
 
-[5]: datasets.md
+[mobile-file-browser]: #mobile-file-browser
 
-[10]: #mobile-file-browser
+[space-privileges]: spaces.md#space-privileges
 
-[14]: spaces.md#space-privileges
+[share]: shares.md
 
-[17]: shares.md
+[metadata-gui]: metadata.md#web-gui
 
-[20]: metadata.md#web-gui
+[permissions]: data.md#permissions
 
-[22]: data.md#permissions
+[posix-permissions]: data.md#posix-permissions
 
-[23]: data.md#posix-permissions
+[acl]: data.md#access-control-lists
 
-[24]: data.md#access-control-lists
+<!-- TODO VFS-7218 change to a valid link -->
+[data-distribution]: replication-and-migration.md
 
-[27]: data.md#file-distribution
+[replication-migration]: replication-and-migration.md
 
-[replication, migration and eviction]: data-transfer.md
-
-[31]: qos.md#web-gui-guide
+[Quality of Service]: quality-of-service.md
 
 [REST API]: rest-api.md
+
 
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
