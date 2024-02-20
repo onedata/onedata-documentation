@@ -1,5 +1,9 @@
 # Storage backends
 
+## 🚧 Under construction! 🚧
+
+This section is still a work-in-progress and may have errors or missing information.
+
 [toc][1]
 
 ## Configuration
@@ -179,7 +183,7 @@ Refer to the linked API documentation for detailed information and examples.
 
 [21]: luma.md#configuration
 
-[22]: quality-of-service.md#qos-parameters
+[22]: qos.md#qos-parameters
 
 [23]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/get_storage_details
 

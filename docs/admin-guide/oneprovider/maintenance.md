@@ -140,6 +140,10 @@ sudo systemctl start oneprovider
 
 ## Upgrading
 
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs][7].
+
 ## Troubleshooting
 
 <!-- references -->
@@ -155,3 +159,5 @@ sudo systemctl start oneprovider
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
+
+[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/oneprovider_tutorial[upgrading].html

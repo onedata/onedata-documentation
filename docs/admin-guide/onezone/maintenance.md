@@ -2,6 +2,10 @@
 
 ## Startup & shutdown
 
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs][7].
+
 <!-- TODO VFS-7218 restart too -->
 
 <!-- TODO VFS-9376 find a way to reuse templates for repetitive chapters and use it here -->
@@ -140,7 +144,15 @@ sudo systemctl start onezone
 
 ## Upgrading
 
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs][8].
+
 ## Troubleshooting
+
+### 🚧 Under construction! 🚧
+
+This section is coming soon. For now, see the counterpart in the [legacy docs][9].
 
 <!-- references -->
 
@@ -155,3 +167,9 @@ sudo systemctl start onezone
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
+
+[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[running].html
+
+[8]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[upgrading].html
+
+[9]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[monitoring].html

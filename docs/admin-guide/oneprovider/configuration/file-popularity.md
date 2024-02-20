@@ -45,7 +45,7 @@ For more information on querying [views][2], see
 ### The popularity function
 
 The key that is emitted to the *file popularity view* is the value of the
-*popularity _function_ for a given file.
+\*popularity *function* for a given file.
 The function is defined as follows:
 
 ```

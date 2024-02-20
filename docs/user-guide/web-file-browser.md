@@ -4,7 +4,7 @@
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
-navigation, file upload or download) and advanced capabilities, specific to Onedata 
+navigation, file upload or download) and advanced capabilities, specific to Onedata
 (e.g. Quality of Service, data distribution management, datasets & archives management).
 
 The file browser is always presented in the context of a single
@@ -21,10 +21,9 @@ A file browser of a new, empty space welcomes you with the following screen:
 
 ![screen-uploading-empty][]
 
-
-To upload new files, use the **upload** button or drag and drop them into the 
+To upload new files, use the **upload** button or drag and drop them into the
 file browser area. While the data is being uploaded, a progress panel will appear
-in the bottom-right corner of your screen. You can upload multiple files 
+in the bottom-right corner of your screen. You can upload multiple files
 simultaneously or add more files while an upload is in progress.
 
 ![screen-uploading-upload][]
@@ -59,8 +58,8 @@ File list navigation is slightly different on mobile devices and is covered
 [later on][10].
 :::
 
-You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
-(or `Opt` on MacOS) while clicking to select or deselect multiple files. 
+You can select or deselect files by left-clicking on them. Hold down `Ctrl`
+(or `Opt` on MacOS) while clicking to select or deselect multiple files.
 To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
@@ -71,8 +70,8 @@ available actions appears.
 
 ![screen-layout-context-menu][]
 
-For better navigation in the file browser, you can also change the layout of it, by choosing 
-what columns of attributes you want to be displayed. Click **Configure columns** button, in the 
+For better navigation in the file browser, you can also change the layout of it, by choosing
+what columns of attributes you want to be displayed. Click **Configure columns** button, in the
 upper-right corner of the file browser, and choose desired columns.
 
 ![screen-column-configuration][]
@@ -82,21 +81,18 @@ directories — new items are dynamically loaded when the list is scrolled down.
 
 ![screen-layout-infinite-scroll][]
 
-To quickly jump to the desired file or directory, type desired phrase, in the search bar 
+To quickly jump to the desired file or directory, type desired phrase, in the search bar
 located below the breadcrumbs, and you will be moved to the first file or
 directory which name starts with the desired prefix.
 
 ![screen-prefix-search][]
 
-
 Apart from basic details displayed on the list, additional information and
-characteristics of files are presented using tags. For instance, the tags include information 
+characteristics of files are presented using tags. For instance, the tags include information
 on whether a file is shared, has Quality of Service requirements
 attached or is marked as Dataset.
 
 ![screen-layout-file-tags][]
-
-
 
 ## File browser features
 
@@ -127,7 +123,7 @@ You can also excess the Information tab by hovering over the icon of the file or
 
 ### Download
 
-This action simply downloads chosen single file or directory. You can also download single 
+This action simply downloads chosen single file or directory. You can also download single
 file by double-clicking on them.
 
 ### Share
@@ -150,10 +146,9 @@ shares, with the possibility to copy their public links, view their details
 This action brings up the **Datasets** modal, where you can assign a dataset status to
 your file or directory. Datasets are files or directories that space users identify
 as meaningful data collections to them. To read more about the functionality of the
-Datasets head over to this [page](datasets.md). 
+Datasets head over to this [page][5].
 
 ![screen-feature-datasets][]
-
 
 ### Metadata
 
@@ -168,11 +163,11 @@ highlighting.
 
 Invokes an editor of [permissions][22] assigned to the file —
 [POSIX][23] or [Access Control List
-(ACL)][24]. 
+(ACL)][24].
 You can assign only one permission type to each file at a time.
 To select the currently applied permission type, use the **Permissions type** toggle.
 
-Edit the POSIX permissions for each file by using the octal representation 
+Edit the POSIX permissions for each file by using the octal representation
 field or manipulating the checkboxes.
 
 ![screen-feature-permissions-posix][]
@@ -214,12 +209,12 @@ to determine where the replicas should be stored.
 
 Below the requirement, it is displayed what storage backends match the requirement
 and an action that copies the expression in textual form, to be reused when creating a new
-requirement or using the [REST API][33].
+requirement or using the [REST API][].
 
 ![screen-feature-qos-visual-match][]
 
-You can also enter expressions in textual form. They will be converted to block form upon 
-confirmation and can be further edited.
+Expressions can be entered in the textual form. They are converted to block form
+upon confirmation, and then can be further edited.
 
 ![screen-feature-qos-text][]
 
@@ -230,33 +225,20 @@ unless they are inherited from any parent directory.
 
 ![screen-feature-qos-requirements][]
 
-<!--- TODO VFS-7218
-
-### Run workflow
-
-This action brings up a modal containing a list of all the uploaded workflows, that
-you can choose to run your file on. To read more about the functionality of the
-workflows head over to [autiomation guide](automation.md).
-
-![Run workflow modal](../../images/user-guide/web-file-browser/feature-run-workflow.png#screenshot)
-
---->
-
 ### Rename
+
 The basic operation used to change the file name.
 
 ![screen-feature-rename][]
 
-
 ### Create symbolic link
 
 This action lets you create a symbolic link to a single file or directory and place it in a chosen destination.
- A symbolic link also known as a symlink, is a file that acts as a reference or 
+A symbolic link also known as a symlink, is a file that acts as a reference or
 pointer to another file or directory. To place a symbolic link in the directory you are in,
 click on the highlighted button in the top right corner.
 
 ![screen-feature-symlink][]
-
 
 ### Create hard link
 
@@ -267,15 +249,14 @@ an additional name or entry for an existing file. Multiple hard links can exist
 for a single file, and they all refer to the same underlying data on the disk.
 
 To place a hard link follow the same steps as you would with placing a symbolic link.
-As you create a hard link, the original file will now display a label 
-with the number of hard links created to this file. You can click on the label you will 
-see the list of existing hard links in the **Details** modal. 
-
+As you create a hard link, the original file will now display a label
+with the number of hard links created to this file. You can click on the label you will
+see the list of existing hard links in the **Details** modal.
 
 ![screen-feature-hardlink][]
 
-
 ### Copy, Cut, and Paste
+
 The **copy** or **cut** action from the context menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
@@ -318,7 +299,7 @@ The currently selected provider is shown on the top of the file browser in the
 **View provided by...** bar. Although the provider is chosen automatically, it
 is possible to manually select a different one using the **Choose other
 Oneprovider...** action at the top of the file browser, given that there is more
-than one supporting provider. Alternatively, providers can be switched using a 
+than one supporting provider. Alternatively, providers can be switched using a
 world map visual representation, available under the globe icon.
 
 ![screen-oneprovider-switch][]
@@ -343,6 +324,8 @@ creating new files or directories, scheduling data transfers, etc).
 
 [4]: providers.md
 
+[5]: datasets.md
+
 [10]: #mobile-file-browser
 
 [14]: spaces.md#space-privileges
@@ -359,11 +342,11 @@ creating new files or directories, scheduling data transfers, etc).
 
 [27]: data.md#file-distribution
 
-[29]: replication-and-migration.md
+[replication, migration and eviction]: data-transfer.md
 
-[31]: quality-of-service.md
+[31]: qos.md#web-gui-guide
 
-[33]: rest-api.md
+[REST API]: rest-api.md
 
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
@@ -405,14 +388,6 @@ creating new files or directories, scheduling data transfers, etc).
 
 [screen-feature-distribution-schedule]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
 
-[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
-
-[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
-
-[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
-
-[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
-
 [screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
 
 [screen-feature-symlink]: ../../images/user-guide/web-file-browser/feature-sumbolic-link.png
@@ -422,6 +397,14 @@ creating new files or directories, scheduling data transfers, etc).
 [screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
 
 [screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
+
+[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
+
+[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
+
+[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
+
+[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
 
 [screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
 

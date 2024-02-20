@@ -2,54 +2,54 @@
 
 [toc][1]
 
-Onedata provides a command-line based client that is able to mount your spaces
-in your local file system tree. Oneclient is based on
-[Fuse][2]. Follow installation
-instructions below your particular platform.
+Onedata provides a command-line client that can mount your spaces in your local
+file system tree. Oneclient is based on [Fuse][].
+Follow the installation instructions below for your particular platform.
 
 ## Installation
 
 Oneclient is supported on several major Linux platforms including Ubuntu
-(Xenial, Bionic) and CentOS 7. It can be installed using packages or the
-Conda package manager.
+(Xenial, Bionic, Focal, Jammy) and CentOS 7. It can be installed using packages
+or using [Anaconda][] package manager.
 
 ### Packages
 
 To install Oneclient using packages, simply use the following command:
 
 ```bash
-$ curl -sS http://get.onedata.org/oneclient-2002.sh | bash
+$ curl -sS http://get.onedata.org/oneclient.sh | bash
 ```
 
-> **NOTE**: The above command is only valid when installing a major release 20.02.\*.
-> For other versions, use appropriate script suffix, e.g. `1902` instead of `2002`.
+> **NOTE**: The above command is only valid when installing the latest release.
+> For other versions, use appropriate script suffix, e.g. `http://get.onedata.org/oneclient-2002.sh`.
 
-> After installing, ensure that you are able to access `fusermount` tool, by
-> running `fusermount -h`. In case you are not allowed to execute `fusermount`,
-> ask your administrator to make you a member of the `fuse` group. If you have
-> administrator rights to your machine, use command `gpasswd -a <username> fuse`
-> to add your account to the `fuse` group.
+After installing, ensure that you can access `fusermount` tool, by
+running `fusermount -h`. This is necessary to later unmount `oneclient`.
+In case you are not allowed to execute `fusermount`,
+ask your administrator to make you a member of the `fuse` group. If you have
+administrator rights to your machine, use the command `gpasswd -a <username> fuse`
+to add your account to the `fuse` group.
 
 ### Anaconda
 
-Oneclient can be also installed using [Anaconda][3],
-from the official [Onedata conda repository][4]:
+Oneclient can be also installed using [Anaconda][],
+from the official [Onedata conda repository][anaconda onedata]:
 
 ```bash
-$ conda install -c onedata oneclient
+$ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient
 ```
 
-or to install a specific version of oneclient
+or to install a specific version of Oneclient:
 
 ```bash
-$ conda install -c onedata oneclient=20.02.5
+$ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient=20.02.5
 ```
 
 For `CentOS 6` there is a special Conda channel `onedata-centos6`, and the
 install command is:
 
 ```bash
-$ conda install -c onedata-centos6 oneclient
+$ conda --experimental-solver=libmamba install -c onedata-centos6 -c conda-forge oneclient
 ```
 
 ## Authentication
@@ -57,19 +57,20 @@ $ conda install -c onedata-centos6 oneclient
 To mount your spaces using Oneclient, you need to authenticate with a
 specific Onezone service and obtain an access token suitable for Oneclient.
 Access tokens can be generated directly from the Web interface — see the
-[quickstart guide][5]. More information on
+[tokens quickstart guide][]. More information on
 different types of tokens, and how to create them programmatically using the
-REST API can be found [here][6].
+REST API can be found [here][tokens].
 
-> IMPORTANT: Please make sure not to publish your access tokens or share them
+> **IMPORTANT:** Make sure not to publish your access tokens or share them
 > with anyone. Access tokens should be treated the same way as private keys or
 > passwords — they are intended to be used only by their owners for authentication
 > with Onedata services. The only exception is when a token is consciously limited
-> by [caveats that restrict access to data][7]
+> by [caveats that restrict access to data][tokens safety]
 > (e.g. read-only access to a specific subdirectory). If you wish to collaborate
-> on the same space and data with another user, simply [invite them to your space][8].
+> on the same space and data with another user, simply
+> [invite them to your space][invite user].
 
-If you are connecting to a provider service which does not have a globally
+If you are connecting to a Oneprovider service that does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
 `oneclient` invocation or export `ONECLIENT_INSECURE=1` environment variable.
 
@@ -89,75 +90,83 @@ $ export ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME>   # e.g. provider-krakow.on
 $ oneclient <MOUNT_POINT>                              # e.g. /home/joe/oneclient
 ```
 
-Provide the hostname of a chosen provider — one that supports at least one
-of your spaces. The choice of provider may depend on several factors:
+Provide the hostname of a chosen Oneprovider — one that supports at least one
+of your spaces. The choice of Oneprovider may depend on several factors:
 
-1. The quality of your network connection to the provider.
-2. Whether the provider supports the space that is to be accessed.
-3. Whether you wish to use the [direct I/O][9] mode.
+1. The quality of your network connection to the Oneprovider.
+2. Whether the Oneprovider supports the space that is to be accessed.
+3. Whether you wish to use the [direct I/O][direct-io] mode.
 
-The hostname can be found in the [Web GUI][10].
+The hostname can be found in the [Web GUI][oneprovider-domain].
 
-In order to terminate the Oneclient application and unmount your spaces, type:
+To terminate the Oneclient application and unmount your spaces, type:
 
 ```bash
 $ fusermount -uz <MOUNT_POINT>
 ```
 
+or (depending on version and platform):
+
+```bash
+$ fusermount3 -uz <MOUNT_POINT>
+```
+
 ## Options
 
-### Mounting selected spaces only
+### Mounting only selected spaces
 
 By default, `oneclient` will expose under the specified mountpoint all spaces
 available to the user, whose access token was passed on the command line.
 
-It is however possible to limit the spaces which are visible, by providing a
+It is however possible to limit the visible spaces, by providing a
 white list of the spaces on the command line. This can be achieved using 2
 options:
 
-* `--space <name>` —  every occurence of this option followed by the name of
+* `--space <name>` —  every occurrence of this option followed by the name of
   a space will limit the mounted spaces to the specified spaces (e.g.
   `--space Space1 --space Space2`)
-* `--space-id <id>` —  every occurence of this option followed by the id of a
+* `--space-id <id>` —  every occurrence of this option followed by the id of
   space will limit the mounted spaces to the specified spaces (e.g.
   `--space-id a58a461875b59988bd16eca960d8130b --space-id bd16eca960d8130ba58a461875b53451`)
 
 ### Direct I/O and Proxy I/O modes
 
-With respect to data access, oneclient can work in 2 modes: direct I/O and
+With respect to data access, `oneclient` can work in 2 modes: direct I/O and
 proxy I/O. The difference between these modes is that direct I/O allows
-Oneclient to `read` and `write` data directly to the physical storage, assuming
-that the Oneclient process has direct network access to the storage (e.g. S3
+`oneclient` to `read` and `write` data directly to the physical storage, assuming
+that the `oneclient` process has direct network access to the storage (e.g. S3
 bucket or Ceph pool), which is not always available. Proxy I/O mode does not
 require physical access to the storage by the Oneclient process, since in this
 mode all `read` and `write` operations go to the storage indirectly through
 Oneprovider. In both modes, filesystem metadata operations (e.g. `rename` or
 `truncate`) go through Oneprovider to ensure data integrity.
 
-![screen-oneclient-direct-proxy][]
+![image-oneclient-direct-proxy][]
 
-By default `oneclient` will automatically try to detect if it can access
+By default, `oneclient` will automatically try to detect if it can access
 storage supporting user spaces directly. The storage access detection is
-performed on first `read` or `write` operation in given space, which may cause
-a brief increase of latency.
+performed on the first `read` or `write` operation in a given space, which may
+cause a brief increase in latency.
 
-> NOTE: Direct I/O mode should always be preferred if possible due to much
+> **NOTE:** Direct I/O mode should always be preferred if possible due to much
 > better performance and scalability, as all `read` and `write` operations go
 > directly to the storage and not via the Oneprovider service.
 
 This feature can be controlled using 2 command line options:
 
 * `--force-proxy-io` — disables Direct I/O mode, all data transfers will go
-  via Oneprovider service using so called Proxy I/O, which in most cases will
+  via Oneprovider service using so-called Proxy I/O, which in most cases will
   be somewhat slower, and definitely less scalable than Direct I/O when running
-  large number of Oneclient instances connected to a single Oneprovider service
+  a large number of Oneclient instances connected to a single Oneprovider service
 * `--force-direct-io` — forces Direct I/O mode, any `read` or `write`
   operation will return `Operation not supported` error. The only exception
   is when the file is not accessible due to incorrect permissions on the
   storage, in such case the file will be accessed using proxy I/O mode.
 
-> NOTE: Oneclient will be able to use direct I/O to a storage only if connected
-> to a Oneprovider that supports the space with this storage.
+> **NOTE:** Oneclient will be able to use direct I/O to a storage only if connected
+> to a Oneprovider that supports the space with this storage. In case the data
+> is located on storage managed by another Oneprovider deployment, the data
+> will not be accessible through this Oneclient.
 
 ### Buffering
 
@@ -170,15 +179,15 @@ If for some reason this in-memory buffer is undesired, it can be disabled using
 
 The buffer size can be also fine-tuned using the following options:
 
-* `--read-buffer-min-size` — minimum size of the read buffer for a single opened file,
-* `--read-buffer-max-size` — maximum size of the read buffer for a single opened file,
-* `--read-buffer-total-size` — maximum size of read buffer for all opened
+* `--read-buffer-min-size` — the minimum size of the read buffer for a single opened file,
+* `--read-buffer-max-size` — the maximum size of the read buffer for a single opened file,
+* `--read-buffer-total-size` — the maximum size of the read buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
-* `--write-buffer-min-size` — minimum size of the write buffer for a single
+* `--write-buffer-min-size` — the minimum size of the write buffer for a single
   opened file,
-* `--write-buffer-max-size` — maximum size of the write buffer for a single
+* `--write-buffer-max-size` — the maximum size of the write buffer for a single
   opened file,
-* `--write-buffer-total-size` — maximum size of write buffer for all opened
+* `--write-buffer-total-size` — the maximum size of the write buffer for all opened
   files, if this value is exceeded consecutive open files will be unbuffered,
 
 ### Overriding storage helper parameters
@@ -188,7 +197,7 @@ access to storage from a Oneclient host to the storage. Use cases for this featu
 specifying custom mount-point for POSIX storage backends, alternate IP addresses for
 network storage backends (e.g. available over local network from Oneclient host), etc.
 
-For example, to tell Oneclient that a NFS storage is mounted at
+For example, to tell Oneclient that an NFS storage is mounted at
 `/home/user1/nfs` on the Oneclient host the following option should be added to
 the Oneclient command line:
 `--override 2bede2623303bc2a19696e5817e13c0b:mountPoint:/home/user/nfs`, where
@@ -196,32 +205,37 @@ the Oneclient command line:
 
 The `--override` option takes 3 arguments separated by `:`:
 
-* `storage ID` — this is Onedata internal storage Id, which can be obtained
-  from Onepanel administrator interface or using REST API
-* `parameter name` — this is the name of the storage helper parameter, these
-  are specific to particular type of storage
+* `storage ID` — Onedata internal storage ID, which can be obtained
+  from the Onepanel administrator interface or using REST API
+* `parameter name` — the name of the storage helper parameter, these
+  are specific to each type of storage
 * `parameter value` — a value, which should override the value specified in the
-  Oneprovider when registering the storage
+  Oneprovider storage settings
 
 ### Logging
 
-In order to enable a verbose log, `oneclient` provides a `-v` flag, which takes
-a single integer argument which determines the log verbosity:
+To enable a verbose log, `oneclient` provides a `-v` flag, which takes
+a single integer argument that determines the logging verbosity:
 
 * `-v 0` — *(default)* only serious errors
-* `-v 1` — warnings and errors which are not fatal
+* `-v 1` — information, warnings, and errors that are not fatal
 * `-v 2` — verbose information on requests and their handling
 * `-v 3` — trace function calls along with their arguments
 * `-v 4` — binary messages between Oneclient and Oneprovider
 
 > **NOTE**: above level 2, the size of the logs can be substantial thus
-> it is necessary to monitor free disk space. When the machine runs out of disk
-> space, Oneclient will stop logging.
+> it is necessary to monitor free disk space. When the machine runs out of
+> disk space, Oneclient will stop logging.
+
+By default, the logs are buffered and if `oneclient` process is terminated
+abruptly, the latest log messages may not be available. This can be changed
+by adding an option `--disable-log-buffering`, which ensures that every single
+log is flushed to the file. This has however significant performance impact.
 
 ### Other options
 
-To see full set of `oneclient` command line options checkout the man page
-`man oneclient` or print help information using `oneclient -h`:
+To see the full set of `oneclient` command line options print help
+information on the command line using `oneclient -h`:
 
 ```bash
 $ oneclient -h
@@ -264,6 +278,7 @@ General options:
                                         Specify the verbosity level (0-3) for
                                         verbose logs (only available in debug
                                         builds).
+  --disable-log-buffering               Disable log buffering.
 
 Advanced options:
   --io-trace-log                        Enable detailed IO trace log
@@ -276,12 +291,9 @@ Advanced options:
   --buffer-scheduler-thread-count <threads> (=1)
                                         Specify number of parallel buffer
                                         scheduler threads.
-  --communicator-pool-size <connections> (=10)
+  --communicator-pool-size <connections> (=25)
                                         Specify number of connections in
                                         communicator pool.
-  --communicator-thread-count <threads> (=4)
-                                        Specify number of parallel communicator
-                                        threads.
   --scheduler-thread-count <threads> (=1)
                                         Specify number of parallel scheduler
                                         threads.
@@ -290,6 +302,7 @@ Advanced options:
                                         helper threads.
   --no-buffer                           Disable in-memory cache for
                                         input/output data blocks.
+  --no-xattr                            Disable extended attributes support.
   --provider-timeout <duration> (=120)  Specify Oneprovider connection timeout
                                         in seconds.
   --storage-timeout <duration> (=120)   Specify I/O storage timeout in seconds.
@@ -377,15 +390,13 @@ Advanced options:
   --cluster-prefetch-threshold-random   Enables random cluster prefetch
                                         threshold selection (experimental).
   --metadata-cache-size <size> (=5000000)
-                                        Number of separate blocks after which
-                                        replication for the file is triggered
-                                        automatically.
+                                        Maximum number of file attributes
+                                        cached in the metadata cache.
   --readdir-prefetch-size <size> (=2500)
                                         Specify the size of requests made
                                         during readdir prefetch (in number of
                                         dir entries).
-  --dir-cache-drop-after <seconds> (=300)
-                                        Specify (in seconds) how long should
+  --dir-cache-drop-after <seconds>      Specify (in seconds) how long should
                                         directories be cached since last
                                         activity. When 0 is provided, the cache
                                         never expires.
@@ -402,7 +413,11 @@ Advanced options:
                                         When set to non-zero value, emulates
                                         available space reported by stat system
                                         call to specified number of bytes.
-  --enable-archivematica                Enable Archivematica mode.
+  --hard-link-count                     Show hard link count properly in stat.
+  --open-shares-mode                    Enable open share mode, in which space
+                                        directories list open data shares.
+  --show-space-ids                      Show space Id's instead of space names
+                                        in the filesystem tree.
 
 FUSE options:
   -f [ --foreground ]         Foreground operation.
@@ -424,6 +439,15 @@ Monitoring options:
   --graphite-namespace-prefix <name>  Graphite namespace prefix.
 ```
 
+## File extended attributes
+
+Extended file attributes are used in Oneclient to expose file metadata.
+They can be accessed with tools such as [xattr][2]
+or `getfattr`. Extended attributes, starting with `org.onedata.` prefix, are
+Onedata system attributes that provide useful information about files.
+For more information on metadata management in Oneclient please look
+[here][3].
+
 ## Using Oneclient from Docker
 
 Oneclient can also be started without installation using our official Docker images:
@@ -435,7 +459,7 @@ $ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
-directory (inside container). They can be accessed from another terminal,
+directory (inside the container). They can be accessed from another terminal,
 for instance using:
 
 ```bash
@@ -445,7 +469,7 @@ $ ls /mnt/oneclient
 ```
 
 However, if it is necessary to enter the Docker and start the Oneclient manually,
-the Docker image entrypoint should be overriden as follows:
+the Docker image entry point should be overridden as follows:
 
 ```bash
 $ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:${RELEASE}
@@ -453,10 +477,10 @@ $ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:${RELEASE}
 
 ## Running Oneclient as systemd service
 
-In some scenarios it may be convenient to run Oneclient as a service which is
+In some scenarios, it may be convenient to run Oneclient as a service that is
 mounted before certain other services (e.g. user jobs) are executed on the
-machine. For this purpose a simple systemd service script can be created, with
-accompanying environment file with proper definitions.
+machine. For this purpose, a simple `systemd` service script can be created,
+with an accompanying environment file with proper definitions.
 
 The environment file should be created at: `/etc/oneclient.env`
 
@@ -466,7 +490,7 @@ ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN>
 ONECLIENT_MOUNT=/mnt/oneclient
 ```
 
-After that the systemd service script `/etc/systemd/system/oneclient.service`
+After that the `systemd` service script `/etc/systemd/system/oneclient.service`
 can look like this:
 
 ```ini
@@ -490,7 +514,7 @@ Type          = forking
 WantedBy    = multi-user.target
 ```
 
-The oneclient service can then be used in the following way:
+The `oneclient` service can then be used in the following way:
 
 ```bash
 # Start oneclient
@@ -661,26 +685,30 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [1]: <>
 
-[2]: https://github.com/libfuse/libfuse
+[fuse]: https://github.com/libfuse/libfuse
 
-[3]: https://anaconda.org
+[anaconda]: https://anaconda.org
 
-[4]: https://anaconda.org/onedata
+[anaconda onedata]: https://anaconda.org/onedata
 
-[5]: tokens.md#access-token-quickstart
+[tokens quickstart guide]: tokens.md#access-token-quickstart
 
-[6]: ./tokens.md
+[tokens]: ./tokens.md
 
-[7]: tokens.md#safely-publishing-tokens
+[tokens safety]: tokens.md#safely-publishing-tokens
 
-[8]: spaces.md#invite-a-user
+[invite user]: spaces.md#invite-a-user
 
-[9]: #direct-io-and-proxy-io-modes
+[direct-io]: #direct-io-and-proxy-io-modes
 
-[10]: data.md#provider-domain
+[oneprovider-domain]: data.md#provider-domain
+
+[image-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+
+[2]: https://github.com/xattr/xattr
+
+[3]: metadata.md#metadata-management-with-oneclient-and-onedatafs
 
 [12]: https://docs.docker.com/engine/extend/plugins_volume/
 
 [13]: #options
-
-[screen-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png

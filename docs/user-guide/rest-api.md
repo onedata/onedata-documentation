@@ -29,10 +29,10 @@ Assume the following domains:
 
 Then, the APIs can be accessed using the following endpoints:
 
-| Service                         | API endpoint                                                                                                                          |
-| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ |
-| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                      |
-| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                            |
+| Service                         | API endpoint                                                                                                                        |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
+| Onezone Worker                  | `https://onezone.plgrid.pl/api/v3/onezone/{...}`                                                                                    |
+| Oneprovider Worker              | `https://oneprovider.cyfronet.pl/api/v3/oneprovider/{...}`                                                                          |
 | Onezone Panel (admins only)     | `https://onezone.plgrid.pl/api/v3/onepanel/{...}` <br />or<br /> `https://onezone.plgrid.pl:9443/api/v3/onepanel/{...}`             |
 | Oneprovider Panel (admins only) | `https://oneprovider.cyfronet.pl/api/v3/onepanel/{...}` <br />or<br /> `https://oneprovider.cyfronet.pl:9443/api/v3/onepanel/{...}` |
 
@@ -59,8 +59,8 @@ ID. You can find it with the following REST query (you will need the provider
 [domain][provider domain]):
 
 ```bash
-curl "https://${PROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
-     
+curl "https://${ONEPROVIDER_DOMAIN}/api/v3/oneprovider/configuration" | jq .providerId
+
 "2ee1df8b32302fee25042a538b26473ech7ae7"
 ```
 

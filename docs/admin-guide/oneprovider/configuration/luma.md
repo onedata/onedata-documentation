@@ -140,7 +140,7 @@ The record has one of the two schemes:
 {
     "mappingScheme": "onedataUser" | "idpUser",
     // fields for "onedataUser" scheme
-    "onedataUserId": String,     
+    "onedataUserId": String,
     // fields for "idpUser" scheme
     "idp": String,
     "subjectId": String
@@ -405,7 +405,7 @@ Below is the full API specification of the external LUMA feed server.
             "subjectId": String,
             "username": String,
             "emails": [String],
-            "custom": JSON       
+            "custom": JSON
         ]
     }
 }

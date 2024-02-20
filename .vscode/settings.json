@@ -1,17 +1,21 @@
 {
   "[markdown]": {
     "editor.defaultFormatter": "unifiedjs.vscode-remark",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.rulers": [{
+        "column": 90,
+        "color": "#99999944"
+      },
+      {
+        "column": 120,
+        "color": "#ff000044"
+      }]
   },
-  "editor.rulers": [{
-      "column": 90,
-      "color": "#99999944"
-    },
-    {
-      "column": 120,
-      "color": "#ff000044"
-    },
-  ],
+  "[python]": {
+    "editor.rulers": [{
+      "column": 100
+    }]
+  },
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.markdown.nodes": {
     "ImageRef": "ignore",
@@ -21,11 +25,6 @@
     "dictionary": "workspace",
     "disabledRules": "workspace",
     "hiddenFalsePositives": "workspace"
-  },
-  "ltex.enabledRules": {
-    "en-US": [
-      "PASSIVE_VOICE"
-    ]
   },
   "ltex.disabledRules": {
     "en-US": [
@@ -54,6 +53,7 @@
       "IdP",
       "LTeX",
       "LUMA",
+      "MinIO",
       "NullDevice",
       "nvm",
       "OAIS",
@@ -70,9 +70,10 @@
       "QoS",
       "quickstart",
       "Quickstart",
-      "Rados",
+      "RADOS",
       "rclone",
       "remarkrc",
+      "snapshotted",
       "subpath",
       "toc",
       "UIDs",

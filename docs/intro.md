@@ -2,6 +2,14 @@
 title: 'Introduction'
 ---
 
+# <img src="../images/intro/logo-dark.svg" class="intro-header" width="210">
+
+# 🚧 Under construction! 🚧
+
+This documentation is a work-in-progress and may have errors or missing information.
+
+Begging your patience as we finalize the transition.
+
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
     - a couple of words about Onedata
@@ -13,8 +21,6 @@ INTRODUCTION  (landing page)
      - rework user interfaces, move them somewhere else (data management interfaces are already on the data page, but
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
-
-# ![image-heading][] Documentation
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
@@ -108,22 +114,22 @@ Currently, Onedata exposes a CDMI (Cloud Data Management Interface) [interface][
 
 ## Architecture
 
+### 🚧 Under construction! 🚧
+
 <!-- TODO VFS-6805: description of architecture: Onezones, Oneproviders, Onepanels, glossary -->
 
 <!-- TODO VFS-6805: describe the concept of Oneprovider being a service deployed in a data provider institution 
                     and offering storage space for users -->
 
-architecture
-
 <!-- references -->
 
 [user quickstart]: user-guide/quickstart.md
 
-[onezone]: admin-guide/onezone
+[Onezone]: admin-guide/onezone/quickstart.md
 
-[oneprovider]: admin-guide/oneprovider
+[Oneprovider]: admin-guide/oneprovider/quickstart.md
 
-[admin guide]: admin-guide/
+[admin guide]: admin-guide/overview.md
 
 [Space Management]: user-guide/spaces.md
 
@@ -140,7 +146,5 @@ architecture
 [CDMI interface]: user-guide/cdmi.md
 
 [REST interface]: https://onedata.org/#/home/api
-
-[image-heading]: ../images/intro/heading.png
 
 [screen-web-gui-example]: ../images/intro/web-gui-example.png

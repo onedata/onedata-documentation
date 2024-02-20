@@ -29,6 +29,7 @@ module.exports = {
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
+          '/user-guide/data-distribution',
           '/user-guide/web-file-browser',
           '/user-guide/shares',
           '/user-guide/open-data',
@@ -36,12 +37,12 @@ module.exports = {
           '/user-guide/oneclient',
           '/user-guide/onedatafs',
           '/user-guide/rest-api',
-          '/user-guide/replication-and-migration',
-          '/user-guide/quality-of-service',
+          '/user-guide/qos',
+          '/user-guide/data-transfer',
           '/user-guide/metadata',
           '/user-guide/data-discovery',
-//          '/user-guide/datasets',  % @TODO VFS-7218
-//          '/user-guide/archives',
+          '/user-guide/datasets',
+          '/user-guide/archives',
 //          '/user-guide/automation',
           '/user-guide/file-registration',
           '/user-guide/views',
@@ -64,6 +65,7 @@ module.exports = {
               '/admin-guide/onezone/overview',
               '/admin-guide/onezone/installation',
               '/admin-guide/onezone/maintenance',
+              '/admin-guide/onezone/administration-panel',
               {
                 title: 'Configuration',
                 collapsable: false,
@@ -80,6 +82,7 @@ module.exports = {
                   '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
                   '/admin-guide/onezone/configuration/data-discovery',
+                  '/admin-guide/onezone/configuration/handle-services',
                   '/admin-guide/onezone/configuration/advanced-config'
                 ]
               }
@@ -94,6 +97,8 @@ module.exports = {
               '/admin-guide/oneprovider/overview',
               '/admin-guide/oneprovider/installation',
               '/admin-guide/oneprovider/maintenance',
+              '/admin-guide/oneprovider/administration-panel',
+              '/admin-guide/oneprovider/troubleshooting',
               {
                 title: 'Configuration',
                 collapsable: false,
@@ -110,7 +115,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
-                  '/admin-guide/oneprovider/configuration/quality-of-service',
+                  '/admin-guide/oneprovider/configuration/qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]

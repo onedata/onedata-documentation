@@ -4,6 +4,10 @@
 
 <!-- as needed: link to configuration, compatibility-reference [versions]) -->
 
-## Docker-based
+## 🚧 Under construction! 🚧
 
-## Native <!-- say that its not recommended, give a link to the dockerfile as reference, contact us if required -->
+This section is coming soon. For now, see the counterpart in the [legacy docs][1].
+
+<!-- references -->
+
+[1]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[installation].html

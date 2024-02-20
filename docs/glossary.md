@@ -9,6 +9,11 @@
 Mechanism for granting and denying access to files and directories.
 Learn more [here][1].
 
+## Archive
+
+Snapshot of a [dataset][] created at a certain point in time.
+Learn more [here][archive-more].
+
 ## Auto-cleaning
 
 Mechanism that automatically maintains storage usage at a certain
@@ -25,9 +30,15 @@ Learn more [here][5].
 
 ## Cluster
 
+### 🚧 Under construction! 🚧
+
 ## Cluster manager
 
+### 🚧 Under construction! 🚧
+
 ## Couchbase
+
+### 🚧 Under construction! 🚧
 
 ## Data Discovery
 
@@ -36,6 +47,12 @@ files in multiple [spaces][3] and submit it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][7]
 that can have different configuration and source spaces.
 Learn more [here][8].
+
+## Dataset
+
+File or directory marked by space users as representing data collections
+relevant to them. They can be used to organize data in a space systematically and provide
+an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
 ## File ID
 
@@ -68,9 +85,15 @@ Learn more [here][15].
 
 ## Group
 
+### 🚧 Under construction! 🚧
+
 ## Handle
 
+### 🚧 Under construction! 🚧
+
 ## Handle service
+
+### 🚧 Under construction! 🚧
 
 ## Harvester
 
@@ -86,6 +109,8 @@ Enables [Storage import][19] when used to support a space.
 Learn more [here][20].
 
 ## Let’s Encrypt
+
+### 🚧 Under construction! 🚧
 
 ## LUMA
 
@@ -115,15 +140,21 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
 
+### 🚧 Under construction! 🚧
+
 <!-- TODO: VFS-7218 piece of software that is installed at a data provider site -->
 
 ## Onezone
+
+### 🚧 Under construction! 🚧
 
 ## Provider
 
 <!-- TODO: VFS-7218 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
+
+### 🚧 Under construction! 🚧
 
 ## Space
 
@@ -134,8 +165,6 @@ fine-grained privileges. Learn more [here][29].
 <!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
 
 ## Storage
-
-fixme gwiazdka naroznik
 
 Storage resource recognized by a [Oneprovider][28] and used to [support][30] Onedata [spaces][3].
 Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
@@ -238,3 +267,11 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [37]: #oneclient
 
 [38]: user-guide/tokens.md
+
+[archives]: #archive
+
+[dataset]: #dataset
+
+[archive-more]: user-guide/archives.md
+
+[dataset-more]: user-guide/datasets.md

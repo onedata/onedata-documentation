@@ -1,7 +1,6 @@
 .PHONY: all build dev clean
 
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v5
-LANGUAGETOOL_IMG=docker.onedata.org/languagetool:v1
 
 all: build
 
@@ -9,7 +8,7 @@ lint:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
 
 check-language:
-	docker run --rm -t -e "TERM=xterm-256color" -v`pwd`:/vuepress ${LANGUAGETOOL_IMG} --client-configuration=/vuepress/.vscode/settings.json /vuepress/docs
+	./check-language.py
 
 format-all:
 	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all

@@ -2,8 +2,8 @@
 
 [toc][1]
 
-The Onedata system organizes all user data into logical containers called spaces. 
-Refer to [this][2] chapter for details about this concept and how 
+The Onedata system organizes all user data into logical containers called spaces.
+Refer to [this][2] chapter for details about this concept and how
 the logical files are mapped to their physical content on storage backends.
 
 ## File path and ID
@@ -34,13 +34,13 @@ IDs**, due to better performance and no need for escaping or encoding.
 
 There are several ways to find out the File ID of a file:
 
-[Web GUI][3] — the `File ID` can be obtained using the **Information** action in the
-file/directory context menu:
+[Web GUI][3] — click on **Information** in the file/directory context menu and look
+for `File ID`:
 ![screen-file-gui-path-and-info][]
 
-[Oneclient][5] — useful information about every file is accessible
-using the `xattr` command (that reads extended attributes) — the below command
-returns specifically the File ID attribute:
+[Oneclient][14] — use the `xattr` command (which reads extended attributes)
+to access useful information about any file or directory. The below command returns
+specifically the File ID attribute:
 
 ```bash
 ~$ xattr -p org.onedata.file_id garden.png
@@ -98,11 +98,10 @@ some characters in paths should be properly escaped:
 
 Onedata offers several ways of accessing and managing user data. Regardless of the
 interface you choose, you will have a unified view of all your files. All data management
-interfaces are available in the [Oneprovider service][11]. Depending on the environment,
-there might be several Oneprovider services [supporting user spaces][12] that you can use
-to access the data. While the [Web GUI][3] offers natural navigation between services, the
-other interfaces require that you choose one of your Oneproviders and are aware of its
-domain (see below).
+interfaces are available in Onedata [Providers][11] that build a distributed environment.
+You can use any provider that [supports your spaces][12] to access the data. While the
+[Web GUI][3] offers natural navigation between services, the other interfaces require that
+you choose one of your providers and are aware of its domain (see below).
 
 ### Provider domain
 
@@ -209,7 +208,7 @@ In case of unauthenticated (**guest**) access, the steps are as follows:
 **Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
 for a specific principal. Onedata supports a subset of CDMI ACL which are based
-on NFSv4 standard [RFC 3530]([31].
+on NFSv4 standard [RFC 3530][31].
 
 An ACL is an ordered list of **ACEs (Access Control Entries)**. ACEs are
 evaluated strictly in the same order as they were added, top-down. If any
@@ -220,13 +219,16 @@ stopped.
 
 An ACE consists of four fields:
 
-* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 * `who` — the principal whom the ACE affects:
   * user or group represented by their identifier
+
+  <!---->
+
   * `OWNER@` — the owner of the file
-  * `GROUP@` — members of space containing the file
+  * `OWNING GROUP@` — members of space which contain the file
   * `ANONYMOUS@` — guest client (accessing through a share)
   * `EVERYONE@` — everyone, including the anonymous users
+* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
 * `flags` — currently only the flag indicating whether the principal identifier
   points to the user or group is supported, other flags can be set or
   [imported][32], but they will be ignored during ACE evaluation
@@ -244,7 +246,7 @@ All available permissions and their meaning for files or directories are present
 #### ACL for file
 
 | Permissions      |                                                |
-|------------------|------------------------------------------------|
+| ---------------- | ---------------------------------------------- |
 | Read             | open file for read                             |
 | Write            | open file for write                            |
 | Read ACL         | read file ACL                                  |
@@ -258,7 +260,7 @@ All available permissions and their meaning for files or directories are present
 #### ACL for directory
 
 | Permissions        |                                                     |
-|--------------------|-----------------------------------------------------|
+| ------------------ | --------------------------------------------------- |
 | List files         | list directory content                              |
 | Add files          | add file to directory                               |
 | Add subdirectory   | add subdirectory to directory                       |
@@ -271,8 +273,6 @@ All available permissions and their meaning for files or directories are present
 | Read attributes    | read metadata associated with directory attributes  |
 | Write attributes   | write metadata associated with directory attributes |
 | Delete             | delete directory                                    |
-
-
 
 #### Evaluation
 
@@ -298,7 +298,7 @@ algorithm:
 ### POSIX permissions
 
 Onedata implements traditional POSIX permissions typical for Unix or Linux
-systems for specifying access rights to files or directories. 
+systems for specifying access rights to files or directories.
 However, all space members are treated as a virtual group which is
 the **group** owner of all files in the space. This means that whenever a file
 is accessed by a space member who is not the owner of the file, the **group**
@@ -334,7 +334,7 @@ Default permissions (for newly created files/directories) are as follows:
 * directories: `rwx rwx r-x` (octal: `775`)
 
 You can change permissions using the [Web file browser][19] in
-the **Permissions** tab in **File Information** modal or using the 
+the **Permissions** tab in the **File Information** modal or using the 
 [REST API][36].
 
 Oneprovider admins should keep in mind that the
@@ -343,13 +343,82 @@ must be properly set up for each storage supporting a space. This is required so
 that file permissions are accurately enforced in the space and the permissions in
 Onedata are correctly mapped onto and from actual permissions on the storage,
 especially concerning the above-mentioned **group** and **others** semantics.
-<!--- TODO VFS-7218
 
 ## File distribution
 
- link to replication & migration 
+On the physical level, Onedata organizes files into blocks of various sizes.
+These file blocks can then be distributed across different providers that
+support the space in which the files are stored. Each provider contains
+a list of local file blocks, forming what we call a `file replica`.
+Information about the mapping between logical and physical files is stored
+in the file metadata, which is replicated and synchronized between all
+supporting providers.
 
--->
+When you read a whole file or its part, and some blocks are not present in the
+provider you're connected to, the missing blocks will be replicated on demand
+from other providers.
+
+When you write to a file in a given provider, the overlapping blocks replicated
+to other providers are invalidated. To read the file, the provider with
+invalidated blocks must once again replicate missing blocks from the provider
+with the newest version of the blocks.
+
+Simultaneous modifications of a file may occur when many users access it.
+If the ranges of simultaneous modifications do not overlap, all modifications
+are safely applied. In case of a conflict, a conflict resolution algorithm is
+used. This allows all supporting providers to determine a consistent, final
+version of the file. Conflict resolution is performed independently by each
+provider without the need to coordinate the resolution with other supporting
+providers, which allows it to be fast.
+
+### Discovering file distribution
+
+You can discover how the file blocks are distributed among providers supporting
+the space in which it is stored with:
+
+1. `Web GUI` - open the context menu for the file and choose **Data distribution**:
+   ![screen-file-distribution-gui][]
+
+   and you will see **Data distribution** modal, representing the distribution
+   of file blocks:
+   ![screen-file-distribution-modal][]
+
+2. `REST API` - use [get file distribution][38]
+   endpoint.
+
+3. `Oneclient` - check [file extended attributes][39]
+   and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and
+   `org.onedata.replication_progress` attributes:
+
+   ```bash
+   ~$ xattr -l results.txt
+
+   org.onedata.file_blocks: [#######################################.         ]
+   org.onedata.file_blocks_count: 1
+   org.onedata.replication_progress: 80% 
+   ...
+   ```
+
+   > **NOTE:** Note that extended attributes presents only information about
+   > file blocks stored in provider to which the Oneclient is connected.
+   > In order to find information about replicas of the file in other providers
+   > Web GUI or REST API must be used.
+
+### Distribution management
+
+You can manage the data distribution using:
+
+1. [Transfers][40] - allow to intentionally replicate,
+   evict and migrate file(s).
+
+2. [Quality of Service][41] - allows specifying requirements
+   that may ensure that file replicas in certain providers are automatically
+   updated and protected from eviction.
+
+3. [Auto-cleaning][42] -
+   automatically maintains storage usage at a predefined level, creating space
+   for new replicas during continuous computations.
+   > **NOTE:** Note that Auto-cleaning can only be configured by a space admin.
 
 <!-- references -->
 
@@ -369,7 +438,7 @@ especially concerning the above-mentioned **group** and **others** semantics.
 
 [10]: #provider-domain
 
-[11]: ../intro.md#architecture
+[11]: ../intro.md#architecture  <!-- TODO VFS-10933 link to the providers section -->
 
 [12]: spaces.md#space-support
 
@@ -424,3 +493,17 @@ especially concerning the above-mentioned **group** and **others** semantics.
 [screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
 
 [screen-provider-domain]: ../../images/user-guide/data/provider-domain.png
+
+[screen-file-distribution-gui]: ../../images/user-guide/data/file-distribution-gui.png
+
+[screen-file-distribution-modal]: ../../images/user-guide/data/file-distribution-modal.png
+
+[38]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution
+
+[39]: oneclient.md#file-extended-attributes
+
+[40]: data-transfer.md
+
+[41]: qos.md
+
+[42]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
