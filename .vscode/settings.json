@@ -89,6 +89,13 @@
   },
   "ltex.hiddenFalsePositives": {
     "en-US": [
+      // below rules match whole tables, for which LTeX is over-sensitive 
+      // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"PHRASE_REPETITION\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"WHITESPACE_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
+
+      // generic rules
       "{\"rule\":\"ALLOW_TO_DO\",\"sentence\":\"allow write access\"}",
       "{\"rule\":\"AN_INVITE\",\"sentence\":\"invite token\"}",
       "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneclient\"}",
@@ -103,13 +110,7 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
-      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
-
-      // below rules match whole tables 
-      // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)
-      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
-      "{\"rule\":\"PHRASE_REPETITION\",\"sentence\":\"\\n[-]{4,}\"}",
-      "{\"rule\":\"WHITESPACE_RULE\",\"sentence\":\"\\n[-]{4,}\"}"
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
     ]
   }
 }
