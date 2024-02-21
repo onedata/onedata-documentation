@@ -4,8 +4,8 @@
 
 ## Onedata virtual filesystem
 
-The Onedata system organizes all user data into logical containers called **spaces**. 
-Refer to [this][spaces] chapter for details about this concept and how 
+The Onedata system organizes all user data into logical containers called **spaces**.
+Refer to [this][spaces] chapter for details about this concept and how
 the logical files are mapped to their physical content on storage backends.
 
 The Onedata filesystem is managed by [Providers][] cooperating in a peer-to-peer manner,
@@ -83,11 +83,10 @@ Paths used in URLs must be URL-encoded.
 The `${PROVIDER_DOMAIN}` can be obtained as shown [below][Provider domain].
 :::
 
-
 ### Working with file paths
 
 [Web GUI][] — the path is represented in the file browser's **breadcrumb**. You may find
-it as copyable text in the **File information** modal. 
+it as copyable text in the **File information** modal.
 
 ![screen-file-gui-path-and-info][]
 
@@ -106,13 +105,12 @@ some characters in paths should be properly escaped:
 
 <!-- TODO VFS-9288 unify all NOTE blocks -->
 
-::: warning NOTE 
+::: warning NOTE
 Duplicate space names are generally allowed. For that reason, referencing
 files by path may be ambiguous. During file path resolution, the first space whose name
 matches the first segment of the path is always taken, but the order in which spaces are
-checked cannot be guaranteed. 
+checked cannot be guaranteed.
 :::
-
 
 ## Interfaces
 
@@ -133,9 +131,9 @@ Provider's domain is required to mount a [Oneclient][] instance or utilize the
 
 ![screen-provider-domain][]
 
-
 ### Web GUI
-The most user-friendly method of data management. You can find a visual guide in 
+
+The most user-friendly method of data management. You can find a visual guide in
 [this chapter][Web file browser guide].
 
 ### Oneclient
@@ -157,7 +155,6 @@ covered in [this chapter][REST API chapter].
 
 Oneprovider implements a subset of **Cloud Data Management Interface** specification, as
 described in [this chapter][CDMI chapter].
-
 
 ## Data Access Control
 
@@ -215,11 +212,10 @@ In case of unauthenticated (**guest**) access, the steps are as follows:
    shared data using the [`ANONYMOUS@`][ACE] or [`EVERYONE@`][ACE] ACL principal or the
    POSIX permissions for [`others`][POSIX permissions]).
 
-::: tip NOTE 
+::: tip NOTE
 In the case of [publicly shared][shares] files or directories, the access is additionally
-limited to read-only operations, even if ACLs or POSIX permissions allow write access. 
+limited to read-only operations, even if ACLs or POSIX permissions allow write access.
 :::
-
 
 ### POSIX permissions
 
@@ -266,7 +262,6 @@ properly set up for each storage backend supporting a space. This is required so
 permissions are accurately enforced in the space and the permissions in Onedata are
 correctly mapped onto and from actual permissions on the storage, especially concerning
 the above-mentioned **group** and **others** semantics.
-
 
 ### Access Control Lists
 
@@ -355,10 +350,10 @@ algorithm:
    fully granted nor explicitly denied**, **access is denied** and the algorithm
    terminates.
 
-::: warning NOTE 
+::: warning NOTE
 Because of the above, when setting ACL rules, you should make sure that there is at least
 one rule with a principal matching yourself and allowing ACL reading/changing. Otherwise,
-you will lose the ability to manage the ACLs. In such a case, only a [space owner][] can 
+you will lose the ability to manage the ACLs. In such a case, only a [space owner][] can
 help.
 :::
 
@@ -424,7 +419,6 @@ the space in which it is stored like below:
    other providers, use the Web GUI or REST API (see above).
    :::
 
-
 ### Distribution management
 
 You can manage the data distribution using:
@@ -464,7 +458,6 @@ You can manage the data distribution using:
 
 [POSIX permissions]: #posix-permissions
 
-
 [group]: groups.md
 
 [spaces]: spaces.md
@@ -478,12 +471,15 @@ You can manage the data distribution using:
 [space owner]: spaces.md#space-owner
 
 <!-- TODO VFS-10933 link to the providers section -->
+
 [Providers]: ../intro.md#architecture
 
 <!-- TODO VFS-11766 place some sensible link here -->
+
 [Oneprovider service]: ../intro.md#architecture
 
 <!-- TODO VFS-11766 place some sensible link here -->
+
 [Onedata zone]: ../intro.md#architecture
 
 [Web file browser guide]: web-file-browser.md
@@ -529,7 +525,6 @@ You can manage the data distribution using:
 [Quality of Service]: qos.md
 
 [Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
-
 
 [screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
 

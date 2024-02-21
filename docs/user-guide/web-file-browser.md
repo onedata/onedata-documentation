@@ -6,7 +6,7 @@
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
-navigation, file upload or download) and advanced capabilities, specific to Onedata 
+navigation, file upload or download) and advanced capabilities, specific to Onedata
 (e.g. Quality of Service, data distribution, datasets & archives).
 
 The file browser is always presented in the context of a single [space][]. It becomes
@@ -58,8 +58,8 @@ File list navigation is slightly different on mobile devices and is covered
 [later on][mobile-file-browser].
 :::
 
-You can select or deselect files by left-clicking on them. Hold down `Ctrl` 
-(or `Opt` on macOS) while clicking to select or deselect multiple files. 
+You can select or deselect files by left-clicking on them. Hold down `Ctrl`
+(or `Opt` on macOS) while clicking to select or deselect multiple files.
 To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
@@ -72,7 +72,7 @@ available actions.
 
 You can customize the file browser layout by specifying what columns (file attributes) are
 displayed. Click the **Configure columns** button, in the upper-right corner of the file
-browser to choose the desired columns and their order. You can also drag-and-drop the 
+browser to choose the desired columns and their order. You can also drag-and-drop the
 columns to change their order.
 
 ![screen-column-configuration][]
@@ -117,6 +117,7 @@ operations are available in this mode.
 This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
 
 <!-- TODO VFS-11766 Update screenshot to the newest version -->
+
 ![screen-feature-info][]
 
 You can also access the Information tab by hovering over the icon of a file or directory.
@@ -129,8 +130,11 @@ a single file with a double click.
 ### Share
 
 <!-- TODO VFS-11766 Mention the publish shortcut -->
+
 <!-- TODO VFS-11766 Add cross-links to gui guides in sections like datasets, shares etc from this guide -->
+
 <!-- TODO VFS-11766 Maybe some of the content should be moved away to avoid repetitions and keep this guide short -->
+
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
@@ -162,7 +166,7 @@ checking and highlighting.
 
 ### Permissions
 
-Invokes an editor of [permissions][] assigned to the file — [POSIX][posix-permissions] or 
+Invokes an editor of [permissions][] assigned to the file — [POSIX][posix-permissions] or
 [Access Control List (ACL)][acl]. A file can use only one of the permission types at a
 time. To select the currently applied one, use the **Permissions type** toggle.
 
@@ -180,7 +184,9 @@ allowing/denying rules for granular operations concerning the file or directory.
 ### Data distribution
 
 <!-- TODO VFS-11766 Maybe move/link to the distribution docs -->
+
 <!-- TODO VFS-11766 Missing information about distribution for files, screenshots -->
+
 This tab is used to monitor and manage the [distribution of file data][data-distribution]
 among supporting providers. The blue bars visualize which blocks (fragments of the file)
 are stored on the storage systems of the corresponding providers. When more than one file
@@ -204,7 +210,7 @@ selected file(s), which are used to automatically manage the replication of file
 according to logical rules.
 
 You can put down the rules using a visual block-based expression editor. These rules are
-evaluated against the QoS parameters assigned to different supporting storage backends 
+evaluated against the QoS parameters assigned to different supporting storage backends
 to determine where the replicas should be stored.
 
 ![screen-feature-qos-visual][]
@@ -252,8 +258,7 @@ same underlying data on the disk.
 To place a hard link, follow the same steps as for a symbolic link. As you create a hard
 link, both the original file and the hard link will now display a label with the number of
 hard links referencing the same file. You can click on the label to view the list of hard
-links. 
-
+links.
 
 ![screen-feature-hardlink][]
 
@@ -308,13 +313,13 @@ world map visual representation, available under the globe icon.
 
 ![screen-oneprovider-switch][]
 
-::: tip 
+::: tip
 After switching to another provider, you will eventually see the same content, but new
 changes might appear with different delays. Providers continuously synchronize the data
 changes within spaces, and depending on the resource usage, they can take from a couple of
 seconds to even hours to propagate. To see the changes immediately, you should select the
 provider on which you are making them (modifying file content, creating new files or
-directories, scheduling data transfers, etc.). 
+directories, scheduling data transfers, etc.).
 :::
 
 <!-- references -->
@@ -324,6 +329,7 @@ directories, scheduling data transfers, etc.).
 [space]: spaces.md
 
 <!-- TODO VFS-11766 improve when the support docs are there -->
+
 [space-support]: spaces.md#request-support-for-space
 
 [provider]: providers.md
@@ -343,6 +349,7 @@ directories, scheduling data transfers, etc.).
 [acl]: data.md#access-control-lists
 
 <!-- TODO VFS-11766 change to a valid link -->
+
 [data-distribution]: data.md#file-distribution
 
 [transfers]: data-transfer.md
@@ -352,7 +359,6 @@ directories, scheduling data transfers, etc.).
 [datasets]: datasets.md
 
 [REST API]: rest-api.md
-
 
 [screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
 
