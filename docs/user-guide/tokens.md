@@ -511,15 +511,15 @@ summarized in the below tables.
 
 | Interface             |                    REST                    |           GraphSync<sup>1</sup> (GUI)           |           GraphSync<sup>1</sup> (Oneprovider)           |
 | --------------------- | :----------------------------------------: | :---------------------------------------------: | :-----------------------------------------------------: |
-| time                  | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| ip                    | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| asn                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| geo.country           | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| geo.region            | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| service               | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
-| consumer              | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| time                  | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| ip                    | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| asn                   | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| geo.country           | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| geo.region            | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| service               | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
+| consumer              | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
 | interface<sup>2</sup> | <span style="color:#aa0"> `"rest"` </span> | <span style="color:#aa0"> `"graphsync"` </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
-| api                   | <span style="color:#480"> allowed  </span> | <span style="color:#480"> allowed       </span> |     <span style="color:#480"> allowed        </span>    |
+| api                   | <span style="color:#480"> allowed </span>  | <span style="color:#480"> allow   </sp      an> |     <span style="color:#480"> allowed        </span>    |
 | data.readonly         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
 | data.path             | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
 | data.objectid         | <span style="color:red">  rejected </span> | <span style="color:red">  rejected      </span> | <span style="color:#aa0"> restricted<sup>3</sup></span> |
@@ -551,18 +551,18 @@ it will not be able to cause any damage with such token.
 
 | Interface             |                       Oneclient                       | CDMI & REST<sup>1</sup><br/>(data access operations) |   REST<sup>2</sup><br/>(other operations)  |
 | --------------------- | :---------------------------------------------------: | :--------------------------------------------------: | :----------------------------------------: |
-| time                  |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| ip                    |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| asn                   |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| geo.country           |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| geo.region            |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| service               |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| consumer              | <span style="color:red">  rejected<sup>3</sup></span> |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
+| time                  |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| ip                    |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| asn                   |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| geo.country           |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| geo.region            |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| service               |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| consumer              | <span style="color:red"> rejected<sup>3</sup></span>  |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
 | interface<sup>4</sup> |    <span style="color:#aa0"> `"oneclient"` </span>    |      <span style="color:#aa0"> `"rest"` </span>      | <span style="color:#aa0"> `"rest"` </span> |
-| api                   |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:#480"> allowed  </span> |
-| data.readonly         |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
-| data.path             |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
-| data.objectid         |    <span style="color:#480"> allowed       </span>    |      <span style="color:#480"> allowed  </span>      | <span style="color:red">  rejected </span> |
+| api                   |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:#480"> allowed </span>  |
+| data.readonly         |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:red">  rejected </span> |
+| data.path             |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:red">  rejected </span> |
+| data.objectid         |    <span style="color:#480"> allowed </span>          |      <span style="color:#480"> allowed </span>       | <span style="color:red">  rejected </span> |
 
 <sup>1</sup>
 Data access operations include the whole CDMI API and REST endpoints to manage

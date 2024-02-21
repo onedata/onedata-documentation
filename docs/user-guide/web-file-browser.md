@@ -2,6 +2,8 @@
 
 [toc][]
 
+## Introduction
+
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
 navigation, file upload or download) and advanced capabilities, specific to Onedata 
@@ -35,8 +37,7 @@ current browser tab. View the information in a summarized form or per the target
 
 ## File browser layout
 
-The top section of the file browser accommodates a breadcrumb navigator and a
-toolbox.
+The top section of the file browser contains a breadcrumb navigator and a toolbox.
 
 The breadcrumb navigator presents the path to the current working directory and
 allows navigation to its parent directories. The current working directory is
@@ -49,8 +50,8 @@ directory actions (*upload files*, *create a new directory*, and *refresh the fi
 
 ![screen-layout-breadcrumbs][]
 
-The remainder part of the file browser presents the content of the current working
-directory as a list with details.
+The remainder part of the file browser presents the list of files in the current working
+directory.
 
 ::: tip NOTE
 File list navigation is slightly different on mobile devices and is covered
@@ -64,14 +65,15 @@ To select a range of files, hold down `Shift`.
 A double click on an item opens a directory (sets it as a new current working
 directory) or downloads a file.
 
-When an item or multiple selected items are right-clicked, a context menu with
-available actions appears.
+Right-click on an item or any of selected items to bring up a context menu with
+available actions.
 
 ![screen-layout-context-menu][]
 
 You can customize the file browser layout by specifying what columns (file attributes) are
 displayed. Click the **Configure columns** button, in the upper-right corner of the file
-browser, and choose the desired columns.
+browser to choose the desired columns and their order. You can also drag-and-drop the 
+columns to change their order.
 
 ![screen-column-configuration][]
 
@@ -114,6 +116,7 @@ operations are available in this mode.
 
 This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
 
+<!-- TODO VFS-11766 Update screenshot to the newest version -->
 ![screen-feature-info][]
 
 You can also access the Information tab by hovering over the icon of a file or directory.
@@ -121,10 +124,13 @@ You can also access the Information tab by hovering over the icon of a file or d
 ### Download
 
 This action simply downloads the chosen single file or directory. You can also download
-a single file with a double-click.
+a single file with a double click.
 
 ### Share
 
+<!-- TODO VFS-11766 Mention the publish shortcut -->
+<!-- TODO VFS-11766 Add cross-links to gui guides in sections like datasets, shares etc from this guide -->
+<!-- TODO VFS-11766 Maybe some of the content should be moved away to avoid repetitions and keep this guide short -->
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
@@ -173,6 +179,8 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
+<!-- TODO VFS-11766 Maybe move/link to the distribution docs -->
+<!-- TODO VFS-11766 Missing information about distribution for files, screenshots -->
 This tab is used to monitor and manage the [distribution of file data][data-distribution]
 among supporting providers. The blue bars visualize which blocks (fragments of the file)
 are stored on the storage systems of the corresponding providers. When more than one file
@@ -180,14 +188,16 @@ is selected, the distribution can be viewed in a summarized or detailed manner.
 
 ![screen-feature-distribution-bar][]
 
-The handy status bar indicates ongoing [replication, migration, and eviction][replication-migration] jobs and
-allows scheduling new ones for the corresponding provider. In the detailed view, there is
-also a shortcut to the history of data transfers for the subject file (as shown in the
-screenshot above).
+The handy status bar indicates ongoing [replication, migration, and eviction][transfers]
+jobs and allows you to schedule new ones for the corresponding provider. In the detailed
+view, you will find a shortcut to the history of data transfers for the subject file (as
+shown in the screenshot above).
 
 ![screen-feature-distribution-schedule][]
 
 ### QoS
+
+<!-- TODO VFS-11766 Maybe move/link to the qos docs -->
 
 The QoS tab brings up an editor of [Quality of Service][] requirements defined for the
 selected file(s), which are used to automatically manage the replication of file data
@@ -206,7 +216,7 @@ requirement or using the [REST API][].
 ![screen-feature-qos-visual-match][]
 
 Expressions can be entered in the textual form. They are converted to block form
-upon confirmation, and then can be further edited.
+upon confirmation and then can be further edited.
 
 ![screen-feature-qos-text][]
 
@@ -263,18 +273,18 @@ This action permanently deletes the selected files and directories.
 
 ## Mobile file browser
 
-Onedata web file browser supports mobile devices such as smartphones or tablets.
-Available features are the same as in desktop mode, but the page layout is adjusted for small devices.
+Onedata web file browser supports mobile devices such as smartphones or tablets. Available
+features are the same as in desktop mode, but the page layout is adjusted for small
+devices.
 
 ![screen-mobile-overview][]
 
-In mobile mode, the navigation is adapted for touch screens. Instead of a
-double click, a tap gesture is used to download a file or open a directory.
+In mobile mode, the navigation is adapted for touch screens. Use a tap gesture instead of
+a double click to download a file or open a directory.
 
-Selection is performed by pressing and holding on a file for about a second, and
-then selecting further files is done by tapping on them. The context menu for a
-file can be invoked using the three-dots menu in the file row or the
-**Selection** button at the bottom of the screen.
+To select a file/directory, press and hold its row for about a second. To extend the
+selection, tap on further rows. Invoke the context menu using the three-dots menu in the
+file row or the **Selection** button at the bottom of the screen.
 
 ![screen-mobile-menu][]
 
@@ -285,6 +295,8 @@ uploading files, are available in the breadcrumb navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
 
 ## Switching between providers
+
+<!-- TODO VFS-11766 Oneprovider -> provider when the GUI changes that, update screenshot -->
 
 The file browser view is provided by one of the providers supporting the space.
 The currently selected provider is shown on the top of the file browser in the
@@ -300,8 +312,8 @@ world map visual representation, available under the globe icon.
 After switching to another provider, you will eventually see the same content, but new
 changes might appear with different delays. Providers continuously synchronize the data
 changes within spaces, and depending on the resource usage, they can take from a couple of
-seconds to even hours to propagate. To see the changes immediately, you should choose the
-Oneprovider on which you are making them (modifying file content, creating new files or
+seconds to even hours to propagate. To see the changes immediately, you should select the
+provider on which you are making them (modifying file content, creating new files or
 directories, scheduling data transfers, etc.). 
 :::
 
@@ -333,7 +345,7 @@ directories, scheduling data transfers, etc.).
 <!-- TODO VFS-11766 change to a valid link -->
 [data-distribution]: data.md#file-distribution
 
-[replication-migration]: data-transfer.md
+[transfers]: data-transfer.md
 
 [Quality of Service]: qos.md
 

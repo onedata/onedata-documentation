@@ -19,7 +19,8 @@
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.markdown.nodes": {
     "ImageRef": "ignore",
-    "StrongEmphasis": "dummy"
+    "StrongEmphasis": "dummy",
+    "TableSeparator": "default"  // the '-' character separating a table header
   },
   "ltex.configurationTarget": {
     "dictionary": "workspace",
@@ -102,7 +103,13 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
-      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",  
+
+      // below rules match whole tables 
+      // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"PHRASE_REPETITION\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"WHITESPACE_RULE\",\"sentence\":\"\\n[-]{4,}\"}"
     ]
   }
 }

@@ -6,7 +6,7 @@
 
 ## Overview
 
-<!-- FIXME: verify the OAIS introduction correctness -->
+<!-- TODO VFS-11766 verify the OAIS introduction correctness -->
 
 An [Open Archival Information System][] (OAIS) reference model describes a conceptual
 framework for an archival system dedicated to preserving and maintaining access to digital
@@ -149,7 +149,7 @@ The view consists of:
   * or the [files][] inside the archive if you enter some archive.
 
 You can open the [context menu][archive actions] for an
-archive or [browse][files] its contents by double-clicking on it.
+archive or [browse][files] its contents by double clicking on it.
 
 The archive row can also contain various state or property description badges like
 “DIP” or “BagIt” (described later).
