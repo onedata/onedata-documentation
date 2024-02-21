@@ -103,7 +103,7 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
-      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",  
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
 
       // below rules match whole tables 
       // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)

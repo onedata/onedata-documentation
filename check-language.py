@@ -192,11 +192,14 @@ def parse_settings_json():
         lines = settings_reader.readlines()
 
     # throw out comments from the JSON
-    # WARNING: this naive implementation will break JSONs with a "//" value in text 
     result = ''
     for line in lines:
-        result += re.sub(r"//.*", "", line) + '\n'
-        
+        result += re.sub(
+            r"\s*\/\/.*|((.*)((\"|\d|true|false|null),?|\[|\{))?(\s*\/\/.*)?",
+            r"\1",
+            line
+        )
+
     return json.loads(result)
 
 
