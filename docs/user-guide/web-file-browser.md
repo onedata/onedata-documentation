@@ -183,9 +183,9 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-<!-- TODO VFS-11766 Maybe move/link to the distribution docs -->
+<!-- TODO VFS-7189 Maybe move/link to the distribution docs -->
 
-<!-- TODO VFS-11766 Missing information about distribution for files, screenshots -->
+<!-- TODO VFS-7189 Missing information about distribution for files (green bar instead of blue), screenshots -->
 
 This tab is used to monitor and manage the [distribution of file data][data-distribution]
 among supporting providers. The blue bars visualize which blocks (fragments of the file)
