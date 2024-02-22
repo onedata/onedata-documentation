@@ -2,7 +2,7 @@
 
 **Config version 3**
 
-<!-- @TODO VFS-7218 missing chapter -->
+<!-- @TODO VFS-11766 missing chapter -->
 
 This documentation is valid for Onezone versions `19.02.*` or newer.
 
@@ -151,7 +151,7 @@ the first 6 will be shown and the rest hidden in the `...` button.
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page.png#screenshot">
 
-<!-- FIXME - replace with actual one -->
+<!-- TODO VFS-11769 - replace with actual one -->
 
 ## Config file structure
 
@@ -215,7 +215,7 @@ possibility to authorize Onezone REST API operations using basic credentials.
 > and present on the list of supported IdPs ([see below][4]).
 
 > Default "admin" user is always created during installation process. Additional
-> users can be created using the API. <!-- FIXME: link to crete user using API -->
+> users can be created using the API. <!-- TODO VFS-11769: link to crete user using API -->
 
 ### OpenID config
 
@@ -1879,7 +1879,7 @@ checklist that might help identify the problem:
     problem, copy the request state identifier from the error page and check the
     logs - see the next point. <img style="display:block;margin:0 auto;"
     src="../../../../images/admin-guide/onezone/configuration/oidc-saml/login-page-error.png#screenshot">
-    <!-- FIXME - replace with actual one -->
+    <!-- TODO VFS-11769 - replace with actual one -->
 
 * Check [Onezone logs][] for any hints what might
   have gone wrong:
@@ -1892,7 +1892,7 @@ checklist that might help identify the problem:
 
   * Some of the errors with low severity are logged on the `debug` loglevel,
     which is disabled by default. If needed, you can
-    turn on the `debug` logs <!-- FIXME: add a link to "turn on debug logs" -->
+    turn on the `debug` logs <!-- TODO VFS-11769: add a link to "turn on debug logs" -->
     (keep in mind that they have negative impact on the system performance).
     After doing so, go through the login process again and take the request
     state identifier. You will get detailed logs from the whole login process -
@@ -1957,7 +1957,7 @@ Please follow the guidelines below for the best visual effects:
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/custom-icon.png#screenshot">
 
-<!-- FIXME - replace with actual one -->
+<!-- TODO VFS-11769 - replace with actual one -->
 
 ## Test login page
 
@@ -1985,12 +1985,12 @@ whole login process.
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/test-login-page.png#screenshot">
 
-<!-- FIXME - replace with actual one -->
+<!-- TODO VFS-11769 - replace with actual one -->
 
 <img style="display:block;margin:0 auto;"
 src="../../../../images/admin-guide/onezone/configuration/oidc-saml/test-login-output.png#screenshot">
 
-<!-- FIXME - replace with actual one -->
+<!-- TODO VFS-11769 - replace with actual one -->
 
 ## Complete example
 

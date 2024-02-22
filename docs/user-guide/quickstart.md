@@ -53,10 +53,9 @@ and uploading your first files.
    * Request support from a provider with the
      [request support for the space][] guide.
    * Set up your provider (advanced).
-4. To upload data navigate to **DATA > *Space name* > Files** and follow the
-   [uploading data][] guide. After uploading
-   your data, you can explore various options by left-clicking on a file.
-   Double-clicking on a file will initiate the download.
+4. To upload data navigate to **DATA > *Space name* > Files** and follow the [uploading
+   data][] guide. After uploading your data, you can explore various options by
+   left-clicking on a file. Double-clicking on a file will initiate the download.
 
 ## Useful links
 

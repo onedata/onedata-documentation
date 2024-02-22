@@ -57,7 +57,7 @@ TEXT_COLOR_GREEN = 32
 
 # Matches the "successful run exception" - see more in module doc.
 RE_SUCCESS_EXCEPTION = re.compile(
-    r"^.*PM org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more\s*$",
+    r"^.*[AP]M org\.eclipse\.lsp4j\.jsonrpc\.json\.ConcurrentMessageProcessor run(.|\n)*more\s*$",
     re.MULTILINE,
 )
 
@@ -187,14 +187,24 @@ def disable_hint_rules(settings_data):
         del custom_severity_rules[rule_key]
 
 
-def read_settings_content():
+def parse_settings_json():
     with open(SETTINGS_JSON_PATH, "r") as settings_reader:
-        return settings_reader.read()
+        lines = settings_reader.readlines()
+
+    # throw out comments from the JSON
+    result = ''
+    for line in lines:
+        result += re.sub(
+            r"\s*\/\/.*|((.*)((\"|\d|true|false|null),?|\[|\{))?(\s*\/\/.*)?",
+            r"\1",
+            line
+        )
+
+    return json.loads(result)
 
 
 def create_settings_content(show_hints=False):
-    settings_content = read_settings_content()
-    settings_data = json.loads(settings_content)
+    settings_data = parse_settings_json()
 
     if not show_hints and CONFIG_DIAGNOSTIC_SEVERITY in settings_data:
         disable_hint_rules(settings_data)

@@ -1,23 +1,24 @@
 # Web file browser
 
-[toc][1]
+[toc][]
+
+## Introduction
 
 The Web file browser is a graphical interface offering a broad spectrum of file
 management features, including basic file operations (e.g. filesystem
 navigation, file upload or download) and advanced capabilities, specific to Onedata
-(e.g. Quality of Service, data distribution management, datasets & archives management).
+(e.g. Quality of Service, data distribution, datasets & archives).
 
-The file browser is always presented in the context of a single
-[space][2]. It becomes available when the space is
-[supported][3] by at least one
-[provider][4] and can be invoked by navigating to the **DATA > *Space
-name* > Files** tab, or clicking the **FILES** tile in the space **Overview**.
+The file browser is always presented in the context of a single [space][]. It becomes
+available when the space is [supported][space-support] by at least one [provider][] and
+can be invoked by navigating to the **DATA > *Space name* > Files** tab, or clicking the
+**FILES** tile in the space **Overview**.
 
 ![screen-intro-data-overview][]
 
 ## Uploading data
 
-A file browser of a new, empty space welcomes you with the following screen:
+An empty space will welcome you with the following screen:
 
 ![screen-uploading-empty][]
 
@@ -36,8 +37,7 @@ current browser tab. View the information in a summarized form or per the target
 
 ## File browser layout
 
-The top section of the file browser accommodates a breadcrumb navigator and a
-toolbox.
+The top section of the file browser contains a breadcrumb navigator and a toolbox.
 
 The breadcrumb navigator presents the path to the current working directory and
 allows navigation to its parent directories. The current working directory is
@@ -46,51 +46,50 @@ actions for the directory (identical to the context menus on the file list,
 described below).
 
 The toolbox, located in the top right corner, contains shortcuts for common
-directory actions (*upload files*, *create a new directory* and *refresh file list*).
+directory actions (*upload files*, *create a new directory*, and *refresh the file list*).
 
 ![screen-layout-breadcrumbs][]
 
-The remainder part of the file browser presents the content of the current working
-directory in a form of a list with details.
+The remainder part of the file browser presents the list of files in the current working
+directory.
 
 ::: tip NOTE
 File list navigation is slightly different on mobile devices and is covered
-[later on][10].
+[later on][mobile-file-browser].
 :::
 
 You can select or deselect files by left-clicking on them. Hold down `Ctrl`
-(or `Opt` on MacOS) while clicking to select or deselect multiple files.
+(or `Opt` on macOS) while clicking to select or deselect multiple files.
 To select a range of files, hold down `Shift`.
 
 A double click on an item opens a directory (sets it as a new current working
 directory) or downloads a file.
 
-When an item or multiple selected items are right-clicked, a context menu with
-available actions appears.
+Right-click on an item or any of selected items to bring up a context menu with
+available actions.
 
 ![screen-layout-context-menu][]
 
-For better navigation in the file browser, you can also change the layout of it, by choosing
-what columns of attributes you want to be displayed. Click **Configure columns** button, in the
-upper-right corner of the file browser, and choose desired columns.
+You can customize the file browser layout by specifying what columns (file attributes) are
+displayed. Click the **Configure columns** button, in the upper-right corner of the file
+browser to choose the desired columns and their order. You can also drag-and-drop the
+columns to change their order.
 
 ![screen-column-configuration][]
 
-The file browser uses the "infinite scroll" method to display large
+The file browser uses the “infinite scroll” method to display large
 directories — new items are dynamically loaded when the list is scrolled down.
 
 ![screen-layout-infinite-scroll][]
 
-To quickly jump to the desired file or directory, type desired phrase, in the search bar
-located below the breadcrumbs, and you will be moved to the first file or
-directory which name starts with the desired prefix.
+To quickly jump to a file or directory, type the beginning of its name in the search bar
+located below the breadcrumbs.
 
 ![screen-prefix-search][]
 
-Apart from basic details displayed on the list, additional information and
-characteristics of files are presented using tags. For instance, the tags include information
-on whether a file is shared, has Quality of Service requirements
-attached or is marked as Dataset.
+Apart from basic details displayed on the list, additional information and characteristics
+of files are presented using tags. For instance, the tags include information on whether a
+file is shared, has Quality of Service requirements attached, or is marked as Dataset.
 
 ![screen-layout-file-tags][]
 
@@ -101,14 +100,14 @@ context menu invoked with a right-click or using the three-dots button on
 the right of each list entry.
 
 ::: tip
-Some operations require appropriate [privileges][14]
+Some operations require appropriate [privileges][space-privileges]
 in the space and are disabled in the menu in case the user's privileges are not
 sufficient.
 :::
 
 ::: tip
-It is possible to invoke the context menu for more than one selected item, but
-only some of the operations are available in this mode.
+It is possible to invoke the context menu for more than one selected item, but only some
+operations are available in this mode.
 :::
 
 ![screen-feature-file-context-menu][]
@@ -117,27 +116,35 @@ only some of the operations are available in this mode.
 
 This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
 
+<!-- TODO VFS-11766 Update screenshot to the newest version -->
+
 ![screen-feature-info][]
 
-You can also excess the Information tab by hovering over the icon of the file or directory.
+You can also access the Information tab by hovering over the icon of a file or directory.
 
 ### Download
 
-This action simply downloads chosen single file or directory. You can also download single
-file by double-clicking on them.
+This action simply downloads the chosen single file or directory. You can also download
+a single file with a double click.
 
 ### Share
+
+<!-- TODO VFS-11766 Mention the publish shortcut -->
+
+<!-- TODO VFS-11766 Add cross-links to gui guides in sections like datasets, shares etc from this guide -->
+
+<!-- TODO VFS-11766 Maybe some of the content should be moved away to avoid repetitions and keep this guide short -->
 
 Using the **Share** tab in the **Details** modal, you can make a file or
 directory publicly accessible by anyone knowing the share link (no authentication or account in
 Onedata is needed). If the item has not been shared yet, this action will open a
-modal that allows the creation of a new [share][17].
+modal that allows the creation of a new [share][].
 
 ![screen-feature-share][]
 
 If the item has already been shared, you will see the list of existing
 shares, with the possibility to copy their public links, view their details
-(using the green links) or create another share.
+(using the green links), or create another share.
 
 ![screen-feature-shared-already][]
 
@@ -145,30 +152,26 @@ shares, with the possibility to copy their public links, view their details
 
 This action brings up the **Datasets** modal, where you can assign a dataset status to
 your file or directory. Datasets are files or directories that space users identify
-as meaningful data collections to them. To read more about the functionality of the
-Datasets head over to this [page][5].
+as meaningful data collections to them, as described in [this chapter][datasets].
 
 ![screen-feature-datasets][]
 
 ### Metadata
 
-This action allows browsing end editing custom file
-[metadata][20], divided into three classes: basic (key-value),
-JSON and RDF. The last two feature a code editor with syntax checking and
-highlighting.
+This action allows browsing end editing custom file [metadata][metadata-gui], divided into three
+classes: basic (key-value), JSON, and RDF. The last two feature a code editor with syntax
+checking and highlighting.
 
 ![screen-feature-metadata-json][]
 
 ### Permissions
 
-Invokes an editor of [permissions][22] assigned to the file —
-[POSIX][23] or [Access Control List
-(ACL)][24].
-You can assign only one permission type to each file at a time.
-To select the currently applied permission type, use the **Permissions type** toggle.
+Invokes an editor of [permissions][] assigned to the file — [POSIX][posix-permissions] or
+[Access Control List (ACL)][acl]. A file can use only one of the permission types at a
+time. To select the currently applied one, use the **Permissions type** toggle.
 
-Edit the POSIX permissions for each file by using the octal representation
-field or manipulating the checkboxes.
+POSIX permissions are the default type for every new file. You can edit them by using the
+octal representation field or manipulating the checkboxes.
 
 ![screen-feature-permissions-posix][]
 
@@ -180,48 +183,53 @@ allowing/denying rules for granular operations concerning the file or directory.
 
 ### Data distribution
 
-This tab is used to monitor and manage the [distribution of file
-data][27] among supporting providers. The blue bars
-visualize which blocks (fragments of the file) are stored on the storage systems
-of the corresponding providers. When more than one file is selected, the
-distribution can be viewed in a summarized or detailed manner.
+<!-- TODO VFS-7189 Maybe move/link to the distribution docs -->
+
+<!-- TODO VFS-7189 Missing information about distribution for files (green bar instead of blue), screenshots -->
+
+This tab is used to monitor and manage the [distribution of file data][data-distribution]
+among supporting providers. The blue bars visualize which blocks (fragments of the file)
+are stored on the storage systems of the corresponding providers. When more than one file
+is selected, the distribution can be viewed in a summarized or detailed manner.
 
 ![screen-feature-distribution-bar][]
 
-The handy status bar indicates ongoing [replication, migration and eviction][] jobs and
-allows scheduling new ones for the corresponding provider. In the detailed view, there is
-also a shortcut to the history of data transfers for the subject file (as shown in the
-screenshot above).
+The handy status bar indicates ongoing [replication, migration, and eviction][transfers]
+jobs and allows you to schedule new ones for the corresponding provider. In the detailed
+view, you will find a shortcut to the history of data transfers for the subject file (as
+shown in the screenshot above).
 
 ![screen-feature-distribution-schedule][]
 
 ### QoS
 
-Brings up an editor of [Quality of Service][31] (QoS)
-requirements defined for the selected file(s), which are used to automatically
-manage the replication of file data according to logical rules.
+<!-- TODO VFS-11766 Maybe move/link to the qos docs -->
 
-The rules can be put down using a visual block-based expression editor. These rules are
-evaluated against the QoS parameters assigned to different supporting storage backends in
-order to determine where the replicas should be stored.
+The QoS tab brings up an editor of [Quality of Service][] requirements defined for the
+selected file(s), which are used to automatically manage the replication of file data
+according to logical rules.
+
+You can put down the rules using a visual block-based expression editor. These rules are
+evaluated against the QoS parameters assigned to different supporting storage backends
+to determine where the replicas should be stored.
 
 ![screen-feature-qos-visual][]
 
-Below the requirement, there is information what storage backends match the requirement
+Below the requirement, it is displayed what storage backends match the requirement
 and an action that copies the expression in textual form, to be reused when creating a new
 requirement or using the [REST API][].
 
 ![screen-feature-qos-visual-match][]
 
 Expressions can be entered in the textual form. They are converted to block form
-upon confirmation, and then can be further edited.
+upon confirmation and then can be further edited.
 
 ![screen-feature-qos-text][]
 
 If the selected files have any QoS requirements defined, they are displayed on
-the list along with their status of fulfillment, matching storage backends and other
-information. It is possible to remove selected QoS requirements, unless they
-are inherited from any parent directory.
+the list along with their status of fulfillment, matching storage backends, transfer
+statistics, and other information. It is possible to remove selected QoS requirements
+unless they are inherited from any parent directory.
 
 ![screen-feature-qos-requirements][]
 
@@ -233,31 +241,30 @@ The basic operation used to change the file name.
 
 ### Create symbolic link
 
-This action lets you create a symbolic link to a single file or directory and place it in a chosen destination.
-A symbolic link also known as a symlink, is a file that acts as a reference or
-pointer to another file or directory. To place a symbolic link in the directory you are in,
-click on the highlighted button in the top right corner.
+A symbolic link, also known as a symlink, is a special file that acts as a reference or
+pointer to another file or directory. First, use the **Create symbolic link** action on
+the target file or directory. Then, navigate to the directory where the symbolic link
+should be placed and click on the highlighted button in the top right corner.
 
 ![screen-feature-symlink][]
 
 ### Create hard link
 
-As above this action lets you create a hard link to a single file and place it in a chosen
-destination. A hard link is a reference to a file that points directly to the
-underlying data of that file on a file system. In simpler terms, a hard link is
-an additional name or entry for an existing file. Multiple hard links can exist
-for a single file, and they all refer to the same underlying data on the disk.
+A hard link is a reference to a file that points directly to the underlying data of that
+file on a file system. In simpler terms, a hard link is an additional name or entry for an
+existing file. Multiple hard links can exist for a single file, and they all refer to the
+same underlying data on the disk.
 
-To place a hard link follow the same steps as you would with placing a symbolic link.
-As you create a hard link, the original file will now display a label
-with the number of hard links created to this file. You can click on the label you will
-see the list of existing hard links in the **Details** modal.
+To place a hard link, follow the same steps as for a symbolic link. As you create a hard
+link, both the original file and the hard link will now display a label with the number of
+hard links referencing the same file. You can click on the label to view the list of hard
+links.
 
 ![screen-feature-hardlink][]
 
-### Copy, Cut and Paste
+### Copy, Cut, and Paste
 
-The **copy** or **cut**\*\* action from the context menu can be used on one or
+The **copy** or **cut** action from the context menu can be used on one or
 more selected items. Then, a **paste** action will appear in the toolbox, which
 can be used to copy or move the files to the current working directory.
 
@@ -271,28 +278,30 @@ This action permanently deletes the selected files and directories.
 
 ## Mobile file browser
 
-Onedata web file browser supports mobile devices such as smartphones or tablets.
-Available features are the same as in desktop mode, but the page layout is adjusted for small devices.
+Onedata web file browser supports mobile devices such as smartphones or tablets. Available
+features are the same as in desktop mode, but the page layout is adjusted for small
+devices.
 
 ![screen-mobile-overview][]
 
-In mobile mode, the navigation is adapted for touch screens. Instead of a
-double click, a tap gesture is used to download a file or open a directory.
+In mobile mode, the navigation is adapted for touch screens. Use a tap gesture instead of
+a double click to download a file or open a directory.
 
-Selection is performed by pressing and holding on a file for about a second, and
-then selecting further files is done by tapping on them. The context menu for a
-file can be invoked using the three-dots menu in the file row or the
-**Selection** button at the bottom of the screen.
+To select a file/directory, press and hold its row for about a second. To extend the
+selection, tap on further rows. Invoke the context menu using the three-dots menu in the
+file row or the **Selection** button at the bottom of the screen.
 
 ![screen-mobile-menu][]
 
 ![screen-mobile-upload][]
 
 Operations on the current working directory, such as creating a new directory or
-uploading files, are available in the breadcrumbs navigator. When an upload is
+uploading files, are available in the breadcrumb navigator. When an upload is
 started, a progress bar appears at the bottom of the screen.
 
 ## Switching between providers
+
+<!-- TODO VFS-11766 Oneprovider -> provider when the GUI changes that, update screenshot -->
 
 The file browser view is provided by one of the providers supporting the space.
 The currently selected provider is shown on the top of the file browser in the
@@ -305,46 +314,49 @@ world map visual representation, available under the globe icon.
 ![screen-oneprovider-switch][]
 
 ::: tip
-After switching to another provider, the user will eventually see the same
-content, but new changes might appear with different delays. Providers
-continuously synchronize the data changes within spaces, and depending on the
-system usage intensity, they can take from a couple of seconds to even hours to
-propagate. To see the changes immediately, it is advisable to choose the
-Oneprovider on which the user is making them (modifying file content,
-creating new files or directories, scheduling data transfers, etc).
+After switching to another provider, you will eventually see the same content, but new
+changes might appear with different delays. Providers continuously synchronize the data
+changes within spaces, and depending on the resource usage, they can take from a couple of
+seconds to even hours to propagate. To see the changes immediately, you should select the
+provider on which you are making them (modifying file content, creating new files or
+directories, scheduling data transfers, etc.).
 :::
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
-[2]: spaces.md
+[space]: spaces.md
 
-[3]: spaces.md#request-support-for-space
+<!-- TODO VFS-11766 improve when the support docs are there -->
 
-[4]: providers.md
+[space-support]: spaces.md#request-support-for-space
 
-[5]: datasets.md
+[provider]: providers.md
 
-[10]: #mobile-file-browser
+[mobile-file-browser]: #mobile-file-browser
 
-[14]: spaces.md#space-privileges
+[space-privileges]: spaces.md#space-privileges
 
-[17]: shares.md
+[share]: shares.md
 
-[20]: metadata.md#web-gui
+[metadata-gui]: metadata.md#web-gui
 
-[22]: data.md#permissions
+[permissions]: data.md#permissions
 
-[23]: data.md#posix-permissions
+[posix-permissions]: data.md#posix-permissions
 
-[24]: data.md#access-control-lists
+[acl]: data.md#access-control-lists
 
-[27]: data.md#file-distribution
+<!-- TODO VFS-11766 change to a valid link -->
 
-[replication, migration and eviction]: data-transfer.md
+[data-distribution]: data.md#file-distribution
 
-[31]: qos.md#web-gui-guide
+[transfers]: data-transfer.md
+
+[Quality of Service]: qos.md
+
+[datasets]: datasets.md
 
 [REST API]: rest-api.md
 

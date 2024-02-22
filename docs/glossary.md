@@ -2,7 +2,13 @@
 
 <!-- short description of each concept with links to proper sections -->
 
-<!-- TODO: VFS-7218 fill missing entries -->
+<!-- TODO VFS-11766 fill missing entries -->
+
+## Access control
+
+<!-- TODO VFS-11766 mention access control to entities, not only data -->
+
+Onedata implements a multi-level approach to access control, as described [here][access-control].
 
 ## ACL
 
@@ -142,7 +148,7 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ### 🚧 Under construction! 🚧
 
-<!-- TODO: VFS-7218 piece of software that is installed at a data provider site -->
+<!-- TODO VFS-11766 piece of software that is installed at a data provider site -->
 
 ## Onezone
 
@@ -150,7 +156,7 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Provider
 
-<!-- TODO: VFS-7218 an entity that handles physical data storage as seen by Onedata users -->
+<!-- TODO VFS-11766 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
 
@@ -162,7 +168,7 @@ A logical container for data, fundamental for organizing user data in Onedata.
 Accessible only to its members — users or [groups][17] — that are assigned
 fine-grained privileges. Learn more [here][29].
 
-<!-- TODO VFS-7218 consider adding a chapter about users and linking it here -->
+<!-- TODO VFS-11766 consider adding a chapter about users and linking it here -->
 
 ## Storage
 
@@ -193,6 +199,8 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [CDMI][36] or [Oneclient][37]. Learn more [here][38].
 
 <!-- references -->
+
+[access-control]: user-guide/data.md#data-access-control
 
 [1]: user-guide/data.md#access-control-lists
 

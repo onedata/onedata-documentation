@@ -66,7 +66,7 @@ will only accept objects that match its schema, effectively splitting the harves
 metadata into two subsets. As a result, they can be used like tables in a database —
 each holding records of different types.
 
-<!-- TODO VFS-7218: a nice diagram with spaces, providers, onezone, ES, indices -->
+<!-- TODO VFS-11766: a nice diagram with spaces, providers, onezone, ES, indices -->
 
 #### More about index schemas
 

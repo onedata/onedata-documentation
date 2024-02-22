@@ -1,10 +1,19 @@
 # Data
 
-[toc][1]
+[toc][]
 
-The Onedata system organizes all user data into logical containers called spaces.
-Refer to [this][2] chapter for details about this concept and how
+## Onedata virtual filesystem
+
+The Onedata system organizes all user data into logical containers called **spaces**.
+Refer to [this][spaces] chapter for details about this concept and how
 the logical files are mapped to their physical content on storage backends.
+
+The Onedata filesystem is managed by [Providers][] cooperating in a peer-to-peer manner,
+synchronizing information about commonly [supported spaces][space support]. A provider is
+a data center that runs a [Oneprovider service][], registered in a [Onedata zone][].
+
+<!-- TODO VFS-11766 More information about the Onedata filesystem, how it's built, 
+file types, file trees etc. -->
 
 ## File path and ID
 
@@ -26,32 +35,34 @@ a string of alphanumeric characters:
 094576776E667431723230677767776C6B497031394E445F6E3868677873...
 ```
 
-The path-based navigation is used mainly in the [Web GUI][3] and [Oneclient][5]
-interfaces. In the [REST][6] and [CDMI][7] APIs, it is **recommended to use File
+The path-based navigation is used mainly in the [Web GUI][] and [Oneclient][]
+interfaces. In the [REST][] and [CDMI][] APIs, it is **recommended to use File
 IDs**, due to better performance and no need for escaping or encoding.
 
 ### Find out the File ID
 
 There are several ways to find out the File ID of a file:
 
-[Web GUI][3] — click on **Information** in the file/directory context menu and look
+[Web GUI][] — click on **Information** in the context menu for a file/directory and look
 for `File ID`:
 ![screen-file-gui-path-and-info][]
 
-[Oneclient][14] — use the `xattr` command (which reads extended attributes)
-to access useful information about any file or directory. The below command returns
-specifically the File ID attribute:
+[Oneclient][] — use the `xattr` command (which reads extended attributes) to access
+useful information about any file or directory. The below command returns specifically the
+File ID attribute:
 
 ```bash
 ~$ xattr -p org.onedata.file_id garden.png
 094576776E667431723230677767776C6B497031394E445F6E3868677873...
 ```
 
-> **NOTE:** Use `xattr -l garden.png` to list all available attributes.
+::: tip
+Use `xattr -l garden.png` to list all available attributes.
+:::
 
-[REST][6] — use the File ID
-[resolution endpoint][8].
-The below example returns the File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space name:
+[REST API][REST] — use the [File ID resolution endpoint][]. The below example returns the
+File ID of <br />`/CMS 1/directory/images&videos/garden.png`, where `CMS 1` is the space
+name:
 
 ```bash
 curl -H "X-Auth-Token: ${ACCESS_TOKEN}" -X POST \
@@ -64,24 +75,29 @@ curl -H "X-Auth-Token: ${ACCESS_TOKEN}" -X POST \
 }
 ```
 
-> **NOTE:** Paths used in URLs must be URL-encoded.
+::: warning NOTE
+Paths used in URLs must be URL-encoded.
+:::
 
-> **NOTE:** The `${PROVIDER_DOMAIN}` can be obtained as shown [below][10].
+::: tip
+The `${PROVIDER_DOMAIN}` can be obtained as shown [below][Provider domain].
+:::
 
 ### Working with file paths
 
-[Web GUI][3] — the path is represented in the file browser's breadcrumbs.
+[Web GUI][] — the path is represented in the file browser's **breadcrumb**. You may find
+it as copyable text in the **File information** modal.
 
 ![screen-file-gui-path-and-info][]
 
-[Oneclient][5] — when using a shell to access the mounted filesystem,
+[Oneclient][] — when using a shell to access the mounted filesystem,
 some characters in paths should be properly escaped:
 
 ```
 ~$ cat /CMS\ 1/directory/images\&videos/garden.png
 ```
 
-[REST][6] or [CDMI][7] API — make sure to URL-encode paths used in URLs:
+[REST][] or [CDMI][] API — make sure to URL-encode paths used in URLs:
 
 ```
 {...}/CMS%201/directory/images%26videos/garden.png
@@ -89,55 +105,56 @@ some characters in paths should be properly escaped:
 
 <!-- TODO VFS-9288 unify all NOTE blocks -->
 
-> **NOTE:** Duplicate space names are generally allowed. For that reason,
-> referencing files by path may be ambiguous. During file path resolution, the
-> first space whose name matches the first segment of the path is always taken,
-> but the order in which spaces are checked cannot be guaranteed.
+::: warning NOTE
+Duplicate space names are generally allowed. For that reason, referencing
+files by path may be ambiguous. During file path resolution, the first space whose name
+matches the first segment of the path is always taken, but the order in which spaces are
+checked cannot be guaranteed.
+:::
 
 ## Interfaces
 
-Onedata offers several ways of accessing and managing user data.
-Regardless of the interface you choose, you will have a unified view of all your files.
-All data management interfaces are available in the [Oneprovider service][11].
-Depending on the environment, there might be several Oneprovider services
-[supporting user spaces][12] that you can use to access the data.
-While the [Web GUI][3] offers natural navigation between services,
-the other interfaces require that the user chooses one of their Oneproviders
-and is aware of its domain (see below).
+Onedata offers several ways of accessing and managing user data. Regardless of the
+interface you choose, you will have a unified view of all your files. All data management
+interfaces are available in Onedata [Providers][] that build a distributed environment.
+You can use any provider that [supports your spaces][space support] to access the data.
+While the [Web GUI][] offers natural navigation between providers, the other interfaces
+require that you select one of your providers and are aware of its domain (see below).
 
 ### Provider domain
 
-<!-- TODO VFS-7218 this should be moved somewhere else — maybe a new chapter with providers GUI
+<!-- TODO VFS-11766 this should be moved somewhere else — maybe a new chapter with providers GUI
      from the user's point of view? -->
 
-Provider's domain is required to mount a [Oneclient][5] instance or utilize the
-[REST][6] and [CDMI][7] APIs. It can be found in the Web GUI:
+Provider's domain is required to mount a [Oneclient][] instance or utilize the
+[REST][] and [CDMI][] APIs. It can be found in the Web GUI:
+
 ![screen-provider-domain][]
+
+### Web GUI
+
+The most user-friendly method of data management. You can find a visual guide in
+[this chapter][Web file browser guide].
 
 ### Oneclient
 
-Oneclient is a command-line based application used for mounting
+Oneclient is a command-line-based application used for mounting
 Onedata spaces in the local file system tree. To that end, Oneclient requires a
-network connection to the chosen Oneprovider service. [This chapter][14]
+network connection to the chosen Oneprovider service. [This chapter][Oneclient chapter]
 covers information about its setup and usage.
 
 ### REST API
 
-Oneprovider service offers a comprehensive REST API for data management. All
-endpoints use [File IDs][file-path-and-id] to identify files and directories,
-though some endpoints work on file paths. The documentation based on OpenAPI
-(a.k.a. Swagger) can be found [here][16]. General information on using the REST
-APIs in Onedata is covered in [this chapter][17].
+Oneprovider service offers a comprehensive REST API for data management. All endpoints use
+[File IDs][file-path-and-id] to identify files and directories, though some endpoints work
+on file paths. The documentation based on OpenAPI (a.k.a. Swagger) can be found
+[here][Oneprovider REST API]. General information on using the REST APIs in Onedata is
+covered in [this chapter][REST API chapter].
 
 ### CDMI
 
-Oneprovider implements a subset of **Cloud Data Management Interface**
-specification, as described in [this chapter][18].
-
-### Web GUI
-
-The most end-user friendly method of data management.
-You can find a visual guide in [this chapter][19].
+Oneprovider implements a subset of **Cloud Data Management Interface** specification, as
+described in [this chapter][CDMI chapter].
 
 ## Data Access Control
 
@@ -146,14 +163,12 @@ authorization** checks for every operation.
 
 ### Authentication
 
-Each operation is done in the context of a specific authenticated user. If the
-requesting client provides no authentication, they are treated as **guest**, who
-is entitled only to publicly accessible data. Authentication is carried by
-[access tokens][20] — bearer tokens issued in the name of
-a specific subject (e.g. user). Access tokens are used uniformly in the system,
-in [REST API][17], [Oneclient][14] or [Web GUI][3]
-(the Web application obtains an access token after a user logs in and refreshes
-it as needed).
+Each operation is done in the context of a specific authenticated user. If the requesting
+client provides no authentication, it is treated as **guest**, who is entitled only to
+publicly accessible data. Authentication is carried by [access tokens][] — bearer tokens
+issued in the name of a specific subject (e.g. user). Access tokens are used uniformly in
+the system, in [REST API][REST], [Oneclient][], or [Web GUI][] (the Web application
+obtains an access token after a user logs in and refreshes it as needed).
 
 ### Authorization
 
@@ -162,55 +177,98 @@ operation depends on a series of security checks on different levels. The
 procedure can be divided into steps as follows (the steps are processed in
 sequence unless the procedure finishes upon **access denied** or **granted**):
 
-1. The provided access token is analyzed concerning
-   [caveats][21] that can restrict the authorization.
-   Especially [data access caveats][22] have a
-   significant impact on data access. If the requested operation or resource is
-   forbidden in regard to any caveat, **access is denied**.
+1. The provided access token is analyzed concerning [caveats][] that can restrict the
+   authorization. Especially [data access caveats][] have a significant impact on data
+   access. If the requested operation or resource is forbidden regarding any caveat,
+   **access is denied**.
 
-2. If the user is not a [space member][23], **access is
-   denied**.
+2. If the user is not a [space member][], **access is denied**.
 
-3. [Dataset protection flags][24] are checked — if the requested
-   operation is forbidden by current protection flags, **access is denied**. For
-   example, a file content modification request will be denied if the file is
-   located in a dataset that has data protection enabled.
+3. [Dataset protection flags][datasets] are checked — if the requested operation is forbidden by
+   current protection flags, **access is denied**. For example, a file content
+   modification request will be denied if the file is located in a dataset that has data
+   protection enabled.
 
-4. If the user is a [space owner][25], **access is
-   granted** (space owners omit space privilege and permission checks).
+4. If the user is a [space owner][], **access is granted** (space owners omit space
+   privilege and permission checks).
 
-5. If the user does not have the [space privileges][26]
-   required for the requested operation, **access is denied**. For example, no
-   `space_write_data` privilege in case of file modification request, or no
-   `space_read_data` privilege in case of directory listing request.
+5. If the user does not have the [space privileges][] required for the requested
+   operation, **access is denied**. For example, no `space_write_data` privilege in case
+   of file modification request, or no `space_read_data` privilege in case of directory
+   listing request.
 
-6. If a [CDMI Access Control List][27] (ACL) exists on the
-   file, it is evaluated to determine whether access should be **denied** or
-   **granted**.
+6. If an [Access Control List][] (ACL) exists on the file, it is evaluated to
+   determine whether access should be **denied** or **granted**.
 
-7. Otherwise, [POSIX permissions][28] are checked to determine
-   whether access should be **denied** or **granted**.
+7. Otherwise, [POSIX permissions][] are checked to determine whether access should be
+   **denied** or **granted**.
 
 In case of unauthenticated (**guest**) access, the steps are as follows:
 
-1. The requested resource identifier is analyzed if it points to a file or
-   directory that is [publicly shared][29] — if not, **access is
-   denied**.
+1. The requested resource identifier is analyzed if it points to a file or directory that
+   is [publicly shared][shares] — if not, **access is denied**.
 
-2. Steps 6 or 7 from the previous procedure are applied (it is possible to
-   limit access to shared data using the [`ANONYMOUS@`][30] ACL
-   principal or the POSIX permissions for [`others`][28]).
+2. Steps 6 or 7 from the previous procedure are applied (it is possible to limit access to
+   shared data using the [`ANONYMOUS@`][ACE] or [`EVERYONE@`][ACE] ACL principal or the
+   POSIX permissions for [`others`][POSIX permissions]).
 
-> **NOTE:** in case of [publicly shared][29] files or directories, the
-> access is additionally limited to read-only operations, even if ACLs or POSIX
-> permissions allow write access.
+::: tip NOTE
+In the case of [publicly shared][shares] files or directories, the access is additionally
+limited to read-only operations, even if ACLs or POSIX permissions allow write access.
+:::
+
+### POSIX permissions
+
+Onedata implements traditional POSIX permissions typical for Unix or Linux systems for
+specifying access rights to files or directories. However, all space members are treated
+as a virtual group which is the **group** owner of all files in the space. This means that
+whenever a file is accessed by a space member who is not the owner of the file, the
+**group** permissions are taken into consideration. Permissions for **others** are
+considered when a [public share][shares] is accessed (as an anonymous **guest**).
+
+The above differences stem from the fact that in Onedata, there is an additional layer of
+access control imposed by membership in [spaces][] (which are completely separated logical
+data containers). Moreover, the concepts of POSIX **group** and Onedata [group][] are
+different.
+
+Examine the following example of file POSIX permissions:
+
+```
+rwx r-- ---
+ |   |   |
+ |   |   guests
+ |   |
+ |   space members
+ |
+ owner user
+ 
+```
+
+In the above case, the creator of the file (its **owner** user) has full access
+to the file. All space members have read access to the file. Users (guests) who
+try to access the file through a public share will fail to do so as all
+permissions are denied for **others**.
+
+Default permissions (for newly created files/directories) are as follows:
+
+* files: `rw- rw- r--` (octal: `664`)
+* directories: `rwx rwx r-x` (octal: `775`)
+
+You can change the POSIX permissions using the [Web file browser][Web GUI change permissions]
+in the **Permissions** tab in the **File Information** modal or using the [REST API][REST set attr].
+
+Oneprovider admins should keep in mind that the [Local User Mapping Database][LUMA] must be
+properly set up for each storage backend supporting a space. This is required so that file
+permissions are accurately enforced in the space and the permissions in Onedata are
+correctly mapped onto and from actual permissions on the storage, especially concerning
+the above-mentioned **group** and **others** semantics.
 
 ### Access Control Lists
 
 **Access Control Lists (ACL)** are a mechanism for regulating access to files
 and directories using hierarchical rules that grant and deny granular operations
 for a specific principal. Onedata supports a subset of CDMI ACL which are based
-on NFSv4 standard [RFC 3530][31].
+on NFSv4 standard [RFC 3530][].
 
 An ACL is an ordered list of **ACEs (Access Control Entries)**. ACEs are
 evaluated strictly in the same order as they were added, top-down. If any
@@ -222,31 +280,25 @@ stopped.
 An ACE consists of four fields:
 
 * `who` — the principal whom the ACE affects:
+  * user or [group][] represented by their identifier,
+  * `OWNER@` — the owner of the file,
+  * `OWNING GROUP@` — members of space which contain the file,
+  * `ANONYMOUS@` — guest client (accessing through a share),
+  * `EVERYONE@` — everyone, including the anonymous users.
+* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`),
+* `flags` — currently only the flag indicating whether the principal identifier points to
+  the user or group is supported, other flags can be set or [imported][storage import],
+  but they will be ignored during ACE evaluation,
+* `access_mask` — the permissions regulated by this ACE.
 
-  * user or group represented by their identifier
-
-  <!---->
-
-  * `OWNER@` — the owner of the file
-  * `OWNING GROUP@` — members of space which contain the file
-  * `ANONYMOUS@` — guest client (accessing through a share)
-  * `EVERYONE@` — everyone, including the anonymous users
-* `type` — `ALLOW` or `DENY` operation specified by `access_mask` to the principal (`who`)
-* `flags` — currently only the flag indicating whether the principal identifier
-  points to the user or group is supported, other flags can be set or
-  [imported][32], but they will be ignored during ACE evaluation
-* `access_mask` — the permissions regulated by this ACE
-
-You can change permissions using the [Web file browser][33]
-in the **File Details** modal or using the [CDMI API][34].
+You can assign ACL rules using the [Web file browser][Web GUI change permissions] in the
+**File Information** modal or using the [CDMI API][CDMI set ACL operation].
 
 #### Permissions
 
-ACL provides more fine-grained control of access to resources than POSIX permissions.
+ACL provides more fine-grained control of access to resources than POSIX permissions:
 
-All available permissions and their meaning for files or directories are presented below.
-
-#### ACL for file
+#### ACL for a file
 
 | Permissions      |                                                |
 | ---------------- | ---------------------------------------------- |
@@ -260,7 +312,7 @@ All available permissions and their meaning for files or directories are present
 | Write attributes | write metadata associated with file attributes |
 | Delete           | delete file                                    |
 
-#### ACL for directory
+#### ACL for a directory
 
 | Permissions        |                                                     |
 | ------------------ | --------------------------------------------------- |
@@ -294,58 +346,18 @@ algorithm:
    to the list of granted permissions. If the list includes all the requested
    permissions, the access is granted and the algorithm terminates.
 
-4. If the end of the ACL list is reached and permission has neither been
-   fully granted nor explicitly denied, access is denied and the algorithm
+4. If the end of the ACL list is reached and **permission has neither been
+   fully granted nor explicitly denied**, **access is denied** and the algorithm
    terminates.
 
-### POSIX permissions
+::: warning NOTE
+Because of the above, when setting ACL rules, you should make sure that there is at least
+one rule with a principal matching yourself and allowing ACL reading/changing. Otherwise,
+you will lose the ability to manage the ACLs. In such a case, only a [space owner][] can
+help.
+:::
 
-Onedata implements traditional POSIX permissions typical for Unix or Linux
-systems for specifying access rights to files or directories.
-However, all space members are treated as a virtual group which is
-the **group** owner of all files in the space. This means that whenever a file
-is accessed by a space member who is not the owner of the file, the **group**
-permissions are taken into consideration. Permissions for **others** are
-considered when a [public share][29] is accessed (as an anonymous
-**guest**). These differences stem from the fact that unlike on POSIX systems,
-there is an additional layer of access control imposed by membership in
-[spaces][2] (which are completely separated logical data containers),
-and the concepts of POSIX **group** and Onedata [group][35] are
-different.
-
-Examine the following example of file POSIX permissions:
-
-```
-rwx r-- ---
- |   |   |
- |   |   guests
- |   |
- |   space members
- |
- owner user
- 
-```
-
-In the above case, the creator of the file (its **owner** user) has full access
-to the file. All space members have read access to the file. Users (guests) who
-try to access the file through a public share will fail to do so as all
-permissions are denied for **others**.
-
-Default permissions (for newly created files/directories) are as follows:
-
-* files: `rw- rw- r--` (octal: `664`)
-* directories: `rwx rwx r-x` (octal: `775`)
-
-You can change permissions using the [Web file browser][19] in
-the **Permissions** tab in **File Details modal**, or using the
-[REST API][36].
-
-Oneprovider admins should keep in mind that the
-[Local User Mapping Database][37]
-must be properly set up for each storage supporting a space. This is required so
-that file permissions are accurately enforced in the space and the permissions in
-Onedata are correctly mapped onto and from actual permissions on the storage,
-especially concerning the above-mentioned **group** and **others** semantics.
+<!-- TODO VFS-7189 revise, move? -->
 
 ## File distribution
 
@@ -377,19 +389,18 @@ providers, which allows it to be fast.
 ### Discovering file distribution
 
 You can discover how the file blocks are distributed among providers supporting
-the space in which it is stored with:
+the space in which it is stored like below:
 
-1. `Web GUI` - open the context menu for the file and choose **Data distribution**:
+1. `Web GUI` — open the context menu for the file and choose **Data distribution**:
    ![screen-file-distribution-gui][]
 
    and you will see **Data distribution** modal, representing the distribution
    of file blocks:
    ![screen-file-distribution-modal][]
 
-2. `REST API` - use [get file distribution][38]
-   endpoint.
+2. `REST API` — use [get file distribution][REST get distribution] endpoint.
 
-3. `Oneclient` - check [file extended attributes][39]
+3. `Oneclient` — check [file extended attributes][Oneclient xattrs]
    and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and
    `org.onedata.replication_progress` attributes:
 
@@ -402,96 +413,118 @@ the space in which it is stored with:
    ...
    ```
 
-   > **NOTE:** Note that extended attributes presents only information about
-   > file blocks stored in provider to which the Oneclient is connected.
-   > In order to find information about replicas of the file in other providers
-   > Web GUI or REST API must be used.
+   ::: tip
+   Extended attributes present only information about file blocks stored in the provider
+   to which the Oneclient is connected. To find information about replicas of the file in
+   other providers, use the Web GUI or REST API (see above).
+   :::
 
 ### Distribution management
 
 You can manage the data distribution using:
 
-1. [Transfers][40] - allow to intentionally replicate,
-   evict and migrate file(s).
+1. [Transfers][] — allow to intentionally replicate, evict, and migrate file(s).
 
-2. [Quality of Service][41] - allows specifying requirements
+2. [Quality of Service][] — allows specifying requirements
    that may ensure that file replicas in certain providers are automatically
    updated and protected from eviction.
 
-3. [Auto-cleaning][42] -
-   automatically maintains storage usage at a predefined level, creating space
-   for new replicas during continuous computations.
-   > **NOTE:** Note that Auto-cleaning can only be configured by a space admin.
+3. [Auto-cleaning][] — automatically maintains storage usage at a predefined level,
+   creating space for new replicas during continuous computations.
+
+   ::: tip NOTE
+   Auto-cleaning can only be configured by a space admin.
+   :::
 
 <!-- references -->
 
-[1]: <>
-
-[2]: spaces.md
-
-[3]: #web-gui
-
-[5]: #oneclient
-
-[6]: #rest-api
-
-[7]: #cdmi
-
-[8]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
-
-[10]: #provider-domain
-
-[11]: ../intro.md#architecture
-
-[12]: spaces.md#space-support
-
-[14]: oneclient.md
+[toc]: <>
 
 [file-path-and-id]: #file-path-and-id
 
-[16]: https://onedata.org/#/home/api/stable/oneprovider
+[Web GUI]: #web-gui
 
-[17]: rest-api.md
+[Oneclient]: #oneclient
 
-[18]: cdmi.md
+[REST]: #rest-api
 
-[19]: web-file-browser.md
+[CDMI]: #cdmi
 
-[20]: tokens.md#access-tokens
+[Provider domain]: #provider-domain
 
-[21]: tokens.md#token-caveats
+[Access Control List]: #access-control-lists
 
-[22]: tokens.md#data-access-caveats
+[ACE]: #access-control-entry
 
-[23]: spaces.md#space-members
+[POSIX permissions]: #posix-permissions
 
-[24]: datasets.md
+[group]: groups.md
 
-[25]: spaces.md#space-owner
+[spaces]: spaces.md
 
-[26]: spaces.md#space-privileges
+[space member]: spaces.md#space-members
 
-[27]: #access-control-lists
+[space privileges]: spaces.md#space-privileges
 
-[28]: #posix-permissions
+[space support]: spaces.md#space-support
 
-[29]: shares.md
+[space owner]: spaces.md#space-owner
 
-[30]: #access-control-entry
+<!-- TODO VFS-10933 link to the providers section -->
 
-[31]: https://tools.ietf.org/html/rfc3530
+[Providers]: ../intro.md#architecture
 
-[32]: ../admin-guide/oneprovider/configuration/storage-import.md
+<!-- TODO VFS-11766 place some sensible link here -->
 
-[33]: web-file-browser.md#permissions
+[Oneprovider service]: ../intro.md#architecture
 
-[34]: cdmi.md#set-file-acl
+<!-- TODO VFS-11766 place some sensible link here -->
 
-[35]: groups.md
+[Onedata zone]: ../intro.md#architecture
 
-[36]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr
+[Web file browser guide]: web-file-browser.md
 
-[37]: ../admin-guide/oneprovider/configuration/luma.md
+[Web GUI change permissions]: web-file-browser.md#permissions
+
+[Oneclient chapter]: oneclient.md
+
+[Oneclient xattrs]: oneclient.md#file-extended-attributes
+
+[REST API chapter]: rest-api.md
+
+[File ID resolution endpoint]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
+
+[CDMI chapter]: cdmi.md
+
+[CDMI set ACL operation]: cdmi.md#set-file-acl
+
+[Oneprovider REST API]: https://onedata.org/#/home/api/stable/oneprovider
+
+[REST set attr]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr
+
+[REST get distribution]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution
+
+[access tokens]: tokens.md#access-tokens
+
+[caveats]: tokens.md#token-caveats
+
+[data access caveats]: tokens.md#data-access-caveats
+
+[datasets]: datasets.md
+
+[shares]: shares.md
+
+[RFC 3530]: https://tools.ietf.org/html/rfc3530
+
+[storage import]: ../admin-guide/oneprovider/configuration/storage-import.md
+
+[LUMA]: ../admin-guide/oneprovider/configuration/luma.md
+
+[Transfers]: data-transfer.md
+
+[Quality of Service]: qos.md
+
+[Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
 
 [screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
 
@@ -500,13 +533,3 @@ You can manage the data distribution using:
 [screen-file-distribution-gui]: ../../images/user-guide/data/file-distribution-gui.png
 
 [screen-file-distribution-modal]: ../../images/user-guide/data/file-distribution-modal.png
-
-[38]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution
-
-[39]: oneclient.md#file-extended-attributes
-
-[40]: data-transfer.md
-
-[41]: qos.md
-
-[42]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
