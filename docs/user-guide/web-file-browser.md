@@ -131,8 +131,6 @@ file ID:
 * **Show** — a link that displays the file in GUI:<br /> `https://${ZONE_DOMAIN}/#/action/file/show/${FILE_ID}`
 * **Download** — A link that prompts you to download the file:<br /> `https://${ZONE_DOMAIN}/#/action/file/download/${FILE_ID}`
 
-
-
 ### Download
 
 This action simply downloads the chosen single file or directory. You can also download

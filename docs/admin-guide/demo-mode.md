@@ -15,7 +15,6 @@
     the deployed services.
 -->
 
-
 <!-- TODO VFS-11766 link to the section about releases (when it's there) -->
 
 The Onedata software is released as a range of docker images that run its different
@@ -26,14 +25,13 @@ providing a “hello world” deployment.
 The demo mode is useful when:
 
 1. You wish to get familiar with Onedata in a sandbox environment, without any account
-   registration or complicated setup. Then, see the instructions for 
+   registration or complicated setup. Then, see the instructions for
    [running in the foreground][].
 
 2. You wish to start a minimal Onedata environment for the needs of automated processes —
    for example, integration tests of your middleware/scripts/applications that use Onedata
    as the storage layer. Check out the guide for [running in the background][], or if you
    prefer, see this [easy-to-adopt example][comprehensive example].
-
 
 ## Default demo setup
 
@@ -48,13 +46,12 @@ The demo environment is configured in the following way:
 3. There is one predefined user, with username: `admin`, and password: `password`.
 
 4. There is one predefined demo space, called `demo-space`, with always identical space
-   ID: `cb274b2b8bb1750d9be37dd4a3eb7014chb175`. 
+   ID: `cb274b2b8bb1750d9be37dd4a3eb7014chb175`.
 
 5. Any number of Oneprovider services can be started. They will all automatically support
    the demo space. Providers get some predefined names and geographical locations. Make
    sure to **start at least two** to be able to test in action the flagship Onedata
    features for **distributed data management**.
-
 
 ## Running in the foreground
 
@@ -101,15 +98,14 @@ docker run --rm -it --name op_test2 onedata/oneprovider:21.02.5-dev demo $OZ_IP
 ```
 
 ::: tip NOTE
-The demo command for `oneprovider` takes one required argument — the `onezone` IP address, 
+The demo command for `oneprovider` takes one required argument — the `onezone` IP address,
 which is already taken care of in the above command.
 :::
 
-
 ## Running in the background
 
-Run the dockers just like for the [foreground][running in the foreground], but add the 
-`--detach` (or `-d`) option. 
+Run the dockers just like for the [foreground][running in the foreground], but add the
+`--detach` (or `-d`) option.
 
 Use the built-in commands of the images to block the process until the demo environment
 is all set up and ready to be used:
@@ -126,11 +122,10 @@ you may also find the `await` command for Onezone useful:
 docker exec oz_test await
 ```
 
-
 ## Acquiring an access token
 
-An access token will be required to use the [REST API][] or any client other than the 
-[Web GUI][] (e.g. [Oneclient][] or [OnedataFS][]). 
+An access token will be required to use the [REST API][] or any client other than the
+[Web GUI][] (e.g. [Oneclient][] or [OnedataFS][]).
 
 You can simply acquire the token using the [graphical wizard][token via gui] in the Web
 GUI, or for an automated process, run the `demo-access-token` command for any of the
@@ -143,7 +138,6 @@ docker exec op_test1 demo-access-token
 ```
 
 The above commands will give you a non-restricted access token valid for a week.
-
 
 ## Comprehensive example
 
@@ -174,9 +168,11 @@ echo "https://$OZ_IP/#/action/file/show/$FILE_ID"
 
 ::: tip TIPS
 When you visit the above URL:
+
 1. Use `admin : password` to log in.
 2. Upon the “No connection to Oneprovider” error, visit the server URL (as suggested) to
-accept the self-signed certificate. 
+   accept the self-signed certificate.
+
 :::
 
 <!-- References -->

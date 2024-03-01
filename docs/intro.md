@@ -37,7 +37,6 @@ Onedata focuses on performant, transparent access to distributed data sets, with
 burdensome manual staging and migration, allowing access to the data directly from your
 personal computer or a worker node within a data center.
 
-
 ## Quickstart
 
 Read on to get familiar with the basic Onedata concepts, or take a look at the
@@ -52,13 +51,12 @@ get it running!
 If you are about to deploy Onedata services on your infrastructure, go the [admin guide][]
 or the relevant quickstart for [Onezone][] or [Oneprovider][] service.
 
-
 ## Basic concepts
 
 The most important concepts in Onedata are:
 
-
 <!-- TODO VFS-11766 links to different sections, consider being more concise or moving some information -->
+
 * **Spaces** — distributed virtual volumes, where users can organize their data,
 * **Providers** — entities who support user spaces with actual storage resources exposed via *Oneprovider* services,
 * **Zones** — federations of providers that enable the creation of closed or
