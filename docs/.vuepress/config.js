@@ -56,6 +56,7 @@ module.exports = {
         children: [
           '/admin-guide/overview',
           '/admin-guide/architecture',
+          '/admin-guide/demo-mode',
           {
             title: 'Onezone',
             collapsable: true,
