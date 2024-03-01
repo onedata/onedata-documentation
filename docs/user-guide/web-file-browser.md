@@ -114,13 +114,24 @@ operations are available in this mode.
 
 ### Information
 
-This action brings up the **Info** tab in a **Details** modal with information about a single file or directory.
-
-<!-- TODO VFS-11766 Update screenshot to the newest version -->
+This action brings up the **Info** tab in a **Details** modal with information about a
+single file or directory. You can also access the Information tab by hovering over the
+icon of a file or directory.
 
 ![screen-feature-info][]
 
-You can also access the Information tab by hovering over the icon of a file or directory.
+### File links
+
+In the **Info** tab (see above), you will find handy links to the selected file/directory,
+allowing a logged-in user to view the file in the browser or download it (given that they
+are authorized to access it). These links can be useful for linking to Onedata files from
+external applications or websites. They can be built knowing only the zone domain and the
+file ID:
+
+* **Show** — a link that displays the file in GUI:<br /> `https://${ZONE_DOMAIN}/#/action/file/show/${FILE_ID}`
+* **Download** — A link that prompts you to download the file:<br /> `https://${ZONE_DOMAIN}/#/action/file/download/${FILE_ID}`
+
+
 
 ### Download
 

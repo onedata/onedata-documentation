@@ -15,6 +15,13 @@ familiarize yourself with the system if your organization does not have its zone
 
 ![screen-log-in][]
 
+<!-- TODO VFS-10903 
+   add information about the demo mode as another way to have a zone
+   link from there to there and to here from there
+
+   Also, propose this as a way for a user quickstart for more advanced users.
+-->
+
 To access Onedata, follow these steps for logging in through Identity Providers
 (IdPs) configured by the zone administrators:
 
