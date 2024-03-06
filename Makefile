@@ -1,28 +1,38 @@
-.PHONY: all build install-gitbook build-gitbook build-swagger-api-docs package
+.PHONY: all build dev clean
+
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v5
 
 all: build
 
-build: install-gitbook build-gitbook 
+lint:
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
 
-preview: install-gitbook build-gitbook
-	@bash ./bin/serve-gitbook.sh
+check-language:
+	./check-language.py
 
-install-gitbook:
-	@bash ./bin/build-docs.sh install-gitbook
+format-all:
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all
 
-build-gitbook:
-	@bash ./bin/build-docs.sh build-gitbook
-	@bash ./bin/put-release-html.sh
+build:
+	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} build
+	./inject-release.sh
+
+package:
+	cd rel/ && tar zcf ../onedata_documentation.tar.gz .
+
+dev:
+	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
 
 submodules:
 	git submodule sync --recursive ${submodule}
 	git submodule update --init --recursive ${submodule}
 
-package:
-	cd _book && tar zcf ../onedata_documentation.tar.gz .
+preview: build
+	@bash -c "sleep 1; echo 'opening http://localhost:8080/future-documentation/intro.html ...'; xdg-open http://localhost:8080/future-documentation/intro.html" &
+	@cd rel/ && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 
 clean:
-	@rm -rf node_modules _book package-lock.json
+	@rm -rf node_modules yarn-cache rel/
 
 codetag-tracker:
-	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=_book,gitbook_cache,node_modules
+	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,rel

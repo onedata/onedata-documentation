@@ -1,0 +1,117 @@
+{
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark",
+    "editor.formatOnSave": false,
+    "editor.rulers": [{
+        "column": 90,
+        "color": "#99999944"
+      },
+      {
+        "column": 120,
+        "color": "#ff000044"
+      }]
+  },
+  "[python]": {
+    "editor.rulers": [{
+      "column": 100
+    }]
+  },
+  "ltex.additionalRules.enablePickyRules": true,
+  "ltex.markdown.nodes": {
+    "ImageRef": "ignore",
+    "StrongEmphasis": "dummy",
+    "TableSeparator": "default"  // the '-' character separating a table header
+  },
+  "ltex.configurationTarget": {
+    "dictionary": "workspace",
+    "disabledRules": "workspace",
+    "hiddenFalsePositives": "workspace"
+  },
+  "ltex.disabledRules": {
+    "en-US": [
+      "EG_NO_COMMA",
+      "IE_NO_COMMA",
+      "TYPOGRAPHICAL_APOSTROPHE"
+    ]
+  },
+  "ltex.diagnosticSeverity": {
+    "default": "information",
+    "PASSIVE_VOICE": "hint",
+    "UPPERCASE_SENTENCE_START": "hint"
+  },
+  "ltex.dictionary": {
+    "en-US": [
+      "ACEs",
+      "aws-cli",
+      "BagIt",
+      "CDMI",
+      "ceph",
+      "Ceph",
+      "Couchbase",
+      "copyable",
+      "filesystem",
+      "GIDs",
+      "GlusterFS",
+      "Grammarly",
+      "IdP",
+      "LTeX",
+      "LUMA",
+      "MinIO",
+      "NullDevice",
+      "nvm",
+      "OAIS",
+      "Oneclient",
+      "Onedata",
+      "OnedataFS",
+      "Onepanel",
+      "Oneprovider",
+      "Oneproviders",
+      "Onezone",
+      "OpenAPI",
+      "proxied",
+      "PyFilesystem",
+      "QoS",
+      "quickstart",
+      "Quickstart",
+      "RADOS",
+      "rclone",
+      "remarkrc",
+      "snapshotted",
+      "subpath",
+      "toc",
+      "UIDs",
+      "unifiedjs",
+      "VSCode",
+      "VuePress",
+      "XRootD",
+      "znck"
+    ]
+  },
+  "ltex.hiddenFalsePositives": {
+    "en-US": [
+      // below rules match whole tables, for which LTeX is over-sensitive 
+      // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"PHRASE_REPETITION\",\"sentence\":\"\\n[-]{4,}\"}",
+      "{\"rule\":\"WHITESPACE_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
+
+      // generic rules
+      "{\"rule\":\"ALLOW_TO_DO\",\"sentence\":\"allow write access\"}",
+      "{\"rule\":\"AN_INVITE\",\"sentence\":\"invite token\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneclient\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Onedata\"}",
+      "{\"rule\":\"EN_A_VS_AN\",\"sentence\":\"a Oneprovider\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_BEGINNING_RULE\",\"sentence\":\"Bob\"}",
+      "{\"rule\":\"ENGLISH_WORD_REPEAT_BEGINNING_RULE\",\"sentence\":\"If\"}",
+      "{\"rule\":\"POSSESSIVE_APOSTROPHE\",\"sentence\":\"Views chapter\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"[Aa]uto storage import\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"API\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"conflict resolution algorithm\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"data discovery GUI\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"data management system\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
+    ]
+  }
+}
