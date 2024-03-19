@@ -56,6 +56,8 @@ By default, anonymous users can simply browse these files in a read-only manner,
 * read files [metadata extended attributes][] that can be
   set by authenticated users.
 
+<!-- @TODO VFS-11766 missing information about different types of metadata -->
+
 ![screen-share-public-file-info][]
 
 Access to specific files can be restricted inside the Share by modifying the following
