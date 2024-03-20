@@ -14,14 +14,15 @@ node(s). In a `docker-compose` deployments, the most straightforward method is t
 the `auth.config` file in the volumes section.
 
 ::: warning NOTES
+
 1. The `auth.config` typically includes secrets and sensitive information; do not put it
-in your version control repository.
+   in your version control repository.
 
 2. Make sure to always specify the `version => 3,` at the top of your config.
 
 3. The `auth.config` file must be present on all cluster nodes hosting the
-Onezone worker service and must be identical.
-:::
+   Onezone worker service and must be identical.
+   :::
 
 ## Table of contents
 
@@ -29,7 +30,7 @@ Onezone worker service and must be identical.
 
 ## Quickstart
 
-By default, Onezone is packaged with a configuration that enables only [Basic authentication][], 
+By default, Onezone is packaged with a configuration that enables only [Basic authentication][],
 placed in `/etc/oz_worker/auth.config`. After deploying Onezone, a default user `admin`
 will be created, with a password equal to the emergency passphrase provided in Onepanel
 during deployment — this way you can log in to a fresh Onezone installation without
@@ -39,7 +40,7 @@ further setup.
 Deployment examples using `docker-compose` overwrite the `auth.config` file with a mount
 from the host. Simply remove this mount to use the default config (especially when you are
 not sure how to fill it in because mounting an incorrect config will disable all login
-methods). [Here][minimal auth.config] is the minimal `auth.config` that is installed by default. 
+methods). [Here][minimal auth.config] is the minimal `auth.config` that is installed by default.
 :::
 
 You can follow the [tutorial for Google IdP][] if you wish to enable login with a Google
@@ -157,7 +158,7 @@ the first 6 will be shown and the rest hidden in the `...` button.
 
 ## Config file structure
 
-This section discusses the exemplary `auth.config` file that can be found in 
+This section discusses the exemplary `auth.config` file that can be found in
 `/etc/oz_worker/template.auth.config` on the machine running Onezone. The complete
 exemplary config file is presented [at the end of this section][complete example].
 
@@ -222,7 +223,7 @@ users can be created using the [REST API][create user API].
 
 Disabling any protocol using the `enabled` flag in `basicAuthConfig`, `openidConfig`, or
 `samlConfig` section will disable all IdPs using that protocol and hide them from the
-login screen. 
+login screen.
 :::
 
 ### OpenID config
@@ -231,6 +232,7 @@ login screen.
 that will be inherited by all OpenID IdPs.
 
 ::: details click to expand
+
 ```Erlang
     openidConfig => #{
         % Enable OpenID login protocol — if disabled, all OpenID IdPs will be
@@ -304,6 +306,7 @@ that will be inherited by all OpenID IdPs.
         }
     },
 ```
+
 :::
 
 More details:
@@ -314,7 +317,7 @@ More details:
   Currently, Onezone supports one `OpenID 1.0` IdP — the PLGrid organization that uses
   `plgrid_openid_plugin` — see [this example][PLGrid config].
 
-* `pluginConfig` — config specific for the `default_oidc_plugin` — 
+* `pluginConfig` — config specific for the `default_oidc_plugin` —
   [see below][OpenID config example].
 
 * `authorityDelegation` — [see below][authority delegation].
@@ -331,6 +334,7 @@ More details:
 configuration and defaults that will be inherited by all SAML IdPs.
 
 ::: details click to expand
+
 ```Erlang
     samlConfig => #{
         % Enable SAML login protocol — if disabled, all SAML IdPs will be hidden
@@ -397,6 +401,7 @@ configuration and defaults that will be inherited by all SAML IdPs.
         }
     },
 ```
+
 :::
 
 More details:
@@ -417,6 +422,7 @@ This section provides a list of all IdPs that will be available on the login pag
 button order on the login page corresponds to the order of the entries:
 
 ::: details click to expand
+
 ```Erlang
     supportedIdps => [
         % IdP identifier, must be a unique, arbitrary atom
@@ -450,6 +456,7 @@ button order on the login page corresponds to the order of the entries:
         ...
     ]
 ```
+
 :::
 
 More details:
@@ -466,7 +473,7 @@ identifier is reserved for internal purposes and cannot be used.
 * `iconPath` — the path to the static image file that will be used for the IdP icon
   on the login page. Some predefined icons are available under the path
   `/assets/images/auth-providers/<icon>.svg`, to see the full list visit the
-  [Onezone GUI repo][]. You will find information on how to add custom icons to the 
+  [Onezone GUI repo][]. You will find information on how to add custom icons to the
   login page [here][custom icon guidelines]. If not specified, `iconPath`
   defaults to `/assets/images/auth-providers/default.svg`.
 
@@ -475,10 +482,10 @@ identifier is reserved for internal purposes and cannot be used.
 * `protocolConfig` — depends on the protocol, see the following sections for
   config examples for each protocol.
 
-
 #### Basic Auth example
 
 ::: details click to expand
+
 ```Erlang
         % basicAuth is a special IdP id reserved for signing in with username & password 
         % and the only valid config entry using the basicAuth protocol.
@@ -502,11 +509,13 @@ identifier is reserved for internal purposes and cannot be used.
             protocol => basicAuth
         }},
 ```
+
 :::
 
 #### OpenID example
 
 ::: details click to expand
+
 ```Erlang
 {google, #{
     % Configuration of the login page button
@@ -617,6 +626,7 @@ identifier is reserved for internal purposes and cannot be used.
     }
 }},
 ```
+
 :::
 
 This IdP will inherit all the configuration from `openidConfig -> defaultProtocolConfig`,
@@ -678,6 +688,7 @@ Note that some of them can be configurable on the IdP side too.
 #### SAML example
 
 ::: details click to expand
+
 ```Erlang
         {elixir, #{
             % Configuration of the login page button
@@ -740,6 +751,7 @@ Note that some of them can be configurable on the IdP side too.
         }}
     ]
 ```
+
 :::
 
 This IdP will inherit all the configuration from `samlConfig -> defaultProtocolConfig`,
@@ -804,7 +816,7 @@ Onezone service can act as a dispenser for access tokens issued by IdPs that use
 logging in with. If offline access is enabled in the configuration, Onezone will request
 refresh tokens and store them. This enables later acquisition of a user's access token,
 issued by a specific IdP, even if the user is not currently logged in. Only OIDC IdPs are
-supported, and offline access must be supported by the given IdP. 
+supported, and offline access must be supported by the given IdP.
 
 To enable this feature for specific IdP, the `offlineAccess` field has to be added to the
 IdP's protocol config, for instance:
@@ -826,7 +838,7 @@ actively used by a user will have the ability to acquire the user's IdP access t
 result, these providers will be able to gain full authorization on behalf of the user.
 :::
 
-IdP access tokens can be acquired using the Onezone 
+IdP access tokens can be acquired using the Onezone
 [REST API][create IdP access token API].
 
 ### Attribute Mapping
@@ -1203,6 +1215,7 @@ Example:
 The following example, which uses all possible rules:
 
 ::: details click to expand
+
 ```Erlang
 attributeMapping => #{
     subjectId => {required, {replace, "c", "x", "id"}},
@@ -1223,11 +1236,13 @@ attributeMapping => #{
     ]}}
 }
 ```
+
 :::
 
 would parse the following JSON:
 
 ::: details click to expand
+
 ```JSON
 {
 	"id": "abcdef1c2c3c4c",
@@ -1256,11 +1271,13 @@ would parse the following JSON:
 	}
 }
 ```
+
 :::
 
 into the following Onedata user attributes:
 
 ::: details click to expand
+
 ```JSON
 {
 	"idp": "my-idp",
@@ -1281,6 +1298,7 @@ into the following Onedata user attributes:
 	}
 }
 ```
+
 :::
 
 #### Attribute mapping inheritance
@@ -1884,8 +1902,8 @@ In case of problems, this checklist might be useful:
   * **The Onezone GUI** — see the image below. The error page will contain
     basic information about the error. If that is not enough to identify the
     problem, copy the request state identifier from the error page and check the
-    logs — see the next point. 
-    
+    logs — see the next point.
+
     ![screen-2-login-page-error][]
 
 <!-- @TODO VFS-11766 add a reference to troubleshooting how to turn on debug logs -->
@@ -1978,7 +1996,7 @@ are created in the process. The summary expresses what information would be
 gathered if it were a login flow in production, and includes detailed logs from the
 whole login process.
 
-::: tip 
+::: tip
 The SAML SP metadata XML based on the `test.auth.config` can be viewed under the
 following URL: `https://onezone.example.com/saml/sp.xml?test=true`
 :::
@@ -1993,6 +2011,7 @@ A complete exemplary `auth.config` file is presented below. It can also be found
 on your Onezone node under `/etc/oz_worker/template.auth.config`.
 
 ::: details click to expand
+
 ```Erlang
 #{
     version => 3,
@@ -2326,6 +2345,7 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
     ]
 }.
 ```
+
 :::
 
 ## Minimal config
@@ -2369,6 +2389,7 @@ required to insert the Client ID and Secret in the config.
 ### Username & password login
 
 ::: details click to expand
+
 ```Erlang
 {basicAuth, #{
     displayName => "username & password",
@@ -2377,11 +2398,13 @@ required to insert the Client ID and Secret in the config.
     protocol => basicAuth
 }}
 ```
-::: 
+
+:::
 
 ### KeyCloak config (OpenID Connect)
 
 ::: details click to expand
+
 ```Erlang
 {keycloakIdP, #{
     displayName => "RHEA KeyCloak",
@@ -2437,11 +2460,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### GitHub config (OpenID Connect)
 
 ::: details click to expand
+
 ```Erlang
 {github, #{
     displayName => "Github",
@@ -2494,11 +2519,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### Google config (OpenID Connect)
 
 ::: details click to expand
+
 ```Erlang
 {google, #{
     displayName => "Google",
@@ -2543,11 +2570,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### Facebook config (OpenID Connect)
 
 ::: details click to expand
+
 ```Erlang
 {facebook, #{
     displayName => "Facebook",
@@ -2597,11 +2626,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### EGI config (OpenID Connect)
 
 ::: details click to expand
+
 ```Erlang
 {egi, #{
     displayName => "EGI",
@@ -2648,11 +2679,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### PLGrid config (OpenID 2.0)
 
 ::: details click to expand
+
 ```Erlang
 {plgrid, #{
     displayName => "PLGrid OpenID",
@@ -2690,11 +2723,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### CERN config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {cern, #{
     displayName => <<"CERN (eduGAIN)">>,
@@ -2726,11 +2761,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### CNRS config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {cnrs, #{
     displayName => <<"CNRS (eduGAIN)">>,
@@ -2762,11 +2799,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### DESY config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {desy, #{
     displayName => <<"DESY (eduGAIN)">>,
@@ -2798,11 +2837,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### Elixir config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {elixir, #{
     displayName => <<"Elixir">>,
@@ -2834,11 +2875,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### EMBL config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {embl, #{
     displayName => <<"EMBL (eduGAIN)">>,
@@ -2870,11 +2913,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### ESRF config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {esrf, #{
     displayName => <<"ESRF (eduGAIN)">>,
@@ -2906,11 +2951,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### IFAE config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {ifae, #{
     displayName => <<"IFAE (eduGAIN)">>,
@@ -2942,11 +2989,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### INFN config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {infn, #{
     displayName => <<"INFN (eduGAIN)">>,
@@ -2978,11 +3027,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### KIT config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {kit, #{
     displayName => <<"KIT (eduGAIN)">>,
@@ -3014,11 +3065,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### STFC config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {stfc, #{
     displayName => <<"STFC (eduGAIN)">>,
@@ -3050,11 +3103,13 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 ### UnitedID config (SAML)
 
 ::: details click to expand
+
 ```Erlang
 {unitedid, #{
     displayName => <<"UnitedID">>,
@@ -3086,7 +3141,8 @@ required to insert the Client ID and Secret in the config.
     }
 }}
 ```
-::: 
+
+:::
 
 <!-- references -->
 
