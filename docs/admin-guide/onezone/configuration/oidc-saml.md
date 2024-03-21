@@ -81,7 +81,7 @@ information, register your services, etc. In general, the necessary steps are:
    https://onezone.example.com/validate_login
    ```
 
-4. After finishing the registration process, you will be assigned a Client ID and Client
+4. After finishing the registration process, you will be assigned a Client ID and a Client
    Secret.
 
 5. In the [supported IdP list][], create a new element by choosing a unique identifier
@@ -433,7 +433,7 @@ button order on the login page corresponds to the order of the entries:
             % Their paths start with /assets/images/auth-providers.
             % For a custom icon, put it in:
             %   /var/www/html/oz_worker/custom/<path>
-            % And reference it here like this: /custom/<path>
+            % and reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/default.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is 
@@ -496,7 +496,7 @@ identifier is reserved for internal purposes and cannot be used.
             % Their paths start with /assets/images/auth-providers.
             % For a custom icon, put it in:
             %   /var/www/html/oz_worker/custom/<path>
-            % And reference it here like this: /custom/<path>
+            % and reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/basicauth.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is
@@ -524,7 +524,7 @@ identifier is reserved for internal purposes and cannot be used.
     % Their paths start with /assets/images/auth-providers.
     % For a custom icon, put it in:
     %   /var/www/html/oz_worker/custom/<path>
-    % And reference it here like this: /custom/<path>
+    % and reference it here like this: /custom/<path>
     iconPath => "/assets/images/auth-providers/google.svg",
     % Background color is useful for icons with transparency. Moreover,
     % after selecting an IdP, its icon disappears and a spinner is
@@ -942,7 +942,10 @@ following linked account object:
 	"fullName": "John Doe",
 	"username": "john-doe",
 	"emails": ["john.doe@yahoo.com"],
-	"entitlements": ["Users", "Developers"],
+	"entitlements": [
+        "urn:mace:egi.eu:group1#aai.egi.eu",
+        "urn:mace:egi.eu:group2#sso.egi.eu"
+    ],
 	"custom": {
 	    "gender": "M"
 	}
@@ -969,12 +972,15 @@ After that operation, the complete user data would look like the following:
             "roles": ["role1", "role2", "role3"]
         }
     },{
-        "idp": "indigo",
+        "idp": "egi",
         "subjectId": "12345678-1234-1234-1234-12345678",
         "fullName": "John Doe",
         "username": "john-doe",
         "emails": ["john.doe@yahoo.com"],
-        "entitlements": ["Users", "Developers"],
+        "entitlements": "entitlements": [
+            "urn:mace:egi.eu:group1#aai.egi.eu",
+            "urn:mace:egi.eu:group2#sso.egi.eu"
+        ],
         "custom": {
             "gender": "M"
       	}
@@ -1354,21 +1360,22 @@ They differ depending on the IdP — refer to their documentation to correctly
 build attribute mapping rules. Nevertheless, there is a certain set of
 universally used attributes. The below examples use fairly common attributes:
 
-OpenID attributes example (Indigo IAM)
+OpenID attributes example (EGI Check-In)
 
 ```JSON
 {
 	"sub": "12345678-1234-1234-1234-12345678",
 	"preferred_username": "johndoe",
-	"organisation_name": "indigo-dc",
 	"name": "John Doe",
-	"groups": ["Users", "Developers"],
+	"eduperson_entitlement": [
+        "urn:mace:egi.eu:group:group1#sso.egi.eu",
+        "urn:mace:egi.eu:group:group2#sso.egi.eu",
+        "urn:mace:egi.eu:group:registry:nested-group:role=member#aai.egi.eu",
+    ],
 	"given_name": "John",
-	"gender": "M",
 	"family_name": "Doe",
 	"email_verified": true,
-	"email": "john.doe@google.com",
-	"updated_at": "Fri Jun 17 13:52:32 CEST 2016"
+	"email": "john.doe@google.com"
 }
 ```
 
@@ -1397,16 +1404,15 @@ format, they are internally converted to JSON and treated analogically to
 OpenID attributes during attribute mapping.
 :::
 
-SAML specification defines a certain set of attributes that can be served by
-IdPs. Onezone recognizes the most commonly used ones — see the table below.
-It presents the attribute type identifiers and their human-readable aliases used
-in Onezone. All received attributes with the below identifiers will be translated
-to corresponding aliases — and you must use the aliases in attribute mapping
-rules. Of course, the IdP might send attributes that are not listed in the
-below table or are completely customary for the considered organization. Then, in your
-attribute mapping rules, use the literal type identifiers that appear in the
-assertion XML. They might be custom strings, usually starting with `urn:oid:`
-or URIs (as in the above example for Elixir) — refer to the IdP's documentation.
+SAML specification defines a certain set of attributes that can be served by IdPs. Onezone
+recognizes the most commonly used ones — see the table below. It presents the attribute
+type identifiers and their human-readable aliases used in Onezone. All received attributes
+with the below identifiers will be translated to corresponding aliases, and you must use
+the aliases in attribute mapping rules. Of course, the IdP might send attributes that are
+not listed in the below table or are completely customary for the considered organization.
+Then, in your attribute mapping rules, use the literal type identifiers that appear in the
+assertion XML. They might be custom strings, usually starting with `urn:oid:` or URIs (as
+in the above example for Elixir) — refer to the IdP's documentation.
 
 | alias                          | SAML attribute type identifier      |
 | ------------------------------ | ----------------------------------- |
@@ -1537,7 +1543,7 @@ Suppose that the following JSON is received from the IdP:
 }
 ```
 
-And the [attribute mapping rules][] are:
+The [attribute mapping rules][] are:
 
 ```Erlang
 attributeMapping => #{
@@ -1606,7 +1612,7 @@ Suppose that the following JSON is received from the IdP:
 }
 ```
 
-And the [attribute mapping rules][] are:
+The [attribute mapping rules][] are:
 
 ```Erlang
 attributeMapping => #{
@@ -2165,7 +2171,7 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
             % Their paths start with /assets/images/auth-providers.
             % For a custom icon, put it in:
             %   /var/www/html/oz_worker/custom/<path>
-            % And reference it here like this: /custom/<path>
+            % and reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/basicauth.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is
@@ -2185,7 +2191,7 @@ on your Onezone node under `/etc/oz_worker/template.auth.config`.
             % Their paths start with /assets/images/auth-providers.
             % For a custom icon, put it in:
             %   /var/www/html/oz_worker/custom/<path>
-            % And reference it here like this: /custom/<path>
+            % and reference it here like this: /custom/<path>
             iconPath => "/assets/images/auth-providers/google.svg",
             % Background color is useful for icons with transparency. Moreover,
             % after selecting an IdP, its icon disappears and a spinner is
