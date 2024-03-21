@@ -7,6 +7,8 @@
 See [Web GUI][2] usage examples for the quick guide on how to set or
 obtain file/directory metadata.
 
+<!-- @TODO VFS-11766 mention that the metadata is visible in shares / open data, cross-reference -->
+
 ## Basics
 
 In the Onedata system, metadata is organized into 3 levels and regards every

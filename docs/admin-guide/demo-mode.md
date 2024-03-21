@@ -70,7 +70,7 @@ docker run --rm -it --name op_test1 onedata/oneprovider:21.02.5-dev demo $OZ_IP
 
 After the two services are successfully set up, you will see green logs with instructions
 on how to log in to the demo environment, like below. For documentation on Onedata
-concepts and features, consult the [user guide][].
+concepts and features, consult the [user guide][] and [admin guide][].
 
 ```
 -------------------------------------------------------------------------
@@ -181,7 +181,13 @@ When you visit the above URL:
 
 [running in the background]: #running-in-the-background
 
+<!-- TODO VFS-11766 rethink the overview/quickstart approach -->
+
+<!-- TODO VFS-11766 is it better to link to overview or quickstart? -->
+
 [user guide]: ../user-guide/quickstart.md
+
+[admin guide]: ../admin-guide/overview.md
 
 [Web GUI]: ../user-guide/web-file-browser.md
 
