@@ -1,8 +1,12 @@
 # Demo mode
 
-<!-- TODO VFS-11766 add examples for oneclient -->
+<!-- TODO VFS-11848 add examples regarding oneclient, onedatafs, onedatarestfs, onedatafilerestclient -->
 
-<!-- TODO VFS-11766 add examples for other clients? like onedatafs -->
+<!-- TODO VFS-11848 comprehensive example with OZ, OP and OC and a single await on OC -->
+
+<!-- TODO VFS-11848 cross-references from different sections here and back 
+                    (interfaces, quickstarts)
+-->
 
 <!-- TODO VFS-11766 change all image tags to `${RELEASE}` when the 21.02.5 release is live. -->
 
@@ -37,7 +41,8 @@ The demo mode is useful when:
 
 The demo environment is configured in the following way:
 
-1. All services are single-node and use IP-based domains.
+1. All services are single-node and use IP-based domains. They run on a minimal DB
+   RAM quota, providing a lightweight deployment not suitable for heavy workloads.
 
 2. All services use self-signed (untrusted) TLS certificates; you will need to implicitly
    trust the certificates in the web browser, and use options allowing insecure
