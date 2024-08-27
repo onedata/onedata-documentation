@@ -32,7 +32,6 @@ The currently supported storage backends include:
   Supported only with [`Readonly`][10] option enabled and in [manual import mode][11].
 * `Null device` — POSIX-compatible storage which emulates behavior of `/dev/null` on local filesystem.
   Allows running various performance tests, which are not impacted by actual storage latency.
-  [`Skip storage detection`][12] option is obligatory for this type of storage.
 
 Please consult the [Add storage REST request][13]
 for comprehensive description of type-specific configuration parameters. The parameters are visible after selecting
@@ -87,21 +86,11 @@ admin decides that it should be perceived as read-only. However, if the storage 
 read-only (prevents making any changes), `Readonly` **must** be enabled for correct
 operation of the Oneprovider service.
 
-If you wish to use [Oneclient in Direct I/O mode][18] on a read-only storage, you should
-also enable [`Skip storage detection`][12] option to turn off automatic detection of
-direct access to the storage in the Oneclient application. Remember that in such case,
-`--force-direct-io` option has to be passed to Oneclient application to enable Direct I/O
-mode. Additionally, on POSIX-compatible storage backends mount-point must be passed
-manually. Please see Oneclient's documentation for [`--force-direct-io`][18] and
-[`--override`][19] options.
-
-### Skip storage detection
-
-`Skip storage detection` option turns off automatic detection of direct access to the
-storage in all instances of Oneclient application. It also disables checks performed by
-Oneprovider when storage is added or modified. This option is relevant only for storage
-backends that are **not** marked as `readonly` — for read-only storage backends, it is
-implicitly set to `true`.
+If you wish to use [Oneclient in Direct I/O mode][18] on a read-only storage, remember to
+pass the `--force-direct-io` option to the Oneclient application. Additionally, on
+**POSIX-compatible storage backends**, the mount-point must be **passed manually**.
+Consult Oneclient's documentation for [`--force-direct-io`][18] and [`--override`][19]
+options.
 
 ### LUMA feed
 
@@ -127,6 +116,16 @@ Timeout for storage operations in milliseconds. This parameter is optional, the 
 
 Quality of service parameters.
 For more information on configuration of *Quality of Service* mechanism, see [here][22].
+
+## Verification and monitoring
+
+When adding a new storage backend or modifying an existing one, Oneprovider performs
+read/write tests in order to determine whether the provided configuration is valid and the
+storage backend can be accessed. Write tests are skipped for read-only storage backends.
+
+Additionally, storage health checks are performed periodically. Upon failure, the access
+to all spaces supported by the storage backend is blocked until it becomes accessible
+again.
 
 ## REST API
 
@@ -162,8 +161,6 @@ Refer to the linked API documentation for detailed information and examples.
 [10]: #read-only
 
 [11]: storage-import.md#manual-storage-import
-
-[12]: #skip-storage-detection
 
 [13]: https://onedata.org/#/home/api/stable/onepanel?anchor=operation/add_storage
 
