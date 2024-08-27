@@ -32,7 +32,6 @@ The currently supported storage backends include:
   Supported only with [`Readonly`][10] option enabled and in [manual import mode][11].
 * `Null device` — POSIX-compatible storage which emulates behavior of `/dev/null` on local filesystem.
   Allows running various performance tests, which are not impacted by actual storage latency.
-  [`Skip storage detection`][12] option is obligatory for this type of storage.
 
 Please consult the [Add storage REST request][13]
 for comprehensive description of type-specific configuration parameters. The parameters are visible after selecting
@@ -95,13 +94,12 @@ mode. Additionally, on POSIX-compatible storage backends mount-point must be pas
 manually. Please see Oneclient's documentation for [`--force-direct-io`][18] and
 [`--override`][19] options.
 
-### Skip storage detection
+### Verification and monitoring
 
-`Skip storage detection` option turns off automatic detection of direct access to the
-storage in all instances of Oneclient application. It also disables checks performed by
-Oneprovider when storage is added or modified. This option is relevant only for storage
-backends that are **not** marked as `readonly` — for read-only storage backends, it is
-implicitly set to `true`.
+When adding a new storage backend/modifying an existing one, Oneprovider performs various tests in 
+order to determine whether provided configuration is valid and the storage backend can be accessed. 
+Additionally, these tests are performed periodically, and upon a failure all spaces supported by the 
+storage backend are blocked until it becomes accessible again.
 
 ### LUMA feed
 
