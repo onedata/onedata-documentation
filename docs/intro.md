@@ -6,12 +6,6 @@ title: 'Introduction'
 
 <div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
 
-# 🚧 Under construction! 🚧
-
-This documentation is a work-in-progress and may have errors or missing information.
-
-Begging your patience as we finalize the transition.
-
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
     - a couple of words about Onedata
@@ -23,8 +17,6 @@ INTRODUCTION  (landing page)
      - rework user interfaces, move them somewhere else (data management interfaces are already on the data page, but
        what about general overview on the GUI, login methods, basic navigation, oneproviders and onepanels?)
     -->
-
-<hr />
 
 Onedata is a global data management system that provides easy access to distributed
 storage resources, supporting a wide range of use cases from personal data management to
