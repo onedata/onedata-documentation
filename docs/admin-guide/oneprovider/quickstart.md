@@ -2,7 +2,9 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs][1].
+The quickstart section is coming soon. For now, see the counterpart in the [legacy docs][1].
+
+**Use the panel on the left to navigate to subsections.**
 
 <!-- @TODO VFS-11766 missing chapter -->
 
