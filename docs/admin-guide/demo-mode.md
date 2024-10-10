@@ -8,8 +8,6 @@
                     (interfaces, quickstarts)
 -->
 
-<!-- TODO VFS-11766 change all image tags to `${RELEASE}` when the 21.02.5 release is live. -->
-
 <!-- TODO VFS-11766 
     Consider adding a script to packages.onedata.org, used like this:
 
@@ -65,12 +63,12 @@ different terminals (can be in parallel, which makes the setup faster). Monitor 
 for hints and to find out details about the setup process.
 
 ```bash
-docker run --rm -it --name oz_test onedata/onezone:21.02.5-dev demo
+docker run --rm -it --name oz_test onedata/onezone:${RELEASE} demo
 ```
 
 ```bash
 OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
-docker run --rm -it --name op_test1 onedata/oneprovider:21.02.5-dev demo $OZ_IP
+docker run --rm -it --name op_test1 onedata/oneprovider:${RELEASE} demo $OZ_IP
 ```
 
 After the two services are successfully set up, you will see green logs with instructions
@@ -99,7 +97,7 @@ for **distributed data management**:
 
 ```bash
 OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
-docker run --rm -it --name op_test2 onedata/oneprovider:21.02.5-dev demo $OZ_IP
+docker run --rm -it --name op_test2 onedata/oneprovider:${RELEASE} demo $OZ_IP
 ```
 
 ::: tip NOTE
@@ -152,9 +150,9 @@ starting point for creating an integration test setup for your middleware that u
 Onedata:
 
 ```bash
-docker run --rm -it -d --name oz_test onedata/onezone:21.02.5-dev demo
+docker run --rm -it -d --name oz_test onedata/onezone:${RELEASE} demo
 OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
-docker run --rm -it -d --name op_test1 onedata/oneprovider:21.02.5-dev demo $OZ_IP
+docker run --rm -it -d --name op_test1 onedata/oneprovider:${RELEASE} demo $OZ_IP
 OP_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' op_test1)
 docker exec op_test1 await-demo
 ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
