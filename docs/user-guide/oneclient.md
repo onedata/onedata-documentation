@@ -40,7 +40,9 @@ $ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclie
 ```
 
 or to install a specific version of Oneclient:
+
 <!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
+
 ```bash
 $ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient=20.02.5
 ```
