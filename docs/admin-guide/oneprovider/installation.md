@@ -175,7 +175,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:${RELEASE}
+    image: onedata/oneprovider:xRELEASExVERSIONx
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
 	# The IP of VM need to be placed below under extra_hosts, for example:
@@ -374,7 +374,7 @@ version: '2.0'
 services:
   node1.oneprovider.localhost:
     # Oneprovider Docker image version
-    image: onedata/oneprovider:${RELEASE}
+    image: onedata/oneprovider:xRELEASExVERSIONx
     # Hostname (in this case the hostname inside Docker network)
     hostname: node1.oneprovider.localhost
 	# The IP of VM need to be placed below under extra_hosts, for example:

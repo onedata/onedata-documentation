@@ -56,6 +56,8 @@ $ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.oned
 
 or to install a specific version of `fs.onedatafs`
 
+<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
+
 ```bash
 $ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs=20.02.5
 ```
@@ -63,6 +65,8 @@ $ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.oned
 Furthermore, to ensure that conda will not upgrade Python in a given environment,
 it is possible to provide the exact build number of the OnedataFS packages, which
 includes the Python version, e.g.:
+
+<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
 
 ```bash
 $ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs=20.02.5=py36_0
