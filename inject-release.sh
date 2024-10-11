@@ -4,7 +4,7 @@
 # ${RELEASE_PLACEHOLDER} with the actual release number.
 
 RELEASE_FILE="./RELEASE"
-RELEASE_PLACEHOLDER="\${RELEASE}"
+RELEASE_PLACEHOLDER="xRELEASExVERSIONx"
 DIST_DIRECTORY="./rel/future-documentation"
 
 cd "$(dirname "$0")"

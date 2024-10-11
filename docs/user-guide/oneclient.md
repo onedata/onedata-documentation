@@ -40,7 +40,7 @@ $ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclie
 ```
 
 or to install a specific version of Oneclient:
-
+<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
 ```bash
 $ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient=20.02.5
 ```
@@ -455,7 +455,7 @@ Oneclient can also be started without installation using our official Docker ima
 ```bash
 $ docker run --privileged -e ONECLIENT_ACCESS_TOKEN=<ACCESS_TOKEN> \
 -e ONECLIENT_PROVIDER_HOST=<PROVIDER_HOSTNAME> \
--d --name oneclient-1 onedata/oneclient:${RELEASE}
+-d --name oneclient-1 onedata/oneclient:xRELEASExVERSIONx
 ```
 
 This will start a Docker container with mounted spaces in `/mnt/oneclient`
@@ -472,7 +472,7 @@ However, if it is necessary to enter the Docker and start the Oneclient manually
 the Docker image entry point should be overridden as follows:
 
 ```bash
-$ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:${RELEASE}
+$ docker run --privileged --entrypoint=/bin/bash onedata/oneclient:xRELEASExVERSIONx
 ```
 
 ## Running Oneclient as systemd service
@@ -565,7 +565,7 @@ This can be verified using:
 
 ```bash
 $ oneclient -V
-Oneclient: ${RELEASE}
+Oneclient: xRELEASExVERSIONx
 FUSE library: 2.9
 ```
 

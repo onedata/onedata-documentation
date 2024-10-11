@@ -4,7 +4,7 @@ title: 'Introduction'
 
 # <img src="../images/intro/logo-dark.svg" class="intro-header" width="210">
 
-<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: ${RELEASE}</div>
+<div style="text-align: left; font-weight: normal; font-style: italic; margin-bottom: 1cm;">Version: xRELEASExVERSIONx</div>
 
 <!-- TODO VFS-6805:
 INTRODUCTION  (landing page)
