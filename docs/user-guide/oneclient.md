@@ -35,23 +35,16 @@ to add your account to the `fuse` group.
 Oneclient can be also installed using [Anaconda][],
 from the official [Onedata conda repository][anaconda onedata]:
 
+> **NOTE:** Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+
 ```bash
-$ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient
+$ conda install -c onedata -c conda-forge python=3.9 oneclient
 ```
 
 or to install a specific version of Oneclient:
 
-<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
-
 ```bash
-$ conda --experimental-solver=libmamba install -c onedata -c conda-forge oneclient=20.02.5
-```
-
-For `CentOS 6` there is a special Conda channel `onedata-centos6`, and the
-install command is:
-
-```bash
-$ conda --experimental-solver=libmamba install -c onedata-centos6 -c conda-forge oneclient
+$ conda install -c onedata -c conda-forge python=3.9 oneclient=xRELEASExVERSIONx
 ```
 
 ## Authentication
