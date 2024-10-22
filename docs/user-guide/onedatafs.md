@@ -51,25 +51,13 @@ OnedataFS can be installed using [Anaconda][], from the official
 > **NOTE:** Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
 
 ```bash
-$ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs
+$ conda install -c onedata -c conda-forge python=3.9 fs.onedatafs
 ```
 
 or to install a specific version of `fs.onedatafs`
 
-<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
-
 ```bash
-$ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs=20.02.5
-```
-
-Furthermore, to ensure that conda will not upgrade Python in a given environment,
-it is possible to provide the exact build number of the OnedataFS packages, which
-includes the Python version, e.g.:
-
-<!-- TODO VFS-12386 use xRELEASExVERSIONx placeholder instead of fixed version -->
-
-```bash
-$ conda --experimental-solver=libmamba install -c onedata -c conda-forge fs.onedatafs=20.02.5=py36_0
+$ conda install -c onedata -c conda-forge python=3.9 fs.onedatafs=xRELEASExVERSIONx
 ```
 
 ## Usage
