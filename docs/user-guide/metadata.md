@@ -72,7 +72,7 @@ arbitrary keys and values to be assigned, for instance information about the
 author of the file, mimetype, license, etc. One restriction is that all keys
 beginning with `onedata_` or `cdmi_` prefixes are reserved as they are used by
 the Onedata platform for special purposes, in particular for presentation in
-Graphical User Interface and Open Data publishing and management.
+Graphical User Interface and Public Data publishing and management.
 
 ### Custom metadata
 

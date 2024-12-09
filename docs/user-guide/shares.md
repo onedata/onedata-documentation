@@ -8,8 +8,14 @@ space can be shared as well), which is essentially a public link pointing to the
 
 ## Sharing a file or directory
 
+<!-- FIXME: wszędzie podmienić na screenach "Shares, Open Data" w sidebarze na "Shares, Public Data" -->
+
+<!-- FIXME: wszędzie podmienić na screenach zakładkę "Expose as Open Data" w widoku pojedynczego shera na "Expose as Open Data" -->
+
 To create a Share, navigate to the [file browser][], open the context
 menu for a file or directory, and choose **Share**.
+
+<!-- TODO: VFS-12541 update screenshot do have "Share / Publish" (or something) -->
 
 ![screen-sharing-file-menu][]
 
@@ -38,9 +44,13 @@ etc. Creating multiple Shares can be performed using the **Create another share*
 the Shares tab of the file information panel.
 :::
 
+<!-- TODO: VFS-12541 show details link and screenshots, everywhere -->
+
 An authenticated user can access a [Share management view][] by
 clicking on a green link with a Share name, whereas the public Share URL can be copied and
 shared with others to grant anonymous, read-only access to the files.
+
+<!-- FIXME: czy tutaj słowa "public" nie kolidują z Public Data? -->
 
 ### Public Share access
 
@@ -109,7 +119,7 @@ on the **"Create another share"** button will bring a [Share creation modal][].
 
 ### Listing per space
 
-To list all shares created in the space, navigate to the **Data > *Space name* > Shares, Open Data** view.
+To list all shares created in the space, navigate to the **Data > *Space name* > Shares, Public Data** view.
 Clicking on a Share row in the main view will open a [Share management view][],
 while the actions menu for the Share provides the following operations: **Rename**, **Remove share**, and
 **Copy public URL**.
@@ -129,10 +139,10 @@ The single Share management view enables you to view shared data and the Share i
 as well as configure it. The view consists of:
 
 * a **Path** to the shared file or directory in the space,
-* a **Public share link** to access the Share by anonymous users,
+* a **Share link** to access the Share by anonymous users,
 * a **Description** tab that allows creating an information page describing the Share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
-* a **Publish as Open Data** tab, which allows [publishing the dataset as Open Data][].
+* an **Expose as Public Data** tab, which allows [exposing the dataset as Public Data][].
 
 ![screen-share-root-view][]
 
@@ -173,12 +183,10 @@ link found in the **Path** section of the Share management view.
 
 ![screen-share-files][]
 
-<!-- ### Open Data -->
-
 ### REST Share information
 
-Besides a public Share link accessible in the web browser, you can show and copy a curl
-command giving information about sharing for the CLI, selecting the **Public REST endpoint**
+Besides a Share link accessible in the web browser, you can show and copy a curl
+command giving information about sharing for the CLI, selecting the **Share REST endpoint**
 option from the URL dropdown.
 
 ![screen-share-curl][]
@@ -226,7 +234,7 @@ documentation.
 
 [Share creation modal]: #sharing-a-file-or-directory
 
-[publishing the dataset as Open Data]: ./open-data.md
+[exposing the dataset as Public Data]: ./public-data.md
 
 [public Share view file browser]: #public-share-access
 
