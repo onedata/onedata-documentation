@@ -37,7 +37,8 @@ view — see the [Shares][] chapter for the guide.
 <!-- TODO: VFS-12541 Write about publishing using share modal -->
 
 In the [Share management view][], open an **Expose as Public Data** tab, where you can
-choose the Handle service to provide a persistent identifier for your data collection.
+choose the Handle service to provide a persistent identifier for your data collection, and
+metadata type.
 
 <!-- FIXME: zmienić screeny na Public Data i uwzględniające wybór typu metadata -->
 
@@ -45,25 +46,25 @@ choose the Handle service to provide a persistent identifier for your data colle
 
 <!-- TODO: VFS-12541 Add EDM documentation -->
 
-![Expose as Public Data tab][screen-tab-expose]
+![screen-tab-expose][]
 
-After choosing the Handle service, click on **Proceed** button below the dropdown to start
-filling in a Dublin Core Metadata for your Public Data collection. You can switch between
-the default **Visual** editor or the **XML** editor, which supports
+After choosing the Handle service and metadata type, click on **Proceed** button below dropdowns to start
+filling in a metadata for your Public Data collection. In this example, we chose the Dublin Core Metadata format.
+You can switch between the default **Visual** editor or the **XML** editor, which supports
 [DCMES Version 1.1][dublin-core-DCES-www] specification.
 In both editors, you can describe your collection using properties from a set of 15
 predefined types, such as Creator, Title, or Description.
 
-![Dublin Core metadata visual editor][screen-expose-dublin-core-visual]
+![screen-expose-dublin-core-visual][]
 
-![Dublin Core metadata XML editor][screen-expose-dublin-core-xml]
+![screen-expose-dublin-core-xml][]
 
 After you complete filling in the metadata, click on the **Expose as Public Data** button
 at the end of the form to finalize publication. When the process completes, the current tab 
 of a Share management view will change its name to **Public Data**.
 Here, you can view the metadata as seen by anonymous users in the public view.
 
-![Preview of Dublin Core metadata after collection exposing][screen-expose-public-data-preview]
+![screen-expose-public-data-preview][]
 
 ::: tip NOTE
 Please keep in mind that once published, your collection should not be removed.
@@ -72,7 +73,7 @@ Please keep in mind that once published, your collection should not be removed.
 Now you can find a link to the public Handle in the box where a Share link was
 presented before, choosing **Public handle link** options from the dropdown.
 
-![Public handle link][screen-expose-public-handle-link]
+![screen-expose-public-handle-link][]
 
 ::: tip NOTE
 Although the **Public handle link** is displayed by default in the link box, you
@@ -82,9 +83,9 @@ can still use the **Share link** by choosing it in the dropdown.
 Visit the public Handle URL to open your Public Data collection, available publicly on the
 Internet.
 
-![Public Data view: Public Data tab][screen-tab-public-data]
+![screen-tab-public-data][]
 
-![Public Data view: files tab][screen-tab-files]
+![screen-tab-files][]
 
 ::: tip NOTE
 You can still add the description of the Share besides the Dublin
