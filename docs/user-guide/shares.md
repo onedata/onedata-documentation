@@ -4,7 +4,7 @@
 
 Files in Onedata can be made public and available for unauthenticated users. The simplest
 way to achieve that is to create a **Share** of a chosen file or directory (the whole
-space can be shared as well), which is essentially a public link pointing to the dataset.
+space can be shared as well), which is essentially a public link pointing to the collection.
 
 ## Sharing a file or directory
 
@@ -142,7 +142,7 @@ as well as configure it. The view consists of:
 * a **Share link** to access the Share by anonymous users,
 * a **Description** tab that allows creating an information page describing the Share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
-* an **Expose as Public Data** tab, which allows [exposing the dataset as Public Data][].
+* an **Expose as Public Data** tab, which allows [exposing the collection as Public Data][].
 
 ![screen-share-root-view][]
 
@@ -168,8 +168,8 @@ The description will be publicly available to users that can access the Share UR
 
 ::: tip NOTE
 Writing a Share description is recommended as it helps users understand
-what the dataset is about, what information it contains, and how it can be used. With a
-description, other users can quickly assess whether the dataset is suitable for their
+what the collection is about, what information it contains, and how it can be used. With a
+description, other users can quickly assess whether the collection is suitable for their
 needs.
 :::
 
@@ -234,7 +234,7 @@ documentation.
 
 [Share creation modal]: #sharing-a-file-or-directory
 
-[exposing the dataset as Public Data]: ./public-data.md
+[exposing the collection as Public Data]: ./public-data.md
 
 [public Share view file browser]: #public-share-access
 

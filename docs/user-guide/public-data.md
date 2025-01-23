@@ -2,23 +2,24 @@
 
 [toc][1]
 
-<!-- FIXME: zostawiłem Open Data (bo jest link i "commnity use cases") -->
+Public Data collections refer to data records that are openly available to the public
+without the need for authentication, yet may be associated with varying levels of licenses
+and usage restrictions. Such collections that have open licenses and are openly
+accessible, exploitable, editable, and shareable by anyone are referred to as [Open
+Data][].
 
-To support [Open Data][] access community use
-cases, Onedata provides means for exposing [Shares][] as Public Data
-collections. Such collections can have assigned Open Access identifiers such as
-[DOI][] or [PID][].
+In Onedata, a Public Data collection is an extended [Share][Shares] that has been assigned a
+(publicly accessible) [PID][]/[DOI][] persistent identifier and descriptive metadata. The metadata
+includes a license; if it's open, the collection can be classified as Open Data.
 
-<!-- TODO: VFS-12541 Add EDM documentation -->
+The process of exposing a Share as Public Data is as follows:
+1. It's assigned [Dublin Core][] or [Europeana Data Model][] metadata, which are the
+   widely adopted standards for Public Data annotation.
+2. It's registered in an external service that issues persistent identifiers (PID/DOI).
+3. From that point on, it's advertised by [OAI-PMH][] protocol — so that Public Data
+   indexing services can include the collection in their searchable databases.
 
-The Share is assigned [Dublin Core][] metadata
-(which is a standard for describing such collections), registered in an external handle
-service, and advertised by [OAI-PMH][] protocol — so that
-Public Data indexing services can add the dataset to their searchable databases.
-
-<!-- FIXME: czy może być nadal open-access? -->
-
-Open-access identifiers can be generated and assigned to Shares by users who have access
+Persistent identifiers can be generated and assigned to Shares by users who have access
 to a [Handle][handle-www] system-based service within the current Onezone.
 
 ::: tip NOTE
@@ -28,16 +29,21 @@ services in Onedata, see the [Handle services][]
 chapter of the Admin guide.
 :::
 
-## Exposing via Web GUI
+## Publishing via Web GUI
 
 First, you need to create a Share of a file or directory and visit its Share management
 view — see the [Shares][] chapter for the guide.
 
 <!-- TODO: VFS-12541 Write about publishing using share modal -->
 
-In the [Share management view][], open an
-**Expose as Public Data** tab, where you can see a selector allowing you to choose a Handle
-service available in the current Onezone, to expose your dataset in.
+In the [Share management view][], open an **Expose as Public Data** tab, where you can
+choose the Handle service to provide a persistent identifier for your data collection.
+
+<!-- FIXME: zmienić screeny na Public Data i uwzględniające wybór typu metadata -->
+
+<!-- FIXME: napisać o wyborze typów metadata i to, że w tym przykładzie jest używane DC -->
+
+<!-- TODO: VFS-12541 Add EDM documentation -->
 
 ![Expose as Public Data tab][screen-tab-expose]
 
@@ -53,14 +59,14 @@ predefined types, such as Creator, Title, or Description.
 ![Dublin Core metadata XML editor][screen-expose-dublin-core-xml]
 
 After you complete filling in the metadata, click on the **Expose as Public Data** button
-at the end of the form to perform collection publication. When the process of exposing
-completes, the current tab of a Share management view will change its name to **Public Data**
-and you could see a preview of your metadata as it can be viewed by anonymous users.
+at the end of the form to finalize publication. When the process completes, the current tab 
+of a Share management view will change its name to **Public Data**.
+Here, you can view the metadata as seen by anonymous users in the public view.
 
 ![Preview of Dublin Core metadata after collection exposing][screen-expose-public-data-preview]
 
 ::: tip NOTE
-Please keep in mind that once exposed, your dataset should not be removed.
+Please keep in mind that once published, your collection should not be removed.
 :::
 
 Now you can find a link to the public Handle in the box where a Share link was
@@ -81,12 +87,12 @@ Internet.
 ![Public Data view: files tab][screen-tab-files]
 
 ::: tip NOTE
-You can still add the description of the Share besides the Public Data Dublin
+You can still add the description of the Share besides the Dublin
 Core metadata as described in the [Share Description][]
 section of the documentation.
 :::
 
-## Exposing via REST API
+## Publishing via REST API
 
 ::: tip
 For full API reference, see the [Handle][Handle API] and the
@@ -221,6 +227,8 @@ which could result in:
 [PID]: http://www.pidconsortium.eu/
 
 [Dublin Core]: https://en.wikipedia.org/wiki/Dublin_Core
+
+[Europeana Data Model]: https://pro.europeana.eu/page/edm-documentation
 
 [OAI-PMH]: https://www.openarchives.org/pmh/
 
