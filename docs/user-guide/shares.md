@@ -14,10 +14,6 @@ for the same file/directory.
 
 ## Sharing a file or directory
 
-<!-- FIXME: wszędzie podmienić na screenach "Shares, Open Data" w sidebarze na "Shares, Public Data" -->
-
-<!-- FIXME: wszędzie podmienić na screenach zakładkę "Expose as Open Data" w widoku pojedynczego shera na "Expose as Open Data" -->
-
 To create a Share, navigate to the [file browser][], open the context
 menu for a file or directory, and choose **Share / Publish**.
 
