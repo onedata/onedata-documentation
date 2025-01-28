@@ -13,9 +13,7 @@ space can be shared as well), which is essentially a public link pointing to the
 <!-- FIXME: wszędzie podmienić na screenach zakładkę "Expose as Open Data" w widoku pojedynczego shera na "Expose as Open Data" -->
 
 To create a Share, navigate to the [file browser][], open the context
-menu for a file or directory, and choose **Share**.
-
-<!-- TODO: VFS-12541 update screenshot do have "Share / Publish" (or something) -->
+menu for a file or directory, and choose **Share / Publish**.
 
 ![screen-sharing-file-menu][]
 
@@ -47,14 +45,14 @@ the Shares tab of the file information panel.
 <!-- TODO: VFS-12541 show details link and screenshots, everywhere -->
 
 An authenticated user can access a [Share management view][] by
-clicking on a green link with a Share name, whereas the public Share URL can be copied and
+clicking on a **Show details** link beside a Share name, whereas the public Share URL can be copied and
 shared with others to grant anonymous, read-only access to the files.
 
 <!-- FIXME: czy tutaj słowa "public" nie kolidują z Public Data? -->
 
-### Public Share access
+### Anonymous Share access
 
-Accessing the public Share URL opens a public Share view which by default contains a
+Accessing the Share URL opens an anonymous Share view which by default contains a
 **Files** tab with a file browser listing a single shared item (a file or a directory).
 
 ![screen-sharing-public-files][]
@@ -111,8 +109,8 @@ choosing **Information** from the file actions menu and opening the **Shares** t
 right-side panel.
 :::
 
-The **Share** tab name includes a number with the shares count per file. Clicking on the green Share
-name link opens a [Share management view][] while clicking
+The **Share** tab name includes a number with the shares count per file. Clicking on the **Show details**
+link beside a Share name opens a [Share management view][], while clicking
 on the **"Create another share"** button will bring a [Share creation modal][].
 
 ![screen-managing-file-shares][]
