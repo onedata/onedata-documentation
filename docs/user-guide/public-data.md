@@ -2,7 +2,7 @@
 
 [toc][1]
 
-Public Data collections refer to data records that are openly available to the public
+Public Data collections refer to data records that are available to the public
 without the need for authentication, yet may be associated with varying levels of licenses
 and usage restrictions. Such collections that have open licenses and are openly
 accessible, exploitable, editable, and shareable by anyone are referred to as [Open
@@ -13,6 +13,7 @@ In Onedata, a Public Data collection is an extended [Share][Shares] that has bee
 includes a license; if it's open, the collection can be classified as Open Data.
 
 The process of exposing a Share as Public Data is as follows:
+
 1. It's assigned [Dublin Core][] or [Europeana Data Model][] metadata, which are the
    widely adopted standards for Public Data annotation.
 2. It's registered in an external service that issues persistent identifiers (PID/DOI).
@@ -24,7 +25,7 @@ to a Handle service within the current Onezone.
 
 ::: tip NOTE
 Handle services can be registered in Onezone by users who have access rights to specific
-Handle registers. For more information about registering and managing handle-based
+Handle registers. For more information about registering and managing handle
 services in Onedata, see the [Handle services][]
 chapter of the Admin guide.
 :::
@@ -36,7 +37,7 @@ view — see the [Shares][] chapter for the guide.
 
 <!-- TODO: VFS-12541 Write about publishing using share modal -->
 
-In the [Share management view][], open an **Expose as Public Data** tab, where you can
+In the [Share management view][], switch to the **Expose as Public Data** tab, where you can
 choose the Handle service to provide a persistent identifier for your data collection, and
 metadata type.
 
@@ -56,7 +57,7 @@ predefined types, such as Creator, Title, or Description.
 ![screen-expose-dublin-core-xml][]
 
 After you complete filling in the metadata, click on the **Expose as Public Data** button
-at the end of the form to finalize publication. When the process completes, the current tab 
+at the end of the form to finalize publication. When the process completes, the current tab
 of a Share management view will change its name to **Public Data**.
 Here, you can view the metadata as seen by anonymous users in the public view.
 
@@ -76,7 +77,7 @@ Although the **Public handle link** is displayed by default in the link box, you
 can still use the **Share link** by choosing it in the dropdown.
 :::
 
-Visit the public Handle URL to open your Public Data collection, available publicly on the
+Visit the public Handle URL to view your Public Data collection, available publicly on the
 Internet.
 
 ![screen-tab-public-data][]
@@ -228,8 +229,6 @@ which could result in:
 [Europeana Data Model]: https://pro.europeana.eu/page/edm-documentation
 
 [OAI-PMH]: https://www.openarchives.org/pmh/
-
-[handle-www]: http://handle.net/
 
 [Handle services]: ../admin-guide/onezone/configuration/handle-services.md
 

@@ -2,9 +2,15 @@
 
 [toc][1]
 
-Files in Onedata can be made public and available for unauthenticated users. The simplest
-way to achieve that is to create a **Share** of a chosen file or directory (the whole
-space can be shared as well), which is essentially a public link pointing to the data collection.
+Files in Onedata can be shared i.e. made available for unauthenticated users.
+It's achieved using **Shares** — semi-public links that can be passed to desired
+recipients. Anyone on the Internet with a Share link can read the data, but
+the link is impossible to guess (hence the semi-public nature of Shares).
+Shares may have an optional description in Markdown format to improve their
+comprehension and usability for the target audience.
+
+Both directories and files can be shared, and multiple Shares may be created
+for the same file/directory.
 
 ## Sharing a file or directory
 
@@ -35,27 +41,25 @@ will appear containing a list of Shares created for a selected file or directory
 ![screen-sharing-shares-panel][]
 
 ::: tip NOTE
-A single file or directory can be shared multiple times, each with a different
-name and unique URL, which helps to manage access to files across many users, for example,
-if you want to withdraw a link shared with a specific group, create a specific description,
-etc. Creating multiple Shares can be performed using the **Create another share** button in
-the Shares tab of the file information panel.
+A single file or directory can be shared multiple times, each with a different name and
+unique URL, which helps to manage access to files across many users, for example, if you
+want to withdraw a link shared with a specific group, create a specific description, etc.
+Creating multiple Shares can be performed using the **Create another share** button in the
+Shares tab of the file information panel.
 :::
 
 <!-- TODO: VFS-12541 show details link and screenshots, everywhere -->
 
-An authenticated user can access a [Share management view][] by
-clicking on a **Show details** link beside a Share name, whereas the public Share URL can be copied and
+An authenticated user can access a [Share management view][] by clicking on the
+**Show details** link beside a Share name, whereas the Share URL can be copied and
 shared with others to grant anonymous, read-only access to the files.
-
-<!-- FIXME: czy tutaj słowa "public" nie kolidują z Public Data? -->
 
 ### Anonymous Share access
 
 Accessing the Share URL opens an anonymous Share view which by default contains a
 **Files** tab with a file browser listing a single shared item (a file or a directory).
 
-![screen-sharing-public-files][]
+![screen-sharing-anonymous-files][]
 
 By default, anonymous users can simply browse these files in a read-only manner, and also:
 
@@ -66,7 +70,7 @@ By default, anonymous users can simply browse these files in a read-only manner,
 
 <!-- @TODO VFS-11766 missing information about different types of metadata -->
 
-![screen-share-public-file-info][]
+![screen-share-anonymous-file-info][]
 
 Access to specific files can be restricted inside the Share by modifying the following
 [permissions][] of files in the file browser:
@@ -88,7 +92,7 @@ files by anonymous users — shared files are always read-only for anonymous use
 The file details panel also provides an **API** tab that provides *curl* commands for
 retrieving information about files by unauthenticated users.
 
-![screen-share-public-file-api][]
+![screen-share-anonymous-file-api][]
 
 ## Managing Shares
 
@@ -120,7 +124,7 @@ on the **"Create another share"** button will bring a [Share creation modal][].
 To list all shares created in the space, navigate to the **Data > *Space name* > Shares, Public Data** view.
 Clicking on a Share row in the main view will open a [Share management view][],
 while the actions menu for the Share provides the following operations: **Rename**, **Remove share**, and
-**Copy public URL**.
+**Copy Share URL**.
 
 ![screen-managing-space-shares][]
 
@@ -160,9 +164,9 @@ time after it is saved and published — applied changes will be immediately vis
 
 ![screen-description-markdown][]
 
-The description will be publicly available to users that can access the Share URL.
+The description will be visible to unauthenticated users that know the Share URL.
 
-![screen-share-public-description][]
+![screen-share-anonymous-description][]
 
 ::: tip NOTE
 Writing a Share description is recommended as it helps users understand
@@ -173,7 +177,7 @@ needs.
 
 ### Files view
 
-The **Files** tab provides a preview of the [public Share view file browser][],
+The **Files** tab provides a preview of the [anonymous Share view][],
 showcasing what an anonymous user will see when accessing it. This browser has limited
 functionality, allowing read-only operations that anonymous users can perform. To access
 the browser with all features available for authenticated users, open the parent directory
@@ -200,19 +204,19 @@ would result in the following JSON response:
 ```json
 {
   "shareId": "b2c3bcd7ff9dc063e4226581175f21fbchc6a8",
+  "name": "My shared files",
+  "description": "# Description\nIn markdown format",
   "rootFileId": "00000000007ED1B4736861726547756964233731666232643538646166323835616664623339303265663331653131646538636864626137236133613138616463346137376464316236313039363862326138353735633431636830643762236232633362636437666639646330363365343232363538313137356632316662636863366138",
   "publicUrl": "https://dev-onezone.default.svc.cluster.local/share/b2c3bcd7ff9dc063e4226581175f21fbchc6a8",
   "publicRestUrl": "https://dev-onezone.default.svc.cluster.local/api/v3/onezone/shares/b2c3bcd7ff9dc063e4226581175f21fbchc6a8/public",
-  "name": "My public files",
   "handleId": null,
   "fileType": "dir",
-  "description": "",
   "creationTime": 1685193979
 }
 ```
 
 ::: tip
-For full Shares API reference, see the [Share][share-API] chapter of the Onedata REST API
+For full Share API reference, see the [Share][share-API] chapter of the Onedata REST API
 documentation.
 :::
 
@@ -234,7 +238,7 @@ documentation.
 
 [exposing the data collection as Public Data]: ./public-data.md
 
-[public Share view file browser]: #public-share-access
+[anonymous Share view]: #anonymous-share-access
 
 [share-API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Share
 
@@ -244,11 +248,11 @@ documentation.
 
 [screen-sharing-shares-panel]: ../../images/user-guide/shares/sharing-shares-panel.png
 
-[screen-sharing-public-files]: ../../images/user-guide/shares/sharing-public-files.png
+[screen-sharing-anonymous-files]: ../../images/user-guide/shares/sharing-anonymous-files.png
 
-[screen-share-public-file-info]: ../../images/user-guide/shares/share-public-file-info.png
+[screen-share-anonymous-file-info]: ../../images/user-guide/shares/share-anonymous-file-info.png
 
-[screen-share-public-file-api]: ../../images/user-guide/shares/share-public-file-api.png
+[screen-share-anonymous-file-api]: ../../images/user-guide/shares/share-anonymous-file-api.png
 
 [screen-managing-file-badge]: ../../images/user-guide/shares/managing-file-badge.png
 
@@ -264,7 +268,7 @@ documentation.
 
 [screen-description-markdown]: ../../images/user-guide/shares/share-description-markdown.png
 
-[screen-share-public-description]: ../../images/user-guide/shares/share-public-description.png
+[screen-share-anonymous-description]: ../../images/user-guide/shares/share-anonymous-description.png
 
 [screen-share-files]: ../../images/user-guide/shares/share-files.png
 
