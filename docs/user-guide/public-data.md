@@ -20,7 +20,7 @@ The process of exposing a Share as Public Data is as follows:
    indexing services can include the collection in their searchable databases.
 
 Persistent identifiers can be generated and assigned to Shares by users who have access
-to a [Handle][handle-www] system-based service within the current Onezone.
+to a Handle service within the current Onezone.
 
 ::: tip NOTE
 Handle services can be registered in Onezone by users who have access rights to specific
@@ -39,10 +39,6 @@ view — see the [Shares][] chapter for the guide.
 In the [Share management view][], open an **Expose as Public Data** tab, where you can
 choose the Handle service to provide a persistent identifier for your data collection, and
 metadata type.
-
-<!-- FIXME: zmienić screeny na Public Data i uwzględniające wybór typu metadata -->
-
-<!-- FIXME: napisać o wyborze typów metadata i to, że w tym przykładzie jest używane DC -->
 
 <!-- TODO: VFS-12541 Add EDM documentation -->
 

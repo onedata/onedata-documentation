@@ -10,7 +10,7 @@ lifecycle) — using the continuous scan option, by manually triggering scans or
 
 This functionality should be used in two setups:
 
-* There is a legacy collection located on the storage backend, which should be imported into a space.
+* There is a legacy data collection located on the storage backend, which should be imported into a space.
 * The data on storage backend is to be modified directly by third party applications, bypassing
   the provider interfaces, and the changes should be reflected in the supported space.
 
@@ -36,7 +36,7 @@ as presented in the below picture.
 In case of *manual* mode, the files must be [registered manually][] by the space users.
 Registration of directories is not supported.
 
-This option is preferred when only a part of the collection is to be imported, but required if the storage backend does
+This option is preferred when only a part of the data collection is to be imported, but required if the storage backend does
 not support [automatic import scans][auto].
 
 ### Storage configuration for manual import

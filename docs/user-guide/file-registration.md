@@ -1,6 +1,6 @@
 # File registration
 
-File registration is used to reflect read-only, external collections in a Onedata [space][].
+File registration is used to reflect read-only, external data collections in a Onedata [space][].
 Space users can register files by providing the location of a regular file on external
 storage, along with optional attributes. Upon registration, the file becomes accessible in
 the space under the requested path. No data is copied in the process; instead, a metadata
@@ -23,7 +23,7 @@ automatically).
 ## Registration API
 
 Currently, the [REST API][] is the only way to register files in a space. Space
-users can choose a file within the collections that they want to make accessible via
+users can specify a file from a data collection that they want to make accessible via
 Onedata and invoke the registration on an Oneprovider that supports the space.
 The file will become visible immediately.
 
