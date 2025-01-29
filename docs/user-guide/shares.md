@@ -2,15 +2,15 @@
 
 [toc][1]
 
-Files in Onedata can be shared i.e. made available for unauthenticated users.
-It's achieved using **Shares** — semi-public links that can be passed to desired
-recipients. Anyone on the Internet with a Share link can read the data, but
-the link is impossible to guess (hence the semi-public nature of Shares).
-Shares may have an optional description in Markdown format to improve their
-comprehension and usability for the target audience.
+Files in Onedata can be shared i.e. made available for unauthenticated users in
+**read-only mode**. It's achieved using **Shares** — **semi-public links** that
+can be passed to desired recipients. Anyone on the Internet with a Share link
+can read the data, but the link is impossible to guess (hence the semi-public
+nature of Shares). Shares may have an optional description in Markdown format
+to improve their comprehension and usability for the target audience.
 
 Both directories and files can be shared, and multiple Shares may be created
-for the same file/directory.
+for the same file/directory. It is possible to share a whole [Space][].
 
 ## Sharing a file or directory
 
@@ -219,6 +219,8 @@ documentation.
 <!-- references -->
 
 [1]: <>
+
+[Space]: spaces.md
 
 [file browser]: web-file-browser.md
 
