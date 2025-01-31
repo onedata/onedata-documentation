@@ -32,7 +32,7 @@ module.exports = {
           '/user-guide/data-distribution',
           '/user-guide/web-file-browser',
           '/user-guide/shares',
-          '/user-guide/open-data',
+          '/user-guide/public-data',
           '/user-guide/tokens',
           '/user-guide/oneclient',
           '/user-guide/onedatafs',

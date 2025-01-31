@@ -7,7 +7,7 @@
 See [Web GUI][2] usage examples for the quick guide on how to set or
 obtain file/directory metadata.
 
-<!-- @TODO VFS-11766 mention that the metadata is visible in shares / open data, cross-reference -->
+<!-- @TODO VFS-11766 mention that the metadata is visible in shares / public data, cross-reference -->
 
 ## Basics
 
@@ -70,9 +70,7 @@ numeric and string values are allowed** — for complex, nested objects,
 In general, extended attributes are platform agnostic and users can choose
 arbitrary keys and values to be assigned, for instance information about the
 author of the file, mimetype, license, etc. One restriction is that all keys
-beginning with `onedata_` or `cdmi_` prefixes are reserved as they are used by
-the Onedata platform for special purposes, in particular for presentation in
-Graphical User Interface and Open Data publishing and management.
+beginning with `onedata_` or `cdmi_` prefixes are reserved for internal purposes.
 
 ### Custom metadata
 

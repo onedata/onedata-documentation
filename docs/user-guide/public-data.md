@@ -1,23 +1,31 @@
-# Open Data
+# Public Data
 
 [toc][1]
 
-To support [Open Data][] access community use
-cases, Onedata provides means for publishing [Shares][] as Open Data
-collections. Such collections can have assigned Open Access identifiers such as
-[DOI][] or [PID][].
+Public Data collections refer to data records that are available to the public
+without the need for authentication, yet may be associated with varying levels of licenses
+and usage restrictions. Such collections that have open licenses and are openly
+accessible, exploitable, editable, and shareable by anyone are referred to as [Open
+Data][].
 
-The Share is assigned [Dublin Core][] metadata
-(which is a standard for describing such collections), registered in an external handle
-service, and advertised by [OAI-PMH][] protocol — so that
-Open Data indexing services can add the dataset to their searchable databases.
+In Onedata, a Public Data collection is an extended [Share][Shares] that has been assigned a
+(publicly accessible) [PID][]/[DOI][] persistent identifier and descriptive metadata. The metadata
+includes a license; if it's open, the collection can be classified as Open Data.
 
-Open-access identifiers can be generated and assigned to Shares by users who have access
-to a [Handle][handle-www] system-based service within the current Onezone.
+The process of exposing a Share as Public Data is as follows:
+
+1. It's assigned [Dublin Core][] or [Europeana Data Model][] metadata, which are the
+   widely adopted standards for Public Data annotation.
+2. It's registered in an external service that issues persistent identifiers (PID/DOI).
+3. From that point on, it's advertised by [OAI-PMH][] protocol — so that Public Data
+   indexing services can include the collection in their searchable databases.
+
+Persistent identifiers can be generated and assigned to Shares by users who have access
+to a Handle service within the current Onezone.
 
 ::: tip NOTE
 Handle services can be registered in Onezone by users who have access rights to specific
-Handle registers. For more information about registering and managing handle-based
+Handle registers. For more information about registering and managing handle
 services in Onedata, see the [Handle services][]
 chapter of the Admin guide.
 :::
@@ -27,53 +35,57 @@ chapter of the Admin guide.
 First, you need to create a Share of a file or directory and visit its Share management
 view — see the [Shares][] chapter for the guide.
 
-In the [Share management view][], open a
-**Publish as Open Data** tab, where you can see a selector allowing you to choose a Handle
-service available in the current Onezone, to publish your dataset in.
+<!-- TODO: VFS-12541 Write about publishing using share modal -->
 
-![Publish as Open Data tab][screen-gui-publish-tab]
+In the [Share management view][], switch to the **Expose as Public Data** tab, where you can
+choose the Handle service to provide a persistent identifier for your data collection, and
+metadata type.
 
-After choosing the Handle service, click on **Proceed** button below the dropdown to start
-filling in a Dublin Core Metadata for your Open Data collection. You can switch between
-the default **Visual** editor or the **XML** editor, which supports
+<!-- TODO: VFS-12541 Add EDM documentation -->
+
+![screen-tab-expose][]
+
+After choosing the Handle service and metadata type, click on **Proceed** button below dropdowns to start
+filling in a metadata for your Public Data collection. In this example, we chose the Dublin Core Metadata format.
+You can switch between the default **Visual** editor or the **XML** editor, which supports
 [DCMES Version 1.1][dublin-core-DCES-www] specification.
 In both editors, you can describe your collection using properties from a set of 15
 predefined types, such as Creator, Title, or Description.
 
-![Dublin Core metadata visual editor][screen-gui-publish-dublin-core-visual]
+![screen-expose-dublin-core-visual][]
 
-![Dublin Core metadata XML editor][screen-gui-publish-dublin-core-xml]
+![screen-expose-dublin-core-xml][]
 
-After you complete filling in the metadata, click on the **Publish as Open Data** button
-at the end of the form to perform collection publication. When the process of publishing
-completes, the current tab of a Share management view will change its name to **Open Data**
-and you could see a preview of your metadata as it can be viewed by anonymous users.
+After you complete filling in the metadata, click on the **Expose as Public Data** button
+at the end of the form to finalize publication. When the process completes, the current tab
+of a Share management view will change its name to **Public Data**.
+Here, you can view the metadata as seen by anonymous users in the public view.
 
-![Preview of Dublin Core metadata after collection publish][screen-gui-publish-open-data-preview]
+![screen-expose-public-data-preview][]
 
 ::: tip NOTE
-Please keep in mind that once published, your dataset should not be removed.
+Please keep in mind that once published, your collection should not be removed.
 :::
 
-Now you can find a link to the public Handle in the box where a public Share link was
+Now you can find a link to the public Handle in the box where a Share link was
 presented before, choosing **Public handle link** options from the dropdown.
 
-![Public handle link][screen-gui-publish-public-handle-link]
+![screen-expose-public-handle-link][]
 
 ::: tip NOTE
 Although the **Public handle link** is displayed by default in the link box, you
-can still use the **Public share link** by choosing it in the dropdown.
+can still use the **Share link** by choosing it in the dropdown.
 :::
 
-Visit the public Handle URL to open your Open Data collection, available publicly on the
+Visit the public Handle URL to view your Public Data collection, available publicly on the
 Internet.
 
-![Public Open Data view: Open Data tab][screen-gui-public-open-data]
+![screen-tab-public-data][]
 
-![Public Open Data view: files tab][screen-gui-public-files]
+![screen-tab-files][]
 
 ::: tip NOTE
-You can still add the description of the Share besides the Open Data Dublin
+You can still add the description of the Share besides the Dublin
 Core metadata as described in the [Share Description][]
 section of the documentation.
 :::
@@ -98,7 +110,7 @@ which can result in:
 {"handle_services":["054900fc799a7f14451e99fac94f351ach7099"]}
 ```
 
-The Share ID can, for example, be obtained from Web GUI's Public Share link, which is in the following format:
+The Share ID can, for example, be obtained from Web GUI's Share link, which is in the following format:
 
 ```
 https://dev-onezone.default.svc.cluster.local/share/$SHARE_ID
@@ -214,9 +226,9 @@ which could result in:
 
 [Dublin Core]: https://en.wikipedia.org/wiki/Dublin_Core
 
-[OAI-PMH]: https://www.openarchives.org/pmh/
+[Europeana Data Model]: https://pro.europeana.eu/page/edm-documentation
 
-[handle-www]: http://handle.net/
+[OAI-PMH]: https://www.openarchives.org/pmh/
 
 [Handle services]: ../admin-guide/onezone/configuration/handle-services.md
 
@@ -230,16 +242,16 @@ which could result in:
 
 [Handle Service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
 
-[screen-gui-publish-tab]: ../../images/user-guide/open-data/gui-publish-tab.png
+[screen-tab-expose]: ../../images/user-guide/public-data/tab-expose.png
 
-[screen-gui-publish-dublin-core-visual]: ../../images/user-guide/open-data/gui-publish-dublin-core-visual.png
+[screen-expose-dublin-core-visual]: ../../images/user-guide/public-data/expose-dublin-core-visual.png
 
-[screen-gui-publish-dublin-core-xml]: ../../images/user-guide/open-data/gui-publish-dublin-core-xml.png
+[screen-expose-dublin-core-xml]: ../../images/user-guide/public-data/expose-dublin-core-xml.png
 
-[screen-gui-publish-open-data-preview]: ../../images/user-guide/open-data/gui-publish-open-data-preview.png
+[screen-expose-public-data-preview]: ../../images/user-guide/public-data/expose-public-data-preview.png
 
-[screen-gui-publish-public-handle-link]: ../../images/user-guide/open-data/gui-publish-public-handle-link.png
+[screen-expose-public-handle-link]: ../../images/user-guide/public-data/expose-public-handle-link.png
 
-[screen-gui-public-open-data]: ../../images/user-guide/open-data/gui-public-open-data.png
+[screen-tab-public-data]: ../../images/user-guide/public-data/tab-public-data.png
 
-[screen-gui-public-files]: ../../images/user-guide/open-data/gui-public-files.png
+[screen-tab-files]: ../../images/user-guide/public-data/tab-files.png

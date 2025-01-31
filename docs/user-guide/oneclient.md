@@ -245,6 +245,8 @@ General options:
   -u [ --unmount ]                      Unmount Oneclient and exit.
   -c [ --config ] <path> (=/etc/oneclient.conf)
                                         Specify path to config file.
+  --ignore-env                          Ignore options from environment
+                                        variables.
   -H [ --host ] <host>                  Specify the hostname of the Oneprovider
                                         instance to which the Oneclient should
                                         connect.
@@ -269,6 +271,8 @@ General options:
                                         mounted.
   -l [ --log-dir ] <path> (=/tmp/oneclient/0)
                                         Specify custom path for Oneclient logs.
+  --custom-ca-dir <path>                Path to directory with custom CA
+                                        certificates in PEM format.
   -v [ --verbose-log-level ] <level> (=0)
                                         Specify the verbosity level (0-3) for
                                         verbose logs (only available in debug
@@ -409,8 +413,12 @@ Advanced options:
                                         available space reported by stat system
                                         call to specified number of bytes.
   --hard-link-count                     Show hard link count properly in stat.
-  --open-shares-mode                    Enable open share mode, in which space
-                                        directories list open data shares.
+  --enable-archivematica                Enable Archivematica mode.
+  --public-data-mode                    Enable Public Data mode, in which space
+                                        directories list Public Data
+                                        collections (shares with assigned
+                                        PID/DOI identifiers) instead of regular
+                                        files.
   --show-space-ids                      Show space Id's instead of space names
                                         in the filesystem tree.
 

@@ -55,7 +55,7 @@ Determines how the logical file paths are mapped on the storage:
 Option `Imported storage` determines if the contents of this storage should be imported to the Onedata space supported
 with the storage. This option should be enabled in two setups:
 
-* There is a legacy dataset located on the storage, which should be imported into a space.
+* There is a legacy data collection located on the storage, which should be imported into a space.
 * The data on storage is to be modified directly by third party applications, bypassing
   the provider interfaces, and the changes should be reflected in the supported space.
 

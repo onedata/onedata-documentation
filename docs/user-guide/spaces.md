@@ -59,7 +59,7 @@ Learn more [here][].
 Access control to Onedata spaces is built around the concept of user and group
 memberships. Space is accessible only to its members — in a typical scenario,
 this can be a group of scientists that work on the same research project and
-share the related datasets. They may have different affiliations, but their view
+share the related data collections. They may have different affiliations, but their view
 on the common space is the same, regardless of their institution of origin. Each
 user or group can be assigned different privileges in the space, depending on
 the capabilities they should have. In the case of group memberships, each member of
