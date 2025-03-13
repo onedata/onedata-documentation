@@ -311,7 +311,7 @@ Index files by values of `licence` and `year` fields:
 ```javascript
 function(id, type, meta, ctx) {
     if(type === "custom_metadata"){
-        if(meta['license'] && meta['year']) {
+        if(meta['license'] && meta['year'] != null) {
             return [[meta['license'], meta['year']], id];
         }
     }
@@ -354,7 +354,7 @@ Such view can be queried for files with the attributes' values within range pass
 ```javascript
 function(id, type, meta, ctx) {
     if(type === "custom_metadata"){
-        if (meta['jobPriority'] && meta['jobScheduleTime']){
+        if (meta['jobPriority'] != null && meta['jobScheduleTime'] != null){
             return [
                 [meta['jobPriority'], meta['jobScheduleTime']], // key 
                 id                                              // value 
@@ -372,7 +372,7 @@ Such view can be queried for files with the attributes' ranges within range pass
 ```javascript
 function(id, type, meta, ctx) {
     if(type === "custom_metadata"){
-        if (meta['jobMaxExecutionTime'] && meta['jobMaxIterations']){
+        if (meta['jobMaxExecutionTime'] != null && meta['jobMaxIterations'] != null){
             return [
                 [[0, meta['jobMaxExecutionTime']], [0, meta['jobMaxIterations']]], // key
                 id                                                                 // value
@@ -389,7 +389,7 @@ Create a view which has a GeoJSON object as a key.
 ```javascript
 function(id, type, meta, ctx) {
     if(type === "custom_metadata"){
-        if (meta['latitude'] && meta['longitude']){
+        if (meta['latitude'] != null && meta['longitude'] != null){
             return [
                 [{
                     "type": "Point",
