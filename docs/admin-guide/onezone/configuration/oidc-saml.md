@@ -1452,11 +1452,25 @@ Exemplary attribute mapping using known and custom SAML attributes:
 
 ### Entitlement Mapping
 
-Entitlement mapping is used to automatically map a user's entitlements in an IdP
-to their group memberships in Onedata. Entitlements can be understood as the right to
-be a member of a group (or, possibly, a group structure) with certain
-privileges. The section in `auth.config` concerning the Entitlement Mapping has
-the following structure (example):
+Entitlement mapping is used to automatically map users entitlements in an
+IdP to group memberships in Onedata. Entitlements can be understood as the
+right to be a member of a group (or, possibly, a group structure) with
+certain privileges.
+
+For each entitlement, a group is created in Onedata that mirrors the group
+in the IdP, together with hierarchical relations (nested groups). They are
+created gradually at every user login, which causes reconciliation of all
+his entitlements, but only them (Onedata is not aware of the other groups
+from the IdP, unless they come with another user login). Hence, typically,
+Onedata holds a subset of all groups originating from an IdP.
+
+All IdP-related groups in Onedata are protected — they cannot be deleted or
+modified, and their membership or privileges in other protected groups cannot
+be changed. They can however be added to non-IdP groups and vice-versa, as well
+as other resources in Onedata. Users can be added manually to the IdP-related groups.
+
+The section in auth.config concerning the Entitlement Mapping has the following
+structure (example):
 
 ```Erlang
  entitlementMapping => #{
@@ -1672,23 +1686,17 @@ It is possible to specify the privileges of the user towards the bottom group of
 nested structure or the privileges of the groups in the nested chain toward their
 parents.
 
-User privileges in the bottom group are set when the membership is created
-and each time the privileges resulting from the entitlement mapping change.
-They can be changed manually, but the changes will be overwritten by
-entitlement mapping changes received from an IdP. Here is an example:
+User privileges in the bottom group are reconciled upon every login.
+They can be changed manually, but the changes will be overwritten during
+a consecutive login. Example:
 
-1. A user logs in with entitlement `"developers"` and `"manager"` privileges.
-2. The user is manually granted `"admin"` privileges in the `"developers"` group.
-3. The user logs in again with `"developers:manager"`, but his privileges are not
-   changed because no difference since the last login is detected; he still
-   has `"admin"` privileges.
-4. The user logs in again with `"developers:member"`, which causes his privileges
+1. User logs in with entitlement `"developers"` and `"manager"` privileges.
+2. User is manually granted `"admin"` privileges in the `"developers"` group.
+3. User logs in again with `"developers:member"`, which causes his privileges
    to be changed down to `"member"` — manual changes have been overwritten.
 
-For child groups, the privileges are set only when creating a new
-membership — later changes in the corresponding entitlement will NOT be
-taken into account. The privileges can be changed manually without the risk
-of being overwritten by the entitlement mapping.
+For child groups in the hierarchy, the privileges are reconciled every time a user with
+given group logs in. They cannot be changed manually as the groups are protected.
 
 There are four possible sets of privileges: `none`, `member`, `manager`, `admin`.
 They expand to a certain set of Onedata group privileges:
