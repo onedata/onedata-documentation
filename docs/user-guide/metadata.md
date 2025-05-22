@@ -236,7 +236,7 @@ indices that harvest metadata from multiple spaces and provide advanced search e
 
 [6]: #metadata-management-with-oneclient-and-onedatafs
 
-[7]: cdmi.md
+[7]: interfaces/cdmi.md
 
 [8]: #rest-api
 

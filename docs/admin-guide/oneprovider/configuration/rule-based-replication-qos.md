@@ -1,8 +1,4 @@
-# Quality of Service
-
-## 🚧 Under construction! 🚧
-
-This section is still a work-in-progress and may have errors or missing information.
+# Rule-based replication (QoS)
 
 [toc][1]
 
@@ -78,13 +74,13 @@ curl -H "${AUTH_HEADER}" -H "${CT}" -X PATCH {$PANEL_API}/provider/storages/$STO
 
 [1]: <>
 
-[replica distribution]: ../../../user-guide/data-distribution.md
+[replica distribution]: ../../../user-guide/data-distribution-and-metrics.md
 
 [providers]: ../../../user-guide/providers.md
 
 [space]: ../../../user-guide/spaces.md
 
-[users-qos]: ../../../user-guide/qos.md#Basics
+[users-qos]: ../../../user-guide/rule-based-replication-qos.md#Basics
 
 [Web GUI]: ../administration-panel.md
 

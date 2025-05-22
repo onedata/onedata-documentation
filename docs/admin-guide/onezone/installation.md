@@ -6,8 +6,13 @@
 
 ## 🚧 Under construction! 🚧
 
-This section is coming soon. For now, see the counterpart in the [legacy docs][1].
+This section is coming soon. For now:
+
+* see the [GitHub repository][] with docker-compose examples for Onezone deployment,
+* see the counterpart in the [legacy docs][].
 
 <!-- references -->
 
-[1]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[installation].html
+[GitHub repository]: https://github.com/onedata/onedata-deployments/tree/master/onezone/examples
+
+[legacy docs]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[installation].html

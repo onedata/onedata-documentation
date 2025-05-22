@@ -142,7 +142,7 @@ what can be done to organize a fully-fledged Onedata ecosystem for your use case
 
 [ACLs]: data.md#access-control-lists
 
-[upload some data]: web-file-browser.md#uploading-data
+[upload some data]: interfaces/web-file-browser.md#uploading-data
 
 [contact us]: https://onedata.org/#/home/contact
 
@@ -150,7 +150,7 @@ what can be done to organize a fully-fledged Onedata ecosystem for your use case
 
 [Data]: data.md
 
-[Web file browser]: web-file-browser.md
+[Web file browser]: interfaces/web-file-browser.md
 
 [Account management]: account-management.md
 
@@ -164,9 +164,9 @@ what can be done to organize a fully-fledged Onedata ecosystem for your use case
 
 [Data discovery]: data-discovery.md
 
-[Replication and migration]: data-transfer.md
+[Replication and migration]: data-transfers.md
 
-[Quality of service]: qos.md
+[Quality of service]: rule-based-replication-qos.md
 
 [Shares]: shares.md
 

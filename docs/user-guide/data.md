@@ -472,31 +472,31 @@ You can manage the data distribution using:
 
 <!-- TODO VFS-10933 link to the providers section -->
 
-[Providers]: ../intro.md#architecture
+[Providers]: ../intro.md#basic-concepts
 
 <!-- TODO VFS-11766 place some sensible link here -->
 
-[Oneprovider service]: ../intro.md#architecture
+[Oneprovider service]: ../intro.md#basic-concepts
 
 <!-- TODO VFS-11766 place some sensible link here -->
 
-[Onedata zone]: ../intro.md#architecture
+[Onedata zone]: ../intro.md#basic-concepts
 
-[Web file browser guide]: web-file-browser.md
+[Web file browser guide]: interfaces/web-file-browser.md
 
-[Web GUI change permissions]: web-file-browser.md#permissions
+[Web GUI change permissions]: interfaces/web-file-browser.md#permissions
 
-[Oneclient chapter]: oneclient.md
+[Oneclient chapter]: interfaces/oneclient.md
 
-[Oneclient xattrs]: oneclient.md#file-extended-attributes
+[Oneclient xattrs]: interfaces/oneclient.md#file-extended-attributes
 
 [REST API chapter]: rest-api.md
 
 [File ID resolution endpoint]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
 
-[CDMI chapter]: cdmi.md
+[CDMI chapter]: interfaces/cdmi.md
 
-[CDMI set ACL operation]: cdmi.md#set-file-acl
+[CDMI set ACL operation]: interfaces/cdmi.md#set-file-acl
 
 [Oneprovider REST API]: https://onedata.org/#/home/api/stable/oneprovider
 
@@ -520,9 +520,9 @@ You can manage the data distribution using:
 
 [LUMA]: ../admin-guide/oneprovider/configuration/luma.md
 
-[Transfers]: data-transfer.md
+[Transfers]: data-transfers.md
 
-[Quality of Service]: qos.md
+[Quality of Service]: rule-based-replication-qos.md
 
 [Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
 

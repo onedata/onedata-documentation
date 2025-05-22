@@ -12,9 +12,23 @@ Only the members of a space have access to the stored data.
 
 ## Space support
 
+<!-- TODO VFS-11766 snippets that may be useful
+    After registering in a specific zone using the Onezone web interface, a new space has to
+    be created. Onedata is not a storage provider, and it does not provide any free or paid
+    storage resources. That is why, the newly created *space* has a quota size set to 0. To be
+    able to use this *space*, you have to request storage from some provider.
+
+    You can do that by sending the provider a support request token, which can be generated
+    using the Onezone interface. Provider uses this token to easily enable support for your
+    *space* with a specified quota. The actual storage size and provisioning time depend on
+    your agreement with the storage provider. You can request more storage for your *space*
+    from multiple geographically distributed providers. Onedata will unify access to these
+    storage resources automatically.
+ -->
+
 A space is merely a logical container that requires at least one physical
 [storage backend][] attached to be functional. Attaching physical storage is
-called **supporting** the space and is done by a data provider -
+called **supporting** the space and is done by a data provider —
 an institution that entered the Onedata environment by configuring a
 [Oneprovider service][] for managing access to its
 storage resources. Users can request support for their spaces, and provider
@@ -85,9 +99,17 @@ to that space. The space must always have at least one owner,
 but there may be more. As an owner you can not leave the space if there are no other
 owners in that space, first, you should pass ownership to another user.
 
-## Storage backends
+<!-- ## Storage backends -->
 
-<!-- TODO VFS-11766 documentation for storage backends -->
+<!-- TODO VFS-11766 documentation for storage backends from the user perspective -->
+
+<!-- TODO VFS-11766 this should be closely related to space supports -->
+
+<!-- TODO VFS-11766 mention QoS parameters and whatever else a user sees 
+    storage locations 
+    storage paths
+    cross-references to data distribution
+-->
 
 <!-- TODO VFS-11766 cross references with the admin guide -->
 
@@ -194,11 +216,11 @@ Refer to the [Web file browser][] guide for further instructions.
 
 [storage backend]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
-[Oneprovider service]: ../intro.md#architecture
+[Oneprovider service]: ../admin-guide/overview.md
 
-[data transfers]: data-transfer.md
+[data transfers]: data-transfers.md
 
-[QoS]: qos.md
+[QoS]: rule-based-replication-qos.md
 
 [here]: ../admin-guide/oneprovider/configuration/storage-import.md
 
@@ -208,7 +230,7 @@ Refer to the [Web file browser][] guide for further instructions.
 
 [grant support for your space]: ../admin-guide/oneprovider/configuration/space-support.md#granting-space-support
 
-[Web file browser]: web-file-browser.md
+[Web file browser]: interfaces/web-file-browser.md
 
 [screen-space-support]: ../../images/user-guide/spaces/space-support.svg
 

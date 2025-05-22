@@ -11,7 +11,12 @@ a space systematically.
 Datasets offer additional features, compared to regular files and directories:
 
 * optional [data and metadata write protection][protection],
-* [dataset structure][hierarchy] tracking using the [dataset browser][Datasets, Archives tab],
+* [dataset structure][hierarchy] tracking using the dataset browser,
+
+<!-- TODO VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
+
+<!-- * [dataset structure][hierarchy] tracking using the [dataset browser][Datasets, Archives tab], -->
+
 * ability to [create persistent snapshots][create archive] of the physical dataset
   contents — [archives][].
 
@@ -67,8 +72,12 @@ of:
 * **Archives** tab — containing dataset snapshots ([archives][]) browser,
 * **write protection badges** in the header — showing the effective write [protection][]
   of the selected file or directory,
-* **Show in dataset browser** button in the footer — navigating to [Datasets,
-  Archives tab][] within the space, with a focus on the selected dataset.
+* **Show in dataset browser** button in the footer — navigating to
+  **Datasets, Archives** tab within the space, with a focus on the selected dataset.
+
+<!-- TODO VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
+
+  <!-- [Datasets, Archives tab][] within the space, with a focus on the selected dataset. -->
 
 ![screen-datasets-panel][]
 
@@ -166,9 +175,7 @@ archives tab of the [file browser datasets panel][].
 
 See [this][archives] chapter for more details.
 
-## Space “Datasets, Archives” tab
-
-🚧 Under construction 🚧
+<!-- ## Space “Datasets, Archives” tab -->
 
 <!-- TODO VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
 
@@ -217,7 +224,9 @@ actions][].
 
 [removing datasets]: #removing-datasets
 
-[Datasets, Archives tab]: #space-datasets-archives-tab
+<!-- TODO VFS-11610 Write Datasets, Archive tab docs when new datasets "Tree" view will be finished -->
+
+<!-- [Datasets, Archives tab]: #space-datasets-archives-tab -->
 
 [create archive]: #creating-snapshots--archives
 
@@ -225,7 +234,7 @@ actions][].
 
 [file browser datasets panel]: #file-browser-datasets-panel
 
-[file browser]: ./web-file-browser.md
+[file browser]: ./interfaces/web-file-browser.md
 
 [archives]: ./archives.md
 

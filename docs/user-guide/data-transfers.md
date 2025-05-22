@@ -1,15 +1,11 @@
-# Data Transfer
+# Data transfers
 
 [toc][]
-
-## 🚧 Under construction! 🚧
-
-This section is still a work-in-progress and may have errors or missing information.
 
 ## Overview
 
 Data transfer is a process of moving data between providers within the
-Onedata system. This operation is asynchronous and may take a considerable
+Onedata system. This operation runs in the background and may take a considerable
 amount of time depending on the size of the data being transferred.
 
 There are three types of data transfers supported:

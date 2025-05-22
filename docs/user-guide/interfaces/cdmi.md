@@ -1,4 +1,4 @@
-# CDMI
+# CDMI API
 
 [toc][]
 
@@ -543,17 +543,17 @@ refer to the [CDMI specification][].
 
 [usage examples]: #examples-of-usage
 
-[REST]: data.md#rest-api
+[REST]: ../data.md#rest-api
 
 [basic-file-api-reference]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Basic-File-Operations
 
-[space]: spaces.md
+[space]: ../spaces.md
 
-[file-path-and-id]: data.md#file-path-and-id
+[file-path-and-id]: ../data.md#file-path-and-id
 
 [CDMI specification]: http://www.snia.org/cdmi
 
-[tokens]: ./tokens.md
+[tokens]: ../tokens.md
 
 [create file]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/create_file
 
@@ -571,4 +571,4 @@ refer to the [CDMI specification][].
 
 [get metadata]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_xattrs
 
-[ACL]: data.md#access-control-lists
+[ACL]: ../data.md#access-control-lists

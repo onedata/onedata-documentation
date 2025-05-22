@@ -29,16 +29,28 @@ module.exports = {
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
-          '/user-guide/data-distribution',
-          '/user-guide/web-file-browser',
+          {
+            title: 'Data access interfaces',
+            collapsable: false,
+            path: '/user-guide/interfaces/overview',
+            children: [
+              '/user-guide/interfaces/overview',
+              '/user-guide/interfaces/web-file-browser',
+              '/user-guide/interfaces/oneclient',
+              '/user-guide/interfaces/onedatafs',
+              '/user-guide/interfaces/onedatarestfs',
+              '/user-guide/interfaces/onedatafilerestclient',
+              // '/user-guide/interfaces/s3',
+              '/user-guide/interfaces/data-access-rest-api',
+              '/user-guide/interfaces/cdmi'
+            ]
+          },
+          '/user-guide/data-distribution-and-metrics',
+          '/user-guide/data-transfers',
+          '/user-guide/rule-based-replication-qos',
           '/user-guide/shares',
           '/user-guide/public-data',
           '/user-guide/tokens',
-          '/user-guide/oneclient',
-          '/user-guide/onedatafs',
-          '/user-guide/rest-api',
-          '/user-guide/qos',
-          '/user-guide/data-transfer',
           '/user-guide/metadata',
           '/user-guide/data-discovery',
           '/user-guide/datasets',
@@ -46,7 +58,7 @@ module.exports = {
 //          '/user-guide/automation',
           '/user-guide/file-registration',
           '/user-guide/views',
-          '/user-guide/cdmi'
+          '/user-guide/rest-api'
         ]
       },
       {
@@ -60,13 +72,12 @@ module.exports = {
           {
             title: 'Onezone',
             collapsable: true,
-            path: '/admin-guide/onezone/quickstart',
+            path: '/admin-guide/onezone/installation',
             children: [
-              '/admin-guide/onezone/quickstart',
-              '/admin-guide/onezone/overview',
               '/admin-guide/onezone/installation',
               '/admin-guide/onezone/maintenance',
               '/admin-guide/onezone/administration-panel',
+              '/admin-guide/oneprovider/troubleshooting',
               {
                 title: 'Configuration',
                 collapsable: false,
@@ -93,10 +104,8 @@ module.exports = {
           {
             title: 'Oneprovider',
             collapsable: true,
-            path: '/admin-guide/oneprovider/quickstart',
+            path: '/admin-guide/oneprovider/installation',
             children: [
-              '/admin-guide/oneprovider/quickstart',
-              '/admin-guide/oneprovider/overview',
               '/admin-guide/oneprovider/installation',
               '/admin-guide/oneprovider/maintenance',
               '/admin-guide/oneprovider/administration-panel',
@@ -117,7 +126,7 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/luma',
                   '/admin-guide/oneprovider/configuration/file-popularity',
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
-                  '/admin-guide/oneprovider/configuration/qos',
+                  '/admin-guide/oneprovider/configuration/rule-based-replication-qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]

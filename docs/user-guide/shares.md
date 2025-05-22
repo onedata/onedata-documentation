@@ -222,7 +222,7 @@ documentation.
 
 [Space]: spaces.md
 
-[file browser]: web-file-browser.md
+[file browser]: ./interfaces/web-file-browser.md
 
 [Share management view]: #share-management-view
 
@@ -230,7 +230,7 @@ documentation.
 
 [permissions]: ./data.md#data-access-control
 
-[web-file-browser-permissions]: ./web-file-browser.md#permissions
+[web-file-browser-permissions]: ./interfaces/web-file-browser.md#permissions
 
 [Share creation modal]: #sharing-a-file-or-directory
 

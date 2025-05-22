@@ -2,17 +2,14 @@
 
 [toc][]
 
-## 🚧 Under construction! 🚧
-
-This section is still a work-in-progress and may have errors or missing information.
-
 ## Overview
 
 The administration panel — in the form of the Onepanel service — is responsible
 for a range of functionalities related to managing the Oneprovider service
 cluster. Examples of tasks performed by Onepanel include:
 
-* conducting the Oneprovider cluster installation process,
+* installing Oneprovider using w graphical wizard — see the
+  [dedicated chapter][gui-wizard-deployment],
 * managing certificates,
 * adding new storage backends,
 * supporting spaces with existing storage backends,
@@ -88,6 +85,8 @@ cluster.
 <!-- references -->
 
 [toc]: <>
+
+[gui-wizard-deployment]: ./installation.md#graphical-wizard
 
 [REST API]: ./configuration/rest-api.md
 

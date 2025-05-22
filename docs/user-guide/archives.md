@@ -162,9 +162,9 @@ The archive files browser works just as a regular [web file browser][] except it
 read-only access both for data and metadata. You can also [share][] the archived
 files/directories, manage QoS and transfer the data between providers.
 
-<!-- TODO VFS-6815 add link to QoS [QoS]: ./qos.md -->
+<!-- TODO VFS-6815 add link to QoS [QoS]: ./rule-based-replication-qos.md -->
 
-<!-- TODO VFS-7989 add link to transfer [transfer]: ./data-transfer.md -->
+<!-- TODO VFS-7989 add link to transfer [transfer]: ./data-transfers.md -->
 
 ![screen-archive-files-browser][]
 
@@ -573,7 +573,7 @@ archives][] until it is not a top-most ancestor of the hierarchy.
 
 [share]: ./shares.md
 
-[web file browser]: ./web-file-browser.md
+[web file browser]: ./interfaces/web-file-browser.md
 
 [custom metadata]: ./metadata.md#custom-metadata
 

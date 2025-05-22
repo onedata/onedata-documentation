@@ -338,104 +338,104 @@ directories, scheduling data transfers, etc.).
 
 [toc]: <>
 
-[space]: spaces.md
+[space]: ../spaces.md
 
 <!-- TODO VFS-11766 improve when the support docs are there -->
 
-[space-support]: spaces.md#request-support-for-space
+[space-support]: ../spaces.md#request-support-for-space
 
-[provider]: providers.md
+[provider]: ../providers.md
 
 [mobile-file-browser]: #mobile-file-browser
 
-[space-privileges]: spaces.md#space-privileges
+[space-privileges]: ../spaces.md#space-privileges
 
-[share]: shares.md
+[share]: ../shares.md
 
 [share action]: #share
 
-[metadata-gui]: metadata.md#web-gui
+[metadata-gui]: ../metadata.md#web-gui
 
-[permissions]: data.md#permissions
+[permissions]: ../data.md#permissions
 
-[posix-permissions]: data.md#posix-permissions
+[posix-permissions]: ../data.md#posix-permissions
 
-[acl]: data.md#access-control-lists
+[acl]: ../data.md#access-control-lists
 
 <!-- TODO VFS-11766 change to a valid link -->
 
-[data-distribution]: data.md#file-distribution
+[data-distribution]: ../data.md#file-distribution
 
-[transfers]: data-transfer.md
+[transfers]: ../data-transfers.md
 
-[Quality of Service]: qos.md
+[Quality of Service]: ../rule-based-replication-qos.md
 
-[datasets]: datasets.md
+[datasets]: ../datasets.md
 
-[REST API]: rest-api.md
+[REST API]: ../rest-api.md
 
-[screen-intro-data-overview]: ../../images/user-guide/web-file-browser/intro-data-overview.png
+[screen-intro-data-overview]: ../../../images/user-guide/interfaces/web-file-browser/intro-data-overview.png
 
-[screen-uploading-empty]: ../../images/user-guide/web-file-browser/uploading-empty.png
+[screen-uploading-empty]: ../../../images/user-guide/interfaces/web-file-browser/uploading-empty.png
 
-[screen-uploading-upload]: ../../images/user-guide/web-file-browser/uploading-upload.png
+[screen-uploading-upload]: ../../../images/user-guide/interfaces/web-file-browser/uploading-upload.png
 
-[screen-uploading-tab]: ../../images/user-guide/web-file-browser/uploading-tab.png
+[screen-uploading-tab]: ../../../images/user-guide/interfaces/web-file-browser/uploading-tab.png
 
-[screen-layout-breadcrumbs]: ../../images/user-guide/web-file-browser/layout-breadcrumbs.png
+[screen-layout-breadcrumbs]: ../../../images/user-guide/interfaces/web-file-browser/layout-breadcrumbs.png
 
-[screen-layout-context-menu]: ../../images/user-guide/web-file-browser/layout-context-menu.png
+[screen-layout-context-menu]: ../../../images/user-guide/interfaces/web-file-browser/layout-context-menu.png
 
-[screen-layout-infinite-scroll]: ../../images/user-guide/web-file-browser/layout-infinite-scroll.png
+[screen-layout-infinite-scroll]: ../../../images/user-guide/interfaces/web-file-browser/layout-infinite-scroll.png
 
-[screen-layout-file-tags]: ../../images/user-guide/web-file-browser/layout-file-tags.png
+[screen-layout-file-tags]: ../../../images/user-guide/interfaces/web-file-browser/layout-file-tags.png
 
-[screen-feature-file-context-menu]: ../../images/user-guide/web-file-browser/feature-file-context-menu.png
+[screen-feature-file-context-menu]: ../../../images/user-guide/interfaces/web-file-browser/feature-file-context-menu.png
 
-[screen-column-configuration]: ../../images/user-guide/web-file-browser/feature-configure-columns.png
+[screen-column-configuration]: ../../../images/user-guide/interfaces/web-file-browser/feature-configure-columns.png
 
-[screen-prefix-search]: ../../images/user-guide/web-file-browser/jump-to-prefix.png
+[screen-prefix-search]: ../../../images/user-guide/interfaces/web-file-browser/jump-to-prefix.png
 
-[screen-feature-info]: ../../images/user-guide/web-file-browser/feature-info.png
+[screen-feature-info]: ../../../images/user-guide/interfaces/web-file-browser/feature-info.png
 
-[screen-feature-share]: ../../images/user-guide/web-file-browser/feature-share.png
+[screen-feature-share]: ../../../images/user-guide/interfaces/web-file-browser/feature-share.png
 
-[screen-feature-datasets]: ../../images/user-guide/web-file-browser/datasets-modal.png
+[screen-feature-datasets]: ../../../images/user-guide/interfaces/web-file-browser/datasets-modal.png
 
-[screen-feature-shared-already]: ../../images/user-guide/web-file-browser/feature-shared-already.png
+[screen-feature-shared-already]: ../../../images/user-guide/interfaces/web-file-browser/feature-shared-already.png
 
-[screen-feature-metadata-json]: ../../images/user-guide/web-file-browser/feature-metadata-json.png
+[screen-feature-metadata-json]: ../../../images/user-guide/interfaces/web-file-browser/feature-metadata-json.png
 
-[screen-feature-permissions-posix]: ../../images/user-guide/web-file-browser/feature-permissions-posix.png
+[screen-feature-permissions-posix]: ../../../images/user-guide/interfaces/web-file-browser/feature-permissions-posix.png
 
-[screen-feature-permissions-acl]: ../../images/user-guide/web-file-browser/feature-permissions-acl.png
+[screen-feature-permissions-acl]: ../../../images/user-guide/interfaces/web-file-browser/feature-permissions-acl.png
 
-[screen-feature-distribution-bar]: ../../images/user-guide/web-file-browser/feature-distribution-bar.png
+[screen-feature-distribution-bar]: ../../../images/user-guide/interfaces/web-file-browser/feature-distribution-bar.png
 
-[screen-feature-distribution-schedule]: ../../images/user-guide/web-file-browser/feature-distribution-schedule.png
+[screen-feature-distribution-schedule]: ../../../images/user-guide/interfaces/web-file-browser/feature-distribution-schedule.png
 
-[screen-feature-rename]: ../../images/user-guide/web-file-browser/feature-rename.png
+[screen-feature-rename]: ../../../images/user-guide/interfaces/web-file-browser/feature-rename.png
 
-[screen-feature-symlink]: ../../images/user-guide/web-file-browser/feature-sumbolic-link.png
+[screen-feature-symlink]: ../../../images/user-guide/interfaces/web-file-browser/feature-sumbolic-link.png
 
-[screen-feature-hardlink]: ../../images/user-guide/web-file-browser/feature-hard-link.png
+[screen-feature-hardlink]: ../../../images/user-guide/interfaces/web-file-browser/feature-hard-link.png
 
-[screen-feature-copy-cut]: ../../images/user-guide/web-file-browser/feature-copy-cut.png
+[screen-feature-copy-cut]: ../../../images/user-guide/interfaces/web-file-browser/feature-copy-cut.png
 
-[screen-feature-delete]: ../../images/user-guide/web-file-browser/feature-delete.png
+[screen-feature-delete]: ../../../images/user-guide/interfaces/web-file-browser/feature-delete.png
 
-[screen-feature-qos-visual]: ../../images/user-guide/web-file-browser/feature-qos-visual.png
+[screen-feature-qos-visual]: ../../../images/user-guide/interfaces/web-file-browser/feature-qos-visual.png
 
-[screen-feature-qos-visual-match]: ../../images/user-guide/web-file-browser/feature-qos-visual-match.png
+[screen-feature-qos-visual-match]: ../../../images/user-guide/interfaces/web-file-browser/feature-qos-visual-match.png
 
-[screen-feature-qos-text]: ../../images/user-guide/web-file-browser/feature-qos-text.png
+[screen-feature-qos-text]: ../../../images/user-guide/interfaces/web-file-browser/feature-qos-text.png
 
-[screen-feature-qos-requirements]: ../../images/user-guide/web-file-browser/feature-qos-requirements.png
+[screen-feature-qos-requirements]: ../../../images/user-guide/interfaces/web-file-browser/feature-qos-requirements.png
 
-[screen-mobile-overview]: ../../images/user-guide/web-file-browser/mobile-overview.png
+[screen-mobile-overview]: ../../../images/user-guide/interfaces/web-file-browser/mobile-overview.png
 
-[screen-mobile-menu]: ../../images/user-guide/web-file-browser/mobile-menu.png
+[screen-mobile-menu]: ../../../images/user-guide/interfaces/web-file-browser/mobile-menu.png
 
-[screen-mobile-upload]: ../../images/user-guide/web-file-browser/mobile-upload.png
+[screen-mobile-upload]: ../../../images/user-guide/interfaces/web-file-browser/mobile-upload.png
 
-[screen-oneprovider-switch]: ../../images/user-guide/web-file-browser/oneprovider-switch.png
+[screen-oneprovider-switch]: ../../../images/user-guide/interfaces/web-file-browser/oneprovider-switch.png

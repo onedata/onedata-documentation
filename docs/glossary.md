@@ -2,11 +2,11 @@
 
 <!-- short description of each concept with links to proper sections -->
 
-<!-- TODO VFS-11766 fill missing entries -->
+<!-- TODO VFS-12857 fill missing entries -->
 
 ## Access control
 
-<!-- TODO VFS-11766 mention access control to entities, not only data -->
+<!-- TODO VFS-12857 mention access control to entities, not only data -->
 
 Onedata implements a multi-level approach to access control, as described [here][access-control].
 
@@ -36,15 +36,11 @@ Learn more [here][5].
 
 ## Cluster
 
-### 🚧 Under construction! 🚧
+<!-- TODO VFS-12857 fill missing entries -->
 
-## Cluster manager
+<!-- ## Cluster manager -->
 
-### 🚧 Under construction! 🚧
-
-## Couchbase
-
-### 🚧 Under construction! 🚧
+<!-- ## Couchbase -->
 
 ## Data Discovery
 
@@ -91,15 +87,11 @@ Learn more [here][15].
 
 ## Group
 
-### 🚧 Under construction! 🚧
+<!-- TODO VFS-12857 fill missing entries -->
 
-## Handle
+<!-- ## Handle -->
 
-### 🚧 Under construction! 🚧
-
-## Handle service
-
-### 🚧 Under construction! 🚧
+<!-- ## Handle service -->
 
 ## Harvester
 
@@ -114,9 +106,7 @@ different privileges. Learn more [here][8].
 Enables [Storage import][19] when used to support a space.
 Learn more [here][20].
 
-## Let’s Encrypt
-
-### 🚧 Under construction! 🚧
+<!-- ## Let’s Encrypt -->
 
 ## LUMA
 
@@ -146,21 +136,19 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Oneprovider
 
-### 🚧 Under construction! 🚧
-
-<!-- TODO VFS-11766 piece of software that is installed at a data provider site -->
+<!-- TODO VFS-12857 piece of software that is installed at a data provider site -->
 
 ## Onezone
 
-### 🚧 Under construction! 🚧
+<!-- TODO VFS-12857 fill missing entries -->
 
-## Provider
+<!-- ## Provider -->
 
-<!-- TODO VFS-11766 an entity that handles physical data storage as seen by Onedata users -->
+<!-- TODO VFS-12857 an entity that handles physical data storage as seen by Onedata users -->
 
 ## REST API
 
-### 🚧 Under construction! 🚧
+<!-- TODO VFS-12857 fill missing entries -->
 
 ## Space
 
@@ -168,7 +156,7 @@ A logical container for data, fundamental for organizing user data in Onedata.
 Accessible only to its members — users or [groups][17] — that are assigned
 fine-grained privileges. Learn more [here][29].
 
-<!-- TODO VFS-11766 consider adding a chapter about users and linking it here -->
+<!-- TODO VFS-12857 consider adding a chapter about users and linking it here -->
 
 ## Storage
 
@@ -210,7 +198,7 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [4]: admin-guide/oneprovider/configuration/auto-cleaning.md
 
-[5]: user-guide/cdmi.md
+[5]: user-guide/interfaces/cdmi.md
 
 [6]: #file-metadata
 
@@ -244,11 +232,11 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [22]: https://github.com/libfuse/libfuse
 
-[23]: user-guide/oneclient.md
+[23]: user-guide/interfaces/oneclient.md
 
 [24]: https://www.pyfilesystem.org/
 
-[25]: user-guide/onedatafs.md
+[25]: user-guide/interfaces/onedatafs.md
 
 [26]: #cluster
 

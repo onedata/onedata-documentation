@@ -365,7 +365,7 @@ your own configuration in JSON format.
 
 [4]: ../../../user-guide/spaces.md
 
-[5]: ../../../intro.md#architecture
+[5]: ../../../intro.md#basic-concepts
 
 [6]: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html
 

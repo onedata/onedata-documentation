@@ -618,7 +618,7 @@ are presented in the below table:
 
 [23]: #tables
 
-[24]: ../../../user-guide/oneclient.md#direct-io-and-proxy-io-modes
+[24]: ../../../user-guide/interfaces/oneclient.md#direct-io-and-proxy-io-modes
 
 [25]: #onedata-user-credentials
 

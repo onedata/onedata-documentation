@@ -3166,7 +3166,7 @@ required to insert the Client ID and Secret in the config.
 
 [tutorial for Google IdP]: ./oidc-google-idp.md
 
-[Onezone logs]: ../maintenance.md#troubleshooting
+[Onezone logs]: ../troubleshooting.md
 
 [supported IdP list]: #supported-idps
 

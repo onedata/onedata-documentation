@@ -70,13 +70,13 @@ Alternatively, the ID can be retrieved from the GUI:
 
 <!-- references -->
 
-[architecture]: ../intro.md#architecture
+[architecture]: ../admin-guide/architecture.md
 
 [Onezone REST API]: https://onedata.org/#/home/api/stable/onezone
 
 [Oneprovider REST API]: https://onedata.org/#/home/api/stable/oneprovider
 
-[CDMI API]: cdmi.md
+[CDMI API]: interfaces/cdmi.md
 
 [Onepanel REST API]: https://onedata.org/#/home/api/stable/onepanel
 

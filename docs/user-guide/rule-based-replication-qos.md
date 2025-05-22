@@ -1,8 +1,4 @@
-# Quality of Service
-
-## 🚧 Under construction! 🚧
-
-This section is still a work-in-progress and may have errors or missing information.
+# Rule-based replication (QoS)
 
 [toc][1]
 
@@ -158,13 +154,13 @@ Below are some links to the REST API documentation of commonly used operations:
 
 [1]: <>
 
-[replica distribution]: ./data-distribution.md
+[replica distribution]: ./data-distribution-and-metrics.md
 
 [providers]: ./providers.md
 
 [space]: ./spaces.md
 
-[admin-qos]: ../admin-guide/oneprovider/configuration/qos.md
+[admin-qos]: ../admin-guide/oneprovider/configuration/rule-based-replication-qos.md
 
 [QoS requirements]: #qos-requirement
 
@@ -186,11 +182,11 @@ Below are some links to the REST API documentation of commonly used operations:
 
 [evaluate-qos-expression]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/evaluate_qos_expression
 
-[file browser]: web-file-browser.md#qos
+[file browser]: interfaces/web-file-browser.md#qos
 
 [storage backends]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
-[7]: web-file-browser.md#switching-between-providers
+[7]: interfaces/web-file-browser.md#switching-between-providers
 
 [screen-qos-in-context-menu]: ../../images/user-guide/qos/context_menu.png
 
