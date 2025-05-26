@@ -17,10 +17,8 @@ high-availability purpose. If not mentioned otherwise it is assumed that
 
 ## Docker-based
 
-Docker-based instalation methods use our  [official Docker
-images][1]  to run **Oneprovider** on any [Linux OS
-supporting
-Docker][2].
+Docker-based installation methods use our  [official Docker images][1]
+to run **Oneprovider** on any [Linux OS supporting Docker][2].
 
 The node on which **Oneprovider** will be deployed should fullfill the requirements  shown in the table below.
 
@@ -353,13 +351,15 @@ $ sudo rm -rf /opt/onedata/oneprovider/persistence/*
 $ sudo systemctl start oneprovider.service
 ```
 
-### Manual installation using Onepanel Web GUI
+## Graphical wizard
 
-The prerequisites for this instalation method are the same as for the instalation using batch mode. With this method the onedata cluster is configured and deployed by using the Onepanel Web GUI.
+The prerequisites for this installation method are the same as for the installation using
+batch mode. With this method the Onedata cluster is configured and deployed by using the
+Onepanel Web GUI.
 
 #### Customizing Oneprovider Docker Compose script
 
-Similarly to the prevous instalation method we need to create some directories and prepare a docker-compose.yml file.
+Similarly to the previous installation method we need to create some directories and prepare a docker-compose.yml file.
 Create the following directories:
 
 ```sh
@@ -475,19 +475,19 @@ Click "Finish".
 
 Now you can start managing your cluster, e.g., support a space as described in [Space supports][23].
 
-### Deploing Oneprovider with Onedatify convenience script
+## Onedatify CLI wizard
 
 Onedatify is an easy to use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
 
-#### Prerequisites
+### Prerequisites
 
 In addition to the general prerequisites this method requires also an access to existing user account in the Onezone instance, with which Oneprovider should register.
 
-#### Deploing Oneprovider
+### Deploying Oneprovider
 
 Follow carefully the following steps.
 
-##### Creating a new space in Onezone
+#### Creating a new space in Onezone
 
 The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically supported by the new Oneprovider instance.
 
@@ -497,7 +497,7 @@ Go the main Onezone interface and select **DATA -> +** :
 
 Note: Skip this step if existing space should be supported.
 
-##### Generating oneline Onedatify command in Onezone
+#### Generating oneline Onedatify command in Onezone
 
 Go to Onezone interface and click on the space. Click **Add support** in the providers pane.
 
@@ -509,7 +509,7 @@ and copy the generated command.
 
 Note: If you would like to expose a dircetory containing an existing data set then select the tab *Expose existing data set* and copy the generated command.
 
-##### Run the command on the target host
+#### Run the command on the target host
 
 Paste the copied command in the terminal on the Oneprovider machine (as superuser or as a user with sudo privileges).
 
@@ -537,17 +537,16 @@ After the deployment is complete, the following message will be shown, with conn
 
 <!-- toc -->
 
-### Ansible/TF
+<!-- ## Ansible/TF -->
 
-#### 🚧 Under construction! 🚧
+<!-- TODO VFS-11766 missing section -->
 
-### k8s/helm
+<!-- ## k8s/helm -->
 
-#### 🚧 Under construction! 🚧
+<!-- TODO VFS-11766 missing section -->
 
-### Native <!-- say that its not recommended, give a link to the dockerfile as reference, contact us if required -->
-
-#### 🚧 Under construction! 🚧
+<!-- ## Native ->>
+<!-- TODO VFS-11766 say that its not recommended, give a link to the dockerfile as reference -->
 
 <!-- references -->
 

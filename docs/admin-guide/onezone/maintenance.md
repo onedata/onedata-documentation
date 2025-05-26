@@ -1,10 +1,6 @@
 # Maintenance
 
-## Startup & shutdown
-
-### 🚧 Under construction! 🚧
-
-This section is coming soon. For now, see the counterpart in the [legacy docs][7].
+<!-- ## Startup & shutdown -->
 
 <!-- TODO VFS-11766 restart too -->
 
@@ -142,17 +138,9 @@ sudo systemctl start onezone
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-## Upgrading
+<!-- ## Upgrading -->
 
-### 🚧 Under construction! 🚧
-
-This section is coming soon. For now, see the counterpart in the [legacy docs][8].
-
-## Troubleshooting
-
-### 🚧 Under construction! 🚧
-
-This section is coming soon. For now, see the counterpart in the [legacy docs][9].
+<!-- TODO VFS-11766 missing section -->
 
 <!-- references -->
 
@@ -167,9 +155,3 @@ This section is coming soon. For now, see the counterpart in the [legacy docs][9
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
-
-[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[running].html
-
-[8]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[upgrading].html
-
-[9]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[monitoring].html

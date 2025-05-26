@@ -1,10 +1,22 @@
-# Oneclient
+# Oneclient (FUSE native mount)
 
 [toc][1]
 
-Onedata provides a command-line client that can mount your spaces in your local
-file system tree. Oneclient is based on [Fuse][].
-Follow the installation instructions below for your particular platform.
+The **Oneclient** application allows mounting your Onedata Spaces in a Linux filesystem,
+so that the data can be accessed as if it resided in the local filesystem. Oneclient is
+based on the [Fuse][] (Filesystem in Userspace) library and proves useful in many
+scenarios, for example:
+
+* convenient access using a personal laptop from any place with Internet connection,
+* high-performance access in computing environments — the filesystem can be mounted on
+  a worker node and processed interactively or using jobs,
+* accessing the data via the command-line interface (terminal),
+* accessing and processing the data using specialized software.
+
+![screen-oneclient-mount][]
+
+<!-- TODO VFS-6805: refresh this screenshot, 
+maybe show only the CLI with the same data as in Web GUI -->
 
 ## Installation
 
@@ -694,24 +706,26 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [anaconda onedata]: https://anaconda.org/onedata
 
-[tokens quickstart guide]: tokens.md#access-token-quickstart
+[tokens quickstart guide]: ../tokens.md#access-token-quickstart
 
-[tokens]: ./tokens.md
+[tokens]: ../tokens.md
 
-[tokens safety]: tokens.md#safely-publishing-tokens
+[tokens safety]: ../tokens.md#safely-publishing-tokens
 
-[invite user]: spaces.md#invite-a-user
+[invite user]: ../spaces.md#invite-a-user
 
 [direct-io]: #direct-io-and-proxy-io-modes
 
-[oneprovider-domain]: data.md#provider-domain
+[oneprovider-domain]: ../data.md#provider-domain
 
-[image-oneclient-direct-proxy]: ../../images/user-guide/oneclient/oneclient-direct-proxy.png
+[image-oneclient-direct-proxy]: ../../../images/user-guide/interfaces/oneclient/oneclient-direct-proxy.png
 
 [2]: https://github.com/xattr/xattr
 
-[3]: metadata.md#metadata-management-with-oneclient-and-onedatafs
+[3]: ../metadata.md#metadata-management-with-oneclient-and-onedatafs
 
 [12]: https://docs.docker.com/engine/extend/plugins_volume/
 
 [13]: #options
+
+[screen-oneclient-mount]: ../../../images/user-guide/interfaces/oneclient/oneclient-mount.png

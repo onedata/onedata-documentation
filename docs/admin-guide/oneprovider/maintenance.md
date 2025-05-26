@@ -1,6 +1,6 @@
 # Maintenance
 
-## Startup & shutdown
+<!-- ## Startup & shutdown -->
 
 <!-- TODO VFS-11766 restart too -->
 
@@ -95,10 +95,8 @@ data consistency.
 ### Preparation of Virtual Machines
 
 Some disaster recovery scenarios require creation of new VMs to
-restore the service.  The [ansible
-playbook][5]
-from
-[onedata-deployments][4]
+restore the service.  The [ansible playbook][5]
+from [onedata-deployments][4]
 repository can be used to speed up the process. Alternatively, one can
 manually run the commands included in the
 [Installation][6] section.
@@ -138,13 +136,9 @@ sudo systemctl start oneprovider
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-## Upgrading
+<!-- ## Upgrading -->
 
-### 🚧 Under construction! 🚧
-
-This section is coming soon. For now, see the counterpart in the [legacy docs][7].
-
-## Troubleshooting
+<!-- TODO VFS-11766 missing section -->
 
 <!-- references -->
 
@@ -159,5 +153,3 @@ This section is coming soon. For now, see the counterpart in the [legacy docs][7
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
 [6]: installation.md
-
-[7]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/oneprovider_tutorial[upgrading].html

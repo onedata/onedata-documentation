@@ -1,9 +1,5 @@
 # Troubleshooting
 
-## 🚧 Under construction! 🚧
-
-This section is still a work-in-progress and may have errors or missing information.
-
 ## Connectivity issues
 
 Oneprovider service requires several TCP ports (`80`, `443`, `6665`, `9443`)

@@ -31,7 +31,11 @@ The file will become visible immediately.
 
 [space]: spaces.md
 
-[storage backend]: spaces.md#storage-backends
+<!-- TODO VFS-11766 link to documentation for storage backends from user perspective -->
+
+<!-- [storage backend]: spaces.md#storage-backends -->
+
+[storage backend]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
 [imported storage]: ../admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 

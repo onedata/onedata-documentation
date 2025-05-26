@@ -192,13 +192,13 @@ When you visit the above URL:
 
 [admin guide]: ../admin-guide/overview.md
 
-[Web GUI]: ../user-guide/web-file-browser.md
+[Web GUI]: ../user-guide/interfaces/web-file-browser.md
 
 [REST API]: ../user-guide/rest-api.md
 
-[Oneclient]: ../user-guide/oneclient.md
+[Oneclient]: ../user-guide/interfaces/oneclient.md
 
-[OnedataFS]: ../user-guide/onedatafs.md
+[OnedataFS]: ../user-guide/interfaces/onedata-fs.md
 
 [token via gui]: ../user-guide/tokens.md#gui-guide
 
