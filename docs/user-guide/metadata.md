@@ -47,7 +47,7 @@ All filesystem attributes are shown in table below.
 | storage\_group\_id | 6001                               | Gid of the storage group owner of this file (the same Gid is displayed via oneclient) |
 | owner\_id          | "6825604b0eb6a47b8b7a04b6369eb24d" | ID of the file owner                                                                  |
 | provider\_id       | "79c0ed35f32e43db3a87f76a588c9b2f" | ID of the provider on which file was created                                          |
-| shares             | \["b3a87f76a588c9b279c2...", ...]  | Array of share IDs associated with this file/directory                                |
+| shares             | \["b3a87f76a588c9b279c2...", ...\]  | Array of share IDs associated with this file/directory                                |
 
 Some filesystem attributes are considered private and masked when accessing
 file in share mode (public view for unauthenticated clients). They are:

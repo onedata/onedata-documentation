@@ -15,7 +15,7 @@ module.exports = {
       {
         title: 'Introduction',
         path: '/intro',
-        collapsable: true
+        collapsable: false
       },
       {
         title: 'User guide',
@@ -23,7 +23,7 @@ module.exports = {
         collapsable: true,
         children: [
           '/user-guide/quickstart',
-          '/user-guide/overview',
+          // '/user-guide/overview',
           '/user-guide/account-management',
           '/user-guide/groups',
           '/user-guide/spaces',
@@ -70,42 +70,12 @@ module.exports = {
           '/admin-guide/architecture',
           '/admin-guide/demo-mode',
           {
-            title: 'Onezone',
-            collapsable: true,
-            path: '/admin-guide/onezone/installation',
-            children: [
-              '/admin-guide/onezone/installation',
-              '/admin-guide/onezone/maintenance',
-              '/admin-guide/onezone/administration-panel',
-              '/admin-guide/oneprovider/troubleshooting',
-              {
-                title: 'Configuration',
-                collapsable: false,
-                path: '/admin-guide/onezone/configuration/oidc-saml',
-                children: [
-                  '/admin-guide/onezone/configuration/network-and-firewall',
-                  '/admin-guide/onezone/configuration/cluster-nodes',
-                  '/admin-guide/onezone/configuration/dns-config',
-                  '/admin-guide/onezone/configuration/web-certificate',
-                  '/admin-guide/onezone/configuration/user-management',
-                  '/admin-guide/onezone/configuration/cluster-members',
-                  '/admin-guide/onezone/configuration/gui-settings',
-                  '/admin-guide/onezone/configuration/oidc-saml',
-                  '/admin-guide/onezone/configuration/oidc-google-idp',
-                  '/admin-guide/onezone/configuration/admin-privileges',
-                  '/admin-guide/onezone/configuration/rest-api',
-                  '/admin-guide/onezone/configuration/data-discovery',
-                  '/admin-guide/onezone/configuration/handle-services',
-                  '/admin-guide/onezone/configuration/advanced-config'
-                ]
-              }
-            ]
-          },
-          {
             title: 'Oneprovider',
             collapsable: true,
             path: '/admin-guide/oneprovider/installation',
             children: [
+              // TODO VFS-11766 we need a landing page for oz and op (like overview)
+              // TODO VFS-11766 when it's there, adjust docs-topic-aliases.js (homepage)
               '/admin-guide/oneprovider/installation',
               '/admin-guide/oneprovider/maintenance',
               '/admin-guide/oneprovider/administration-panel',
@@ -113,13 +83,14 @@ module.exports = {
               {
                 title: 'Configuration',
                 collapsable: false,
-                path: '/admin-guide/oneprovider/configuration/dns-config',
+                path: '/admin-guide/oneprovider/configuration/cluster-members',
                 children: [
+                  // TODO VFS-11766 move this section further down when there's content in others
+                  '/admin-guide/oneprovider/configuration/cluster-members',
                   '/admin-guide/oneprovider/configuration/network-and-firewall',
                   '/admin-guide/oneprovider/configuration/cluster-nodes',
                   '/admin-guide/oneprovider/configuration/dns-config',
                   '/admin-guide/oneprovider/configuration/web-certificate',
-                  '/admin-guide/oneprovider/configuration/cluster-members',
                   '/admin-guide/oneprovider/configuration/storage-backends',
                   '/admin-guide/oneprovider/configuration/space-support',
                   '/admin-guide/oneprovider/configuration/storage-import',
@@ -133,13 +104,48 @@ module.exports = {
               }
 
             ]
+          },
+          {
+            title: 'Onezone',
+            collapsable: true,
+            path: '/admin-guide/onezone/installation',
+            children: [
+              // TODO VFS-11766 we need a landing page for oz and op (like overview)
+              // TODO VFS-11766 when it's there, adjust docs-topic-aliases.js (homepage)
+              '/admin-guide/onezone/installation',
+              '/admin-guide/onezone/maintenance',
+              '/admin-guide/onezone/administration-panel',
+              '/admin-guide/onezone/troubleshooting',
+              {
+                title: 'Configuration',
+                collapsable: false,
+                path: '/admin-guide/onezone/configuration/oidc-saml',
+                children: [
+                  // TODO VFS-11766 move those sections further down when there's content in others
+                  '/admin-guide/onezone/configuration/oidc-saml',
+                  '/admin-guide/onezone/configuration/oidc-google-idp',
+                  '/admin-guide/onezone/configuration/network-and-firewall',
+                  '/admin-guide/onezone/configuration/cluster-nodes',
+                  '/admin-guide/onezone/configuration/dns-config',
+                  '/admin-guide/onezone/configuration/web-certificate',
+                  '/admin-guide/onezone/configuration/user-management',
+                  '/admin-guide/onezone/configuration/cluster-members',
+                  '/admin-guide/onezone/configuration/gui-settings',
+                  '/admin-guide/onezone/configuration/admin-privileges',
+                  '/admin-guide/onezone/configuration/rest-api',
+                  '/admin-guide/onezone/configuration/data-discovery',
+                  '/admin-guide/onezone/configuration/handle-services',
+                  '/admin-guide/onezone/configuration/advanced-config'
+                ]
+              }
+            ]
           }
         ]
       },
       {
         title: 'Glossary',
         path: '/glossary',
-        collapsable: true
+        collapsable: false
       }
     ]
   }

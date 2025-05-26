@@ -359,7 +359,7 @@ Onepanel Web GUI.
 
 #### Customizing Oneprovider Docker Compose script
 
-Similarly to the prevous installation method we need to create some directories and prepare a docker-compose.yml file.
+Similarly to the previous installation method we need to create some directories and prepare a docker-compose.yml file.
 Create the following directories:
 
 ```sh

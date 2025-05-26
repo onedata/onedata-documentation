@@ -21,8 +21,8 @@ INTRODUCTION  (landing page)
 Onedata is a data management platform that provides easy and unified access to globally
 distributed storage resources, supporting a wide range of use cases from personal data
 management to data-intensive scientific computations. It is an [open-source project][],
-started in 2013, and implemented by the team from the Cyfronet Computing Center in Krakow,
-Poland.
+started in 2013, and implemented by the team from the Academic Computer Centre Cyfronet
+AGH in Krakow, Poland.
 
 In Onedata, users can store, access, process, and publish their data using a global
 virtual file system spanning computing centers and storage providers worldwide.
@@ -72,9 +72,10 @@ and even exposed to the public. If you want to create a space for a community of
 Onedata supports user *groups*, which enable multiple users to access a single space
 sharing common authorization rules.
 
-Data in spaces can be managed through a web interface as well as from command line. Each
-space can be easily mounted to a local filesystem and accessed directly from a laptop, a
-cluster node, or a virtual machine deployed in the cloud.
+The data in spaces can be accessed using a wide-range of [user interfaces][], including a
+Web UI and a command-line client based on [Fuse][]. It enables mounting your spaces to a
+local filesystem and accessing the data directly from a laptop, a cluster node, or a
+virtual machine deployed in the cloud.
 
 For more information, see the dedicated chapters for [Spaces][] and [Groups][].
 
@@ -111,8 +112,8 @@ environment can be arbitrary.
 ![image-onezone][]
 
 While currently each zone is an isolated, independent ecosystem, the future roadmap for
-Onedata is to build a decentralized (peer-to-peer) network between the zones to allow
-(optional) collaboration between different ecosystems.
+Onedata is to build a decentralized, peer-to-peer network of zones to allow (optional)
+collaboration between different ecosystems.
 
 ## User interfaces
 
@@ -171,6 +172,8 @@ described in a [dedicated chapter][interfaces].
                     and offering storage space for users -->
 
 <!-- references -->
+
+[user interfaces]: #user-interfaces
 
 [open-source project]: https://github.com/onedata
 
