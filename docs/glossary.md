@@ -236,7 +236,7 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [24]: https://www.pyfilesystem.org/
 
-[25]: user-guide/interfaces/onedatafs.md
+[25]: user-guide/interfaces/onedata-fs.md
 
 [26]: #cluster
 

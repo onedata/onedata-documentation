@@ -198,7 +198,7 @@ When you visit the above URL:
 
 [Oneclient]: ../user-guide/interfaces/oneclient.md
 
-[OnedataFS]: ../user-guide/interfaces/onedatafs.md
+[OnedataFS]: ../user-guide/interfaces/onedata-fs.md
 
 [token via gui]: ../user-guide/tokens.md#gui-guide
 

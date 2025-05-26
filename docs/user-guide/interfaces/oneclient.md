@@ -2,10 +2,10 @@
 
 [toc][1]
 
-The [Oneclient][] application allows mounting your Onedata Spaces in a Linux filesystem,
+The **Oneclient** application allows mounting your Onedata Spaces in a Linux filesystem,
 so that the data can be accessed as if it resided in the local filesystem. Oneclient is
 based on the [Fuse][] (Filesystem in Userspace) library and proves useful in many
-scenarios:
+scenarios, for example:
 
 * convenient access using a personal laptop from any place with Internet connection,
 * high-performance access in computing environments — the filesystem can be mounted on

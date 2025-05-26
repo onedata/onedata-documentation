@@ -57,11 +57,11 @@ Here is a summary of all available data access interfaces:
 
 [Oneclient]: ./oneclient.md
 
-[OnedataFS]: ./onedatafs.md
+[OnedataFS]: ./onedata-fs.md
 
-[OnedataRestFS]: ./onedatarestfs.md
+[OnedataRestFS]: ./onedata-rest-fs.md
 
-[OnedataFileRestClient]: ./onedatafilerestclient.md
+[OnedataFileRestClient]: ./onedata-file-rest-client.md
 
 [REST API]: ./data-access-rest-api.md
 

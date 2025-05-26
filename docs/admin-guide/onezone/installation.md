@@ -11,7 +11,7 @@ This section is coming soon. For now:
 * see the [GitHub repository][] with docker-compose examples for Onezone deployment,
 * see the counterpart in the [legacy docs][].
 
----
+***
 
 **Use the panel on the left to navigate to other sections.**
 

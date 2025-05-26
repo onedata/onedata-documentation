@@ -37,9 +37,9 @@ module.exports = {
               '/user-guide/interfaces/overview',
               '/user-guide/interfaces/web-file-browser',
               '/user-guide/interfaces/oneclient',
-              '/user-guide/interfaces/onedatafs',
-              '/user-guide/interfaces/onedatarestfs',
-              '/user-guide/interfaces/onedatafilerestclient',
+              '/user-guide/interfaces/onedata-fs',
+              '/user-guide/interfaces/onedata-rest-fs',
+              '/user-guide/interfaces/onedata-file-rest-client',
               // '/user-guide/interfaces/s3',
               '/user-guide/interfaces/data-access-rest-api',
               '/user-guide/interfaces/cdmi'
