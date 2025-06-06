@@ -1,9 +1,11 @@
 # OnedataRestFS (Python)
 
+[toc][]
+
 ## In a nutshell
 
-`OnedataRESTFS` is a PyFilesystem interface to Onedata virtual file system based on
-Onedata REST API.
+`OnedataRESTFS` is a PyFilesystem plugin for Onedata distributed file system based on
+[Onedata REST API].
 
 As a [PyFilesystem] plugin implementation, `OnedataRESTFS` allows you to work with
 Onedata in the same way as any other filesystem supported by `PyFilesystem`.
@@ -48,7 +50,7 @@ Additional options that can be passed to the `OnedataRESTFS` client include:
 
 * `space` - when specified, the PyFilesystem instance will be limited to a single
             space
-* `preferred_oneproviders` - by default, `OnedataRESTFS` will Oneprovider instance to
+* `preferred_oneproviders` - by default, `OnedataRESTFS` will choose Oneprovider instance to
                              connect to for each space automatically, however if a list of
                              Oneprovider hostnames is provided here, they will be used if
                              possible,
@@ -65,3 +67,5 @@ Further documentation and usage examples can be found in the documentation for
 [PyPI]: https://pypi.org/project/fs.onedatarestfs
 
 [PyFilesystem]: https://pyfilesystem2.readthedocs.io/en/stable/info.html
+
+[Onedata REST API]: https://onedata.org/#/home/api/stable/oneprovider

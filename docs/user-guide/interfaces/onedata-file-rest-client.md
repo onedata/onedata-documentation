@@ -4,8 +4,11 @@
 
 ## In a nutshell
 
-`OnedataFileRESTClient` is a Python client to the Onedata file REST API. It offers basic operations on files as a concise, low-level library. Most users will probably be more interested in [onedatarestfs](./onedatarestfs.md) library, which is a plugin for [PyFilesystem], implemented using `OnedataFileRESTClient`, providing much more user friendly interface.
-
+`OnedataFileRESTClient` is a Python client to the Onedata file REST API. It offers basic
+operations on files as a concise, low-level library. Most users will probably be more
+interested in [onedatarestfs](./onedata-rest-fs.md) library, which is a plugin for
+[PyFilesystem], implemented using `OnedataFileRESTClient`, providing much more user
+friendly interface.
 
 Supported Onezone versions: `>= 21.02.5`
 
@@ -23,7 +26,9 @@ The source code is available on [GitHub].
 
 ## Usage
 
-In order to use the `OnedataFileRESTClient` we need to first import necessary module and then create an instance of `OnedataFileRESTClient` with Onezone hostname and an access token:
+In order to use the `OnedataFileRESTClient` we need to first import necessary module and
+then create an instance of `OnedataFileRESTClient` with Onezone hostname and an access
+token:
 
 ```python
 from onedatafilerestclient import *
@@ -33,7 +38,8 @@ access_token = 'MDAzM2xvY2F00aW9uIGRldi1vbmV6b25lLmRlZmF1bHQuc3...'
 client = OnedataFileRESTClient(onezone_host, access_token)
 ```
 
-The `OnedataFileRESTClient` class provides the following operations (examples below assume `OnedataFileRESTClient` has been setup as shown above).
+The `OnedataFileRESTClient` class provides the following operations (examples below assume
+`OnedataFileRESTClient` has been setup as shown above).
 
 ### Common API conventions
 
@@ -41,14 +47,14 @@ For most methods of `OnedataFileRESTClient`, there are following common conventi
 passing arguments to methods which perform operations on Onedata filesystem:
 
 * first argument is the name of the data space
-* next arguments are keyword arguments, include `file_path` or `file_id` which need
-  to be specified separately from the first argument and contain paths relative to the
-  space directory
+* next arguments are keyword arguments, include `file_path` or `file_id`, which need
+  to be specified separately from the first argument and contain path relative to the
+  space directory (for `file_path`) or file ID (for `file_id`)
 
 ### Get token scope
 
 Returns a dictionary with a map of data spaces available through specified access token,
-including some attributes such a list of Oneproviders supporting that each space.
+including some attributes such a list of Oneprovider instances supporting each space:
 
 ```python
 >>> client.get_token_scope()
@@ -58,14 +64,14 @@ including some attributes such a list of Oneproviders supporting that each space
                      'readonly': False,
                      'providers': {'71eb92fb45b414fc87d47aab3cf4a6b8ch836c': {'version': '21.02.8',
                                                                               'online': True,
-                                                                              'name': 'dev-oneprovider-krakow',
-                                                                              'domain': 'dev-oneprovider-krakow.default.svc.cluster.local'}}}}
-
+                                                                              'name': 'oneprovider1',
+                                                                              'domain': 'oneprovider1.example.com'}}}}
 ```
 
 ### List spaces
 
-Returns the list of data space names effectively available to the user based on specified access token.
+Returns the list of data space names effectively available to the user based on specified
+access token.
 
 ```python
 >>> client.list_spaces()
@@ -83,7 +89,8 @@ Resolves a space name to a an internal Onedata space ID:
 
 ### Get file id
 
-Resolves a path to a directory or file to a unique file ID (file here can refer to file, directory or entire space):
+Resolves a path to a directory or file to a unique file ID (file here can refer to file,
+directory or entire space):
 
 ```python
 >>> client.get_file_id('MyData')
@@ -172,7 +179,7 @@ Returns the list of direct children of a given directory (or data space):
 To get the next page of result, we need to pass the `nextPageToken` as `continuation_token` argument:
 
 ```python
->>> pprint.pp(client.list_children('MyData', file_path='dir1', limit=5, continuation_token='g2gEZAAQcGFnaW5hdGlvbl90b2tlbmgDZAAKbGlzdF9pbmRleG0AAAAKZmlsZTEyLnR4dG0AAAAmNzFlYjkyZmI0NWI0MTRmYzg3ZDQ3YWFiM2NmNGE2YjhjaDgzNmNkAAl1bmRlZmluZWRkAARtb3Jl'))
+>>> client.list_children('MyData', file_path='dir1', limit=5,continuation_token='g2gEZAAQcGFnaW5hdGlvbl90b2tlbmgDZAAKbGlzdF9pbmRleG0AAAAKZmlsZTEyLnR4dG0AAAAmNzFlYjkyZmI0NWI0MTRmYzg3ZDQ3YWFiM2NmNGE2YjhjaDgzNmNkAAl1bmRlZmluZWRkAARtb3Jl')
 {'nextPageToken': 'g2gEZAAQcGFnaW5hdGlvbl90b2tlbmgDZAAKbGlzdF9pbmRleG0AAAAKZmlsZTE3LnR4dG0AAAAmNzFlYjkyZmI0NWI0MTRmYzg3ZDQ3YWFiM2NmNGE2YjhjaDgzNmNkAAl1bmRlZmluZWRkAARtb3Jl',
  'isLast': False,
  'children': [{'name': 'file13.txt', 'type': 'REG'},
@@ -188,7 +195,7 @@ and continue as long as `isLast` returns `False`.
 
 ### Get file or directory contents
 
-This method allows to read entire file:
+This method allows to read an entire file:
 
 ```python
 >>> client.get_file_content('MyData', file_path='file.txt')
@@ -202,10 +209,11 @@ or specified range in one request:
 b'ST'
 ```
 
-If requested file is a directory, this method returns a TAR archive with its contents. Any nested files or subdirectories, to which
-the client does not have access (e.g. due to insufficient POSIX permissions or ACLs) are omitted in the resulting archive.
-Request for directory download results in a redirection URL (in Location header) that contains the ID of a temporary
-download session.
+If requested file is a directory, this method returns a TAR archive with its contents.
+Any nested files or subdirectories, to which the client does not have access (e.g. due to
+insufficient POSIX permissions or ACLs) are omitted in the resulting archive. Request for
+directory download results in a redirection URL (in Location header) that contains the ID
+of a temporary download session.
 
 ```python
 >>> tar_bytes = client.get_file_content('MyData', file_path='dir1')
@@ -253,8 +261,10 @@ b'ABEFGH'
 
 ### Create file or directory
 
-Creates a file at path specified in the URL, relative to the base directory given in the id parameter (see the parameter
-description for details). If the parent path does not exist and create_parents flag is set to true, the operation will attempt to create intermediate parent directories.
+Creates a file at path specified in the URL, relative to the base directory given in the
+id parameter (see the parameter description for details). If the parent path does not
+exist and create_parents flag is set to true, the operation will attempt to create
+intermediate parent directories.
 
 If the file already exists, the operation fails with an error.
 
@@ -279,9 +289,10 @@ The file type can be one of:
 
 ### Remove
 
-Removes file or directory specified by `file_path` argument. In case of a directory, all its children are recursively
-removed - note that the operation will fail part-way if the client does not have permissions to remove some of the
-nested files/directories.
+Removes file or directory specified by `file_path` (or `file_id`) argument. In case of a
+directory, all its children are recursively removed - note that the operation will fail
+part-way if the client does not have permissions to remove some of the nested
+files/directories.
 
 ```python
 >>> client.remove('MyData', file_path='dir3/file3.txt')
