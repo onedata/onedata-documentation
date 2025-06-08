@@ -21,4 +21,6 @@ onedata_documentation.tar.gz
 # TEMPLATE TARGETS BEGIN
 docs/admin-guide/oneprovider/maintenance.md
 docs/admin-guide/onezone/maintenance.md
+docs/admin-guide/oneprovider/configuration/rest-api.md
+docs/admin-guide/onezone/configuration/rest-api.md
 # TEMPLATE TARGETS END
