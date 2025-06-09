@@ -388,28 +388,7 @@ debugging purposes.
    DBSync out stream logs record the sequence numbers broadcasted by the
    provider within a particular space.
 
-3. `journal.log`
-
-   This log file serves the purpose of quickly assessing the state of the
-   provider. It contains information about application starts, stops (whether
-   the stop was graceful) and also connection and disconnection information
-   with the zone.
-
-4. `node_manager_monitoring.log`
-
-   This log file provides information about node activities, allowing
-   visibility into node-level events, status changes, and system behavior.
-   It is particularly useful for Onedata developers during the debugging
-   process when troubleshooting issues.
-
-5. `throttling_monitoring.log`
-
-   Throttling logs contain information about queue lengths (both internal and
-   database) and the resulting throttling settings. They offer insights into
-   the throttling mechanism and are useful for debugging purposes.
-
-
-6. `file_access_audit.log`
+3. `file_access_audit.log`
 
    File access audit logs record all file operations and provide a comprehensive
    overview of file-related activities within the system. They are useful for
@@ -418,18 +397,41 @@ debugging purposes.
    > **NOTE:** Due an overhead to every file operation, they cause a slight
    > performance drop and as such are disabled by default. To enable them,
    > set `file_access_audit_log_enabled` to `true` in `op_worker`
-   > [config][advanced-config].
+   > [config][3].
 
-7. `link`
+4. `journal.log`
+
+   This log file serves the purpose of quickly assessing the state of the
+   provider. It contains information about application starts, stops (whether
+   the stop was graceful) and also connection and disconnection information
+   with the zone.
+
+5. `link`
 
    RTransfer link logs consist of low-level, internal logs related to the
    rtransfer mechanism. These logs require in-depth knowledge of our
    software and are primarily utilized for debugging purposes.
 
-8. `storage_import`
+<!-- FIXME: czy node_manager_monitoring istnieje? nie widzę go w środowisku -->
+
+6. `node_manager_monitoring.log`
+
+   This log file provides information about node activities, allowing
+   visibility into node-level events, status changes, and system behavior.
+   It is particularly useful for Onedata developers during the debugging
+   process when troubleshooting issues.
+
+7. `storage_import`
 
    Storage import logs provide a record of import actions, allowing us to track
    when and what was imported.
+
+8. `throttling_monitoring.log`
+
+   Throttling logs contain information about queue lengths (both internal and
+   database) and the resulting throttling settings. They offer insights into
+   the throttling mechanism and are useful for debugging purposes.
+
 
 ### Erlang runtime system log files
 

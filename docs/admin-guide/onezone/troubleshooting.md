@@ -303,42 +303,7 @@ alert.log: Contains logs from the alert level and higher.
 emergency.log: Contains logs from the emergency level.
 ```
 
-### Other log files
-
-There are specific log files related to specific components or mechanisms that
-provide detailed information primarily intended for system developers for
-debugging purposes.
-
-1. `dbsync_changes`
-
-   DBSync changes logs detail the remote provider sequence numbers applied by
-   this provider within the context of a space.
-
-2. `dbsync_out_stream`
-
-   DBSync out stream logs record the sequence numbers broadcasted by the
-   provider within a particular space.
-
-3. `journal.log`
-
-   This log file serves the purpose of quickly assessing the state of the
-   provider. It contains information about application starts, stops (whether
-   the stop was graceful) and also connection and disconnection information
-   with the zone.
-
-4. `node_manager_monitoring.log`
-
-   This log file provides information about node activities, allowing
-   visibility into node-level events, status changes, and system behavior.
-   It is particularly useful for Onedata developers during the debugging
-   process when troubleshooting issues.
-
-5. `throttling_monitoring.log`
-
-   Throttling logs contain information about queue lengths (both internal and
-   database) and the resulting throttling settings. They offer insights into
-   the throttling mechanism and are useful for debugging purposes.
-
+<!-- FIXME: napisać o specyficznych plikach logów dla oz_workera analogicznie do op_workera -->
 
 <!-- FIXME: specyficzne dla onezone pliki logów? -->
 
