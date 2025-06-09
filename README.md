@@ -213,8 +213,8 @@ My name is English. Johnny English!
 
 Note that:
 
-* you should add the auto-generated file path to `.gitignore` into the `TEMPLATE TARGETS`
-  section (see comments in `.gitignore`),
+* you should commit the latest version of generated pages along with their templates,
+* you should not modify generated pages manually,
 * generation is not triggered on files change, due to some issues with VuePress build
   chain; if you want to update the file manually during the `make dev` session, you should
   invoke the `make render-templates`.

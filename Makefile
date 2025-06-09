@@ -40,7 +40,6 @@ render-templates:
 
 clean:
 	rm -rf node_modules yarn-cache rel/
-	docker run --rm -it --entrypoint /bin/bash -v `pwd`:/onedata-documentation ${VUEPRESS_IMG} -c "cd /onedata-documentation && node ./remove-template-targets.js"
 
 codetag-tracker:
 	./bamboos/scripts/codetag-tracker.sh --branch=${BRANCH} --excluded-dirs=node_modules,rel
