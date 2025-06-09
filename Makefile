@@ -1,6 +1,6 @@
 .PHONY: all build dev clean render-templates
 
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v6
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v7
 SETUID=-u $(shell id -u):$(shell id -g)
 DOCKER_RUN=docker run --rm -v `pwd`:/vuepress ${SETUID}
 
@@ -23,7 +23,7 @@ package:
 	cd rel/ && tar zcf ../onedata_documentation.tar.gz .
 
 dev:
-	${DOCKER_RUN} -p 8080:8080 -it -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
+	${DOCKER_RUN} -p 8080:8080 -it ${VUEPRESS_IMG} dev
 
 submodules:
 	git submodule sync --recursive ${submodule}
