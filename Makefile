@@ -1,27 +1,29 @@
 .PHONY: all build dev clean render-templates
 
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v6
+SETUID=-u $(shell id -u):$(shell id -g)
+DOCKER_RUN=docker run --rm -v `pwd`:/vuepress ${SETUID}
 
 all: build
 
 lint:
-	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} lint
+	${DOCKER_RUN} ${VUEPRESS_IMG} lint
 
 check-language:
 	./check-language.py
 
 format-all:
-	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} format-all
+	${DOCKER_RUN} ${VUEPRESS_IMG} format-all
 
 build:
-	docker run --rm -v `pwd`:/vuepress ${VUEPRESS_IMG} build
+	${DOCKER_RUN} ${VUEPRESS_IMG} build
 	./inject-release.sh
 
 package:
 	cd rel/ && tar zcf ../onedata_documentation.tar.gz .
 
 dev:
-	docker run --rm -p 8080:8080 -it -v `pwd`:/vuepress -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
+	${DOCKER_RUN} -p 8080:8080 -it -v `pwd`/yarn-cache:/usr/local/share/.cache:delegated ${VUEPRESS_IMG} dev
 
 submodules:
 	git submodule sync --recursive ${submodule}
@@ -34,7 +36,7 @@ preview: build
 # Templates are generated during the build process, but not updated automatically when "make dev" is running.
 # In that case, this target can be used to force regeneration of the templates.
 render-templates:
-	docker run --rm -it --entrypoint /bin/bash -v `pwd`:/onedata-documentation ${VUEPRESS_IMG} -c "cd /onedata-documentation && node ./render-templates.js"
+	${DOCKER_RUN} -it --entrypoint /bin/bash -v `pwd`:/vuepress ${VUEPRESS_IMG} -c "cd /vuepress && node ./render-templates.js"
 
 clean:
 	rm -rf node_modules yarn-cache rel/
