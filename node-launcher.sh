@@ -22,10 +22,4 @@ if [ $NODE_VERSION_MAJOR -gt 17 ]; then
   export NODE_OPTIONS=--openssl-legacy-provider
 fi
 
-ls -d node_modules > /dev/null
-if [ $? -ne 0 ]; then
-  echo "The node_modules directory is missing - did you installed dependencies using 'npm run deps'?"
-  exit 2
-fi
-
 npx --no-install $@
