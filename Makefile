@@ -2,7 +2,7 @@
 
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v7
 SETUID=-u $(shell id -u):$(shell id -g)
-DOCKER_RUN=docker run --rm -v `pwd`:/vuepress ${SETUID}
+DOCKER_RUN=docker run -e NPM_CONFIG_CACHE=/tmp/.npm --rm -v `pwd`:/vuepress ${SETUID}
 
 all: build
 
