@@ -5,7 +5,7 @@
         "docs:dev": "./node-launcher.sh vuepress dev docs",
         "docs:build": "./node-launcher.sh vuepress build docs --dest rel/future-documentation",
         "docs:lint": "remark docs",
-        "docs:format-all": "remark . --output"
+        "docs:format-all": "remark docs --output"
     },
     "devDependencies": {
         "github-slugger": "^1.5.0",
