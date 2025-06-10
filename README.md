@@ -23,11 +23,12 @@ Most Makefile targets use our build-docker with all dependencies installed.
 These scripts are suitable for most developers and documentation users.
 
 * `make build` builds the documentation, producing an artifact.
-* `make dev` prepares a local preview with `livereload`, allowing
-  convenient development. The `livereload` might not cope with some structural
-  changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
-  Note that in this mode, the `RELEASE` version is not injected, only the
-  placeholders are visible, as opposed to the `make preview` target.
+* `make dev` prepares a local preview with `livereload`, allowing convenient development.
+  The `livereload` might not cope with some structural changes, in such case the command
+  must be re-run. When editing [template](#template-system) files, you must use
+  `make render-templates` in another terminal to re-generate template results.  `Ctrl-C`
+  interrupts the preview. Note that in this mode, the `RELEASE` version is not injected,
+  only the placeholders are visible, as opposed to the `make preview` target.
 * `make preview` starts a simple HTTP server in Python that serves the docs
   statically, giving a preview of what's in the build artifact. **This task is not
   performed using a docker**, so Python 2 or 3 is required to be installed.
@@ -163,7 +164,14 @@ processed and copied into the mirrored path into `/docs`. Templates use partial 
 the `/partials` directory. Partials can have optional placeholders to replace during the
 processing time.
 
-For example:
+**Both template and partial files are not linted and auto-formatted** using Makefile
+targets, because they contain content fragments and references which cannot be fully
+resolved by `remark` until they are compiled into result document. The result document
+will be linted and auto-formatted in standard way, as it is the complete page.
+You can ignore linter warnings in partial and template files as long as they cannot be
+fixed because of being chunks of larger document, but please review other fixable issues.
+
+### Example
 
 There is a template: `/templates/user-guide/page.md` with the content:
 
