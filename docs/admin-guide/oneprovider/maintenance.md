@@ -157,4 +157,3 @@ sudo systemctl start oneprovider
 [4]: https://github.com/onedata/onedata-deployments
 
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
-

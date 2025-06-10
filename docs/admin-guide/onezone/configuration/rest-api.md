@@ -47,7 +47,6 @@ section of our API documentation.
 All possible operations and how to use them are described in our [API documentation][].
 The most popular ones include:
 
-
 | Request                  | Link to API                     |
 | ------------------------ | ------------------------------- |
 | Get public configuration | [API][api-get-configuration]    |
