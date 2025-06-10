@@ -141,7 +141,7 @@ debugging purposes.
    > **NOTE:** Due an overhead to every file operation, they cause a slight
    > performance drop and as such are disabled by default. To enable them,
    > set `file_access_audit_log_enabled` to `true` in `op_worker`
-   > [config][3].
+   > [config][].
 
 4. `journal.log`
 
@@ -182,3 +182,5 @@ debugging purposes.
 <!-- references -->
 
 <!-- @include troubleshooting/references.md -->
+
+[config]: configuration/advanced-config.md
