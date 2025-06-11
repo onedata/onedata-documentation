@@ -22,7 +22,7 @@ The second one becomes handy when the **@insert serviceUpper** itself is malfunc
 local network.
 
 ```
-https://my.**@insert serviceUpper**.domain.org:9443/api/v3/onepanel/{...}
+https://my.**@insert serviceLower**.domain.org:9443/api/v3/onepanel/{...}
 ```
 
 Port `9443` indicates, that we want to connect directly to the Onepanel service

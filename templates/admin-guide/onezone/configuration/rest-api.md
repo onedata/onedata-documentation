@@ -1,6 +1,7 @@
 <!-- @include rest-api/start.md
   {
     "serviceUpper": "Onezone",
+    "serviceLower": "onezone",
     "serviceLowerShort": "zone",
     "introTasks": "user management, health status checks"
   }

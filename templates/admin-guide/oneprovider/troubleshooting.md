@@ -83,7 +83,7 @@
 
 <!-- @include troubleshooting/logs-start.md
   {
-    "onepanelOrServiceLogs": "In case of issues related to Oneprovider deployment, registering new storeage backend or supporting spaces consult Onepanel logs. For any other kind of problem (data management, QoS, transfers, etc.) check Oneprovider logs.",
+    "onepanelOrServiceLogs": "In case of issues related to Oneprovider deployment, registering new storage backend or supporting spaces consult Onepanel logs. For any other kind of problem (data management, QoS, transfers, etc.) check Oneprovider logs.",
     "serviceUpper": "Oneprovider",
     "serviceLower": "oneprovider",
     "workerSnake": "op_worker",

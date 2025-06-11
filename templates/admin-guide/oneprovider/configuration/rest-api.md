@@ -1,6 +1,7 @@
 <!-- @include rest-api/start.md
   {
     "serviceUpper": "Oneprovider",
+    "serviceLower": "oneprovider",
     "serviceLowerShort": "provider",
     "introTasks": "storage creation, space support"
   }

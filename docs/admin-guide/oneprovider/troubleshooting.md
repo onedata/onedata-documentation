@@ -138,7 +138,7 @@ Logging plays a crucial role in troubleshooting and monitoring Onedata system.
 It provides valuable insights into the system's operation, and potential issues,
 and helps analyze and resolve problems efficiently.
 
-In case of issues related to Oneprovider deployment, registering new storeage backend or supporting spaces consult Onepanel logs. For any other kind of problem (data management, QoS, transfers, etc.) check Oneprovider logs.
+In case of issues related to Oneprovider deployment, registering new storage backend or supporting spaces consult Onepanel logs. For any other kind of problem (data management, QoS, transfers, etc.) check Oneprovider logs.
 
 ### Log file location
 
@@ -408,9 +408,7 @@ debugging purposes.
    RTransfer link logs consist of low-level, internal logs related to the
    rtransfer mechanism. These logs require in-depth knowledge of our
    software and are primarily utilized for debugging purposes.
-
 <!-- FIXME: czy node_manager_monitoring istnieje? nie widzę go w środowisku -->
-
 6. `node_manager_monitoring.log`
 
    This log file provides information about node activities, allowing
@@ -428,6 +426,7 @@ debugging purposes.
    Throttling logs contain information about queue lengths (both internal and
    database) and the resulting throttling settings. They offer insights into
    the throttling mechanism and are useful for debugging purposes.
+
 
 ### Erlang runtime system log files
 

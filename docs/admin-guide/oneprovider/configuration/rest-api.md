@@ -13,7 +13,7 @@ domain of Oneprovider at a standard port. It is useful for the majority of
 use cases:
 
 ```
-https://my.undefined.domain.org/api/v3/onepanel/{...}
+https://my.oneprovider.domain.org/api/v3/onepanel/{...}
 ```
 
 All incoming calls to such Onepanel API endpoints are internally proxied by the
@@ -24,7 +24,7 @@ The second one becomes handy when the Oneprovider itself is malfunctioning
 local network.
 
 ```
-https://my.Oneprovider.domain.org:9443/api/v3/onepanel/{...}
+https://my.oneprovider.domain.org:9443/api/v3/onepanel/{...}
 ```
 
 Port `9443` indicates, that we want to connect directly to the Onepanel service
