@@ -359,82 +359,10 @@ help.
 
 <!-- TODO VFS-7189 revise, move? -->
 
-## File distribution
+## Data distribution
 
-On the physical level, Onedata organizes files into blocks of various sizes.
-These file blocks can then be distributed across different providers that
-support the space in which the files are stored. Each provider contains
-a list of local file blocks, forming what we call a `file replica`.
-Information about the mapping between logical and physical files is stored
-in the file metadata, which is replicated and synchronized between all
-supporting providers.
-
-When you read a whole file or its part, and some blocks are not present in the
-provider you're connected to, the missing blocks will be replicated on demand
-from other providers.
-
-When you write to a file in a given provider, the overlapping blocks replicated
-to other providers are invalidated. To read the file, the provider with
-invalidated blocks must once again replicate missing blocks from the provider
-with the newest version of the blocks.
-
-Simultaneous modifications of a file may occur when many users access it.
-If the ranges of simultaneous modifications do not overlap, all modifications
-are safely applied. In case of a conflict, a conflict resolution algorithm is
-used. This allows all supporting providers to determine a consistent, final
-version of the file. Conflict resolution is performed independently by each
-provider without the need to coordinate the resolution with other supporting
-providers, which allows it to be fast.
-
-### Discovering file distribution
-
-You can discover how the file blocks are distributed among providers supporting
-the space in which it is stored like below:
-
-1. `Web GUI` — open the context menu for the file and choose **Data distribution**:
-   ![screen-file-distribution-gui][]
-
-   and you will see **Data distribution** modal, representing the distribution
-   of file blocks:
-   ![screen-file-distribution-modal][]
-
-2. `REST API` — use [get file distribution][REST get distribution] endpoint.
-
-3. `Oneclient` — check [file extended attributes][Oneclient xattrs]
-   and inspect `org.onedata.file_blocks`, `org.onedata.file_blocks_count` and
-   `org.onedata.replication_progress` attributes:
-
-   ```bash
-   ~$ xattr -l results.txt
-
-   org.onedata.file_blocks: [#######################################.         ]
-   org.onedata.file_blocks_count: 1
-   org.onedata.replication_progress: 80% 
-   ...
-   ```
-
-   ::: tip
-   Extended attributes present only information about file blocks stored in the provider
-   to which the Oneclient is connected. To find information about replicas of the file in
-   other providers, use the Web GUI or REST API (see above).
-   :::
-
-### Distribution management
-
-You can manage the data distribution using:
-
-1. [Transfers][] — allow to intentionally replicate, evict, and migrate file(s).
-
-2. [Quality of Service][] — allows specifying requirements
-   that may ensure that file replicas in certain providers are automatically
-   updated and protected from eviction.
-
-3. [Auto-cleaning][] — automatically maintains storage usage at a predefined level,
-   creating space for new replicas during continuous computations.
-
-   ::: tip NOTE
-   Auto-cleaning can only be configured by a space admin.
-   :::
+The data in spaces may be arbitrarily distributed among the storage backends of the
+supporting providers. For more details see [Data distribution][].
 
 <!-- references -->
 
@@ -488,8 +416,6 @@ You can manage the data distribution using:
 
 [Oneclient chapter]: interfaces/oneclient.md
 
-[Oneclient xattrs]: interfaces/oneclient.md#file-extended-attributes
-
 [REST API chapter]: rest-api.md
 
 [File ID resolution endpoint]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/lookup_file_id
@@ -501,8 +427,6 @@ You can manage the data distribution using:
 [Oneprovider REST API]: https://onedata.org/#/home/api/stable/oneprovider
 
 [REST set attr]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/set_attr
-
-[REST get distribution]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_distribution
 
 [access tokens]: tokens.md#access-tokens
 
@@ -520,16 +444,8 @@ You can manage the data distribution using:
 
 [LUMA]: ../admin-guide/oneprovider/configuration/luma.md
 
-[Transfers]: data-transfers.md
-
-[Quality of Service]: rule-based-replication-qos.md
-
-[Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
+[Data distribution]: ./data-distribution-and-metrics.md
 
 [screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
 
 [screen-provider-domain]: ../../images/user-guide/data/provider-domain.png
-
-[screen-file-distribution-gui]: ../../images/user-guide/data/file-distribution-gui.png
-
-[screen-file-distribution-modal]: ../../images/user-guide/data/file-distribution-modal.png
