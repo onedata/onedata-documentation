@@ -89,7 +89,6 @@ available:
    </healthdata>
    ```
 
-
    In the provided XML response, each component of the Oneprovider service is
    listed with its respective status. The possible statuses include:
 
@@ -409,7 +408,9 @@ debugging purposes.
    RTransfer link logs consist of low-level, internal logs related to the
    rtransfer mechanism. These logs require in-depth knowledge of our
    software and are primarily utilized for debugging purposes.
+
 <!-- FIXME: czy node_manager_monitoring istnieje? nie widzę go w środowisku -->
+
 6. `node_manager_monitoring.log`
 
    This log file provides information about node activities, allowing
@@ -427,7 +428,6 @@ debugging purposes.
    Throttling logs contain information about queue lengths (both internal and
    database) and the resulting throttling settings. They offer insights into
    the throttling mechanism and are useful for debugging purposes.
-
 
 ### Erlang runtime system log files
 

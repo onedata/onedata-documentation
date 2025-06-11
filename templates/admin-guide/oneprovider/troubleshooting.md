@@ -38,7 +38,6 @@
    </healthdata>
    ```
 
-
    In the provided XML response, each component of the Oneprovider service is
    listed with its respective status. The possible statuses include:
 
