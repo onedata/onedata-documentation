@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authors: Jakub Liput
-# Copyright (C) 2024 ACK CYFRONET AGH
+# Copyright (C) 2025 ACK CYFRONET AGH
 # This software is released under the MIT license cited in 'LICENSE.txt'
 
 # This script checks if current contents in current branch of template results in Markdown
@@ -18,7 +18,7 @@ if [ -z "$(git status --porcelain)" ]; then
   else
     echo "There are some template results that are not compliant with current templates "
     echo "or partials. Use 'make render-templates' and commit changes."
-    # git reset --hard
+    git reset --hard
     exit 1
   fi
 else 
