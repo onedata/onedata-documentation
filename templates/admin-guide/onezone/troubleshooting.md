@@ -26,12 +26,9 @@
      </oz_worker>
    </healthdata>
    ```
-
 <!-- FIXME: napisać podobne podsumowanie jak jest w oneprovider troubleshooting -->
 <!-- FIXME: napisać przykład innego statusu niż ok -->
-
 <!-- FIXME: poniżej napisać więcej o tym co jest w logach panelu i providera -->
-
 <!-- @include troubleshooting/logs-start.md
   {
     "onepanelOrServiceLogs": "In case of issues related to Onezone deployment consult Onepanel logs. For any other kind of problem check Oneprovider logs.",
@@ -42,15 +39,11 @@
     "serviceHostVar": "$ONEZONE_HOST"
   }
 -->
-
 <!-- FIXME: przykład błędu i jego opis -->
-
 <!-- @include troubleshooting/logs-severity-end.md -->
 
 <!-- FIXME: napisać o specyficznych plikach logów dla oz_workera analogicznie do op_workera -->
-
 <!-- FIXME: specyficzne dla onezone pliki logów? -->
-
 <!-- @include troubleshooting/logs-erlang.md -->
 
 <!-- references -->
