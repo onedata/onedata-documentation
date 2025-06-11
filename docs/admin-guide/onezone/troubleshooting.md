@@ -77,9 +77,13 @@ available:
      </oz_worker>
    </healthdata>
    ```
+
 <!-- FIXME: napisać podobne podsumowanie jak jest w oneprovider troubleshooting -->
+
 <!-- FIXME: napisać przykład innego statusu niż ok -->
+
 <!-- FIXME: poniżej napisać więcej o tym co jest w logach panelu i providera -->
+
 ## Logs
 
 Logging plays a crucial role in troubleshooting and monitoring Onedata system.
