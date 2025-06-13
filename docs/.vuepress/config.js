@@ -1,5 +1,6 @@
 const slugger = require('github-slugger').slug;
 module.exports = {
+  plugins: ['vuepress-plugin-copy-code'],
   title: 'Onedata documentation',
   base: '/future-documentation/',
   markdown: {

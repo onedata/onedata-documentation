@@ -7,10 +7,6 @@
 This chapter describes the available **Oneprovider** installation methods.
 All supported installation methods use our [official Docker images][1]
 to run **Oneprovider** on any [Linux OS supporting Docker][2].
-Note that an existing **Onezone** instance should be available before deploying
-**Oneprovider**. Oneprovider communicates with external services or clients
-using ports 80, 443, 6665 and 9443. All of these ports need to be publicly
-open except 9443 which is used for direct emergency access to the Oneprovider.
 
 **Oneprovider** service can be deployed on multiple nodes for
 high-availability purpose. If not mentioned otherwise it is assumed that
@@ -39,10 +35,18 @@ The node on which **Oneprovider** will be deployed should fulfill the requiremen
 
 ## Prerequisites
 
+### Access to Onezone
+
+You should have at least user-level access to existing **Onezone** instance before deploying
+**Oneprovider**. In common scenario the Onezone instance has been already setup by your organization
+and you get access to it according to the organization's access policy. If you don't have such a possibility
+you can use our onezone service available at [demo.onedata.org][30] (see [user quickstart][31] for details).
+Another possibility is deploying your own Onezone (see [Onezone installation][32]).
+
 ### Public IP and ports
 
 The node should have a network interface with public IP. Oneprovider communicates with external services or clients
-using ports 80, 443, 6665 and 9443. All of these ports need to be publicly
+using ports 80, 443, 4443, 6665 and 9443. All of these ports need to be publicly
 open except 9443 which is used for direct emergency access to the Oneprovider.
 
 ### Internet domain
@@ -81,14 +85,13 @@ In order to install **Oneprovider** service on one of the supported operating sy
 
 ```sh
 ulimit -n
-1024
 ```
 
 If necessary, increase the limit using:
 
 ```sh
-$ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
-$ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
+sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
+sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 ```
 
 > It might be also necessary to setup the limit in /etc/systemd/system.conf:
@@ -103,14 +106,14 @@ $ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` - see [here][3] for details):
 
 ```sh
-$ cat /proc/sys/vm/swappiness
-60
+cat /proc/sys/vm/swappiness
 ```
 
 and if necessary decrease it using:
 
 ```sh
-$ sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
+sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
+sudo systemctl restart systemd-sysctl
 ```
 
 ##### Disable Transparent Huge Pages feature
@@ -119,15 +122,17 @@ By default, many Linux machines have the Transparent Huge Pages feature enabled,
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
 
-```
-$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
-
-$ cat /sys/kernel/mm/transparent_hugepage/defrag
-always madvise [never]
+```sh
+cat /sys/kernel/mm/transparent_hugepage/enabled
+# Expected output: always madvise [never]
 ```
 
-If any of the settings is different than the above, they should be changed permanently, which can be achieved for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
+```sh
+cat /sys/kernel/mm/transparent_hugepage/defrag
+# Expected output: always madvise [never]
+```
+
+If any of the settings is different from the above, they should be changed permanently, which can be achieved for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
 
 ```
 [Unit]
@@ -145,8 +150,8 @@ WantedBy=multi-user.target
 and enabling it on system startup using:
 
 ```
-$ sudo systemctl enable disable-thp.service
-$ sudo systemctl start disable-thp.service
+sudo systemctl enable disable-thp.service
+sudo systemctl start disable-thp.service
 ```
 
 ##### Node hostname
@@ -156,7 +161,7 @@ Make sure that the machine has a resolvable, domain-style hostname (it can be Fu
 Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
 
 ```sh
-$ export ONEPROVIDER_HOST="oneprovider-example.com"
+export ONEPROVIDER_HOST="oneprovider-example.com"
 ```
 
 ##### Python
@@ -164,8 +169,8 @@ $ export ONEPROVIDER_HOST="oneprovider-example.com"
 Make sure that python 2.x is installed on the machine. For example:
 
 ```sh
-$ python -V
-Python 2.7.12
+python -V
+# Expected output: Python 2.7.12
 ```
 
 ##### Docker
@@ -173,9 +178,9 @@ Python 2.7.12
 The Docker software needs to be installed on the machine. It can be done by using the convenience script from get.docker.com:
 
 ```sh
-$ curl -fsSL https://get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh
-$ sudo usermod -aG docker <your-user>
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker <your-user>
 ```
 
 ##### Set kernel parameters
@@ -281,8 +286,8 @@ Similarly to the previous installation method we need to create some directories
 Create the following directories:
 
 ```sh
-$ sudo mkdir -p /opt/onedata/oneprovider/persistence
-$ sudo mkdir -p /opt/onedata/oneprovider/certs
+sudo mkdir -p /opt/onedata/oneprovider/persistence
+sudo mkdir -p /opt/onedata/oneprovider/certs
 ```
 
 Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-compose.yml`:
@@ -337,8 +342,8 @@ services:
 Prepare the systemd files for oneprovider service as shown in previos section and run oneprovider:
 
 ```
-$ sudo systemctl enable oneprovider.service
-$ sudo systemctl start oneprovider.service
+sudo systemctl enable oneprovider.service
+sudo systemctl start oneprovider.service
 ```
 
 #### Deploying the onedata cluster using the Web GUI
@@ -404,9 +409,9 @@ In case of Docker based deployment all configuration information needed to insta
 Create the following directories:
 
 ```sh
-$ sudo mkdir -p /opt/onedata/oneprovider/persistence
-$ sudo mkdir -p /opt/onedata/oneprovider/certs
-$ sudo mkdir -p /mnt/nfs
+sudo mkdir -p /opt/onedata/oneprovider/persistence
+sudo mkdir -p /opt/onedata/oneprovider/certs
+sudo mkdir -p /mnt/nfs
 ```
 
 > /mnt/nfs should be exported via NFS to allow direct access from oneclient which increases performance.
@@ -571,29 +576,37 @@ WantedBy=multi-user.target
 
 Then the **Oneprovider** service can be managed using standard `systemctl` command:
 
-```
+```sh
 # Enable Oneprovider service on machine startup
-$ sudo systemctl enable oneprovider.service
+sudo systemctl enable oneprovider.service
 
 # Start Oneprovider service
-$ sudo systemctl start oneprovider.service
-$ sudo systemctl status oneprovider.service
-...
-May 25 23:25:32 localhost docker-compose[13499]: oneprovider-1                  | Congratulations! oneprovider has been successfully started.
+sudo systemctl start oneprovider.service
+```
 
+```sh
+# Check status - Oneprovider usually gets up in few minutes max
+sudo systemctl status oneprovider.service
+# Expected output: ...
+# May 25 23:25:32 localhost docker-compose[13499]: oneprovider-1                  | Congratulations! oneprovider has been successfully started.
+```
+
+```sh
 # Stopping Oneprovider service
-$ sudo systemctl stop oneprovider.service
+sudo systemctl stop oneprovider.service
+```
 
+```sh
 # Restarting Oneprovider service while keeping all persistent files
-$ sudo systemctl restart oneprovider.service
+sudo systemctl restart oneprovider.service
 ```
 
 If you need to start a fresh instance of Oneprovider use the following commands. Note that this will **remove all users data** managed by this Oneprovider instance:
 
-```
-$ sudo systemctl stop oneprovider.service
-$ sudo rm -rf /opt/onedata/oneprovider/persistence/*
-$ sudo systemctl start oneprovider.service
+```sh
+sudo systemctl stop oneprovider.service
+sudo rm -rf /opt/onedata/oneprovider/persistence/*
+sudo systemctl start oneprovider.service
 ```
 
 <!-- # Deploy Oneprovider and attach empty storage with Onedatify -->
@@ -613,7 +626,7 @@ $ sudo systemctl start oneprovider.service
 
 <!-- references -->
 
-[1]: https://hub.docker.com/r/onedata/oneprovider/
+[1]: https://hub.docker.com/r/onedata/oneprovider/tags
 
 [2]: https://docs.docker.com/engine/installation/#supported-platforms
 
@@ -670,3 +683,9 @@ $ sudo systemctl start oneprovider.service
 [14]: #graphical-wizard
 
 [29]: #batch-mode
+
+[30]: https://demo.onedata.org
+
+[31]: ../../user-guide/quickstart.md
+
+[32]: ../onezone/installation.md
