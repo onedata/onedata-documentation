@@ -46,6 +46,19 @@ or to install a specific version of `fs.onedatafs`
 $ conda install -c onedata -c conda-forge python=3.9 fs.onedatafs=xRELEASExVERSIONx
 ```
 
+### Docker
+
+In addition to installing the OnedataFS packages, it is possible to use our `oneclient`
+Docker image, which provides OnedataFS Python packages and all necessary dependencies:
+
+```bash
+❯ docker run --rm --entrypoint /usr/bin/python3 -it onedata/oneclient:21.02.8
+Python 3.8.10 (default, Nov  7 2024, 13:10:47) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
 ## Usage
 
 To create an instance of OnedataFS connected to a specific Oneprovider, use the following code:
