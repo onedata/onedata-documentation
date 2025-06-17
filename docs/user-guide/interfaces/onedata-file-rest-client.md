@@ -12,7 +12,11 @@ friendly interface.
 
 Supported Onezone versions: `>= 21.02.5`
 
-Supported Oneprovider versions: `>= 21.02.5`.
+Supported Oneprovider versions: `>= 21.02.5`
+
+> As an alternative to this library, we also provide a Python wrapper library supporting
+our binary data and metadata protocol - [onedatafs](./onedata-fs.md), which has better
+performance, however requires installation of several C++ dependencies.
 
 ## Installation
 

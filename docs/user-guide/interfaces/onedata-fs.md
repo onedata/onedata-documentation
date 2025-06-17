@@ -9,39 +9,25 @@ to work with Onedata in the same way as any other supported filesystem.
 
 ## Installation
 
-OnedataFS can be installed from our provided packages for Python 3.
+OnedataFS Python library is a wrapper for a low-level C++ OnedataFS library, which
+allows to access data managed by Onedata through high performance protocol, and to
+directly access storage resources if possible. The downside is that in addition to the
+Python library, it is necessary to install the C++ OnedataFS library using platform
+specific packages.
+
+> If you need a pure Python library, and performance is not critical,
+check out [onedatarestfs](./onedata-rest-fs.md).
 
 ### Ubuntu
 
+> Currently, this package is only provided for Ubuntu Focal.
+
 ```bash
 $ curl -sSO https://get.onedata.org/oneclient.sh
 
-# For Python3
 $ pip3 install fs
 $ sh oneclient.sh python3-fs-plugin-onedatafs
 ```
-
-### CentOS
-
-Please note that CentOS packages are distributed according to the
-[Software Collections][] standard.
-
-```bash
-$ curl -sSO https://get.onedata.org/oneclient.sh
-
-# For Python3
-$ pip3 install fs
-$ sh oneclient.sh onedata2102-python3-fs-onedatafs
-$ scl enable onedata2102 bash
-
-# On CentOS, it is necessary to provide custom PYTHONPATH, either through export:
-$ export PYTHONPATH="${ONEDATA_PYTHON3_PATH}"
-# or when executing python3 interpreter:
-$ PYTHONPATH="${ONEDATA_PYTHON3_PATH}" python3
-```
-
-> **NOTE:** `ONEDATA_PYTHON3_PATH` in the above example is provided
-> automatically through the `scl enable` command.
 
 ### Anaconda
 
@@ -213,8 +199,6 @@ space.removexattr("file.txt", "license")
 [pyfilesystem]: https://www.pyfilesystem.org/
 
 [fs-onedatafs]: https://github.com/onedata/fs-onedatafs/
-
-[software collections]: https://www.softwarecollections.org/en/
 
 [anaconda]: https://anaconda.org
 
