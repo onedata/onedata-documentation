@@ -57,7 +57,7 @@ Before installing this add-on, you should install Node.js runtime in version 16.
 Follow instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
-the repository root. This command will all needed dependencies
+the repository root. This command will install all needed dependencies
 in local `node_modules`.
 
 With all needed dependencies, remark extension enables Markdown files check with linter

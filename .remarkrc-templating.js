@@ -2,7 +2,7 @@
  * Special settings for templates and partials used to generate complete pages.
  *
  * Templates and partials often contain inconsistent indentation, references to other
- * parts of templates and so on. Templates and partials are not cheked by linter when
+ * parts of templates and so on. Templates and partials are not checked by linter when
  * using Makefile and CI, it is up to the creator to manually check these files against
  * the warnings. The settings disable some of the repeating linter warnings that are often
  * for templates and partials.
