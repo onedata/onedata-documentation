@@ -15,12 +15,12 @@ Oneprovider acts as a key component in the system by:
 * Managing physical data stored on local [storage backends][] (e.g., POSIX, NFS, S3, Ceph).
 
 * Synchronizing metadata with other providers in a peer-to-peer (P2P) fashion,
-ensuring consistent views of data across geographically distributed sites.
+  ensuring consistent views of data across geographically distributed sites.
 
 * Handling data access requests from users or groups, enabling unified and transparent access to distributed data.
 
 * Supporting virtual [spaces][], by committing local storage resources (with defined quotas)
-to host data belonging to those spaces.
+  to host data belonging to those spaces.
 
 For more information on providers from an administrative perspective, see the [Oneprovider administration guide][].
 
@@ -51,7 +51,6 @@ A provider can grant support for a space by allocating a specific storage quota 
 Once a provider supports your space, it becomes visible in the Onezone interface, where you can view
 its details and manage the associated storage support.
 To learn how to request provider support for your space, see [Space support][].
-
 
 ## Other services
 
@@ -84,7 +83,6 @@ Provider's domain is required to mount a [Oneclient][] instance or utilize the
 
 ![screen-provider-domain][]
 
-
 ### Providers supporting the space
 
 Click the PROVIDERS tile, the PROVIDERS MAP tile on the space overview page, or the Providers tab in the sidebar.
@@ -107,11 +105,11 @@ For more details see [Directory statistics][].
 You can interact with the provider using the REST API.
 Below are links to the documentation for commonly used API operations:
 
-| Request                  | Link to API |
-| ------------------------ | ----------- |
-| Get public information   | [API][1]    |
-| Get test image           | [API][2]    |
-| Check cluster health     | [API][3]    |
+| Request                | Link to API |
+| ---------------------- | ----------- |
+| Get public information | [API][1]    |
+| Get test image         | [API][2]    |
+| Check cluster health   | [API][3]    |
 
 <!-- references -->
 
