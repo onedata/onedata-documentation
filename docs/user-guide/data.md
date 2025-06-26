@@ -460,9 +460,7 @@ You can manage the data distribution using:
 
 [space owner]: spaces.md#space-owner
 
-<!-- TODO VFS-10933 link to the providers section -->
-
-[Providers]: ../intro.md#basic-concepts
+[Providers]: ./providers.md
 
 <!-- TODO VFS-11766 place some sensible link here -->
 
