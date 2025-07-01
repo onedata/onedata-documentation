@@ -1,12 +1,8 @@
 # Installation
 
-<!-- @TODO VFS-11766 missing chapter -->
-
-<!-- as needed: link to configuration, compatibility-reference [versions]) -->
-
 This chapter describes the available **Oneprovider** installation methods.
-All supported installation methods use our [official Docker images][1]
-to run **Oneprovider** on any [Linux OS supporting Docker][2].
+All supported installation methods use our [official Docker images][docker-images]
+to run **Oneprovider** on any [Linux OS supporting Docker][supported-platforms].
 
 **Oneprovider** service can be deployed on multiple nodes for
 high-availability purpose. If not mentioned otherwise it is assumed that
@@ -14,24 +10,28 @@ high-availability purpose. If not mentioned otherwise it is assumed that
 
 There are few installation methods shortly described further to help you choose which one is best for you:
 
-* [Onedatify CLI wizard][13] — this method uses our convenient script integrated with Onedata UI which guides you through the installation process.
+* [Onedatify CLI wizard][onedatify-cli-wizard] — this method uses our convenient script integrated with Onedata UI which
+guides you through the installation process.
   This is the recommended quickstart method.
-* [Graphical wizard][14] — the installation is done by first running an empty instance of Oneprovider which later is
-  being configured by clicking through some forms. It offers better configurability than the Onedata CLI wizard, but still in a user-friendly manner.
-* [Batch mode][29] — useful for more skilled administrators wanting a specifically configured deployment. The deployment happens in batch mode, which does not require manual steps. It is useful for automated deployments. The installation is done by preparing an YAML configuration file for Oneprovider and then running the service.
+* [Graphical wizard][graphical-wizard] — the installation is done by first running an empty instance of Oneprovider
+which later is being configured by clicking through some forms. It offers better configurability than the Onedata CLI 
+wizard, but still in a user-friendly manner.
+* [Batch mode][batch-mode] — useful for more skilled administrators wanting a specifically configured deployment. 
+The deployment happens in batch mode, which does not require manual steps. It is useful for automated deployments. 
+The installation is done by preparing an YAML configuration file for Oneprovider and then running the service.
 
-  **Note:** Regardless of chosen method the node should be initially prepared - see [prerequisites][12].
+  **Note:** Regardless of chosen method the node should be initially prepared — see [prerequisites][].
 
 ## Hardware requirements
 
 The node on which **Oneprovider** will be deployed should fulfill the requirements shown in the table below.
 
-| Requirement         | Minimum                        | Optimal                        |
-| ------------------- | ------------------------------ | ------------------------------ |
-| CPU                 | 4 vCPU                         | 16 vCPU                        |
-| RAM                 | 16GB                           | 64GB                           |
-| Local disk          | SSD                            | SSD                            |
-| Local storage space | 20GB + 8MB for each 1000 files | 40GB + 8MB for each 1000 files |
+| Requirement               | Minimum                        | Optimal                        |
+| ------------------------- | ------------------------------ | ------------------------------ |
+| CPU                       | 4 vCPU                         | 16 vCPU                        |
+| RAM                       | 16GB                           | 64GB                           |
+| Root disk                 | SSD  (25GB)                    | SSD  (50GB)                    |
+| Disk for Onedata software | 20GB + 8MB for each 1000 files | 40GB + 8MB for each 1000 files |
 
 ## Prerequisites
 
@@ -39,26 +39,26 @@ The node on which **Oneprovider** will be deployed should fulfill the requiremen
 
 You should have at least user-level access to existing **Onezone** instance before deploying
 **Oneprovider**. In common scenario the Onezone instance has been already setup by your organization
-and you get access to it according to the organization's access policy. If you don't have such a possibility
-you can use our onezone service available at [demo.onedata.org][30] (see [user quickstart][31] for details).
-Another possibility is deploying your own Onezone (see [Onezone installation][32]).
+and you get access to it according to the organization's access policy. If you don't have such a possibility you can use 
+our Onezone service available at [demo.onedata.org][demo] (see [user quickstart][user-quickstart] for details).
+Another possibility is deploying your own Onezone (see [Onezone installation][onezone-installation]).
 
 ### Public IP and ports
 
-The node should have a network interface with public IP. Oneprovider communicates with external services or clients
+The node should have a network interface with public IP. Oneprovider communicates with external services or clients 
 using ports 80, 443, 4443, 6665 and 9443. All of these ports need to be publicly
 open except 9443 which is used for direct emergency access to the Oneprovider.
 
 ### Internet domain
 
-The node should be accessible via its FQDN. You can supply your own FQDN or use the subdomain delegation feature of
-Onedata which will generate FQDN within the domain managed by the Onezone service.
+The node should be accessible via its FQDN. You can supply your own FQDN or use the subdomain delegation feature 
+of Onedata which will generate FQDN within the domain managed by the Onezone service.
 
 ### Preparing the node
 
-#### Using ansible script
+#### Using Ansible script
 
-An ansible script has been prepared to ease the preparation. Do ssh to your node and clone onedata-deployments
+An Ansible script has been prepared to ease the preparation. Do ssh to your node and clone `onedata-deployments`
 repo, e.g.:
 
 ```sh
@@ -67,7 +67,7 @@ cd onedata-deployments
 ```
 
 and follow the instructions in `initial-vm-config/ansible/README.md`.
-If you would like to run the ansible tasks manually step by step then follow the steps in
+If you would like to run the Ansible tasks manually step by step then follow the steps in
 the manual preparation section.
 
 #### Manual preparation
@@ -81,7 +81,9 @@ After these settings are modified, the machine needs to be rebooted.
 
 ##### Increase maximum number of opened files
 
-In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
+In order to install **Oneprovider** service on one of the supported operating systems, first make sure that the maximum 
+limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked 
+using:
 
 ```sh
 ulimit -n
@@ -94,7 +96,7 @@ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
 sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 ```
 
-> It might be also necessary to setup the limit in /etc/systemd/system.conf:
+> It might be also necessary to set up the limit in `/etc/systemd/system.conf`:
 >
 > ```sh
 > sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
@@ -103,13 +105,14 @@ sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 
 ##### Swap preference settings
 
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` - see [here][3] for details):
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see [here][install-swap-space] 
+for details):
 
 ```sh
 cat /proc/sys/vm/swappiness
 ```
 
-and if necessary decrease it using:
+and if necessary, decrease it using:
 
 ```sh
 sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
@@ -118,7 +121,9 @@ sudo systemctl restart systemd-sysctl
 
 ##### Disable Transparent Huge Pages feature
 
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which somehwat improves performance of machines running multiple application at once (e.g. desktop operation systems), however it deteriorates the performance of most database-heavy applications, such as **Oneprovider**.
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves performance of 
+machines running multiple application at once (e.g. desktop operating systems), however it deteriorates the performance 
+of most database-heavy applications, such as **Oneprovider**.
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
 
@@ -132,7 +137,11 @@ cat /sys/kernel/mm/transparent_hugepage/defrag
 # Expected output: always madvise [never]
 ```
 
-If any of the settings is different from the above, they should be changed permanently, which can be achieved for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
+If any of the settings is different from the above, they should be changed permanently, which can be achieved for 
+instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
+
+NOTE: If the output is `cat: /sys/kernel/mm/transparent_hugepage/enabled: No such file or directory` then
+THP feature is not configured in the kernel and no further action is required.
 
 ```
 [Unit]
@@ -156,26 +165,26 @@ sudo systemctl start disable-thp.service
 
 ##### Node hostname
 
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) - for this tutorial it is set to `oneprovider-example.com`.
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just 
+a proper entry in `/etc/hostname` and `/etc/hosts`) — for this tutorial it is set to `oneprovider-example.com`.
 
 Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
 
 ```sh
 export ONEPROVIDER_HOST="oneprovider-example.com"
 ```
-
-##### Python
-
-Make sure that python 2.x is installed on the machine. For example:
-
+Note: You can check the proper setting of hostname with the hostname command, for example:
 ```sh
-python -V
-# Expected output: Python 2.7.12
+hostname
+# Example output: oneprovider-example
+hostname -f
+# Example output: oneprovider-example.com
 ```
 
 ##### Docker
 
-The Docker software needs to be installed on the machine. It can be done by using the convenience script from get.docker.com:
+The Docker software needs to be installed on the machine. It can be done by using the convenience script from 
+get.docker.com:
 
 ```sh
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -206,10 +215,12 @@ snapshot-based live backups.
 ```sh
 # Replace sdX with your actual block device
 BLOCK_DEVICE=/dev/sdX
+```
+```sh
 sudo mkdir -p /opt/onedata
 sudo chmod 0755 /opt/onedata
-sudo pvcreate /dev/sdX
-sudo vgcreate onedata_vg /dev/sdX
+sudo pvcreate ${BLOCK_DEVICE}
+sudo vgcreate onedata_vg ${BLOCK_DEVICE}
 sudo lvcreate -l 80%VG -n lvol0 onedata_vg
 sudo mkfs.ext4 /dev/onedata_vg/lvol0
 sudo mount /dev/onedata_vg/lvol0 /opt/onedata
@@ -218,11 +229,13 @@ echo '/dev/onedata_vg/lvol0 /opt/onedata ext4 defaults 0 0' | sudo tee -a /etc/f
 
 ## Onedatify CLI wizard
 
-Onedatify is an easy-to-use script for automating the deployment of Docker based Oneprovider instance, automatically registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
+Onedatify is an easy-to-use script for automating the deployment of Docker based Oneprovider instance, automatically 
+registered to a selected Onezone with selected storage resources and enabling import of legacy data sets.
 
 ### Prerequisites
 
-In addition to the general prerequisites this method requires also access to existing user account in the Onezone instance, with which Oneprovider should register.
+In addition to the general prerequisites this method requires also access to existing user account in the Onezone 
+instance, with which Oneprovider should register.
 
 ### Deploying Oneprovider
 
@@ -230,39 +243,43 @@ Follow carefully the following steps.
 
 #### Creating a new space in Onezone
 
-The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically supported by the new Oneprovider instance.
+The first step to deploy Oneprovider using Onedatify script is to create a new space, which will be automatically 
+supported by the new Oneprovider instance.
 
 Go the main Onezone interface and select **DATA -> +** :
 
-![somethong][24]
+![screen-onedatify_create_space][]
 
 Note: Skip this step if existing space should be supported.
 
-#### Generating oneline Onedatify command in Onezone
+#### Generating one-line Onedatify command in Onezone
 
-Go to Onezone interface and click on the space. Click **Add support** in the providers pane.
+Go to Onezone interface and click on the space. Click **Add support** in the provider's pane.
 
 Select the tab *Deploy your own Oneprovider*:
 
-![something][25]
+![screen-onedatify_deploy_provider_command][]
 
 and copy the generated command.
 
-Note: If you would like to expose a dircetory containing an existing data set then select the tab *Expose existing data set* and copy the generated command.
+Note: If you would like to expose a directory containing an existing data set then select the tab *Expose existing data 
+set* and copy the generated command.
 
 #### Run the command on the target host
 
 Paste the copied command in the terminal on the Oneprovider machine (as superuser or as a user with sudo privileges).
 
-Check the prerequsite list and confirm to proceed to the next step:
+Check the prerequisite list and confirm to proceed to the next step:
 
-![some][26]
+![screen-onedatify_step_1][]
 
-If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and Docker Compose.
+If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and 
+Docker Compose.
 
-After the dependency installation is complete, the script will ask several questions and suggest default setting for each one:
+After the dependency installation is complete, the script will ask several questions and suggest default setting for 
+each one:
 
-![step 2][27]
+![screen-onedatify_step_2][]
 
 The progress can be monitored on a separate terminal using the following command:
 
@@ -270,9 +287,10 @@ The progress can be monitored on a separate terminal using the following command
 journalctl -u onedatify.service -f
 ```
 
-After the deployment is complete, the following message will be shown, with connection details for administration panel for the Oneprovider instance:
+After the deployment is complete, the following message will be shown, with connection details for administration panel 
+for the Oneprovider instance:
 
-![step 5][28]
+![screen-onedatify_step_5][]
 
 ## Graphical wizard
 
@@ -292,7 +310,7 @@ sudo mkdir -p /opt/onedata/oneprovider/certs
 
 Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-compose.yml`:
 
-```Yaml
+```yaml
 version: '2.0'
 services:
   node1.oneprovider.localhost:
@@ -339,72 +357,83 @@ services:
       ONEPANEL_BATCH_MODE: "false"
 ```
 
-Prepare the systemd files for oneprovider service as shown in previos section and run oneprovider:
+Prepare the systemd files for Oneprovider service as shown in previous section and run it:
 
 ```
 sudo systemctl enable oneprovider.service
 sudo systemctl start oneprovider.service
 ```
 
-#### Deploying the onedata cluster using the Web GUI
+#### Deploying the Onedata cluster using the Web GUI
 
-Start a web browser and open [https://localhost:9443][7]. If the browser is not started on the oneprovider VM replace localhost with the IP of the VM. You may need to accept the SSL security exception in your browser. The cluster deployment process is straighforward - just follow the instructions on the subsequent pages. You can hover the question marks for additional explanations. The following screenshots illustrate the process.
+Start a web browser and open [https://localhost:9443][localhost-9443]. If the browser is not started on the provider 
+VM, replace localhost with the IP of the VM. You may need to accept the SSL security exception in your browser. 
+The deployment process is straightforward — just follow the instructions on the subsequent pages. You can hover 
+the question marks for additional explanations. The following screenshots illustrate the process.
 
-![New-onepanel-installation][8]
+![screen-installation-gui-new-onepanel][]
 
-Click "Create a new cluster".
+Click “Create a new cluster”.
 
-![Set-onepanel-emergency-passphrase][9]
+![screen-installation-gui-passphrase][]
 
-Enter the passphrase and click "Submit".
+Enter the passphrase and click “Submit”.
 
-![Welcome][10]
+![screen-installation-gui-welcome][]
 
-Click "Create Oneprovider cluster"
+Click “Create Oneprovider cluster”
 
-![Cluster-deployment][11]
+![screen-installation-gui-cluster-deployment][]
 
-Choose the components to be installed on the given node. For a one-node deployment as in this example select all compoments. A local Ceph cluster will be also deployed. Click on the green "Proceed" button.
+Choose the components to be installed on the given node. For a one-node deployment as in this example select all 
+components. A local Ceph cluster will be also deployed. Click on the green “Proceed” button.
 
-![Registration][15]
+![screen-installation-gui-registration][]
 
-Register your oneprovider in a given onezone. Click "show me how" for instructions. Paste the obtained token and click "Proceed".
+Register your provider in a given Onezone. Click “show me how” for instructions. Paste the obtained token and click 
+“Proceed”.
 
-![Registration-2][16]
+![screen-installation-gui-registration-2][]
 
-Fill the requiered form fields and click "Register".
+Fill the required form fields and click “Register”.
 
-![IP-address-setup][17]
+![screen-installation-gui-ip-address-setup][]
 
-Check the correctness of IP address and click "Setup IP address".
+Check the correctness of IP address and click “Setup IP address”.
 
-![DNS-setup][18]
+![screen-installation-gui-dns-setup][]
 
-Check the DNS configuration and click "Proceed".
+Check the DNS configuration and click “Proceed”.
 
-![Web-certificate][19]
+![screen-installation-gui-web-certificate][]
 
-Click "Obtain certificate".
+Click “Obtain certificate”.
 
-![Storages][20]
+![screen-installation-gui-storages][]
 
-Choose Local Ceph type of storage and give it a name. Click "OK".
+Choose Local Ceph type of storage and give it a name. Click “OK”.
 
-![Storages-2][21]
+![screen-installation-gui-storages-2][]
 
-Click "Finish".
+Click “Finish”.
 
-![Cluster-configured-successfully][22]
+![screen-installation-gui-cluster-configured-successfully][]
 
-Now you can start managing your cluster, e.g., support a space as described in [Space supports][23].
+Now you can start managing your cluster, e.g., support a space as described in [Space supports][space-support].
 
 ## Batch mode
 
 #### Customizing Oneprovider Docker Compose script
 
-**Oneprovider** installation using Docker is very straightforward. This type of deployment uses docker compose and requires a docker-compose.yml file to be prepared.
+**Oneprovider** installation using Docker is very straightforward. This type of deployment uses docker compose and 
+requires a docker-compose.yml file to be prepared.
 
-In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access to. Make sure the partition where the `/opt` directory is mounted has at least 20GB of free space for logs and database files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting up the `persistence` folder on a separate partition with backup.
+In case of Docker based deployment all configuration information needed to install Oneprovider can be included directly 
+in the Docker Compose script. This tutorial assumes that all **Oneprovider** configuration and log files will be stored 
+in the folder `/opt/onedata/oneprovider` on the host machine, but you can use any directory to which Docker has access 
+to. Make sure the partition where the `/opt` directory is mounted has at least 20 GB of free space for logs and database 
+files. For large systems with large numbers of files (>1M files) the space should be much bigger. Also consider setting 
+up the `persistence` folder on a separate partition with backup.
 
 Create the following directories:
 
@@ -414,11 +443,11 @@ sudo mkdir -p /opt/onedata/oneprovider/certs
 sudo mkdir -p /mnt/nfs
 ```
 
-> /mnt/nfs should be exported via NFS to allow direct access from oneclient which increases performance.
+> /mnt/nfs should be exported via NFS to allow direct access from Oneclient which increases performance.
 
 Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-compose.yml`:
 
-```Yaml
+```yaml
 version: '2.0'
 services:
   node1.oneprovider.localhost:
@@ -525,7 +554,9 @@ services:
           domainName: "onezone-example.tk"
 ```
 
-Modify it according to your needs. You should at least change onezone->domainName (not cluster->domainName), geo coordinates, emergency password, oneprovider->name, oneprovider->subdomain. It assumed in the above example that some posix type storage is available under the directory /mnt/nfs.
+Modify it according to your needs. You should at least change `onezone→domainName` (not `cluster→domainName`), 
+`geoLatitude`, `geoLongitude`, emergency password, `oneprovider→name`, `oneprovider→subdomain`. It assumed in the above example that some 
+POSIX type storage is available under the directory `/mnt/nfs`.
 To install the necessary Docker images on the machine run:
 
 ```sh
@@ -541,22 +572,24 @@ to enable this feature in **Oneprovider** Docker Compose configuration file
 
 If you prefer to obtain and install certificates for **Oneprovider** service
 manually, modify the Docker Compose file to mount PEM files inside the
-container using paths listed in [TLS certificate management][4].
+container using paths listed in [TLS certificate management][web-certificate].
 
 #### Security and recommended firewall settings
 
-**Oneprovider** service requires several TCP ports (`80`,`443`,`6665`,`9443`) to be opened for proper operation. Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
+**Oneprovider** service requires several TCP ports (`80`,`443`,`6665`,`9443`) to be opened for proper operation. Some 
+of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
 Furthermore, on all nodes of **Oneprovider** deployment where Couchbase
 instance is deployed, it exposes several additional ports. This means that
-the Couchbase [security guidelines][5]
+the Couchbase [security guidelines][security-intro]
 should be also followed.
 
-For more information about ports setup see [Firewal setup][6]
+For more information about ports setup see [Firewall setup][network-and-firewall]
 
 #### Running Docker based installation using systemd
 
-Docker based installation can be conveniently managed using a **systemd** service unit. Simply create a `/etc/systemd/system/oneprovider.service`:
+Docker based installation can be conveniently managed using a **systemd** service unit. Simply create a 
+`/etc/systemd/system/oneprovider.service`:
 
 ```
 [Unit]
@@ -601,7 +634,8 @@ sudo systemctl stop oneprovider.service
 sudo systemctl restart oneprovider.service
 ```
 
-If you need to start a fresh instance of Oneprovider use the following commands. Note that this will **remove all users data** managed by this Oneprovider instance:
+If you need to start a fresh instance of Oneprovider use the following commands. Note 
+that this will **remove all users data** managed by this Oneprovider instance:
 
 ```sh
 sudo systemctl stop oneprovider.service
@@ -626,66 +660,67 @@ sudo systemctl start oneprovider.service
 
 <!-- references -->
 
-[1]: https://hub.docker.com/r/onedata/oneprovider/tags
+[docker-images]: https://hub.docker.com/r/onedata/oneprovider/tags
 
-[2]: https://docs.docker.com/engine/installation/#supported-platforms
+[supported-platforms]: https://docs.docker.com/engine/installation/#supported-platforms
 
-[3]: https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html
+[install-swap-space]: https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html
 
-[4]: ./configuration/web-certificate.md
+[security-intro]: https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html
 
-[5]: https://developer.couchbase.com/documentation/server/4.6/security/security-intro.html
+[localhost-9443]: https://localhost:9443
 
-[6]: ./configuration/network-and-firewall.md
+[network-and-firewall]: ./configuration/network-and-firewall.md
 
-[7]: https://localhost:9443
+[web-certificate]: ./configuration/web-certificate.md
 
-[8]: ../../../images/admin-guide/oneprovider/installation/installation-gui-new-onepanel.png
+[space-support]: configuration/space-support.md
 
-[9]: ../../../images/admin-guide/oneprovider/installation/installation-gui-passphrase.png
+[prerequisites]: #prerequisites
 
-[10]: ../../../images/admin-guide/oneprovider/installation/installation-gui-welcome.png
+[onedatify-cli-wizard]: #onedatify-cli-wizard
 
-[11]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-deployment.png
+[graphical-wizard]: #graphical-wizard
 
-[15]: ../../../images/admin-guide/oneprovider/installation/installation-gui-registration.png
+[batch-mode]: #batch-mode
 
-[16]: ../../../images/admin-guide/oneprovider/installation/installation-gui-registration-2.png
+[demo]: https://demo.onedata.org
 
-[17]: ../../../images/admin-guide/oneprovider/installation/installation-gui-ip-address-setup.png
+[user-quickstart]: ../../user-guide/quickstart.md
 
-[18]: ../../../images/admin-guide/oneprovider/installation/installation-gui-dns-setup.png
+[onezone-installation]: ../onezone/installation.md
 
-[19]: ../../../images/admin-guide/oneprovider/installation/installation-gui-web-certificate.png
+[screen-installation-gui-new-onepanel]: ../../../images/admin-guide/oneprovider/installation/installation-gui-new-onepanel.png
 
-[20]: ../../../images/admin-guide/oneprovider/installation/installation-gui-storages.png
+[screen-installation-gui-passphrase]: ../../../images/admin-guide/oneprovider/installation/installation-gui-passphrase.png
 
-[21]: ../../../images/admin-guide/oneprovider/installation/installation-gui-storages-2.png
+[screen-installation-gui-welcome]: ../../../images/admin-guide/oneprovider/installation/installation-gui-welcome.png
 
-[22]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
+[screen-installation-gui-cluster-deployment]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-deployment.png
 
-[23]: configuration/space-support.md
+[screen-installation-gui-registration]: ../../../images/admin-guide/oneprovider/installation/installation-gui-registration.png
 
-[24]: ../../../images/admin-guide/oneprovider/installation/onedatify_create_space.png
+[screen-installation-gui-registration-2]: ../../../images/admin-guide/oneprovider/installation/installation-gui-registration-2.png
 
-[25]: ../../../images/admin-guide/oneprovider/installation/onedatify_deploy_provider_command.png
+[screen-installation-gui-ip-address-setup]: ../../../images/admin-guide/oneprovider/installation/installation-gui-ip-address-setup.png
 
-[26]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_1.png
+[screen-installation-gui-dns-setup]: ../../../images/admin-guide/oneprovider/installation/installation-gui-dns-setup.png
 
-[27]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_2.png
+[screen-installation-gui-web-certificate]: ../../../images/admin-guide/oneprovider/installation/installation-gui-web-certificate.png
 
-[28]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_5.png
+[screen-installation-gui-storages]: ../../../images/admin-guide/oneprovider/installation/installation-gui-storages.png
 
-[12]: #prerequisites
+[screen-installation-gui-storages-2]: ../../../images/admin-guide/oneprovider/installation/installation-gui-storages-2.png
 
-[13]: #onedatify-cli-wizard
+[screen-installation-gui-cluster-configured-successfully]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
 
-[14]: #graphical-wizard
+[screen-onedatify_create_space]: ../../../images/admin-guide/oneprovider/installation/onedatify_create_space.png
 
-[29]: #batch-mode
+[screen-onedatify_deploy_provider_command]: ../../../images/admin-guide/oneprovider/installation/onedatify_deploy_provider_command.png
 
-[30]: https://demo.onedata.org
+[screen-onedatify_step_1]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_1.png
 
-[31]: ../../user-guide/quickstart.md
+[screen-onedatify_step_2]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_2.png
 
-[32]: ../onezone/installation.md
+[screen-onedatify_step_5]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_5.png
+

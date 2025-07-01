@@ -1,6 +1,8 @@
 const slugger = require('github-slugger').slug;
 module.exports = {
-  plugins: ['vuepress-plugin-copy-code'],
+  plugins: ['copy-code', {
+    copyMessage: 'Text copied to clipboard.'
+  }],
   title: 'Onedata documentation',
   base: '/future-documentation/',
   markdown: {
