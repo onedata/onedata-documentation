@@ -1734,7 +1734,7 @@ this:
      idp = myIdP,
      path = [
          #idp_group{type = organization, name = <<"my-org">>, privileges = member},
-         #idp_group{type = unit, name = <<"my-unit">>, privileges = member},
+         #idp_group{type = unit, name = <<"my-unit">>, privileges = none},
          #idp_group{type = team, name = <<"my-team">>, privileges = manager}
      ],
      % user privileges in the bottom group
@@ -1752,7 +1752,7 @@ following group structure in Onezone:
 ```
  my-organization [organization]
      u
-     |<member privs)
+     |<no privs)
      |
      my-unit [unit]
          u
@@ -1774,7 +1774,7 @@ the user has the following entitlements (after the mapping):
          idp = myIdP,
          path = [
              #idp_group{type = organization, name = <<"my-org">>, privileges = member},
-             #idp_group{type = unit, name = <<"my-unit">>, privileges = member},
+             #idp_group{type = unit, name = <<"my-unit">>, privileges = none},
              #idp_group{type = team, name = <<"my-team">>, privileges = manager}
          ],
          % user privileges in the bottom group
@@ -1795,7 +1795,7 @@ Then, the following group structure would be created:
 ```
                          my-organization [organization]
                          u   u
-                         |   |<member privs)
+                         |   |<no privs)
                .---------'   |
   (admin privs>|             my-unit [unit]
                |             u   u
@@ -1822,7 +1822,7 @@ the above entitlements would result in the following group structure:
               |   |
        .------'   '---------------my-organization [organization]
        |                          u   u
-       |                          |   |<member privs)
+       |                          |   |<no privs)
        |                .---------'   |
        |   (admin privs>|             my-unit [unit]
        |                |             u   u
