@@ -23,11 +23,12 @@ Most Makefile targets use our build-docker with all dependencies installed.
 These scripts are suitable for most developers and documentation users.
 
 * `make build` builds the documentation, producing an artifact.
-* `make dev` prepares a local preview with `livereload`, allowing
-  convenient development. The `livereload` might not cope with some structural
-  changes, in such case the command must be re-run. `Ctrl-C` interrupts the preview.
-  Note that in this mode, the `RELEASE` version is not injected, only the
-  placeholders are visible, as opposed to the `make preview` target.
+* `make dev` prepares a local preview with `livereload`, allowing convenient development.
+  The `livereload` might not cope with some structural changes, in such case the command
+  must be re-run. When editing [template](#template-system) files, you must use
+  `make render-templates` in another terminal to re-generate files generated from templates.
+  `Ctrl-C` interrupts the preview. Note that in this mode, the `RELEASE` version is not injected,
+  only the placeholders are visible, as opposed to the `make preview` target.
 * `make preview` starts a simple HTTP server in Python that serves the docs
   statically, giving a preview of what's in the build artifact. **This task is not
   performed using a docker**, so Python 2 or 3 is required to be installed.
@@ -52,11 +53,11 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this add-on, you should install Node.js runtime in version 14.14+. Follow
-instructions on the [nvm website][].
+Before installing this add-on, you should install Node.js runtime in version 16.20+.
+Follow instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
-the repository root. This command will install `yarn` globally and all needed dependencies
+the repository root. This command will install all needed dependencies
 in local `node_modules`.
 
 With all needed dependencies, remark extension enables Markdown files check with linter
@@ -150,8 +151,81 @@ the repository root and use package scripts with `npm run`:
 * `npm run docs:lint` — launches a remark linter on all Markdown documents,
 * `npm run docs:format-all` — applies standardized formatting on all Markdown documents.
 
-Note that Makefile uses the `yarn` package manager for dependencies, so do not try
-installing dependencies using `npm install`.
+## Template system
+
+The documentation has scripts for generating pages from templates:
+
+* if you want to include content of one Markdown file (partial) into another (template),
+* if you want to replace some text in Markdown file content.
+
+Templates and partials are placed outside the main `/docs` directory — they are not used
+directly by the VuePress. Instead, templates are placed in `/templates` directory,
+processed and copied into the mirrored path into `/docs`. Templates use partial files from
+the `/partials` directory. Partials can have optional placeholders to replace during the
+processing time.
+
+**Both template and partial files are not linted and auto-formatted** using Makefile
+targets, because they contain content fragments and references which cannot be fully
+resolved by `remark` until they are compiled into result document. The result document
+will be linted and auto-formatted in standard way, as it is the complete page.
+You can ignore linter warnings in partial and template files as long as they cannot be
+fixed because of being chunks of larger document, but please review other fixable issues.
+
+### Example
+
+There is a template: `/templates/user-guide/page.md` with the content:
+
+```md
+# Hello
+
+<!-- @include something.md -->
+
+One way or another.
+
+<!-- @include /one/other.md { "name": "Johnny", "surname": "English" } -->
+```
+
+There are two partials:
+
+`/partials/something.md`
+
+```md
+Something from nothing.
+```
+
+`/partials/one/other.md`
+
+```md
+My name is **@insert surname**. **@insert name** **@insert surname**!
+```
+
+After the processing, which is done automatically during the build (`make build` or `make
+dev`), the file is generated:
+
+`/docs/user-guide/page.md`
+
+with content:
+
+```md
+# Hello
+
+Something from nothing.
+
+One way or another.
+
+My name is English. Johnny English!
+```
+
+Note that:
+
+* you should commit the latest version of files generated from templates along with their templates,
+* you should not modify generated pages manually,
+* generation is not triggered on files change, due to some issues with VuePress build
+  chain; if you want to update the file manually during the `make dev` session, you should
+  invoke the `make render-templates`.
+
+For more information about template system read comments in
+`docs/.vuepress/template-renderer.js` code.
 
 ## Versioning
 

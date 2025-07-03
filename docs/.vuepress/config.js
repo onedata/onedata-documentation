@@ -9,6 +9,10 @@ module.exports = {
       markerPattern: /^\[toc\]/im,
     },
   },
+  plugins: [
+    require('./plugin-template-renderer.js'),
+  ],
+  temp: '/tmp/.vuepress-temp',
   themeConfig: {
     navbar: false,
     sidebar: [

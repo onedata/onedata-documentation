@@ -1,8 +1,10 @@
 # Maintenance
 
-<!-- ## Startup & shutdown -->
+<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
 
-<!-- TODO VFS-11766 restart too -->
+## Startup & shutdown
+
+<!-- TODO VFS-7218 restart too -->
 
 <!-- TODO VFS-9376 find a way to reuse templates for repetitive chapters and use it here -->
 
@@ -101,7 +103,7 @@ from
 [onedata-deployments][4]
 repository can be used to speed up the process. Alternatively, one can
 manually run the commands included in the
-[Installation][6] section.
+[Installation][] section.
 
 Ideally, the new VMs should have the same IP addresses and hostnames
 as the original ones. If that is not possible, additional steps will
@@ -138,11 +140,13 @@ sudo systemctl start onezone
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-<!-- ## Upgrading -->
+## Upgrading
 
-<!-- TODO VFS-11766 missing section -->
+## Troubleshooting
 
 <!-- references -->
+
+[Installation]: installation.md
 
 [1]: #offline-backups
 
@@ -153,5 +157,3 @@ sudo systemctl start onezone
 [4]: https://github.com/onedata/onedata-deployments
 
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
-
-[6]: installation.md

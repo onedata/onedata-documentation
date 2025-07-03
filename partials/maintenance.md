@@ -1,7 +1,5 @@
 # Maintenance
 
-<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
-
 ## Startup & shutdown
 
 <!-- TODO VFS-7218 restart too -->
@@ -11,14 +9,14 @@
 ## Backing up
 
 If the standard installation procedure was followed, all data essential for
-the Oneprovider service is placed in a single, self-contained directory
-(`/opt/onedata/oneprovider`). This directory is sufficient to restore the
+the **@insert serviceUpper** service is placed in a single, self-contained directory
+(`/opt/onedata/**@insert service**`). This directory is sufficient to restore the
 service or migrate it to another host. It contains the configuration for
 running the docker container as well as the persistence directory which
 contains database files and service configuration. **Backing up the service
 boils down to creating snapshots of the installation directory.**
 
-> **NOTE:** Apart from the Oneprovider service persistence that stores file
+> **NOTE:** Apart from the **@insert serviceUpper** service persistence that stores file
 > metadata, administrators should back up the underlying storage systems
 > that store the physical data exposed via logical Onedata spaces. This guide
 > does not cover storage data backups, you should use backup procedures
@@ -36,36 +34,36 @@ configure a periodic procedure that is run during low usage periods, e.g. at nig
 1. Stop the service.
 
 ```bash
-sudo systemctl stop oneprovider
+sudo systemctl stop **@insert service**
 ```
 
 2. Backup the installation directory to a tar file.
 
 ```bash
-tar zcPf /opt/onedata/oneprovider /mybackups/oneprovider.tgz
+tar zcPf /opt/onedata/**@insert service** /mybackups/**@insert service**.tgz
 ```
 
 3. Start the service.
 
 ```bash
-sudo systemctl start oneprovider
+sudo systemctl start **@insert service**
 ```
 
 4. Copy the snapshot to a safe place, preferably multiple locations that use
    different underlying storage infrastructures to achieve backup redundancy.
 
 ```bash
-scp /mybackups/oneprovider.tgz some.remote.server:/backups/oneprovider.tgz
+scp /mybackups/**@insert service**.tgz some.remote.server:/backups/**@insert service**.tgz
 ```
 
 > **NOTE:** Tools such as rsync can be used to speed up the backups and limit
 > the downtimes, by doing fast incremental copies, e.g.:
 
 ```bash
-sudo systemctl stop oneprovider
-rsync -a /opt/onedata/oneprovider /mybackups/oneprovider-backup
-sudo systemctl start oneprovider
-# compress and store the /mybackups/oneprovider-backup directory
+sudo systemctl stop **@insert service**
+rsync -a /opt/onedata/**@insert service** /mybackups/**@insert service**-backup
+sudo systemctl start **@insert service**
+# compress and store the /mybackups/**@insert service**-backup directory
 # while the service is already back online
 ```
 
@@ -103,7 +101,7 @@ from
 [onedata-deployments][4]
 repository can be used to speed up the process. Alternatively, one can
 manually run the commands included in the
-[Installation][] section.
+**@insert installationAnchor** section.
 
 Ideally, the new VMs should have the same IP addresses and hostnames
 as the original ones. If that is not possible, additional steps will
@@ -119,19 +117,19 @@ Run the following procedure on the VM designated to host the restored service:
 1. Copy the tar file of the last backup.
 
 ```bash
-scp some.remote.server:/backups/oneprovider.tgz /mybackups/oneprovider.tgz
+scp some.remote.server:/backups/**@insert service**.tgz /mybackups/**@insert service**.tgz
 ```
 
 2. Restore the installation directory from the tar file.
 
 ```bash
-tar zxPf /mybackups/oneprovider.tgz
+tar zxPf /mybackups/**@insert service**.tgz
 ```
 
 3. Start the service.
 
 ```bash
-sudo systemctl start oneprovider
+sudo systemctl start **@insert service**
 ```
 
 > **NOTE:** If the service is started on another VM, it must be assigned the
@@ -146,7 +144,7 @@ sudo systemctl start oneprovider
 
 <!-- references -->
 
-[Installation]: installation.md
+**@insert installationRef**
 
 [1]: #offline-backups
 
