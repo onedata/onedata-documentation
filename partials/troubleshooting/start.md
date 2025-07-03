@@ -2,7 +2,7 @@
 
 ## Connectivity issues
 
-**@insert serviceUpper** service requires several TCP ports (`80`, `443`, `6665`, `9443`)
+**@insert serviceUpper** service requires several **@insert ports**
 to be opened for proper operation. Some of these ports can be limited to
 an intranet, in particular `9443` for Onepanel management interface.
 

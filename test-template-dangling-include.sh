@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 grep --include '*.md' -r '**@include' docs
 GREP_RESULT=$?
 if [ $GREP_RESULT -eq 0 ]; then 
-  echo "Some result Markdown documents contain **@include directives, that means some "
+  echo "Some files generated from templates contain **@include directives, that means some "
   echo "includes were not resolved properly. Review your templates and partials."
   exit 1
 else

@@ -18,7 +18,7 @@
 
 ## Example request
 
-Let's assume, that your Onezone is located at `my.zone.domain.org` and your
+Let's assume that your Onezone is located at `my.zone.domain.org` and your
 access token is available under `TOKEN` environment variable. You can create a
 new Onezone user account using cURL command:
 

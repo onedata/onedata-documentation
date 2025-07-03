@@ -26,8 +26,8 @@ These scripts are suitable for most developers and documentation users.
 * `make dev` prepares a local preview with `livereload`, allowing convenient development.
   The `livereload` might not cope with some structural changes, in such case the command
   must be re-run. When editing [template](#template-system) files, you must use
-  `make render-templates` in another terminal to re-generate template results.  `Ctrl-C`
-  interrupts the preview. Note that in this mode, the `RELEASE` version is not injected,
+  `make render-templates` in another terminal to re-generate files generated from templates.
+  `Ctrl-C` interrupts the preview. Note that in this mode, the `RELEASE` version is not injected,
   only the placeholders are visible, as opposed to the `make preview` target.
 * `make preview` starts a simple HTTP server in Python that serves the docs
   statically, giving a preview of what's in the build artifact. **This task is not
@@ -218,7 +218,7 @@ My name is English. Johnny English!
 
 Note that:
 
-* you should commit the latest version of generated pages along with their templates,
+* you should commit the latest version of files generated from templates along with their templates,
 * you should not modify generated pages manually,
 * generation is not triggered on files change, due to some issues with VuePress build
   chain; if you want to update the file manually during the `make dev` session, you should

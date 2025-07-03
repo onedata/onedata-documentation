@@ -1,6 +1,7 @@
 <!-- @include troubleshooting/start.md
   {
-    "serviceUpper": "Oneprovider"
+    "serviceUpper": "Oneprovider",
+    "ports": "TCP ports (`80`, `443`, `6665`, `9443`)"
   }
 -->
 
@@ -155,8 +156,6 @@ debugging purposes.
    rtransfer mechanism. These logs require in-depth knowledge of our
    software and are primarily utilized for debugging purposes.
 
-<!-- FIXME: czy node_manager_monitoring istnieje? nie widzę go w środowisku -->
-
 6. `node_manager_monitoring.log`
 
    This log file provides information about node activities, allowing
@@ -174,7 +173,6 @@ debugging purposes.
    Throttling logs contain information about queue lengths (both internal and
    database) and the resulting throttling settings. They offer insights into
    the throttling mechanism and are useful for debugging purposes.
-
 
 <!-- @include troubleshooting/logs-erlang.md -->
 

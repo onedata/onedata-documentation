@@ -13,11 +13,11 @@ cd "$(dirname "$0")"
 if [ -z "$(git status --porcelain)" ]; then 
   make render-templates
   if [ -z "$(git status --porcelain)" ]; then 
-    echo "All templates have generated fresh results."
+    echo "All files generated from templates are up to date."
     exit 0
   else
-    echo "There are some template results that are not compliant with current templates "
-    echo "or partials. Use 'make render-templates' and commit changes."
+    echo "There are some files generated from templates that are not compliant with "
+    echo "current templates or partials. Use 'make render-templates' and commit changes."
     git reset --hard
     exit 1
   fi

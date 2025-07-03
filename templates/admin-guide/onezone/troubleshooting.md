@@ -1,6 +1,7 @@
 <!-- @include troubleshooting/start.md
   {
-    "serviceUpper": "Oneprovider"
+    "serviceUpper": "Oneprovider",
+    "ports": "TCP ports (`53`, `80`, `443`, `9443`) and the `53` UDP port"
   }
 -->
 
@@ -27,11 +28,11 @@
    </healthdata>
    ```
 
-<!-- FIXME: napisać podobne podsumowanie jak jest w oneprovider troubleshooting -->
+<!-- TODO: VFS-12930 Write summary similar as in oneprovider troubleshooting -->
 
-<!-- FIXME: napisać przykład innego statusu niż ok -->
+<!-- TODO: VFS-12930 Write example of other status than "ok" -->
 
-<!-- FIXME: poniżej napisać więcej o tym co jest w logach panelu i providera -->
+<!-- TODO: VFS-12930 Write below more about what is in onepanel and oneprovider logs -->
 
 <!-- @include troubleshooting/logs-start.md
   {
@@ -43,11 +44,11 @@
     "serviceHostVar": "$ONEZONE_HOST"
   }
 -->
-<!-- FIXME: przykład błędu i jego opis -->
+<!-- TODO: VFS-12930 Example of error and its description -->
 <!-- @include troubleshooting/logs-severity-end.md -->
 
-<!-- FIXME: napisać o specyficznych plikach logów dla oz_workera analogicznie do op_workera -->
-<!-- FIXME: specyficzne dla onezone pliki logów? -->
+<!-- TODO: VFS-12930 Write about specific log files for oz-worer analogous to op-worker -->
+<!-- TODO: VFS-12930 Are there any specific onezone log files? -->
 <!-- @include troubleshooting/logs-erlang.md -->
 
 <!-- references -->
