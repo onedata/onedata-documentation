@@ -44,11 +44,15 @@
     "serviceHostVar": "$ONEZONE_HOST"
   }
 -->
+
 <!-- TODO: VFS-12930 Example of error and its description -->
+
 <!-- @include troubleshooting/logs-severity-end.md -->
 
 <!-- TODO: VFS-12930 Write about specific log files for oz-worer analogous to op-worker -->
+
 <!-- TODO: VFS-12930 Are there any specific onezone log files? -->
+
 <!-- @include troubleshooting/logs-erlang.md -->
 
 <!-- references -->
