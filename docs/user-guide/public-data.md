@@ -21,12 +21,12 @@ The process of exposing a share as Public Data is as follows:
    indexing services can include the collection in their searchable databases.
 
 Persistent identifiers can be generated and assigned to shares by users who have access
-to a Handle service within the current Onezone.
+to a handle service within the current Onezone.
 
 ::: tip NOTE
 Handle services can be registered in Onezone by users who have access rights to specific
-Handle registers. For more information about registering and managing handle
-services in Onedata, see the [Handle services][]
+handle registers. For more information about registering and managing handle
+services in Onedata, see the [handle services][]
 chapter of the Admin guide.
 :::
 
@@ -38,14 +38,14 @@ view — see the [shares][] chapter for the guide.
 <!-- TODO: VFS-12541 Write about publishing using share modal -->
 
 In the [share management view][], switch to the **Expose as Public Data** tab, where you can
-choose the Handle service to provide a persistent identifier for your data collection, and
+choose the handle service to provide a persistent identifier for your data collection, and
 metadata type.
 
 <!-- TODO: VFS-12541 Add EDM documentation -->
 
 ![screen-tab-expose][]
 
-After choosing the Handle service and metadata type, click on **Proceed** button below dropdowns to start
+After choosing the handle service and metadata type, click on **Proceed** button below dropdowns to start
 filling in a metadata for your Public Data collection. In this example, we chose the Dublin Core Metadata format.
 You can switch between the default **Visual** editor or the **XML** editor, which supports
 [DCMES Version 1.1][dublin-core-DCES-www] specification.
@@ -67,7 +67,7 @@ Here, you can view the metadata as seen by anonymous users in the public view.
 Please keep in mind that once published, your collection should not be removed.
 :::
 
-Now you can find a link to the public Handle in the box where a share link was
+Now you can find a link to the public handle in the box where a share link was
 presented before, choosing **Public handle link** options from the dropdown.
 
 ![screen-expose-public-handle-link][]
@@ -77,7 +77,7 @@ Although the **Public handle link** is displayed by default in the link box, you
 can still use the **Share link** by choosing it in the dropdown.
 :::
 
-Visit the public Handle URL to view your Public Data collection, available publicly on the
+Visit the public handle URL to view your Public Data collection, available publicly on the
 Internet.
 
 ![screen-tab-public-data][]
@@ -93,11 +93,11 @@ section of the documentation.
 ## Publishing via REST API
 
 ::: tip
-For full API reference, see the [Handle][Handle API] and the
-[Handle Service][Handle Service API] chapters of the Onedata REST API documentation.
+For full API reference, see the [handle][handle API] and the
+[handle Service][handle Service API] chapters of the Onedata REST API documentation.
 :::
 
-First, obtain Handle service and target share IDs. You can get available Handle services
+First, obtain handle service and target share IDs. You can get available handle services
 registered in the current Onezone using the following command line:
 
 ```shell
@@ -156,7 +156,7 @@ which is the one-liner version of the following metadata:
 </metadata>
 ```
 
-After successful publication, you can get created Handle ID (`handleId` property) using
+After successful publication, you can get created handle ID (`handleId` property) using
 the following command line:
 
 ```shell
@@ -184,9 +184,9 @@ which could result in:
 }
 ```
 
-In the example, created Handle ID is `3e000b055c3d0709097fd2dbfd96f9fech0280`.
+In the example, created handle ID is `3e000b055c3d0709097fd2dbfd96f9fech0280`.
 
-Now you can get detailed information about the Handle using:
+Now you can get detailed information about the handle using:
 
 ```shell
 HANDLE_ID="3e000b055c3d0709097fd2dbfd96f9fech0280"
@@ -230,7 +230,7 @@ which could result in:
 
 [OAI-PMH]: https://www.openarchives.org/pmh/
 
-[Handle services]: ../admin-guide/onezone/configuration/handle-services.md
+[handle services]: ../admin-guide/onezone/configuration/handle-services.md
 
 [share management view]: ./shares.md#share-management-view
 
@@ -238,9 +238,9 @@ which could result in:
 
 [Share description]: ./shares.md#share-description
 
-[Handle API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle
+[handle API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle
 
-[Handle Service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
+[handle Service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
 
 [screen-tab-expose]: ../../images/user-guide/public-data/tab-expose.png
 

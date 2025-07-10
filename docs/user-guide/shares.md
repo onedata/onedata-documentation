@@ -10,7 +10,7 @@ nature of shares). Shares may have an optional description in Markdown format
 to improve their comprehension and usability for the target audience.
 
 Both directories and files can be shared, and multiple shares may be created
-for the same file/directory. It is possible to share a whole [Space][].
+for the same file/directory. It is possible to share a whole [space][].
 
 ## Sharing a file or directory
 
@@ -220,7 +220,7 @@ documentation.
 
 [1]: <>
 
-[Space]: spaces.md
+[space]: spaces.md
 
 [file browser]: ./interfaces/web-file-browser.md
 
