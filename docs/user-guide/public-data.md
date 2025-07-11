@@ -94,7 +94,7 @@ section of the documentation.
 
 ::: tip
 For full API reference, see the [handle][handle API] and the
-[handle Service][handle Service API] chapters of the Onedata REST API documentation.
+[handle service][handle service API] chapters of the Onedata REST API documentation.
 :::
 
 First, obtain handle service and target share IDs. You can get available handle services
@@ -240,7 +240,7 @@ which could result in:
 
 [handle API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle
 
-[handle Service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
+[handle service API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Handle-Service
 
 [screen-tab-expose]: ../../images/user-guide/public-data/tab-expose.png
 
