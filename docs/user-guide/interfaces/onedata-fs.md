@@ -4,23 +4,27 @@
 
 OnedataFS is a Python library for accessing the Onedata virtual file system,
 an alternative to [Oneclient][] that offers a POSIX interface.
-As a [PyFilesystem][] plugin, [OnedataFS][fs-onedatafs] allows you
+As a [PyFilesystem2][] plugin, [OnedataFS][fs-onedatafs] allows you
 to work with Onedata in the same way as any other supported filesystem.
 
 ## Installation
 
 OnedataFS Python library is a wrapper for a low-level C++ OnedataFS library, which
 allows to access data managed by Onedata through high performance protocol, and to
-directly access storage resources if possible. The downside is that in addition to the
-Python library, it is necessary to install the C++ OnedataFS library using platform
-specific packages.
+directly access storage resources if possible (see [Oneclient direct I/O](direct-io)).
+The downside is that in addition to the Python library, it is necessary to install
+the C++ OnedataFS library using platform specific packages.
 
-> If you need a pure Python library, and performance is not critical,
+::: tip NOTE
+If you need a pure Python library, and performance is not critical,
 check out [onedatarestfs](./onedata-rest-fs.md).
+:::
 
 ### Ubuntu
 
-> Currently, this package is only provided for Ubuntu Focal.
+::: tip NOTE
+Currently, this package is only provided for Ubuntu Focal.
+:::
 
 ```bash
 $ curl -sSO https://get.onedata.org/oneclient.sh
@@ -34,7 +38,9 @@ $ sh oneclient.sh python3-fs-plugin-onedatafs
 OnedataFS can be installed using [Anaconda][], from the official
 [Onedata conda repository][anaconda onedata]:
 
-> **NOTE:** Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+::: tip NOTE
+Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+:::
 
 ```bash
 $ conda install -c onedata -c conda-forge python=3.9 fs.onedatafs
@@ -59,6 +65,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
+Follow the further instructions in [the usage section][].
+
 ## Usage
 
 To create an instance of OnedataFS connected to a specific Oneprovider, use the following code:
@@ -78,8 +86,8 @@ space = odfs.opendir('/SpaceA')
 space.listdir('/')
 ```
 
-From then on, `space` can be used as any `PyFilesystem` instance. Refer
-to the [PyFilesystem API documentation][pyfilesystem api]
+From then on, `space` can be used as any `PyFilesystem2` instance. Refer
+to the [PyFilesystem2 API documentation][pyfilesystem api]
 for all operations available on a filesystem object.
 
 The complete list of options that can be provided to the OnedataFS constructor
@@ -114,7 +122,7 @@ Refer to the [Oneclient options][] documentation for more details.
 
 ### Advanced usage
 
-In addition to `PyFilesystem` interface, `OnedataFS` provides some specific methods
+In addition to `PyFilesystem2` interface, `OnedataFS` provides some specific methods
 for using its advanced features.
 
 #### File location information
@@ -141,7 +149,7 @@ provider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6MB).
 
 Onedata supports metadata for each file or directory, which is accessible via
 the virtual filesystem through the extended attribute mechanism. Since no such
-API is provided by `PyFilesystem`, `OnedataFS` provides additional methods that
+API is provided by `PyFilesystem2`, `OnedataFS` provides additional methods that
 allow interacting with the metadata directly.
 
 For example to list extended attributes defined for `file.txt`:
@@ -209,7 +217,7 @@ space.removexattr("file.txt", "license")
 
 [oneclient]: oneclient.md
 
-[pyfilesystem]: https://www.pyfilesystem.org/
+[PyFilesystem2]: https://www.pyfilesystem.org/
 
 [fs-onedatafs]: https://github.com/onedata/fs-onedatafs/
 
@@ -224,3 +232,7 @@ space.removexattr("file.txt", "license")
 [oneclient authentication]: oneclient.md#authentication
 
 [oneclient options]: oneclient.md#options
+
+[direct-io]: oneclient.md#direct-io-and-proxy-io-modes
+
+[the usage section]: #usage

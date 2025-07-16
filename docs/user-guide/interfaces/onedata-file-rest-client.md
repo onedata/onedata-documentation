@@ -7,16 +7,12 @@
 `OnedataFileRESTClient` is a Python client to the Onedata file REST API. It offers basic
 operations on files as a concise, low-level library. Most users will probably be more
 interested in [onedatarestfs](./onedata-rest-fs.md) library, which is a plugin for
-[PyFilesystem], implemented using `OnedataFileRESTClient`, providing much more user
+[PyFilesystem2], implemented using `OnedataFileRESTClient`, providing much more user
 friendly interface.
 
-Supported Onezone versions: `>= 21.02.5`
+Supported Onezone versions: `>= 21.02.5`.
 
-Supported Oneprovider versions: `>= 21.02.5`
-
-> As an alternative to this library, we also provide a Python wrapper library supporting
-our binary data and metadata protocol - [onedatafs](./onedata-fs.md), which has better
-performance, however requires installation of several C++ dependencies.
+Supported Oneprovider versions: `>= 21.02.5`.
 
 ## Installation
 
@@ -30,7 +26,7 @@ The source code is available on [GitHub].
 
 ## Usage
 
-For reference documentation and usage examples see [GitHub] page.
+For reference documentation and usage examples see the [GitHub] page.
 
 <!-- references -->
 
@@ -38,4 +34,4 @@ For reference documentation and usage examples see [GitHub] page.
 
 [PyPi]: https://pypi.org/project/onedatafilerestclient/
 
-[PyFilesystem]: https://github.com/PyFilesystem/pyfilesystem2
+[PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
