@@ -24,6 +24,53 @@ management to data-intensive scientific computations. It is an [open-source proj
 started in 2013, and implemented by the team from the Academic Computer Centre Cyfronet
 AGH in Krakow, Poland.
 
+<!-- FIXME: przykłady diagramów - do usunięcia -->
+
+```mermaid
+graph TD
+    A[Client] --> B[Load Balancer 2]
+    B --> C[Server1]
+    B --> D[Server2]
+```
+
+```mermaid
+graph LR
+    subgraph workflow [Workflow]
+        direction LR
+
+        subgraph stores [Global Stores]
+            direction LR
+            S1[(Input Store)]
+            S2[(Intermediate Store)]
+            S3[(Output Store)]
+        end
+
+        subgraph L1 [Lane 1]
+            direction TB
+            subgraph PB1 [Parallel Box 1]
+                direction TB
+                T3[Task 3]
+            end
+            subgraph PB2 [Parallel Box 2]
+                direction TB
+                T1[Task 1]
+                T2[Task 2]
+            end
+            PB1 --> PB2
+        end
+        
+        L2[Lane 2]
+        L1 --> L2
+    end
+    
+    S1 --> L1
+    T1 --> S2
+    T2 --> S2
+    T3 --> S2
+    S2 --> L2  
+    L2 --> S3
+```
+
 In Onedata, users can store, access, process, and publish their data using a global
 virtual file system spanning computing centers and storage providers worldwide.
 
