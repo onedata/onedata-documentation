@@ -23,7 +23,7 @@ In order to build, lint and format the documentation, you can use
 first use.
 
 In order to develop the documentation, it is recommended to use [Visual Studio Code][]
-with some extensions. These extensions require installing Node.js version 22+ (recommended
+with some extensions. These extensions require installing Node.js version 18+ (recommended
 using [nvm][nvm website]) and then installing some Node packages. Read more in the
 [Development][] section.
 
@@ -65,7 +65,7 @@ asked to install them when opening this workspace in VSCode (as they are listed 
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this add-on, you should install Node.js runtime in version 22+.
+Before installing this add-on, you should install Node.js runtime in version 18+.
 Follow instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
@@ -161,7 +161,7 @@ The editor will display a special Mermaid.js icon in the editor gutter and an â€
 
 In the Makefile section, most build commands use docker with all dependencies installed,
 which does not require installing Node.js with Node packages locally. To use locally
-installed Node (v22+ is required) install the Node packages using `npm run deps` in
+installed Node (v18+ is required) install the Node packages using `npm run deps` in
 the repository root and use package scripts with `npm run`:
 
 * `npm run docs:dev` â€” runs a development server with `livereload`,

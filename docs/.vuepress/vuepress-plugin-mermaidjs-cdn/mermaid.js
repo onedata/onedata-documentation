@@ -8,8 +8,6 @@
  * @license This software is released under the MIT license cited in 'LICENSE.txt'.
  */
 
-const mermaid = window.mermaid;
-
 const Mermaid = {
   name: 'Mermaid',
   props: {
@@ -17,7 +15,7 @@ const Mermaid = {
       type: String,
       required: false,
       default () {
-        return 'diagram_' + Date.now()
+        return 'diagram_' + Date.now();
       }
     },
     graph: {
@@ -67,7 +65,7 @@ const Mermaid = {
     })
   },
   async mounted() {
-    mermaid.initialize({
+    window.mermaid.initialize({
       // put Mermaid options below: https://mermaid.js.org/config/setup/mermaid/interfaces/MermaidConfig.html
       startOnLoad: true,
       fontFamily: '"Open Sans", sans-serif',
@@ -85,7 +83,7 @@ const Mermaid = {
       },
     })
     try {
-      const { svg } = await mermaid.render(this.id, this.graphData);
+      const { svg } = await window.mermaid.render(this.id, this.graphData);
       this.svg = svg;
     } catch (error) {
       this.error = error;

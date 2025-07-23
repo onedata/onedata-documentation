@@ -21,7 +21,7 @@ module.exports = (options, ctx) => {
     name: 'vuepress-plugin-mermaidjs-cdn',
     enhanceAppFiles: path.resolve(__dirname, 'mermaid.js'),
     extendMarkdown (md) {
-      md.use(require('./markdownItPlugin'))
+      md.use(require('./markdown-it-plugin'));
     },
   }
 }

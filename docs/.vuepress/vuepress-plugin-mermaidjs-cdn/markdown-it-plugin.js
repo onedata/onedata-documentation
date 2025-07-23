@@ -9,22 +9,22 @@
  */
 
 
-const { hash } = require('@vuepress/shared-utils')
-const markdownItFence = require('./markdownItFence')
+const hash = require('./hash-sum');
+const markdownItFence = require('./markdown-it-fence');
 
 module.exports = function mermaidjsPlugin (md) {
   return markdownItFence(md, 'mermaid-fence', {
     render: (tokens, idx, _options, env, self) => {
-      const token = tokens[idx]
-      const key = `mermaid_${hash(idx)}`
-      const { content } = token
+      const token = tokens[idx];
+      const key = `mermaid_${hash(idx)}`;
+      const { content } = token;
       
-      md.$dataBlock[key] = content
+      md.$dataBlock[key] = content;
   
-      return `<Mermaid id="${key}" :graph="$dataBlock.${key}"></Mermaid>`
+      return `<Mermaid id="${key}" :graph="$dataBlock.${key}"></Mermaid>`;
     },
     validate: (params) => {
-      return params.trim().split(' ').includes('mermaid')
+      return params.trim().split(' ').includes('mermaid');
     }
   })
 }
