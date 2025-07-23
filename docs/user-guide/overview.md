@@ -36,7 +36,7 @@ Learn more about admin roles in [Onezone Panel][7] and [Oneprovider Panel][8].
 
 ## Basic GUI navigation
 
-In the main view you can see navigation bar containing primary sections which allow you to interact
+In the main view you can see the navigation bar containing primary sections which allow you to interact
 with the most important areas of the system. There, you can access
 resources available to you or create your own.
 You can switch between the main sections using the collapsible sidebar
@@ -81,7 +81,7 @@ Onedata main tabs:
 
 [1]: data.md
 
-[2]: shares.md#listing-all-shares-in-all-your-spaces
+[2]: shares.md
 
 [3]: providers.md
 
