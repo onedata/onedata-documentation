@@ -89,6 +89,7 @@ const Mermaid = {
       this.svg = svg;
     } catch (error) {
       this.error = error;
+      throw error;
     }
   }
 }

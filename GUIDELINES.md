@@ -364,7 +364,8 @@ Below are some links to the REST API documentation of commonly used operations:
   For more tips, see the [punctuation guide][].
 
 * Use smart quotes `“”` instead of regular quotes `""` in text. These can be replaced
-  using the quick fix functionality of VSCode IDE.
+  using the quick fix functionality of VSCode IDE. The smart quotes can be also inserted
+  using `AltGr+Shift+B` → `“` and `AltGr+B` → `”` in Polish keyboard layout in Linux.
 
 * Use ellipsis `…` instead of `...` in text. It can be replaced using the IDE quick fix.
 
