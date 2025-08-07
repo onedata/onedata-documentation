@@ -155,7 +155,9 @@ LanguageTool.
 
 The **mermaidchart** add-on adds support for [Mermaid.js][] charts that are placed in the fenced code block. You can read more about Mermaid.js support [here](#mermaidjs-diagrams).
 
-The editor will display a special Mermaid.js icon in the editor gutter and an “Edit Diagram” link button which opens the Mermaid.js editor with a graphical preview in the new tab.
+The editor will display a special Mermaid.js icon in the editor gutter and an “Edit Diagram” link button which opens the Mermaid.js editor with a graphical preview in the new tab. The add-on adds also rendered Mermaid diagrams to the Markdown preview (generated with built-in Visual Studio Code Markdown Language Features).
+
+  **Note that the diagrams rendered with Mermaid Visual Studio Code plugin differ from the finally rendered ones, because the plugin uses the default style and the recent version of Mermaid.js (with a different layout engine).** It is recommended to use the development server and view diagrams rendered in a web browser.
 
 ### Development using a natively-installed toolkit
 
@@ -268,7 +270,7 @@ diagram updates live when changing mermaid code.
 
 Mermaid.js charts can be edited and previewed directly in Visual Studio Code using the
 [**mermaidchart**](#mermaidchart--edit-mermaidjs-charts-with-graphical-preview-mermaidchartvscode-mermaid-chart)
-add-on.
+add-on. Note, however, that the diagrams rendered with the Mermaid Visual Studio Code plugin differ from the finally rendered ones, because the plugin uses the default style and the recent version of Mermaid.js (with a different layout engine).
 
 When there is a syntax error, you will see “Diagram could not be displayed” block in the
 rendered page. You can hover this text and see the error details in the tooltip or read the
