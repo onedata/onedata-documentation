@@ -68,7 +68,6 @@ const Mermaid = {
     window.mermaid.initialize({
       // put Mermaid options below: https://mermaid.js.org/config/setup/mermaid/interfaces/MermaidConfig.html
       startOnLoad: true,
-      fontFamily: '"Open Sans", sans-serif',
       theme: 'base',
       themeVariables: {
         primaryColor: '#fff',
