@@ -2,6 +2,9 @@ const slugger = require('github-slugger').slug;
 module.exports = {
   title: 'Onedata documentation',
   base: '/future-documentation/',
+  head: [
+    ['script', { src: 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js' }]
+  ],
   markdown: {
     slugify: slugger,
     toc: {
@@ -11,6 +14,7 @@ module.exports = {
   },
   plugins: [
     require('./plugin-template-renderer.js'),
+    require('./vuepress-plugin-mermaidjs-cdn/index.js')
   ],
   temp: '/tmp/.vuepress-temp',
   themeConfig: {
