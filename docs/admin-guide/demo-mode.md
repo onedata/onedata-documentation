@@ -182,7 +182,7 @@ When you visit the above URL:
 
 Onedata provides few interfaces to access its virtual file system from Python, namely:
 
-* [OnedataRESTFS][] — high level pure Python client implemented using [PyFilesystem2][] and 
+* [OnedataRESTFS][] — high level pure Python client implemented using [PyFilesystem2][] and
   [OnedataFileRestClient][]
 * [OnedataFileRestClient][] — low level pure Python client, which is a wrapper over Onedata
   [File access and management API][], used as basis for [OnedataRESTFS][]
