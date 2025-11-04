@@ -11,7 +11,7 @@ to work with Onedata in the same way as any other supported filesystem.
 
 OnedataFS Python library is a wrapper for a low-level C++ OnedataFS library, which
 allows to access data managed by Onedata through high performance protocol, and to
-directly access storage resources if possible (see [Oneclient direct I/O](direct-io)).
+directly access storage resources if possible (see [Oneclient direct I/O][direct-io]).
 The downside is that in addition to the Python library, it is necessary to install
 the C++ OnedataFS library using platform specific packages.
 
