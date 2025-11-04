@@ -1,6 +1,6 @@
 # OnedataFS (Python)
 
-[toc][1]
+[toc][]
 
 OnedataFS is a Python library for accessing the Onedata virtual file system,
 an alternative to [Oneclient][] that offers a POSIX interface.
@@ -17,7 +17,7 @@ the C++ OnedataFS library using platform specific packages.
 
 ::: tip NOTE
 If you need a pure Python library, and performance is not critical,
-check out [onedatarestfs](./onedata-rest-fs.md).
+check out [onedatarestfs][].
 :::
 
 ### Ubuntu
@@ -143,7 +143,7 @@ This will give the following output:
 
 where the dictionary provides information on which Oneprovider, represented here
 by its ID, holds which blocks (specified using byte ranges). In the above example,
-provider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6MB).
+provider `e0e49ac3d9b058c4839f8fb7ccc02d72` holds the entire file (1.6 MB).
 
 #### Extended attributes and metadata
 
@@ -205,7 +205,7 @@ JSON as a string for the value parameter:
 space.setxattr("file.txt", "origin", '{"continent": "Europe"}')
 ```
 
-Finally to remove an extended attribute:
+Finally, to remove an extended attribute:
 
 ```python
 space.removexattr("file.txt", "license")
@@ -213,7 +213,7 @@ space.removexattr("file.txt", "license")
 
 <!-- references -->
 
-[1]: <>
+[toc]: <>
 
 [oneclient]: oneclient.md
 
@@ -236,3 +236,5 @@ space.removexattr("file.txt", "license")
 [direct-io]: oneclient.md#direct-io-and-proxy-io-modes
 
 [the usage section]: #usage
+
+[onedatarestfs]: ./onedata-rest-fs.md

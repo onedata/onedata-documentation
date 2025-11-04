@@ -40,6 +40,8 @@ For reference documentation and usage examples see the [GitHub][] page.
 
 <!-- references -->
 
+[toc]: <>
+
 [GitHub]: https://github.com/onedata/onedatarestfs
 
 [PyPI]: https://pypi.org/project/fs.onedatarestfs
