@@ -21,7 +21,7 @@ Here is a summary of all available data access interfaces:
   Useful both in personal use-cases and computing environments (direct storage access).
   Requires an [access token][].
 
-* [OnedataFS][] (Python) — offers an alternative to [Oneclient][]. As a [PyFilesystem][]
+* [OnedataFS][] (Python) — offers an alternative to [Oneclient][]. As a [PyFilesystem2][]
   plugin, allows you to work with Onedata in the same way as any other supported
   filesystem. Suitable for computing environments (direct storage access). Requires an
   [access token][].
@@ -67,6 +67,6 @@ Here is a summary of all available data access interfaces:
 
 [CDMI API]: ./cdmi.md
 
-[pyfilesystem]: https://www.pyfilesystem.org/
+[PyFilesystem2]: https://www.pyfilesystem.org/
 
 [access token]: ../tokens.md#access-tokens
