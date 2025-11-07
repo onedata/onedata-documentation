@@ -180,17 +180,21 @@ When you visit the above URL:
 
 ### Data access using Python
 
-Onedata provides few interfaces to access it's virtual file system from Python, namely:
+Onedata provides few interfaces to access its virtual file system from Python, namely:
 
-- [OnedataRESTFS] - high level pure Python client implemented using [PyFilesystem2] and [OnedataFileRestClient]
-- [OnedataFileRestClient] - low level pure Python client, which is a wrapper over Onedata [File access and management API], used as basis for [OnedataRESTFS]
-- [OnedataFS] - Python wrapper for native binary Onedata communication protocol, implemented in C++ (installation of the Python library requires several C++ dependencies beforehand)
+* [OnedataRESTFS][] — high level pure Python client implemented using [PyFilesystem2][] and
+  [OnedataFileRestClient][]
+* [OnedataFileRestClient][] — low level pure Python client, which is a wrapper over Onedata
+  [File access and management API][], used as basis for [OnedataRESTFS][]
+* [OnedataFS][] — Python wrapper for native binary Onedata communication protocol, implemented
+  in C++ (installation of the Python library requires several C++ dependencies beforehand)
 
-In this section we'll present how to setup and use the [OnedataRESTFS] library, which is recommended for ease of installation and use.
+In this section we'll present how to set up and use the [OnedataRESTFS][] library, which is
+recommended for ease of installation and use.
 
 #### Installation
 
-The installation includes creation of temporary `venv` environment for Python depdendencies:
+The installation includes creation of temporary `venv` environment for Python dependencies:
 
 ```bash
 # Setup venv
@@ -228,7 +232,8 @@ Now we can create an instance of `OnedataRESTFS` client as follows:
 >>> odfs = OnedataRESTFS(onedata_onezone_host, onedata_access_token, verify_ssl=False)
 ```
 
-Now we can test if this works, for instance by listing available spaces, which are simply top level directories in the virtual file system hierarchy:
+Now we can test if this works, for instance by listing available spaces, which are simply
+top level directories in the virtual file system hierarchy:
 
 ```python
 >>> odfs.listdir('')
@@ -243,7 +248,7 @@ or create a simple text file:
 'TEST'
 ```
 
-For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesystem2 Docs].
+For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesystem2 Docs][].
 
 <!-- References -->
 
@@ -263,7 +268,7 @@ For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesy
 
 [REST API]: ../user-guide/rest-api.md
 
-[File access and management API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=group/File-access-and-management
+[File access and management API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-Path-Resolution
 
 [Oneclient]: ../user-guide/interfaces/oneclient.md
 
