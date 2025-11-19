@@ -14,12 +14,12 @@ at this point what are you going to deploy and administer — Onezone and Onepro
 ## Quickstart
 
 The fastest way to set up a complete running Onedata environment is using the [demo mode][].
-However, it should be noted that the demo setup while fully functional was not intended to be
+However, it should be noted that the demo setup, while fully functional, was not intended to be
 used in production.
 
-In order to install Onezone follow the instruction in [Onezone installation][].
+In order to install Onezone follow the instructions in the [Onezone installation][] chapter.
 
-In order to install Oneprovider follow the instruction in [Oneprovider installation][].
+In order to install Oneprovider follow the instructions in the [Oneprovider installation][] chapter.
 
 
 <!-- references -->

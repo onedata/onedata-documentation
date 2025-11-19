@@ -1,34 +1,34 @@
 # Installation
 
-This chapter describes the available **Onezone** installation methods.
+This chapter describes the available [Onezone][zones] installation methods.
 Onezone communicates with external services or clients
 using ports 53, 80, 443 and 9443. All of these ports need to be publicly
 open except 9443 which is used for direct emergency access to the Onezone.
 
-**Onezone** service can be deployed on multiple nodes for
-high-availability purpose. If not mentioned otherwise it is assumed that
-**Onezone** will be installed on a single node.
+Onezone service can be deployed on multiple nodes for
+high-availability purpose. If not mentioned otherwise, we assume that
+Onezone will be installed on a single node.
 
 ## Docker-based
 
-Docker-based installation methods use our  [official Docker images][1]
-to run **Onezone** on any [Linux OS supporting Docker][2].
+Docker-based installation methods use our [official Docker images][]
+to run Onezone on any [Linux OS supporting Docker][].
 
-The node on which **Onezone** will be deployed should fullfill the requirements shown in the table below.
+The node on which Onezone will be deployed should fulfill the requirements shown in the table below.
 
 | Requirement         | Minimum               | Optimal               |
 | ------------------- | --------------------- | --------------------- |
 | CPU                 | 4 vCPU                | 16 vCPU               |
-| RAM                 | 12B                   | 32GB                  |
+| RAM                 | 12 GB                 | 32 GB                 |
 | Local disk          | SSD                   | SSD                   |
-| Local storage space | 20GB                  | 40GB                  |
+| Local storage space | 20 GB                 | 40 GB                 |
 | OS                  | Any Docker compatible | Any Docker compatible |
 
 ### Manual installation using batch mode
 
 #### Prerequisites
 
-In order to ensure optimum performance of the **Onezone** service,
+In order to ensure optimum performance of the Onezone service,
 several low-level settings need to be tuned on the host machine. This applies
 to both Docker based and package based installations, in particular to
 nodes where Couchbase database instance are deployed.
@@ -37,7 +37,9 @@ After these settings are modified, the machine needs to be rebooted.
 
 ##### Increase maximum number of opened files
 
-In order to install **Onezone** service on one of the supported operating systems, first make sure that the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked using:
+In order to install Onezone service on one of the supported operating systems, first make sure that 
+the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). 
+The limit can be checked using:
 
 ```sh
 ulimit -n
@@ -50,16 +52,19 @@ sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
 sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
 ```
 
-> It might be also necessary to set up the limit in /etc/systemd/system.conf:
->
-> ```sh
-> sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
-> sudo systemctl daemon-reexec
-> ```
+::: tip
+It might be also necessary to set up the limit in `/etc/systemd/system.conf`:
+
+```sh
+sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
+sudo systemctl daemon-reexec
+```
+:::
 
 ##### Swap preference settings
 
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see \[here]\[3] for details):
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see [here][install-swap-space] 
+for details):
 
 ```sh
 cat /proc/sys/vm/swappiness
@@ -69,11 +74,14 @@ and if necessary, decrease it using:
 
 ```sh
 sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
+sudo systemctl restart systemd-sysctl
 ```
 
 ##### Disable Transparent Huge Pages feature
 
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves performance of machines running multiple application at once (e.g. desktop operating systems), however it deteriorates the performance of most database-heavy applications, such as **Onezone**.
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves 
+performance of machines running multiple application at once (e.g. desktop operating systems), however it 
+deteriorates the performance of most database-heavy applications, such as Onezone.
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
 
@@ -85,7 +93,8 @@ cat /sys/kernel/mm/transparent_hugepage/defrag
 always madvise [never]
 ```
 
-If any of the settings is different from the above, they should be changed permanently, which can be achieved for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
+If any of the settings is different from the above, they should be changed permanently, which can be achieved 
+for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
 
 ```
 [Unit]
@@ -109,7 +118,8 @@ sudo systemctl start disable-thp.service
 
 ##### Node hostname
 
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just a proper entry in `/etc/hostname` and `/etc/hosts`) — for this tutorial it is set to `onezone-example.com`.
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or 
+just a proper entry in `/etc/hostname` and `/etc/hosts`) — for this tutorial it is set to `onezone-example.com`.
 
 Following command examples assumes an environment variable `ONEZONE_HOST` is available, for instance:
 
@@ -119,12 +129,13 @@ export ONEZONE_HOST="onezone-example.com"
 
 ##### Docker
 
-The Docker software need to be installed on the machine. It can be done by using the convenience script from get.docker.com:
+The Docker software needs to be installed on the machine. It can be done by using the convenience 
+script from `get.docker.com`:
 
 ```sh
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
-sudo usermod -aG docker <your-user>
+sudo usermod -aG docker $USER
 ```
 
 <!-- @TODO VFS-11766 missing chapter -->
@@ -133,14 +144,11 @@ sudo usermod -aG docker <your-user>
 
 ## 🚧 Under construction! 🚧
 
-This section is coming soon. For now:
+The Onezone installation guide is still under construction. For now:
 
 * see the [GitHub repository][] with docker-compose examples for Onezone deployment,
 * see the counterpart in the [legacy docs][].
 
-***
-
-**Use the panel on the left to navigate to other sections.**
 
 <!-- references -->
 
@@ -148,6 +156,10 @@ This section is coming soon. For now:
 
 [legacy docs]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[installation].html
 
-[1]: https://hub.docker.com/r/onedata/onezone/
+[official Docker images]: https://hub.docker.com/r/onedata/onezone/
 
-[2]: https://docs.docker.com/engine/installation/#supported-platforms
+[Linux OS supporting Docker]: https://docs.docker.com/engine/installation/#supported-platforms
+
+[zones]: ../../intro.md#zones
+
+[install-swap-space]: https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html

@@ -1,11 +1,12 @@
 {
     "license": "MIT",
     "scripts": {
-        "deps": "npm install -g yarn && yarn install",
-        "docs:dev": "vuepress dev docs",
-        "docs:build": "vuepress build docs --dest rel/future-documentation",
+        "deps": "npm install",
+        "docs:dev": "./node-launcher.sh vuepress dev docs",
+        "docs:build": "./node-launcher.sh vuepress build docs --dest rel/future-documentation",
         "docs:lint": "remark docs",
-        "docs:format-all": "remark . --output"
+        "docs:format-all": "remark docs --output",
+        "docs:lint-templates": "remark templates partials"
     },
     "devDependencies": {
         "github-slugger": "^1.5.0",
