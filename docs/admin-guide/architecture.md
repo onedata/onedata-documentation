@@ -73,7 +73,7 @@ space, which can then be queried using Onedata REST API.
 
 #### Handle Proxy
 
-Onedata supports persistent identifier registration services based on Handle
+Onedata supports persistent identifier registration services based on handle
 systems such as [DOI][]. Since different identifier minting
 services provide different API's, Onezone administrator has to deploy and
 register a handle proxy service, which implements a bridge between Onezone handle

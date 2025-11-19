@@ -35,20 +35,6 @@
   </div>
 </template>
 
-<style>
-img {
-  display: block;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-img[alt^="screen-"] {
-  border: 1px solid #ddd;
-}
-</style>
-
 <script>
 import Home from "@parent-theme/components/Home.vue";
 import Navbar from "@parent-theme/components/Navbar.vue";

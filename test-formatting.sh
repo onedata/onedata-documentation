@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Authors: Jakub Liput
+# Copyright (C) 2024 ACK CYFRONET AGH
+# This software is released under the MIT license cited in 'LICENSE.txt'
+
 # This script checks if current contents of Markdown files are formatted as they would be
 # formatted using Remark auto-formatter. The repository must be clean before perfoming
 # test, because git is used for checking the diff.
