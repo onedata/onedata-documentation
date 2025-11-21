@@ -1,8 +1,5 @@
 const slugger = require('github-slugger').slug;
 module.exports = {
-  plugins: ['copy-code', {
-    copyMessage: 'Text copied to clipboard.'
-  }],
   title: 'Onedata documentation',
   base: '/future-documentation/',
   head: [
@@ -17,7 +14,13 @@ module.exports = {
   },
   plugins: [
     require('./plugin-template-renderer.js'),
-    require('./vuepress-plugin-mermaidjs-cdn/index.js')
+    require('./vuepress-plugin-mermaidjs-cdn/index.js'),
+    [
+      'vuepress-plugin-copy-code',
+      {
+        copyMessage: 'Text copied to clipboard.'
+      }
+    ],
   ],
   temp: '/tmp/.vuepress-temp',
   themeConfig: {

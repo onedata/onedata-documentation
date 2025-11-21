@@ -1,5 +1,6 @@
 # Installation
 
+<!-- TODO: VFS-13158 onezone installation docs should be renewed and use templates -->
 This chapter describes the available [Onezone][zones] installation methods.
 Onezone communicates with external services or clients
 using ports 53, 80, 443 and 9443. All of these ports need to be publicly

@@ -363,7 +363,8 @@ services:
       ONEPANEL_BATCH_MODE: "false"
 ```
 
-Prepare the systemd files for Oneprovider service as shown in previous section and run it:
+Prepare the systemd service file `/etc/systemd/system/oneprovider.service` for Oneprovider as shown in 
+section [Running Docker based installation using systemd][] and run it:
 
 ```
 sudo systemctl enable oneprovider.service
@@ -448,6 +449,8 @@ sudo mkdir -p /opt/onedata/oneprovider/persistence
 sudo mkdir -p /opt/onedata/oneprovider/certs
 sudo mkdir -p /mnt/nfs
 ```
+
+
 
 ::: tip NOTE
 /mnt/nfs should be exported via NFS to allow direct access from Oneclient which increases performance.
@@ -563,8 +566,8 @@ services:
 ```
 
 Modify it according to your needs. You should at least change `onezone.domainName` (not `cluster.domainName`), 
-`geoLatitude`, `geoLongitude`, emergency password, `oneprovider.name`, `oneprovider.subdomain`. It assumed in the above example that some 
-POSIX type storage is available under the directory `/mnt/nfs`.
+`geoLatitude`, `geoLongitude`, emergency password, `oneprovider.name`, `oneprovider.subdomain`. It assumed in 
+the above example that some POSIX type storage is available under the directory `/mnt/nfs`.
 To install the necessary Docker images on the machine run:
 
 ```sh
@@ -584,8 +587,8 @@ container using paths listed in the section [Web certificate][].
 
 #### Security and recommended firewall settings
 
-Oneprovider service requires several TCP ports (`80`,`443`, `4443`, `6665`,`9443`) to be opened for proper operation. Some 
-of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
+Oneprovider service requires several TCP ports (`80`,`443`, `4443`, `6665`,`9443`) to be opened for proper operation. 
+Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
 Furthermore, on all nodes of Oneprovider deployment where Couchbase
 instance is deployed, it exposes several additional ports. This means that
@@ -692,6 +695,8 @@ sudo systemctl start oneprovider.service
 [Graphical wizard]: #graphical-wizard
 
 [Batch mode]: #batch-mode
+
+[Running Docker based installation using systemd]: #running-docker-based-installation-using-systemd
 
 [demo]: https://demo.onedata.org
 
