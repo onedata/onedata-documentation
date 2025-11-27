@@ -1,6 +1,7 @@
 # Installation
 
 <!-- TODO: VFS-13158 onezone installation docs should be renewed and use templates -->
+
 This chapter describes the available [Onezone][zones] installation methods.
 Onezone communicates with external services or clients
 using ports 53, 80, 443 and 9443. All of these ports need to be publicly
@@ -38,8 +39,8 @@ After these settings are modified, the machine needs to be rebooted.
 
 ##### Increase maximum number of opened files
 
-In order to install Onezone service on one of the supported operating systems, first make sure that 
-the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). 
+In order to install Onezone service on one of the supported operating systems, first make sure that
+the maximum limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`).
 The limit can be checked using:
 
 ```sh
@@ -60,11 +61,12 @@ It might be also necessary to set up the limit in `/etc/systemd/system.conf`:
 sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
 sudo systemctl daemon-reexec
 ```
+
 :::
 
 ##### Swap preference settings
 
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see [here][install-swap-space] 
+Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see [here][install-swap-space]
 for details):
 
 ```sh
@@ -80,8 +82,8 @@ sudo systemctl restart systemd-sysctl
 
 ##### Disable Transparent Huge Pages feature
 
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves 
-performance of machines running multiple application at once (e.g. desktop operating systems), however it 
+By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves
+performance of machines running multiple application at once (e.g. desktop operating systems), however it
 deteriorates the performance of most database-heavy applications, such as Onezone.
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
@@ -94,7 +96,7 @@ cat /sys/kernel/mm/transparent_hugepage/defrag
 always madvise [never]
 ```
 
-If any of the settings is different from the above, they should be changed permanently, which can be achieved 
+If any of the settings is different from the above, they should be changed permanently, which can be achieved
 for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
 
 ```
@@ -119,7 +121,7 @@ sudo systemctl start disable-thp.service
 
 ##### Node hostname
 
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or 
+Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or
 just a proper entry in `/etc/hostname` and `/etc/hosts`) — for this tutorial it is set to `onezone-example.com`.
 
 Following command examples assumes an environment variable `ONEZONE_HOST` is available, for instance:
@@ -130,7 +132,7 @@ export ONEZONE_HOST="onezone-example.com"
 
 ##### Docker
 
-The Docker software needs to be installed on the machine. It can be done by using the convenience 
+The Docker software needs to be installed on the machine. It can be done by using the convenience
 script from `get.docker.com`:
 
 ```sh
@@ -149,7 +151,6 @@ The Onezone installation guide is still under construction. For now:
 
 * see the [GitHub repository][] with docker-compose examples for Onezone deployment,
 * see the counterpart in the [legacy docs][].
-
 
 <!-- references -->
 

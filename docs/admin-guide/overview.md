@@ -6,7 +6,7 @@ an entry point to the system, while Oneprovider manages the access to the mass s
 where the data managed by Onedata is actually stored. Deploying of Onedata from scratch implies deploying
 of both services. More details about basic Onedata concepts can be found in the [Introduction][].
 
-The Onedata services are administered separately. When deploying all from scratch Onezone should be deployed first as 
+The Onedata services are administered separately. When deploying all from scratch Onezone should be deployed first as
 Oneprovider relies on it. In most cases Onezone has been already set up and the administrator willing to expose his
 storage resources with Onedata deploys only the Oneprovider service. Anyway, it should be decided
 at this point what are you going to deploy and administer — Onezone and Oneprovider eventually, or just Oneprovider.
@@ -20,7 +20,6 @@ used in production.
 In order to install Onezone follow the instructions in the [Onezone installation][] chapter.
 
 In order to install Oneprovider follow the instructions in the [Oneprovider installation][] chapter.
-
 
 <!-- references -->
 
