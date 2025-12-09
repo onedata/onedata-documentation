@@ -72,14 +72,11 @@
       "LTeX",
       "LUMA",
       "MinIO",
-      "mnt",
-      "nfs",
       "NullDevice",
       "nvm",
       "OAIS",
       "Oneclient",
       "Onedata",
-      "onedata",
       "OnedataFS",
       "Onedatify",
       "Onepanel",
@@ -137,7 +134,8 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"legacy data collection\"}",
-      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"demo.onedata.org\"}"
     ]
   }
 }

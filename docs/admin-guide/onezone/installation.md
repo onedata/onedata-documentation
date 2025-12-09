@@ -88,18 +88,18 @@ deteriorates the performance of most database-heavy applications, such as Onezon
 
 These settings can be checked using the following commands (the output shown below presents the expected settings):
 
-```
+```sh
 cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+# Expected output: always madvise [never]
 
 cat /sys/kernel/mm/transparent_hugepage/defrag
-always madvise [never]
+# Expected output: always madvise [never]
 ```
 
 If any of the settings is different from the above, they should be changed permanently, which can be achieved
 for instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
 
-```
+```ini
 [Unit]
 Description=Disable Transparent Huge Pages
 
@@ -114,7 +114,7 @@ WantedBy=multi-user.target
 
 and enabling it on system startup using:
 
-```
+```sh
 sudo systemctl enable disable-thp.service
 sudo systemctl start disable-thp.service
 ```
@@ -149,7 +149,7 @@ sudo usermod -aG docker $USER
 
 The Onezone installation guide is still under construction. For now:
 
-* see the [GitHub repository][] with docker-compose examples for Onezone deployment,
+* see the [GitHub repository][] with Docker Compose examples for Onezone deployment,
 * see the counterpart in the [legacy docs][].
 
 <!-- references -->
