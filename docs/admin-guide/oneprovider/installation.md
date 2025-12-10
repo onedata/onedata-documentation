@@ -3,6 +3,7 @@
 <!-- @TODO VFS-11766 missing chapter -->
 
 <!-- as needed: link to configuration, compatibility-reference [versions]). We need to decide/discuss. -->
+<!-- @TODO VFS-13169 compatibility reference -->
 
 This chapter describes the available [Oneprovider][providers] installation methods.
 All supported installation methods use our [official Docker images][docker-images]
