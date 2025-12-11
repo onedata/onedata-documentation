@@ -85,6 +85,7 @@ module.exports = {
         children: [
           '/admin-guide/overview',
           '/admin-guide/architecture',
+          '/admin-guide/upgrades-and-compatibility',
           '/admin-guide/demo-mode',
           {
             title: 'Oneprovider',
