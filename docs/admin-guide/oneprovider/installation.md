@@ -3,6 +3,7 @@
 <!-- @TODO VFS-11766 missing chapter -->
 
 <!-- as needed: link to configuration, compatibility-reference [versions]). We need to decide/discuss. -->
+
 <!-- @TODO VFS-13169 compatibility reference -->
 
 This chapter describes the available [Oneprovider][providers] installation methods.
@@ -60,7 +61,7 @@ direct emergency access to the Oneprovider.
 
 ::: warning
 All other ports except those really needed, like probably the SSH port 22, should be closed on the
-firewall. Oneprovider runs some internal services on the host, for example Couchbase, which by default has an 
+firewall. Oneprovider runs some internal services on the host, for example Couchbase, which by default has an
 easy-to-guess password. Oneprovider is run in a Docker container using the host network mode, so the Couchbase ports
 would be available worldwide and vulnerable to attacks if not disabled on the firewall.
 :::
@@ -277,7 +278,7 @@ supported by the new Oneprovider instance.
 
 Open the Web GUI and in the **Data** tab, click on the **+** (plus sign in the circle) button.
 
-![screen-onedatify_create_space][]
+![screen-onedatify-create-space][]
 
 #### Generating one-line Onedatify command in Onezone
 
@@ -285,7 +286,7 @@ Navigate to the **Data > *Space name* > Providers** view. Click on the **Add sup
 
 Select the tab **Deploy your own Oneprovider**:
 
-![screen-onedatify_deploy_provider_command][]
+![screen-onedatify-deploy-provider-command][]
 
 and copy the generated command.
 
@@ -300,7 +301,7 @@ Paste the copied command in the terminal on the Oneprovider machine (as superuse
 
 Check the prerequisite list and confirm to proceed to the next step:
 
-![screen-onedatify_step_1][]
+![screen-onedatify-step-1][]
 
 If necessary, the Onedatify script will ask for permission to install all necessary dependencies including Docker and
 Docker Compose.
@@ -308,7 +309,7 @@ Docker Compose.
 After the installation of dependencies is complete, the script will ask several questions and suggest default
 setting for each one:
 
-![screen-onedatify_step_2][]
+![screen-onedatify-step-2][]
 
 The progress can be monitored on a separate terminal using the following command:
 
@@ -319,7 +320,7 @@ journalctl -u onedatify.service -f
 After the deployment is complete, the following message will be shown, with connection details for administration panel
 for the Oneprovider instance:
 
-![screen-onedatify_step_5][]
+![screen-onedatify-step-5][]
 
 ## Graphical wizard
 
@@ -329,7 +330,7 @@ Onepanel Web GUI.
 
 #### Customizing Oneprovider Docker Compose script
 
-Similarly to the previous installation method we need to create some directories and prepare a `docker-compose.yml` 
+Similarly to the previous installation method we need to create some directories and prepare a `docker-compose.yml`
 file. Create the following directories:
 
 ```sh
@@ -754,14 +755,14 @@ sudo systemctl start oneprovider.service
 
 [screen-installation-gui-cluster-configured-successfully]: ../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
 
-[screen-onedatify_create_space]: ../../../images/admin-guide/oneprovider/installation/onedatify_create_space.png
+[screen-onedatify-create-space]: ../../../images/admin-guide/oneprovider/installation/onedatify-create-space.png
 
-[screen-onedatify_deploy_provider_command]: ../../../images/admin-guide/oneprovider/installation/onedatify_deploy_provider_command.png
+[screen-onedatify-deploy-provider-command]: ../../../images/admin-guide/oneprovider/installation/onedatify-deploy-provider-command.png
 
-[screen-onedatify_step_1]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_1.png
+[screen-onedatify-step-1]: ../../../images/admin-guide/oneprovider/installation/onedatify-step-1.png
 
-[screen-onedatify_step_2]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_2.png
+[screen-onedatify-step-2]: ../../../images/admin-guide/oneprovider/installation/onedatify-step-2.png
 
-[screen-onedatify_step_5]: ../../../images/admin-guide/oneprovider/installation/onedatify_step_5.png
+[screen-onedatify-step-5]: ../../../images/admin-guide/oneprovider/installation/onedatify-step-5.png
 
 [1]: https://localhost:9443
