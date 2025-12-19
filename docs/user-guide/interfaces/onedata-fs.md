@@ -58,7 +58,7 @@ In addition to installing the OnedataFS packages, it is possible to use our `one
 Docker image, which provides OnedataFS Python packages and all necessary dependencies:
 
 ```bash
-❯ docker run --rm --entrypoint /usr/bin/python3 -it onedata/oneclient:21.02.8
+❯ docker run --rm --entrypoint /usr/bin/python3 -it onedata/oneclient:xRELEASExVERSIONx
 Python 3.8.10 (default, Nov  7 2024, 13:10:47) 
 [GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
