@@ -60,41 +60,62 @@ using ports 80, 443, 4443, 6665 and 9443. All of these ports need to be publicly
 direct emergency access to the Oneprovider.
 
 ::: warning
-All other ports except those really needed, like probably the SSH port 22, should be closed on the
-firewall. Oneprovider runs some internal services on the host, for example Couchbase, which by default has an
-easy-to-guess password. Oneprovider is run in a Docker container using the host network mode, so the Couchbase ports
-would be available worldwide and vulnerable to attacks if not disabled on the firewall.
+We strongly recommend closing all other ports from public access for security. Oneprovider
+runs some internal services on the host, including the Couchbase DB, or the built-in 
+Erlang daemon EPMD. Exposing those for external access may create attack vectors.
 :::
 
 ### Internet domain
 
-The node should be accessible via its FQDN. You can supply your own FQDN or use the subdomain delegation feature
-of Onedata, which will generate FQDN within the domain managed by the Onezone service.
+The node should be accessible via its FQDN. You can supply your own FQDN or use the
+subdomain delegation feature of Onedata, which will generate FQDN within the domain
+managed by the Onezone service.
 
-### Preparing the node
+FIXME for Darin: this is too vague for the reader. We need to break it down into two
+scenarios where Oneprovider gets the domain from the admin (and the admin needs to set
+up the DNS), or uses subdomain delegation and then you don't have to care about the
+domain - it will happen automatically.
+
+### TLS certificates
+
+FIXME for Darin: two scenarios, either the admin organizes the web cert (this may be 
+both for non-delegated subdomain and delegated subdomain) or uses LE (also for both 
+cases, so they are orthogonal). In the latter, you don't have to care about the cert -
+it will happen automatically and be refreshed automatically.
+
+### VM setup
 
 #### Using Ansible script
 
-An Ansible script has been prepared to ease the node preparation. Login to your node with ssh and
-clone `onedata-deployments` repository, e.g.:
+The **recommended way** is to use our battle-tested Ansible script to set up your VM.
+
+Clone the repository on your VM:
 
 ```sh
 git clone https://github.com/onedata/onedata-deployments.git
 cd onedata-deployments
 ```
 
-and follow the instructions in `initial-vm-config/ansible/README.md`.
-If you would like to run the Ansible tasks manually step by step, then follow the steps in
-the manual preparation section.
+Then, follow the instructions that can be found:
+* in the repository: `./initial-vm-config/ansible/README.md`,
+* or online: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md 
 
 #### Manual preparation
+
+Alternatively, you may perform the steps 
+[manually](https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md). 
+Note that the Oneprovider service is quite sensitive to the network settings and depends
+on nuances well-captured by the Ansible playbook. Use the manual approach only as the last 
+resort.
+
+FIXME Darin: move below manual instructions to the repo: 
+https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
+
 
 In order to ensure optimum performance of the Oneprovider service,
 several low-level settings need to be tuned on the host machine. This applies
 to both Docker based and package based installations, in particular to
 nodes where Couchbase database instance are deployed.
-
-After these settings are modified, the machine needs to be rebooted.
 
 ##### Increase maximum number of opened files
 
@@ -251,6 +272,9 @@ sudo mkfs.ext4 /dev/onedata_vg/lvol0
 sudo mount /dev/onedata_vg/lvol0 /opt/onedata
 echo '/dev/onedata_vg/lvol0 /opt/onedata ext4 defaults 0 0' | sudo tee -a /etc/fstab
 ```
+
+After these settings are modified, the machine needs to be rebooted.
+
 
 ## Onedatify CLI wizard
 
@@ -472,11 +496,12 @@ Create the following directories:
 ```sh
 sudo mkdir -p /opt/onedata/oneprovider/persistence
 sudo mkdir -p /opt/onedata/oneprovider/certs
-sudo mkdir -p /mnt/nfs
+sudo mkdir -p /mnt/data
 ```
 
 ::: tip NOTE
-`/mnt/nfs` should be exported via NFS to allow direct access from Oneclient, which increases performance.
+This example will set up the first POSIX storage backend in `/mnt/data`. 
+Possibly, it could be a mount point of a block volume on the host.
 :::
 
 Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-compose.yml`:
@@ -503,8 +528,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       # Oneprovider runtime files
       - "/opt/onedata/oneprovider/persistence:/volumes/persistence"
-      # Data storage directories
-      - "/mnt/nfs:/volumes/storage"
       # Overlay configs
       - "/opt/onedata/oneprovider/op-panel-overlay.config:/etc/op_panel/overlay.config"
       - "/opt/onedata/oneprovider/op-worker-overlay.config:/etc/op_worker/overlay.config"
@@ -517,8 +540,8 @@ services:
       #- "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
       ## Certificate chain for the TLS certificate above
       #- "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
-      # The whole host filesystem - for convenience
-      - "/:/hostfs"
+      # a block data volume (POSIX) for supporting a space - if applicable
+      - "/mnt/data:/volumes/storage"
 
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
@@ -557,14 +580,14 @@ services:
             # Per node Couchbase cache size in MB for all buckets
             serverQuota: 4096
             # Per bucket Couchbase cache size in MB across the cluster
-            bucketQuota: 1024
+            bucketQuota: 4096
             nodes:
               - "n1"
           storages:
             # Add initial storage resource (optional - can be added later)
-            # In this example NFS mounted at /mnt/nfs on the host, which is
+            # This example uses the /mnt/data directory on the host, which is
             # mounted to /volumes/storage directory inside Docker container
-            NFS:
+            local-posix:
               type: "posix"
               mountPoint: "/volumes/storage"
         oneprovider:
@@ -572,26 +595,26 @@ services:
           geoLongitude: 19.9449799
           register: true
           name: "ONEPROVIDER-DEMO"
-          adminEmail: "admin@oneprovider-example.tk"
+          adminEmail: "admin@yourdomain.com"
           # Use built-in Let's Encrypt client to obtain and renew certificates
           letsEncryptEnabled: true
 
           # Automatically register this Oneprovider in Onezone with subdomain delegation
           subdomainDelegation: true
-          subdomain: oneprovider-example # Domain will be "oneprovider-example.onezone-example.tk"
+          subdomain: my-provider # Domain will be "my-provider.onedata.example.com"
           # Alternatively:
           # Automatically register this Oneprovider in Onezone without subdomain delegation
-          #subdomainDelegation: false
-          #domain: "oneprovider-example.tk"
+          # subdomainDelegation: false
+          # domain: "oneprovider.yourdomain.com"
 
         onezone:
           # Address of the Onezone at which this Oneprovider will register
-          domainName: "onezone-example.tk"
+          domainName: "onedata.example.com"
 ```
 
 Modify it according to your needs. You should at least change `onezone.domainName` (not `cluster.domainName`),
 `geoLatitude`, `geoLongitude`, emergency password, `oneprovider.name`, `oneprovider.subdomain`. It assumed in
-the above example that some POSIX type storage is available under the directory `/mnt/nfs`.
+the above example that some POSIX type storage is available under the directory `/mnt/data`.
 To install the necessary Docker images on the machine run:
 
 ```sh
