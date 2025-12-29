@@ -11,6 +11,12 @@ Onezone service can be deployed on multiple nodes for
 high-availability purpose. If not mentioned otherwise, we assume that
 Onezone will be installed on a single node.
 
+::: tip NOTE
+We do not officially support the traditional package installation method. If you desperately need to install it 
+from packages then inspect the relevant Dockerfile and adopt the installation steps to your case.
+:::
+
+
 ## Docker-based
 
 Docker-based installation methods use our [official Docker images][]

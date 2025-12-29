@@ -32,6 +32,11 @@ After the successful installation, you can further configure your Oneprovider â€
 the navigation panel on the left.
 :::
 
+::: tip NOTE
+We do not officially support the traditional package installation method. If you desperately need to install it 
+from packages then inspect the relevant Dockerfile and adopt the installation steps to your case.
+:::
+
 ## Hardware requirements
 
 The node on which Oneprovider will be deployed should fulfill the requirements shown in the table below.
@@ -70,6 +75,10 @@ would be available worldwide and vulnerable to attacks if not disabled on the fi
 
 The node should be accessible via its FQDN. You can supply your own FQDN or use the subdomain delegation feature
 of Onedata, which will generate FQDN within the domain managed by the Onezone service.
+
+### SSL certificate
+
+Oneprovider can automatically provide a LE (Let's Encrypt) certificate for the node, which is the default action. You can also provide your own certificate manually.
 
 ### Preparing the node
 
