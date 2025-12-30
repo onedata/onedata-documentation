@@ -67,39 +67,40 @@ direct emergency access to the Oneprovider.
 ::: warning
 We strongly recommend closing all other ports from public access for security. Oneprovider
 runs some internal services on the host, including the Couchbase DB, or the built-in 
-Erlang daemon EPMD. Exposing those for external access may create attack vectors.
+Erlang daemon — EPMD. Exposing those for external access may create attack vectors.
 :::
 
 ### Internet domain
 
-The node should be accessible via its FQDN. You can supply your own FQDN or use the
-subdomain delegation feature of Onedata, which will generate FQDN within the domain
+The node should be accessible via its FQDN. There are two scenarios for setting this up:
+
+* supply your own FQDN in which case your network administrator registers the domain and places the 
+relevant DNS records,
+* use the subdomain delegation feature of Onedata, which will generate FQDN within the domain
 managed by the Onezone service.
 
-### SSL certificate
+### TLS certificate
 
-Oneprovider can automatically provide a LE (Let's Encrypt) certificate for the node, which is the default action. You can also provide your own certificate manually.
+Onedata services communicate with each other using the HTTPS protocol which require obtaining of TLS certificate
+for the node. There are two ways to accomplish this:
+
+* organizing the web cert by the administrator (it can be done both for non-delegated subdomain and 
+delegated subdomain),
+* using the Let's Encrypt (LE) service to obtain the web cert which also can be used for non-delegated subdomain and
+delegated subdomain.
+
+::: tip NOTE
+If you decide to use delegated subdomain and LE then the certificate management
+happens automatically — it is covered by the Onedata software.
+:::
 
 ### Preparing the node
-FIXME for Darin: this is too vague for the reader. We need to break it down into two
-scenarios where Oneprovider gets the domain from the admin (and the admin needs to set
-up the DNS), or uses subdomain delegation and then you don't have to care about the
-domain - it will happen automatically.
-
-### TLS certificates
-
-FIXME for Darin: two scenarios, either the admin organizes the web cert (this may be 
-both for non-delegated subdomain and delegated subdomain) or uses LE (also for both 
-cases, so they are orthogonal). In the latter, you don't have to care about the cert -
-it will happen automatically and be refreshed automatically.
-
-### VM setup
 
 #### Using Ansible script
 
-The **recommended way** is to use our battle-tested Ansible script to set up your VM.
+The **recommended way** is to use our proven Ansible script to set up your node.
 
-Clone the repository on your VM:
+Clone the repository on your node:
 
 ```sh
 git clone https://github.com/onedata/onedata-deployments.git
@@ -107,184 +108,17 @@ cd onedata-deployments
 ```
 
 Then, follow the instructions that can be found:
+
 * in the repository: `./initial-vm-config/ansible/README.md`,
-* or online: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md 
+* or online: [README][initial-vm-config-ansible-readme].
 
 #### Manual preparation
 
 Alternatively, you may perform the steps 
-[manually](https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md). 
+[manually][initial-vm-config-manual-readme] 
 Note that the Oneprovider service is quite sensitive to the network settings and depends
 on nuances well-captured by the Ansible playbook. Use the manual approach only as the last 
 resort.
-
-FIXME Darin: move below manual instructions to the repo: 
-https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
-
-
-In order to ensure optimum performance of the Oneprovider service,
-several low-level settings need to be tuned on the host machine. This applies
-to both Docker based and package based installations, in particular to
-nodes where Couchbase database instance are deployed.
-
-##### Increase maximum number of opened files
-
-In order to install Oneprovider service on one of the supported operating systems, first make sure that the maximum
-limit of opened files is sufficient (preferably 63536, but below `/proc/sys/fs/file-max`). The limit can be checked
-using:
-
-```sh
-ulimit -n
-```
-
-If necessary, increase the limit using:
-
-```sh
-sudo sh -c 'echo "* soft nofile 63536" >> /etc/security/limits.conf'
-sudo sh -c 'echo "* hard nofile 63536" >> /etc/security/limits.conf'
-```
-
-::: tip
-It might be also necessary to set up the limit in `/etc/systemd/system.conf`:
-
-```sh
-sudo sh -c 'echo DefaultLimitNOFILE=65536 >> /etc/systemd/system.conf'
-sudo systemctl daemon-reexec
-```
-
-:::
-
-##### Swap preference settings
-
-Make sure that the swap preference (i.e. *swappiness*) is set to `0` (or at most `1` — see [here][install-swap-space]
-for details):
-
-```sh
-cat /proc/sys/vm/swappiness
-```
-
-and if necessary, decrease it using:
-
-```sh
-sudo sh -c 'echo "vm.swappiness=0" >> /etc/sysctl.d/50-swappiness.conf'
-sudo systemctl restart systemd-sysctl
-```
-
-##### Disable Transparent Huge Pages feature
-
-By default, many Linux machines have the Transparent Huge Pages feature enabled, which somewhat improves
-the performance of machines running multiple application at once (e.g. desktop operating systems), however it
-deteriorates the performance of most database-heavy applications, such as Oneprovider.
-
-These settings can be checked using the following commands (the output shown below presents the expected settings):
-
-```sh
-cat /sys/kernel/mm/transparent_hugepage/enabled
-# Expected output: always madvise [never]
-```
-
-```sh
-cat /sys/kernel/mm/transparent_hugepage/defrag
-# Expected output: always madvise [never]
-```
-
-If any of the settings is different from the above, they should be changed permanently, which can be achieved for
-instance by creating a simple **systemd** unit file `/etc/systemd/system/disable-thp.service`:
-
-::: tip NOTE
-If the output is `cat: /sys/kernel/mm/transparent_hugepage/enabled: No such file or directory` then
-THP feature is not configured in the kernel and no further action is required.
-:::
-
-```systemd
-[Unit]
-Description=Disable Transparent Huge Pages
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/enabled"
-ExecStart=/bin/sh -c "/bin/echo 'never' | /usr/bin/tee /sys/kernel/mm/transparent_hugepage/defrag"
-
-[Install]
-WantedBy=multi-user.target
-```
-
-and enabling it on system startup using:
-
-```sh
-sudo systemctl enable disable-thp.service
-sudo systemctl start disable-thp.service
-```
-
-##### Node hostname
-
-Make sure that the machine has a resolvable, domain-style hostname (it can be Fully Qualified Domain Name or just
-a proper entry in `/etc/hostname` and `/etc/hosts`) — for this tutorial it is set to `oneprovider-example.com`.
-
-Following command examples assumes an environment variable `ONEPROVIDER_HOST` is available, for instance:
-
-```sh
-export ONEPROVIDER_HOST="oneprovider-example.com"
-```
-
-::: tip NOTE
-You can check the proper setting of hostname with the hostname command, for example:
-:::
-
-```sh
-hostname
-# Example output: oneprovider-example
-hostname -f
-# Example output: oneprovider-example.com
-```
-
-##### Docker
-
-The Docker software needs to be installed on the machine. It can be done by using the convenience
-script from `get.docker.com`:
-
-```sh
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-sudo usermod -aG docker $USER
-```
-
-##### Set kernel parameters
-
-It is recommended to set some kernel parameters. The network memory limits influence the file transfer performance.
-
-```sh
-echo "net.core.wmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
-echo "net.core.rmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
-echo "kernel.unprivileged_userns_clone = 0" | sudo tee -a /etc/sysctl.conf
-sudo sysctl -p
-```
-
-##### Prepare persistence volume
-
-The following commands require an empty block device to be available. The existing data on
-the block device will be lost. A logical volume will be created on this block device. It is intended to store
-the persistent data of Onedata services. Using an LVM volume allows for better management of the deployment,
-especially when doing snapshot-based live backups.
-
-```sh
-# Replace sdX with your actual block device
-BLOCK_DEVICE=/dev/sdX
-```
-
-```sh
-sudo mkdir -p /opt/onedata
-sudo chmod 0755 /opt/onedata
-sudo pvcreate ${BLOCK_DEVICE}
-sudo vgcreate onedata_vg ${BLOCK_DEVICE}
-sudo lvcreate -l 80%VG -n lvol0 onedata_vg
-sudo mkfs.ext4 /dev/onedata_vg/lvol0
-sudo mount /dev/onedata_vg/lvol0 /opt/onedata
-echo '/dev/onedata_vg/lvol0 /opt/onedata ext4 defaults 0 0' | sudo tee -a /etc/fstab
-```
-
-After these settings are modified, the machine needs to be rebooted.
-
 
 ## Onedatify CLI wizard
 
@@ -433,7 +267,7 @@ sudo systemctl start oneprovider.service
 #### Deploying the Onedata cluster using the Web GUI
 
 Start a web browser and open [https://localhost:9443][1]. If the browser is not started on the provider
-VM, replace localhost with the IP of the VM. You may need to accept the SSL security exception in your browser.
+node, replace localhost with the IP of the node. You may need to accept the SSL security exception in your browser.
 The deployment process is straightforward — just follow the instructions on the subsequent pages. You can hover
 the question marks for additional explanations. The following screenshots illustrate the process.
 
@@ -611,7 +445,8 @@ services:
 
           # Automatically register this Oneprovider in Onezone with subdomain delegation
           subdomainDelegation: true
-          subdomain: my-provider # Domain will be "my-provider.onedata.example.com"
+          # Domain will be "my-provider.onedata.example.com"
+          subdomain: my-provider 
           # Alternatively:
           # Automatically register this Oneprovider in Onezone without subdomain delegation
           # subdomainDelegation: false
@@ -734,7 +569,9 @@ sudo systemctl start oneprovider.service
 
 [supported-platforms]: https://docs.docker.com/engine/installation/#supported-platforms
 
-[install-swap-space]: https://developer.couchbase.com/documentation/server/current/install/install-swap-space.html
+[initial-vm-config-ansible-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md 
+
+[initial-vm-config-manual-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
 
 [security-intro]: https://docs.couchbase.com/server/current/install/install-security-bp.html
 
