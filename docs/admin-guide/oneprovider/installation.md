@@ -34,7 +34,7 @@ the navigation panel on the left.
 
 ::: tip NOTE
 We do not officially support the traditional package installation method. If you desperately need to install it 
-from packages then inspect the relevant Dockerfile and adopt the installation steps to your case.
+from packages, inspect the relevant Dockerfile and adapt the installation steps to your case.
 :::
 
 ## Hardware requirements
@@ -74,10 +74,10 @@ Erlang daemon — EPMD. Exposing those for external access may create attack vec
 
 The node should be accessible via its FQDN. There are two scenarios for setting this up:
 
-* supply your own FQDN in which case your network administrator registers the domain and places the 
-relevant DNS records,
-* use the subdomain delegation feature of Onedata, which will generate FQDN within the domain
-managed by the Onezone service.
+* supply your own FQDN, in which case your network administrator registers the domain and places the 
+  relevant DNS records,
+* use the subdomain delegation feature of Onedata, which will generate an FQDN within the domain
+  managed by the Onezone service.
 
 ### TLS certificate
 
@@ -85,9 +85,9 @@ Onedata services communicate with each other using the HTTPS protocol which requ
 for the node. There are two ways to accomplish this:
 
 * organizing the web cert by the administrator (it can be done both for non-delegated subdomain and 
-delegated subdomain),
+  delegated subdomain),
 * using the Let's Encrypt (LE) service to obtain the web cert which also can be used for non-delegated subdomain and
-delegated subdomain.
+  delegated subdomain.
 
 ::: tip NOTE
 If you decide to use delegated subdomain and LE then the certificate management
