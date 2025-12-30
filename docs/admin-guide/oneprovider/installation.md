@@ -33,7 +33,7 @@ the navigation panel on the left.
 :::
 
 ::: tip NOTE
-We do not officially support the traditional package installation method. If you desperately need to install it 
+We do not officially support the traditional package installation method. If you desperately need to install it
 from packages, inspect the relevant Dockerfile and adapt the installation steps to your case.
 :::
 
@@ -66,7 +66,7 @@ direct emergency access to the Oneprovider.
 
 ::: warning
 We strongly recommend closing all other ports from public access for security. Oneprovider
-runs some internal services on the host, including the Couchbase DB, or the built-in 
+runs some internal services on the host, including the Couchbase DB, or the built-in
 Erlang daemon — EPMD. Exposing those for external access may create attack vectors.
 :::
 
@@ -74,7 +74,7 @@ Erlang daemon — EPMD. Exposing those for external access may create attack vec
 
 The node should be accessible via its FQDN. There are two scenarios for setting this up:
 
-* supply your own FQDN, in which case your network administrator registers the domain and places the 
+* supply your own FQDN, in which case your network administrator registers the domain and places the
   relevant DNS records,
 * use the subdomain delegation feature of Onedata, which will generate an FQDN within the domain
   managed by the Onezone service.
@@ -84,7 +84,7 @@ The node should be accessible via its FQDN. There are two scenarios for setting 
 Onedata services communicate with each other using the HTTPS protocol which require obtaining of TLS certificate
 for the node. There are two ways to accomplish this:
 
-* organizing the web cert by the administrator (it can be done both for non-delegated subdomain and 
+* organizing the web cert by the administrator (it can be done both for non-delegated subdomain and
   delegated subdomain),
 * using the Let's Encrypt (LE) service to obtain the web cert which also can be used for non-delegated subdomain and
   delegated subdomain.
@@ -114,10 +114,10 @@ Then, follow the instructions that can be found:
 
 #### Manual preparation
 
-Alternatively, you may perform the steps 
-[manually][initial-vm-config-manual-readme] 
+Alternatively, you may perform the steps
+[manually][initial-vm-config-manual-readme]
 Note that the Oneprovider service is quite sensitive to the network settings and depends
-on nuances well-captured by the Ansible playbook. Use the manual approach only as the last 
+on nuances well-captured by the Ansible playbook. Use the manual approach only as the last
 resort.
 
 ## Onedatify CLI wizard
@@ -344,7 +344,7 @@ sudo mkdir -p /mnt/data
 ```
 
 ::: tip NOTE
-This example will set up the first POSIX storage backend in `/mnt/data`. 
+This example will set up the first POSIX storage backend in `/mnt/data`.
 Possibly, it could be a mount point of a block volume on the host.
 :::
 
@@ -569,7 +569,7 @@ sudo systemctl start oneprovider.service
 
 [supported-platforms]: https://docs.docker.com/engine/installation/#supported-platforms
 
-[initial-vm-config-ansible-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md 
+[initial-vm-config-ansible-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md
 
 [initial-vm-config-manual-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
 
