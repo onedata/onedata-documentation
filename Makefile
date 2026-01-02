@@ -1,5 +1,6 @@
 .PHONY: all build dev clean render-templates
 
+MAJOR_RELEASE=25
 VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v7
 SETUID=-u $(shell id -u):$(shell id -g)
 DOCKER_RUN=docker run -e NPM_CONFIG_CACHE=/tmp/.npm --rm -v `pwd`:/vuepress ${SETUID}
@@ -30,7 +31,7 @@ submodules:
 	git submodule update --init --recursive ${submodule}
 
 preview: build
-	@bash -c "sleep 1; echo 'opening http://localhost:8080/future-documentation/intro.html ...'; xdg-open http://localhost:8080/future-documentation/intro.html" &
+	@bash -c "sleep 1; echo 'opening http://localhost:8080/documentation/${MAJOR_RELEASE}/intro.html ...'; xdg-open http://localhost:8080/documentation/${MAJOR_RELEASE}/intro.html" &
 	@cd rel/ && python -m `python -c 'import sys; print("http.server" if sys.version_info[:2] > (2,7) else "SimpleHTTPServer")'` 8080
 
 # Templates are generated during the build process, but not updated automatically when "make dev" is running.

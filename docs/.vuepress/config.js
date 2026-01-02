@@ -1,7 +1,8 @@
 const slugger = require('github-slugger').slug;
+const majorRelease = '25';
 module.exports = {
   title: 'Onedata documentation',
-  base: '/future-documentation/',
+  base: '/documentation/' + majorRelease + '/',
   head: [
     ['script', { src: 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js' }]
   ],

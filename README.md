@@ -168,7 +168,7 @@ the repository root and use package scripts with `npm run`:
 
 * `npm run docs:dev` — runs a development server with `livereload`,
 * `npm run docs:build` — builds static documentation to `rel/` directory (notice the
-  `future-documentation` subdirectory which is a subpath for serving),
+  `documentation/<major_relase>` subdirectory which is a subpath for serving),
 * `npm run docs:lint` — launches a remark linter on all Markdown documents,
 * `npm run docs:format-all` — applies standardized formatting on all Markdown documents,
 * `npm run docs:lint-templates` — check docs generated from templates for missing variable
@@ -288,8 +288,8 @@ script during the build.
 
 ## Build artifact
 
-After a successful build, the static HTML files are placed in `rel/future-documentation`.
-Calling `make package` will pack it up into a tarball.
+After a successful build, the static HTML files are placed in `rel/documentation/<major_release>`,
+e.g. `rel/documentation/25`. Calling `make package` will pack it up into a tarball.
 
 <!-- references -->
 

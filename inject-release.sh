@@ -3,13 +3,14 @@
 # injects it into the static docs artifact - by replacing the occurrences of
 # ${RELEASE_PLACEHOLDER} with the actual release number.
 
+MAJOR_RELEASE=25
 RELEASE_FILE="./RELEASE"
 RELEASE_PLACEHOLDER="xRELEASExVERSIONx"
-DIST_DIRECTORY="./rel/future-documentation"
 
 cd "$(dirname "$0")"
 
 RELEASE=`cat ${RELEASE_FILE} | xargs` # xargs trims whitespaces
+DIST_DIRECTORY="./rel/documentation/${MAJOR_RELEASE}"
 
 echo $RELEASE
 

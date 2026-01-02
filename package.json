@@ -3,7 +3,7 @@
     "scripts": {
         "deps": "npm install",
         "docs:dev": "./node-launcher.sh vuepress dev docs",
-        "docs:build": "./node-launcher.sh vuepress build docs --dest rel/future-documentation",
+        "docs:build": "./build.sh",
         "docs:lint": "remark docs",
         "docs:format-all": "remark docs --output",
         "docs:lint-templates": "remark templates partials"
