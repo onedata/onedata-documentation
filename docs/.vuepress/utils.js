@@ -1,4 +1,10 @@
-// FIXME: jsdoc
+/**
+ * Utilites to use in documentation build scripts/plugins.
+ *
+ * @author Jakub Liput
+ * @copyright (C) 2025 Onedata (onedata.org)
+ * @license This software is released under the MIT license cited in 'LICENSE.txt'.
+ */
 
 function getMajorRelease() {
   const { execSync } = require('child_process');
