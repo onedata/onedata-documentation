@@ -1,8 +1,9 @@
 const slugger = require('github-slugger').slug;
-const majorRelease = '25';
+const { getMajorRelease } = require('./utils.js');
+const majorRelease = getMajorRelease();
 module.exports = {
   title: 'Onedata documentation',
-  base: '/documentation/' + majorRelease + '/',
+  base: `/documentation/${majorRelease}/`,
   head: [
     ['script', { src: 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js' }]
   ],
@@ -14,6 +15,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('./plugin-style-generator.js'),
     require('./plugin-template-renderer.js'),
     require('./vuepress-plugin-mermaidjs-cdn/index.js')
   ],

@@ -1,4 +1,16 @@
-$major-release = '25'
+// This file is a template to generate index.styl that is filled with some custom
+// variables when generating documentation using the `plugin-style-generator.js` plugin.
+//
+// Injected variables:
+// - $major-release - major component of version string, needed to generate absolute
+//   paths, e.g. "25"
+//
+// The actual style used by the documentation will be stored in gitignored index.styl
+// file.
+//
+// Note that modifying this file will probably not refresh styles in the development
+// documentation (make dev) without re-launching the build process.
+
 $fonts-root = '/documentation/' + $major-release + '/assets/fonts'
 $open-sans-name = 'Open Sans'
 $source-code-pro-name = 'Source Code Pro'
