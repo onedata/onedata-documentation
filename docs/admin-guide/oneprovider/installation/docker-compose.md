@@ -1,7 +1,6 @@
+# Docker Compose (batch mode)
 
-## Batch mode
-
-#### Customizing Oneprovider Docker Compose script
+## Customizing Oneprovider Docker Compose script
 
 Oneprovider installation using Docker is very straightforward. This type of deployment uses Docker Compose and
 requires a `docker-compose.yml` file to be prepared.
@@ -144,7 +143,7 @@ To install the necessary Docker images on the machine run:
 docker compose -f /opt/onedata/oneprovider/docker-compose.yml pull
 ```
 
-#### Setting up certificates
+## Setting up certificates
 
 Since release 18.02.0-beta5, Oneprovider supports automatic certificate
 management backed by Let's Encrypt. To use this option, it is only necessary
@@ -155,7 +154,7 @@ If you prefer to obtain and install certificates for Oneprovider service
 manually, modify the Docker Compose file to mount PEM files inside the
 container using paths listed in the section [Web certificate][].
 
-#### Security and recommended firewall settings
+## Security and recommended firewall settings
 
 Oneprovider service requires several TCP ports (`80`,`443`, `4443`, `6665`,`9443`) to be opened for proper operation.
 Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
@@ -167,7 +166,7 @@ should be also followed.
 
 For more information about ports setup, consult the section [Network and firewall][].
 
-#### Running Docker based installation using systemd
+## Running Docker based installation using systemd
 
 Docker based installation can be conveniently managed using a **systemd** service unit. Simply create a
 `/etc/systemd/system/oneprovider.service`:
