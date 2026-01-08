@@ -68,7 +68,6 @@ for the Oneprovider instance:
 
 ![screen-onedatify-step-5][]
 
-
 <!-- references -->
 
 [screen-onedatify-create-space]: ../../../../images/admin-guide/oneprovider/installation/onedatify-create-space.png

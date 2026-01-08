@@ -12,7 +12,7 @@ The node on which Oneprovider will be deployed should fulfill the requirements s
 | RAM                       | 16 GB                            | 64 GB                            |
 | Root disk                 | SSD (25 GB)                      | SSD (50 GB)                      |
 | Disk for Onedata software | 20 GB + 8 MB for each 1000 files | 40 GB + 8 MB for each 1000 files |
-| Operating system          | Ubuntu 20.04 or later                                               |
+| Operating system          | Ubuntu 20.04 or later            |                                  |
 
 ## Public IP and ports
 
@@ -98,4 +98,3 @@ resort.
 [initial-vm-config-ansible-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md
 
 [initial-vm-config-manual-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
-

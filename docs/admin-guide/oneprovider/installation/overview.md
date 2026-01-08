@@ -37,7 +37,6 @@ We do not officially support the traditional package installation method. If you
 from packages, inspect the relevant Dockerfile and adapt the installation steps to your case.
 :::
 
-
 <!-- references -->
 
 [providers]: ../../../intro.md#providers
@@ -55,4 +54,3 @@ from packages, inspect the relevant Dockerfile and adapt the installation steps 
 [Graphical wizard]: graphical-wizard.md
 
 [Batch mode]: docker-compose.md
-

@@ -74,7 +74,7 @@ sudo systemctl start oneprovider.service
 
 ## Deploying the Onedata cluster using the Web GUI
 
-Start a web browser and open <https://localhost:9443>. If the browser is not started on the provider
+Start a web browser and open [https://localhost:9443][localhost-onepanel]. If the browser is not started on the provider
 node, replace localhost with the IP of the node. You may need to accept the SSL security exception in your browser.
 The deployment process is straightforward — just follow the instructions on the subsequent pages. You can hover
 the question marks for additional explanations. The following screenshots illustrate the process.
@@ -159,3 +159,4 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 [screen-installation-gui-cluster-configured-successfully]: ../../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
 
+[localhost-onepanel]: https://localhost:9443
