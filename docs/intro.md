@@ -189,7 +189,7 @@ described in a [dedicated chapter][interfaces].
 
 <!-- TODO VFS-11766 link the proper landing page when it's there -->
 
-[Oneprovider]: admin-guide/oneprovider/installation.md
+[Oneprovider]: admin-guide/oneprovider/installation/overview.md
 
 [admin guide]: admin-guide/overview.md
 
