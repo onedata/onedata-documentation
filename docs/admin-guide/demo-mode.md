@@ -178,6 +178,78 @@ When you visit the above URL:
 
 :::
 
+### Data access using Python
+
+Onedata provides few interfaces to access its virtual file system from Python, namely:
+
+* [OnedataRESTFS][] — high level pure Python client implemented using [PyFilesystem2][] and
+  [OnedataFileRestClient][]
+* [OnedataFileRestClient][] — low level pure Python client, which is a wrapper over Onedata
+  [File access and management API][], used as basis for [OnedataRESTFS][]
+* [OnedataFS][] — Python wrapper for native binary Onedata communication protocol, implemented
+  in C++ (installation of the Python library requires several C++ dependencies beforehand)
+
+In this section we'll present how to set up and use the [OnedataRESTFS][] library, which is
+recommended for ease of installation and use.
+
+#### Installation
+
+The installation includes creation of temporary `venv` environment for Python dependencies:
+
+```bash
+# Setup venv
+virtualenv -p /usr/bin/python3 venv
+. venv/bin/activate
+
+# Install OnedataRESTFS
+pip install fs.onedatarestfs
+
+# Export necessary OnedataRESTFS arguments as environment variables
+export OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+export ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
+
+# Finally start Python3 shell
+python3
+```
+
+### Usage
+
+Since this deployment does not have trusted SSL certificates, we have to mute the SSL
+warnings:
+
+```python
+>>> import requests
+>>> requests.packages.urllib3.disable_warnings()
+```
+
+Now we can create an instance of `OnedataRESTFS` client as follows:
+
+```python
+>>> import os
+>>> from fs.onedatarestfs import OnedataRESTFS
+>>> onedata_onezone_host = os.getenv("OZ_IP")
+>>> onedata_access_token = os.getenv("ACCESS_TOKEN")
+>>> odfs = OnedataRESTFS(onedata_onezone_host, onedata_access_token, verify_ssl=False)
+```
+
+Now we can test if this works, for instance by listing available spaces, which are simply
+top level directories in the virtual file system hierarchy:
+
+```python
+>>> odfs.listdir('')
+['demo-space']
+```
+
+or create a simple text file:
+
+```python
+>>> odfs.writetext('/demo-space/file.txt', 'TEST')
+>>> odfs.readtext('/demo-space/file.txt')
+'TEST'
+```
+
+For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesystem2 Docs][].
+
 <!-- References -->
 
 [running in the foreground]: #running-in-the-foreground
@@ -196,9 +268,19 @@ When you visit the above URL:
 
 [REST API]: ../user-guide/rest-api.md
 
+[File access and management API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-Path-Resolution
+
 [Oneclient]: ../user-guide/interfaces/oneclient.md
 
 [OnedataFS]: ../user-guide/interfaces/onedata-fs.md
+
+[OnedataRESTFS]: ../user-guide/interfaces/onedata-rest-fs.md
+
+[OnedataFileRestClient]: ../user-guide/interfaces/onedata-file-rest-client.md
+
+[PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
+
+[PyFilesystem2 Docs]: https://pyfilesystem2.readthedocs.io/en/latest/
 
 [token via gui]: ../user-guide/tokens.md#gui-guide
 
