@@ -10,3 +10,4 @@ yarn-error.log
 !.vscode/settings.json
 rel/
 onedata_documentation.tar.gz
+docs/.vuepress/styles/index.styl
