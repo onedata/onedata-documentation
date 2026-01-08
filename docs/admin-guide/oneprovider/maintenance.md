@@ -146,7 +146,7 @@ sudo systemctl start oneprovider
 
 <!-- references -->
 
-[Installation]: installation.md
+[Installation]: installation/overview.md
 
 [1]: #offline-backups
 

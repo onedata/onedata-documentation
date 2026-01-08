@@ -29,4 +29,4 @@ In order to install Oneprovider, follow the instructions in the [Oneprovider ins
 
 [Onezone installation]: onezone/installation.md
 
-[Oneprovider installation]: oneprovider/installation.md
+[Oneprovider installation]: oneprovider/installation/overview.md
