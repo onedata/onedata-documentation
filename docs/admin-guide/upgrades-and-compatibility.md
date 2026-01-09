@@ -37,6 +37,8 @@ Versions lower than 25.0, e.g., 21.02.8, 21.02.7, 20.02.4, although having origi
 - `rc`, `beta`, and `alpha` labels did not contain a dot before their number, e.g, `21.02.rc-2`.
 :::
 
+## Compatibility
+
 Versions of the services and the client determine if they can work together, so we can consider them as “compatible”. There are three fields of compatibility, defined between:
 
 - **Onezone & Oneprovider** — when a Oneprovider in a certain version can be registered and work under a Onezone in a certain version;

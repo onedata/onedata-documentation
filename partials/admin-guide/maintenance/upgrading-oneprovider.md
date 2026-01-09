@@ -17,16 +17,17 @@ curl https://127.0.0.1/api/v3/oneprovider/configuration | jq .version
 ```
 
 
-3. Pull the docker image to make the upgrade smoother. In this example we want to upgrade our Oneprovider to version 21.02.9:
+3. Pull the docker image to make the upgrade smoother. In this example we want to upgrade our Oneprovider to version
+   xRELEASExVERSIONx:
 
 ```sh
-docker pull onedata/oneprovider:21.02.9
+docker pull onedata/oneprovider:xRELEASExVERSIONx
 ```
 
-4. Run the upgrade command. The service will be stopped, backed up, and started on a newer docker image:
+1. Run the upgrade command. The service will be stopped, backed up, and started on a newer docker image:
 
 ```sh
-onedatify upgrade -v onedata/oneprovider:21.02.9
+onedatify upgrade -v onedata/oneprovider:xRELEASExVERSIONx
 ```
 
 5. Inspect the created backup (optional):
