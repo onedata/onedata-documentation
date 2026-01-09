@@ -1,6 +1,7 @@
 ## Upgrading
 
-The Onezone service can be upgraded to a higher version, with some constraints described in the [Upgrades & compatibility][] chapter.
+The Onezone service can be upgraded to a higher version, with some constraints described
+in the [Upgrades & compatibility][] chapter.
 
 ### Using the `onedata-deployments`
 
