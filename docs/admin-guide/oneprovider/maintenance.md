@@ -191,7 +191,7 @@ The detailed description of the upgrading process is coming soon.
 
 <!-- references -->
 
-[Installation]: installation/overview.md
+[Installation]: installation.md
 
 [1]: #offline-backups
 
