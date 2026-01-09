@@ -6,14 +6,15 @@
 
 ## Access control
 
-<!-- TODO VFS-12857 mention access control to entities, not only data -->
+A set of safety rules and procedures for granting or denying access to Onedata entities
+(e.g. spaces) and data. For more information about spaces access control, refer to [this
+page][space-members]. In case of the data access control, Onedata implements a multi-level
+approach, as described [here][data access control].
 
-Onedata implements a multi-level approach to access control, as described [here][access-control].
+## Access-control list (ACL)
 
-## ACL
-
-Mechanism for granting and denying access to files and directories.
-Learn more [here][1].
+A list of permissions associated with file or directory used for precisely grant or deny
+access to it. Learn more [here][ACL].
 
 ## Archive
 
@@ -22,30 +23,46 @@ Learn more [here][archive-more].
 
 ## Auto-cleaning
 
-Mechanism that automatically maintains storage usage at a certain
-level and ensures that there is enough space for new replicas when performing continuous computations.
-The mechanism uses the statistics collected by the
-[file popularity][2] to determine
-the least popular file replicas in a [space][3] and to evict them.
-Learn more [here][4].
+A process that automatically maintains storage usage at a certain level and ensures that
+there is enough space for new replicas during continuous computations. The
+process uses statistics collected by the [file popularity][] to determine the least
+popular file replicas in a [space][] and to evict them. Learn more [here][auto-cleaning].
 
-## CDMI
+## Cloud Data Management Interface (CDMI)
 
-Standardized interface for managing Cloud storage and accessing data held in it.
-Learn more [here][5].
+Standardized interface for managing cloud storage and accessing data held in it.
+Learn more [here][CDMI].
 
 ## Cluster
 
-<!-- TODO VFS-12857 fill missing entries -->
+A set of hosts which together runs a single instance of [Onezone][] or [Oneprovider][]. The
+cluster can consist of single or more nodes, each running with a subset of services like
+[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc., to allow load balancing within a single
+Onezone/Oneprovider. Learn more in the [Onezone cluster nodes][] and [Oneprovider cluster
+nodes][] chapters.
 
-<!-- ## Cluster manager -->
+## Cluster Manager
 
-<!-- ## Couchbase -->
+A component of Onedata services ([Oneprovider][], [Onezone][]), which coordinates [Cluster
+Worker][] instances within a single [cluster][].
+
+## Cluster Worker
+
+A component of Onedata services ([Oneprovider][], [Onezone][]), which enables them to
+easily scale on large number of nodes on a single cluster. Each Cluster Worker can be
+configured for different tasks depending on the current needs (data access, metadata
+management, etc.) by [Cluster Manager][] component.
+
+## Couchbase
+
+A highly scalable document-oriented database, which can be scaled to several nodes. It is
+a crucial component of Onedata services. Learn more about its role in Onedata in the
+[Architecture > Services][architecture services] chapter or visit the official [Couchbase website][].
 
 ## Data Discovery
 
 Mechanisms that harvest the user-defined [metadata][6] assigned to
-files in multiple [spaces][3] and submit it to indices, which can be
+files in multiple [spaces][space] and submit it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][7]
 that can have different configuration and source spaces.
 Learn more [here][8].
@@ -70,12 +87,12 @@ Learn more [here][10].
 
 ## File path
 
-Specifies the location of a file or directory in the Onedata filesystem.
+A string specifying the location of a file or directory in the Onedata filesystem.
 Learn more [here][file-path-and-id].
 
 ## File popularity
 
-Enables tracking of usage statistics for files in a [space][3].
+Enables tracking of usage statistics for files in a [space][].
 Used by [auto-cleaning][12] mechanism to clean up the least popular file replicas.
 Learn more [here][13].
 
@@ -96,7 +113,7 @@ Learn more [here][15].
 ## Harvester
 
 An internal service that implements the mechanisms of [data discovery][16].
-Similar to a [group][17] or [space][3] in terms of logical representation
+Similar to a [group][17] or [space][] in terms of logical representation
 in the system, bringing together users or groups that are entitled to use it with
 different privileges. Learn more [here][8].
 
@@ -129,7 +146,7 @@ Learn more [here][25].
 
 ## Onepanel
 
-Service dedicated for administration of a [cluster][26] ([Onezone][27] or [Oneprovider][28]) and,
+Service dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][]) and,
 at the same time, an integral part of the cluster. Referred to as *Onezone panel* or *Oneprovider panel* throughout the documentation.
 Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interface (`https://$HOST:9443`)
 and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
@@ -150,6 +167,10 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 <!-- TODO VFS-12857 fill missing entries -->
 
+## Service
+
+
+
 ## Space
 
 A logical container for data, fundamental for organizing user data in Onedata.
@@ -160,20 +181,20 @@ fine-grained privileges. Learn more [here][29].
 
 ## Storage
 
-Storage resource recognized by a [Oneprovider][28] and used to [support][30] Onedata [spaces][3].
+Storage resource recognized by a [Oneprovider][] and used to [support][30] Onedata [spaces][space].
 Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
 Learn more [here][32].
 
 ## Storage import
 
-Mechanism dedicated for importing files located on a storage by registering them in a [space][3] supported by
+Mechanism dedicated for importing files located on a storage by registering them in a [space][] supported by
 the [storage][18], without copying the data.
 Learn more [here][33].
 
 ## Support
 
 A [storage][32] quota granted for
-a [space][3] on a physical storage backend by a [Oneprovider][28].
+a [space][] on a physical storage backend by a [Oneprovider][].
 Learn more [here][34].
 
 ## Token
@@ -188,17 +209,17 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 <!-- references -->
 
-[access-control]: user-guide/data.md#data-access-control
+[data access control]: user-guide/data.md#data-access-control
 
-[1]: user-guide/data.md#access-control-lists
+[ACL]: user-guide/data.md#access-control-lists
 
-[2]: #file-popularity
+[file popularity]: #file-popularity
 
-[3]: #space
+[space]: #space
 
-[4]: admin-guide/oneprovider/configuration/auto-cleaning.md
+[auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
 
-[5]: user-guide/interfaces/cdmi.md
+[CDMI]: user-guide/interfaces/cdmi.md
 
 [6]: #file-metadata
 
@@ -238,11 +259,11 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [25]: user-guide/interfaces/onedata-fs.md
 
-[26]: #cluster
+[cluster]: #cluster
 
-[27]: #onezone
+[Onezone]: #onezone
 
-[28]: #oneprovider
+[Oneprovider]: #oneprovider
 
 [29]: user-guide/spaces.md
 
@@ -258,7 +279,7 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [35]: #rest-api
 
-[36]: #cdmi
+[36]: #cloud-data-management-interface-cdmi
 
 [37]: #oneclient
 
@@ -271,3 +292,19 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [archive-more]: user-guide/archives.md
 
 [dataset-more]: user-guide/datasets.md
+
+[space-members]: user-guide/spaces.md#space-members
+
+[Onezone cluster nodes]: admin-guide/onezone/configuration/cluster-nodes.md
+
+[Oneprovider cluster nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
+
+[Cluster Manager]: #cluster-manager
+
+[Cluster Worker]: #cluster-worker
+
+[Couchbase]: #couchbase
+
+[architecture services]: admin-guide/architecture.md#services
+
+[Couchbase website]: https://www.couchbase.com/
