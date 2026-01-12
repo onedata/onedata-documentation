@@ -195,7 +195,7 @@ described in a [dedicated chapter][interfaces].
 
 [Spaces]: user-guide/spaces.md
 
-[Groups]: user-guide/groups.md
+[Groups]: user-guide/groups-memberships.md
 
 [demo.onedata.org]: https://demo.onedata.org
 

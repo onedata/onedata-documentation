@@ -458,7 +458,7 @@ You can manage the data distribution using:
 
 [POSIX permissions]: #posix-permissions
 
-[group]: groups.md
+[group]: groups-memberships.md
 
 [spaces]: spaces.md
 
