@@ -1,9 +1,5 @@
 # Providers
 
-[toc][]
-
-## Overview
-
 A provider is an entity that contributes storage resources to the Onedata ecosystem by deploying
 the Oneprovider service. Providers can be institutions, data centers, or even individual users who
 install Oneprovider, connect local storage backends, and register the instance with a specific Onezone service.
@@ -12,6 +8,8 @@ install Oneprovider, connect local storage backends, and register the instance w
 
 Oneprovider acts as a key component in the system by:
 
+* [Supporting][Space support] virtual [spaces][], by committing storage resources to host their data.
+
 * Managing physical data stored on local [storage backends][] (e.g., POSIX, NFS, S3, Ceph).
 
 * Synchronizing metadata with other providers in a peer-to-peer (P2P) fashion,
@@ -19,8 +17,8 @@ Oneprovider acts as a key component in the system by:
 
 * Handling data access requests from users or groups, enabling unified and transparent access to distributed data.
 
-* Supporting virtual [spaces][], by committing local storage resources (with defined quotas)
-  to host data belonging to those spaces.
+* Providing high-level data management operations, such as [Transfers][], [QoS][], [Datasets][], [Archives][]
+or Automation workflows.
 
 For more information on providers from an administrative perspective, see the [Oneprovider administration guide][].
 
@@ -102,24 +100,25 @@ For more details see [Directory statistics][].
 
 ## REST API
 
-You can interact with the provider using the REST API.
-Below are links to the documentation for commonly used API operations:
+You can manage provider using the [REST API][REST provider].
 
-| Request                | Link to API |
-| ---------------------- | ----------- |
-| Get public information | [API][1]    |
-| Get test image         | [API][2]    |
-| Check cluster health   | [API][3]    |
+All operations available through the GUI can also be performed using the [REST API][] or the [CDMI API][].
 
 <!-- references -->
 
-[toc]: <>
-
 [screen-15-providers]: ../../images/user-guide/providers/15-providers.png
+
+[spaces]: ./spaces.md
 
 [storage backends]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
-[spaces]: ./spaces.md
+[Transfers]: ./data-transfers.md
+
+[QoS]: ./rule-based-replication-qos.md
+
+[Datasets]: ./datasets.md
+
+[Archives]: ./archives.md
 
 [Oneprovider administration guide]: ../admin-guide/oneprovider/configuration/space-support.md
 
@@ -147,8 +146,8 @@ Below are links to the documentation for commonly used API operations:
 
 [screen-providers-settings]: ../../images/user-guide/providers/providers-settings.png
 
-[1]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_configuration
+[REST provider]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Oneprovider
 
-[2]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/test_image
+[CDMI API]: ./interfaces/cdmi.md
 
-[3]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/health
+[REST API]: ./interfaces/data-access-rest-api.md
