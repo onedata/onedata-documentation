@@ -17,7 +17,7 @@ by Oneprovider admins. All parameters are in the form of `key=value`.
 Each storage has implicit parameters representing its ID and the ID of its Oneprovider:
 `storageId=$STORAGE_ID` and `providerId=$PROVIDER_ID`.
 
-You can modify the QoS parameters using the [Web GUI][] (Administration Panel) or [REST API][].
+You can modify the QoS parameters using the [Web GUI][] (Administration panel) or [REST API][].
 
 ::: tip NOTE
 The `storageId` and `providerId` parameters cannot be removed or modified.

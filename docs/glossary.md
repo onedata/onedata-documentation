@@ -26,11 +26,11 @@ Learn more [here][archive-more].
 A process that automatically maintains storage usage at a certain level and ensures that
 there is enough space for new replicas during continuous computations. The
 process uses statistics collected by the [file popularity][] to determine the least
-popular file replicas in a [space][] and to evict them. Learn more [here][auto-cleaning].
+popular file replicas in a [space][] and to evict them. Learn more [here][docs-auto-cleaning].
 
 ## Cloud Data Management Interface (CDMI)
 
-Standardized interface for managing cloud storage and accessing data held in it.
+A standardized interface for managing cloud storage and accessing data held in it.
 Learn more [here][CDMI].
 
 ## Cluster
@@ -57,19 +57,19 @@ management, etc.) by [Cluster Manager][] component.
 
 A highly scalable document-oriented database, which can be scaled to several nodes. It is
 a crucial component of Onedata services. Learn more about its role in Onedata in the
-[Architecture > Services][architecture services] chapter or visit the official [Couchbase website][].
+[Architecture > Services][docs-architecture-services] chapter or visit the official [Couchbase website][].
 
 ## Data Discovery
 
-Mechanisms that harvest the user-defined [metadata][6] assigned to
-files in multiple [spaces][space] and submit it to indices, which can be
-later browsed and queried. Logically divided into separate [harvesters][7]
+A feature offering harvesting the user-defined [metadata][] assigned to
+files in multiple [spaces][space] and submitting it to indices, which can be
+later browsed and queried. Logically divided into separate [harvesters][harvester]
 that can have different configuration and source spaces.
-Learn more [here][8].
+Learn more [here][docs-data-discovery].
 
 ## Dataset
 
-File or directory marked by space users as representing data collections
+A file or directory marked by space users as representing data collections
 relevant to them. They can be used to organize data in a space systematically and provide
 an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
@@ -80,10 +80,10 @@ Learn more [here][file-path-and-id].
 
 ## File metadata
 
-Information that describes a file or directory. Can be roughly divided into
+An information that describes a file or directory. Can be roughly divided into
 filesystem metadata, governed by the system, and user defined metadata, i.e.
 extended attributes or custom RDF and JSON documents.
-Learn more [here][10].
+Learn more [here][docs-file-metadata].
 
 ## File path
 
@@ -92,76 +92,111 @@ Learn more [here][file-path-and-id].
 
 ## File popularity
 
-Enables tracking of usage statistics for files in a [space][].
-Used by [auto-cleaning][12] mechanism to clean up the least popular file replicas.
-Learn more [here][13].
+A feature providing tracking of usage statistics for files in a [space][].
+Used by [auto-cleaning][] mechanism to clean up the least popular file replicas.
+Learn more [here][docs-file-popularity].
 
 ## File registration
 
-Allows users to register files located on an [imported storage][14] in order to
-reflect external datasets in a Onedata space.
-Learn more [here][15].
+A feature allowing users to register files located on an [imported storage][] in order to
+reflect external data collections in a Onedata space.
+Learn more [here][docs-file-registration].
 
 ## Group
 
-<!-- TODO VFS-12857 fill missing entries -->
+An abstract entity grouping together a subset of users and other groups. Helps to manage
+users' access and privileges to resources like [spaces][space]. Learn more
+[here][docs-groups].
 
-<!-- ## Handle -->
+## Handle
 
-<!-- ## Handle service -->
+An entity representing an Open Access persistent identifier (e.g. PID or DOI) and metadata
+assigned to the [share][]. It enables registering the share in a [handle service][] and
+expose it for discovery by Public Data indexes via OAI PMH protocol. This process makes
+the data collection and metadata publicly available (without an account in Onedata) and
+enables anyone to look it up in the Public Data indexes. Learn more
+[here][docs-public-data].
+
+## Handle service
+
+A mediator to register the [share][] in the Public Data indexing services, which results
+in creating a [handle][]. Learn more [here][docs-public-data].
 
 ## Harvester
 
-An internal service that implements the mechanisms of [data discovery][16].
-Similar to a [group][17] or [space][] in terms of logical representation
-in the system, bringing together users or groups that are entitled to use it with
-different privileges. Learn more [here][8].
+An internal service which provides implementation of [data discovery][] by harvesting the
+user-defined [metadata][] across the files from the designated [spaces][space]. Brings
+together users or groups that are entitled to use it with different privileges. Learn more
+[here][docs-data-discovery].
 
 ## Imported storage
 
-[Storage resource][18] marked as `Imported storage` in the configuration.
-Enables [Storage import][19] when used to support a space.
-Learn more [here][20].
+A [storage backend][] which enables the [storage import][] feature on supported
+[spaces][space]. Learn more [here][docs-imported-storage].
 
-<!-- ## Let’s Encrypt -->
+## Let's Encrypt
 
-## LUMA
+A non-profit certificate authority run by Internet Security Research Group (ISRG) that
+provides X.509 certificates for Transport Layer Security (TLS) encryption without charging
+fees. Thanks to the built-in Let's Encrypt client, Onedata can obtain and renew web
+certificates on its nodes automatically. Learn more in the [Onezone web certificate][docs-onezone-web-certificate] and [Oneprovider web certificate][docs-oneprovider-web-certificate] documentation chapters, or visit the official [Let's Encrypt website][].
 
-LUMA (Local User Mapping) is a database that stores mappings between Onedata user accounts and local user
+## Local User Mapping (LUMA)
+
+A database that stores mappings between Onedata user accounts and local user
 accounts/credentials on storage resources. It establishes a relation between members of a Onedata space and user
 accounts recognized by different storage providers.
-Learn more [here][21].
+Learn more [here][docs-luma].
 
 ## Oneclient
 
-Oneclient is a command line interface based on [FUSE][22]
+A command line interface based on [FUSE][]
 for mounting the Onedata distributed virtual filesystem on local machines.
-Learn more [here][23].
+Learn more [here][docs-oneclient].
 
 ## OnedataFS
 
-OnedataFS is a [PyFilesystem2][24] plugin that allows
+A [PyFilesystem2][] plugin that allows
 accessing the user data programmatically using a python API.
-Learn more [here][25].
+Learn more [here][docs-onedatafs].
 
 ## Onepanel
 
-Service dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][]) and,
-at the same time, an integral part of the cluster. Referred to as *Onezone panel* or *Oneprovider panel* throughout the documentation.
-Offers a GUI, available via Onezone's *Clusters* menu or as an emergency interface (`https://$HOST:9443`)
-and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
+A service dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][])
+and, itself, an integral part of the cluster. Referred to as *Onezone panel* or
+*Oneprovider panel* throughout the documentation. It is accessible through the Web GUI or
+REST API. For information about role of the Onepanel in Onedata architecture, see the
+[Architecture > Services][docs-architecture-services] chapter of documentation. For information about the Web GUI of
+Onepanel, see the [Onezone administration panel][] and [Oneprovider administration
+panel][] chapters of documentation.
 
 ## Oneprovider
 
-<!-- TODO VFS-12857 piece of software that is installed at a data provider site -->
+<!-- FIXME: napisać główne zadania oneprovidera -->
+
+One of the core Onedata services, installed at a data [provider][] site, registered in a
+[Onezone][]. Learn more [here][docs-intro-provider].
+
+## Oneprovider panel
+
+See [Onepanel][].
 
 ## Onezone
 
-<!-- TODO VFS-12857 fill missing entries -->
+<!-- FIXME: napisać główne zadania onezone -->
 
-<!-- ## Provider -->
+One of the core Onedata services, which serves as a center of authority and an entry point
+to the system, integrating with OIDC & SAML identity providers. Learn more [here][docs-intro-zone].
 
-<!-- TODO VFS-12857 an entity that handles physical data storage as seen by Onedata users -->
+## Onezone panel
+
+See [Onepanel][].
+
+## Provider
+
+An entity that handles data storage as seen by Onedata users. Providers deploy
+[Oneprovider][] services near physical storage resources, i.e. in computing and data
+centers or even personal computers. Learn more [here][docs-intro-provider].
 
 ## REST API
 
@@ -172,12 +207,14 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 ## Space
 
 A logical container for data, fundamental for organizing user data in Onedata.
-Accessible only to its members — users or [groups][17] — that are assigned
+Accessible only to its members — users or [groups][group] — that are assigned
 fine-grained privileges. Learn more [here][29].
 
 <!-- TODO VFS-12857 consider adding a chapter about users and linking it here -->
 
-## Storage
+## Share
+
+## Storage backend
 
 Storage resource recognized by a [Oneprovider][] and used to [support][30] Onedata [spaces][space].
 Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
@@ -186,7 +223,7 @@ Learn more [here][32].
 ## Storage import
 
 Mechanism dedicated for importing files located on a storage by registering them in a [space][] supported by
-the [storage][18], without copying the data.
+the [storage][storage backend], without copying the data.
 Learn more [here][33].
 
 ## Support
@@ -207,102 +244,67 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 <!-- references -->
 
-[data access control]: user-guide/data.md#data-access-control
-
-[ACL]: user-guide/data.md#access-control-lists
-
-[file popularity]: #file-popularity
-
-[space]: #space
-
-[auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
-
-[CDMI]: user-guide/interfaces/cdmi.md
-
-[6]: #file-metadata
-
-[7]: #harvester
-
-[8]: user-guide/data-discovery.md
-
-[file-path-and-id]: user-guide/data.md#file-path-and-id
-
-[10]: user-guide/metadata.md
-
-[12]: #auto-cleaning
-
-[13]: admin-guide/oneprovider/configuration/file-popularity.md
-
-[14]: #imported-storage
-
-[15]: user-guide/file-registration.md
-
-[16]: #data-discovery
-
-[17]: #group
-
-[18]: #storage
-
-[19]: #storage-import
-
-[20]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
-
-[21]: admin-guide/oneprovider/configuration/luma.md
-
-[22]: https://github.com/libfuse/libfuse
-
-[23]: user-guide/interfaces/oneclient.md
-
-[24]: https://github.com/PyFilesystem/pyfilesystem2
-
-[25]: user-guide/interfaces/onedata-fs.md
-
-[cluster]: #cluster
-
-[Onezone]: #onezone
-
-[Oneprovider]: #oneprovider
-
 [29]: user-guide/spaces.md
-
 [30]: #support
-
 [31]: #onepanel
-
 [32]: admin-guide/oneprovider/configuration/storage-backends.md
-
 [33]: admin-guide/oneprovider/configuration/storage-import.md
-
 [34]: user-guide/spaces.md#space-support
-
 [35]: #rest-api
-
 [36]: #cloud-data-management-interface-cdmi
-
 [37]: #oneclient
-
 [38]: user-guide/tokens.md
-
-[archives]: #archive
-
-[dataset]: #dataset
-
+[ACL]: user-guide/data.md#access-control-lists
 [archive-more]: user-guide/archives.md
-
-[dataset-more]: user-guide/datasets.md
-
-[space-members]: user-guide/spaces.md#space-members
-
-[Onezone cluster nodes]: admin-guide/onezone/configuration/cluster-nodes.md
-
-[Oneprovider cluster nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
-
+[archives]: #archive
+[auto-cleaning]: #auto-cleaning
+[CDMI]: user-guide/interfaces/cdmi.md
 [Cluster Manager]: #cluster-manager
-
 [Cluster Worker]: #cluster-worker
-
-[Couchbase]: #couchbase
-
-[architecture services]: admin-guide/architecture.md#services
-
+[cluster]: #cluster
 [Couchbase website]: https://www.couchbase.com/
+[Couchbase]: #couchbase
+[data access control]: user-guide/data.md#data-access-control
+[data discovery]: #data-discovery
+[dataset-more]: user-guide/datasets.md
+[dataset]: #dataset
+[docs-architecture-services]: admin-guide/architecture.md#services
+[docs-auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
+[docs-data-discovery]: user-guide/data-discovery.md
+[docs-file-metadata]: user-guide/metadata.md
+[docs-file-popularity]: admin-guide/oneprovider/configuration/file-popularity.md
+[docs-file-registration]: user-guide/file-registration.md
+[docs-groups]: user-guide/groups.md
+[docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
+[docs-luma]: admin-guide/oneprovider/configuration/luma.md
+[docs-oneclient]: user-guide/interfaces/oneclient.md
+[docs-onedatafs]: user-guide/interfaces/onedata-fs.md
+[docs-oneprovider-web-certificate]: admin-guide/oneprovider/configuration/web-certificate.md
+[docs-onezone-web-certificate]: admin-guide/onezone/configuration/web-certificate.md
+[docs-public-data]: user-guide/public-data.md
+[docs-intro-provider]: intro.md#providers
+[docs-intro-zone]: intro.md#zones
+[file popularity]: #file-popularity
+[file-path-and-id]: user-guide/data.md#file-path-and-id
+[FUSE]: https://github.com/libfuse/libfuse
+[group]: #group
+[handle service]: #handle-service
+[handle]: #handle
+[harvester]: #harvester
+[imported storage]: #imported-storage
+[Let's Encrypt website]: https://letsencrypt.org/
+[metadata]: #file-metadata
+[Onepanel]: #onepanel
+[Oneprovider administration panel]: admin-guide/oneprovider/administration-panel.md
+[Oneprovider cluster nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
+[Oneprovider]: #oneprovider
+[Onezone administration panel]: admin-guide/onezone/administration-panel.md
+[Onezone cluster nodes]: admin-guide/onezone/configuration/cluster-nodes.md
+[Onezone]: #onezone
+[PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
+[share]: #share
+[space-members]: user-guide/spaces.md#space-members
+[space]: #space
+[storage backend]: #storage-backend
+[storage import]: #storage-import
+[provider]: #provider
