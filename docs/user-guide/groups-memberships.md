@@ -1,6 +1,43 @@
-# Groups
+# Groups & Memberships
 
 [toc][1]
+
+## Membership model overview
+
+Onedata uses a membership-based model to manage user collaboration and access to 
+resources. Users can collaborate by joining to the Onedata resources directly 
+or via group membership:
+
+* Groups allow members to access and manage shared resources with specified privileges.
+* Each group can define custom privileges for every group member (user or other group), assigned by a group owner (or a user with a right to grant permissions).
+* Resource owner can grant specific access rights to member users or groups.
+
+A user's access to a resource is determined by:
+
+* Their group memberships.
+* Any direct access rights granted to them.
+
+![image-access-to-resources][]
+
+Let`s consider the following example to better understand access model.
+
+![image-effective-privs][]
+
+The User can see all 3 spaces, but with different granted privileges.
+If the user was removed from group C, they still would have access to Space Z (and X),
+but not to Space Y.
+
+Effective members are those who effectively have access to a resource, 
+either by direct memberships or those inherited via groups.
+All effective members of a group inherit the group's effective 
+memberships and privileges. A user's effective privileges are a sum of 
+all privileges inherited through all their membership paths 
+(last segment only!).
+
+Some users also hold administrative privileges with extended capabilities.
+Learn more about admin roles in [Onezone Panel][7] and [Oneprovider Panel][8].
+
+## Group
 
 A group is an abstract entity with a name and at least one user assigned to it,
 who has sufficient permissions to manage it. Groups help you to manage users' access and privileges
@@ -115,3 +152,7 @@ groups like removing or adding but also modifying groups.
 [screen-bulk-edit]: ../../images/user-guide/groups/bulk-edit.png
 
 [screen-hierarchy]: ../../images/user-guide/groups/hierarchy.png
+
+[image-access-to-resources]: ../../images/user-guide/overview/access-to-resources.png
+
+[image-effective-privs]: ../../images/user-guide/overview/effective-privs.png
