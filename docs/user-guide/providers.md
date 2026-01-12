@@ -18,7 +18,7 @@ Oneprovider acts as a key component in the system by:
 * Handling data access requests from users or groups, enabling unified and transparent access to distributed data.
 
 * Providing high-level data management operations, such as [Transfers][], [QoS][], [Datasets][], [Archives][]
-or Automation workflows.
+  or Automation workflows.
 
 For more information on providers from an administrative perspective, see the [Oneprovider administration guide][].
 
