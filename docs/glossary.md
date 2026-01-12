@@ -169,8 +169,6 @@ and a REST API (`https://$HOST:9443/api/v3/onepanel/`).
 
 ## Service
 
-
-
 ## Space
 
 A logical container for data, fundamental for organizing user data in Onedata.
