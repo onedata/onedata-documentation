@@ -43,4 +43,4 @@ The file will become visible immediately.
 
 [auto import mode]: ../admin-guide/oneprovider/configuration/storage-import.md#auto-storage-import
 
-[REST API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-registration
+[REST API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/register_file
