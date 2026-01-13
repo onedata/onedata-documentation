@@ -138,6 +138,7 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"legacy data collection\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"A storage backend quota\"}",
       "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"demo.onedata.org\"}"
     ]
   }

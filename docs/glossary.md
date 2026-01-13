@@ -7,7 +7,7 @@
 ## Access control
 
 A set of safety rules and procedures for granting or denying access to Onedata entities
-(e.g. spaces) and data. For more information about spaces access control, refer to [this
+(e.g. [spaces][space]) and data. For more information about spaces access control, refer to [this
 page][space-members]. In case of the data access control, Onedata implements a multi-level
 approach, as described [here][data access control].
 
@@ -15,6 +15,10 @@ approach, as described [here][data access control].
 
 A list of permissions associated with file or directory used for precisely grant or deny
 access to it. Learn more [here][ACL].
+
+## Access token
+
+See [token][].
 
 ## Archive
 
@@ -31,7 +35,7 @@ popular file replicas in a [space][] and to evict them. Learn more [here][docs-a
 ## Cloud Data Management Interface (CDMI)
 
 A standardized interface for managing cloud storage and accessing data held in it.
-Learn more [here][CDMI].
+Learn more [here][docs-cdmi].
 
 ## Cluster
 
@@ -73,6 +77,10 @@ A file or directory marked by space users as representing data collections
 relevant to them. They can be used to organize data in a space systematically and provide
 an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
 
+## Digital Object Identifier (DOI)
+
+A standardized [persistent identifier][], defined by International Organization for Standardization (ISO), used to uniquely identify digital objects such as academic publications, datasets, and official documents.
+
 ## File ID
 
 A unique, global identifier associated with a file or directory.
@@ -110,9 +118,9 @@ users' access and privileges to resources like [spaces][space]. Learn more
 
 ## Handle
 
-An entity representing an Open Access persistent identifier (e.g. PID or DOI) and metadata
-assigned to the [share][]. It enables registering the share in a [handle service][] and
-expose it for discovery by Public Data indexes via OAI PMH protocol. This process makes
+An entity representing an Open Access [persistent identifier][] (e.g. [DOI][]) and metadata
+assigned to the [share][]. It is created by registering the share in a [handle service][] and
+exposing it for discovery by [Public Data][] indexes via the OAI PMH protocol. This process makes
 the data collection and metadata publicly available (without an account in Onedata) and
 enables anyone to look it up in the Public Data indexes. Learn more
 [here][docs-public-data].
@@ -129,14 +137,26 @@ user-defined [metadata][] across the files from the designated [spaces][space]. 
 together users or groups that are entitled to use it with different privileges. Learn more
 [here][docs-data-discovery].
 
-## Identity provider
+## Identity provider (IdP)
 
-<!-- FIXME: -->
+A system that authenticates users and manages their digital identities by verifying
+credentials and issuing identity information to other services. It enables single sign-on
+(SSO) and secure access by allowing trusted applications to rely on the IdP for
+authentication instead of handling credentials themselves. [Onezone][] provides support for
+wide range of identity providers based on OIDC & SAML.
+
+## Identity token
+
+See [token][].
 
 ## Imported storage
 
 A [storage backend][] which enables the [storage import][] feature on supported
 [spaces][space]. Learn more [here][docs-imported-storage].
+
+## Invite token
+
+See [token][].
 
 ## Let's Encrypt
 
@@ -168,8 +188,8 @@ Learn more [here][docs-onedatafs].
 
 A [service][] dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][])
 and, itself, an integral part of the cluster. Referred to as *Onezone panel* or
-*Oneprovider panel* throughout the documentation. It is accessible through the Web GUI or
-REST API. For information about role of the Onepanel in Onedata architecture, see the
+*Oneprovider panel* throughout the documentation. It is accessible through the [Web GUI][] or
+[REST API][]. For information about role of the Onepanel in Onedata architecture, see the
 [Architecture > Services][docs-architecture-services] chapter of documentation. For
 information about the Web GUI of Onepanel, see the [Onezone administration panel][] and
 [Oneprovider administration panel][] chapters of documentation.
@@ -180,7 +200,7 @@ A [service][] dedicated for managing the data, installed at a data [provider][] 
 registered in a [Onezone][]. Oneproviders cooperate in a peer-to-peer manner,
 synchronizing information about commonly supported [spaces][space]. Like the Onezone,
 Oneprovider can be deployed as a multi-node [cluster][]. It is accessible through the
-various [interfaces][], i.a., the Web GUI, [REST API][] and [Oneclient][]. Learn more
+various [interfaces][], i.a., the [Web GUI][], [REST API][] and [Oneclient][]. Learn more
 [here][docs-intro-provider].
 
 ## Oneprovider panel
@@ -194,18 +214,27 @@ and an entry point to the system, integrating with the [identity providers][iden
 A single Onezone allows registration of multiple [Oneproviders][Oneprovider],
 to provide their storage resources to users. The Onezone also manages the core resources
 of Onedata like [spaces][space], [groups][group], [shares][share], and more. It is
-accessible through the various interfaces, i.a., the Web GUI and [REST API][]. Learn more
+accessible through the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
 [here][docs-intro-onezone].
 
 ## Onezone panel
 
 See [Onepanel][].
 
+## Persistent identifier
+
+A long-lasting, globally unique reference to a digital or physical object that remains
+stable over time, even if the object's location or metadata changes. It can be, e.g., a [DOI][]. Onedata supports assigning a persistent identifier to the [share][] using a [handle][].
+
 ## Provider
 
 An entity that handles data storage as seen by Onedata users. Providers deploy
 [Oneprovider][] services near physical storage resources, i.e. in computing and data
 centers or even personal computers. Learn more [here][docs-intro-provider].
+
+## Public Data
+
+An extended [share][] that has been assigned a [persistent identifier][] (e.g. [DOI][]) and descriptive metadata. Learn more [here][docs-public-data].
 
 ## REST API
 
@@ -223,29 +252,32 @@ services, to provide a complete ecosystem. There are three main services in Oned
 
 A logical container for data, fundamental for organizing user data in Onedata.
 Accessible only to its members — users or [groups][group] — that are assigned
-fine-grained privileges. Learn more [here][docs-spaces].
+fine-grained privileges. The actual data storage of a space is realized by the
+[storage backends][storage backend] using [Oneproviders][Oneprovider].
+Learn more [here][docs-spaces].
 
 <!-- TODO VFS-12857 consider adding a chapter about users and linking it here -->
 
 ## Share
 
+An entity representing a semi-public link assigned to a file or directory allowing anyone on the Internet to read the data. Shares in Onedata may have an optional description and can be promoted to the Public Data using [handle][]. Read more [here][docs-shares].
+
 ## Storage backend
 
-Storage resource recognized by a [Oneprovider][] and used to [support][30] Onedata [spaces][space].
-Storage backends are registered in the [Oneprovider panel][31], using the GUI or REST API.
-Learn more [here][32].
+A storage resource recognized by a [Oneprovider][] and used to [support][] Onedata [spaces][space].
+Storage backends are registered in the [Oneprovider panel][], using the [Web GUI][] or [REST API][].
+Learn more [here][docs-storage-backends].
 
 ## Storage import
 
-Mechanism dedicated for importing files located on a storage by registering them in a [space][] supported by
-the [storage][storage backend], without copying the data.
-Learn more [here][33].
+A mechanism dedicated for importing files located on a storage by registering them in a [space][] supported by
+the [storage backend][], without copying the data.
+Learn more [here][docs-storage-import].
 
 ## Support
 
-A [storage][32] quota granted for
-a [space][] on a physical storage backend by a [Oneprovider][].
-Learn more [here][34].
+A [storage backend][] quota granted to a [space][] on a physical storage by [Oneprovider][].
+Learn more [here][docs-space-support].
 
 ## Token
 
@@ -254,8 +286,12 @@ across the system to authenticate (**access token**), prove identity
 (**identity token**) or gain access to some resources (**invite token**). Tokens
 must be kept secret, just like passwords or private keys/certificates. A token
 can look like the following: `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`.
-Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
-[CDMI][36] or [Oneclient][37]. Learn more [here][38].
+Tokens are a universal way of accessing Onedata interfaces: [REST API][],
+[CDMI][] or [Oneclient][]. Learn more [here][docs-tokens].
+
+## Web GUI
+
+A graphical user interface of Onedata accessible via the web browser. Learn more [here][docs-web-gui].
 
 ## Zone
 
@@ -266,21 +302,11 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 <!-- references -->
 
-[docs-spaces]: user-guide/spaces.md
-[30]: #support
-[31]: #onepanel
-[32]: admin-guide/oneprovider/configuration/storage-backends.md
-[33]: admin-guide/oneprovider/configuration/storage-import.md
-[34]: user-guide/spaces.md#space-support
-[35]: #rest-api
-[36]: #cloud-data-management-interface-cdmi
-[37]: #oneclient
-[38]: user-guide/tokens.md
 [ACL]: user-guide/data.md#access-control-lists
 [archive-more]: user-guide/archives.md
 [archives]: #archive
 [auto-cleaning]: #auto-cleaning
-[CDMI]: user-guide/interfaces/cdmi.md
+[CDMI]: #cloud-data-management-interface-cdmi
 [Cluster Manager]: #cluster-manager
 [Cluster Worker]: #cluster-worker
 [cluster]: #cluster
@@ -292,20 +318,30 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [dataset]: #dataset
 [docs-architecture-services]: admin-guide/architecture.md#services
 [docs-auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
+[docs-cdmi]: user-guide/interfaces/cdmi.md
 [docs-data-discovery]: user-guide/data-discovery.md
 [docs-file-metadata]: user-guide/metadata.md
 [docs-file-popularity]: admin-guide/oneprovider/configuration/file-popularity.md
 [docs-file-registration]: user-guide/file-registration.md
 [docs-groups]: user-guide/groups.md
 [docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
+[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+[docs-intro-provider]: intro.md#providers
+[docs-intro-zone]: intro.md#zones
 [docs-luma]: admin-guide/oneprovider/configuration/luma.md
 [docs-oneclient]: user-guide/interfaces/oneclient.md
 [docs-onedatafs]: user-guide/interfaces/onedata-fs.md
 [docs-oneprovider-web-certificate]: admin-guide/oneprovider/configuration/web-certificate.md
 [docs-onezone-web-certificate]: admin-guide/onezone/configuration/web-certificate.md
 [docs-public-data]: user-guide/public-data.md
-[docs-intro-provider]: intro.md#providers
-[docs-intro-zone]: intro.md#zones
+[docs-shares]: user-guide/shares.md
+[docs-space-support]: user-guide/spaces.md#space-support
+[docs-spaces]: user-guide/spaces.md
+[docs-storage-backends]: admin-guide/oneprovider/configuration/storage-backends.md
+[docs-storage-import]: admin-guide/oneprovider/configuration/storage-import.md
+[docs-tokens]: user-guide/tokens.md
+[docs-web-gui]: intro.md#web-gui
+[DOI]: #digital-object-identifier-doi
 [file popularity]: #file-popularity
 [file-path-and-id]: user-guide/data.md#file-path-and-id
 [FUSE]: https://github.com/libfuse/libfuse
@@ -313,28 +349,33 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [handle service]: #handle-service
 [handle]: #handle
 [harvester]: #harvester
+[identity provider]: #identity-provider-idp
 [imported storage]: #imported-storage
+[interfaces]: user-guide/interfaces/overview.md
 [Let's Encrypt website]: https://letsencrypt.org/
 [metadata]: #file-metadata
+[Oneclient]: #oneclient
+[onedata-api]: https://onedata.org/#/home/api
 [Onepanel]: #onepanel
 [Oneprovider administration panel]: admin-guide/oneprovider/administration-panel.md
 [Oneprovider cluster nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
+[Oneprovider panel]: #oneprovider-panel
 [Oneprovider]: #oneprovider
 [Onezone administration panel]: admin-guide/onezone/administration-panel.md
 [Onezone cluster nodes]: admin-guide/onezone/configuration/cluster-nodes.md
 [Onezone]: #onezone
+[persistent identifier]: #persistent-identifier
+[provider]: #provider
+[Public Data]: #public-data
 [PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
+[REST API]: #rest-api
+[service]: #service
 [share]: #share
 [space-members]: user-guide/spaces.md#space-members
 [space]: #space
 [storage backend]: #storage-backend
 [storage import]: #storage-import
-[provider]: #provider
-[interfaces]: user-guide/interfaces/overview.md
-[Oneclient]: #oneclient
-[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+[support]: #support
+[token]: #token
+[Web GUI]: #web-gui
 [zone]: #zone
-[identity provider]: #identity-provider
-[REST API]: #rest-api
-[onedata-api]: https://onedata.org/#/home/api
-[service]: #service
