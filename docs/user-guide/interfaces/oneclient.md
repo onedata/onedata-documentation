@@ -50,7 +50,7 @@ Oneclient can be also installed using [Anaconda][],
 from the official [Onedata conda repository][anaconda onedata]:
 
 ::: tip NOTE
-Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+Currently, for release lines 21.02.\* and 25.\*, only Python 3 version 3.9 is supported.
 :::
 
 ```bash
