@@ -16,6 +16,11 @@
       "column": 100
     }]
   },
+  "[javascript]": {
+    "editor.rulers": [{
+      "column": 90
+    }]
+  },
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.markdown.nodes": {
     "ImageRef": "ignore",

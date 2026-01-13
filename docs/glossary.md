@@ -123,7 +123,7 @@ Learn more [here][23].
 
 ## OnedataFS
 
-OnedataFS is a [PyFilesystem][24] plugin that allows
+OnedataFS is a [PyFilesystem2][24] plugin that allows
 accessing the user data programmatically using a python API.
 Learn more [here][25].
 
@@ -234,7 +234,7 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 
 [23]: user-guide/interfaces/oneclient.md
 
-[24]: https://www.pyfilesystem.org/
+[24]: https://github.com/PyFilesystem/pyfilesystem2
 
 [25]: user-guide/interfaces/onedata-fs.md
 

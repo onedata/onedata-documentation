@@ -1,28 +1,30 @@
 # REST API
 
-Every administering operation regarding Onezone configuration can be done using
-Onepanel REST API. It helps to automate tasks like user management, health
-status checks, etc. without the need to interact with a web browser.
+<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
+
+Every administering operation regarding Onezone configuration can be done
+using Onepanel REST API. It helps to automate tasks like user management, health status checks, etc.
+without the need to interact with a web browser.
 
 ## API endpoints location
 
-API endpoints are available in two locations. The first one is attached directly
-to the domain of Onezone at a standard port. It is useful for the majority
-of use cases:
+API endpoints are available in two locations. The first one is attached directly to the
+domain of Onezone at a standard port. It is useful for the majority of
+use cases:
 
 ```
-https://my.zone.domain.org/api/v3/onepanel/{...}
+https://my.onezone.domain.org/api/v3/onepanel/{...}
 ```
 
 All incoming calls to such Onepanel API endpoints are internally proxied by the
 Onezone to the underlying Onepanel.
 
-The second one becomes handy when the Onezone itself is malfunctioning (so
-it cannot proxy our API calls) and/or we want to connect from within the
-cluster's local network.
+The second one becomes handy when the Onezone itself is malfunctioning
+(so it cannot proxy our API calls) and/or we want to connect from within the cluster's
+local network.
 
 ```
-https://my.zone.domain.org:9443/api/v3/onepanel/{...}
+https://my.onezone.domain.org:9443/api/v3/onepanel/{...}
 ```
 
 Port `9443` indicates, that we want to connect directly to the Onepanel service
@@ -31,8 +33,7 @@ without proxying via Onezone.
 ## Authentication
 
 Access tokens are used universally to authorize API requests in all services.
-Follow this [quickstart guide][]
-to acquire an access token.
+Follow this [quickstart guide][] to acquire an access token.
 
 In emergency cases, it is also possible to authenticate using the *emergency
 passphrase* — a secret password, which is not assigned to any user and gives
@@ -43,9 +44,8 @@ section of our API documentation.
 
 ## Available operations
 
-All possible operations and how to use them are described in our
-[API documentation][]. The most
-popular ones include:
+All possible operations and how to use them are described in our [API documentation][].
+The most popular ones include:
 
 | Request                  | Link to API                     |
 | ------------------------ | ------------------------------- |
@@ -58,7 +58,7 @@ popular ones include:
 
 ## Example request
 
-Let's assume, that your Onezone is located at `my.zone.domain.org` and your
+Let's assume that your Onezone is located at `my.zone.domain.org` and your
 access token is available under `TOKEN` environment variable. You can create a
 new Onezone user account using cURL command:
 
@@ -77,6 +77,8 @@ The result of the above request will contain an ID of the created user:
     "id": "b519b3ac46823b2b83b6cb85e1b16f4fchaa0f"
 }
 ```
+
+<!-- references -->
 
 [quickstart guide]: ../../../user-guide/tokens.md#access-token-quickstart
 

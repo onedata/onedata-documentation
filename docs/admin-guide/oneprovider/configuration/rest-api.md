@@ -1,28 +1,30 @@
 # REST API
 
+<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
+
 Every administering operation regarding Oneprovider configuration can be done
-using Onepanel REST API. It helps to automate tasks like storage creation, space
-support, etc. without the need to interact with a web browser.
+using Onepanel REST API. It helps to automate tasks like storage creation, space support, etc.
+without the need to interact with a web browser.
 
 ## API endpoints location
 
-API endpoints are available in two locations. The first one is attached directly
-to the domain of Oneprovider at a standard port. It is useful for the majority
-of use cases:
+API endpoints are available in two locations. The first one is attached directly to the
+domain of Oneprovider at a standard port. It is useful for the majority of
+use cases:
 
 ```
-https://my.provider.domain.org/api/v3/onepanel/{...}
+https://my.oneprovider.domain.org/api/v3/onepanel/{...}
 ```
 
 All incoming calls to such Onepanel API endpoints are internally proxied by the
 Oneprovider to the underlying Onepanel.
 
-The second one becomes handy when the Oneprovider itself is malfunctioning (so
-it cannot proxy our API calls) and/or we want to connect from within the
-cluster's local network.
+The second one becomes handy when the Oneprovider itself is malfunctioning
+(so it cannot proxy our API calls) and/or we want to connect from within the cluster's
+local network.
 
 ```
-https://my.provider.domain.org:9443/api/v3/onepanel/{...}
+https://my.oneprovider.domain.org:9443/api/v3/onepanel/{...}
 ```
 
 Port `9443` indicates, that we want to connect directly to the Onepanel service
