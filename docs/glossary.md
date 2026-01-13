@@ -129,6 +129,10 @@ user-defined [metadata][] across the files from the designated [spaces][space]. 
 together users or groups that are entitled to use it with different privileges. Learn more
 [here][docs-data-discovery].
 
+## Identity provider
+
+<!-- FIXME: -->
+
 ## Imported storage
 
 A [storage backend][] which enables the [storage import][] feature on supported
@@ -162,20 +166,22 @@ Learn more [here][docs-onedatafs].
 
 ## Onepanel
 
-A service dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][])
+A [service][] dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][])
 and, itself, an integral part of the cluster. Referred to as *Onezone panel* or
 *Oneprovider panel* throughout the documentation. It is accessible through the Web GUI or
 REST API. For information about role of the Onepanel in Onedata architecture, see the
-[Architecture > Services][docs-architecture-services] chapter of documentation. For information about the Web GUI of
-Onepanel, see the [Onezone administration panel][] and [Oneprovider administration
-panel][] chapters of documentation.
+[Architecture > Services][docs-architecture-services] chapter of documentation. For
+information about the Web GUI of Onepanel, see the [Onezone administration panel][] and
+[Oneprovider administration panel][] chapters of documentation.
 
 ## Oneprovider
 
-<!-- FIXME: napisać główne zadania oneprovidera -->
-
-One of the core Onedata services, installed at a data [provider][] site, registered in a
-[Onezone][]. Learn more [here][docs-intro-provider].
+A [service][] dedicated for managing the data, installed at a data [provider][] site, and
+registered in a [Onezone][]. Oneproviders cooperate in a peer-to-peer manner,
+synchronizing information about commonly supported [spaces][space]. Like the Onezone,
+Oneprovider can be deployed as a multi-node [cluster][]. It is accessible through the
+various [interfaces][], i.a., the Web GUI, [REST API][] and [Oneclient][]. Learn more
+[here][docs-intro-provider].
 
 ## Oneprovider panel
 
@@ -183,10 +189,13 @@ See [Onepanel][].
 
 ## Onezone
 
-<!-- FIXME: napisać główne zadania onezone -->
-
-One of the core Onedata services, which serves as a center of authority and an entry point
-to the system, integrating with OIDC & SAML identity providers. Learn more [here][docs-intro-zone].
+A [service][] implementing the Onedata [zone][] concept, which serves as a center of authority
+and an entry point to the system, integrating with the [identity providers][identity provider].
+A single Onezone allows registration of multiple [Oneproviders][Oneprovider],
+to provide their storage resources to users. The Onezone also manages the core resources
+of Onedata like [spaces][space], [groups][group], [shares][share], and more. It is
+accessible through the various interfaces, i.a., the Web GUI and [REST API][]. Learn more
+[here][docs-intro-onezone].
 
 ## Onezone panel
 
@@ -200,15 +209,21 @@ centers or even personal computers. Learn more [here][docs-intro-provider].
 
 ## REST API
 
-<!-- TODO VFS-12857 fill missing entries -->
+An interface to various Onedata [services][service], accessible through the HTTPS protocol, following
+the RESTful API guidelines. You can browse Onedata REST API documentation 
+[here][onedata-api].
 
 ## Service
+
+A software realizing certain roles in the Onedata software stack, communicating with other
+services, to provide a complete ecosystem. There are three main services in Onedata:
+[Onezone][], [Oneprovider][], and [Onepanel][].
 
 ## Space
 
 A logical container for data, fundamental for organizing user data in Onedata.
 Accessible only to its members — users or [groups][group] — that are assigned
-fine-grained privileges. Learn more [here][29].
+fine-grained privileges. Learn more [here][docs-spaces].
 
 <!-- TODO VFS-12857 consider adding a chapter about users and linking it here -->
 
@@ -242,9 +257,16 @@ can look like the following: `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`.
 Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [CDMI][36] or [Oneclient][37]. Learn more [here][38].
 
+## Zone
+
+A central entity of a single Onedata ecosystem instance, which constitutes independent
+data management platform, bringing together multiple data centers — [providers][provider].
+The zone serves as a center of authority and an entry point to the system. It is managed
+by the [Onezone][] service. Learn more [here][docs-intro-zone].
+
 <!-- references -->
 
-[29]: user-guide/spaces.md
+[docs-spaces]: user-guide/spaces.md
 [30]: #support
 [31]: #onepanel
 [32]: admin-guide/oneprovider/configuration/storage-backends.md
@@ -308,3 +330,11 @@ Tokens are a universal way of accessing Onedata interfaces: [REST API][35],
 [storage backend]: #storage-backend
 [storage import]: #storage-import
 [provider]: #provider
+[interfaces]: user-guide/interfaces/overview.md
+[Oneclient]: #oneclient
+[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+[zone]: #zone
+[identity provider]: #identity-provider
+[REST API]: #rest-api
+[onedata-api]: https://onedata.org/#/home/api
+[service]: #service
