@@ -6,14 +6,14 @@
 
 ## Access control
 
-A set of safety rules and procedures for granting or denying access to Onedata entities
+A set of policies and procedures for granting or denying access to Onedata entities
 (e.g. [spaces][space]) and data. For more information about spaces access control, refer to [this
 page][space-members]. In case of the data access control, Onedata implements a multi-level
 approach, as described [here][data access control].
 
 ## Access-control list (ACL)
 
-A list of permissions associated with file or directory used for precisely grant or deny
+A list of permissions associated with file or directory used to precisely grant or deny
 access to it. Learn more [here][ACL].
 
 ## Access token
@@ -22,7 +22,7 @@ See [token][].
 
 ## Archive
 
-Snapshot of a [dataset][] created at a certain point in time.
+A snapshot of a [dataset][] created at a certain point in time.
 Learn more [here][archive-more].
 
 ## Auto-cleaning
@@ -39,7 +39,7 @@ Learn more [here][docs-cdmi].
 
 ## Cluster
 
-A set of hosts which together runs a single instance of [Onezone][] or [Oneprovider][]. The
+A set of hosts that together run a single instance of [Onezone][] or [Oneprovider][]. The
 cluster can consist of single or more nodes, each running with a subset of services like
 [database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc., to allow load balancing within a single
 Onezone/Oneprovider. Learn more in the [Onezone cluster nodes][] and [Oneprovider cluster
@@ -59,16 +59,15 @@ management, etc.) by [Cluster Manager][] component.
 
 ## Couchbase
 
-A highly scalable document-oriented database, which can be scaled to several nodes. It is
-a crucial component of Onedata services. Learn more about its role in Onedata in the
-[Architecture > Services][docs-architecture-services] chapter or visit the official [Couchbase website][].
+A highly scalable document-oriented database, used as a crucial component of Onedata
+services. Learn more about its role in Onedata in the [Architecture > Services][docs-architecture-services] chapter or visit the official [Couchbase website][].
 
 ## Data Discovery
 
-A feature offering harvesting the user-defined [metadata][] assigned to
+A feature that offers harvesting the user-defined [metadata][] assigned to
 files in multiple [spaces][space] and submitting it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][harvester]
-that can have different configuration and source spaces.
+that can have different configurations and source spaces.
 Learn more [here][docs-data-discovery].
 
 ## Dataset
@@ -88,7 +87,7 @@ Learn more [here][file-path-and-id].
 
 ## File metadata
 
-An information that describes a file or directory. Can be roughly divided into
+Information that describes a file or directory. Can be roughly divided into
 filesystem metadata, governed by the system, and user defined metadata, i.e.
 extended attributes or custom RDF and JSON documents.
 Learn more [here][docs-file-metadata].
@@ -100,25 +99,25 @@ Learn more [here][file-path-and-id].
 
 ## File popularity
 
-A feature providing tracking of usage statistics for files in a [space][].
-Used by [auto-cleaning][] mechanism to clean up the least popular file replicas.
+A feature that provides tracking the usage statistics for files in a [space][].
+Used by the [auto-cleaning][] process to clean up the least popular file replicas.
 Learn more [here][docs-file-popularity].
 
 ## File registration
 
-A feature allowing users to register files located on an [imported storage][] in order to
+A feature that allows users to register files located on an [imported storage][] in order to
 reflect external data collections in a Onedata space.
 Learn more [here][docs-file-registration].
 
 ## Group
 
-An abstract entity grouping together a subset of users and other groups. Helps to manage
+An abstract entity that groups together a subset of users and other groups. Helps to manage
 users' access and privileges to resources like [spaces][space]. Learn more
 [here][docs-groups].
 
 ## Handle
 
-An entity representing an Open Access [persistent identifier][] (e.g. [DOI][]) and metadata
+An entity that represents an Open Access [persistent identifier][] (e.g. [DOI][]) and metadata
 assigned to the [share][]. It is created by registering the share in a [handle service][] and
 exposing it for discovery by [Public Data][] indexes via the OAI PMH protocol. This process makes
 the data collection and metadata publicly available (without an account in Onedata) and
@@ -127,14 +126,14 @@ enables anyone to look it up in the Public Data indexes. Learn more
 
 ## Handle service
 
-A mediator to register the [share][] in the Public Data indexing services, which results
+A mediator that is used to register the [share][] in the Public Data indexing services, which results
 in creating a [handle][]. Learn more [here][docs-public-data].
 
 ## Harvester
 
-An internal service which provides implementation of [data discovery][] by harvesting the
-user-defined [metadata][] across the files from the designated [spaces][space]. Brings
-together users or groups that are entitled to use it with different privileges. Learn more
+An internal service that provides implementation of [data discovery][] by harvesting the
+user-defined [metadata][] across the files from the designated [spaces][space].
+It is available to users or groups with appropriate privileges. Learn more
 [here][docs-data-discovery].
 
 ## Identity provider (IdP)
@@ -151,7 +150,7 @@ See [token][].
 
 ## Imported storage
 
-A [storage backend][] which enables the [storage import][] feature on supported
+A [storage backend][] that enables the [storage import][] feature on supported
 [spaces][space]. Learn more [here][docs-imported-storage].
 
 ## Invite token
@@ -244,7 +243,7 @@ the RESTful API guidelines. You can browse Onedata REST API documentation
 
 ## Service
 
-A software realizing certain roles in the Onedata software stack, communicating with other
+A software that realizes certain roles in the Onedata software stack, communicating with other
 services, to provide a complete ecosystem. There are three main services in Onedata:
 [Onezone][], [Oneprovider][], and [Onepanel][].
 
@@ -260,7 +259,10 @@ Learn more [here][docs-spaces].
 
 ## Share
 
-An entity representing a semi-public link assigned to a file or directory allowing anyone on the Internet to read the data. Shares in Onedata may have an optional description and can be promoted to the Public Data using [handle][]. Read more [here][docs-shares].
+An entity that represents a semi-public link assigned to a file or directory allowing
+anyone on the Internet to read the data. Shares in Onedata may have an optional
+description and can be promoted to the Public Data using [handle][]. Read more
+[here][docs-shares].
 
 ## Storage backend
 
@@ -270,9 +272,9 @@ Learn more [here][docs-storage-backends].
 
 ## Storage import
 
-A mechanism dedicated for importing files located on a storage by registering them in a [space][] supported by
-the [storage backend][], without copying the data.
-Learn more [here][docs-storage-import].
+A feature dedicated to importing files located on a storage by registering them in a
+[space][] supported by the [storage backend][], without copying the data. Learn more
+[here][docs-storage-import].
 
 ## Support
 
