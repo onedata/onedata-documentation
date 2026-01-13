@@ -1,6 +1,7 @@
 # Prerequisites & requirements
 
-This chapter describes the prerequisites and requirements which should be met before deploying the Oneprovider service.
+This chapter describes the prerequisites and requirements which should be met before deploying the Oneprovider service 
+on a host. The host can be either a bare metal server or a virtual machine.
 
 ## Hardware & OS
 
