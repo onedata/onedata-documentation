@@ -196,7 +196,7 @@ The detailed description of the upgrading process is coming soon.
 
 <!-- references -->
 
-[Installation]: installation.md
+[Installation]: installation/overview.md
 
 [1]: #offline-backups
 
@@ -208,6 +208,6 @@ The detailed description of the upgrading process is coming soon.
 
 [5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
 
-[Onedatify]: ./installation.md#onedatify-cli-wizard
+[Onedatify]: ./installation/onedatify-cli.md
 
 [Upgrades & compatibility]: ../upgrades-and-compatibility.md

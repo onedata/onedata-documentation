@@ -10,10 +10,10 @@
 
 <!-- @include admin-guide/maintenance/common-end.md
   {
-    "installationRef": "[Installation]: installation.md"
+    "installationRef": "[Installation]: installation/overview.md"
   }
 -->
 
-[Onedatify]: ./installation.md#onedatify-cli-wizard
+[Onedatify]: ./installation/onedatify-cli.md
 
 [Upgrades & compatibility]: ../upgrades-and-compatibility.md
