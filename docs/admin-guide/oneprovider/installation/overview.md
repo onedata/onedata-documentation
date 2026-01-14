@@ -2,10 +2,6 @@
 
 <!-- @TODO VFS-11766 missing chapter -->
 
-<!-- as needed: link to configuration, compatibility-reference [versions]). We need to decide/discuss. -->
-
-<!-- @TODO VFS-13169 compatibility reference -->
-
 This chapter describes the available [Oneprovider][providers] installation methods.
 All supported installation methods use our [official Docker images][docker-images]
 to run Oneprovider on any [Linux OS supporting Docker][supported-platforms].
@@ -24,12 +20,16 @@ There are few installation methods shortly described further to help you choose 
   wizard, but still user-friendly.
 * [Batch mode][] — useful for more skilled administrators wanting a specifically configured deployment.
   The deployment happens in batch mode, which does not require manual steps. It is useful for automated deployments.
-  The installation is done by preparing an YAML configuration file for Oneprovider and then running the service.
+  The installation is done by preparing a YAML configuration file for Oneprovider and then running the service.
 
-::: tip NOTE
-Regardless of the chosen method, the host should be initially prepared — see [prerequisites][].\
-After the successful installation, you can further configure your Oneprovider — see the [Configuration][] topic in
-the navigation panel on the left.
+::: tip PREREQUISITES
+Regardless of the chosen method, the host should be initially prepared — see [prerequisites][].
+:::
+
+::: tip CHOOSING THE VERSION
+The newly deployed Oneprovider must be compatible with its [Onezone][zones], and with
+cooperating Oneproviders (if applicable). Thus, we recommend reading the [Upgrades &
+compatibility][] chapter first, to choose the proper version or upgrade other services.
 :::
 
 ::: tip NOTE
@@ -41,16 +41,18 @@ from packages, inspect the relevant Dockerfile and adapt the installation steps 
 
 [providers]: ../../../intro.md#providers
 
+[zones]: ../../../intro.md#zones
+
 [docker-images]: https://hub.docker.com/r/onedata/oneprovider/tags
 
 [supported-platforms]: https://docs.docker.com/engine/installation/#supported-platforms
 
 [prerequisites]: ../prerequisites.md
 
-[configuration]: ../configuration/cluster-members.md
-
 [Onedatify CLI wizard]: onedatify-cli.md
 
 [Graphical wizard]: graphical-wizard.md
 
 [Batch mode]: docker-compose.md
+
+[Upgrades & compatibility]: ../../upgrades-and-compatibility.md
