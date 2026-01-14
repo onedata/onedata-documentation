@@ -198,4 +198,4 @@ For the upgrading guide, see the [Onezone upgrading][] and the [Oneprovider upgr
 
 [https://demo.onedata.org/api/v3/onezone/configuration]: https://demo.onedata.org/api/v3/onezone/configuration
 
-[https://krakow.demo.onedata.org/api/v3/oneprovider/configuration]: https://demo.onedata.org/api/v3/onezone/configuration
+[https://krakow.demo.onedata.org/api/v3/oneprovider/configuration]: https://krakow.demo.onedata.org/api/v3/oneprovider/configuration
