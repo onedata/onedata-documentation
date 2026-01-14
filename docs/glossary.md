@@ -18,7 +18,8 @@ access to it. Learn more [here][ACL].
 
 ## Access token
 
-See [token][].
+A [token][] intended for authentication, being a universal way of accessing Onedata interfaces: [REST API][],
+[CDMI][] or [Oneclient][].
 
 ## Archive
 
@@ -116,10 +117,10 @@ users' access and privileges to resources like [spaces][space]. Learn more
 
 ## Handle
 
-Representation of an [Open Access][] [persistent identifier][] and metadata
+A representation of an [Open Access][] [persistent identifier][] and metadata,
 assigned to the [share][]. Created by registering the share in a [handle service][] and
-exposing it for discovery by [Public Data][] indexes via the OAI PMH protocol. This process makes
-the data collection and metadata publicly available and findable in the Public Data indexes.
+exposing it for discovery by [Public Data][] indexes via the OAI PMH protocol, making
+the data collection and metadata publicly available and findable.
 Learn more [here][docs-public-data].
 
 ## Handle service
@@ -131,20 +132,19 @@ in creating a [handle][]. Learn more [here][docs-public-data].
 
 An internal service that provides implementation of [data discovery][] by harvesting the
 user-defined [metadata][] across the files from the designated [spaces][space].
-It is available to users or groups with appropriate privileges. Learn more
+Available to users or groups with appropriate privileges. Learn more
 [here][docs-data-discovery].
 
 ## Identity provider (IdP)
 
-A system that authenticates users and manages their digital identities by verifying
-credentials and issuing identity information to other services. It enables single sign-on
-(SSO) and secure access by allowing trusted applications to rely on the IdP for
-authentication instead of handling credentials themselves. [Onezone][] provides support for
-wide range of identity providers based on OIDC & SAML.
+A system that authenticates users and manages their digital identities. Enables single sign-on
+(SSO) by allowing trusted applications, such as [Onezone][], to rely on the IdP for
+authentication instead of handling credentials themselves. Onedata supports a
+wide range of IdPs based on OIDC & SAML.
 
 ## Identity token
 
-See [token][].
+A [token][] intended for proving the identity.
 
 ## Imported storage
 
@@ -153,14 +153,15 @@ A [storage backend][] that enables the [storage import][] feature on supported
 
 ## Invite token
 
-See [token][].
+A [token][] intended for gaining access to some Onedata resource, like, e.g., [space][],
+[group][], [harvester][], etc.
 
-## Let's Encrypt
+## Let's Encrypt (LE)
 
 A non-profit certificate authority run by Internet Security Research Group (ISRG) that
-provides X.509 certificates for Transport Layer Security (TLS) encryption without charging
-fees. Thanks to the built-in Let's Encrypt client, Onedata can obtain and renew web
-certificates on its nodes automatically. Learn more in the [Onezone web certificate][docs-onezone-web-certificate] and [Oneprovider web certificate][docs-oneprovider-web-certificate] documentation chapters, or visit the official [Let's Encrypt website][].
+provides web certificates without charging
+fees. Using the built-in LE client, Onedata can obtain and renew web
+certificates on its nodes automatically. Learn more in the [Onezone web certificate][docs-onezone-web-certificate] and [Oneprovider web certificate][docs-oneprovider-web-certificate] chapters.
 
 ## Local User Mapping (LUMA)
 
@@ -183,40 +184,35 @@ Learn more [here][docs-onedatafs].
 
 ## Onepanel
 
-A [service][] dedicated for administration of a [cluster][] ([Onezone][] or [Oneprovider][])
-and, itself, an integral part of the cluster. Referred to as *Onezone panel* or
-*Oneprovider panel* throughout the documentation. It is accessible through the [Web GUI][] or
-[REST API][]. For information about role of the Onepanel in Onedata architecture, see the
-[Architecture > Services][docs-architecture-services] chapter of documentation. For
-information about the Web GUI of Onepanel, see the [Onezone administration panel][] and
-[Oneprovider administration panel][] chapters of documentation.
+A [service][] dedicated for administration of a [cluster][] and, itself, an integral part
+of the cluster. Accessible through the [Web GUI][] or [REST API][]. Learn more in the
+[Architecture][docs-architecture-services], [Onezone administration panel][], and
+[Oneprovider administration panel][] chapters.
 
 ## Oneprovider
 
-A [service][] dedicated for managing the data, installed at a data [provider][] site, and
-registered in a [Onezone][]. Oneproviders cooperate in a peer-to-peer manner,
-synchronizing information about commonly supported [spaces][space]. Like the Onezone,
-Oneprovider can be deployed as a multi-node [cluster][]. It is accessible through the
-various [interfaces][], i.a., the [Web GUI][], [REST API][] and [Oneclient][]. Learn more
-[here][docs-intro-provider].
+A [service][] dedicated for managing the data, installed at a data [provider][] site as a [cluster][], and
+gets registered in a [Onezone][]. Oneproviders cooperate in a peer-to-peer manner,
+synchronizing information about commonly supported [spaces][space]. Accessible through the various [interfaces][], i.a., the
+[Web GUI][], [REST API][] and [Oneclient][]. Learn more [here][docs-intro-provider].
 
 ## Oneprovider panel
 
-See [Onepanel][].
+A [Onepanel][] instance dedicated for administration of a [Oneprovider][] [cluster][].
 
 ## Onezone
 
-A [service][] implementing the Onedata [zone][] concept, which serves as a center of authority
-and an entry point to the system, integrating with the [identity providers][identity provider].
-A single Onezone allows registration of multiple [Oneproviders][Oneprovider],
-to provide their storage resources to users. The Onezone also manages the core resources
-of Onedata like [spaces][space], [groups][group], [shares][share], and more. It is
-accessible through the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
+A [service][] implementing the Onedata [zone][] concept, serving as a center of authority
+(using [identity providers][identity provider]), and an entry point to the system.
+Allows registration of multiple [Oneproviders][Oneprovider],
+to provide their storage resources to users. Manages the core resources
+of Onedata like [spaces][space], [groups][group], [shares][share], etc. Accessible through
+ the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
 [here][docs-intro-onezone].
 
 ## Onezone panel
 
-See [Onepanel][].
+A [Onepanel][] instance dedicated for administration of a [Onezone][] [cluster][].
 
 ## Open Access (OA)
 
@@ -264,7 +260,7 @@ Learn more [here][docs-spaces].
 
 An entity that represents a semi-public link assigned to a file or directory allowing
 anyone on the Internet to read the data. Shares in Onedata may have an optional
-description and can be promoted to the Public Data using [handle][]. Read more
+description and can be promoted to the [Public Data][] using [handle][]. Read more
 [here][docs-shares].
 
 ## Storage backend
@@ -286,13 +282,10 @@ Learn more [here][docs-space-support].
 
 ## Token
 
-An alphanumeric string acting as a proof of authorization that can be used
-across the system to authenticate (**access token**), prove identity
-(**identity token**) or gain access to some resources (**invite token**). Tokens
-must be kept secret, just like passwords or private keys/certificates. A token
-can look like the following: `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`.
-Tokens are a universal way of accessing Onedata interfaces: [REST API][],
-[CDMI][] or [Oneclient][]. Learn more [here][docs-tokens].
+An alphanumeric string, like e.g. `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
+acting as a proof of authorization, that can be used
+across the system to [authenticate][access token], [prove identity][identity token], or [gain access][invite token]
+to some resources. Must be kept secret. Learn more [here][docs-tokens].
 
 ## Web GUI
 
@@ -302,7 +295,7 @@ A graphical user interface of Onedata accessible via the web browser. Learn more
 
 A central entity of a single Onedata ecosystem instance, which constitutes independent
 data management platform, bringing together multiple data centers — [providers][provider].
-The zone serves as a center of authority and an entry point to the system. It is managed
+Serves as a center of authority and an entry point to the system. Managed
 by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 <!-- references -->
@@ -357,7 +350,6 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [identity provider]: #identity-provider-idp
 [imported storage]: #imported-storage
 [interfaces]: user-guide/interfaces/overview.md
-[Let's Encrypt website]: https://letsencrypt.org/
 [metadata]: #file-metadata
 [Oneclient]: #oneclient
 [onedata-api]: https://onedata.org/#/home/api
@@ -385,3 +377,6 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [Web GUI]: #web-gui
 [zone]: #zone
 [Open Access]: #open-access-oa
+[access token]: #access-token
+[identity token]: #identity-token
+[invite token]: #invite-token
