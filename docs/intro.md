@@ -73,7 +73,7 @@ Onedata supports user *groups*, which enable multiple users to access a single s
 sharing common authorization rules.
 
 The data in spaces can be accessed using a wide-range of [user interfaces][], including a
-Web UI and a command-line client based on [Fuse][]. It enables mounting your spaces to a
+Web UI and a command-line client based on [FUSE][]. It enables mounting your spaces to a
 local filesystem and accessing the data directly from a laptop, a cluster node, or a
 virtual machine deployed in the cloud.
 
@@ -104,7 +104,7 @@ Onedata is a freely available software stack that can be used to build different
 ecosystems, called *zones*. Each Onedata zone constitutes an independent data management
 platform, bringing together multiple data centers (providers). At the heart of each
 Onedata ecosystem lies a *Onezone* service that serves as a center of authority and an
-entry point to the system, integrating with OIDC & SAML identity providers. While
+entry point to the system, integrating with OIDC & SAML [identity providers][]. While
 typically it operates on the level of a federation (e.g. [EGI DataHub][]), in principle
 the size of a zone and the administrative setup of the providers building up an
 environment can be arbitrary.
@@ -118,7 +118,7 @@ collaboration between different ecosystems.
 ## User interfaces
 
 Onedata offers multiple interfaces to manage and access user data: Web GUI, REST API, CDMI
-API, fuse-based POSIX mount, Python libraries, or S3. Regardless of the interface, the
+API, FUSE-based POSIX mount, Python libraries, or S3. Regardless of the interface, the
 user gets the same, unified view of all his data.
 
 ### Web GUI
@@ -135,7 +135,7 @@ features for skilled personnel, such as data stewards, developers, or administra
 
 The [Oneclient][] application allows mounting your Onedata Spaces in a Linux filesystem,
 so that the data can be accessed as if it resided in the local filesystem. Oneclient is
-based on the [Fuse][] (Filesystem in Userspace) library and proves useful in many
+based on the [FUSE][] (Filesystem in Userspace) library and proves useful in many
 scenarios:
 
 * convenient access using a personal laptop from any place with Internet connection,
@@ -203,7 +203,7 @@ described in a [dedicated chapter][interfaces].
 
 [Oneclient]: user-guide/interfaces/oneclient.md
 
-[fuse]: https://github.com/libfuse/libfuse
+[FUSE]: https://github.com/libfuse/libfuse
 
 [op-panel-gui]: admin-guide/oneprovider/administration-panel.md
 
@@ -214,6 +214,8 @@ described in a [dedicated chapter][interfaces].
 [rich graphical interface]: user-guide/interfaces/web-file-browser.md
 
 [interfaces]: user-guide/interfaces/overview.md
+
+[identity providers]: glossary.md#identity-provider-idp
 
 [image-onezone]: ../images/intro/onezone.png
 
