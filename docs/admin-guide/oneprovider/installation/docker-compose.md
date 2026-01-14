@@ -159,8 +159,8 @@ container using paths listed in the section [Web certificate][].
 Oneprovider service requires several TCP ports (`80`,`443`, `4443`, `6665`,`9443`) to be opened for proper operation.
 Some of these ports can be limited to internal network, in particular `9443` for **Onepanel** management interface.
 
-Furthermore, there are some additional ports exposed on all hosts of Oneprovider deployment where you have deployed a 
-Couchbase instance. So, we strongly advise to follow the Couchbase [security guidelines][security-intro].
+Furthermore, there are some additional ports exposed on all hosts of the Oneprovider deployment where you have
+deployed a Couchbase instance. Thus, we strongly advise following the Couchbase [security guidelines][security-intro].
 
 For more information about ports setup, consult the section [Network and firewall][].
 
