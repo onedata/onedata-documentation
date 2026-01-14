@@ -39,11 +39,10 @@ Learn more [here][docs-cdmi].
 
 ## Cluster
 
-A set of hosts that together run a single instance of [Onezone][] or [Oneprovider][]. The
+A set of hosts that together run an instance of [Onezone][] or [Oneprovider][]. The
 cluster can consist of single or more nodes, each running with a subset of services like
-[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc., to allow load balancing within a single
-Onezone/Oneprovider. Learn more in the [Onezone cluster nodes][] and [Oneprovider cluster
-nodes][] chapters.
+[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc.
+Learn more in the [Onezone cluster nodes][] and [Oneprovider cluster nodes][] chapters.
 
 ## Cluster Manager
 
@@ -117,12 +116,11 @@ users' access and privileges to resources like [spaces][space]. Learn more
 
 ## Handle
 
-An entity that represents an Open Access [persistent identifier][] (e.g. [DOI][]) and metadata
-assigned to the [share][]. It is created by registering the share in a [handle service][] and
+Representation of an [Open Access][] [persistent identifier][] and metadata
+assigned to the [share][]. Created by registering the share in a [handle service][] and
 exposing it for discovery by [Public Data][] indexes via the OAI PMH protocol. This process makes
-the data collection and metadata publicly available (without an account in Onedata) and
-enables anyone to look it up in the Public Data indexes. Learn more
-[here][docs-public-data].
+the data collection and metadata publicly available and findable in the Public Data indexes.
+Learn more [here][docs-public-data].
 
 ## Handle service
 
@@ -219,6 +217,11 @@ accessible through the various interfaces, i.a., the [Web GUI][] and [REST API][
 ## Onezone panel
 
 See [Onepanel][].
+
+## Open Access (OA)
+
+A publishing model that provides free, immediate, and unrestricted online access to
+research outputs without financial, legal, or technical barriers.
 
 ## Persistent identifier
 
@@ -381,3 +384,4 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [token]: #token
 [Web GUI]: #web-gui
 [zone]: #zone
+[Open Access]: #open-access-oa
