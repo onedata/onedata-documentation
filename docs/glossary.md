@@ -1,6 +1,5 @@
 # Glossary
 
-
 <!-- TODO: VFS-13169 Dodatkowo uleszpenie Glossary; uzupełnienie brakujących, przegląd wszystkich zakładek i dopisanie brakujących pojęć, porobienie linków -->
 
 <!-- short description of each concept with links to proper sections -->
