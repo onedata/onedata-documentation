@@ -1,6 +1,8 @@
 # Upgrades & compatibility
 
-<!-- FIXME: wstęp -->
+This chapter explains how Onedata versions are structured, including legacy versioning
+scheme, and how version changes affect compatibility and upgrades between system core
+components.
 
 ## Versioning
 
@@ -177,8 +179,6 @@ major. The example of such exception is:
 :::
 
 For the upgrading guide, see the [Onezone upgrading][] and the [Oneprovider upgrading][] chapters.
-
-<!-- Dać link do jsona z compat-ref -->
 
 <!-- references -->
 
