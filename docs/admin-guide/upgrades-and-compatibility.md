@@ -149,15 +149,18 @@ Onezone and Oneprovider support upgrades with the following limitations:
 
 * you can upgrade from one minor version to any other higher minor version in scope of a
   single major, e.g.:
+
   * ✅ 20.02.<strong>1</strong> → 20.02.<strong>6</strong> *(legacy versioning scheme)*,
   * ✅ 25.<strong>0</strong> → 25.<strong>1</strong> *(calendar versioning)*,
   * ✅ 25.<strong>1</strong>.1 → 25.<strong>2</strong>.3 *(calendar versioning with patch)*,
+
 * you can upgrade from one major version only to the succeeding major (no matter of the
   minor version), e.g.:
+
   * ✅ **20.02**.3 → **21.02**.8 *(legacy to legacy)*,
   * ✅ **21.02**.1 → **25**.1 *(legacy to calendar versioning)*,
   * ✅ **25**.0 → **26**.1.2 *(calendar versioning)*,
-  
+
   but **not**:
 
   * ❌ **18.02**.1 → **20.02**.1 *(two legacy majors higher)*,
