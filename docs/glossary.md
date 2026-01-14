@@ -2,8 +2,6 @@
 
 <!-- short description of each concept with links to proper sections -->
 
-<!-- TODO VFS-12857 fill missing entries -->
-
 ## Access control
 
 A set of policies and procedures for granting or denying access to Onedata entities
@@ -33,6 +31,10 @@ there is enough space for new replicas during continuous computations. The
 process uses statistics collected by the [file popularity][] to determine the least
 popular file replicas in a [space][] and to evict them. Learn more [here][docs-auto-cleaning].
 
+## Caveat
+
+A confinement limiting the context in which a [token][] is valid, inscribed in the token itself, e.g, limiting the validity of the token to a certain point in time, or target [services][service]. Learn more [here][docs-token-caveats].
+
 ## Cloud Data Management Interface (CDMI)
 
 A standardized interface for managing cloud storage and accessing data held in it.
@@ -60,7 +62,7 @@ management, etc.) by [Cluster Manager][] component.
 ## Couchbase
 
 A highly scalable document-oriented database, used as a crucial component of Onedata
-services. Learn more about its role in Onedata in the [Architecture > Services][docs-architecture-services] chapter or visit the official [Couchbase website][].
+services. Learn more about its role in Onedata in the [Architecture][docs-architecture-services] chapter or visit the official [Couchbase website][].
 
 ## Data Discovery
 
@@ -69,6 +71,8 @@ files in multiple [spaces][space] and submitting it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][harvester]
 that can have different configurations and source spaces.
 Learn more [here][docs-data-discovery].
+
+## Data distribution
 
 ## Dataset
 
@@ -79,6 +83,10 @@ an ability to create persistent snapshots — [archives][]. Learn more [here][da
 ## Digital Object Identifier (DOI)
 
 A standardized [persistent identifier][], defined by International Organization for Standardization (ISO), used to uniquely identify digital objects such as academic publications, datasets, and official documents.
+
+## Emergency interface
+
+## Extended attributes
 
 ## File ID
 
@@ -170,17 +178,25 @@ accounts/credentials on storage resources. It establishes a relation between mem
 accounts recognized by different storage providers.
 Learn more [here][docs-luma].
 
+## Member
+
 ## Oneclient
 
 A command line interface based on [FUSE][]
 for mounting the Onedata distributed virtual filesystem on local machines.
 Learn more [here][docs-oneclient].
 
+## OnedataFileRestClient
+
+
+
 ## OnedataFS
 
 A [PyFilesystem2][] plugin that allows
 accessing the user data programmatically using a python API.
 Learn more [here][docs-onedatafs].
+
+## OnedataRestFS
 
 ## Onepanel
 
@@ -234,6 +250,8 @@ centers or even personal computers. Learn more [here][docs-intro-provider].
 
 An extended [share][] that has been assigned a [persistent identifier][] (e.g. [DOI][]) and descriptive metadata. Learn more [here][docs-public-data].
 
+## Quality of Service (QoS)
+
 ## REST API
 
 An interface to various Onedata [services][service], accessible through the HTTPS protocol, following
@@ -253,8 +271,6 @@ Accessible only to its members — users or [groups][group] — that are assigne
 fine-grained privileges. The actual data storage of a space is realized by the
 [storage backends][storage backend] using [Oneproviders][Oneprovider].
 Learn more [here][docs-spaces].
-
-<!-- TODO VFS-12857 consider adding a chapter about users and linking it here -->
 
 ## Share
 
@@ -287,9 +303,23 @@ acting as a proof of authorization, that can be used
 across the system to [authenticate][access token], [prove identity][identity token], or [gain access][invite token]
 to some resources. Must be kept secret. Learn more [here][docs-tokens].
 
+## Transfer
+
+## User
+
+## View
+
 ## Web GUI
 
 A graphical user interface of Onedata accessible via the web browser. Learn more [here][docs-web-gui].
+
+## Web certificate
+
+## Workflow
+
+## Xattrs
+
+See [extended attributes][].
 
 ## Zone
 
@@ -380,3 +410,6 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [access token]: #access-token
 [identity token]: #identity-token
 [invite token]: #invite-token
+[extended attributes]: #extended-attributes
+[docs-token-caveats]: user-guide/tokens.md#token-caveats
+

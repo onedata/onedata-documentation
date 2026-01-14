@@ -79,7 +79,9 @@
       "OAIS",
       "Oneclient",
       "Onedata",
+      "OnedataFileRestClient",
       "OnedataFS",
+      "OnedataRestFS",
       "Onedatify",
       "Onepanel",
       "Oneprovider",
@@ -106,6 +108,8 @@
       "vCPU",
       "VSCode",
       "VuePress",
+      "xattrs",
+      "Xattrs",
       "xRELEASExVERSIONx",
       "XRootD",
       "znck"
