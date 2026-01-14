@@ -1,10 +1,11 @@
 # Prerequisites & requirements
 
-This chapter describes the prerequisites and requirements which should be met before deploying the Oneprovider service.
+This chapter describes the prerequisites and requirements which should be met before deploying the Oneprovider service
+on a host. The host can be either a bare metal server or a virtual machine.
 
 ## Hardware & OS
 
-The node on which Oneprovider will be deployed should fulfill the requirements shown in the table below.
+The host on which Oneprovider will be deployed should fulfill the requirements shown in the table below.
 
 | Requirement               | Minimum                          | Optimal                          |
 | ------------------------- | -------------------------------- | -------------------------------- |
@@ -16,7 +17,7 @@ The node on which Oneprovider will be deployed should fulfill the requirements s
 
 ## Public IP and ports
 
-The node should have a network interface with public IP. Oneprovider communicates with external services or clients
+The host should have a network interface with public IP. Oneprovider communicates with external services or clients
 using ports 80, 443, 4443, 6665 and 9443. All of these ports need to be publicly open, except 9443, which is used for
 direct emergency access to the Oneprovider.
 
@@ -28,7 +29,7 @@ Erlang daemon — EPMD. Exposing those for external access may create attack vec
 
 ## DNS domain
 
-The node should be accessible via its FQDN. There are two scenarios for setting this up:
+The host should be accessible via its FQDN. There are two scenarios for setting this up:
 
 * supply your own FQDN, in which case your network administrator registers the domain and places the
   relevant DNS records,
@@ -38,7 +39,7 @@ The node should be accessible via its FQDN. There are two scenarios for setting 
 ## TLS certificate
 
 Onedata services communicate with each other using the HTTPS protocol which require obtaining of TLS certificate
-for the node. There are two ways to accomplish this:
+for the host. There are two ways to accomplish this:
 
 * organizing the web cert by the administrator (it can be done both for non-delegated subdomain and
   delegated subdomain),
@@ -58,16 +59,16 @@ and you get access to it according to the organization's access policy. If you d
 our Onezone service available at [demo.onedata.org][demo] (see the [user quickstart][] section for details).
 Another possibility is deploying your own Onezone (see the [Onezone installation][] chapter).
 
-## Node setup
+## Host setup
 
-The node should be initially configured before deploying the Oneprovider service. The available methods to do
+The host should be initially configured before deploying the Oneprovider service. The available methods to do
 this are described below.
 
 ### Using Ansible script
 
-The **recommended way** is to use our proven Ansible script to set up your node.
+The **recommended way** is to use our proven Ansible script to set up your host.
 
-Clone the repository on your node:
+Clone the repository on your host:
 
 ```sh
 git clone https://github.com/onedata/onedata-deployments.git

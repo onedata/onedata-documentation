@@ -10,9 +10,9 @@ This chapter describes the available [Oneprovider][providers] installation metho
 All supported installation methods use our [official Docker images][docker-images]
 to run Oneprovider on any [Linux OS supporting Docker][supported-platforms].
 
-Oneprovider service can be deployed on multiple nodes for
+Oneprovider service can be deployed on multiple hosts for
 high-availability purpose. If not mentioned otherwise, we assume that
-Oneprovider will be installed on a single node.
+Oneprovider will be installed on a single host.
 
 There are few installation methods shortly described further to help you choose which one is best for you:
 
@@ -27,7 +27,7 @@ There are few installation methods shortly described further to help you choose 
   The installation is done by preparing an YAML configuration file for Oneprovider and then running the service.
 
 ::: tip NOTE
-Regardless of the chosen method, the node should be initially prepared — see [prerequisites][].\
+Regardless of the chosen method, the host should be initially prepared — see [prerequisites][].\
 After the successful installation, you can further configure your Oneprovider — see the [Configuration][] topic in
 the navigation panel on the left.
 :::
