@@ -24,7 +24,7 @@ There are few installation methods shortly described further to help you choose 
   wizard, but still user-friendly.
 * [Batch mode][] — useful for more skilled administrators wanting a specifically configured deployment.
   The deployment happens in batch mode, which does not require manual steps. It is useful for automated deployments.
-  The installation is done by preparing an YAML configuration file for Oneprovider and then running the service.
+  The installation is done by preparing a YAML configuration file for Oneprovider and then running the service.
 
 ::: tip NOTE
 Regardless of the chosen method, the host should be initially prepared — see [prerequisites][].\
