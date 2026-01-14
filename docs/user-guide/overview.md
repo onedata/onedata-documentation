@@ -42,7 +42,7 @@ on the left side of the page.
 | Tab                    | Description                                                                                                   |
 |------------------------|---------------------------------------------------------------------------------------------------------------|
 | [Data][Data]           | Access and manage the Spaces you belong to, create new ones, organize data,<br/> and perform file operations. |
-| [Shares][Shares]       | View and manage files shared with you from all accessible Spaces.                                             |
+| [Shares][Shares]       | View and manage shared files from Spaces you have access to.                                                  |
 | [Providers][Providers] | View Providers supporting your Spaces.                                                                        |
 | [Groups][Groups GUI]   | View and manage the Groups you are a member of.                                                               |
 

@@ -27,9 +27,9 @@ module.exports = {
         collapsable: true,
         children: [
           '/user-guide/quickstart',
-          // '/user-guide/overview',
+          '/user-guide/overview',
           '/user-guide/account-management',
-          '/user-guide/groups',
+          '/user-guide/groups-memberships',
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
