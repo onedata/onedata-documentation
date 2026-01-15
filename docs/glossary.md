@@ -6,23 +6,23 @@
 
 A set of policies and procedures for granting or denying access to Onedata entities
 (e.g. [spaces][space]) and data. For more information about spaces access control, refer to [this
-page][space-members]. In case of the data access control, Onedata implements a multi-level
-approach, as described [here][data access control].
+page][docs-space-members]. In case of the data access control, Onedata implements a multi-level
+approach, as described [here][docs-data-access-control].
 
 ## Access-control list (ACL)
 
 A list of permissions associated with file or directory used to precisely grant or deny
-access to it. Learn more [here][ACL].
+access to it. Learn more [here][docs-acl].
 
 ## Access token
 
-A [token][] intended for authentication, being a universal way of accessing Onedata interfaces: [REST API][],
-[CDMI][] or [Oneclient][].
+A [token][] intended for authentication, being a universal way of accessing Onedata
+interfaces: [REST API][], [CDMI][] or [Oneclient][].
 
 ## Archive
 
 A snapshot of a [dataset][] created at a certain point in time.
-Learn more [here][archive-more].
+Learn more [here][docs-archives].
 
 ## Auto-cleaning
 
@@ -37,11 +37,14 @@ A system for managing and running [workflows][workflow]. Learn more [here][docs-
 
 ## Automation inventory
 
-An organizational unit for storing [workflow schemas][workflow schema], [lambdas][lambda], and manage their [members][member]. Learn more [here][docs-automation].
+An organizational unit for storing [workflow schemas][workflow schema], [lambdas][lambda],
+and manage their [members][member]. Learn more [here][docs-automation].
 
 ## Caveat
 
-A confinement limiting the context in which a [token][] is valid, inscribed in the token itself, e.g, limiting the validity of the token to a certain point in time, or target [services][service]. Learn more [here][docs-token-caveats].
+A confinement limiting the context in which a [token][] is valid, inscribed in the token
+itself, e.g, limiting the validity of the token to a certain point in time, or target
+[services][service]. Learn more [here][docs-token-caveats].
 
 ## Cloud Data Management Interface (CDMI)
 
@@ -52,8 +55,9 @@ Learn more [here][docs-cdmi].
 
 A set of hosts that together run an instance of [Onezone][] or [Oneprovider][]. The
 cluster can consist of single or more nodes, each running with a subset of services like
-[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc.
-Learn more in the [Onezone cluster nodes][] and [Oneprovider cluster nodes][] chapters.
+[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc. Learn more in the
+[Onezone cluster nodes][docs-onezone-cluster-nodes] and [Oneprovider cluster
+nodes][docs-oneprovider-cluster-nodes] chapters.
 
 ## Cluster Manager
 
@@ -70,7 +74,9 @@ management, etc.) by [Cluster Manager][] component.
 ## Couchbase
 
 A highly scalable document-oriented database, used as a crucial component of Onedata
-services. Learn more about its role in Onedata in the [Architecture][docs-architecture-services] chapter or visit the official [Couchbase website][].
+services. Learn more about its role in Onedata in the
+[Architecture][docs-architecture-services] chapter or visit the official
+[Couchbase website][website-couchbase].
 
 ## Data Discovery
 
@@ -96,7 +102,7 @@ data between [providers][provider]. Learn more [here][docs-data-transfers].
 
 A file or directory marked by space users as representing data collections
 relevant to them. They can be used to organize data in a space systematically and provide
-an ability to create persistent snapshots — [archives][]. Learn more [here][dataset-more].
+an ability to create persistent snapshots — [archives][]. Learn more [here][docs-datasets].
 
 ## Digital Object Identifier (DOI)
 
@@ -116,7 +122,9 @@ via [groups][group] [membership][member] path.
 
 ## Emergency interface
 
-A [Web GUI][] of [Onepanel][] accessible from special `9443` port on the [service][] host. Learn more in the [Oneprovider administration panel][docs-oneprovider-emergency-panel] and the [Onezone administration panel][] chapters.
+A [Web GUI][] of [Onepanel][] accessible from special `9443` port on the [service][] host.
+Learn more in the [Oneprovider administration panel][docs-oneprovider-emergency-panel] and
+the [Onezone administration panel][docs-onezone-administration-panel] chapters.
 
 ## Eviction (data)
 
@@ -131,7 +139,7 @@ POSIX extended file attributes. Learn more [here][docs-metadata-xattrs].
 ## File ID
 
 A unique, global identifier associated with a file or directory.
-Learn more [here][file-path-and-id].
+Learn more [here][docs-file-path-and-id].
 
 ## File metadata
 
@@ -143,7 +151,7 @@ Learn more [here][docs-file-metadata].
 ## File path
 
 A string specifying the location of a file or directory in the Onedata filesystem.
-Learn more [here][file-path-and-id].
+Learn more [here][docs-file-path-and-id].
 
 ## File popularity
 
@@ -220,16 +228,17 @@ forming a processing pipeline.
 ## Let's Encrypt (LE)
 
 A non-profit certificate authority run by Internet Security Research Group (ISRG) that
-provides web certificates without charging
-fees. Using the built-in LE client, Onedata can obtain and renew web
-certificates on its nodes automatically. Learn more in the [Onezone web certificate][docs-onezone-web-certificate] and [Oneprovider web certificate][docs-oneprovider-web-certificate] chapters.
+provides web certificates without charging fees. Using the built-in LE client, Onedata can
+obtain and renew web certificates on its nodes automatically. Learn more in the [Onezone
+web certificate][docs-onezone-web-certificate] and [Oneprovider web
+certificate][docs-oneprovider-web-certificate] chapters.
 
 ## Local User Mapping (LUMA)
 
 A database that stores mappings between Onedata user accounts and local user
-accounts/credentials on storage resources. It establishes a relation between members of a Onedata space and user
-accounts recognized by different storage providers.
-Learn more [here][docs-luma].
+accounts/credentials on storage resources. It establishes a relation between members of a
+Onedata space and user accounts recognized by different storage providers. Learn more
+[here][docs-luma].
 
 ## Member
 
@@ -245,7 +254,7 @@ move data blocks between specific [providers][provider].
 
 ## Oneclient
 
-A command line interface based on [FUSE][]
+A command line interface based on [FUSE][website-fuse]
 for mounting the Onedata distributed virtual filesystem on local machines.
 Learn more [here][docs-oneclient].
 
@@ -256,13 +265,13 @@ concise, low-level library. Learn more [here][docs-onedata-file-rest-client].
 
 ## OnedataFS
 
-A [PyFilesystem2][] plugin that allows
+A [PyFilesystem2][website-pyfilesystem2] plugin that allows
 accessing the user data programmatically using a python API.
 Learn more [here][docs-onedatafs].
 
 ## OnedataRestFS
 
-A [PyFilesystem2][] plugin that allows
+A [PyFilesystem2][website-pyfilesystem2] plugin that allows
 accessing the user data programmatically using a python API,
 based on Onedata [REST API][].
 Learn more [here][docs-onedata-rest-fs].
@@ -271,15 +280,17 @@ Learn more [here][docs-onedata-rest-fs].
 
 A [service][] dedicated for administration of a [cluster][] and, itself, an integral part
 of the cluster. Accessible through the [Web GUI][] or [REST API][]. Learn more in the
-[Architecture][docs-architecture-services], [Onezone administration panel][], and
-[Oneprovider administration panel][] chapters.
+[Architecture][docs-architecture-services], [Onezone administration
+panel][docs-onezone-administration-panel], and [Oneprovider administration
+panel][docs-oneprovider-administration-panel] chapters.
 
 ## Oneprovider
 
-A [service][] dedicated for managing the data, installed at a data [provider][] site as a [cluster][], and
-gets registered in a [Onezone][]. Oneproviders cooperate in a peer-to-peer manner,
-synchronizing information about commonly supported [spaces][space]. Accessible through the various [interfaces][], i.a., the
-[Web GUI][], [REST API][] and [Oneclient][]. Learn more [here][docs-intro-provider].
+A [service][] dedicated for managing the data, installed at a data [provider][] site as a
+[cluster][], and gets registered in a [Onezone][]. Oneproviders cooperate in a
+peer-to-peer manner, synchronizing information about commonly supported [spaces][space].
+Accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][]
+and [Oneclient][]. Learn more [here][docs-intro-provider].
 
 ## Oneprovider panel
 
@@ -313,7 +324,9 @@ research outputs without financial, legal, or technical barriers.
 ## Persistent identifier
 
 A long-lasting, globally unique reference to a digital or physical object that remains
-stable over time, even if the object's location or metadata changes. It can be, e.g., a [DOI][]. Onedata supports assigning a persistent identifier to the [share][] using a [handle][].
+stable over time, even if the object's location or metadata changes. It can be, e.g., a
+[DOI][]. Onedata supports assigning a persistent identifier to the [share][] using a
+[handle][].
 
 ## Provider
 
@@ -323,11 +336,14 @@ centers or even personal computers. Learn more [here][docs-intro-provider].
 
 ## Public Data
 
-An extended [share][] that has been assigned a [persistent identifier][] (e.g. [DOI][]) and descriptive metadata. Learn more [here][docs-public-data].
+An extended [share][] that has been assigned a [persistent identifier][] (e.g. [DOI][])
+and descriptive metadata. Learn more [here][docs-public-data].
 
 ## Quality of Service (QoS)
 
-A feature that provides management of file replica [distribution][data distribution] and redundancy between [providers][provider] supporting a [space][]. Learn more [here][docs-qos].
+A feature that provides management of file replica [distribution][data distribution] and
+redundancy between [providers][provider] supporting a [space][]. Learn more
+[here][docs-qos].
 
 ## Replication (data)
 
@@ -336,9 +352,9 @@ copy data blocks to a specific [provider][].
 
 ## REST API
 
-An interface to various Onedata [services][service], accessible through the HTTPS protocol, following
-the RESTful API guidelines. You can browse Onedata REST API documentation 
-[here][onedata-api].
+An interface to various Onedata [services][service], accessible through the HTTPS
+protocol, following the RESTful API guidelines. You can browse Onedata REST API
+documentation [here][website-onedata-api].
 
 ## Service
 
@@ -356,7 +372,9 @@ Learn more [here][docs-spaces].
 
 ## Space owner
 
-A designated [user][], who is authorized to perform all operations, regardless of the assigned privileges, in the [space][]. The space must always have at least one owner, but there may be more. Learn more [here][docs-space-owner].
+A designated [user][], who is authorized to perform all operations, regardless of the
+assigned privileges, in the [space][]. A space must always have at least one owner, but
+there may be more. Learn more [here][docs-space-owner].
 
 ## Share
 
@@ -391,9 +409,9 @@ Learn more [here][docs-space-support].
 ## Token
 
 An alphanumeric string, like e.g. `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
-acting as a proof of authorization, that can be used
-across the system to [authenticate][access token], [prove identity][identity token], or [gain access][invite token]
-to some resources. Must be kept secret. Learn more [here][docs-tokens].
+acting as a proof of authorization, that can be used across the system to
+[authenticate][access token], [prove identity][identity token], or [gain access][invite
+token] to some resources. Must be kept secret. Learn more [here][docs-tokens].
 
 ## Transfer
 
@@ -407,7 +425,8 @@ person. Could become a [member][] of Onedata resources.
 
 ## View
 
-A result of continuous indexing of [file metadata][], mapped using a user-defined function, and optionally reduced using a reduce function. Learn more [here][docs-views].
+A result of continuous indexing of [file metadata][], mapped using a user-defined
+function, and optionally reduced using a reduce function. Learn more [here][docs-views].
 
 ## Web GUI
 
@@ -415,7 +434,10 @@ A graphical user interface of Onedata accessible via the web browser. Learn more
 
 ## Workflow
 
-A user-defined process for orchestrating complex data processing through a series of sequential [lanes][lane] and shared global [stores][store]. Consists of a [schema][workflow schema], and an execution (the runtime instance). Stored in [inventories][automation inventory]. Learn more [here][docs-automation].
+A user-defined process for orchestrating complex data processing through a series of
+sequential [lanes][lane] and shared global [stores][store]. Consists of a
+[schema][workflow schema], and an execution (the runtime instance). Stored in
+[inventories][automation inventory]. Learn more [here][docs-automation].
 
 ## Workflow schema
 
@@ -436,113 +458,115 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 <!-- references -->
 
-[ACL]: user-guide/data.md#access-control-lists
-[archive-more]: user-guide/archives.md
+[access token]: #access-token
 [archives]: #archive
 [auto-cleaning]: #auto-cleaning
+[automation inventory]: #automation-inventory
 [CDMI]: #cloud-data-management-interface-cdmi
 [Cluster Manager]: #cluster-manager
 [Cluster Worker]: #cluster-worker
 [cluster]: #cluster
-[Couchbase website]: https://www.couchbase.com/
 [Couchbase]: #couchbase
-[data access control]: user-guide/data.md#data-access-control
 [data discovery]: #data-discovery
-[dataset-more]: user-guide/datasets.md
+[data distribution]: #data-distribution
+[data transfer]: #data-transfer
 [dataset]: #dataset
-[docs-architecture-services]: admin-guide/architecture.md#services
-[docs-auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
-[docs-cdmi]: user-guide/interfaces/cdmi.md
-[docs-data-discovery]: user-guide/data-discovery.md
-[docs-file-metadata]: user-guide/metadata.md
-[docs-file-popularity]: admin-guide/oneprovider/configuration/file-popularity.md
-[docs-file-registration]: user-guide/file-registration.md
-[docs-groups]: user-guide/groups.md
-[docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
-[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
-[docs-intro-provider]: intro.md#providers
-[docs-intro-zone]: intro.md#zones
-[docs-luma]: admin-guide/oneprovider/configuration/luma.md
-[docs-oneclient]: user-guide/interfaces/oneclient.md
-[docs-onedatafs]: user-guide/interfaces/onedata-fs.md
-[docs-oneprovider-web-certificate]: admin-guide/oneprovider/configuration/web-certificate.md
-[docs-onezone-web-certificate]: admin-guide/onezone/configuration/web-certificate.md
-[docs-public-data]: user-guide/public-data.md
-[docs-shares]: user-guide/shares.md
-[docs-space-support]: user-guide/spaces.md#space-support
-[docs-spaces]: user-guide/spaces.md
-[docs-storage-backends]: admin-guide/oneprovider/configuration/storage-backends.md
-[docs-storage-import]: admin-guide/oneprovider/configuration/storage-import.md
-[docs-tokens]: user-guide/tokens.md
-[docs-web-gui]: intro.md#web-gui
+[direct member]: #direct-member
 [DOI]: #digital-object-identifier-doi
+[eviction]: #eviction-data
+[extended attributes]: #extended-attributes
+[file metadata]: #file-metadata
 [file popularity]: #file-popularity
-[file-path-and-id]: user-guide/data.md#file-path-and-id
-[FUSE]: https://github.com/libfuse/libfuse
 [group]: #group
 [handle service]: #handle-service
 [handle]: #handle
 [harvester]: #harvester
 [identity provider]: #identity-provider-idp
+[identity token]: #identity-token
 [imported storage]: #imported-storage
-[interfaces]: user-guide/interfaces/overview.md
+[invite token]: #invite-token
+[lambda]: #lambda-workflows
+[lane]: #lane-workflows
+[member]: #member
 [metadata]: #file-metadata
+[migration]: #migration-data
+[on-the-fly transfer]: #on-the-fly-transfer
 [Oneclient]: #oneclient
-[onedata-api]: https://onedata.org/#/home/api
 [Onepanel]: #onepanel
-[Oneprovider administration panel]: admin-guide/oneprovider/administration-panel.md
-[Oneprovider cluster nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
 [Oneprovider panel]: #oneprovider-panel
 [Oneprovider]: #oneprovider
-[Onezone administration panel]: admin-guide/onezone/administration-panel.md
-[Onezone cluster nodes]: admin-guide/onezone/configuration/cluster-nodes.md
 [Onezone]: #onezone
+[Open Access]: #open-access-oa
 [persistent identifier]: #persistent-identifier
 [provider]: #provider
 [Public Data]: #public-data
-[PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
+[replication]: #replication-data
 [REST API]: #rest-api
 [service]: #service
 [share]: #share
-[space-members]: user-guide/spaces.md#space-members
 [space]: #space
 [storage backend]: #storage-backend
 [storage import]: #storage-import
+[store]: #store-workflows
 [support]: #support
 [token]: #token
-[Web GUI]: #web-gui
-[zone]: #zone
-[Open Access]: #open-access-oa
-[access token]: #access-token
-[identity token]: #identity-token
-[invite token]: #invite-token
-[extended attributes]: #extended-attributes
-[docs-token-caveats]: user-guide/tokens.md#token-caveats
-[docs-data-distribution]: user-guide/data-distribution-and-metrics.md
-[docs-metadata-xattrs]: user-guide/metadata.md#extended-attributes
+[transfer]: #transfer
 [user]: #user
-[automation inventory]: #automation-inventory
-[member]: #member
-[direct member]: #direct-member
+[Web GUI]: #web-gui
 [workflow schema]: #workflow-schema
-[lambda]: #lambda-workflows
-[docs-automation]: user-guide/automation.md
 [workflow]: #workflow
-[store]: #store-workflows
-[lane]: #lane-workflows
+[zone]: #zone
+
+[docs-acl]: user-guide/data.md#access-control-lists
+[docs-architecture-services]: admin-guide/architecture.md#services
+[docs-archives]: user-guide/archives.md
+[docs-auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
+[docs-automation]: user-guide/automation.md
+[docs-cdmi]: user-guide/interfaces/cdmi.md
+[docs-data-access-control]: user-guide/data.md#data-access-control
+[docs-data-discovery]: user-guide/data-discovery.md
+[docs-data-distribution]: user-guide/data-distribution-and-metrics.md
+[docs-data-transfers]: user-guide/data-transfers.md#overview
+[docs-datasets]: user-guide/datasets.md
+[docs-file-metadata]: user-guide/metadata.md
+[docs-file-path-and-id]: user-guide/data.md#file-path-and-id
+[docs-file-popularity]: admin-guide/oneprovider/configuration/file-popularity.md
+[docs-file-registration]: user-guide/file-registration.md
+[docs-groups]: user-guide/groups.md
+[docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
+[docs-interfaces]: user-guide/interfaces/overview.md
+[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+[docs-intro-provider]: intro.md#providers
+[docs-intro-zone]: intro.md#zones
+[docs-luma]: admin-guide/oneprovider/configuration/luma.md
+[docs-metadata-xattrs]: user-guide/metadata.md#extended-attributes
+[docs-oidc-saml]: admin-guide/onezone/configuration/oidc-saml.md
+[docs-oneclient]: user-guide/interfaces/oneclient.md
 [docs-onedata-file-rest-client]: user-guide/interfaces/onedata-file-rest-client.md
 [docs-onedata-rest-fs]: user-guide/interfaces/onedata-rest-fs.md
-[transfer]: #transfer
-[replication]: #replication-data
-[migration]: #migration-data
-[eviction]: #eviction-data
-[on-the-fly transfer]: #on-the-fly-transfer
-[data distribution]: #data-distribution
+[docs-onedatafs]: user-guide/interfaces/onedata-fs.md
+[docs-oneprovider-administration-panel]: admin-guide/oneprovider/administration-panel.md
+[docs-oneprovider-cluster-nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
 [docs-oneprovider-emergency-panel]: admin-guide/oneprovider/administration-panel.md#access-via-emergency-interface
-[docs-oidc-saml]: admin-guide/onezone/configuration/oidc-saml.md
+[docs-oneprovider-web-certificate]: admin-guide/oneprovider/configuration/web-certificate.md
+[docs-onezone-administration-panel]: admin-guide/onezone/administration-panel.md
+[docs-onezone-cluster-nodes]: admin-guide/onezone/configuration/cluster-nodes.md
+[docs-onezone-web-certificate]: admin-guide/onezone/configuration/web-certificate.md
+[docs-public-data]: user-guide/public-data.md
 [docs-qos]: user-guide/rule-based-replication-qos.md
+[docs-shares]: user-guide/shares.md
+[docs-space-members]: user-guide/spaces.md#space-members
 [docs-space-owner]: user-guide/spaces.md#space-owner
-[data transfer]: #data-transfer
-[docs-data-transfers]: user-guide/data-transfers.md#overview
-[file metadata]: #file-metadata
+[docs-space-support]: user-guide/spaces.md#space-support
+[docs-spaces]: user-guide/spaces.md
+[docs-storage-backends]: admin-guide/oneprovider/configuration/storage-backends.md
+[docs-storage-import]: admin-guide/oneprovider/configuration/storage-import.md
+[docs-token-caveats]: user-guide/tokens.md#token-caveats
+[docs-tokens]: user-guide/tokens.md
 [docs-views]: user-guide/views.md
+[docs-web-gui]: intro.md#web-gui
+
+[website-couchbase]: https://www.couchbase.com/
+[website-fuse]: https://github.com/libfuse/libfuse
+[website-onedata-api]: https://onedata.org/#/home/api
+[website-pyfilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
