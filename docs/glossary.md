@@ -31,6 +31,14 @@ there is enough space for new replicas during continuous computations. The
 process uses statistics collected by the [file popularity][] to determine the least
 popular file replicas in a [space][] and to evict them. Learn more [here][docs-auto-cleaning].
 
+## Automation
+
+A system for managing and running [workflows][workflow]. Learn more [here][docs-automation].
+
+## Automation inventory
+
+An organizational unit for storing [workflow schemas][workflow schema], [lambdas][lambda], and manage their [members][member]. Learn more [here][docs-automation].
+
 ## Caveat
 
 A confinement limiting the context in which a [token][] is valid, inscribed in the token itself, e.g, limiting the validity of the token to a certain point in time, or target [services][service]. Learn more [here][docs-token-caveats].
@@ -74,6 +82,16 @@ Learn more [here][docs-data-discovery].
 
 ## Data distribution
 
+A layout of the physical data blocks on [storage backends][storage backend] for the file.
+Managed automatically by [on-the-fly transfers][on-the-fly transfer], and manually using
+data [replication][], [migration][], or [eviction][]. Learn more
+[here][docs-data-distribution].
+
+## Data transfer
+
+A process of [replicating][replication], [evicting][eviction] or [migrating][migration]
+data between [providers][provider]. Learn more [here][docs-data-transfers].
+
 ## Dataset
 
 A file or directory marked by space users as representing data collections
@@ -82,11 +100,33 @@ an ability to create persistent snapshots — [archives][]. Learn more [here][da
 
 ## Digital Object Identifier (DOI)
 
-A standardized [persistent identifier][], defined by International Organization for Standardization (ISO), used to uniquely identify digital objects such as academic publications, datasets, and official documents.
+A standardized [persistent identifier][], defined by International Organization for
+Standardization (ISO), used to uniquely identify digital objects such as academic
+publications, datasets, and official documents.
+
+## Direct member
+
+A [member][] that has assigned privileges to the resource ([space][], [group][],
+[harvester][], etc.) without an intermediate group.
+
+## Effective privileges
+
+A sum of all resource's privileges assigned [directly][direct member] and those inherited
+via [groups][group] [membership][member] path.
 
 ## Emergency interface
 
+A [Web GUI][] of [Onepanel][] accessible from special `9443` port on the [service][] host. Learn more in the [Oneprovider administration panel][docs-oneprovider-emergency-panel] and the [Onezone administration panel][] chapters.
+
+## Eviction (data)
+
+A user-triggered action that changes [data distribution][] of files in order to
+remove replicated data blocks from a specific [provider][].
+
 ## Extended attributes
+
+Custom key-value pairs that can be assigned to any file/directory and are compatible with
+POSIX extended file attributes. Learn more [here][docs-metadata-xattrs].
 
 ## File ID
 
@@ -148,7 +188,7 @@ Available to users or groups with appropriate privileges. Learn more
 A system that authenticates users and manages their digital identities. Enables single sign-on
 (SSO) by allowing trusted applications, such as [Onezone][], to rely on the IdP for
 authentication instead of handling credentials themselves. Onedata supports a
-wide range of IdPs based on OIDC & SAML.
+wide range of IdPs based on OIDC & SAML. Learn more [here][docs-oidc-saml].
 
 ## Identity token
 
@@ -163,6 +203,19 @@ A [storage backend][] that enables the [storage import][] feature on supported
 
 A [token][] intended for gaining access to some Onedata resource, like, e.g., [space][],
 [group][], [harvester][], etc.
+
+## Lambda (workflows)
+
+A contract between custom-defined operations and the automation system that serves as a
+bridge for integrating custom logic into [workflows][workflow]. Encapsulates
+specifications for operation interface, resource requirements, execution details, and
+metadata.
+
+## Lane (workflows)
+
+A distinct processing stage within a [workflow][] that orchestrates data processing by routing
+items from a source [store][] through parallel boxes containing tasks. Executes sequentially,
+forming a processing pipeline. 
 
 ## Let's Encrypt (LE)
 
@@ -180,6 +233,16 @@ Learn more [here][docs-luma].
 
 ## Member
 
+A [user][] or [group][] which has assigned specific privileges for a [space][], group,
+[harvester][], [automation inventory][], or a [cluster][]. Can be [direct][direct member] or
+non-direct (when a user or group gains privileges to the resource by being a member of other
+group).
+
+## Migration (data)
+
+A user-triggered action that changes [data distribution][] of files in order to
+move data blocks between specific [providers][provider].
+
 ## Oneclient
 
 A command line interface based on [FUSE][]
@@ -188,7 +251,8 @@ Learn more [here][docs-oneclient].
 
 ## OnedataFileRestClient
 
-
+A Python client to the Onedata file REST API, offering basic operations on files as a
+concise, low-level library. Learn more [here][docs-onedata-file-rest-client].
 
 ## OnedataFS
 
@@ -197,6 +261,11 @@ accessing the user data programmatically using a python API.
 Learn more [here][docs-onedatafs].
 
 ## OnedataRestFS
+
+A [PyFilesystem2][] plugin that allows
+accessing the user data programmatically using a python API,
+based on Onedata [REST API][].
+Learn more [here][docs-onedata-rest-fs].
 
 ## Onepanel
 
@@ -230,6 +299,12 @@ of Onedata like [spaces][space], [groups][group], [shares][share], etc. Accessib
 
 A [Onepanel][] instance dedicated for administration of a [Onezone][] [cluster][].
 
+## On-the-fly transfer
+
+A [transfer][] triggered by remote data access. Performed in the background by
+Oneproviders when they are requested to serve file fragments that reside in a remote
+location.
+
 ## Open Access (OA)
 
 A publishing model that provides free, immediate, and unrestricted online access to
@@ -252,6 +327,13 @@ An extended [share][] that has been assigned a [persistent identifier][] (e.g. [
 
 ## Quality of Service (QoS)
 
+A feature that provides management of file replica [distribution][data distribution] and redundancy between [providers][provider] supporting a [space][]. Learn more [here][docs-qos].
+
+## Replication (data)
+
+A user-triggered action that changes [data distribution][] of files in order to
+copy data blocks to a specific [provider][].
+
 ## REST API
 
 An interface to various Onedata [services][service], accessible through the HTTPS protocol, following
@@ -272,6 +354,10 @@ fine-grained privileges. The actual data storage of a space is realized by the
 [storage backends][storage backend] using [Oneproviders][Oneprovider].
 Learn more [here][docs-spaces].
 
+## Space owner
+
+A designated [user][], who is authorized to perform all operations, regardless of the assigned privileges, in the [space][]. The space must always have at least one owner, but there may be more. Learn more [here][docs-space-owner].
+
 ## Share
 
 An entity that represents a semi-public link assigned to a file or directory allowing
@@ -291,6 +377,12 @@ A feature dedicated to importing files located on a storage by registering them 
 [space][] supported by the [storage backend][], without copying the data. Learn more
 [here][docs-storage-import].
 
+## Store (workflows)
+
+A container for data used and manipulated during a [workflow][] execution. Defined by a
+store schema and created as a store instance. There are several types, such as list store
+or tree forest store.
+
 ## Support
 
 A [storage backend][] quota granted to a [space][] on a physical storage by [Oneprovider][].
@@ -305,17 +397,31 @@ to some resources. Must be kept secret. Learn more [here][docs-tokens].
 
 ## Transfer
 
+See [data transfer][].
+
 ## User
 
+An account in the Onedata, managed by the [Onezone][], with assigned authentication
+methods (see [identity providers][identity provider]). Typically created for a single
+person. Could become a [member][] of Onedata resources.
+
 ## View
+
+A result of continuous indexing of [file metadata][], mapped using a user-defined function, and optionally reduced using a reduce function. Learn more [here][docs-views].
 
 ## Web GUI
 
 A graphical user interface of Onedata accessible via the web browser. Learn more [here][docs-web-gui].
 
-## Web certificate
-
 ## Workflow
+
+A user-defined process for orchestrating complex data processing through a series of sequential [lanes][lane] and shared global [stores][store]. Consists of a [schema][workflow schema], and an execution (the runtime instance). Stored in [inventories][automation inventory]. Learn more [here][docs-automation].
+
+## Workflow schema
+
+A blueprint that defines how the [workflow][] should operate, specifying sequential 
+processing stages ([lanes][lane]), shared data storage ([stores][store]), and metadata 
+required to orchestrate complex data processing pipelines. Learn more [here][docs-automation].
 
 ## Xattrs
 
@@ -412,4 +518,31 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 [invite token]: #invite-token
 [extended attributes]: #extended-attributes
 [docs-token-caveats]: user-guide/tokens.md#token-caveats
-
+[docs-data-distribution]: user-guide/data-distribution-and-metrics.md
+[docs-metadata-xattrs]: user-guide/metadata.md#extended-attributes
+[user]: #user
+[automation inventory]: #automation-inventory
+[member]: #member
+[direct member]: #direct-member
+[workflow schema]: #workflow-schema
+[lambda]: #lambda-workflows
+[docs-automation]: user-guide/automation.md
+[workflow]: #workflow
+[store]: #store-workflows
+[lane]: #lane-workflows
+[docs-onedata-file-rest-client]: user-guide/interfaces/onedata-file-rest-client.md
+[docs-onedata-rest-fs]: user-guide/interfaces/onedata-rest-fs.md
+[transfer]: #transfer
+[replication]: #replication-data
+[migration]: #migration-data
+[eviction]: #eviction-data
+[on-the-fly transfer]: #on-the-fly-transfer
+[data distribution]: #data-distribution
+[docs-oneprovider-emergency-panel]: admin-guide/oneprovider/administration-panel.md#access-via-emergency-interface
+[docs-oidc-saml]: admin-guide/onezone/configuration/oidc-saml.md
+[docs-qos]: user-guide/rule-based-replication-qos.md
+[docs-space-owner]: user-guide/spaces.md#space-owner
+[data transfer]: #data-transfer
+[docs-data-transfers]: user-guide/data-transfers.md#overview
+[file metadata]: #file-metadata
+[docs-views]: user-guide/views.md

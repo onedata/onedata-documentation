@@ -72,7 +72,7 @@ module.exports = {
           '/user-guide/data-discovery',
           '/user-guide/datasets',
           '/user-guide/archives',
-//          '/user-guide/automation',
+          '/user-guide/automation',
           '/user-guide/file-registration',
           '/user-guide/views',
           '/user-guide/rest-api'
