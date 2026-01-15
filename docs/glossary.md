@@ -224,7 +224,7 @@ metadata.
 
 A distinct processing stage within a [workflow][] that orchestrates data processing by routing
 items from a source [store][] through parallel boxes containing tasks. Executes sequentially,
-forming a processing pipeline. 
+forming a processing pipeline.
 
 ## Let's Encrypt (LE)
 
@@ -442,8 +442,8 @@ sequential [lanes][lane] and shared global [stores][store]. Consists of a
 
 ## Workflow schema
 
-A blueprint that defines how the [workflow][] should operate, specifying sequential 
-processing stages ([lanes][lane]), shared data storage ([stores][store]), and metadata 
+A blueprint that defines how the [workflow][] should operate, specifying sequential
+processing stages ([lanes][lane]), shared data storage ([stores][store]), and metadata
 required to orchestrate complex data processing pipelines. Learn more [here][docs-automation].
 
 ## Xattrs
@@ -460,114 +460,221 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 <!-- references -->
 
 [access token]: #access-token
+
 [archives]: #archive
+
 [auto-cleaning]: #auto-cleaning
+
 [automation inventory]: #automation-inventory
+
 [CDMI]: #cloud-data-management-interface-cdmi
+
 [Cluster Manager]: #cluster-manager
+
 [Cluster Worker]: #cluster-worker
+
 [cluster]: #cluster
+
 [Couchbase]: #couchbase
+
 [data discovery]: #data-discovery
+
 [data distribution]: #data-distribution
+
 [data transfer]: #data-transfer
+
 [dataset]: #dataset
+
 [direct member]: #direct-member
+
 [DOI]: #digital-object-identifier-doi
+
 [eviction]: #eviction-data
+
 [extended attributes]: #extended-attributes
+
 [file metadata]: #file-metadata
+
 [file popularity]: #file-popularity
+
 [group]: #group
+
 [handle service]: #handle-service
+
 [handle]: #handle
+
 [harvester]: #harvester
+
 [identity provider]: #identity-provider-idp
+
 [identity token]: #identity-token
+
 [imported storage]: #imported-storage
+
 [invite token]: #invite-token
+
 [lambda]: #lambda-workflows
+
 [lane]: #lane-workflows
+
 [member]: #member
+
 [metadata]: #file-metadata
+
 [migration]: #migration-data
+
 [on-the-fly transfer]: #on-the-fly-transfer
+
 [Oneclient]: #oneclient
+
 [Onepanel]: #onepanel
+
 [Oneprovider panel]: #oneprovider-panel
+
 [Oneprovider]: #oneprovider
+
 [Onezone]: #onezone
+
 [Open Access]: #open-access-oa
+
 [persistent identifier]: #persistent-identifier
+
 [provider]: #provider
+
 [Public Data]: #public-data
+
 [replication]: #replication-data
+
 [REST API]: #rest-api
+
 [service]: #service
+
 [share]: #share
+
 [space]: #space
+
 [storage backend]: #storage-backend
+
 [storage import]: #storage-import
+
 [store]: #store-workflows
+
 [support]: #support
+
 [token]: #token
+
 [transfer]: #transfer
+
 [user]: #user
+
 [Web GUI]: #web-gui
+
 [workflow schema]: #workflow-schema
+
 [workflow]: #workflow
+
 [zone]: #zone
 
 [docs-acl]: user-guide/data.md#access-control-lists
+
 [docs-architecture-services]: admin-guide/architecture.md#services
+
 [docs-archives]: user-guide/archives.md
+
 [docs-auto-cleaning]: admin-guide/oneprovider/configuration/auto-cleaning.md
+
 [docs-automation]: user-guide/automation.md
+
 [docs-cdmi]: user-guide/interfaces/cdmi.md
+
 [docs-data-access-control]: user-guide/data.md#data-access-control
+
 [docs-data-discovery]: user-guide/data-discovery.md
+
 [docs-data-distribution]: user-guide/data-distribution-and-metrics.md
+
 [docs-data-transfers]: user-guide/data-transfers.md#overview
+
 [docs-datasets]: user-guide/datasets.md
+
 [docs-file-metadata]: user-guide/metadata.md
+
 [docs-file-path-and-id]: user-guide/data.md#file-path-and-id
+
 [docs-file-popularity]: admin-guide/oneprovider/configuration/file-popularity.md
+
 [docs-file-registration]: user-guide/file-registration.md
+
 [docs-groups]: user-guide/groups.md
+
 [docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
+
 [docs-interfaces]: user-guide/interfaces/overview.md
+
 [docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+
 [docs-intro-provider]: intro.md#providers
+
 [docs-intro-zone]: intro.md#zones
+
 [docs-luma]: admin-guide/oneprovider/configuration/luma.md
+
 [docs-metadata-xattrs]: user-guide/metadata.md#extended-attributes
+
 [docs-oidc-saml]: admin-guide/onezone/configuration/oidc-saml.md
+
 [docs-oneclient]: user-guide/interfaces/oneclient.md
+
 [docs-onedata-file-rest-client]: user-guide/interfaces/onedata-file-rest-client.md
+
 [docs-onedata-rest-fs]: user-guide/interfaces/onedata-rest-fs.md
+
 [docs-onedatafs]: user-guide/interfaces/onedata-fs.md
+
 [docs-oneprovider-administration-panel]: admin-guide/oneprovider/administration-panel.md
+
 [docs-oneprovider-cluster-nodes]: admin-guide/oneprovider/configuration/cluster-nodes.md
+
 [docs-oneprovider-emergency-panel]: admin-guide/oneprovider/administration-panel.md#access-via-emergency-interface
+
 [docs-oneprovider-web-certificate]: admin-guide/oneprovider/configuration/web-certificate.md
+
 [docs-onezone-administration-panel]: admin-guide/onezone/administration-panel.md
+
 [docs-onezone-cluster-nodes]: admin-guide/onezone/configuration/cluster-nodes.md
+
 [docs-onezone-web-certificate]: admin-guide/onezone/configuration/web-certificate.md
+
 [docs-public-data]: user-guide/public-data.md
+
 [docs-qos]: user-guide/rule-based-replication-qos.md
+
 [docs-shares]: user-guide/shares.md
+
 [docs-space-members]: user-guide/spaces.md#space-members
+
 [docs-space-owner]: user-guide/spaces.md#space-owner
+
 [docs-space-support]: user-guide/spaces.md#space-support
+
 [docs-spaces]: user-guide/spaces.md
+
 [docs-storage-backends]: admin-guide/oneprovider/configuration/storage-backends.md
+
 [docs-storage-import]: admin-guide/oneprovider/configuration/storage-import.md
+
 [docs-token-caveats]: user-guide/tokens.md#token-caveats
+
 [docs-tokens]: user-guide/tokens.md
+
 [docs-views]: user-guide/views.md
+
 [docs-web-gui]: intro.md#web-gui
 
 [website-couchbase]: https://www.couchbase.com/
+
 [website-fuse]: https://github.com/libfuse/libfuse
+
 [website-onedata-api]: https://onedata.org/#/home/api
+
 [website-pyfilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
