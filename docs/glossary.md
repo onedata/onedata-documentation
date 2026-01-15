@@ -5,19 +5,19 @@
 ## Access control
 
 A set of policies and procedures for granting or denying access to Onedata entities
-(e.g. [spaces][space]) and data. For more information about spaces access control, refer to [this
-page][docs-space-members]. In case of the data access control, Onedata implements a multi-level
+(e.g., [spaces][space]) and data. For more information about space access control, refer to [this
+page][docs-space-members]. In the case of the data access control, Onedata implements a multi-level
 approach, as described [here][docs-data-access-control].
 
 ## Access-control list (ACL)
 
-A list of permissions associated with file or directory used to precisely grant or deny
+A list of permissions associated with a file or directory that is used to precisely grant or deny
 access to it. Learn more [here][docs-acl].
 
 ## Access token
 
-A [token][] intended for authentication, being a universal way of accessing Onedata
-interfaces: [REST API][], [CDMI][] or [Oneclient][].
+A [token][] for authentication, being a universal way of accessing Onedata
+interfaces: [REST API][], [CDMI][], or [Oneclient][].
 
 ## Archive
 
@@ -27,9 +27,9 @@ Learn more [here][docs-archives].
 ## Auto-cleaning
 
 A process that automatically maintains storage usage at a certain level and ensures that
-there is enough space for new replicas during continuous computations. The
-process uses statistics collected by the [file popularity][] to determine the least
-popular file replicas in a [space][] and to evict them. Learn more [here][docs-auto-cleaning].
+there is enough space for new replicas during continuous computations. Uses statistics
+collected by the [file popularity][] to determine the least popular file replicas in a
+[space][] and to evict them. Learn more [here][docs-auto-cleaning].
 
 ## Automation
 
@@ -38,12 +38,12 @@ A system for managing and running [workflows][workflow]. Learn more [here][docs-
 ## Automation inventory
 
 An organizational unit for storing [workflow schemas][workflow schema], [lambdas][lambda],
-and manage their [members][member]. Learn more [here][docs-automation].
+and managing their [members][member]. Learn more [here][docs-automation].
 
 ## Caveat
 
 A confinement limiting the context in which a [token][] is valid, inscribed in the token
-itself, e.g, limiting the validity of the token to a certain point in time, or target
+itself, e.g., limiting the validity of the token to a certain point in time, or target
 [services][service]. Learn more [here][docs-token-caveats].
 
 ## Cloud Data Management Interface (CDMI)
@@ -54,8 +54,8 @@ Learn more [here][docs-cdmi].
 ## Cluster
 
 A set of hosts that together run an instance of [Onezone][] or [Oneprovider][]. The
-cluster can consist of single or more nodes, each running with a subset of services like
-[database][Couchbase], [Cluster Worker][], [Cluster Manager][], etc. Learn more in the
+cluster can consist of one or more nodes, each running a subset of services, e.g.
+[database][Couchbase], [Cluster Worker][], [Cluster Manager][]. Learn more in the
 [Onezone cluster nodes][docs-onezone-cluster-nodes] and [Oneprovider cluster
 nodes][docs-oneprovider-cluster-nodes] chapters.
 
@@ -67,9 +67,9 @@ Worker][] instances within a single [cluster][].
 ## Cluster Worker
 
 A component of Onedata services ([Oneprovider][], [Onezone][]), which enables them to
-easily scale on large number of nodes on a single cluster. Each Cluster Worker can be
+easily scale on many nodes on a single cluster. Each Cluster Worker can be
 configured for different tasks depending on the current needs (data access, metadata
-management, etc.) by [Cluster Manager][] component.
+management, etc.) by the [Cluster Manager][] component.
 
 ## Couchbase
 
@@ -80,8 +80,8 @@ services. Learn more about its role in Onedata in the
 
 ## Data Discovery
 
-A feature that offers harvesting the user-defined [metadata][] assigned to
-files in multiple [spaces][space] and submitting it to indices, which can be
+A feature that provides harvesting of the user-defined [metadata][] assigned to
+files in multiple [spaces][space] and submits it to indices, which can be
 later browsed and queried. Logically divided into separate [harvesters][harvester]
 that can have different configurations and source spaces.
 Learn more [here][docs-data-discovery].
@@ -95,7 +95,7 @@ data [replication][], [migration][], or [eviction][]. Learn more
 
 ## Data transfer
 
-A process of [replicating][replication], [evicting][eviction] or [migrating][migration]
+A process of [replicating][replication], [evicting][eviction], or [migrating][migration]
 data between [providers][provider]. Learn more [here][docs-data-transfers].
 
 ## Dataset
@@ -106,29 +106,29 @@ an ability to create persistent snapshots — [archives][]. Learn more [here][do
 
 ## Digital Object Identifier (DOI)
 
-A standardized [persistent identifier][], defined by International Organization for
+A standardized [persistent identifier][], defined by the International Organization for
 Standardization (ISO), used to uniquely identify digital objects such as academic
 publications, datasets, and official documents.
 
 ## Direct member
 
-A [member][] that has assigned privileges to the resource ([space][], [group][],
+A [member][] who has assigned privileges to the resource ([space][], [group][],
 [harvester][], etc.) without an intermediate group.
 
 ## Effective privileges
 
-A sum of all resource's privileges assigned [directly][direct member] and those inherited
-via [groups][group] [membership][member] path.
+A sum of all resources' privileges assigned [directly][direct member] and those inherited
+via [group][] [membership][member] path.
 
 ## Emergency interface
 
-A [Web GUI][] of [Onepanel][] accessible from special `9443` port on the [service][] host.
+A [Web GUI][] of [Onepanel][] accessible from the special `9443` port on the [service][] host.
 Learn more in the [Oneprovider administration panel][docs-oneprovider-emergency-panel] and
 the [Onezone administration panel][docs-onezone-administration-panel] chapters.
 
 ## Eviction (data)
 
-A user-triggered action that changes [data distribution][] of files in order to
+A user-triggered action that changes the [data distribution][] of files in order to
 remove replicated data blocks from a specific [provider][].
 
 ## Extended attributes
@@ -144,7 +144,7 @@ Learn more [here][docs-file-path-and-id].
 ## File metadata
 
 Information that describes a file or directory. Can be roughly divided into
-filesystem metadata, governed by the system, and user defined metadata, i.e.
+filesystem metadata, governed by the system, and user-defined metadata, i.e.,
 extended attributes or custom RDF and JSON documents.
 Learn more [here][docs-file-metadata].
 
@@ -155,7 +155,7 @@ Learn more [here][docs-file-path-and-id].
 
 ## File popularity
 
-A feature that provides tracking the usage statistics for files in a [space][].
+A feature that provides tracking of usage statistics for files in a [space][].
 Used by the [auto-cleaning][] process to clean up the least popular file replicas.
 Learn more [here][docs-file-popularity].
 
@@ -167,7 +167,7 @@ Learn more [here][docs-file-registration].
 
 ## Group
 
-An abstract entity that groups together a subset of users and other groups. Helps to manage
+An abstract entity that organizes together a subset of users and other groups. Helps manage
 users' access and privileges to resources like [spaces][space]. Learn more
 [here][docs-groups].
 
@@ -181,12 +181,12 @@ Learn more [here][docs-public-data].
 
 ## Handle service
 
-A mediator that is used to register the [share][] in the Public Data indexing services, which results
+A mediator used to register the [share][] in the Public Data indexing services, which results
 in creating a [handle][]. Learn more [here][docs-public-data].
 
 ## Harvester
 
-An internal service that provides implementation of [data discovery][] by harvesting the
+An internal service that provides the implementation of [data discovery][] by harvesting the
 user-defined [metadata][] across the files from the designated [spaces][space].
 Available to users or groups with appropriate privileges. Learn more
 [here][docs-data-discovery].
@@ -200,7 +200,7 @@ wide range of IdPs based on OIDC & SAML. Learn more [here][docs-oidc-saml].
 
 ## Identity token
 
-A [token][] intended for proving the identity.
+A [token][] proving the identity.
 
 ## Imported storage
 
@@ -209,7 +209,7 @@ A [storage backend][] that enables the [storage import][] feature on supported
 
 ## Invite token
 
-A [token][] intended for gaining access to some Onedata resource, like, e.g., [space][],
+A [token][] for gaining access to some Onedata resource, e.g., [space][],
 [group][], [harvester][], etc.
 
 ## Lambda (workflows)
@@ -227,7 +227,7 @@ forming a processing pipeline.
 
 ## Let's Encrypt (LE)
 
-A non-profit certificate authority run by Internet Security Research Group (ISRG) that
+A non-profit certificate authority run by the Internet Security Research Group (ISRG) that
 provides web certificates without charging fees. Using the built-in LE client, Onedata can
 obtain and renew web certificates on its nodes automatically. Learn more in the [Onezone
 web certificate][docs-onezone-web-certificate] and [Oneprovider web
@@ -242,19 +242,19 @@ Onedata space and user accounts recognized by different storage providers. Learn
 
 ## Member
 
-A [user][] or [group][] which has assigned specific privileges for a [space][], group,
-[harvester][], [automation inventory][], or a [cluster][]. Can be [direct][direct member] or
-non-direct (when a user or group gains privileges to the resource by being a member of other
+A [user][] or [group][] that has assigned specific privileges for a [space][], group,
+[harvester][], [automation inventory][], or [cluster][]. Can be [direct][direct member] or
+indirect (when a user or group gains privileges to the resource by being a member of another
 group).
 
 ## Migration (data)
 
-A user-triggered action that changes [data distribution][] of files in order to
+A user-triggered action that changes the [data distribution][] of files in order to
 move data blocks between specific [providers][provider].
 
 ## Oneclient
 
-A command line interface based on [FUSE][website-fuse]
+A command-line interface based on [FUSE][website-fuse]
 for mounting the Onedata distributed virtual filesystem on local machines.
 Learn more [here][docs-oneclient].
 
@@ -266,19 +266,19 @@ concise, low-level library. Learn more [here][docs-onedata-file-rest-client].
 ## OnedataFS
 
 A [PyFilesystem2][website-pyfilesystem2] plugin that allows
-accessing the user data programmatically using a python API.
+accessing the user data programmatically using a Python API.
 Learn more [here][docs-onedatafs].
 
 ## OnedataRestFS
 
 A [PyFilesystem2][website-pyfilesystem2] plugin that allows
-accessing the user data programmatically using a python API,
+accessing the user data programmatically using a Python API,
 based on Onedata [REST API][].
 Learn more [here][docs-onedata-rest-fs].
 
 ## Onepanel
 
-A [service][] dedicated for administration of a [cluster][] and, itself, an integral part
+A [service][] dedicated to the administration of a [cluster][] and, itself, an integral part
 of the cluster. Accessible through the [Web GUI][] or [REST API][]. Learn more in the
 [Architecture][docs-architecture-services], [Onezone administration
 panel][docs-onezone-administration-panel], and [Oneprovider administration
@@ -286,10 +286,10 @@ panel][docs-oneprovider-administration-panel] chapters.
 
 ## Oneprovider
 
-A [service][] dedicated for managing the data, installed at a data [provider][] site as a
+A [service][] dedicated to managing the data, installed at a data [provider][] site as a
 [cluster][], and gets registered in a [Onezone][]. Oneproviders cooperate in a
 peer-to-peer manner, synchronizing information about commonly supported [spaces][space].
-Accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][]
+Accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][],
 and [Oneclient][]. Learn more [here][docs-intro-provider].
 
 ## Oneprovider panel
@@ -300,15 +300,15 @@ A [Onepanel][] instance dedicated for administration of a [Oneprovider][] [clust
 
 A [service][] implementing the Onedata [zone][] concept, serving as a center of authority
 (using [identity providers][identity provider]), and an entry point to the system.
-Allows registration of multiple [Oneproviders][Oneprovider],
+Allows registration of multiple [Oneproviders][Oneprovider]
 to provide their storage resources to users. Manages the core resources
-of Onedata like [spaces][space], [groups][group], [shares][share], etc. Accessible through
- the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
+of Onedata, e.g., [spaces][space], [groups][group], [shares][share] Accessible through
+the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
 [here][docs-intro-onezone].
 
 ## Onezone panel
 
-A [Onepanel][] instance dedicated for administration of a [Onezone][] [cluster][].
+A [Onepanel][] instance dedicated to the administration of a [Onezone][] [cluster][].
 
 ## On-the-fly transfer
 
@@ -331,12 +331,12 @@ stable over time, even if the object's location or metadata changes. It can be, 
 ## Provider
 
 An entity that handles data storage as seen by Onedata users. Providers deploy
-[Oneprovider][] services near physical storage resources, i.e. in computing and data
+[Oneprovider][] services near physical storage resources, i.e., in computing and data
 centers or even personal computers. Learn more [here][docs-intro-provider].
 
 ## Public Data
 
-An extended [share][] that has been assigned a [persistent identifier][] (e.g. [DOI][])
+An extended [share][] that has been assigned a [persistent identifier][] (e.g., [DOI][])
 and descriptive metadata. Learn more [here][docs-public-data].
 
 ## Quality of Service (QoS)
@@ -347,13 +347,13 @@ redundancy between [providers][provider] supporting a [space][]. Learn more
 
 ## Replication (data)
 
-A user-triggered action that changes [data distribution][] of files in order to
+A user-triggered action that changes the [data distribution][] of files in order to
 copy data blocks to a specific [provider][].
 
 ## REST API
 
 An interface to various Onedata [services][service], accessible through the HTTPS
-protocol, following the RESTful API guidelines. You can browse Onedata REST API
+protocol, following the RESTful API guidelines. You can browse the Onedata REST API
 documentation [here][website-onedata-api].
 
 ## Service
@@ -378,9 +378,9 @@ there may be more. Learn more [here][docs-space-owner].
 
 ## Share
 
-An entity that represents a semi-public link assigned to a file or directory allowing
+An entity that represents a semi-public link assigned to a file or directory, allowing
 anyone on the Internet to read the data. Shares in Onedata may have an optional
-description and can be promoted to the [Public Data][] using [handle][]. Read more
+description and can be promoted to the [Public Data][] using a [handle][]. Read more
 [here][docs-shares].
 
 ## Storage backend
@@ -398,8 +398,8 @@ A feature dedicated to importing files located on a storage by registering them 
 ## Store (workflows)
 
 A container for data used and manipulated during a [workflow][] execution. Defined by a
-store schema and created as a store instance. There are several types, such as list store
-or tree forest store.
+store schema and created as a store instance. There are several types, such as a list store
+or a tree forest store.
 
 ## Support
 
@@ -419,8 +419,8 @@ See [data transfer][].
 
 ## User
 
-An account in the Onedata, managed by the [Onezone][], with assigned authentication
-methods (see [identity providers][identity provider]). Typically created for a single
+An account in the Onedata, managed by a [Onezone][], with assigned authentication
+methods ([identity providers][identity provider]), mostly created for a single
 person. Could become a [member][] of Onedata resources.
 
 ## View
@@ -430,7 +430,7 @@ function, and optionally reduced using a reduce function. Learn more [here][docs
 
 ## Web GUI
 
-A graphical user interface of Onedata accessible via the web browser. Learn more [here][docs-web-gui].
+A graphical user interface of Onedata, accessible via a web browser. Learn more [here][docs-web-gui].
 
 ## Workflow
 
@@ -451,7 +451,7 @@ See [extended attributes][].
 
 ## Zone
 
-A central entity of a single Onedata ecosystem instance, which constitutes independent
+A central entity of a single Onedata ecosystem instance, which constitutes an independent
 data management platform, bringing together multiple data centers — [providers][provider].
 Serves as a center of authority and an entry point to the system. Managed
 by the [Onezone][] service. Learn more [here][docs-intro-zone].
