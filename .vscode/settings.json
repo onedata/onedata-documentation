@@ -79,6 +79,7 @@
       "OAIS",
       "Oneclient",
       "Onedata",
+      "Onedata-specific",
       "OnedataFileRestClient",
       "OnedataFS",
       "OnedataRestFS",

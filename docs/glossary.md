@@ -1,6 +1,7 @@
 # Glossary
 
-<!-- short description of each concept with links to proper sections -->
+The glossary provides condensed information about Onedata-specific concepts and other key
+terms in the context of our system, with links to the detailed documentation.
 
 ## Access control
 
@@ -410,8 +411,8 @@ Learn more [here][docs-space-support].
 
 An alphanumeric string, like e.g. `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
 acting as a proof of authorization, that can be used across the system to
-[authenticate][access token], [prove identity][identity token], or [gain access][invite
-token] to some resources. Must be kept secret. Learn more [here][docs-tokens].
+[authenticate][access token], [prove identity][identity token], or [gain access][invite token]
+to some resources. Must be kept secret. Learn more [here][docs-tokens].
 
 ## Transfer
 
