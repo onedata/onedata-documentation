@@ -362,7 +362,7 @@ help.
 ## Data distribution
 
 The data in spaces may be arbitrarily distributed among the storage backends of the
-supporting providers. For more details see [Data distribution][].
+supporting providers, as described in the [Data distribution][] section.
 
 <!-- references -->
 
