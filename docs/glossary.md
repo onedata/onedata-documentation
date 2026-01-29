@@ -28,7 +28,7 @@ Learn more [here][docs-archives].
 ## Auto-cleaning
 
 A process that automatically maintains storage usage at a certain level and ensures that
-there is enough space for new replicas during continuous computations. Uses statistics
+there is enough space for new replicas during continuous computations. It uses statistics
 collected by the [file popularity][] to determine the least popular file replicas in a
 [space][] and to evict them. Learn more [here][docs-auto-cleaning].
 
@@ -280,7 +280,7 @@ Learn more [here][docs-onedata-rest-fs].
 ## Onepanel
 
 A [service][] dedicated to the administration of a [cluster][] and, itself, an integral part
-of the cluster. Accessible through the [Web GUI][] or [REST API][]. Learn more in the
+of the cluster. Onepanel is accessible through the [Web GUI][] or [REST API][]. Learn more in the
 [Architecture][docs-architecture-services], [Onezone administration
 panel][docs-onezone-administration-panel], and [Oneprovider administration
 panel][docs-oneprovider-administration-panel] chapters.
@@ -290,7 +290,7 @@ panel][docs-oneprovider-administration-panel] chapters.
 A [service][] dedicated to managing the data, installed at a data [provider][] site as a
 [cluster][], and gets registered in a [Onezone][]. Oneproviders cooperate in a
 peer-to-peer manner, synchronizing information about commonly supported [spaces][space].
-Accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][],
+It is accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][],
 and [Oneclient][]. Learn more [here][docs-intro-provider].
 
 ## Oneprovider panel
@@ -301,9 +301,9 @@ A [Onepanel][] instance dedicated for administration of a [Oneprovider][] [clust
 
 A [service][] implementing the Onedata [zone][] concept, serving as a center of authority
 (using [identity providers][identity provider]), and an entry point to the system.
-Allows registration of multiple [Oneproviders][Oneprovider]
-to provide their storage resources to users. Manages the core resources
-of Onedata, e.g., [spaces][space], [groups][group], [shares][share] Accessible through
+Onezone allows registration of multiple [Oneproviders][Oneprovider]
+to provide their storage resources to users. It manages the core resources
+of Onedata, e.g., [spaces][space], [groups][group], [shares][share], and is accessible through
 the various interfaces, i.a., the [Web GUI][] and [REST API][]. Learn more
 [here][docs-intro-onezone].
 
@@ -313,7 +313,7 @@ A [Onepanel][] instance dedicated to the administration of a [Onezone][] [cluste
 
 ## On-the-fly transfer
 
-A [transfer][] triggered by remote data access. Performed in the background by
+A [transfer][] triggered by remote data access, which is performed in the background by
 Oneproviders when they are requested to serve file fragments that reside in a remote
 location.
 
@@ -366,7 +366,7 @@ services, to provide a complete ecosystem. There are three main services in Oned
 ## Space
 
 A logical container for data, fundamental for organizing user data in Onedata.
-Accessible only to its members — users or [groups][group] — that are assigned
+It is accessible only to its members — users or [groups][group] — that are assigned
 fine-grained privileges. The actual data storage of a space is realized by the
 [storage backends][storage backend] using [Oneproviders][Oneprovider].
 Learn more [here][docs-spaces].
@@ -398,7 +398,7 @@ A feature dedicated to importing files located on a storage by registering them 
 
 ## Store (workflows)
 
-A container for data used and manipulated during a [workflow][] execution. Defined by a
+A container for data used and manipulated during a [workflow][] execution. It is defined by a
 store schema and created as a store instance. There are several types, such as a list store
 or a tree forest store.
 
@@ -412,7 +412,7 @@ Learn more [here][docs-space-support].
 An alphanumeric string, like e.g. `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
 acting as a proof of authorization, that can be used across the system to
 [authenticate][access token], [prove identity][identity token], or [gain access][invite token]
-to some resources. Must be kept secret. Learn more [here][docs-tokens].
+to some resources. Tokens must be kept secret. Learn more [here][docs-tokens].
 
 ## Transfer
 
@@ -422,7 +422,7 @@ See [data transfer][].
 
 An account in the Onedata, managed by a [Onezone][], with assigned authentication
 methods ([identity providers][identity provider]), mostly created for a single
-person. Could become a [member][] of Onedata resources.
+person. A user could become a [member][] of Onedata resources.
 
 ## View
 
@@ -436,8 +436,8 @@ A graphical user interface of Onedata, accessible via a web browser. Learn more 
 ## Workflow
 
 A user-defined process for orchestrating complex data processing through a series of
-sequential [lanes][lane] and shared global [stores][store]. Consists of a
-[schema][workflow schema], and an execution (the runtime instance). Stored in
+sequential [lanes][lane] and shared global [stores][store]. Workflow consists of a
+[schema][workflow schema], and an execution (the runtime instance). It is stored in
 [inventories][automation inventory]. Learn more [here][docs-automation].
 
 ## Workflow schema
@@ -454,7 +454,7 @@ See [extended attributes][].
 
 A central entity of a single Onedata ecosystem instance, which constitutes an independent
 data management platform, bringing together multiple data centers — [providers][provider].
-Serves as a center of authority and an entry point to the system. Managed
+Zone serves as a center of authority and an entry point to the system. It is managed
 by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 <!-- references -->
