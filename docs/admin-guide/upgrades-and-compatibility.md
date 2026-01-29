@@ -87,7 +87,7 @@ reference][] on our homepage. However, the general rules of compatibility are as
 ::: tip NOTE
 
 Starting from version 25.0, some major updates did not break the major compatibility.
-E.g., major version 25 did not break the compatibility with the 20.02 line, so Oneprovider
+E.g., major version 25 did not break the compatibility with the 21.02 line, so Oneprovider
 25.0 can cooperate with any Oneprovider from the 21.02.x line. Refer to the [Compatibility
 reference][] for details.
 
