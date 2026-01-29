@@ -17,7 +17,7 @@ access to it. Learn more [here][docs-acl].
 
 ## Access token
 
-A [token][] for authentication, being a universal way of accessing Onedata
+A [token][] for authentication and authorization, which is used when accessing Onedata
 interfaces: [REST API][], [CDMI][], or [Oneclient][].
 
 ## Archive
@@ -55,8 +55,8 @@ Learn more [here][docs-cdmi].
 ## Cluster
 
 A set of hosts that together run an instance of [Onezone][] or [Oneprovider][]. The
-cluster can consist of one or more nodes, each running a subset of services, e.g.
-[database][Couchbase], [Cluster Worker][], [Cluster Manager][]. Learn more in the
+cluster can consist of one or more hosts, each running a subset of services, e.g.,
+[database][Couchbase], [Cluster Worker][], and [Cluster Manager][]. Learn more in the
 [Onezone cluster nodes][docs-onezone-cluster-nodes] and [Oneprovider cluster
 nodes][docs-oneprovider-cluster-nodes] chapters.
 
@@ -96,7 +96,7 @@ data [replication][], [migration][], or [eviction][]. Learn more
 
 ## Data transfer
 
-A process of [replicating][replication], [evicting][eviction], or [migrating][migration]
+A process of [replicating][replication] or [migrating][migration]
 data between [providers][provider]. Learn more [here][docs-data-transfers].
 
 ## Dataset
@@ -354,7 +354,7 @@ copy data blocks to a specific [provider][].
 ## REST API
 
 An interface to various Onedata [services][service], accessible through the HTTPS
-protocol, following the RESTful API guidelines. You can browse the Onedata REST API
+protocol, that follows the RESTful API guidelines. You can browse the Onedata REST API
 documentation [here][website-onedata-api].
 
 ## Service
@@ -404,7 +404,7 @@ or a tree forest store.
 
 ## Support
 
-A [storage backend][] quota granted to a [space][] on a physical storage by [Oneprovider][].
+  A [storage backend][] allocation granted to a [space][] by a [Oneprovider][] on a physical storage.
 Learn more [here][docs-space-support].
 
 ## Token
@@ -442,9 +442,9 @@ sequential [lanes][lane] and shared global [stores][store]. Workflow consists of
 
 ## Workflow schema
 
-A blueprint that defines how the [workflow][] should operate, specifying sequential
-processing stages ([lanes][lane]), shared data storage ([stores][store]), and metadata
-required to orchestrate complex data processing pipelines. Learn more [here][docs-automation].
+A model that describes how the [workflow][] operates when it gets executed. It specifies
+sequential processing [lanes][lane], shared data [stores][store], and metadata required to
+orchestrate data processing pipelines. Learn more [here][docs-automation].
 
 ## Xattrs
 
