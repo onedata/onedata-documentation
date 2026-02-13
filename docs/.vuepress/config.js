@@ -35,6 +35,7 @@ module.exports = {
         children: [
           '/user-guide/quickstart',
           // '/user-guide/overview',
+          '/user-guide/user-interface',
           '/user-guide/account-management',
           '/user-guide/groups',
           '/user-guide/spaces',
@@ -78,6 +79,7 @@ module.exports = {
         collapsable: true,
         children: [
           '/admin-guide/overview',
+          '/admin-guide/admin-accounts',
           '/admin-guide/architecture',
           '/admin-guide/demo-mode',
           {
