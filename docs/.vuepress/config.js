@@ -40,6 +40,8 @@ module.exports = {
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
+          '/user-guide/automation',
+          '/user-guide/workflow',
           {
             title: 'Data access interfaces',
             collapsable: false,
