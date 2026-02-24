@@ -150,12 +150,6 @@ sudo usermod -aG docker $USER
 
 <!-- as needed: link to configuration, compatibility-reference [versions]) -->
 
-## 🚧 Under construction! 🚧
-
-The Onezone installation guide is still under construction. For now:
-
-* see the [GitHub repository][] with Docker Compose examples for Onezone deployment,
-* see the counterpart in the [legacy docs][].
 
 <!-- references -->
 

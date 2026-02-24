@@ -1,32 +1,46 @@
 # Overview
 
-Onedata is based on two main services — Onezone and Oneprovider, which cooperate to provide
+Onedata is based on two main services — **Onezone** and **Oneprovider**, which cooperate to provide
 access to globally distributed storage resources. Onezone serves as a center of authority and
 an entry point to the system, while Oneprovider manages the access to the mass storage systems
-where the data managed by Onedata is actually stored. Deploying of Onedata from scratch implies deploying
-of both services. More details about basic Onedata concepts can be found in the [Introduction][].
+where the data managed by Onedata is actually stored. More details about basic Onedata concepts 
+can be found in the [Introduction][].
 
-The Onedata services are administered separately. When deploying all from scratch, Onezone should be deployed first as
-Oneprovider relies on it. In most cases Onezone has been already set up and the administrator willing to expose his
-storage resources with Onedata deploys only the Oneprovider service. Anyway, it should be decided
-at this point what are you going to deploy and administer — Onezone and Oneprovider eventually, or just Oneprovider.
+### Join an existing Onedata ecosystem as a provider
 
-## Quickstart
+The simpler and most common case is [deploying a new Oneprovider][Oneprovider installation] 
+service and registering to a [pre-existing Onezone][], and hence joining a broader Onedata 
+ecosystem. Make sure that **you trust** the owners of the selected Onezone service, as it
+handles authentication and authorization. Typically, this works for federated environments 
+such as [EGI DataHub][], where EGI oversees the ecosystem, and its partners provide storage 
+resources and operate the Oneprovider services.
 
-The fastest way to set up a complete running Onedata environment is using the [demo mode][].
-However, it should be noted that the demo setup, while fully functional, was not intended to be
-used in production.
+### Deploy your own Onedata ecosystem
 
-In order to install Onezone, follow the instructions in the [Onezone installation][] chapter.
+You may want to create a new Onedata ecosystem from scratch. This scenario is more complex, 
+but you will have full control over all services, sensitive information, and data:
 
-In order to install Oneprovider, follow the instructions in the [Oneprovider installation][] chapter.
+1. [Deploy the Onezone service][Onezone installation] first, as Oneproviders rely on it.
+2. [Deploy a Oneprovider][Oneprovider installation] — one or more instances — and register
+   them to your Onezone.
+
+### Demo mode — dockerized sandbox / test deployment
+
+The fastest way to set up a complete, **sandbox Onedata ecosystem** is to use the 
+[demo mode][]. You will get minimal-setup **Onezone** and **Oneprovider(s)**, which will
+let you see most functionalities in action and test the system. While fully functional,
+this setup is not intended to be used in production.
 
 <!-- references -->
 
 [Introduction]: ../intro.md
+
+[pre-existing Onezone]: ../user-guide/quickstart.md#introduction--onezone-service
 
 [demo mode]: demo-mode.md
 
 [Onezone installation]: onezone/installation.md
 
 [Oneprovider installation]: oneprovider/installation/overview.md
+
+[EGI DataHub]: https://datahub.egi.eu

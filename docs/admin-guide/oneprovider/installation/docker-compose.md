@@ -1,5 +1,9 @@
 # Docker Compose (batch mode)
 
+## Prerequisites
+
+Make sure the host intended for deployment is [properly set up][].
+
 ## Customizing Oneprovider Docker Compose script
 
 Oneprovider installation using Docker is very straightforward. This type of deployment uses Docker Compose and
@@ -30,15 +34,15 @@ Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-com
 ```yaml
 version: '2.0'
 services:
-  node1.oneprovider.localhost:
+  node1.oneprovider.internal:
     # Oneprovider Docker image version
     image: onedata/oneprovider:xRELEASExVERSIONx
     # Hostname (in this case the hostname inside Docker network)
-    hostname: node1.oneprovider.localhost
+    hostname: node1.oneprovider.internal
     # The IP of VM need to be placed below under extra_hosts, for example:
-    # - "node1.oneprovider.localhost:10.20.30.5"
+    # - "node1.oneprovider.internal:10.20.30.5"
     extra_hosts:
-      - "node1.oneprovider.localhost:place-the-VM-IP-here"
+      - "node1.oneprovider.internal:YOUR_HOST_IP"
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
     # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
     network_mode: host
@@ -72,11 +76,12 @@ services:
       - "4443:4443"
       - "6665:6665"
       - "9443:9443"
+
     environment:
-      # Force Onepanel to read configuration from environment variable
+      # Tell Onepanel to read configuration from environment variable
       ONEPANEL_BATCH_MODE: "true"
       # Provide initial Oneprovider configuration for Onepanel in environment variable
-    # Emergency onepanel password
+      # Emergency onepanel password
       ONEPANEL_EMERGENCY_PASSPHRASE: "Your_admin_password"
       ONEPROVIDER_CONFIG: |
         # Cluster configuration allows to specify distribution of Oneprovider
@@ -85,7 +90,7 @@ services:
         cluster:
           # Domain name of the provider within Docker network, will be appended
           # to all nodes specified below
-          domainName: "oneprovider.localhost"
+          domainName: "oneprovider.internal"
           autoDeploy: true
           nodes:
             n1:
@@ -134,8 +139,18 @@ services:
           domainName: "onedata.example.com"
 ```
 
-Modify it according to your needs. You should at least change `onezone.domainName` (not `cluster.domainName`),
-`geoLatitude`, `geoLongitude`, emergency password, `oneprovider.name`, `oneprovider.subdomain`. It assumed in
+Modify the file according to your needs. The minimal changes must include:
+* `YOUR_HOST_IP`
+* `ONEPANEL_EMERGENCY_PASSPHRASE`
+* `onezone.domainName` (not `cluster.domainName`)
+* `oneprovider.geoLatitude`
+* `oneprovider.geoLongitude`
+* `oneprovider.name`
+* `oneprovider.adminEmail`
+* `oneprovider.subdomain` if `subdomainDelegation` == `true`
+* `oneprovider.domain` if `subdomainDelegation` == `false`.
+
+It assumed in
 the above example that some POSIX type storage is available under the directory `/mnt/data`.
 To install the necessary Docker images on the machine run:
 
@@ -237,6 +252,8 @@ sudo systemctl start oneprovider.service
 <!-- TODO VFS-11766 say that its not recommended, give a link to the dockerfile as reference -->
 
 <!-- references -->
+
+[properly set up]: ../prerequisites.md
 
 [security-intro]: https://docs.couchbase.com/server/current/install/install-security-bp.html
 
