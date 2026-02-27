@@ -140,6 +140,7 @@ services:
 ```
 
 Modify the file according to your needs. The minimal changes must include:
+
 * `YOUR_HOST_IP`
 * `ONEPANEL_EMERGENCY_PASSPHRASE`
 * `onezone.domainName` (not `cluster.domainName`)
@@ -150,9 +151,8 @@ Modify the file according to your needs. The minimal changes must include:
 * `oneprovider.subdomain` if `subdomainDelegation` == `true`
 * `oneprovider.domain` if `subdomainDelegation` == `false`.
 
-It assumed in
-the above example that some POSIX type storage is available under the directory `/mnt/data`.
-To install the necessary Docker images on the machine run:
+In the above example, it is assumed that a POSIX storage backend is available under the 
+directory `/mnt/data`. To install the necessary Docker images on the machine run:
 
 ```sh
 docker compose -f /opt/onedata/oneprovider/docker-compose.yml pull

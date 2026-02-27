@@ -24,12 +24,12 @@ Choose your preferred method:
   it's a wrapper for the [Batch mode][] that fills in the deployment configuration 
   according to your choices.
 
-* [Graphical wizard][] — use docker-compose to start up an undeployed Oneprovider node.
+* [Graphical wizard][] — use Docker Compose to start up a non-deployed Oneprovider node.
   Then, enter the Onepanel Web interface that will guide you through the deployment with
   a user-friendly, graphical wizard. Offers better configurability than the Onedatify CLI
   wizard, but is harder for beginners.
 
-* [Batch mode][] — use docker-compose and specify the deployment configuration in the
+* [Batch mode][] — use Docker Compose and specify the deployment configuration in the
   `docker-compose.yml` file. The deployment will be performed automatically upon service
   start. Useful for automated deployments and skilled administrators.
 

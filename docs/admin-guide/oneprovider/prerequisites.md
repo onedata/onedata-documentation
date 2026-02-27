@@ -19,9 +19,13 @@ The host intended for a Oneprovider deployment must meet the following requireme
 |---------------------------|------------------------------|--------------------------------|----------|
 | CPU                       | 4 vCPU                       | 16 vCPU                        | Scale proportionally with load. The recommended baseline corresponds to approximately 50-100 concurrent clients. |
 | RAM                       | 16 GB                        | 64 GB                          | Scale proportionally with load. The recommended baseline corresponds to approximately 50-100 concurrent clients. |
-| Root volume               | 30 GB                        | 60 GB                          | Space for files other than service persistence; container images, backups, dependencies, OS, etc. |
+| Root volume               | 30 GB                        | ≥ 60 GB <sup>[1](#atm)</sup> | Space for files other than service persistence; container images, backups, dependencies, OS, etc. |
 | Persistence volume        | 20 GB + 8 MB per 1,000 files | 100 GB + 10 MB per 1,000 files | The [host setup](#host-setup) assumes a separate block device for an LVM volume. Capacity depends primarily on the number of files (metadata and service data), not on the number of clients. |
 | Disk type for persistence | SSD                          | High-speed SSD                 | The performance of the disk directly impacts the performance of the underlying database (Couchbase) and hence the service's ability to handle more concurrent requests. |
+
+<a name="atm">1</a>: If you plan to deploy the [OpenFaaS Engine][] for Automation on the 
+same machine, allow more disk space for docker-based Lambda images. For starters, consider
+100 GB of extra disk capacity.
 
 For an exemplary cloud-based deployment, one could create a Virtual Machine with
 **Ubuntu 24.04**, **16 vCPU**, **64 GB RAM**, **60 GB root disk**, and 
@@ -47,10 +51,10 @@ firewall / security groups accordingly.
 | Port                      | Typical setup                | Hardened setup                   | Comments |
 |---------------------------|------------------------------|----------------------------------|----------|
 | 80                        | Open publicly                | Closed if Let's Encrypt disabled | This port is used for automated Let's Encrypt certificate generation and to automatically redirect clients from HTTP to HTTPS. In principle, it's not mandatory to be opened. |
-| 443                       | Open publicly                | Open within intranet or from whitelisted IPs/subnets  | The main port (SSL protected) for most Onedata clients and interfaces. Typically open to the Internet, unless it's required to limit access to certain addresses or networks. |
-| 4443                      | Open publicly                | Open within intranet or from whitelisted IPs/subnets, or closed if S3 disabled | The port (SSL protected) hosting the S3 endpoint (OneS3 service) that emulates Onedata spaces as S3 buckets. May be closed if S3 is not required. |
-| 6665                      | Open publicly                | Accessible only by other Oneprovider services | The port (SSL protected) used for data transfers between providers. Typically open, but can be restricted to access strictly from the other Oneprovider hosts in the Onedata ecosystem. |
-| 9443                      | Open within intranet or from whitelisted IPs/subnets | Closed | The port (SSL protected) used for direct emergency access to the Oneprovider administration panel (Onepanel). Useful to manage the installation when the unified Onezone interface is not working correctly, but offers limited functions. Should be accessible only by admins, e.g. via organizational VPN. |
+| 443                       | Open publicly                | Open within intranet or from whitelisted IPs/subnets  | The main port (SSL-protected) for most Onedata clients and interfaces. Typically open to the Internet, unless it's required to limit access to certain addresses or networks. |
+| 4443                      | Open publicly                | Open within intranet or from whitelisted IPs/subnets, or closed if S3 disabled | The port (SSL-protected) hosting the S3 endpoint (OneS3 service) that emulates Onedata spaces as S3 buckets. May be closed if S3 is not required. |
+| 6665                      | Open publicly                | Accessible only by other Oneprovider services | The port (SSL-protected) used for data transfers between providers. Typically open, but can be restricted to access strictly from the other Oneprovider hosts in the Onedata ecosystem. |
+| 9443                      | Open within intranet or from whitelisted IPs/subnets | Closed | The port (SSL-protected) used for direct emergency access to the Oneprovider administration panel (Onepanel). Useful to manage the installation when the unified Onezone interface is not working correctly, but offers limited functions. Should be accessible only by admins, e.g. via organizational VPN. |
 
 ::: warning
 We **strongly recommend closing all other ports** from public access for security.
@@ -133,3 +137,5 @@ resort.
 [initial-vm-config-ansible-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/ansible/README.md
 
 [initial-vm-config-manual-readme]: https://github.com/onedata/onedata-deployments/blob/master/initial-vm-config/manual/README.md
+
+[OpenFaaS Engine]: https://git.onedata.org/projects/VFS/repos/onedata-deployments/browse/openfaas

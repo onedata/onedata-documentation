@@ -7,10 +7,6 @@ Onezone communicates with external services or clients
 using ports 53, 80, 443 and 9443. All of these ports need to be publicly
 open except 9443 which is used for direct emergency access to the Onezone.
 
-Onezone service can be deployed on multiple nodes for
-high-availability purpose. If not mentioned otherwise, we assume that
-Onezone will be installed on a single node.
-
 ::: tip NOTE
 We do not officially support the traditional package installation method. If you desperately need to install it
 from packages then inspect the relevant Dockerfile and adopt the installation steps to your case.
@@ -145,6 +141,10 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 ```
+
+### Deployment
+
+Consult the [GitHub repository][] with Docker Compose examples for Onezone deployment.
 
 <!-- @TODO VFS-11766 missing chapter -->
 
