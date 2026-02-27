@@ -81,6 +81,10 @@ Auto-cleaning can only be configured by a space admin.
 
 ## Viewing data distribution
 
+::: warning
+If providers are not yet fully synchronized, the reported data distribution may temporarily differ between them.
+:::
+
 You can view how the data is distributed among storage backends supporting the space
 in which it is stored like below:
 
@@ -97,9 +101,11 @@ instead of the layout of blocks, there is a replication ratio:
 
 ![screen-dir-distribution][]
 
+The size displayed here represents the logical size calculated as part of the [directory size statistics][dir-stats].
+
 ::: tip NOTE
-To view distribution for directories [directory statistics][dir-stats] have to be enabled by the
-[space manager][dir-stats-enable-provider] or [cluster administrator][dir-stats-enable-panel].
+To view distribution for directories [directory size statistics][dir-stats] have to be enabled by the
+[space manager][dir-stats-enable-provider] or [Oneprovider admin][dir-stats-enable-panel].
 :::
 
 ### REST API
@@ -135,67 +141,6 @@ connected. To find information about replicas of the file in other providers, us
 Only data distribution for regular files is available with this method.
 :::
 
-## Data size
-
-Across Onedata you can find a few concepts of size. They are as follows:
-
-### Regular files
-
-* `logical_size` — total number of bytes in the file content, from the point of view of the Onedata logical namespace. Independent of the file’s distribution or replication.
-* `physical_size` — actual amount of storage consumed to store the file on a given storage backend. May be smaller than the logical size if the file replica is incomplete.
-
-### Directories
-
-* `logical_size` — total size of file data contained in the directory, i.e. the sum of logical sizes of all regular files in its subtree. If a file has multiple hardlinks in the subtree, each hardlink is counted separately.
-* `virtual_size` — deduplicated logical size, where hardlinks of the same file in the subtree are counted only once. Represents the storage space required for a complete replica of the directory.
-* `physical_size` — actual amount of storage consumed on a given storage backend by all regular files in the directory’s subtree. May be smaller than the virtual size if some file replicas are incomplete.
-
-## Directory statistics
-
-When collecting directory statistics are enabled by a [cluster administrator][dir-stats-enable-panel] or [space manager][dir-stats-enable-provider], they are collected for
-each directory in a space.
-
-::: tip NOTE
-Directory statistics are not counted immediately, instead they are calculated over time, so there may be
-discrepancies in actively used spaces
-:::
-
-Different types of statistics can be accessed for a directory, such as its [virtual][data-size-dir], [logical][data-size-dir] and [physical size][data-size-dir] as well as count of regular files and directories in its subtree.
-
-### Web GUI
-
-Open the context menu for the file and choose **Information** and then in **Size stats** tab you will see directory statistics on all providers supporting a space, as well charts
-with its changes over time:
-
-![screen-size-stats][]
-
-### REST API
-
-Directory statistics can be accessed using the REST API. Refer to the linked
-API documentation for detailed information and examples.
-
-| Request                  | Link to API |
-| ------------------------ | ----------- |
-| Get directory statistics | [API][3]    |
-
-::: tip NOTE
-Only statistics local to a provider can be accessed via REST, so you won't see physical size on storage
-backends of other providers.
-:::
-
-### Enabling directory statistics as space manager
-
-In navigation bar go to `Data`, then select a space you want to modify and click on `Providers`.
-
-![screen-data-sidebar-provider-selected][]
-
-In top row select a provider on which you want to make a modification. There you can enable/disable
-directory statistics for a selected space.
-
-To enable/disable directory statistics for a space, you need the `Modify space` privilege in that space.
-
-![screen-enable-dir-stats-provider][]
-
 <!-- references -->
 
 [toc]: <>
@@ -208,21 +153,17 @@ To enable/disable directory statistics for a space, you need the `Modify space` 
 
 [Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
 
-[data-size-dir]: #directories
+[dir-stats]: ./size-stats.md#directory-size-statistics
 
 [dir-stats-enable-panel]: ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
 
-[dir-stats-enable-provider]: #enabling-directory-statistics-as-space-manager
-
-[dir-stats]: #directory-statistics
+[dir-stats-enable-provider]: ../admin-guide/oneprovider/configuration/accounting-and-dir-stats.md#enabling-directory-size-statistics-as-space-manager
 
 [Oneclient xattrs]: interfaces/oneclient.md#file-extended-attributes
 
 [1]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_data_distribution
 
 [2]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_file_storage_locations
-
-[3]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_directory_size_stats
 
 [image-distribution-diagram]: ../../images/user-guide/data-distribution-and-metrics/distribution-diagram.png
 
@@ -231,9 +172,3 @@ To enable/disable directory statistics for a space, you need the `Modify space` 
 [screen-dir-distribution]: ../../images/user-guide/data-distribution-and-metrics/dir-distribution-modal.png
 
 [screen-data-distribution-gui]: ../../images/user-guide/data-distribution-and-metrics/menu-data-distribution.png
-
-[screen-size-stats]: ../../images/user-guide/data-distribution-and-metrics/dir-size-stats-modal.png
-
-[screen-data-sidebar-provider-selected]: ../../images/user-guide/data-distribution-and-metrics/data-sidebar-providers-selected.png
-
-[screen-enable-dir-stats-provider]: ../../images/user-guide/data-distribution-and-metrics/enable-dir-stats-provider.png

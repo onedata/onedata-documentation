@@ -46,13 +46,13 @@ Hence you should choose the supporting storage carefully as this decision is
 irreversible.
 :::
 
-In addition, you can turn on/off accounting and directory statistics. The latter
+In addition, you can turn on/off accounting and directory size statistics. The latter
 feature is responsible for collecting information about the logical and physical
 size of directories as well as files number in the space. The former uses
-directory statistics to provide quota usage over time.
+directory size statistics to provide quota usage over time.
 
 ::: tip
-The directory statistics feature is enabled by default, but for some scenarios,
+The directory size statistics feature is enabled by default, but for some scenarios,
 it might be suitable to turn it off. That may include cases, when information
 about directory size is not required by any space use-case and, at the same
 time, very frequent file modifications across many different directories could
@@ -79,6 +79,7 @@ Click on a specific space support to see its details grouped into four tabs.
 This tab contains basic information about the selected space support, including
 the name of the space, assigned storage, state of statistics-related features, and
 support size. You can also modify some of them up to your preference.
+You can also enable/disable [directory size statistics][dir-stats] and [accounting][].
 
 ### "Storage import" tab
 
@@ -135,6 +136,10 @@ examples.
 | Modify space support      | [API][api-modify-space]        |
 
 [user-guide-space-support]: ../../../user-guide/spaces.md#space-support
+
+[dir-stats]: ../../../user-guide/size-stats.md#directory-size-statistics
+
+[accounting]: ./accounting-and-dir-stats.md
 
 [storage-import]: storage-import.md
 
