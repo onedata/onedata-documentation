@@ -88,6 +88,36 @@ To interact with the APIs or mount a Oneclient, use the provider IP: 172.17.0.4
 -------------------------------------------------------------------------
 ```
 
+## Running with persistence
+
+**Since version 25.0**, demo mode supports persistence so that data and configuration
+survive container restarts. Use the same workflow as [running in the foreground][], but
+add a fixed hostname and volume mounts.
+
+Onezone with persistence:
+
+```bash
+docker run --rm -it --name oz_test -h oz_test -v /tmp/oz-pers:/volumes/persistence onedata/onezone:xRELEASExVERSIONx demo
+```
+
+Oneprovider with persistence (run after Onezone is up):
+
+```bash
+OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+docker run --rm -it --name op_test1 -h op_test1 -v /tmp/op-pers:/volumes/persistence -v /tmp/op-storage:/volumes/storage onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
+```
+
+::: tip NOTE
+When using persistence:
+
+1. Set the hostname explicitly (e.g. `-h oz_test`, `-h op_test1`) and **keep it the same**
+   between consecutive runs. Otherwise the service may fail to start without clear logs.
+2. Use the **same** host directory for persistence on every run (e.g. `/tmp/oz-pers` for
+   Onezone, `/tmp/op-pers` for Oneprovider).
+3. For Oneprovider, use the **same** host directory for POSIX storage on every run
+   (e.g. `/tmp/op-storage`).
+:::
+
 ## Distributed (multi-provider) environment
 
 You can start any number of Oneprovider services; just rerun the above command, but change
