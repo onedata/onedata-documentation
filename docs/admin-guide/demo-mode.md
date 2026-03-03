@@ -1,6 +1,6 @@
 # Demo mode
 
-[toc][1]
+\[toc]\[1]
 
 <!-- TODO VFS-11848 add examples regarding oneclient, onedatafs, onedatarestfs, onedatafilerestclient -->
 
@@ -253,7 +253,6 @@ or create a simple text file:
 For more information on how to use a `OnedataRESTFS` instance, see the [OnedataRESTFS][]
 chapter.
 
-
 ## Retaining persistence between restarts
 
 **Since version 25.0**, demo mode supports persistence so that data and configuration
@@ -273,7 +272,6 @@ OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
 docker run --rm -it --name op_test1 -h op_test1 -v /tmp/op-pers:/volumes/persistence -v /tmp/op-storage:/volumes/storage onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 ```
 
-::: tip NOTE
 When using persistence:
 
 1. Set the hostname explicitly (e.g. `-h oz_test`, `-h op_test1`) and **keep it the same**
@@ -282,8 +280,6 @@ When using persistence:
    Onezone, `/tmp/op-pers` for Oneprovider).
 3. For Oneprovider, use the **same** host directory for POSIX storage on every run
    (e.g. `/tmp/op-storage`).
-:::
-
 
 <!-- References -->
 
