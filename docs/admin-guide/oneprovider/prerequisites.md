@@ -19,7 +19,14 @@ The host on which Oneprovider will be deployed should fulfill the requirements s
 
 The host should have a network interface with public IP. Oneprovider communicates with external services or clients
 using ports 80, 443, 4443, 6665 and 9443. All of these ports need to be publicly open, except 9443, which is used for
-direct emergency access to the Oneprovider.
+direct emergency access to the Oneprovider. The following table describe these ports:
+| Port        | Description
+|-------------|------------
+| 80/TCP      | HTTP
+| 443/TCP     | HTTPS
+| 4443/TCP    | OneS3 - needed only if the S3 interface is enabled
+| 6665/TCP    | RTransfer - data transfer channel - needed on both ends for transfers between a pair of providers
+| 9443/TCP    | (optional) Emergency Onepanel web interface - needed only for administrators, recommended to be hidden from public access          
 
 ::: warning
 We strongly recommend closing all other ports from public access for security. Oneprovider
@@ -50,6 +57,11 @@ for the host. There are two ways to accomplish this:
 If you decide to use delegated subdomain and LE then the certificate management
 happens automatically — it is covered by the Onedata software.
 :::
+
+## Systemd
+
+Systemd should be installed on your system. This is the default for most modern Linux distributions. Oneprovider software uses systemd for
+service management. 
 
 ## Access to Onezone
 
