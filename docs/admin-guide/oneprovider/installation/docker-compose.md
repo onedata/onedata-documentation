@@ -151,7 +151,7 @@ Modify the file according to your needs. The minimal changes must include:
 * `oneprovider.subdomain` if `subdomainDelegation` == `true`
 * `oneprovider.domain` if `subdomainDelegation` == `false`.
 
-In the above example, it is assumed that a POSIX storage backend is available under the 
+In the above example, it is assumed that a POSIX storage backend is available under the
 directory `/mnt/data`. To install the necessary Docker images on the machine run:
 
 ```sh

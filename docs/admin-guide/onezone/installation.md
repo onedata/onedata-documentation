@@ -150,7 +150,6 @@ Consult the [GitHub repository][] with Docker Compose examples for Onezone deplo
 
 <!-- as needed: link to configuration, compatibility-reference [versions]) -->
 
-
 <!-- references -->
 
 [GitHub repository]: https://github.com/onedata/onedata-deployments/tree/master/onezone/examples

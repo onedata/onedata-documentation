@@ -7,7 +7,7 @@
 <!-- @TODO VFS-13169 compatibility reference -->
 
 This chapter describes the available [Oneprovider][providers] installation methods.
-All of them use our [official Docker images][docker-images] to run Oneprovider on any 
+All of them use our [official Docker images][docker-images] to run Oneprovider on any
 [Linux OS that supports Docker][supported-platforms].
 
 <!-- @TODO VFS-11766 docs for multinode deployments 
@@ -19,9 +19,9 @@ Oneprovider will be installed on a single host.
 Choose your preferred method:
 
 * [Onedatify CLI wizard][] — use a one-liner that can be found in the Onedata UI to run
-  a shell script, which will guide you through the installation process using 
+  a shell script, which will guide you through the installation process using
   command-line interface. This is **the recommended quickstart method**. Under the hood,
-  it's a wrapper for the [Batch mode][] that fills in the deployment configuration 
+  it's a wrapper for the [Batch mode][] that fills in the deployment configuration
   according to your choices.
 
 * [Graphical wizard][] — use Docker Compose to start up a non-deployed Oneprovider node.
@@ -36,7 +36,7 @@ Choose your preferred method:
 ::: tip NOTE
 Regardless of the chosen method, the host should be properly set up — see [prerequisites][].
 
-After a successful installation, you can further configure your Oneprovider — see 
+After a successful installation, you can further configure your Oneprovider — see
 [Configuration][].
 :::
 
@@ -46,7 +46,7 @@ do not recommend it. Our docker images hide away the complexity of dependencies 
 ensure smooth maintenance and upgrades — all of which you'd have to do on your own when
 installing from packages.
 
-If you desperately need to install Oneprovider from packages, inspect the relevant 
+If you desperately need to install Oneprovider from packages, inspect the relevant
 [Dockerfile][] and adapt the installation steps to your case.
 :::
 

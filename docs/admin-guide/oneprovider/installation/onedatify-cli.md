@@ -1,7 +1,7 @@
 # Onedatify CLI wizard
 
-Onedatify is an easy-to-use wizard that sets up a Docker-based Oneprovider instance. The 
-script automatically registers the deployed Oneprovider instance to a selected Onezone 
+Onedatify is an easy-to-use wizard that sets up a Docker-based Oneprovider instance. The
+script automatically registers the deployed Oneprovider instance to a selected Onezone
 service and allows for interactive configuration of a storage backend and space support.
 
 ## Prerequisites
@@ -29,15 +29,14 @@ Select the **Deploy your own Oneprovider** tab and copy the generated command.
 
 ![screen-onedatify-deploy-provider-command][]
 
-
 ::: tip NOTE
-If you would like to [expose a pre-existing dataset][] that resides on a storage backend, 
+If you would like to [expose a pre-existing dataset][] that resides on a storage backend,
 use the **Expose existing data set** tab.
 :::
 
 ### Run the command on the target host
 
-Paste the one-liner in the terminal on the Oneprovider machine 
+Paste the one-liner in the terminal on the Oneprovider machine
 (as superuser or as a user with sudo privileges).
 
 Follow the instructions in the wizard.
