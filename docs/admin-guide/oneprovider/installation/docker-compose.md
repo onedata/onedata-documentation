@@ -191,9 +191,9 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-ExecStartPre=/usr/local/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml down
-ExecStart=/usr/local/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml up --abort-on-container-exit --no-recreate
-ExecStop=-/usr/local/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml down
+ExecStartPre=/usr/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml down
+ExecStart=/usr/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml up --abort-on-container-exit --no-recreate
+ExecStop=-/usr/bin/docker compose -f /opt/onedata/oneprovider/docker-compose.yml down
 Restart=always
 
 [Install]

@@ -72,5 +72,3 @@ journalctl -u onedatify.service -f
 [screen-onedatify-step-1]: ../../../../images/admin-guide/oneprovider/installation/onedatify-step-1.png
 
 [screen-onedatify-step-2]: ../../../../images/admin-guide/oneprovider/installation/onedatify-step-2.png
-
-[screen-onedatify-step-5]: ../../../../images/admin-guide/oneprovider/installation/onedatify-step-5.png

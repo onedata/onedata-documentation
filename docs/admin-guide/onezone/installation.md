@@ -155,8 +155,6 @@ Consult the [GitHub repository][] with Docker Compose examples for Onezone deplo
 
 [GitHub repository]: https://github.com/onedata/onedata-deployments/tree/master/onezone/examples
 
-[legacy docs]: https://onedata.org/#/home/documentation/20.02/doc/administering_onedata/onezone_tutorial[installation].html
-
 [official Docker images]: https://hub.docker.com/r/onedata/onezone/
 
 [Linux OS supporting Docker]: https://docs.docker.com/engine/installation/#supported-platforms

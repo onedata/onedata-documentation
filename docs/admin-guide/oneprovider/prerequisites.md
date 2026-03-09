@@ -19,11 +19,12 @@ The host intended for a Oneprovider deployment must meet the following requireme
 |---------------------------|------------------------------|--------------------------------|----------|
 | CPU                       | 4 vCPU                       | 16 vCPU                        | Scale proportionally with load. The recommended baseline corresponds to approximately 50-100 concurrent clients. |
 | RAM                       | 16 GB                        | 64 GB                          | Scale proportionally with load. The recommended baseline corresponds to approximately 50-100 concurrent clients. |
-| Root volume               | 30 GB                        | ≥ 60 GB <sup>[1](#atm)</sup> | Space for files other than service persistence; container images, backups, dependencies, OS, etc. |
+| Root volume               | 30 GB                        | ≥ 60 GB <sup>1</sup> | Space for files other than service persistence; container images, backups, dependencies, OS, etc. |
 | Persistence volume        | 20 GB + 8 MB per 1,000 files | 100 GB + 10 MB per 1,000 files | The [host setup](#host-setup) assumes a separate block device for an LVM volume. Capacity depends primarily on the number of files (metadata and service data), not on the number of clients. |
 | Disk type for persistence | SSD                          | High-speed SSD                 | The performance of the disk directly impacts the performance of the underlying database (Couchbase) and hence the service's ability to handle more concurrent requests. |
 
-<a name="atm">1</a>: If you plan to deploy the [OpenFaaS Engine][] for Automation on the 
+<sup>1</sup>
+If you plan to deploy the [OpenFaaS Engine][] for Automation on the 
 same machine, allow more disk space for docker-based Lambda images. For starters, consider
 100 GB of extra disk capacity.
 
