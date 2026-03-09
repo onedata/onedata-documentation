@@ -87,6 +87,11 @@ If you decide to use delegated subdomain and LE then the certificate management
 happens automatically — it is covered by the Onedata software.
 :::
 
+## Systemd
+
+Systemd should be installed on your system. This is the default for most modern Linux distributions. Oneprovider software uses systemd for
+service management. 
+
 ## Access to Onezone
 
 You should have at least user-level access to existing Onezone instance before deploying
