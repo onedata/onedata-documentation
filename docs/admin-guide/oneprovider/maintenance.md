@@ -140,10 +140,6 @@ sudo systemctl start oneprovider
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-## Upgrading
-
-## Troubleshooting
-
 <!-- references -->
 
 [Installation]: installation/overview.md

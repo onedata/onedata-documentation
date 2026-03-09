@@ -138,10 +138,6 @@ sudo systemctl start **@insert service**
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-## Upgrading
-
-## Troubleshooting
-
 <!-- references -->
 
 **@insert installationRef**
