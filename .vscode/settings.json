@@ -59,6 +59,7 @@
       "eduGAIN",
       "EGI",
       "EMBL",
+      "EPMD",
       "Europeana",
       "filesystem",
       "GIDs",
@@ -78,6 +79,7 @@
       "Oneclient",
       "Onedata",
       "OnedataFS",
+      "Onedatify",
       "Onepanel",
       "Oneprovider",
       "Oneproviders",
@@ -94,10 +96,13 @@
       "remarkrc",
       "snapshotted",
       "subpath",
+      "swappiness",
+      "systemd",
       "toc",
       "UIDs",
       "unifiedjs",
       "UnitedID",
+      "vCPU",
       "VSCode",
       "VuePress",
       "XRootD",
@@ -130,7 +135,8 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file browser\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"legacy data collection\"}",
-      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}"
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
+      "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"demo.onedata.org\"}"
     ]
   }
 }

@@ -86,7 +86,7 @@ cluster.
 
 [toc]: <>
 
-[gui-wizard-deployment]: ./installation.md#graphical-wizard
+[gui-wizard-deployment]: ./installation/graphical-wizard.md
 
 [REST API]: ./configuration/rest-api.md
 

@@ -17,7 +17,13 @@ module.exports = {
   plugins: [
     require('./plugin-style-generator.js'),
     require('./plugin-template-renderer.js'),
-    require('./vuepress-plugin-mermaidjs-cdn/index.js')
+    require('./vuepress-plugin-mermaidjs-cdn/index.js'),
+    [
+      'vuepress-plugin-copy-code',
+      {
+        copyMessage: 'Text copied to clipboard.'
+      }
+    ],
   ],
   temp: '/tmp/.vuepress-temp',
   themeConfig: {
@@ -83,11 +89,22 @@ module.exports = {
           {
             title: 'Oneprovider',
             collapsable: true,
-            path: '/admin-guide/oneprovider/installation',
+            path: '/admin-guide/oneprovider/prerequisites',
             children: [
               // TODO VFS-11766 we need a landing page for oz and op (like overview)
               // TODO VFS-11766 when it's there, adjust docs-topic-aliases.js (homepage)
-              '/admin-guide/oneprovider/installation',
+              '/admin-guide/oneprovider/prerequisites',
+              { 
+                title: 'Installation / deployment',
+                collapsable: true,
+                path: '/admin-guide/oneprovider/installation/overview',
+                children: [
+                  '/admin-guide/oneprovider/installation/overview',
+                  '/admin-guide/oneprovider/installation/onedatify-cli',
+                  '/admin-guide/oneprovider/installation/graphical-wizard',
+                  '/admin-guide/oneprovider/installation/docker-compose'
+                ]
+              },
               '/admin-guide/oneprovider/maintenance',
               '/admin-guide/oneprovider/administration-panel',
               '/admin-guide/oneprovider/troubleshooting',
@@ -113,7 +130,6 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/advanced-config'
                 ]
               }
-
             ]
           },
           {
