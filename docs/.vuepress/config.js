@@ -36,6 +36,7 @@ module.exports = {
           '/user-guide/quickstart',
           // '/user-guide/overview',
           '/user-guide/account-management',
+          '/user-guide/adding-ts-to-lambda-guide',
           '/user-guide/creating-lambda-guide',
           '/user-guide/groups',
           '/user-guide/spaces',
