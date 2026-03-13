@@ -36,12 +36,12 @@ module.exports = {
           '/user-guide/quickstart',
           // '/user-guide/overview',
           '/user-guide/account-management',
+          '/user-guide/creating-workflow-guide',
           '/user-guide/groups',
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
           '/user-guide/automation',
-          '/user-guide/workflow',
           {
             title: 'Data access interfaces',
             collapsable: false,
