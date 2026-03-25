@@ -1,10 +1,16 @@
-# Creating a workflow example
+# Creating Lambda and Workflow in GUI: File Checksum Example
 
-Suppose the following scenario. You want to calculate checksums for selected files in your Space and store them as file metadata.
+Consider the following scenario: You want to calculate checksums for selected 
+files in your Space and store them as file metadata.
 
-If you were to do this manually, you would need to download each file, compute its checksum locally, and then attach the result as metadata to the file. This approach quickly becomes impractical for large number of files.
+If you were to do this manually, you would need to download each file, 
+compute its checksum locally, and then attach the result as metadata to the file. 
+This approach quickly becomes impractical when dealing with a large number 
+of files.
 
-Using Onedata Automation, the same task can be performed more efficiently, in a scalable way, and directly on data stored in Spaces — without downloading files to your local machine.
+However, by using Onedata Automation, the same task can be performed more efficiently, 
+in a scalable way, and directly on data stored in Spaces — without 
+downloading files to your local machine.
 
 In this workflow:
 
@@ -14,11 +20,20 @@ In this workflow:
 * the computed values will be saved as metadata on the file,
 * for directories, no checksum will be computed and no metadata will be set.
 
-# 1. You need to have access to inventory 
+## Inventory access
 
-You can use one of you already have access to or to create a new one. (...)
+You can use [inventory][] you already have access to or create a new one.
 
-# 2. Create Lambda 
+If you are a new user and do not have access to any inventory, you can 
+obtain access by:
+
+* creating a new inventory,
+* joining an existing inventory using an invitation token,
+* joining a group inventory using an invitation token.
+
+![screen-no-inventories][screen-no-inventories]
+
+## Creating a Lambda 
 
 Navigate to the **Lambdas** tab in your Inventory.
 
@@ -65,14 +80,14 @@ Define configuration parameters used by the lambda logic:
 
 * **algorithm**  
   Specifies the checksum algorithm (hash function) used to calculate the checksum.  
-  Type: `string` with predefined allowed values.
+  * Type: `string` with predefined allowed values.
 
 * **metadataKey**  
   Defines the metadata key under which the checksum will be stored in the file.  
   The lambda will write xattr metadata in the form:  
   `metadataKey : calculatedChecksum`  
-  Type: `string` without restricted values.  
-  Default value: empty string (`""`).
+  * Type: `string` without restricted values.  
+  * Default value: empty string (`""`).
 
 Both parameters are required.
 
@@ -84,21 +99,24 @@ Define the input arguments that the lambda receives:
 
 * **file**  
   The file for which the checksum will be calculated.  
-  Type: `File`.
+  * **Type**: `File`.
 
 ![screen-lambda-arguments][]
 
-Set **File type** to `Any`.
+Provide additional specification for the `File` type.
 
-Make sure to include all file attributes required by the lambda using the `carried file attributes`.  
-In this example, carry the following attribute:
+* **File type**: `Any`,
+* **Carried file attributes**: `fileId`.
 
-* `fileId` — required to access the file.
+![screen-file-argument-configuration][]
+
+Whenever adding `File` type, make sure to include all file attributes 
+required by the lambda using the `carried file attributes` setting.
+
+In this example, only the `fileId` attribute is needed.
 
 > **Note:** Accessing files using `fileId` is more efficient than using file paths, 
 > because of Onedata system specification.
-
-![screen-file-argument-configuration][]
 
 ### Results
 
@@ -115,14 +133,14 @@ Define the results returned by the lambda:
 Define resources used by the lambda:
 
 * **CPU cores**
-  Requested: `0.1`
-  Limit: `Unlimited`
+  * Requested: `0.1`
+  * Limit: `Unlimited`
 * **Memory**:
-  Requested: `100 MiB`
-  Limit: `Unlimited`
+  * Requested: `100 MiB`
+  * Limit: `Unlimited`
 * **Ephemeral storage**:
-  Requested: `100 MiB`
-  Limit: `Unlimited`
+  * Requested: `100 MiB`
+  * Limit: `Unlimited`
 
 ![screen-lambda-resources][]
 
@@ -136,7 +154,7 @@ See a detailed example of a lambda implementation with step-by-step explanations
 See the Onedata implementation of the `calculate-checksum-mounted` lambda used in this workflow:  
 [calculate-checksum-mounted][calculate-checksum-mounted-lambda-handler].
 
-# 3. Create Workflow
+## Creating a Workflow
 
 In this example, the workflow has one main processing logic:
 read files → compute checksums → save results.
@@ -148,48 +166,51 @@ To build it, you will define:
 * one Parallel Box,
 * two Tasks using a checksum lambda.
 
-## Stores
+### Defining Stores
 
 Define a Store that will hold the input items.
-Note: the Store ID is generated automatically by the system — you do not specify it.
 
-* Name - input-files. A descriptive name indicating that this Store contains files to process.
-* Type - Tree forest. This type allows the workflow to traverse all files inside directories, or process a single file if a regular file is provided.
-* Data type - File. We want to process files, not datasets. You could restrict this further to directories only, but in this example allowing regular files works fine.
-* Default value - not set. It is impractical to set a default file.
-* Needs user input - yes. The user must provide the files or directories when starting the workflow.
+>**Note**: the Store ID is generated automatically by the system — you do not specify it.
+
+* **Name**: `input-files`. A descriptive name indicating that this Store contains files to process.
+* **Type**: `Tree forest`. This type allows the workflow to traverse all files inside directories, or process a single file if a regular file is provided.
+* **Data type**: `File`. We want to process files, not datasets. You could restrict this further to directories only, but in this example allowing regular files works fine.
+* **Default value**: `not set`. It is impractical to set a default file.
+* **Needs user input**: `yes`. The user must provide the files or directories when starting the workflow.
 
 ![screen-input-files-store][]
 
-Define store holding results.
+Define a Store holding results.
 
-* Name - results.
-* Type - List. This type stores an ordered list of items — suitable for collecting 
+* **Name**: `results`.
+* **Type**: `List`. This type stores an ordered list of items — suitable for collecting 
 one result per file.
-* Data type - Object. Each entry will be a JSON object containing fileId, 
+* **Data type**: `Object`. Each entry will be a JSON object containing fileId, 
 calculated checksum, checksum algorithm used.
-* Default value - not set. No results exist before workflow execution.
-* Needs user input - no. The workflow will produce these values.
+* **Default value**: `not set`. No results exist before workflow execution.
+* **Needs user input**: `no`. The workflow will produce these values.
 
 ![screen-results-store][]
 
-## Lane
+### Defining a Lane
 
-* Name - calculate-checksums
-* Max. retries - 1. Repeat lane execution max once if failed.
-* Instant failure exception threshold - 0,1. Raise instant failure if ration of exceptions exceed all already processed items. 
-* Source store - input-files. Items from that store will be propagated to tasks.
-* Max. batch size - 4. Max number of items in the batch.
+Add a new lane by clicking on the plus button in the display.
+
+* **Name**: `calculate-checksums`.
+* **Max. retries**: `1`. Repeat lane execution max once if failed.
+* **Instant failure exception threshold**: `0,1`. Raise instant failure if ration of exceptions exceed all already processed items. 
+* **Source store**: `input-files`. Items from that store will be propagated to tasks.
+* **Max. batch size**: `4`. Max number of items in the batch.
 
 ![screen-lane][]
 
-## Parallel box
+### Defining a Parallel box
 
-Add parallel box by simply clicking on plus button in the lane.
+Add parallel box by clicking on plus button in the lane.
 
 ![screen-add-parallel-box][]
 
-## Task
+### Defining a Task
 
 Create a task responsible for calculating the checksum using the **md5** algorithm.
 
@@ -203,60 +224,59 @@ Select the lambda created in step 2: `calculate-checksum-mounted`.
 
 Provide the required task configuration.
 
-### Used Lambda & Task Details
-
+#### Used Lambda & Task Details
 
 * **Name** – automatically derived from the selected lambda.
 * **Revision** – select the lambda revision to use.
-
-
 * **ID** – automatically generated unique identifier for the task.
 * **Name**: `md5`  
   Set a clear and descriptive name indicating that this task calculates the md5 checksum.
 
 ![screen-task-details][]
 
-### Configuration parameters
+#### Configuration parameters
 
 * **algorithm**  
-  Value builder: `Custom value`  
-  Value: `md5`  
-  This selects the md5 algorithm from the predefined checksum algorithms.
+  * Value builder: `Custom value`,  
+  * Value: `md5`. 
+
+This selects the md5 algorithm from the predefined checksum algorithms.
 
 * **metadataKey**  
-  Value builder: `Custom value`  
-  Value: `md5_checksum`  
-  This defines the metadata key under which the calculated checksum will be stored in the file.
+  * Value builder: `Custom value`,  
+  * Value: `md5_checksum`.  
+
+This defines the metadata key under which the calculated checksum will be stored in the file.
 
 ![screen-task-configuration-parameters][]
 
 
-### Arguments
+#### Arguments
 
 Define how the lambda receives its input:
 
-- **file**  
-  Value builder: `Iterated item`  
+* **file**  
+  Value builder: `Iterated item`.  
 
 This means the task will process each file provided by the Lane source Store.
 
 ![screen-task-arguments][]
 
 
-### Results
+#### Results
 
 Define where the lambda results will be stored:
 
-- **result**  
-  - Target Store: `results`  
-  - Dispatch function: `Append`  
+* **result**  
+  * Target Store: `results`,  
+  * Dispatch function: `Append`.  
 
 This configuration stores the result of each processed file as a separate entry in the `results` Store.
 
 ![screen-task-results][]
 
 
-### Resources
+#### Resources
 
 Do not override the resource settings defined in the lambda.
 The default resource configuration is sufficient for this task.
@@ -267,7 +287,7 @@ Finish task creation by clicking **Create** button.
 
 ---
 
-## Create second task for SHA-256
+### Create second task for SHA-256
 
 Create another task in the same Parallel Box to calculate the **sha-256** checksum.
 Click the plus button below the created `md5` task.
@@ -290,6 +310,8 @@ After completing the configuration, the workflow should look like this:
 
 ![screen-ready-workflow][]
 
+---
+
 # Workflow execution
 
 Navigate to the **Automation, Workflows** tab in the selected Space.
@@ -304,11 +326,11 @@ Select the previously created `calculate-checksums-mounted` workflow.
 
 Provide the initial workflow configuration:
 
-* **input-files** – select the files to process,
-* **Logging level** – set to `info` to collect standard execution logs.
+* **input-files**: select the files to process,
+* **Logging level**: set to `info` to collect standard execution logs.
 
-Add files by clicking **Add files...** in the lower-left corner.  
-You can select files using the file browser or provide their file IDs manually.
+To add files, click on **Add files...** located in the lower-left corner.
+You can either use the file browser to select files or enter file IDs manually.
 
 Once the input files are selected, click **Run workflow**.
 
@@ -319,9 +341,9 @@ Once the input files are selected, click **Run workflow**.
 
 After the workflow finishes, you can review the execution details:
 
-- check the contents of Stores,
-- inspect individual task executions,
-- review the workflow audit log.
+* check the contents of Stores,
+* inspect individual task executions,
+* review the workflow Audit log.
 
 ![screen-finished-workflow][]
 
@@ -340,69 +362,76 @@ You should see new metadata entries containing the calculated checksums, such as
 
 <!-- references -->
 
+[inventory]: ../user-guide/automation.md#inventory
+
 <!-- lambda -->
-[screen-lambdas-tab]: ../../images/user-guide/workflow/lambdas_tab_inventory.png
 
-[screen-add-new-lambda-button]: ../../images/user-guide/workflow/add_new_lambda_button.png
+[screen-lambdas-tab]: ../../images/user-guide/creating-workflow-guide/lambdas_tab_inventory.png
 
-[screen-calc-checksum-lambda]: ../../images/user-guide/workflow/calc_checksums_lambda_conf.png
+[screen-add-new-lambda-button]: ../../images/user-guide/creating-workflow-guide/add_new_lambda_button.png
 
-[screen-configuration-parameters]: ../../images/user-guide/workflow/lambda_configuration_parameters.png
+[screen-calc-checksum-lambda]: ../../images/user-guide/creating-workflow-guide/calc_checksums_lambda_conf.png
 
-[screen-lambda-arguments]: ../../images/user-guide/workflow/lambda_arguments.png
+[screen-configuration-parameters]: ../../images/user-guide/creating-workflow-guide/lambda_configuration_parameters.png
 
-[screen-file-argument-configuration]: ../../images/user-guide/workflow/file_argument_configuration.png
+[screen-lambda-arguments]: ../../images/user-guide/creating-workflow-guide/lambda_arguments.png
 
-[screen-lambda-results]: ../../images/user-guide/workflow/lambda_results.png
+[screen-file-argument-configuration]: ../../images/user-guide/creating-workflow-guide/file_argument_configuration.png
 
-[screen-lambda-resources]: ../../images/user-guide/workflow/lambda_resources.png
+[screen-lambda-results]: ../../images/user-guide/creating-workflow-guide/lambda_results.png
+
+[screen-lambda-resources]: ../../images/user-guide/creating-workflow-guide/lambda_resources.png
 
 
 <!-- workflow -->
-[screen-lane-creation]: ../../images/user-guide/workflow/inventory.png
 
-[screen-lane-creation]: ../../images/user-guide/workflow/create_new_inventory.png
+[screen-lane-creation]: ../../images/user-guide/creating-workflow-guide/inventory.png
 
-[screen-input-files-store]: ../../images/user-guide/workflow/input_files_store.png
+[screen-lane-creation]: ../../images/user-guide/creating-workflow-guide/create_new_inventory.png
 
-[screen-results-store]: ../../images/user-guide/workflow/results_store.png
+[screen-input-files-store]: ../../images/user-guide/creating-workflow-guide/input_files_store.png
 
-[screen-lane]: ../../images/user-guide/workflow/lane_calc_checksum.png
+[screen-results-store]: ../../images/user-guide/creating-workflow-guide/results_store.png
 
-[screen-add-parallel-box]: ../../images/user-guide/workflow/add_parallel_box.png
+[screen-lane]: ../../images/user-guide/creating-workflow-guide/lane_calc_checksum.png
 
-[screen-add-task]: ../../images/user-guide/workflow/add_task.png
+[screen-add-parallel-box]: ../../images/user-guide/creating-workflow-guide/add_parallel_box.png
 
-[screen-task-choose-lambda]: ../../images/user-guide/workflow/task_choose_lambda.png
+[screen-add-task]: ../../images/user-guide/creating-workflow-guide/add_task.png
 
-[screen-task-details]: ../../images/user-guide/workflow/create_task_details.png
+[screen-task-choose-lambda]: ../../images/user-guide/creating-workflow-guide/task_choose_lambda.png
 
-[screen-task-configuration-parameters]: ../../images/user-guide/workflow/task_configuration_parameters.png
+[screen-task-details]: ../../images/user-guide/creating-workflow-guide/create_task_details.png
 
-[screen-task-arguments]: ../../images/user-guide/workflow/task_arguments.png
+[screen-task-configuration-parameters]: ../../images/user-guide/creating-workflow-guide/task_configuration_parameters.png
 
-[screen-task-results]: ../../images/user-guide/workflow/task_results.png
+[screen-task-arguments]: ../../images/user-guide/creating-workflow-guide/task_arguments.png
 
-[screen-task-resources]: ../../images/user-guide/workflow/task_resources.png
+[screen-task-results]: ../../images/user-guide/creating-workflow-guide/task_results.png
 
-[screen-task-in-parallel-box]: ../../images/user-guide/workflow/task_in_parallel_box.png
+[screen-task-resources]: ../../images/user-guide/creating-workflow-guide/task_resources.png
 
-[screen-ready-workflow]: ../../images/user-guide/workflow/workflow_in_gui_editor.png
+[screen-task-in-parallel-box]: ../../images/user-guide/creating-workflow-guide/task_in_parallel_box.png
+
+[screen-ready-workflow]: ../../images/user-guide/creating-workflow-guide/workflow_in_gui_editor.png
 
 
 <!-- workflow execution-->
 
-[screen-automation-tab]: ../../images/user-guide/workflow/automation_workflows_tab.png
+[screen-automation-tab]: ../../images/user-guide/creating-workflow-guide/automation_workflows_tab.png
 
-[screen-choose-workflow]: ../../images/user-guide/workflow/choose_workflow.png
+[screen-choose-workflow]: ../../images/user-guide/creating-workflow-guide/choose_workflow.png
 
-[screen-run-workflow]: ../../images/user-guide/workflow/run_workflow_view.png
+[screen-run-workflow]: ../../images/user-guide/creating-workflow-guide/run_workflow_view.png
 
-[screen-finished-workflow]: ../../images/user-guide/workflow/finished_workflow_view.png
+[screen-finished-workflow]: ../../images/user-guide/creating-workflow-guide/finished_workflow_view.png
 
-[screen-file-checksum-metadata]: ../../images/user-guide/workflow/file_checksum_metadata.png
+[screen-file-checksum-metadata]: ../../images/user-guide/creating-workflow-guide/file_checksum_metadata.png
 
 <!-- links -->
+
+[screen-no-inventories]: ../../images/user-guide/creating-workflow-guide/no_inventories.png
+
 [demo-lambda-handler]: https://github.com/onedata/automation-examples/blob/develop/lambdas/demo/docker/handler.py
 
 [calculate-checksum-mounted-lambda-handler]: https://github.com/onedata/automation-examples/blob/develop/lambdas/calculate-checksum-mounted/docker/handler.py
