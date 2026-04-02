@@ -167,7 +167,7 @@ The arguments are:
 **`job_batch_request`**  
 The main input passed to the lambda. It is a JSON object containing:
 
-- **`ctx`** – the context of the job batch request (for example task configuration and execution metadata),
+- **`ctx`** – the context of the job batch request (for example task configuration and execution metadata).
 - **`argsBatch`** – a list of JSON objects, where each object contains the input arguments for a single job.
 
 **`heartbeat_callback`**  
