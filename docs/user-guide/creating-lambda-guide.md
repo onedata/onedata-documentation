@@ -70,9 +70,10 @@ else:
 
 Define the following constants:
 
-1. **Mount point** – the path where Oneclient mounts spaces  
-2. **Read chunk size** – the size of file chunks used during checksum calculation  
-3. **Available checksum algorithms** – the list of supported checksum algorithms that users can choose from  
+1. **Mount point** – the path where Oneclient mounts spaces.  
+2. **Read chunk size** – the size of file chunks used during checksum calculation.  
+3. **Available checksum algorithms** – the list of supported checksum algorithms 
+that users can choose from.  
 
 ```python
 MOUNT_POINT: Final[str] = "/mnt/onedata"
@@ -100,23 +101,23 @@ additionally should remain unchanged during the entire processing.
 
 The following types are used:
 
-1. **TaskConfig** – stores the task configuration passed to the lambda  
+1. **TaskConfig** – stores the task configuration passed to the lambda.  
    In this example, it contains the selected checksum algorithm and 
    the metadata key where the result will be saved.
 
-2. **JobArgs** – stores the input arguments for a single job  
+2. **JobArgs** – stores the input arguments for a single job.  
    Here, it contains the file that should be processed.
 
-3. **FileChecksumReport** – stores the result for a single processed file  
+3. **FileChecksumReport** – stores the result for a single processed file.  
    It includes the file id, the algorithm used, and the calculated checksum value.
 
-4. **JobResults** – wraps the result returned for a single processed item  
+4. **JobResults** – wraps the result returned for a single processed item.  
    In this example, it contains a single `result` field with the checksum report.
 
-5. **JobException** – defines a custom exception that can be raised during job processing  
+5. **JobException** – defines a custom exception that can be raised during job processing.  
    This makes it easier to clearly signal processing errors in your implementation.
 
-6. **Job** – represents a single item processed by the lambda  
+6. **Job** – represents a single item processed by the lambda.  
    It combines the batch context (`ctx`) with the input arguments (`args`).
 
 ```python
@@ -167,8 +168,8 @@ The arguments are:
 **`job_batch_request`**  
 The main input passed to the lambda. It is a JSON object containing:
 
-- **`ctx`** – the context of the job batch request (for example task configuration and execution metadata)
-- **`argsBatch`** – a list of JSON objects, where each object contains the input arguments for a single job
+- **`ctx`** – the context of the job batch request (for example task configuration and execution metadata).
+- **`argsBatch`** – a list of JSON objects, where each object contains the input arguments for a single job.
 
 **`heartbeat_callback`**  
 A callback used to inform the Onedata automation system that the lambda is still running.  
