@@ -1,5 +1,8 @@
 # Size statistics
 
+This guide is dedicated to non-admin users that would like to understand and interpret file and directory size statistics 
+in a space. Consider reading the [counterpart documentation for admins][admin-doc].
+
 In distributed environments, the concept of **size** may vary depending on whether we refer to the logical view of data,
 its physical storage footprint, or its deduplicated representation. Onedata distinguishes between these size types to
 accurately reflect how data is stored, replicated, and accessed across providers. Understanding these differences is
@@ -31,8 +34,9 @@ In actively used spaces, this may cause temporary discrepancies in the reported 
 
 Different types of statistics can be accessed for a directory, such as its [virtual][data-size-dir], [logical][data-size-dir] and [physical size][data-size-dir] as well as count of regular files and directories in its subtree.
 
-::: warning
-If providers are not yet fully synchronized, the reported directory size statistics may temporarily differ between them.
+::: tip NOTE
+Directory size statistics must be enabled to provide aggregated information about directories.
+They are also required for features such as viewing directory [data distribution][data-distribution].
 :::
 
 ### Web GUI
@@ -40,7 +44,7 @@ If providers are not yet fully synchronized, the reported directory size statist
 Open the context menu for the file and choose **Information** and then in **Size stats** tab you will see directory size statistics on all providers supporting a space, as well charts
 with its changes over time:
 
-![screen-size-stats][]
+![screen-dir-stats][]
 
 ### REST API
 
@@ -56,28 +60,88 @@ Only statistics local to a provider can be accessed via REST, so you won't see p
 backends of other providers.
 :::
 
-### Space directory size statistics
+## Complexities of size calculation
 
-Directory size statistics for the space root directory are broader because they include all data stored in the space. This means
-that both [archives][] and the trash are also included in the calculation. The trash contains files that are currently
-being deleted, as well as files that have already been deleted while being open but are not yet closed by all users.
+Directory size statistics in Onedata are designed to reflect a distributed and eventually
+consistent storage system. As a result, the reported values may not always be intuitive
+and can vary depending on several factors:
+
+### Asynchronous updates
+
+Directory size statistics are calculated in the background and propagated from leaf
+directories up to the space root. This means that:
+
+* recently modified data may not be immediately reflected in parent directories,
+* temporary inconsistencies may appear during ongoing updates,
+* values converge over time rather than being updated atomically.
+
+### Provider-specific perspectives
+
+Size values are calculated from the perspective of a given provider. Therefore:
+
+* different providers may report different values for the same directory,
+* discrepancies may occur when replicas are incomplete or not yet synchronized.
+
+
+### Inclusion of special data (space root only)
+
+For the space root directory, size statistics additionally include:
+
+* data stored in [archives][],
+* files located in the trash,
+* files that have been deleted but are still open by users.
+
+This can lead to situations where the reported size includes data that is not visible
+in the regular directory structure.
+
 
 You can switch between those statistics in a size stats modal for a space directory:
 
 ![screen-stats-special-dirs-space][]
 
+::: warning
+Due to the distributed and asynchronous nature of the system, size statistics should be
+treated as eventually consistent and may temporarily differ between providers.
+:::
+
+
+## Enabling directory size statistics as space manager
+
+In navigation bar go to `Data`, then select a space you want to modify and click on `Providers`.
+
+![screen-data-sidebar-provider-selected][]
+
+In top row select a provider on which you want to make a modification. There you can enable/disable
+directory size statistics for a selected space.
+
+To enable/disable directory size statistics for a space, you need the `Modify space` privilege in that space.
+
+![screen-enable-dir-stats-provider][]
+
+::: tip NOTE
+This method is not available when [accounting][admin-doc] has been enabled in this space by Oneprovider admin.
+:::
+
 <!-- references -->
+
+[admin-doc]: ../admin-guide/oneprovider/configuration/accounting-and-dir-stats.md
 
 [data-size-dir]: #directories
 
 [dir-stats-enable-panel]: ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
 
-[dir-stats-enable-provider]: ../admin-guide/oneprovider/configuration/accounting-and-dir-stats.md#enabling-directory-size-statistics-as-space-manager
+[dir-stats-enable-provider]: #enabling-directory-size-statistics-as-space-manager
+
+[data-distribution]: ./data-distribution-and-metrics.md#viewing-data-distribution
 
 [archives]: ./archives.md
 
 [1]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_directory_size_stats
 
-[screen-size-stats]: ../../images/user-guide/size-stats/dir-size-stats-modal.png
+[screen-dir-stats]: ../../images/user-guide/dir-stats/dir-stats-modal.png
 
-[screen-stats-special-dirs-space]: ../../images/user-guide/size-stats/stats-special-dirs-space.png
+[screen-stats-special-dirs-space]: ../../images/user-guide/dir-stats/stats-special-dirs-space.png
+
+[screen-data-sidebar-provider-selected]: ../../images/user-guide/dir-stats/data-sidebar-providers-selected.png
+
+[screen-enable-dir-stats-provider]: ../../images/user-guide/dir-stats/enable-dir-stats-provider.png

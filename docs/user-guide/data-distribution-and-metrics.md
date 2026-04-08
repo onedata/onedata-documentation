@@ -82,7 +82,8 @@ Auto-cleaning can only be configured by a space admin.
 ## Viewing data distribution
 
 ::: warning
-If providers are not yet fully synchronized, the reported data distribution may temporarily differ between them.
+If files are not yet fully synchronized between providers, the reported data distribution 
+may temporarily differ between them.
 :::
 
 You can view how the data is distributed among storage backends supporting the space
@@ -153,7 +154,7 @@ Only data distribution for regular files is available with this method.
 
 [Auto-cleaning]: ../admin-guide/oneprovider/configuration/auto-cleaning.md
 
-[dir-stats]: ./size-stats.md#directory-size-statistics
+[dir-stats]: ./dir-stats.md#directory-size-statistics
 
 [dir-stats-enable-panel]: ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
 

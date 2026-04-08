@@ -57,7 +57,7 @@ module.exports = {
             ]
           },
           '/user-guide/data-distribution-and-metrics',
-          '/user-guide/size-stats',
+          '/user-guide/dir-stats',
           '/user-guide/data-transfers',
           '/user-guide/rule-based-replication-qos',
           '/user-guide/shares',
