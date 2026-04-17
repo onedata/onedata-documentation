@@ -1,7 +1,7 @@
 # Accounting & directory size statistics
 
 This guide is dedicated to admin users that would like to understand and interpret file and directory size statistics 
-in a space. Consider reading the [counterpart documentation for users][user-doc]
+in a space. Consider reading the [counterpart documentation for users][user-doc].
 
 Accounting enables [directory size statistics][dir-stats] and prevents space members from disabling them, making sure that
 accounting data is always available. Only Oneprovider admins can manipulate this option.
