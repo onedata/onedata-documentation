@@ -69,7 +69,7 @@ module.exports = {
           '/user-guide/datasets',
           '/user-guide/archives',
           '/user-guide/automation',
-          '/user-guide/workflow',
+          '/user-guide/creating-workflow-guide',
           '/user-guide/file-registration',
           '/user-guide/views',
           '/user-guide/rest-api'
