@@ -22,7 +22,7 @@ In this workflow:
 
 ## Inventory access
 
-You can use [inventory][] you already have access to or create a new one.
+You can use [inventory][inventory] you already have access to or create a new one.
 
 If you are a new user and do not have access to any inventory, you can 
 obtain access by:
@@ -32,6 +32,12 @@ obtain access by:
 * joining a group inventory using an invitation token.
 
 ![screen-no-inventories][screen-no-inventories]
+
+If you don’t have an existing inventory, create one by 
+clicking **Create an automation inventory**. Enter a name for the inventory 
+and click **Create**.
+
+![screen-new-inventory][]
 
 ## Creating a Lambda 
 
@@ -76,6 +82,10 @@ Provide the required lambda configuration:
 
 ### Configuration parameters
 
+Click on **Add parameter** button.
+
+![screen-add-parameter][]
+
 Define configuration parameters used by the lambda logic:
 
 * **algorithm**  
@@ -94,6 +104,10 @@ Both parameters are required.
 ![screen-configuration-parameters][]
 
 ### Arguments
+
+Click on **Add argument** button.
+
+![screen-add-argument][]
 
 Define the input arguments that the lambda receives:
 
@@ -119,6 +133,10 @@ In this example, only the `fileId` attribute is needed.
 > because of Onedata system specification.
 
 ### Results
+
+Click on **Add result** button.
+
+![screen-add-result][]
 
 Define the results returned by the lambda:
 
@@ -161,12 +179,29 @@ read files → compute checksums → save results.
 
 To build it, you will define:
 
-* two Stores,
-* one Lane,
-* one Parallel Box,
-* two Tasks using a checksum lambda.
+* two [Stores][store],
+* one [Lane][lane],
+* one [Parallel Box][lane],
+* two [Tasks][task] using a checksum lambda.
+
+### Create a new workflow
+
+In the same inventory where you created the lambda, open the **Workflows** tab and 
+click **Add new workflow**.
+
+![screen-add-new-workflow][]
+
+Enter the workflow name `calculate-checksums-mounted` and click **Create**.
+
+![screen-create-new-workflow][]
 
 ### Defining Stores
+
+To create a store, click the **Add store** button in the bottom-left corner.
+
+![screen-add-store][]
+
+Then provide the required store details and click **Create**.
 
 Define a Store that will hold the input items.
 
@@ -265,6 +300,8 @@ This means the task will process each file provided by the Lane source Store.
 
 #### Results
 
+Add a mapping for results by clicking the **Add mapping** button.
+
 Define where the lambda results will be stored:
 
 * **result**  
@@ -306,6 +343,10 @@ This allows both checksum algorithms to run in parallel for each file.
 
 ## Final workflow structure
 
+Save your changes by clicking **Save** in the upper-right corner.
+
+![screen-save-workflow][]
+
 After completing the configuration, the workflow should look like this:
 
 ![screen-ready-workflow][]
@@ -314,7 +355,7 @@ After completing the configuration, the workflow should look like this:
 
 # Workflow execution
 
-Navigate to the **Automation, Workflows** tab in the selected Space.
+Navigate to the **Automation Workflows** tab in the selected Space.
 
 Click the **Run workflow** button in the upper-right corner.
 
@@ -364,6 +405,12 @@ You should see new metadata entries containing the calculated checksums, such as
 
 [inventory]: ../user-guide/automation.md#inventory
 
+[store]: ../user-guide/automation.md#store
+
+[lane]: ../user-guide/automation.md#lane
+
+[task]: ../user-guide/automation.md#task
+
 <!-- lambda -->
 
 [screen-lambdas-tab]: ../../images/user-guide/creating-workflow-guide/lambdas_tab_inventory.png
@@ -382,6 +429,11 @@ You should see new metadata entries containing the calculated checksums, such as
 
 [screen-lambda-resources]: ../../images/user-guide/creating-workflow-guide/lambda_resources.png
 
+[screen-add-parameter]: ../../images/user-guide/creating-workflow-guide/add_parameter.png
+
+[screen-add-argument]: ../../images/user-guide/creating-workflow-guide/add_argument.png
+
+[screen-add-result]: ../../images/user-guide/creating-workflow-guide/add_result.png
 
 <!-- workflow -->
 
@@ -415,6 +467,17 @@ You should see new metadata entries containing the calculated checksums, such as
 
 [screen-ready-workflow]: ../../images/user-guide/creating-workflow-guide/workflow_in_gui_editor.png
 
+[screen-save-workflow]: ../../images/user-guide/creating-workflow-guide/workflow_save.png
+
+[screen-no-inventories]: ../../images/user-guide/creating-workflow-guide/no_inventories.png
+
+[screen-add-store]: ../../images/user-guide/creating-workflow-guide/add_store.png
+
+[screen-add-new-workflow]: ../../images/user-guide/creating-workflow-guide/add_new_workflow.png
+
+[screen-create-new-workflow]: ../../images/user-guide/creating-workflow-guide/create_new_workflow.png
+
+[screen-new-inventory]: ../../images/user-guide/creating-workflow-guide/new_inventory.png
 
 <!-- workflow execution-->
 
@@ -429,8 +492,6 @@ You should see new metadata entries containing the calculated checksums, such as
 [screen-file-checksum-metadata]: ../../images/user-guide/creating-workflow-guide/file_checksum_metadata.png
 
 <!-- links -->
-
-[screen-no-inventories]: ../../images/user-guide/creating-workflow-guide/no_inventories.png
 
 [demo-lambda-handler]: https://github.com/onedata/automation-examples/blob/develop/lambdas/demo/docker/handler.py
 

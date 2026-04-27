@@ -7,7 +7,7 @@ monitoring execution, collecting results, and inspecting execution history.
 
 ## Main concepts
 
-### Inventory 
+### Inventory
 
 An inventory is a logical container for storing workflow schemas and lambda schemas. 
 Similarly to Spaces, it allows users to collaborate on shared resources and 
