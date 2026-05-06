@@ -299,7 +299,7 @@ chapter.
 ## Retaining persistence between restarts
 
 **Since version 25.0**, demo mode supports persistence so that data and configuration
-survive container restarts. Use the same workflow as [running in the foreground][], but
+survive container restarts. Use the same approach as for running in the foreground/background, but
 add a fixed hostname and volume mounts.
 
 Onezone with persistence:
