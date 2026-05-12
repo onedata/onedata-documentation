@@ -74,6 +74,7 @@ module.exports = {
           '/user-guide/archives',
 //          '/user-guide/automation',
           '/user-guide/file-registration',
+          '/user-guide/repository-crawlers',
           '/user-guide/views',
           '/user-guide/rest-api'
         ]
