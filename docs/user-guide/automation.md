@@ -204,7 +204,55 @@ flowchart TB
     T33 <-.-> L33["Lambda"]
 ```
 
-To learn how to implement and package custom lambdas, see: [lambda-creation-guide][].
+Follow the detailed [lambda creation guide][lambda-creation-guide] to learn 
+how to implement and build a lambda.  
+You can also explore a step-by-step example with 
+inline explanations: [demo lambda][demo-lambda-handler].
+
+#### Lambda configuration
+
+To create a lambda, users implement the desired logic, package it as a Docker image, 
+and publish the image so it can be used by the automation system.  
+The lambda is then added in the GUI and configured according to its implemented 
+interface and behavior.
+
+Adding a lambda requires providing several configuration fields in the GUI. 
+The following sections briefly explain their purpose.
+
+![screen-lambda-gui][]
+
+![screen-lambda-gui-resources][]
+
+1. **Name** – enter a name for the lambda.
+2. **State** – select the lambda’s lifecycle state:
+   - **Draft** – newly implemented and not yet fully tested,
+   - **Stable** – ready for general use; unexpected errors should not occur,
+   - **Deprecated** – outdated and should no longer be used.
+3. **Summary** – provide a short description of what the lambda does.
+4. **Engine** – select the lambda runtime; currently, only OpenFaaS is supported 
+(functions-as-a-service used to execute lambdas).
+5. **Docker image** - provide the Docker image of the lambda. The image must be 
+published and accessible so it can be pulled by the automation system.
+6. **Read-only** – indicate whether the lambda is allowed to modify data in a Space.
+7. **Mount Space** – choose whether the lambda should use the Oneclient interface. 
+A lambda can operate on files either through REST APIs or via Oneclient. When 
+using Oneclient, the system exposes files as if they were part of a local filesystem.
+To learn more about the Oneclient interface, see the 
+[Oneclient documentation][oneclient-documentation]. Note that options 8 and 9 
+become available only when **Mount Space** is enabled.
+8. **Mount Point** – specify the directory path where Oneclient will be mounted. 
+This path must match the expectations of the lambda implementation.
+9. **Oneclient options** – configure additional Oneclient flags used during mounting.
+10. **Preferred batch size** – define how many items the lambda should process 
+in a single batch.
+11. **Configuration parameters** – define configuration parameters that the lambda 
+logic can access. Unlike arguments, their values must be provided directly in the task 
+configuration and cannot be supplied from a Store.
+12. **Arguments** – define the input arguments that the lambda logic receives 
+when the task runs.
+13. **Results** – define the results produced by the lambda.
+14. **Resources** - specify requested values or limits for CPU cores, memory, 
+and ephemeral storage.
 
 ### Store Types
 
@@ -278,59 +326,6 @@ When the task result is an array, the dispatch function can be one of:
 
 A special store used to collect time series measurements together with 
 dashboards built from that data.
-
-#### Resources
-
-Users can choose to use the default resource settings
-defined by the lambda or override them.
-
-## Creating a lambda example
-
-To create a lambda, users implement the desired logic, build and expose it as 
-a Docker image, and then add the lambda in the GUI, configuring it according 
-to the implemented interface and behavior.
-
-Follow the detailed [lambda creation guide][lambda-creation-guide] to learn 
-how to implement and build a lambda.  
-You can also explore a step-by-step example with 
-inline explanations: [demo lambda][demo-lambda-handler].
-
-Adding the lambda requires providing the following configuration in the GUI:
-
-![screen-lambda-gui][]
-
-![screen-lambda-gui-resources][]
-
-1. **Name** – enter a name for the lambda.
-2. **State** – select the lambda’s lifecycle state:
-   - **Draft** – newly implemented and not yet fully tested,
-   - **Stable** – ready for general use; unexpected errors should not occur,
-   - **Deprecated** – outdated and should no longer be used.
-3. **Summary** – provide a short description of what the lambda does.
-4. **Engine** – select the lambda runtime; currently, only OpenFaaS is supported 
-(functions-as-a-service used to execute lambdas).
-5. **Docker image** - provide the Docker image of the lambda. The image must be 
-published and accessible so it can be pulled by the automation system.
-6. **Read-only** – indicate whether the lambda is allowed to modify data in a Space.
-7. **Mount Space** – choose whether the lambda should use the Oneclient interface. 
-A lambda can operate on files either through REST APIs or via Oneclient. When 
-using Oneclient, the system exposes files as if they were part of a local filesystem.
-To learn more about the Oneclient interface, see the 
-[Oneclient documentation][oneclient-documentation]. Note that options 8 and 9 
-become available only when **Mount Space** is enabled.
-8. **Mount Point** – specify the directory path where Oneclient will be mounted. 
-This path must match the expectations of the lambda implementation.
-9. **Oneclient options** – configure additional Oneclient flags used during mounting.
-10. **Preferred batch size** – define how many items the lambda should process 
-in a single batch.
-11. **Configuration parameters** – define configuration parameters that the lambda 
-logic can access. Unlike arguments, their values must be provided directly in the task 
-configuration and cannot be supplied from a Store.
-12. **Arguments** – define the input arguments that the lambda logic receives 
-when the task runs.
-13. **Results** – define the results produced by the lambda.
-14. **Resources** - specify requested values or limits for CPU cores, memory, 
-and ephemeral storage.
 
 
 <!-- references -->
