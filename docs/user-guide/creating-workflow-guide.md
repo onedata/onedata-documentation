@@ -20,7 +20,9 @@ In this workflow:
 * the computed values will be saved as metadata on the file,
 * for directories, no checksum will be computed and no metadata will be set.
 
-## Inventory access
+## Prerequisites
+
+### Inventory access
 
 You can use [inventory][inventory] you already have access to or create a new one.
 
@@ -54,29 +56,11 @@ Provide the required lambda configuration:
 * **Name**: `calculate-checksum-mounted`  
   A descriptive name indicating that this lambda calculates checksums and uses Oneclient mounting.
 
-* **State**: `Draft`  
-  This is a new lambda that has not yet been fully tested.
-
-* **Engine**: `OpenFaaS`  
-  This defines the execution environment for the lambda. Currently, OpenFaaS is the only supported engine.
-
 * **Docker Image**: `onedata/lambda-calculate-checksum-mounted:v3`  
   Provide your own Docker image containing the lambda implementation, or use one of the public Onedata lambda images.
 
 * **Read-only**: `No`  
   This lambda modifies files by adding metadata, so it requires write access.
-
-* **Mount Space**: `Yes`  
-  This enables access to files through Oneclient, allowing the lambda to operate on files as if they were in a local filesystem.
-
-* **Mount Point**: `/mnt/onedata`  
-  This path must match the mount point used in the lambda implementation.
-
-* **Oneclient options**: *not set*  
-  No additional Oneclient configuration is required.
-
-* **Preferred batch size**: `10`  
-  This defines how many files the lambda processes in a single batch. The default value works well for most cases.
 
 ![screen-calc-checksum-lambda][]
 
@@ -148,17 +132,7 @@ Define the results returned by the lambda:
 
 ### Resources
 
-Define resources used by the lambda:
-
-* **CPU cores**
-  * Requested: `0.1`
-  * Limit: `Unlimited`
-* **Memory**:
-  * Requested: `100 MiB`
-  * Limit: `Unlimited`
-* **Ephemeral storage**:
-  * Requested: `100 MiB`
-  * Limit: `Unlimited`
+Leave the default resource settings.
 
 ![screen-lambda-resources][]
 
@@ -181,7 +155,7 @@ To build it, you will define:
 
 * two [Stores][store],
 * one [Lane][lane],
-* one [Parallel Box][lane],
+* one [Parallel Box][parallel-box],
 * two [Tasks][task] using a checksum lambda.
 
 ### Create a new workflow
@@ -410,6 +384,8 @@ You should see new metadata entries containing the calculated checksums, such as
 [lane]: ../user-guide/automation.md#lane
 
 [task]: ../user-guide/automation.md#task
+
+[parallel-box]: ../user-guide/automation#parallel-box
 
 <!-- lambda -->
 
