@@ -65,7 +65,7 @@ different terminals (can be in parallel, which makes the setup faster). Monitor 
 for hints and to find out details about the setup process.
 
 ```bash
-docker run --rm -it --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+docker run --rm -it --name oz_test docker.onedata.org/onezone:xRELEASExVERSIONx demo
 ```
 
 ```bash
@@ -135,7 +135,7 @@ Run the dockers just like for the [foreground][running in the foreground], but a
 `--detach` (or `-d`) option:
 
 ```bash
-docker run --rm --detach -it --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+docker run --rm --detach -it --name oz_test docker.onedata.org/onezone:xRELEASExVERSIONx demo
 ```
 
 ```bash
@@ -199,7 +199,7 @@ starting point for creating an integration test setup for your middleware that u
 Onedata:
 
 ```bash
-docker run --rm -it -d --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+docker run --rm -it -d --name oz_test docker.onedata.org/onezone:xRELEASExVERSIONx demo
 OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
 docker run --rm -it -d --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 OP_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' op_test1)
@@ -307,7 +307,7 @@ add a fixed hostname and volume mounts.
 Onezone with persistence:
 
 ```bash
-docker run --rm -it --name oz_test -h oz_test -v /tmp/oz-pers:/volumes/persistence onedata/onezone:xRELEASExVERSIONx demo
+docker run --rm -it --name oz_test -h oz_test -v /tmp/oz-pers:/volumes/persistence docker.onedata.org/onezone:xRELEASExVERSIONx demo
 ```
 
 Oneprovider with persistence:
