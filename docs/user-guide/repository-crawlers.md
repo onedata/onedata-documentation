@@ -79,14 +79,14 @@ including:
 * [**VIP**][4] — Virtual Imaging Platform datasets,
 * [**GWAS Catalog**][5] — curated traits and publications of human genome-wide association studies.
 
-New sources can be supported by adding a plugin — see the project repository
-on [GitHub][] for the plugin development guide.
+New sources can be supported by adding a plugin — see the [project repository][]
+for the plugin development guide.
 
 ## Installation and usage
 
 The toolkit is distributed as a separate project. For installation instructions,
 CLI reference, plugin development guide, and configuration details, see the
-project on [GitHub][].
+[project repository][].
 
 A typical workflow consists of three steps:
 
@@ -106,7 +106,7 @@ space automatically if granted appropriate permissions.
 
 [toc]: <>
 
-[GitHub]: https://github.com/onedata/repository-crawlers
+[project repository]: https://github.com/onedata/repository-crawlers
 
 [file registration]: ./file-registration.md
 
