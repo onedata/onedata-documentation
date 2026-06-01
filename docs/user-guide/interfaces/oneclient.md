@@ -33,8 +33,8 @@ $ curl -sS http://get.onedata.org/oneclient.sh | bash
 ```
 
 ::: tip NOTE
-The above command is only valid when installing the latest release.
-For other versions, use appropriate script suffix, e.g. `http://get.onedata.org/oneclient-2002.sh`.
+The above command installs the latest release of Oneclient.
+For other versions, use `--version` argument, e.g. `curl -sS http://get.onedata.org/oneclient.sh | bash -s -- --version 21.02.7`.
 :::
 
 After installing, ensure that you can access `fusermount` tool, by
