@@ -96,7 +96,7 @@ A typical workflow consists of three steps:
    permissions; this step is often performed by a provider/space admin.
 
 ::: tip NOTE
-Registering datasets requires an Onedata [space][] supported by an
+Registering datasets requires a Onedata [space][] supported by an
 [imported storage][] with [manual import mode][] — the same prerequisites as
 regular [file registration][]. The registrar can create and configure such a
 space automatically if granted appropriate permissions.
