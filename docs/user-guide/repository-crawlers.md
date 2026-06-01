@@ -14,11 +14,11 @@ The tool is designed for data stewards and operators who want to expose external
 public datasets through Onedata, making them accessible in Onedata spaces and discoverable
 via Onezone's OAI-PMH endpoint.
 
-::: tip NOTE 
+::: tip NOTE
 Repository crawlers are **independent Python scripts** rather than a built-in Onedata
 component. They interact with Onedata exclusively through its public REST APIs and rely on
 standard Onedata mechanisms — [file registration][], [shares][], and (optionally) handle
-services to publish datasets as [public data][]. 
+services to publish datasets as [public data][].
 :::
 
 ## How it works
@@ -29,7 +29,7 @@ The toolkit is composed of two cooperating components:
   references from a specific external source, normalizes them, and produces a JSONL file
   with Onedata-ready records and corresponding metadata. Currently, implemented crawlers
   use the standard [DataCite][] or [OpenAIRE][] formats, but others supported by Onedata
-  (e.g. [Dublin Core][] and [Europeana Data Model][]) can be easily employed. 
+  (e.g. [Dublin Core][] and [Europeana Data Model][]) can be easily employed.
 * **Registrar** — takes the JSONL output of a crawler and creates the
   corresponding resources in Onedata: a target [space][], the necessary
   storage support, registered files, [shares][], and — if a handle service is
