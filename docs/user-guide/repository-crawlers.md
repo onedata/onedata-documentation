@@ -27,7 +27,7 @@ The toolkit is composed of two cooperating components:
 
 * **Crawlers** — a pluggable framework that fetches dataset descriptions and data
   references from a specific external source, normalizes them, and produces a JSONL file
-  with Onedata-ready records and corresponding metadata. Currently implemented crawlers
+  with Onedata-ready records and corresponding metadata. Currently, implemented crawlers
   use the standard [DataCite][] or [OpenAIRE][] formats, but others supported by Onedata
   (e.g. [Dublin Core][] and [Europeana Data Model][]) can be easily employed. 
 * **Registrar** — takes the JSONL output of a crawler and creates the
