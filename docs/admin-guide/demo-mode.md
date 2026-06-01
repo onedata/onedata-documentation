@@ -283,8 +283,6 @@ When using persistence:
 
 <!-- References -->
 
-[toc]: <>
-
 [running in the foreground]: #running-in-the-foreground
 
 [running in the background]: #running-in-the-background
@@ -312,8 +310,6 @@ When using persistence:
 [OnedataFileRestClient]: ../user-guide/interfaces/onedata-file-rest-client.md
 
 [PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
-
-[PyFilesystem2 Docs]: https://pyfilesystem2.readthedocs.io/en/latest/
 
 [token via gui]: ../user-guide/tokens.md#gui-guide
 
