@@ -80,7 +80,7 @@ including:
 * [**GWAS Catalog**][5] — curated traits and publications of human genome-wide association studies.
 
 New sources can be supported by adding a plugin — see the project repository
-for the plugin development guide.
+on [GitHub][] for the plugin development guide.
 
 ## Installation and usage
 
