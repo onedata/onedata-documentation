@@ -1,14 +1,22 @@
 # Providers
 
-A provider is an entity that contributes storage resources to the Onedata ecosystem by deploying
-the Oneprovider service. Providers can be institutions, data centers, or even individual users who
-install Oneprovider, connect local storage backends, and register the instance with a specific Onezone service.
+A provider is an entity that contributes storage resources to a Onedata ecosystem.
+Institutions, companies, data centers, data repositories, or even individual users can
+become a Onedata provider by performing below steps:
+
+* installing the [Oneprovider][] software on their servers,
+* registering it with a chosen [Onezone][] service (the coordinator component of a Onedata
+  ecosystem),
+* connecting their [storage backends][],
+* [supporting][granting space support] Onedata spaces by assigning resources on the
+  storage backends to back the spaces up with storage quota.
 
 ![screen-15-providers][]
 
 Oneprovider acts as a key component in the system by:
 
-* [Supporting][Space support] virtual [spaces][], by committing storage resources to host their data.
+* [Supporting][granting space support] virtual [spaces][], by committing storage resources
+  to host their data.
 
 * Managing physical data stored on local [storage backends][] (e.g., POSIX, NFS, S3, Ceph).
 
@@ -17,8 +25,9 @@ Oneprovider acts as a key component in the system by:
 
 * Handling data access requests from users or groups, enabling unified and transparent access to distributed data.
 
-* Providing high-level data management operations, such as [Transfers][], [QoS][], [Datasets][], [Archives][]
-  or Automation workflows.
+* Providing high-level data management operations, such as [Transfers][], [QoS][], [Datasets][], or [Archives][].
+
+<!-- TODO VFS-13164 link to atm like this: "or [Automation workflows]."" -->
 
 For more information on providers from an administrative perspective, see the [Oneprovider administration guide][].
 
@@ -43,25 +52,22 @@ Providers often reflect the organizational affiliation of users. For instance, a
 may operate its own provider to support collaborative workspaces. In federated environments, multiple providers
 from different organizations can jointly support the same space, enabling cross-institutional collaboration.
 
-## Space support
-
-A provider can grant support for a space by allocating a specific storage quota to it.
-Once a provider supports your space, it becomes visible in the Onezone interface, where you can view
-its details and manage the associated storage support.
-To learn how to request provider support for your space, see [Space support][].
+Once a provider supports a space that you are a member of, the space becomes visible in
+[the Onezone interface][spaces GUI], where you can access the data and manage the space.
+For a guide on how to request provider support for your space, see: [requesting space support][].
 
 ## Other services
 
-A provider in Onedata can integrate with auxiliary services like [OpenFaaS][] and [LUMA][] to extend its capabilities.
-OpenFaaS enables serverless execution of user-defined workflows directly on data stored in supported spaces,
-using either the mounted POSIX virtual filesystem (via Oneclient) or Onedata’s REST, CDMI, and S3 APIs.
-This allows for flexible, containerized processing such as data transformation or metadata enrichment.
-LUMA (Local User Mapping Authority) manages mappings between Onedata users and local credentials
-(e.g., POSIX UID/GID, Ceph, GlusterFS), ensuring correct identity translation and access control across
-heterogeneous storage backends. Together, these services enhance data handling, security,
-and automation at the provider level.
+A provider in Onedata can integrate with auxiliary services like [OpenFaaS][] and [LUMA][]
+to extend its capabilities. OpenFaaS enables serverless execution of user-defined
+workflows directly on data stored in supported spaces, using either the mounted POSIX
+virtual filesystem (via Oneclient) or Onedata’s REST, CDMI, and S3 APIs. This allows for
+flexible, containerized processing such as data transformation or metadata enrichment.
+LUMA (Local User Mapping Authority) manages mappings between Onedata users and local
+credentials (e.g., POSIX UID/GID, Ceph, GlusterFS), ensuring correct identity translation
+and access control across heterogeneous storage backends.
 
-<!-- TODO VFS-7244 Added something more about openfaas or some links -->
+<!-- TODO VFS-7244 Add something more about openfaas or some links -->
 
 ## GUI guide
 
@@ -100,15 +106,20 @@ For more details see [Directory statistics][].
 
 ## REST API
 
-You can manage provider using the [REST API][REST provider].
-
-All operations available through the GUI can also be performed using the [REST API][] or the [CDMI API][].
+All operations available through the GUI can also be performed using the [REST API][] or
+the [CDMI API][]. Additional documentation can be found in the [REST API guide][].
 
 <!-- references -->
+
+[Oneprovider]: ../admin-guide/oneprovider/installation/overview.md
+
+[Onezone]: ../intro.md#zones
 
 [screen-15-providers]: ../../images/user-guide/providers/15-providers.png
 
 [spaces]: ./spaces.md
+
+[spaces GUI]: ./spaces.md#gui-guide
 
 [storage backends]: ../admin-guide/oneprovider/configuration/storage-backends.md
 
@@ -120,11 +131,13 @@ All operations available through the GUI can also be performed using the [REST A
 
 [Archives]: ./archives.md
 
-[Oneprovider administration guide]: ../admin-guide/oneprovider/configuration/space-support.md
+[Oneprovider administration guide]: ../admin-guide/oneprovider/administration-panel.md
 
 [screen-support]: ../../images/user-guide/providers/support.png
 
-[Space support]: ./spaces.md#space-support
+[granting space support]: ../admin-guide/oneprovider/configuration/space-support.md
+
+[requesting space support]: ./spaces.md#request-support-for-space
 
 [OpenFaaS]: ../admin-guide/architecture.md
 
@@ -146,8 +159,8 @@ All operations available through the GUI can also be performed using the [REST A
 
 [screen-providers-settings]: ../../images/user-guide/providers/providers-settings.png
 
-[REST provider]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/Oneprovider
-
 [CDMI API]: ./interfaces/cdmi.md
 
-[REST API]: ./interfaces/data-access-rest-api.md
+[REST API]: https://onedata.org/api/25.0/oneprovider/
+
+[REST API guide]: ./rest-api.md
