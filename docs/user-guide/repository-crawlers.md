@@ -15,7 +15,7 @@ public datasets through Onedata, making them accessible in Onedata spaces and di
 via Onezone's OAI-PMH endpoint.
 
 ::: tip NOTE 
-Repository crawlers are **independent python scripts** rather than a built-in Onedata
+Repository crawlers are **independent Python scripts** rather than a built-in Onedata
 component. They interact with Onedata exclusively through its public REST APIs and rely on
 standard Onedata mechanisms — [file registration][], [shares][], and (optionally) handle
 services to publish datasets as [public data][]. 
@@ -120,7 +120,7 @@ space automatically if granted appropriate permissions.
 
 [OpenAIRE]: https://www.openaire.eu/
 
-[Dublin Core]:https://www.dublincore.org/specifications/dublin-core/dces/
+[Dublin Core]: https://www.dublincore.org/specifications/dublin-core/dces/
 
 [Europeana Data Model]: https://pro.europeana.eu/page/metadata
 
