@@ -15,7 +15,7 @@ scenarios, for example:
 
 ![screen-oneclient-mount][]
 
-<!-- TODO VFS-6805: refresh this screenshot, 
+<!-- TODO VFS-6805: refresh this screenshot,
 maybe show only the CLI with the same data as in Web GUI -->
 
 ## Installation
@@ -728,7 +728,7 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [direct-io]: #direct-io-and-proxy-io-modes
 
-[oneprovider-domain]: ../data.md#provider-domain
+[oneprovider-domain]: ../providers.md#provider-domain
 
 [image-oneclient-direct-proxy]: ../../../images/user-guide/interfaces/oneclient/oneclient-direct-proxy.png
 
