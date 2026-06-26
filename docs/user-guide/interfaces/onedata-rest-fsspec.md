@@ -35,9 +35,7 @@ Requirements include Python `>= 3.10`, `fsspec >= 2021.10.0`,
 
 ## Usage
 
-
 For reference documentation and usage examples see the [GitHub][] page.
-
 
 <!-- references -->
 
