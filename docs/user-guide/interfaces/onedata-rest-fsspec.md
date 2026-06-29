@@ -7,9 +7,9 @@
 `OnedataRESTFSSpec` is an [fsspec][] filesystem implementation for Onedata
 on [Onedata REST API][].
 
-As an `fsspec` implementation, `OnedataRESTFSSpec` allows you to work with
+As an fsspec implementation, `OnedataRESTFSSpec` allows you to work with
 Onedata spaces using the same Python API as other filesystems supported by
-`fsspec`.
+fsspec.
 
 The library supports reading and writing files, directory operations, file
 metadata access, authentication using access tokens, environment-based and
