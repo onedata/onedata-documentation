@@ -84,6 +84,8 @@
       "Onedata",
       "Onedata-ready",
       "OnedataFS",
+      "OnedataRestFSSpec",
+      "OnedataRESTFSSpec",
       "Onedatify",
       "Onepanel",
       "Oneprovider",
@@ -119,7 +121,7 @@
   },
   "ltex.hiddenFalsePositives": {
     "en-US": [
-      // below rules match whole tables, for which LTeX is over-sensitive 
+      // below rules match whole tables, for which LTeX is over-sensitive
       // (TableSeparator '-' has been marked as "default" in ltex.markdown.nodes)
       "{\"rule\":\"ENGLISH_WORD_REPEAT_RULE\",\"sentence\":\"\\n[-]{4,}\"}",
       "{\"rule\":\"PHRASE_REPETITION\",\"sentence\":\"\\n[-]{4,}\"}",

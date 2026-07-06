@@ -1,13 +1,13 @@
-# OnedataRESTFSSpec (Python)
+# OnedataRestFSSpec (Python)
 
 [toc][]
 
 ## In a nutshell
 
-`OnedataRESTFSSpec` is an [fsspec][] filesystem implementation for Onedata
+OnedataRESTFSSpec is an [fsspec][] filesystem implementation for Onedata
 on [Onedata REST API][].
 
-As an fsspec implementation, `OnedataRESTFSSpec` allows you to work with
+As an fsspec implementation, OnedataRESTFSSpec allows you to work with
 Onedata spaces using the same Python API as other filesystems supported by
 fsspec.
 
@@ -17,7 +17,7 @@ URI-based configuration, and optional OpenTelemetry metrics export.
 
 ## Installation
 
-`OnedataRESTFSSpec` library can be installed directly from [PyPI][], for example
+OnedataRESTFSSpec library can be installed directly from [PyPI][], for example
 using `pip`:
 
 ```bash
