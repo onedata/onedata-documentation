@@ -76,6 +76,11 @@ done; echo; \
 docker run --rm -it --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 ```
 
+::: tip
+The demo command for `oneprovider` takes one required argument — the `onezone` IP address,
+which is already taken care of in the above command.
+:::
+
 ## Accessing the Web GUI
 
 After the two services are successfully set up, you will see green logs with instructions
@@ -123,11 +128,6 @@ until OZ_IP=$(docker inspect -f '{{.NetworkSettings.IPAddress}}' $OZ_NAME 2>/dev
 done; echo; \
 docker run --rm -it --name op_test2 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 ```
-
-::: tip
-The demo command for `oneprovider` takes one required argument — the `onezone` IP address,
-which is already taken care of in the above command.
-:::
 
 ## Running in the background
 
