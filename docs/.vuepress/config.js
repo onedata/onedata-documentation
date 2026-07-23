@@ -56,6 +56,7 @@ module.exports = {
               '/user-guide/interfaces/oneclient',
               '/user-guide/interfaces/onedata-fs',
               '/user-guide/interfaces/onedata-rest-fs',
+              '/user-guide/interfaces/onedata-rest-fsspec',
               '/user-guide/interfaces/onedata-file-rest-client',
               // '/user-guide/interfaces/s3',
               '/user-guide/interfaces/data-access-rest-api',
@@ -74,6 +75,7 @@ module.exports = {
           '/user-guide/archives',
 //          '/user-guide/automation',
           '/user-guide/file-registration',
+          '/user-guide/repository-crawlers',
           '/user-guide/views',
           '/user-guide/rest-api'
         ]

@@ -1,7 +1,5 @@
 # Demo mode
 
-\[toc]\[1]
-
 <!-- TODO VFS-11848 add examples regarding oneclient, onedatafs, onedatarestfs, onedatafilerestclient -->
 
 <!-- TODO VFS-11848 comprehensive example with OZ, OP and OC and a single await on OC -->
