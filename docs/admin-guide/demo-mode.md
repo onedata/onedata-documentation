@@ -68,7 +68,7 @@ docker run --rm -it --name oz_test onedata/onezone:xRELEASExVERSIONx demo
 
 ```bash
 OZ_NAME=oz_test;\
-until OZ_IP=$(docker inspect -f '{{.NetworkSettings.IPAddress}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
 	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
 done; echo; \
 docker run --rm -it --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
@@ -121,7 +121,7 @@ for **distributed data management**:
 
 ```bash
 OZ_NAME=oz_test;\
-until OZ_IP=$(docker inspect -f '{{.NetworkSettings.IPAddress}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
 	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
 done; echo; \
 docker run --rm -it --name op_test2 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
@@ -138,7 +138,7 @@ docker run --rm --detach -it --name oz_test onedata/onezone:xRELEASExVERSIONx de
 
 ```bash
 OZ_NAME=oz_test;\
-until OZ_IP=$(docker inspect -f '{{.NetworkSettings.IPAddress}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
 	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
 done; echo; \
 docker run --rm --detach -it --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
@@ -167,7 +167,7 @@ docker exec oz_test await
 Use the Onezone container IP to [access the Web GUI][accessing the web gui]:
 
 ```bash
-echo "URL: https://$(docker inspect -f '{{.NetworkSettings.IPAddress}}' oz_test)"
+echo "URL: https://$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)"
 ```
 
 :::
@@ -198,9 +198,9 @@ Onedata:
 
 ```bash
 docker run --rm -it -d --name oz_test onedata/onezone:xRELEASExVERSIONx demo
-OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)
 docker run --rm -it -d --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
-OP_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' op_test1)
+OP_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' op_test1)
 docker exec op_test1 await-demo
 ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 DEMO_SPACE_ID="cb274b2b8bb1750d9be37dd4a3eb7014chb175"
@@ -248,7 +248,7 @@ pip install fs.onedatarestfs
 pip install setuptools==81.0.0
 
 # Export necessary OnedataRESTFS arguments as environment variables
-export OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+export OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)
 export ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 
 # Finally start Python3 shell
@@ -312,7 +312,7 @@ Oneprovider with persistence:
 
 ```bash
 OZ_NAME=oz_test;\
-until OZ_IP=$(docker inspect -f '{{.NetworkSettings.IPAddress}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
 	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
 done; echo; \
 docker run --rm -it --name op_test1 -h op_test1 -v /tmp/op-pers:/volumes/persistence -v /tmp/op-storage:/volumes/storage onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
