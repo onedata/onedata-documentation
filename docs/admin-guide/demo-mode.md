@@ -197,10 +197,16 @@ starting point for creating an integration test setup for your middleware that u
 Onedata:
 
 ```bash
-docker run --rm -it -d --name oz_test onedata/onezone:xRELEASExVERSIONx demo
-OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)
-docker run --rm -it -d --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
-OP_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' op_test1)
+docker run --rm -it --detach --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+docker run --rm -it --detach --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
+OP_NAME=op_test1;\
+until OP_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OP_NAME 2>/dev/null) && [ -n "$OP_IP" ]; do\
+	echo -en "Awaiting the ${OP_NAME} container...\r"; sleep 1;\
+done; echo; \
 docker exec op_test1 await-demo
 ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 DEMO_SPACE_ID="cb274b2b8bb1750d9be37dd4a3eb7014chb175"
@@ -248,7 +254,11 @@ pip install fs.onedatarestfs
 pip install setuptools==81.0.0
 
 # Export necessary OnedataRESTFS arguments as environment variables
-export OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+export OZ_IP
 export ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 
 # Finally start Python3 shell
