@@ -82,7 +82,7 @@ Auto-cleaning can only be configured by a space admin.
 ## Viewing data distribution
 
 ::: warning
-If files are not yet fully synchronized between providers, the reported data distribution 
+If files are not yet fully synchronized between providers, the reported data distribution
 may temporarily differ between them.
 :::
 

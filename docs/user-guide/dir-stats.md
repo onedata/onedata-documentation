@@ -106,7 +106,6 @@ Size values are calculated from the perspective of a given provider. Therefore:
 * different providers may report different values for the same directory,
 * discrepancies may occur when replicas are incomplete or not yet synchronized.
 
-
 ### Inclusion of special data (space root only)
 
 For the space root directory, size statistics additionally include:
@@ -118,7 +117,6 @@ For the space root directory, size statistics additionally include:
 This can lead to situations where the reported size includes data that is not visible in
 the regular directory structure.
 
-
 You can switch between those statistics in a size stats modal for a space directory:
 
 ![screen-stats-special-dirs-space][]
@@ -129,7 +127,6 @@ Due to the distributed and asynchronous nature of the system, size statistics
 should be treated as eventually consistent and may temporarily differ between providers.
 
 :::
-
 
 ## Enabling directory size statistics as space manager
 
@@ -159,8 +156,7 @@ this space by Oneprovider admin.
 
 [data-size-dir]: #directories
 
-[dir-stats-enable-panel]:
-    ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
+[dir-stats-enable-panel]: ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
 
 [dir-stats-enable-provider]: #enabling-directory-size-statistics-as-space-manager
 
@@ -168,16 +164,12 @@ this space by Oneprovider admin.
 
 [archives]: ./archives.md
 
-[1]:
-    https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_directory_size_stats
+[1]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/get_directory_size_stats
 
 [screen-dir-stats]: ../../images/user-guide/dir-stats/dir-stats-modal.png
 
-[screen-stats-special-dirs-space]:
-    ../../images/user-guide/dir-stats/stats-special-dirs-space.png
+[screen-stats-special-dirs-space]: ../../images/user-guide/dir-stats/stats-special-dirs-space.png
 
-[screen-data-sidebar-provider-selected]:
-    ../../images/user-guide/dir-stats/data-sidebar-providers-selected.png
+[screen-data-sidebar-provider-selected]: ../../images/user-guide/dir-stats/data-sidebar-providers-selected.png
 
-[screen-enable-dir-stats-provider]:
-    ../../images/user-guide/dir-stats/enable-dir-stats-provider.png
+[screen-enable-dir-stats-provider]: ../../images/user-guide/dir-stats/enable-dir-stats-provider.png
