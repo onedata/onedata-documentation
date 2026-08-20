@@ -7,7 +7,7 @@
 On the physical level, Onedata organizes files into blocks of various sizes. These file
 blocks can then be distributed across different storage backends that support the space
 in which the files are stored. Each provider stores the local file blocks, forming a
-`file replica`.  Information about the mapping between logical and physical
+**file replica**.  Information about the mapping between logical and physical
 files is stored in the file metadata, which is replicated and synchronized between all
 supporting providers.
 
@@ -158,7 +158,7 @@ Only data distribution for regular files is available with this method.
 
 [dir-stats-enable-panel]: ../admin-guide/oneprovider/configuration/space-support.md#space-support-overview
 
-[dir-stats-enable-provider]: ../admin-guide/oneprovider/configuration/accounting-and-dir-stats.md#enabling-directory-size-statistics-as-space-manager
+[dir-stats-enable-provider]: ./dir-stats.md#enabling-directory-size-statistics-as-space-manager
 
 [Oneclient xattrs]: interfaces/oneclient.md#file-extended-attributes
 
