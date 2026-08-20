@@ -46,13 +46,13 @@ Hence you should choose the supporting storage carefully as this decision is
 irreversible.
 :::
 
-In addition, you can turn on/off accounting and directory statistics. The latter
+In addition, you can turn on/off accounting and directory size statistics. The latter
 feature is responsible for collecting information about the logical and physical
 size of directories as well as files number in the space. The former uses
-directory statistics to provide quota usage over time.
+directory size statistics to provide quota usage over time.
 
 ::: tip
-The directory statistics feature is enabled by default, but for some scenarios,
+The directory size statistics feature is enabled by default, but for some scenarios,
 it might be suitable to turn it off. That may include cases, when information
 about directory size is not required by any space use-case and, at the same
 time, very frequent file modifications across many different directories could
@@ -72,15 +72,16 @@ the **Clusters > *Cluster name* > Spaces** view.
 
 Click on a specific space support to see its details grouped into four tabs.
 
-### "Overview" tab
+### “Overview” tab
 
 ![screen-4-overview][]
 
 This tab contains basic information about the selected space support, including
 the name of the space, assigned storage, state of statistics-related features, and
 support size. You can also modify some of them up to your preference.
+You can also enable/disable [directory size statistics][dir-stats] and [accounting][].
 
-### "Storage import" tab
+### “Storage import” tab
 
 ![screen-5-storage-import][]
 
@@ -92,7 +93,7 @@ supported space. You can read more about storage import
 It is available only if storage import was enabled during space support
 creation.
 
-### "File popularity" tab
+### “File popularity” tab
 
 ![screen-6-file-popularity][]
 
@@ -100,7 +101,7 @@ This tab allows configuring the *file popularity* mechanism. That functionality
 enables tracking of usage statistics for files in a space. Read more details
 [here][file-popularity].
 
-### "Auto-cleaning" tab
+### “Auto-cleaning” tab
 
 ![screen-7-auto-cleaning][]
 
@@ -135,6 +136,10 @@ examples.
 | Modify space support      | [API][api-modify-space]        |
 
 [user-guide-space-support]: ../../../user-guide/spaces.md#space-support
+
+[dir-stats]: ../../../user-guide/dir-stats.md
+
+[accounting]: ./accounting-and-dir-stats.md
 
 [storage-import]: storage-import.md
 

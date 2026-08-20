@@ -64,6 +64,7 @@ module.exports = {
             ]
           },
           '/user-guide/data-distribution-and-metrics',
+          '/user-guide/dir-stats',
           '/user-guide/data-transfers',
           '/user-guide/rule-based-replication-qos',
           '/user-guide/shares',
@@ -129,7 +130,8 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
                   '/admin-guide/oneprovider/configuration/rule-based-replication-qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
-                  '/admin-guide/oneprovider/configuration/advanced-config'
+                  '/admin-guide/oneprovider/configuration/advanced-config',
+                  '/admin-guide/oneprovider/configuration/accounting-and-dir-stats'
                 ]
               }
             ]
