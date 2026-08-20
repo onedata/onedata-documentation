@@ -12,7 +12,7 @@ The Onedata filesystem is managed by [Providers][] cooperating in a peer-to-peer
 synchronizing information about commonly [supported spaces][space support]. A provider is
 a data center that runs a [Oneprovider service][], registered in a [Onedata zone][].
 
-<!-- TODO VFS-11766 More information about the Onedata filesystem, how it's built, 
+<!-- TODO VFS-11766 More information about the Onedata filesystem, how it's built,
 file types, file trees etc. -->
 
 ## File path and ID
@@ -80,7 +80,7 @@ Paths used in URLs must be URL-encoded.
 :::
 
 ::: tip
-The `${PROVIDER_DOMAIN}` can be obtained as shown [below][Provider domain].
+The `${PROVIDER_DOMAIN}` can be obtained as shown [here][Provider domain].
 :::
 
 ### Working with file paths
@@ -120,16 +120,6 @@ interfaces are available in Onedata [Providers][] that build a distributed envir
 You can use any provider that [supports your spaces][space support] to access the data.
 While the [Web GUI][] offers natural navigation between providers, the other interfaces
 require that you select one of your providers and are aware of its domain (see below).
-
-### Provider domain
-
-<!-- TODO VFS-11766 this should be moved somewhere else — maybe a new chapter with providers GUI
-     from the user's point of view? -->
-
-Provider's domain is required to mount a [Oneclient][] instance or utilize the
-[REST][] and [CDMI][] APIs. It can be found in the Web GUI:
-
-![screen-provider-domain][]
 
 ### Web GUI
 
@@ -241,7 +231,7 @@ rwx r-- ---
  |   space members
  |
  owner user
- 
+
 ```
 
 In the above case, the creator of the file (its **owner** user) has full access
@@ -378,7 +368,7 @@ supporting providers, as described in the [Data distribution][] section.
 
 [CDMI]: #cdmi
 
-[Provider domain]: #provider-domain
+[Provider domain]: providers.md#provider-domain
 
 [Access Control List]: #access-control-lists
 
@@ -398,9 +388,7 @@ supporting providers, as described in the [Data distribution][] section.
 
 [space owner]: spaces.md#space-owner
 
-<!-- TODO VFS-10933 link to the providers section -->
-
-[Providers]: ../intro.md#basic-concepts
+[Providers]: ./providers.md
 
 <!-- TODO VFS-11766 place some sensible link here -->
 
@@ -447,5 +435,3 @@ supporting providers, as described in the [Data distribution][] section.
 [Data distribution]: ./data-distribution-and-metrics.md
 
 [screen-file-gui-path-and-info]: ../../images/user-guide/data/file-gui-path-and-info.png
-
-[screen-provider-domain]: ../../images/user-guide/data/provider-domain.png

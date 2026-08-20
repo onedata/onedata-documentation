@@ -8,12 +8,11 @@ The administration panel — in the form of the Onepanel service — is responsi
 for a range of functionalities related to managing the Oneprovider service
 cluster. Examples of tasks performed by Onepanel include:
 
-* installing Oneprovider using w graphical wizard — see the
-  [dedicated chapter][gui-wizard-deployment],
-* managing certificates,
-* adding new storage backends,
-* supporting spaces with existing storage backends,
-* and many others.
+* installing Oneprovider using the [graphical wizard][],
+* [managing certificates][],
+* adding new [storage backends][],
+* [supporting spaces][] with existing storage backends,
+* and many others — see the [Configuration][] section.
 
 All these configuration aspects are available both in the form of a web
 application and a [REST API][]. Descriptions of their
@@ -46,6 +45,7 @@ interface is usually located at the address
 the Oneprovider domain.
 
 ::: warning
+
 Try to avoid using the emergency interface. Leaking the passphrase
 to this interface can lead to unauthorized access by third parties and data
 loss.
@@ -86,7 +86,15 @@ cluster.
 
 [toc]: <>
 
-[gui-wizard-deployment]: ./installation.md#graphical-wizard
+[graphical wizard]: ./installation/graphical-wizard.md
+
+[managing certificates]: ./configuration/web-certificate.md
+
+[storage backends]: ./configuration/storage-backends.md
+
+[supporting spaces]: ./configuration/space-support.md
+
+[Configuration]: ./configuration/cluster-members.md
 
 [REST API]: ./configuration/rest-api.md
 
