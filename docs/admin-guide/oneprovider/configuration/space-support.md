@@ -72,7 +72,7 @@ the **Clusters > *Cluster name* > Spaces** view.
 
 Click on a specific space support to see its details grouped into four tabs.
 
-### "Overview" tab
+### “Overview” tab
 
 ![screen-4-overview][]
 
@@ -81,7 +81,7 @@ the name of the space, assigned storage, state of statistics-related features, a
 support size. You can also modify some of them up to your preference.
 You can also enable/disable [directory size statistics][dir-stats] and [accounting][].
 
-### "Storage import" tab
+### “Storage import” tab
 
 ![screen-5-storage-import][]
 
@@ -93,7 +93,7 @@ supported space. You can read more about storage import
 It is available only if storage import was enabled during space support
 creation.
 
-### "File popularity" tab
+### “File popularity” tab
 
 ![screen-6-file-popularity][]
 
@@ -101,7 +101,7 @@ This tab allows configuring the *file popularity* mechanism. That functionality
 enables tracking of usage statistics for files in a space. Read more details
 [here][file-popularity].
 
-### "Auto-cleaning" tab
+### “Auto-cleaning” tab
 
 ![screen-7-auto-cleaning][]
 
@@ -137,7 +137,7 @@ examples.
 
 [user-guide-space-support]: ../../../user-guide/spaces.md#space-support
 
-[dir-stats]: ../../../user-guide/size-stats.md#directory-size-statistics
+[dir-stats]: ../../../user-guide/dir-stats.md
 
 [accounting]: ./accounting-and-dir-stats.md
 
