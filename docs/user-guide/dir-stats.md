@@ -15,13 +15,13 @@ important when monitoring storage usage, planning capacity, or analyzing replica
 
 ### Directories
 
-* `logical_size` — total size of file data contained in the directory, i.e. the sum of logical sizes of all regular files in its subtree. If a file has multiple hardlinks in the subtree, each hardlink is counted separately.
-* `virtual_size` — deduplicated logical size, where hardlinks of the same file in the subtree are counted only once. Represents the storage space required for a complete replica of the directory.
+* `logical_size` — total size of file data contained in the directory, i.e. the sum of logical sizes of all regular files in its subtree. If a file has multiple hard links in the subtree, each hard link is counted separately.
+* `virtual_size` — deduplicated logical size, where hard links of the same file in the subtree are counted only once. Represents the storage space required for a complete replica of the directory.
 * `physical_size` — actual amount of storage consumed on a given storage backend by all regular files in the directory’s subtree. May be smaller than the virtual size if some file replicas are incomplete.
 
 ## Directory size statistics
 
-When the collecting of directory size statistics has been enabled by an [Oneprovider admin][dir-stats-enable-panel] or [space manager][dir-stats-enable-provider], they are collected for
+When the collecting of directory size statistics has been enabled by a [Oneprovider admin][dir-stats-enable-panel] or [space manager][dir-stats-enable-provider], they are collected for
 each directory in a space.
 
 Directory size statistics are not calculated instantly. Instead, they are updated in the background, beginning with the
