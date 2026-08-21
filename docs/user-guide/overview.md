@@ -16,7 +16,7 @@ This approach makes it possible to:
 * support a wide range of applications involving geographically distributed data,
 * combine data from different storage systems under one consistent namespace,
 * enable data copies and movement across geographically distributed locations through 
-replication and managed transfers between Providers,
+replication and managed transfers between providers,
 * allow distributed data to be processed in parallel across multiple locations.
 
 ## Access to resources
@@ -41,10 +41,10 @@ on the left side of the page.
 
 | Tab                    | Description                                                                                                   |
 |------------------------|---------------------------------------------------------------------------------------------------------------|
-| [Data][]           | Access and manage the Spaces you belong to, create new ones, organize data,<br/> and perform file operations. |
-| [Shares][]       | View and manage shared files from Spaces you have access to.                                                  |
-| [Providers][] | View Providers supporting your Spaces.                                                                        |
-| [Groups][]   | View and manage the Groups you are a member of.                                                               |
+| [Data][]           | Access and manage the spaces you belong to, create new ones, organize data,<br/> and perform file operations. |
+| [Shares][]       | View and manage shared files from spaces you have access to.                                                  |
+| [Providers][] | View providers supporting your Spaces.                                                                        |
+| [Groups][]   | View and manage the groups you are a member of.                                                               |
 
 
 **Advanced functionalities**
