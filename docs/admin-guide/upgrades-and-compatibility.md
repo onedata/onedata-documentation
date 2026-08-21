@@ -171,10 +171,9 @@ Onezone and Oneprovider support upgrades with the following limitations:
 
 ::: tip NOTE
 
-Starting from version 25.0, some major updates allow upgrading higher than a single
-major. The example of such exception is:
-
-* ✅ 20.02.x → 25.x
+The 25.x version line is a notable exception to the general rule of breaking the
+compatibility. It is treated as a compatible continuation of a 21.x line, so you can
+upgrade **20.02.x → 25.x** and **21.02.x → 26.x**.
 
 :::
 
