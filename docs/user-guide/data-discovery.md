@@ -66,7 +66,7 @@ After a while, your metadata should be accessible via **Data discovery** submenu
 
 ### 3. Creating a new harvester
 
-This method requires an action from an Onezone administrator, who has
+This method requires an action from a Onezone administrator, who has
 [sufficient privileges][7].
 Contact an administrator and ask to
 [create a new harvester][8].

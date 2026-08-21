@@ -4,10 +4,13 @@ The prerequisites for this installation method are the same as for the installat
 batch mode. With this method, the Onedata cluster is configured and deployed by using the
 Onepanel Web GUI.
 
+## Prerequisites
+
+Make sure the host intended for deployment is [properly set up][].
+
 ## Customizing Oneprovider Docker Compose script
 
-Similarly to the previous installation method we need to create some directories and prepare a `docker-compose.yml`
-file. Create the following directories:
+Create the following directories:
 
 ```sh
 sudo mkdir -p /opt/onedata/oneprovider/persistence
@@ -19,20 +22,18 @@ Create the following Docker Compose file in `/opt/onedata/oneprovider/docker-com
 ```yaml
 version: '2.0'
 services:
-  node1.oneprovider.localhost:
+  node1.oneprovider.internal:
     # Oneprovider Docker image version
     image: onedata/oneprovider:xRELEASExVERSIONx
     # Hostname (in this case the hostname inside Docker network)
-    hostname: node1.oneprovider.localhost
+    hostname: node1.oneprovider.internal
     # The IP of VM need to be placed below under extra_hosts, for example:
-    # - "node1.oneprovider.localhost:10.20.30.5"
+    # - "node1.oneprovider.internal:10.20.30.5"
     extra_hosts:
-      - "node1.oneprovider.localhost:place-the-VM-IP-here"
+      - "node1.oneprovider.internal:YOUR_HOST_IP"
     # dns: 8.8.8.8 # Optional, in case Docker containers have no DNS access
     # Host network mode is preferred, but on some systems may not work (e.g. CentOS)
-    # To use bridge network
     network_mode: host
-    privileged: true
     # Friendly name of the Oneprovider Docker container
     container_name: oneprovider-1
     # Mapping of volumes to Oneprovider container
@@ -40,17 +41,21 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       # Oneprovider runtime files
       - "/opt/onedata/oneprovider/persistence:/volumes/persistence"
+      # Overlay configs
+      - "/opt/onedata/oneprovider/op-panel-overlay.config:/etc/op_panel/overlay.config"
+      - "/opt/onedata/oneprovider/op-worker-overlay.config:/etc/op_worker/overlay.config"
       # Additional, trusted CA certificates (all files from this directory will be added)
-      #- "/opt/onedata/oneprovider/cacerts:/etc/op_worker/cacerts"
-      # The whole host filesystem - for convenience
-      - "/:/hostfs"
-      # Uncoment lines below if you will not use the built-in Let's Encrypt client
+      - "/opt/onedata/oneprovider/cacerts:/etc/op_worker/cacerts"
+      # Uncoment lines below if you have disabled the built-in Let's Encrypt client
       ## SSL certificate
       #- "/opt/onedata/oneprovider/certs/cert.pem:/etc/op_panel/certs/web_cert.pem"
       ## SSL certificate key
       #- "/opt/onedata/oneprovider/certs/key.pem:/etc/op_panel/certs/web_key.pem"
       ## Certificate chain for the TLS certificate above
       #- "/opt/onedata/oneprovider/certs/cacert.pem:/etc/op_panel/certs/web_chain.pem"
+      # a block data volume (POSIX) for supporting a space - if applicable
+      - "/mnt/data:/volumes/storage"
+
     # Expose the necessary ports from Oneprovider container to the host
     # This section can be commented when using host mode networking
     ports:
@@ -59,10 +64,13 @@ services:
       - "4443:4443"
       - "6665:6665"
       - "9443:9443"
+
     environment:
-      # Force Onepanel not to read configuration from environment variable
+      # Tell Onepanel not to read configuration from environment variable
       ONEPANEL_BATCH_MODE: "false"
 ```
+
+Make sure to overwrite `YOUR_HOST_IP` with the actual value.
 
 Prepare the systemd files for Oneprovider service as shown in the section
 [Running Docker based installation using systemd][] and run it:
@@ -131,6 +139,12 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 <!-- references -->
 
+[properly set up]: ../prerequisites.md
+
+[localhost-onepanel]: https://localhost:9443
+
+[space support]: ../configuration/space-support.md
+
 [Running Docker based installation using systemd]: docker-compose.md#running-docker-based-installation-using-systemd
 
 [screen-installation-gui-new-onepanel]: ../../../../images/admin-guide/oneprovider/installation/installation-gui-new-onepanel.png
@@ -155,8 +169,4 @@ Now you can start managing your cluster, e.g., support a space as described in [
 
 [screen-installation-gui-storages-2]: ../../../../images/admin-guide/oneprovider/installation/installation-gui-storages-2.png
 
-[space support]: ../configuration/space-support.md
-
 [screen-installation-gui-cluster-configured-successfully]: ../../../../images/admin-guide/oneprovider/installation/installation-gui-cluster-configured-successfully.png
-
-[localhost-onepanel]: https://localhost:9443

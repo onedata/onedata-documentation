@@ -140,6 +140,7 @@ sudo systemctl start onezone
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
+
 ## Upgrading
 
 The Onezone service can be upgraded to a higher version, with some constraints described
