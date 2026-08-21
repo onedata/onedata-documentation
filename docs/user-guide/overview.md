@@ -3,13 +3,13 @@
 ## Collaborative data sharing
 
 Collaborative data sharing is a core feature of Onedata. 
-It is built around [Spaces][Spaces], which provide shared work environments where 
+It is built around [spaces][], which provide shared work environments where 
 users from different organizations can collaborate on common data resources.
-Access to Spaces is managed through [Groups][Groups GUI], which can represent organizational 
+Access to spaces is managed through [groups][], which can represent organizational 
 hierarchies or Virtual Organizations (VOs) that bring together users from multiple 
 organizations to enable collaboration beyond traditional administrative boundaries.
 Spaces provide a logical abstraction over the physical location of data stored by 
-multiple [Providers][Providers] on heterogeneous storage backends.
+multiple [providers][] on heterogeneous storage backends.
 
 This approach makes it possible to:
 * share data between users across organizational and administrative boundaries,
@@ -41,10 +41,10 @@ on the left side of the page.
 
 | Tab                    | Description                                                                                                   |
 |------------------------|---------------------------------------------------------------------------------------------------------------|
-| [Data][Data]           | Access and manage the Spaces you belong to, create new ones, organize data,<br/> and perform file operations. |
-| [Shares][Shares]       | View and manage shared files from Spaces you have access to.                                                  |
-| [Providers][Providers] | View Providers supporting your Spaces.                                                                        |
-| [Groups][Groups GUI]   | View and manage the Groups you are a member of.                                                               |
+| [Data][]           | Access and manage the Spaces you belong to, create new ones, organize data,<br/> and perform file operations. |
+| [Shares][]       | View and manage shared files from Spaces you have access to.                                                  |
+| [Providers][] | View Providers supporting your Spaces.                                                                        |
+| [Groups][]   | View and manage the Groups you are a member of.                                                               |
 
 
 **Advanced functionalities**
@@ -63,9 +63,9 @@ on the left side of the page.
 
 [Shares]: shares.md
 
-[Providers]: providers.md
+[providers]: providers.md
 
-[Groups GUI]: groups-memberships.md#gui-guide
+[groups]: groups-memberships.md#gui-guide
 
 [Groups and Memberships]: groups-memberships.md
 
@@ -77,6 +77,6 @@ on the left side of the page.
 
 [Oneprovider admin panel]: ../admin-guide/oneprovider/administration-panel.md
 
-[Spaces]: spaces.md
+[spaces]: spaces.md
 
 [screen-main-tabs]: ../../images/user-guide/overview/main-tabs.png

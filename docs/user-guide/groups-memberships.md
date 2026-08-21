@@ -19,7 +19,7 @@ A user's access to a resource is determined by:
 
 ![image-access-to-resources][]
 
-Let`s consider the following example to better understand access model.
+Let's consider the following example to better understand access model.
 
 ![image-effective-privs][]
 
@@ -35,7 +35,7 @@ all privileges inherited through all their membership paths
 (last segment only!).
 
 Some users also hold administrative privileges with extended capabilities.
-Learn more about admin roles in [Onezone Panel][7] and [Oneprovider Panel][8].
+Learn more about admin roles in [Onezone panel][] and [Oneprovider panel][].
 
 ## Group
 
@@ -136,6 +136,10 @@ groups like removing or adding but also modifying groups.
 [Tokens GUI]: tokens.md#consuming-invite-tokens
 
 [REST API]: ./rest-api.md
+
+[Onezone panel]: ../admin-guide/onezone/administration-panel.md
+
+[Oneprovider panel]: ../admin-guide/oneprovider/administration-panel.md
 
 [screen-create-group]: ../../images/user-guide/groups/create-group.png
 
