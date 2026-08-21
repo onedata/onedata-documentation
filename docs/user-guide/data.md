@@ -376,7 +376,7 @@ supporting providers, as described in the [Data distribution][] section.
 
 [POSIX permissions]: #posix-permissions
 
-[group]: groups.md
+[group]: groups-memberships.md
 
 [spaces]: spaces.md
 
