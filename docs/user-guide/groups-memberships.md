@@ -4,12 +4,13 @@
 
 ## Membership model overview
 
-Onedata uses a membership-based model to manage user collaboration and access to 
-resources. Users can collaborate by joining to the Onedata resources directly 
+Onedata uses a membership-based model to manage user collaboration and access to
+resources. Users can collaborate by joining to the Onedata resources directly
 or via group membership:
 
 * Groups allow members to access and manage shared resources with specified privileges.
-* Each group can define custom privileges for every group member (user or other group), assigned by a group owner (or a user with a right to grant permissions).
+* Each group can define custom privileges for every group member (user or other group),
+  assigned by a group owner (or a user with a right to grant permissions).
 * Resource owner can grant specific access rights to member users or groups.
 
 A user's access to a resource is determined by:
@@ -27,11 +28,11 @@ The User can see all 3 spaces, but with different granted privileges.
 If the user was removed from group C, they still would have access to Space Z (and X),
 but not to Space Y.
 
-Effective members are those who effectively have access to a resource, 
+Effective members are those who effectively have access to a resource,
 either by direct memberships or those inherited via groups.
-All effective members of a group inherit the group's effective 
-memberships and privileges. A user's effective privileges are a sum of 
-all privileges inherited through all their membership paths 
+All effective members of a group inherit the group's effective
+memberships and privileges. A user's effective privileges are a sum of
+all privileges inherited through all their membership paths
 (last segment only!).
 
 Some users also hold administrative privileges with extended capabilities.
