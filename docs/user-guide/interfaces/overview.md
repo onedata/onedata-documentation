@@ -21,7 +21,7 @@ Here is a summary of all available data access interfaces:
   Useful both in personal use-cases and computing environments (direct storage access).
   Requires an [access token][].
 
-* [OnedataFS][] (Python) — offers an alternative to [Oneclient][]. As a [PyFilesystem][]
+* [OnedataFS][] (Python) — offers an alternative to [Oneclient][]. As a [PyFilesystem2][]
   plugin, allows you to work with Onedata in the same way as any other supported
   filesystem. Suitable for computing environments (direct storage access). Requires an
   [access token][].
@@ -29,6 +29,10 @@ Here is a summary of all available data access interfaces:
 * [OnedataRestFS][] (Python) — a lightweight cousin of [OnedataFS][], with identical
   functionality and suitable for proxied data access (accessing the data via a Oneprovider
   service), based on the [OnedataFileRestClient][] library. Requires an [access token][].
+
+* [OnedataRESTFSSpec][] (Python) — an [fsspec][] filesystem implementation for Onedata,
+  allowing Python applications and libraries based on `fsspec` to access Onedata spaces
+  using a familiar filesystem API. Requires an [access token][].
 
 * [OnedataFileRestClient][] (Python) — a client to the Onedata file REST API,
   offering basic operations on files as a concise, low-level library.
@@ -61,12 +65,16 @@ Here is a summary of all available data access interfaces:
 
 [OnedataRestFS]: ./onedata-rest-fs.md
 
+[OnedataRESTFSSpec]: ./onedata-rest-fsspec.md
+
 [OnedataFileRestClient]: ./onedata-file-rest-client.md
 
 [REST API]: ./data-access-rest-api.md
 
 [CDMI API]: ./cdmi.md
 
-[pyfilesystem]: https://www.pyfilesystem.org/
+[PyFilesystem2]: https://www.pyfilesystem.org/
+
+[fsspec]: https://filesystem-spec.readthedocs.io/en/latest/
 
 [access token]: ../tokens.md#access-tokens

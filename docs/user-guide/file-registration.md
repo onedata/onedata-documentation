@@ -24,7 +24,7 @@ automatically).
 
 Currently, the [REST API][] is the only way to register files in a space. Space
 users can specify a file from a data collection that they want to make accessible via
-Onedata and invoke the registration on an Oneprovider that supports the space.
+Onedata and invoke the registration on a Oneprovider that supports the space.
 The file will become visible immediately.
 
 <!-- references -->
@@ -43,4 +43,4 @@ The file will become visible immediately.
 
 [auto import mode]: ../admin-guide/oneprovider/configuration/storage-import.md#auto-storage-import
 
-[REST API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=tag/File-registration
+[REST API]: https://onedata.org/#/home/api/stable/oneprovider?anchor=operation/register_file

@@ -14,8 +14,20 @@ Before making any changes in the docs, make sure to set up your working environm
   a file with pre-existing errors, please take some time to tidy it up a bit.
 * Make sure the build is passing (may require re-formatting, pleasing the linter, or
   solving forgotten code tags).
+* Check if your Mermaid.js diagrams are rendered properly. In case of render error, you can check the Web browser's JavaScript console or hover the “Diagram could not be displayed.” text to see tooltip with error message. 
 
 ## Building and developing
+
+In order to build, lint and format the documentation, you can use
+[Makefile targets](#makefile-targets) which use Docker image, fetched automatically on the
+first use.
+
+In order to develop the documentation, it is recommended to use [Visual Studio Code][]
+with some extensions. These extensions require installing Node.js version 18+ (recommended
+using [nvm][nvm website]) and then installing some Node packages. Read more in the
+[Development][] section.
+
+For advanced use, you can execute build, lint and format [natively][] using `npm` scripts.
 
 ### Makefile targets
 
@@ -49,11 +61,11 @@ users should be committed, like `LTeX` configuration.
 
 There are a few recommended extensions for documentation development. You should be
 asked to install them when opening this workspace in VSCode (as they are listed in
-`extensions.json`). If not, install them manually.
+`.vscode/extensions.json`). If not, install them manually.
 
 #### remark (`unifiedjs.vscode-remark`)
 
-Before installing this add-on, you should install Node.js runtime in version 16.20+.
+Before installing this add-on, you should install Node.js runtime in version 18+.
 Follow instructions on the [nvm website][].
 
 Next, you should install a set of remark packages. Do it using `npm run deps` command in
@@ -75,7 +87,7 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-#### LTeX — LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
+#### LTeX — LanguageTool grammar/spell checking (`ltex-plus.vscode-ltex-plus`)
 
 [LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
 Note that the add-on automatically downloads a LanguageTool server to your local
@@ -138,18 +150,29 @@ to use regular dashes, quotes, or three dots.
 Content in the code fences, `` `backticks` ``, and `**strong**` is **not checked** by
 LanguageTool.
 
+
+#### mermaidchart — Edit Mermaid.js charts with graphical preview (`mermaidchart.vscode-mermaid-chart`)
+
+The **mermaidchart** add-on adds support for [Mermaid.js][] charts that are placed in the fenced code block. You can read more about Mermaid.js support [here](#mermaidjs-diagrams).
+
+The editor will display a special Mermaid.js icon in the editor gutter and an “Edit Diagram” link button which opens the Mermaid.js editor with a graphical preview in the new tab. The add-on adds also rendered Mermaid diagrams to the Markdown preview (generated with built-in Visual Studio Code Markdown Language Features).
+
+  **Note that the diagrams rendered with Mermaid Visual Studio Code plugin differ from the finally rendered ones, because the plugin uses the default style and the recent version of Mermaid.js (with a different layout engine).** It is recommended to use the development server and view diagrams rendered in a web browser.
+
 ### Development using a natively-installed toolkit
 
 In the Makefile section, most build commands use docker with all dependencies installed,
 which does not require installing Node.js with Node packages locally. To use locally
-installed Node (v14.14+ is required) install the Node packages using `npm run deps` in
+installed Node (v18+ is required) install the Node packages using `npm run deps` in
 the repository root and use package scripts with `npm run`:
 
 * `npm run docs:dev` — runs a development server with `livereload`,
 * `npm run docs:build` — builds static documentation to `rel/` directory (notice the
-  `future-documentation` subdirectory which is a subpath for serving),
+  `documentation/<major_relase>` subdirectory which is a subpath for serving),
 * `npm run docs:lint` — launches a remark linter on all Markdown documents,
-* `npm run docs:format-all` — applies standardized formatting on all Markdown documents.
+* `npm run docs:format-all` — applies standardized formatting on all Markdown documents,
+* `npm run docs:lint-templates` — check docs generated from templates for missing variable
+  values, etc.
 
 ## Template system
 
@@ -227,6 +250,36 @@ Note that:
 For more information about template system read comments in
 `docs/.vuepress/template-renderer.js` code.
 
+## Mermaid.js diagrams
+
+The documentation repo has built-in `vuepress-plugin-mermaidjs-cdn` plugin which turns
+`mermaid` fenced code blocks into SVG charts in Web browser. The plugin uses a Mermaid.js
+library from CDN. Just insert a code block like this:
+
+````md
+```mermaid
+graph TD
+    A[Client] --> B[Load Balancer 2]
+    B --> C[Server1]
+    B --> D[Server2]
+```
+````
+
+and open the rendered page in Web browser. If you use `make dev` server, you can see
+diagram updates live when changing mermaid code.
+
+Mermaid.js charts can be edited and previewed directly in Visual Studio Code using the
+[**mermaidchart**](#mermaidchart--edit-mermaidjs-charts-with-graphical-preview-mermaidchartvscode-mermaid-chart)
+add-on. Note, however, that the diagrams rendered with the Mermaid Visual Studio Code plugin differ from the finally rendered ones, because the plugin uses the default style and the recent version of Mermaid.js (with a different layout engine).
+
+When there is a syntax error, you will see “Diagram could not be displayed” block in the
+rendered page. You can hover this text and see the error details in the tooltip or read the
+error in JavaScript console in Web browser's developer tools.
+
+Mermaid.js library configuration can be modified in
+`docs/.vuepress/vuepress-plugin-mermaidjs-cdn/mermaid.js`, where we define i.a. a theme
+customized for our documentation.
+
 ## Versioning
 
 The current Onedata version to which the docs correspond is placed in the
@@ -235,8 +288,10 @@ script during the build.
 
 ## Build artifact
 
-After a successful build, the static HTML files are placed in `rel/future-documentation`.
-Calling `make package` will pack it up into a tarball.
+After a successful build, the static HTML files are placed in `rel/documentation/<major_release>`,
+e.g. `rel/documentation/25`. Calling `make package` will pack it up into a tarball.
+
+<!-- references -->
 
 [VuePress]: https://vuepress.vuejs.org
 
@@ -246,6 +301,12 @@ Calling `make package` will pack it up into a tarball.
 
 [nvm website]: https://github.com/nvm-sh/nvm#installing-and-updating
 
-[LTeX]: https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex
+[LTeX]: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
 
 [LanguageTool]: https://languagetool.org
+
+[Mermaid.js]: https://mermaid.js.org
+
+[Visual Studio Code]: https://code.visualstudio.com/download
+
+[natively]: #development-using-a-natively-installed-toolkit

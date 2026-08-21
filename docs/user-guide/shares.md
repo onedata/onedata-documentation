@@ -3,36 +3,36 @@
 [toc][1]
 
 Files in Onedata can be shared i.e. made available for unauthenticated users in
-**read-only mode**. It's achieved using **Shares** — **semi-public links** that
-can be passed to desired recipients. Anyone on the Internet with a Share link
+**read-only mode**. It's achieved using **shares** — **semi-public links** that
+can be passed to desired recipients. Anyone on the Internet with a share link
 can read the data, but the link is impossible to guess (hence the semi-public
-nature of Shares). Shares may have an optional description in Markdown format
+nature of shares). Shares may have an optional description in Markdown format
 to improve their comprehension and usability for the target audience.
 
-Both directories and files can be shared, and multiple Shares may be created
-for the same file/directory. It is possible to share a whole [Space][].
+Both directories and files can be shared, and multiple shares may be created
+for the same file/directory. It is possible to share a whole [space][].
 
 ## Sharing a file or directory
 
-To create a Share, navigate to the [file browser][], open the context
+To create a share, navigate to the [file browser][], open the context
 menu for a file or directory, and choose **Share / Publish**.
 
 ![screen-sharing-file-menu][]
 
-You will see a modal in which you can enter a Share name that will be visible to other
-users. Click on the **Create** button to proceed with the Share creation.
+You will see a modal in which you can enter a share name that will be visible to other
+users. Click on the **Create** button to proceed with the share creation.
 
 ![screen-sharing-file-modal][]
 
 ::: tip NOTE
-The Share root directory serves as the starting point for shared items and
+The share root directory serves as the starting point for shared items and
 contains all the files and folders that are nested in the directory. However, it's worth
-mentioning that nested items within the Share root directory do not have individual Shares
+mentioning that nested items within the share root directory do not have individual shares
 associated with them, even though they are effectively shared.
 :::
 
-After the successful Share creation, a right-side details panel with the **Shares** tab
-will appear containing a list of Shares created for a selected file or directory.
+After the successful share creation, a right-side details panel with the **Shares** tab
+will appear containing a list of shares created for a selected file or directory.
 
 ![screen-sharing-shares-panel][]
 
@@ -40,19 +40,19 @@ will appear containing a list of Shares created for a selected file or directory
 A single file or directory can be shared multiple times, each with a different name and
 unique URL, which helps to manage access to files across many users, for example, if you
 want to withdraw a link shared with a specific group, create a specific description, etc.
-Creating multiple Shares can be performed using the **Create another share** button in the
-Shares tab of the file information panel.
+Creating multiple shares can be performed using the **Create another share** button in the
+shares tab of the file information panel.
 :::
 
 <!-- TODO: VFS-12541 show details link and screenshots, everywhere -->
 
-An authenticated user can access a [Share management view][] by clicking on the
-**Show details** link beside a Share name, whereas the Share URL can be copied and
+An authenticated user can access a [share management view][] by clicking on the
+**Show details** link beside a share name, whereas the share URL can be copied and
 shared with others to grant anonymous, read-only access to the files.
 
-### Anonymous Share access
+### Anonymous share access
 
-Accessing the Share URL opens an anonymous Share view which by default contains a
+Accessing the share URL opens an anonymous share view which by default contains a
 **Files** tab with a file browser listing a single shared item (a file or a directory).
 
 ![screen-sharing-anonymous-files][]
@@ -68,7 +68,7 @@ By default, anonymous users can simply browse these files in a read-only manner,
 
 ![screen-share-anonymous-file-info][]
 
-Access to specific files can be restricted inside the Share by modifying the following
+Access to specific files can be restricted inside the share by modifying the following
 [permissions][] of files in the file browser:
 
 * changing POSIX **Other** *(anonymous)* **Read** and **Execute** flag,
@@ -90,82 +90,82 @@ retrieving information about files by unauthenticated users.
 
 ![screen-share-anonymous-file-api][]
 
-## Managing Shares
+## Managing shares
 
-You can list your Shares per file, per space, or show Shares across all spaces accessible
+You can list your shares per file, per space, or show shares across all spaces accessible
 by you.
 
 ### Listing per file
 
 A single file or directory can be shared multiple times — each with a different URL. If
-there are some Shares available for the file, you can simply access the **Shares** tab by
+there are some shares available for the file, you can simply access the **Shares** tab by
 clicking on the **Shared** badge in the file browser.
 
 ![screen-managing-file-badge][]
 
 ::: tip MOBILE DEVICES NOTE
-As the file badges are not clickable on mobile devices, you can access the Shares list by
+As the file badges are not clickable on mobile devices, you can access the shares list by
 choosing **Information** from the file actions menu and opening the **Shares** tab in the
 right-side panel.
 :::
 
 The **Share** tab name includes a number with the shares count per file. Clicking on the **Show details**
-link beside a Share name opens a [Share management view][], while clicking
-on the **"Create another share"** button will bring a [Share creation modal][].
+link beside a share name opens a [share management view][], while clicking
+on the **"Create another share"** button will bring a [share creation modal][].
 
 ![screen-managing-file-shares][]
 
 ### Listing per space
 
 To list all shares created in the space, navigate to the **Data > *Space name* > Shares, Public Data** view.
-Clicking on a Share row in the main view will open a [Share management view][],
-while the actions menu for the Share provides the following operations: **Rename**, **Remove share**, and
-**Copy Share URL**.
+Clicking on a share row in the main view will open a [share management view][],
+while the actions menu for the share provides the following operations: **Rename**, **Remove share**, and
+**Copy share URL**.
 
 ![screen-managing-space-shares][]
 
 ### Listing all shares in all your spaces
 
 To list all shares from all your spaces, open a **Shares** tab from the navigation bar,
-which will show the list in the Shares sidebar. Click on a Share item to open a [Share management view][].
+which will show the list in the shares sidebar. Click on a share item to open a [share management view][].
 
 ![screen-managing-all-shares][]
 
 ## Share management view
 
-The single Share management view enables you to view shared data and the Share information
+The single share management view enables you to view shared data and the share information
 as well as configure it. The view consists of:
 
 * a **Path** to the shared file or directory in the space,
-* a **Share link** to access the Share by anonymous users,
-* a **Description** tab that allows creating an information page describing the Share,
+* a **Share link** to access the share by anonymous users,
+* a **Description** tab that allows creating an information page describing the share,
 * a **Files** tab that allows you to browse files as seen as an anonymous user,
 * an **Expose as Public Data** tab, which allows [exposing the data collection as Public Data][].
 
 ![screen-share-root-view][]
 
-The Share can be also renamed or removed using the actions menu in the upper-right corner
+The share can be also renamed or removed using the actions menu in the upper-right corner
 of the view.
 
 ![screen-share-menu][]
 
 ### Share Description
 
-You can add an optional description of the Share using Markdown format. After opening the
+You can add an optional description of the share using Markdown format. After opening the
 **Description** tab, click on the **Create description** button and write the description using
 Markdown markup. You can use the **"Open preview"** and **"Edit markdown"** buttons to switch
 between Markdown markup and rendered description and use **Save** or
 **Discard** buttons to persist or cancel changes. The description can be edited at any
-time after it is saved and published — applied changes will be immediately visible to the Share users.
+time after it is saved and published — applied changes will be immediately visible to the share users.
 
 ![screen-description-markdown][]
 
-The description will be visible to unauthenticated users that know the Share URL.
+The description will be visible to unauthenticated users that know the share URL.
 
 ![screen-share-anonymous-description][]
 
 ::: tip NOTE
-Writing a Share description is recommended as it helps users understand
+Writing a share description is recommended as it helps users understand
 what the data collection is about, what information it contains, and how it can be used. With a
 description, other users can quickly assess whether the collection is suitable for their
 needs.
@@ -173,17 +173,17 @@ needs.
 
 ### Files view
 
-The **Files** tab provides a preview of the [anonymous Share view][],
+The **Files** tab provides a preview of the [anonymous share view][],
 showcasing what an anonymous user will see when accessing it. This browser has limited
 functionality, allowing read-only operations that anonymous users can perform. To access
 the browser with all features available for authenticated users, open the parent directory
-link found in the **Path** section of the Share management view.
+link found in the **Path** section of the share management view.
 
 ![screen-share-files][]
 
-### REST Share information
+### REST share information
 
-Besides a Share link accessible in the web browser, you can show and copy a curl
+Besides a share link accessible in the web browser, you can show and copy a curl
 command giving information about sharing for the CLI, selecting the **Share REST endpoint**
 option from the URL dropdown.
 
@@ -212,7 +212,7 @@ would result in the following JSON response:
 ```
 
 ::: tip
-For full Share API reference, see the [Share][share-API] chapter of the Onedata REST API
+For full share API reference, see the [share][share-API] chapter of the Onedata REST API
 documentation.
 :::
 
@@ -220,11 +220,11 @@ documentation.
 
 [1]: <>
 
-[Space]: spaces.md
+[space]: spaces.md
 
 [file browser]: ./interfaces/web-file-browser.md
 
-[Share management view]: #share-management-view
+[share management view]: #share-management-view
 
 [metadata extended attributes]: ./metadata.md#extended-attributes
 
@@ -232,11 +232,11 @@ documentation.
 
 [web-file-browser-permissions]: ./interfaces/web-file-browser.md#permissions
 
-[Share creation modal]: #sharing-a-file-or-directory
+[share creation modal]: #sharing-a-file-or-directory
 
 [exposing the data collection as Public Data]: ./public-data.md
 
-[anonymous Share view]: #anonymous-share-access
+[anonymous share view]: #anonymous-share-access
 
 [share-API]: https://onedata.org/#/home/api/stable/onezone?anchor=tag/Share
 

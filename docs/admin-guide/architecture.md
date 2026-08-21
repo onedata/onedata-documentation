@@ -66,14 +66,14 @@ container or Kubernetes, Couchbase is started automatically.
 #### Elasticsearch
 
 Deployment of [Elasticsearch][] along with
-Onezone, enables an Onedata feature called `Harvesters`, which allows performing
+Onezone, enables a Onedata feature called `Harvesters`, which allows performing
 data and metadata queries on user spaces.
-Elasticsearch is used to transparently index all data and metadata in an Onedata
+Elasticsearch is used to transparently index all data and metadata in a Onedata
 space, which can then be queried using Onedata REST API.
 
 #### Handle Proxy
 
-Onedata supports persistent identifier registration services based on Handle
+Onedata supports persistent identifier registration services based on handle
 systems such as [DOI][]. Since different identifier minting
 services provide different API's, Onezone administrator has to deploy and
 register a handle proxy service, which implements a bridge between Onezone handle

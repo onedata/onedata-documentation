@@ -15,7 +15,7 @@ scenarios, for example:
 
 ![screen-oneclient-mount][]
 
-<!-- TODO VFS-6805: refresh this screenshot, 
+<!-- TODO VFS-6805: refresh this screenshot,
 maybe show only the CLI with the same data as in Web GUI -->
 
 ## Installation
@@ -32,8 +32,10 @@ To install Oneclient using packages, simply use the following command:
 $ curl -sS http://get.onedata.org/oneclient.sh | bash
 ```
 
-> **NOTE**: The above command is only valid when installing the latest release.
-> For other versions, use appropriate script suffix, e.g. `http://get.onedata.org/oneclient-2002.sh`.
+::: tip NOTE
+The above command installs the latest release of Oneclient.
+For other versions, use `--version` argument, e.g. `curl -sS http://get.onedata.org/oneclient.sh | bash -s -- --version 21.02.7`.
+:::
 
 After installing, ensure that you can access `fusermount` tool, by
 running `fusermount -h`. This is necessary to later unmount `oneclient`.
@@ -47,7 +49,9 @@ to add your account to the `fuse` group.
 Oneclient can be also installed using [Anaconda][],
 from the official [Onedata conda repository][anaconda onedata]:
 
-> **NOTE:** Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+::: tip NOTE
+Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+:::
 
 ```bash
 $ conda install -c onedata -c conda-forge python=3.9 oneclient
@@ -68,14 +72,16 @@ Access tokens can be generated directly from the Web interface — see the
 different types of tokens, and how to create them programmatically using the
 REST API can be found [here][tokens].
 
-> **IMPORTANT:** Make sure not to publish your access tokens or share them
-> with anyone. Access tokens should be treated the same way as private keys or
-> passwords — they are intended to be used only by their owners for authentication
-> with Onedata services. The only exception is when a token is consciously limited
-> by [caveats that restrict access to data][tokens safety]
-> (e.g. read-only access to a specific subdirectory). If you wish to collaborate
-> on the same space and data with another user, simply
-> [invite them to your space][invite user].
+::: tip IMPORTANT
+Make sure not to publish your access tokens or share them
+with anyone. Access tokens should be treated the same way as private keys or
+passwords — they are intended to be used only by their owners for authentication
+with Onedata services. The only exception is when a token is consciously limited
+by [caveats that restrict access to data][tokens safety]
+(e.g. read-only access to a specific subdirectory). If you wish to collaborate
+on the same space and data with another user, simply
+[invite them to your space][invite user].
+:::
 
 If you are connecting to a Oneprovider service that does not have a globally
 trusted certificate, you will have to use `-i` or `--insecure` on every
@@ -155,9 +161,11 @@ storage supporting user spaces directly. The storage access detection is
 performed on the first `read` or `write` operation in a given space, which may
 cause a brief increase in latency.
 
-> **NOTE:** Direct I/O mode should always be preferred if possible due to much
-> better performance and scalability, as all `read` and `write` operations go
-> directly to the storage and not via the Oneprovider service.
+::: tip NOTE
+Direct I/O mode should always be preferred if possible due to much
+better performance and scalability, as all `read` and `write` operations go
+directly to the storage and not via the Oneprovider service.
+:::
 
 This feature can be controlled using 2 command line options:
 
@@ -170,10 +178,12 @@ This feature can be controlled using 2 command line options:
   is when the file is not accessible due to incorrect permissions on the
   storage, in such case the file will be accessed using proxy I/O mode.
 
-> **NOTE:** Oneclient will be able to use direct I/O to a storage only if connected
-> to a Oneprovider that supports the space with this storage. In case the data
-> is located on storage managed by another Oneprovider deployment, the data
-> will not be accessible through this Oneclient.
+::: tip NOTE
+Oneclient will be able to use direct I/O to a storage only if connected
+to a Oneprovider that supports the space with this storage. In case the data
+is located on storage managed by another Oneprovider deployment, the data
+will not be accessible through this Oneclient.
+:::
 
 ### Buffering
 
@@ -230,9 +240,11 @@ a single integer argument that determines the logging verbosity:
 * `-v 3` — trace function calls along with their arguments
 * `-v 4` — binary messages between Oneclient and Oneprovider
 
-> **NOTE**: above level 2, the size of the logs can be substantial thus
-> it is necessary to monitor free disk space. When the machine runs out of
-> disk space, Oneclient will stop logging.
+::: tip NOTE
+Above level 2, the size of the logs can be substantial thus
+it is necessary to monitor free disk space. When the machine runs out of
+disk space, Oneclient will stop logging.
+:::
 
 By default, the logs are buffered and if `oneclient` process is terminated
 abruptly, the latest log messages may not be available. This can be changed
@@ -716,7 +728,7 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [direct-io]: #direct-io-and-proxy-io-modes
 
-[oneprovider-domain]: ../data.md#provider-domain
+[oneprovider-domain]: ../providers.md#provider-domain
 
 [image-oneclient-direct-proxy]: ../../../images/user-guide/interfaces/oneclient/oneclient-direct-proxy.png
 

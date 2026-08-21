@@ -1,6 +1,20 @@
-$fonts-root = '/future-documentation/assets/fonts'
+// This file is a template to generate index.styl that is filled with some custom
+// variables when generating documentation using the `plugin-style-generator.js` plugin.
+//
+// Injected variables:
+// - $major-release - major component of version string, needed to generate absolute
+//   paths, e.g. "25"
+//
+// The actual style used by the documentation will be stored in gitignored index.styl
+// file.
+//
+// Note that modifying this file will probably not refresh styles in the development
+// documentation (make dev) without re-launching the build process.
+
+$fonts-root = '/documentation/' + $major-release + '/assets/fonts'
 $open-sans-name = 'Open Sans'
 $source-code-pro-name = 'Source Code Pro'
+$image-padding = 2em
 
 /// Import OpenSans Regular
 @font-face
@@ -83,6 +97,57 @@ aside.sidebar
     display block
     width 1.25rem
     height 1.25rem
+
+img
+  display block
+  margin-top $image-padding
+  margin-bottom $image-padding
+  margin-left auto
+  margin-right auto
+
+img[alt^="screen-"]
+  border 1px solid #ddd
+
+
+// Mermaid.js support
+
+.mermaid-diagram
+  margin-top $image-padding
+  margin-bottom $image-padding
+  text-align center
+
+.mermaid-error
+  text-align center
+  // color $badgeErrorColor
+  color #555
+  font-style italic
+  background-color #eee
+  padding $image-padding
+  margin $image-padding
+  p
+    margin-top: 0.15em
+    margin-bottom: 0
+  a
+    font-weight normal
+
+
+// Loader based on https://tobiasahlin.com/spinkit/
+
+.spinner
+  width 40px
+  height 40px
+  margin auto auto
+  animation sk-rotateplane 1.2s infinite ease-in-out
+  background-color $accentColor
+
+@keyframes sk-rotateplane
+  0%
+    transform perspective(120px) rotateX(0deg) rotateY(0deg)
+  50%
+    transform perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  100%
+    transform perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+
 
 // Elements added by Homepage integration - should be not visible
 // until Homepage integration styles are loaded.
