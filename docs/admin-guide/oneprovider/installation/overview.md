@@ -2,10 +2,6 @@
 
 <!-- @TODO VFS-11766 missing chapter -->
 
-<!-- as needed: link to configuration, compatibility-reference [versions]). We need to decide/discuss. -->
-
-<!-- @TODO VFS-13169 compatibility reference -->
-
 This chapter describes the available [Oneprovider][providers] installation methods.
 All of them use our [official Docker images][docker-images] to run Oneprovider on any
 [Linux OS that supports Docker][supported-platforms].
@@ -33,11 +29,14 @@ Choose your preferred method:
   `docker-compose.yml` file. The deployment will be performed automatically upon service
   start. Useful for automated deployments and skilled administrators.
 
-::: tip NOTE
-Regardless of the chosen method, the host should be properly set up — see [prerequisites][].
+::: tip PREREQUISITES
+Regardless of the chosen method, the host should be initially prepared — see [prerequisites][].
+:::
 
-After a successful installation, you can further configure your Oneprovider — see
-[Configuration][].
+::: tip CHOOSING THE VERSION
+The newly deployed Oneprovider must be compatible with its [Onezone][zones], and with
+cooperating Oneproviders (if applicable). Thus, we recommend reading the [Upgrades &
+compatibility][] chapter first, to choose the proper version or upgrade other services.
 :::
 
 ::: tip NOTE
@@ -54,18 +53,20 @@ If you desperately need to install Oneprovider from packages, inspect the releva
 
 [providers]: ../../../intro.md#providers
 
+[zones]: ../../../intro.md#zones
+
 [docker-images]: https://hub.docker.com/r/onedata/oneprovider/tags
 
 [supported-platforms]: https://docs.docker.com/engine/installation/#supported-platforms
 
 [prerequisites]: ../prerequisites.md
 
-[configuration]: ../configuration/cluster-members.md
-
 [Onedatify CLI wizard]: onedatify-cli.md
 
 [Graphical wizard]: graphical-wizard.md
 
 [Batch mode]: docker-compose.md
+
+[Upgrades & compatibility]: ../../upgrades-and-compatibility.md
 
 [Dockerfile]: https://github.com/onedata/oneprovider-pkg/blob/develop/docker/Dockerfile

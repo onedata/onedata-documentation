@@ -137,17 +137,3 @@ sudo systemctl start **@insert service**
 
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
-
-<!-- references -->
-
-**@insert installationRef**
-
-[1]: #offline-backups
-
-[2]: #live-backups
-
-[3]: https://github.com/onedata/onedata-deployments/blob/master/bin/odbackup.sh
-
-[4]: https://github.com/onedata/onedata-deployments
-
-[5]: https://github.com/onedata/onedata-deployments/tree/master/ansible
