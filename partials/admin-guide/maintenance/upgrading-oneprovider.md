@@ -20,7 +20,6 @@ To upgrade the Oneprovider, which has been set up using the [Onedatify][]:
 curl https://127.0.0.1/api/v3/oneprovider/configuration | jq .version
 ```
 
-
 3. Pull the docker image to make the upgrade smoother. In this example we want to upgrade
    our Oneprovider to version xRELEASExVERSIONx:
 

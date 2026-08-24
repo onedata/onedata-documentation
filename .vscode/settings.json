@@ -72,6 +72,7 @@
       "IdPs",
       "IFAE",
       "INFN",
+      "ISRG",
       "JSONL",
       "KeyCloak",
       "LTeX",
@@ -81,10 +82,12 @@
       "nvm",
       "OAIS",
       "Oneclient",
-      "Onedata",
       "Onedata-ready",
+      "Onedata-specific",
+      "Onedata",
       "OnedataFileRestClient",
       "OnedataFS",
+      "OnedataRestFS",
       "OnedataRESTFS",
       "OnedataRestFSSpec",
       "OnedataRESTFSSpec",
@@ -117,6 +120,8 @@
       "vCPU",
       "VSCode",
       "VuePress",
+      "xattrs",
+      "Xattrs",
       "xRELEASExVERSIONx",
       "XRootD",
       "znck"
@@ -151,6 +156,7 @@
       "{\"rule\":\"THREE_NN\",\"sentence\":\"file popularity\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"legacy data collection\"}",
       "{\"rule\":\"THREE_NN\",\"sentence\":\"Storage ACL user\"}",
+      "{\"rule\":\"THREE_NN\",\"sentence\":\"A storage backend allocation\"}",
       "{\"rule\":\"MORFOLOGIK_RULE_EN_US\",\"sentence\":\"demo.onedata.org\"}"
     ]
   }

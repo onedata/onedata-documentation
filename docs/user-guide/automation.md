@@ -1,3 +1,3 @@
-# Administration panel
+# Automation workflows
 
 ## 🚧 Under construction! 🚧

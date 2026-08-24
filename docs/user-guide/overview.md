@@ -48,14 +48,16 @@ on the left side of the page.
 
 **Advanced functionalities**
 
-| Tab           | Description                                                                                                                |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| [Tokens][]    | Create and manage tokens used for authorization.                                                                           |
-| [Discovery][] | Explore metadata indexing and perform advanced searches across files.                                                      |
-| Automation    | Define and edit workflows (data processing pipelines).                                                                     |
-| Clusters      | Manage the [Onezone][Onezone admin panel] and [Oneprovider][Oneprovider admin panel] deployments that you are an admin of. |
+| Tab            | Description                                                                                                                |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [Tokens][]     | Create and manage tokens used for authorization.                                                                           |
+| [Discovery][]  | Explore metadata indexing and perform advanced searches across files.                                                      |
+| [Automation][] | Define and edit workflows (data processing pipelines).                                                                     |
+| Clusters       | Manage the [Onezone][Onezone admin panel] and [Oneprovider][Oneprovider admin panel] deployments that you are an admin of. |
 
 <!-- references -->
+
+[Automation]: automation.md
 
 [Data]: data.md
 

@@ -1,4 +1,4 @@
-# Groups & Memberships
+# Groups & memberships
 
 [toc][1]
 
