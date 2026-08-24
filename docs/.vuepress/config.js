@@ -40,9 +40,9 @@ module.exports = {
         collapsable: true,
         children: [
           '/user-guide/quickstart',
-          // '/user-guide/overview',
+          '/user-guide/overview',
           '/user-guide/account-management',
-          '/user-guide/groups',
+          '/user-guide/groups-memberships',
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
@@ -56,6 +56,7 @@ module.exports = {
               '/user-guide/interfaces/oneclient',
               '/user-guide/interfaces/onedata-fs',
               '/user-guide/interfaces/onedata-rest-fs',
+              '/user-guide/interfaces/onedata-rest-fsspec',
               '/user-guide/interfaces/onedata-file-rest-client',
               // '/user-guide/interfaces/s3',
               '/user-guide/interfaces/data-access-rest-api',
@@ -63,6 +64,7 @@ module.exports = {
             ]
           },
           '/user-guide/data-distribution-and-metrics',
+          '/user-guide/dir-stats',
           '/user-guide/data-transfers',
           '/user-guide/rule-based-replication-qos',
           '/user-guide/shares',
@@ -74,6 +76,7 @@ module.exports = {
           '/user-guide/archives',
           '/user-guide/automation',
           '/user-guide/file-registration',
+          '/user-guide/repository-crawlers',
           '/user-guide/views',
           '/user-guide/rest-api'
         ]
@@ -128,7 +131,8 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
                   '/admin-guide/oneprovider/configuration/rule-based-replication-qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
-                  '/admin-guide/oneprovider/configuration/advanced-config'
+                  '/admin-guide/oneprovider/configuration/advanced-config',
+                  '/admin-guide/oneprovider/configuration/accounting-and-dir-stats'
                 ]
               }
             ]
