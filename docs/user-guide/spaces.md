@@ -42,7 +42,7 @@ corresponding data center.
 
  -->
 
-![space-support][]
+![image-space-support][]
 
 Each space may be supported by one or more providers and the data produced by the space
 users will be distributed among the assigned storage backends. Users do not need to be
@@ -232,7 +232,7 @@ Refer to the [Web file browser][] guide for further instructions.
 
 [Web file browser]: interfaces/web-file-browser.md
 
-[space-support]: ../../images/user-guide/spaces/space-support.svg
+[image-space-support]: ../../images/user-guide/spaces/space-support.svg
 
 [screen-no-spaces]: ../../images/user-guide/spaces/no-spaces.png
 
