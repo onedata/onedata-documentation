@@ -140,7 +140,6 @@ sudo systemctl start oneprovider
 > **NOTE:** In multinode deployments, the procedure must be done on each host
 > and the nodes should be started together.
 
-
 ## Upgrading
 
 The Oneprovider service can be upgraded to a higher version, with some constraints
@@ -155,14 +154,13 @@ restarts.
 
 To upgrade the Oneprovider, which has been set up using the [Onedatify][]:
 
-1. Log on into the Oneprovider host using SSH. 
+1. Log on into the Oneprovider host using SSH.
 
 2. Check the current version of the Oneprovider service, e.g. using the REST API:
 
 ```sh
 curl https://127.0.0.1/api/v3/oneprovider/configuration | jq .version
 ```
-
 
 3. Pull the docker image to make the upgrade smoother. In this example we want to upgrade
    our Oneprovider to version xRELEASExVERSIONx:

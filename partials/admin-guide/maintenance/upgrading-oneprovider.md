@@ -12,7 +12,7 @@ restarts.
 
 To upgrade the Oneprovider, which has been set up using the [Onedatify][]:
 
-1. Log on into the Oneprovider host using SSH. 
+1. Log on into the Oneprovider host using SSH.
 
 2. Check the current version of the Oneprovider service, e.g. using the REST API:
 
