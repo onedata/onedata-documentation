@@ -113,7 +113,7 @@ publications, datasets, and official documents.
 
 ## Direct member
 
-A [member][] who has assigned privileges to the resource ([space][], [group][],
+A [member][] who has privileges assigned to the resource ([space][], [group][],
 [harvester][], etc.) without an intermediate group.
 
 ## Effective privileges
@@ -170,7 +170,7 @@ Learn more [here][docs-file-registration].
 
 An abstract entity that organizes together a subset of users and other groups. Helps manage
 users' access and privileges to resources like [spaces][space]. Learn more
-[here][docs-groups].
+[here][docs-groups-memberships].
 
 ## Handle
 
@@ -183,7 +183,7 @@ Learn more [here][docs-public-data].
 ## Handle service
 
 A mediator used to register the [share][] in the Public Data indexing services, which results
-in creating a [handle][]. Learn more [here][docs-public-data].
+in the creation of a [handle][]. Learn more [here][docs-public-data].
 
 ## Harvester
 
@@ -223,7 +223,7 @@ metadata.
 ## Lane (workflows)
 
 A distinct processing stage within a [workflow][] that orchestrates data processing by routing
-items from a source [store][] through parallel boxes containing tasks. Executes sequentially,
+items from a source [store][] through parallel boxes containing tasks. It executes sequentially,
 forming a processing pipeline.
 
 ## Let's Encrypt (LE)
@@ -246,7 +246,7 @@ Onedata space and user accounts recognized by different storage providers. Learn
 A [user][] or [group][] that has assigned specific privileges for a [space][], group,
 [harvester][], [automation inventory][], or [cluster][]. Can be [direct][direct member] or
 indirect (when a user or group gains privileges to the resource by being a member of another
-group).
+group). Learn more [here][docs-groups-memberships].
 
 ## Migration (data)
 
@@ -288,7 +288,7 @@ panel][docs-oneprovider-administration-panel] chapters.
 ## Oneprovider
 
 A [service][] dedicated to managing the data, installed at a data [provider][] site as a
-[cluster][], and gets registered in a [Onezone][]. Oneproviders cooperate in a
+[cluster][], and registered in a [Onezone][]. Oneproviders cooperate in a
 peer-to-peer manner, synchronizing information about commonly supported [spaces][space].
 It is accessible through the various [interfaces][docs-interfaces], i.a., the [Web GUI][], [REST API][],
 and [Oneclient][]. Learn more [here][docs-intro-provider].
@@ -359,8 +359,8 @@ documentation [here][website-onedata-api].
 
 ## Service
 
-A software that realizes certain roles in the Onedata software stack, communicating with other
-services, to provide a complete ecosystem. There are three main services in Onedata:
+Software that fulfills certain roles in the Onedata software stack and communicates with other
+services to provide a complete ecosystem. There are three main services in Onedata:
 [Onezone][], [Oneprovider][], and [Onepanel][].
 
 ## Space
@@ -404,13 +404,13 @@ or a tree forest store.
 
 ## Support
 
-  A [storage backend][] allocation granted to a [space][] by a [Oneprovider][] on a physical storage.
+A [storage backend][] allocation granted to a [space][] by a [Oneprovider][] on physical storage.
 Learn more [here][docs-space-support].
 
 ## Token
 
-An alphanumeric string, like e.g. `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
-acting as a proof of authorization, that can be used across the system to
+An alphanumeric string, such as `MDAxNWxvY2F00aW9uIG9uZXpvbmUKMDAzYmlkZW500H5H...`,
+acting as proof of authorization that can be used across the system to
 [authenticate][access token], [prove identity][identity token], or [gain access][invite token]
 to some resources. Tokens must be kept secret. Learn more [here][docs-tokens].
 
@@ -422,7 +422,7 @@ See [data transfer][].
 
 An account in the Onedata, managed by a [Onezone][], with assigned authentication
 methods ([identity providers][identity provider]), mostly created for a single
-person. A user could become a [member][] of Onedata resources.
+person. A user can become a [member][] of Onedata resources.
 
 ## View
 
@@ -436,7 +436,7 @@ A graphical user interface of Onedata, accessible via a web browser. Learn more 
 ## Workflow
 
 A user-defined process for orchestrating complex data processing through a series of
-sequential [lanes][lane] and shared global [stores][store]. Workflow consists of a
+sequential [lanes][lane] and shared global [stores][store]. A workflow consists of a
 [schema][workflow schema], and an execution (the runtime instance). It is stored in
 [inventories][automation inventory]. Learn more [here][docs-automation].
 
@@ -605,7 +605,7 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 [docs-file-registration]: user-guide/file-registration.md
 
-[docs-groups]: user-guide/groups.md
+[docs-groups-memberships]: user-guide/groups-memberships.md
 
 [docs-imported-storage]: admin-guide/oneprovider/configuration/storage-backends.md#imported-storage
 
