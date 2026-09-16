@@ -1,123 +1,148 @@
 # Creating a Lambda: File Checksum Example
 
-This guide shows how to implement a custom lambda for the Onedata automation system.
+This guide shows how to add a Python lambda to an Onedata Automation lambdas workspace.
+The lambda will calculate a checksum for a file available through a mounted Oneclient and
+optionally store the checksum as file metadata.
 
-In general, creating a lambda requires following a specific structure and interface
-expected by the automation runtime. A lambda must define the required data types,
-provide the `handle` entry point, and process jobs in the format used by the system.
+The example uses the current lambda v3 style:
 
-To make the concepts easier to understand, this guide walks through a practical example.
-We will implement a lambda that calculates a checksum for a file and stores the result
-as file metadata.
+* the lambda is a Python package managed by `uv`;
+* its dependencies and entry point are declared in `pyproject.toml`;
+* the handler uses the `onedata-lambda-sdk` SDK;
+* the image is built with the workspace's shared Dockerfile.
 
-## Create a Python file with the required structure
+The workspace must use Python 3.12 or newer, `uv`, and Docker 23 or newer.
 
-Start by creating a directory for your lambda files. Then create a Python file that will contain the lambda logic.
-This file must be named `handler.py`.
+## 1. Create the lambda package
 
-### Structure of handler.py
+Start by creating a package directory for the lambda. It will contain the project
+definition and Python source code:
 
-The `handler.py` file should be organized into a few clear sections. Keeping this structure makes the lambda easier to understand and maintain.
-
-1. **Required imports**  
-   Import all Python modules and utilities needed by the lambda.  
-   This typically includes standard libraries and `onedata_lambda_utils` package.
-
-2. **Lambda configuration**  
-   Define constants that control how the lambda behaves.
-
-3. **Lambda interface**  
-   Define the entry point expected by the Onedata lambda runtime.  
-   This is the function that receives the event payload and starts the lambda execution.
-
-4. **Lambda implementation**  
-   Implement the actual logic of the lambda.  
-   In this example, this includes reading the file, calculating its checksum, and storing the result in file metadata.
-
-### Required imports
-
-Place all required imports at the top of the `handler.py` file.  
-These imports include standard Python libraries, utilities used for checksum
-calculation, threading tools, and types required by the Onedata lambda interface.
-
-```python
-import concurrent.futures
-import hashlib
-import os
-import sys
-import traceback
-import zlib
-from threading import Event, Thread
-from typing import Final, FrozenSet, Literal, NamedTuple, Optional, Union, get_args
-
-import xattr
-from onedata_lambda_utils.types import (
-    AtmException,
-    AtmFile,
-    AtmHeartbeatCallback,
-    AtmJobBatchRequest,
-    AtmJobBatchRequestCtx,
-    AtmJobBatchResponse,
-)
-
-if sys.version_info < (3, 11):
-    from typing_extensions import TypeAlias, TypedDict
-else:
-    from typing import TypeAlias, TypedDict
+```text
+lambdas/calculate-checksum-mounted/
+├── pyproject.toml
+└── src/
+    └── calculate_checksum_mounted/
+        ├── __init__.py
+        └── handler.py
 ```
 
-### Lambda configuration
+A v3 lambda is a regular Python package. Its project metadata is stored in
+`pyproject.toml`, while the importable code lives under `src`.
 
-Define the following constants:
+The directory name may contain hyphens, but the Python package name must use underscores.
+Create an empty `src/calculate_checksum_mounted/__init__.py` file so that the source
+directory is recognized as a Python package.
 
-1. **Mount point** – the path where Oneclient mounts spaces.  
-2. **Read chunk size** – the size of file chunks used during checksum calculation.  
-3. **Available checksum algorithms** – the list of supported checksum algorithms that users can choose from.  
+The workspace root provides the shared `uv.lock`, `Dockerfile`, and `Makefile`; do not add
+separate copies to the lambda directory.
 
-```python
-MOUNT_POINT: Final[str] = "/mnt/onedata"
-READ_CHUNK_SIZE: Final[int] = 10 * 1024**2
+For the complete workspace structure, see
+[The layout][sdk-workspace-layout] in the SDK workspace guide.
 
-ChecksumAlgorithm: TypeAlias = Literal[
-    "adler32",
-    "md5",
-    "sha256",
+## 2. Declare the package and entry point
+
+The workspace needs a project definition to install the package and locate its handler.
+Create `lambdas/calculate-checksum-mounted/pyproject.toml` with the following content:
+
+```toml
+[project]
+name = "calculate-checksum-mounted"
+version = "1"
+description = "Calculate a file checksum using a mounted Oneclient"
+requires-python = ">=3.12"
+dependencies = [
+    "onedata-lambda-sdk>=1.0",
+    "xattr>=1.1",
 ]
 
-AVAILABLE_CHECKSUM_ALGORITHMS: Final[FrozenSet[ChecksumAlgorithm]] = frozenset(
+[project.entry-points."onedata.lambda"]
+handler = "calculate_checksum_mounted.handler:handle"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/calculate_checksum_mounted"]
+```
+
+The `[project]` section defines the package name, version, supported Python version, and
+direct dependencies. `onedata-lambda-sdk` supplies the v3 runtime contract, while `xattr`
+is needed to write file metadata. The base image installs only declared dependencies, so
+every package imported by the handler must be listed here.
+
+Each lambda must declare exactly one `onedata.lambda` entry point. Its value identifies the
+Python function loaded by the runtime: `<package>.<module>:<function>`.
+
+The remaining sections select Hatchling as the build backend and point it to the Python
+package under `src`.
+
+For the complete package and entry-point requirements, see
+[Declare the contract in `pyproject.toml`][sdk-package-contract] in the SDK guide.
+
+## 3. Implement the handler
+
+Organizing the handler into imports, configuration, interface definitions,
+the main function, and helpers makes the code easier to follow. The following steps
+walk through each part of `src/calculate_checksum_mounted/handler.py`.
+
+### Add the required imports
+
+The handler will calculate checksums, access the mounted filesystem, write file metadata,
+and use the Onedata Lambda SDK. Start `handler.py` with the required imports:
+
+```python
+import hashlib
+import os
+import zlib
+from collections.abc import Iterable
+from typing import Final, Literal, TypedDict, get_args
+
+import xattr
+from onedata_lambda_sdk import (
+    DEFAULT_MAX_WORKERS,
+    AtmFile,
+    Job,
+    JobContext,
+    JobException,
+    mounted_file_path,
+    per_job,
+)
+```
+
+`hashlib` and `zlib` provide the checksum algorithms, while `os` is used to verify the file
+type. The imports from `collections.abc` and `typing` describe the handler's data types.
+The `xattr` package writes the checksum as file metadata.
+
+The remaining types and helpers come from `onedata-lambda-sdk`. They define the handler
+contract and provide runtime integration. Each one is explained below when it is first
+used.
+
+### Define the lambda configuration
+
+Next, define how much data the lambda reads at once and which checksum algorithms it
+supports:
+
+```python
+READ_CHUNK_SIZE: Final[int] = 10 * 1024**2
+
+ChecksumAlgorithm = Literal["adler32", "md5", "sha256"]
+
+AVAILABLE_CHECKSUM_ALGORITHMS: Final[frozenset[ChecksumAlgorithm]] = frozenset(
     get_args(ChecksumAlgorithm)
 )
 ```
 
-### Lambda interface
+`READ_CHUNK_SIZE` lets the lambda process large files without loading them entirely into
+memory. `ChecksumAlgorithm` lists the values accepted by the typed configuration.
+`AVAILABLE_CHECKSUM_ALGORITHMS` provides the same values as a runtime collection used for
+validation.
 
-Next, define the object types used by the lambda interface.
-These types describe the input data, configuration, processing result, and possible errors.
+### Define the lambda interface
 
-In this example, most of them are defined as `TypedDict` to clearly describe the 
-expected data structure. The `Job` object is defined as a `NamedTuple`, because it 
-additionally should remain unchanged during the entire processing.
-
-The following types are used:
-
-1. **TaskConfig** – stores the task configuration passed to the lambda.  
-   In this example, it contains the selected checksum algorithm and 
-   the metadata key where the result will be saved.
-
-2. **JobArgs** – stores the input arguments for a single job.  
-   Here, it contains the file that should be processed.
-
-3. **FileChecksumReport** – stores the result for a single processed file.  
-   It includes the file ID, the algorithm used, and the calculated checksum value.
-
-4. **JobResults** – wraps the result returned for a single processed item.  
-   In this example, it contains a single `result` field with the checksum report.
-
-5. **JobException** – defines a custom exception that can be raised during job processing.  
-   This makes it easier to clearly signal processing errors in your implementation.
-
-6. **Job** – represents a single item processed by the lambda.  
-   It combines the batch context (`ctx`) with the input arguments (`args`).
+Describe the configuration, input, and output expected by the handler. Add the following
+interface definitions below the configuration constants:
 
 ```python
 class TaskConfig(TypedDict):
@@ -132,454 +157,359 @@ class JobArgs(TypedDict):
 class FileChecksumReport(TypedDict):
     fileId: str
     algorithm: str
-    checksum: Optional[str]
+    checksum: str | None
 
 
-class JobResults(TypedDict):
+class JobResult(TypedDict):
     result: FileChecksumReport
-
-
-class JobException(Exception):
-    pass
-
-
-class Job(NamedTuple):
-    ctx: AtmJobBatchRequestCtx[TaskConfig]
-    args: JobArgs
 ```
 
-### Lambda implementation
+The `TypedDict` classes let editors and static-analysis tools check the field names and
+value types used by the implementation:
 
-Each lambda must implement a function called `handle`.  
-This function is the main entry point and is invoked by the Onedata automation executor.
+* `TaskConfig` describes the task configuration;
+* `JobArgs` describes the arguments of one job;
+* `AtmFile` is the SDK type representing a file passed to a lambda;
+* `FileChecksumReport` describes the calculated checksum;
+* `JobResult` describes the value returned for one job.
 
-The function signature must be exactly as follows:
+These definitions should match the lambda schema, but they do not configure or validate the
+schema themselves.
 
-```python
-def handle(
-    job_batch_request: AtmJobBatchRequest,
-    heartbeat_callback: AtmHeartbeatCallback,
-) -> AtmJobBatchResponse
-```
+### Implement the main function
 
-The arguments are:
+The entry point will process one file: locate it through Oneclient, calculate its checksum,
+optionally store the checksum as metadata, and return the result. Build it one logical step
+at a time.
 
-**`job_batch_request`**  
-The main input passed to the lambda. It is a JSON object containing:
+#### Define the handler
 
-- **`ctx`** – the context of the job batch request (for example task configuration and execution metadata).
-- **`argsBatch`** – a list of JSON objects, where each object contains the input arguments for a single job.
-
-**`heartbeat_callback`**  
-A callback used to inform the Onedata automation system that the lambda is still running.  
-It should be called periodically during longer processing to prevent the execution from being considered stalled.
-
-The `handle` function must return an object of type `AtmJobBatchResponse`.
-
-This is a JSON object containing:
-
-- **`resultsBatch`** – a list of JSON objects, where each object contains the result 
-of a single processed job (the lambda output).
-
-During lambda execution you may encounter situations that would normally raise an exception.
-Instead of letting the exception propagate, you can return an `AtmException`. This allows the
-automation system to properly record and report the failure.
-
-Below is an example structure of the `handle` implementation.
-
-#### 1. Validate the input
-
-First, verify that the provided configuration is supported by the lambda implementation.
-In this example, it means checking whether the checksum algorithm specified in the request
-is supported by the lambda.
-
-If the algorithm is not supported, the lambda can immediately stop processing and return
-an appropriate error. This prevents unnecessary work on incompatible input.
+Start with the decorated function and its typed signature:
 
 ```python
-algorithm = job_batch_request["ctx"]["config"]["algorithm"]
-if algorithm not in AVAILABLE_CHECKSUM_ALGORITHMS:
-    return AtmException(
-        exception=(
-            f"{algorithm} algorithm is unsupported. "
-            f"Available ones are: {AVAILABLE_CHECKSUM_ALGORITHMS}"
-        )
-    )
-```
-
-#### 2. Periodically report that the lambda is still running
-
-For longer-running executions, the lambda should periodically call `heartbeat_callback`
-to inform the automation system that the job is still in progress.
-One way to implement this is by starting a separate monitoring thread.
-
-```python
-_all_jobs_processed: Event = Event()
-
-
-def handle():
-    ...
-    jobs_monitor = Thread(target=monitor_jobs, daemon=True, args=[heartbeat_callback])
-    jobs_monitor.start()
+@per_job(
+    max_workers=DEFAULT_MAX_WORKERS,
+    precondition=lambda ctx: assert_supported(ctx.config["algorithm"]),
+)
+def handle(job: Job[JobArgs], ctx: JobContext[TaskConfig]) -> JobResult:
     ...
 ```
 
+Oneprovider invokes a lambda with a batch of jobs. The `@per_job` decorator adapts the
+single-job function to that runtime contract: the SDK performs the batch loop, preserves
+result order, reports progress, and isolates failures of individual jobs.
+
+For more about this handler style, see
+[Choose a shape: per-job or batch][sdk-handler-shapes] in the SDK guide.
+
+The function receives two SDK objects:
+
+* `Job[JobArgs]` carries the arguments of the current job in `job.args`;
+* `JobContext[TaskConfig]` carries configuration and other state shared by the batch.
+
+`DEFAULT_MAX_WORKERS` enables concurrent processing of independent jobs. The `precondition`
+runs once before processing begins and rejects an unsupported algorithm for the entire
+batch.
+
+#### Read the input
+
+Begin the function body by extracting the selected algorithm and file ID. Then resolve the
+file's mounted path. The snippets in the following steps form the indented body of `handle`:
+
 ```python
-def monitor_jobs(heartbeat_callback: AtmHeartbeatCallback) -> None:
-    any_job_ongoing = True
-    while any_job_ongoing:
-        any_job_ongoing = not _all_jobs_processed.wait(timeout=1)
-        heartbeat_callback()
+    algorithm = ctx.config["algorithm"]
+    file_id = job.args["file"]["fileId"]
+    file_path = mounted_file_path(file_id)
 ```
 
-#### 3. Process all items in the batch
+The task configuration is available through `ctx.config`, while the current job's input is
+available through `job.args`. Keeping these values in local variables makes the remaining
+steps easier to read.
 
-Each item in the batch represents an independent job. Because of that, they can be processed
-concurrently to improve performance.
+`mounted_file_path(file_id)` returns the path used to access the file through the mounted
+Oneclient filesystem. For more about file access, see
+[Read through a mounted Oneclient][sdk-mounted-file-access] in the SDK guide.
 
-```python
-jobs = [
-    Job(args=job_args, ctx=job_batch_request["ctx"])
-    for job_args in job_batch_request["argsBatch"]
-]
+#### Handle non-regular files
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    job_results = list(executor.map(run_job, jobs))
-```
-
-#### 4. Implement the job processing logic
-
-The `run_job` function contains the actual processing logic for a single item.
+The lambda should calculate checksums only for regular files. Add an early return when the
+mounted path does not resolve to one, for example for a directory or missing file:
 
 ```python
-def run_job(job: Job) -> Union[AtmException, JobResults]:
-    file_path = build_file_path(job)
-
     if not os.path.isfile(file_path):
-        return build_job_results(job, None)
-
-    try:
-        algorithm = job.ctx["config"]["algorithm"]
-        checksum = calculate_checksum(algorithm, file_path)
-
-        if xattr_name := job.ctx["config"]["metadataKey"]:
-            set_file_checksum_xattr(file_path, xattr_name, checksum)
-    except JobException as ex:
-        return AtmException(exception=str(ex))
-    except Exception:
-        return AtmException(exception=traceback.format_exc())
-    else:
-        return build_job_results(job, checksum)
+        return {
+            "result": {
+                "fileId": file_id,
+                "algorithm": algorithm,
+                "checksum": None,
+            }
+        }
 ```
 
-Because the lambda uses Oneclient space mounting, files can be accessed as if they were
-stored on the local filesystem. The function calculates the checksum of the file and
-optionally stores it as an extended attribute (`xattr`).
+This behavior is intentional. Returning `checksum` set to `None` treats such an object as a
+valid input for which no checksum was calculated, rather than reporting a failed job.
 
-If an error occurs, the function returns `AtmException` with a descriptive message or traceback.
-If the processing succeeds, it returns a `JobResults` object.
+#### Calculate the checksum
 
-**Build the file path**
+For a regular file, read its contents in chunks and pass them to the checksum helper:
 
 ```python
-def build_file_path(job: Job) -> str:
-    return f'{MOUNT_POINT}/.__onedata__file_id__{job.args["file"]["fileId"]}'
+    with open(file_path, "rb") as file:
+        chunks = iter(lambda: file.read(READ_CHUNK_SIZE), b"")
+        checksum = calculate_checksum(algorithm, chunks)
 ```
 
-The file path can be constructed either from the file path itself or from the file ID.
-This example uses the file ID because it is more efficient due to internal Onedata mechanisms.
+Opening the file in binary mode gives the checksum function raw bytes. The iterator reads
+at most `READ_CHUNK_SIZE` bytes at a time and stops when `read` returns an empty byte string.
+As a result, memory use does not grow with the file size.
 
-**Build job results**
+#### Store the checksum as metadata
+
+An empty `metadataKey` value means that the checksum should only be returned. Add the
+metadata write when a key is present:
 
 ```python
-def build_job_results(job: Job, checksum: Optional[str]) -> JobResults:
+    if metadata_key := ctx.config["metadataKey"]:
+        store_checksum_as_xattr(file_path, metadata_key, checksum)
+```
+
+The assignment expression stores the configured key in `metadata_key`. The helper is called
+only when that value is not empty.
+
+#### Return the result
+
+Finally, return the file ID, selected algorithm, and calculated checksum:
+
+```python
     return {
         "result": {
-            "fileId": job.args["file"]["fileId"],
-            "algorithm": job.ctx["config"]["algorithm"],
+            "fileId": file_id,
+            "algorithm": algorithm,
             "checksum": checksum,
         }
     }
 ```
 
-This helper function creates the output structure according to the `JobResults` definition.
+The returned dictionary matches `JobResult` and becomes the result for the current job.
 
-**Calculate checksum**
+### Add the helper functions
 
-```python
-def calculate_checksum(algorithm: ChecksumAlgorithm, file_path: str) -> str:
-    with open(file_path, "rb") as fd:
-        data_stream = iter(lambda: fd.read(READ_CHUNK_SIZE), b"")
+Keep validation, checksum calculation, and metadata storage outside the main function.
 
-        if algorithm == "adler32":
-            value = 1
-            for data in data_stream:
-                value = zlib.adler32(data, value)
-            return format(value, "x")
+#### Validate the algorithm
 
-        data_hash = getattr(hashlib, algorithm)()
-        for data in data_stream:
-            data_hash.update(data)
-        return data_hash.hexdigest()
-```
-
-This function calculates the checksum by reading the file in chunks and using Python's
-built-in hashing algorithms.
-
-**Set file checksum as xattr**
+Add the function used by the handler's `precondition`:
 
 ```python
-def set_file_checksum_xattr(file_path: str, xattr_name: str, checksum: str) -> None:
-    file_xattrs = xattr.xattr(file_path)
-
-    try:
-        file_xattrs.set(xattr_name, str.encode(checksum))
-    except Exception as ex:
-        raise JobException(
-            f"Failed to set xattr {xattr_name}:{checksum} due to: {str(ex)}"
-        )
-```
-
-This function stores the calculated checksum as a custom extended attribute (`xattr`)
-on the file.
-
-### Full implementation example
-
-```python
-"""
-A lambda which calculates (and saves as metadata) file checksum using mounted Oneclient.
-
-NOTE: This lambda works on any type of file by simply returning `None`
-as checksum for anything but regular files.
-"""
-
-
-import concurrent.futures
-import hashlib
-import os
-import sys
-import traceback
-import zlib
-from threading import Event, Thread
-from typing import Final, FrozenSet, Literal, NamedTuple, Optional, Union, get_args
-
-import xattr
-from onedata_lambda_utils.types import (
-    AtmException,
-    AtmFile,
-    AtmHeartbeatCallback,
-    AtmJobBatchRequest,
-    AtmJobBatchRequestCtx,
-    AtmJobBatchResponse,
-)
-
-if sys.version_info < (3, 11):
-    from typing_extensions import TypeAlias, TypedDict
-else:
-    from typing import TypeAlias, TypedDict
-
-    
-MOUNT_POINT: Final[str] = "/mnt/onedata"
-READ_CHUNK_SIZE: Final[int] = 10 * 1024**2
-
-ChecksumAlgorithm: TypeAlias = Literal[
-    "adler32",
-    "md5",
-    "sha256",
-]
-
-AVAILABLE_CHECKSUM_ALGORITHMS: Final[FrozenSet[ChecksumAlgorithm]] = frozenset(
-    get_args(ChecksumAlgorithm)
-)    
-
-
-class TaskConfig(TypedDict):
-    algorithm: ChecksumAlgorithm
-    metadataKey: str
-
-
-class JobArgs(TypedDict):
-    file: AtmFile
-
-
-class FileChecksumReport(TypedDict):
-    fileId: str
-    algorithm: str
-    checksum: Optional[str]
-
-
-class JobResults(TypedDict):
-    result: FileChecksumReport
-
-
-class JobException(Exception):
-    pass
-
-
-class Job(NamedTuple):
-    ctx: AtmJobBatchRequestCtx[TaskConfig]
-    args: JobArgs
-
-    
-_all_jobs_processed: Event = Event()    
-    
-
-def handle(
-    job_batch_request: AtmJobBatchRequest[JobArgs, TaskConfig],
-    heartbeat_callback: AtmHeartbeatCallback,
-) -> Union[AtmException, AtmJobBatchResponse[JobResults]]:
-    algorithm = job_batch_request["ctx"]["config"]["algorithm"]
+def assert_supported(algorithm: str) -> None:
     if algorithm not in AVAILABLE_CHECKSUM_ALGORITHMS:
-        return AtmException(
-            exception=(
-                f"{algorithm} algorithm is unsupported. "
-                f"Available ones are: {AVAILABLE_CHECKSUM_ALGORITHMS}"
-            )
+        raise JobException(
+            f"{algorithm} algorithm is unsupported. "
+            f"Available ones are: {sorted(AVAILABLE_CHECKSUM_ALGORITHMS)}"
         )
+```
 
-    jobs_monitor = Thread(target=monitor_jobs, daemon=True, args=[heartbeat_callback])
-    jobs_monitor.start()
+An unsupported algorithm is an expected configuration error, so the function raises
+`JobException`. Because the function runs as a precondition, this stops the entire batch
+with a readable message before any job is processed.
 
-    jobs = [
-        Job(args=job_args, ctx=job_batch_request["ctx"])
-        for job_args in job_batch_request["argsBatch"]
-    ]
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        job_results = list(executor.map(run_job, jobs))
+#### Calculate a checksum
 
-    _all_jobs_processed.set()
-    jobs_monitor.join()
+Add the function that consumes the file chunks prepared by `handle`:
 
-    return {"resultsBatch": job_results}
+```python
+def calculate_checksum(
+    algorithm: ChecksumAlgorithm,
+    chunks: Iterable[bytes],
+) -> str:
+    if algorithm == "adler32":
+        value = 1
+        for chunk in chunks:
+            value = zlib.adler32(chunk, value)
+        return format(value, "x")
 
-def run_job(job: Job) -> Union[AtmException, JobResults]:
-    file_path = build_file_path(job)
+    digest = getattr(hashlib, algorithm)()
+    for chunk in chunks:
+        digest.update(chunk)
+    return str(digest.hexdigest())
+```
+
+Adler-32 uses `zlib`, while the remaining algorithms use the matching constructors from
+`hashlib`. Each chunk is incorporated into the checksum before the hexadecimal value is
+returned.
+
+#### Store the checksum as an extended attribute
+
+Add the metadata helper used when `metadataKey` is not empty:
+
+```python
+def store_checksum_as_xattr(file_path: str, xattr_name: str, checksum: str) -> None:
+    try:
+        xattr.xattr(file_path).set(xattr_name, checksum.encode())
+    except OSError as ex:
+        raise JobException(f"Failed to set xattr {xattr_name!r} on the file: {ex}") from ex
+```
+
+Extended attributes store byte values, so the hexadecimal checksum string is encoded before
+it is written. An expected metadata write failure is translated into `JobException`, which
+`@per_job` reports only for the affected job.
+
+### Complete handler.py
+
+The complete `src/calculate_checksum_mounted/handler.py` should look as follows:
+
+```python
+import hashlib
+import os
+import zlib
+from collections.abc import Iterable
+from typing import Final, Literal, TypedDict, get_args
+
+import xattr
+from onedata_lambda_sdk import (
+    DEFAULT_MAX_WORKERS,
+    AtmFile,
+    Job,
+    JobContext,
+    JobException,
+    mounted_file_path,
+    per_job,
+)
+
+
+READ_CHUNK_SIZE: Final[int] = 10 * 1024**2
+
+ChecksumAlgorithm = Literal["adler32", "md5", "sha256"]
+
+AVAILABLE_CHECKSUM_ALGORITHMS: Final[frozenset[ChecksumAlgorithm]] = frozenset(
+    get_args(ChecksumAlgorithm)
+)
+
+
+class TaskConfig(TypedDict):
+    algorithm: ChecksumAlgorithm
+    metadataKey: str
+
+
+class JobArgs(TypedDict):
+    file: AtmFile
+
+
+class FileChecksumReport(TypedDict):
+    fileId: str
+    algorithm: str
+    checksum: str | None
+
+
+class JobResult(TypedDict):
+    result: FileChecksumReport
+
+
+@per_job(
+    max_workers=DEFAULT_MAX_WORKERS,
+    precondition=lambda ctx: assert_supported(ctx.config["algorithm"]),
+)
+def handle(job: Job[JobArgs], ctx: JobContext[TaskConfig]) -> JobResult:
+    algorithm = ctx.config["algorithm"]
+    file_id = job.args["file"]["fileId"]
+    file_path = mounted_file_path(file_id)
 
     if not os.path.isfile(file_path):
-        return build_job_results(job, None)
+        return {
+            "result": {
+                "fileId": file_id,
+                "algorithm": algorithm,
+                "checksum": None,
+            }
+        }
 
-    try:
-        algorithm = job.ctx["config"]["algorithm"]
-        checksum = calculate_checksum(algorithm, file_path)
+    with open(file_path, "rb") as file:
+        chunks = iter(lambda: file.read(READ_CHUNK_SIZE), b"")
+        checksum = calculate_checksum(algorithm, chunks)
 
-        if xattr_name := job.ctx["config"]["metadataKey"]:
-            set_file_checksum_xattr(file_path, xattr_name, checksum)
-    except JobException as ex:
-        return AtmException(exception=str(ex))
-    except Exception:
-        return AtmException(exception=traceback.format_exc())
-    else:
-        return build_job_results(job, checksum)
+    if metadata_key := ctx.config["metadataKey"]:
+        store_checksum_as_xattr(file_path, metadata_key, checksum)
 
-
-def build_file_path(job: Job) -> str:
-    return f'{MOUNT_POINT}/.__onedata__file_id__{job.args["file"]["fileId"]}'
-
-
-def build_job_results(job: Job, checksum: Optional[str]) -> JobResults:
     return {
         "result": {
-            "fileId": job.args["file"]["fileId"],
-            "algorithm": job.ctx["config"]["algorithm"],
+            "fileId": file_id,
+            "algorithm": algorithm,
             "checksum": checksum,
         }
     }
 
 
-def calculate_checksum(algorithm: ChecksumAlgorithm, file_path: str) -> str:
-    with open(file_path, "rb") as fd:
-        data_stream = iter(lambda: fd.read(READ_CHUNK_SIZE), b"")
-
-        if algorithm == "adler32":
-            value = 1
-            for data in data_stream:
-                value = zlib.adler32(data, value)
-            return format(value, "x")
-
-        data_hash = getattr(hashlib, algorithm)()
-        for data in data_stream:
-            data_hash.update(data)
-        return data_hash.hexdigest()
-
-
-def set_file_checksum_xattr(file_path: str, xattr_name: str, checksum: str) -> None:
-    file_xattrs = xattr.xattr(file_path)
-
-    try:
-        file_xattrs.set(xattr_name, str.encode(checksum))
-    except Exception as ex:
+def assert_supported(algorithm: str) -> None:
+    if algorithm not in AVAILABLE_CHECKSUM_ALGORITHMS:
         raise JobException(
-            f"Failed to set xattr {xattr_name}:{checksum} due to: {str(ex)}"
+            f"{algorithm} algorithm is unsupported. "
+            f"Available ones are: {sorted(AVAILABLE_CHECKSUM_ALGORITHMS)}"
         )
 
 
-def monitor_jobs(heartbeat_callback: AtmHeartbeatCallback) -> None:
-    any_job_ongoing = True
-    while any_job_ongoing:
-        any_job_ongoing = not _all_jobs_processed.wait(timeout=1)
+def calculate_checksum(
+    algorithm: ChecksumAlgorithm,
+    chunks: Iterable[bytes],
+) -> str:
+    if algorithm == "adler32":
+        value = 1
+        for chunk in chunks:
+            value = zlib.adler32(chunk, value)
+        return format(value, "x")
+
+    digest = getattr(hashlib, algorithm)()
+    for chunk in chunks:
+        digest.update(chunk)
+    return str(digest.hexdigest())
+
+
+def store_checksum_as_xattr(file_path: str, xattr_name: str, checksum: str) -> None:
+    try:
+        xattr.xattr(file_path).set(xattr_name, checksum.encode())
+    except OSError as ex:
+        raise JobException(f"Failed to set xattr {xattr_name!r} on the file: {ex}") from ex
 ```
 
-## Building the Docker image
+## 4. Sync the workspace
 
-Each lambda is built on top of the `lambda-base` image provided by Onedata.
-This base image contains the runtime and integration required by the automation system,
-so it should **not be modified**, as this may lead to unexpected behavior.
+Before building the lambda, synchronize the workspace and update its shared dependency lock
+file.
 
-The base image uses Docker `ONBUILD` instructions to copy the lambda code into the
-container and prepare it for execution.
+Follow [Work across members during development][sdk-workspace-development] in the SDK
+workspace guide to synchronize the dependencies.
 
-```dockerfile
-...
-RUN mkdir -p function && touch ./function/__init__.py
-ONBUILD COPY --chown=app:app handler.py *requirements.txt function/
-...
-```
+## 5. Build and publish the image
 
-The base image also provides a parent module called `index.py`. This module is executed
-when the container starts and is responsible for calling the lambda handler.
+Build and publish the Docker image for your lambda.
 
-```python
-...
-from function import handler
+Follow [Build one member][sdk-workspace-build] in the SDK workspace guide for the image
+build. For the repository's build and publish commands, see
+[Building and publishing images][examples-build-publish] in the `automation-examples` README.
 
-result = handler.handle(request, heartbeat_callback)
-...
-```
+## Next steps
 
-In the lambda directory, create the following files:
+After publishing the image, follow the [GUI guide][creating-lambda-gui] to register the
+lambda or update the image reference of an existing lambda.
 
-- `Dockerfile`
-- `Makefile`
-- `requirements.txt` (optional, if additional Python packages are required)
+To report processing statistics, continue with
+[Adding Time Series to the Lambda][adding-ts].
 
-It is important that these files are placed directly in the lambda directory and use
-exactly these names. The base image relies on this structure during the build process.
+<!-- references -->
 
-**Dockerfile**
+[sdk-workspace-layout]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/shared-code-uv-workspace.md#the-layout
 
-The `Dockerfile` itself is very simple. It only needs to reference the latest
-`lambda-base` image.
+[sdk-package-contract]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/single-lambda-repo.md#step-2--declare-the-contract-in-pyprojecttoml
 
-```dockerfile
-FROM onedata/lambda-base-slim:v2
-```
+[sdk-handler-shapes]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/writing-a-handler.md#choose-a-shape-per-job-or-batch
 
-**Makefile**
+[sdk-mounted-file-access]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/file-access.md#read-through-a-mounted-oneclient
 
-The `Makefile` contains helper targets used to build and publish the Docker image.
+[sdk-workspace-development]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/shared-code-uv-workspace.md#step-5--work-across-members-during-development
 
-```makefile
-REPO_NAME = lambda-calculate-checksum-mounted
-TAG = v1
-REGISTRY ?=
+[sdk-workspace-build]: https://github.com/onedata/onedata-lambda-sdk/blob/develop/docs/guides/shared-code-uv-workspace.md#step-4--build-one-member
 
-IMAGE := ${REGISTRY}/${REPO_NAME}:${TAG}
+[examples-build-publish]: https://github.com/onedata/automation-examples/blob/develop/README.md#building-and-publishing-images
 
-.PHONY: build publish
+[creating-lambda-gui]: ./creating-lambda-guide-gui.md
 
-build:
-	docker build . -t ${IMAGE}
-
-publish:
-	docker push ${IMAGE}
-```
+[adding-ts]: ./adding-ts-to-lambda-guide.md
