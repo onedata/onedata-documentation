@@ -113,7 +113,7 @@ is using the Web GUI metadata editor.
 
 ## Metadata management with Oneclient and OnedataFS
 
-In an Oneclient mount, the metadata is exposed through the extended file
+In a Oneclient mount, the metadata is exposed through the extended file
 attributes. It can be accessed and modified using such tools as
 [xattr][17] or `getfattr`:
 

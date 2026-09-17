@@ -82,7 +82,7 @@ Alternatively, the ID can be retrieved from the GUI:
 
 [user quickstart guide]: quickstart.md
 
-[provider domain]: data.md#provider-domain
+[provider domain]: providers.md#provider-domain
 
 [token quickstart guide]: ./tokens.md#access-token-quickstart
 

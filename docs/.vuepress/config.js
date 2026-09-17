@@ -17,7 +17,13 @@ module.exports = {
   plugins: [
     require('./plugin-style-generator.js'),
     require('./plugin-template-renderer.js'),
-    require('./vuepress-plugin-mermaidjs-cdn/index.js')
+    require('./vuepress-plugin-mermaidjs-cdn/index.js'),
+    [
+      'vuepress-plugin-copy-code',
+      {
+        copyMessage: 'Text copied to clipboard.'
+      }
+    ],
   ],
   temp: '/tmp/.vuepress-temp',
   themeConfig: {
@@ -33,11 +39,11 @@ module.exports = {
         path: '/user-guide/quickstart',
         collapsable: true,
         children: [
-          '/user-guide/quickstart',
-          // '/user-guide/overview',
+          '/user-guide/quickstart',,
+          '/user-guide/overview',
           '/user-guide/user-interface',
           '/user-guide/account-management',
-          '/user-guide/groups',
+          '/user-guide/groups-memberships',
           '/user-guide/spaces',
           '/user-guide/providers',
           '/user-guide/data',
@@ -51,6 +57,7 @@ module.exports = {
               '/user-guide/interfaces/oneclient',
               '/user-guide/interfaces/onedata-fs',
               '/user-guide/interfaces/onedata-rest-fs',
+              '/user-guide/interfaces/onedata-rest-fsspec',
               '/user-guide/interfaces/onedata-file-rest-client',
               // '/user-guide/interfaces/s3',
               '/user-guide/interfaces/data-access-rest-api',
@@ -58,6 +65,7 @@ module.exports = {
             ]
           },
           '/user-guide/data-distribution-and-metrics',
+          '/user-guide/dir-stats',
           '/user-guide/data-transfers',
           '/user-guide/rule-based-replication-qos',
           '/user-guide/shares',
@@ -67,8 +75,9 @@ module.exports = {
           '/user-guide/data-discovery',
           '/user-guide/datasets',
           '/user-guide/archives',
-//          '/user-guide/automation',
+          '/user-guide/automation',
           '/user-guide/file-registration',
+          '/user-guide/repository-crawlers',
           '/user-guide/views',
           '/user-guide/rest-api'
         ]
@@ -81,15 +90,27 @@ module.exports = {
           '/admin-guide/overview',
           '/admin-guide/admin-accounts',
           '/admin-guide/architecture',
+          '/admin-guide/upgrades-and-compatibility',
           '/admin-guide/demo-mode',
           {
             title: 'Oneprovider',
             collapsable: true,
-            path: '/admin-guide/oneprovider/installation',
+            path: '/admin-guide/oneprovider/prerequisites',
             children: [
               // TODO VFS-11766 we need a landing page for oz and op (like overview)
               // TODO VFS-11766 when it's there, adjust docs-topic-aliases.js (homepage)
-              '/admin-guide/oneprovider/installation',
+              '/admin-guide/oneprovider/prerequisites',
+              {
+                title: 'Installation / deployment',
+                collapsable: true,
+                path: '/admin-guide/oneprovider/installation/overview',
+                children: [
+                  '/admin-guide/oneprovider/installation/overview',
+                  '/admin-guide/oneprovider/installation/onedatify-cli',
+                  '/admin-guide/oneprovider/installation/graphical-wizard',
+                  '/admin-guide/oneprovider/installation/docker-compose'
+                ]
+              },
               '/admin-guide/oneprovider/maintenance',
               '/admin-guide/oneprovider/administration-panel',
               '/admin-guide/oneprovider/troubleshooting',
@@ -112,10 +133,10 @@ module.exports = {
                   '/admin-guide/oneprovider/configuration/auto-cleaning',
                   '/admin-guide/oneprovider/configuration/rule-based-replication-qos',
                   '/admin-guide/oneprovider/configuration/rest-api',
-                  '/admin-guide/oneprovider/configuration/advanced-config'
+                  '/admin-guide/oneprovider/configuration/advanced-config',
+                  '/admin-guide/oneprovider/configuration/accounting-and-dir-stats'
                 ]
               }
-
             ]
           },
           {

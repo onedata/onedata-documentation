@@ -1,3 +1,3 @@
-# Administration Panel
+# Administration panel
 
 ## 🚧 Under construction! 🚧

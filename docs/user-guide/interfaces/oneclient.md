@@ -15,7 +15,7 @@ scenarios, for example:
 
 ![screen-oneclient-mount][]
 
-<!-- TODO VFS-6805: refresh this screenshot, 
+<!-- TODO VFS-6805: refresh this screenshot,
 maybe show only the CLI with the same data as in Web GUI -->
 
 ## Installation
@@ -33,8 +33,8 @@ $ curl -sS http://get.onedata.org/oneclient.sh | bash
 ```
 
 ::: tip NOTE
-The above command is only valid when installing the latest release.
-For other versions, use appropriate script suffix, e.g. `http://get.onedata.org/oneclient-2002.sh`.
+The above command installs the latest release of Oneclient.
+For other versions, use `--version` argument, e.g. `curl -sS http://get.onedata.org/oneclient.sh | bash -s -- --version 21.02.7`.
 :::
 
 After installing, ensure that you can access `fusermount` tool, by
@@ -50,7 +50,7 @@ Oneclient can be also installed using [Anaconda][],
 from the official [Onedata conda repository][anaconda onedata]:
 
 ::: tip NOTE
-Currently for release 21.02.\*, only Python 3 version 3.9 is supported.
+Currently, for release lines 21.02.\* and 25.\*, only Python 3 version 3.9 is supported.
 :::
 
 ```bash
@@ -728,7 +728,7 @@ access, as they will be able to access any Onedata volume created on this host.
 
 [direct-io]: #direct-io-and-proxy-io-modes
 
-[oneprovider-domain]: ../data.md#provider-domain
+[oneprovider-domain]: ../providers.md#provider-domain
 
 [image-oneclient-direct-proxy]: ../../../images/user-guide/interfaces/oneclient/oneclient-direct-proxy.png
 

@@ -64,7 +64,7 @@ This view consists of three main elements:
 
    * `On-the-fly`: `On-the-fly` throughput represents data transfers triggered
      by remote data access. These transfers occur in the background automatically
-     when providers are requested to serve file not replicated ont them.
+     when providers are requested to serve file not replicated onto them.
      `On-the-fly` transfers do not appear in the transfer jobs list; only
      summarized statistics are available.
 
@@ -125,7 +125,7 @@ function (id, type, meta, ctx) {
 
 [toc]: <>
 
-[1]: data.md#file-distribution
+[1]: ./data-distribution-and-metrics.md
 
 [screen-initiate-transfer]: ../../images/user-guide/data-transfer/initiate-transfer.png
 

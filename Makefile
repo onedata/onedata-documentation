@@ -1,7 +1,6 @@
 .PHONY: all build dev clean render-templates
 
-MAJOR_RELEASE=25
-VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v7
+VUEPRESS_IMG=docker.onedata.org/vuepress-compiler:v8
 SETUID=-u $(shell id -u):$(shell id -g)
 DOCKER_RUN=docker run -e NPM_CONFIG_CACHE=/tmp/.npm --rm -v `pwd`:/vuepress ${SETUID}
 

@@ -67,13 +67,22 @@ docker run --rm -it --name oz_test onedata/onezone:xRELEASExVERSIONx demo
 ```
 
 ```bash
-OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
 docker run --rm -it --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 ```
 
+::: tip
+The demo command for `oneprovider` takes one required argument — the `onezone` IP address,
+which is already taken care of in the above command.
+:::
+
+## Accessing the Web GUI
+
 After the two services are successfully set up, you will see green logs with instructions
-on how to log in to the demo environment, like below. For documentation on Onedata
-concepts and features, consult the [user guide][] and [admin guide][].
+on how to log in to the demo environment, like below.
 
 ```
 -------------------------------------------------------------------------
@@ -88,42 +97,80 @@ To interact with the APIs or mount a Oneclient, use the provider IP: 172.17.0.4
 -------------------------------------------------------------------------
 ```
 
+When you enter the URL in your browser:
+
+1. Use the credentials displayed in the logs to sign in.
+2. Upon the “No connection to Oneprovider” error, visit the server URL (as suggested) to
+   accept the self-signed certificate.
+
+For documentation on Onedata
+concepts and features, consult the [user guide][] and [admin guide][].
+
+::: warning
+Note: If you redeploy the demo environment, the Docker containers may be assigned the same IP addresses as before but will generate new self-signed certificates. If you previously accepted a certificate for an earlier deployment in your browser, it may detect that the certificate has changed and display a security warning or disallow visiting the UI page.
+
+If you encounter this issue, try opening the demo in an incognito/private window or use a different browser.
+:::
+
 ## Distributed (multi-provider) environment
 
 You can start any number of Oneprovider services; just rerun the above command, but change
 the `--name` parameter to a unique value. All the providers will support the same demo
-space, **start at least two** to be able to test in action the flagship Onedata features
+space. **Start at least two** to be able to test in action the flagship Onedata features
 for **distributed data management**:
 
 ```bash
-OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
 docker run --rm -it --name op_test2 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
 ```
-
-::: tip NOTE
-The demo command for `oneprovider` takes one required argument — the `onezone` IP address,
-which is already taken care of in the above command.
-:::
 
 ## Running in the background
 
 Run the dockers just like for the [foreground][running in the foreground], but add the
-`--detach` (or `-d`) option.
+`--detach` (or `-d`) option:
 
-Use the built-in commands of the images to block the process until the demo environment
-is all set up and ready to be used:
+```bash
+docker run --rm --detach -it --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+```
+
+```bash
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+docker run --rm --detach -it --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
+```
+
+Use the following command to do a blocking wait until a provider is set up and ready to be used:
 
 ```bash
 docker exec op_test1 await-demo
 ```
 
-It's sufficient to run the above for all the providers to be sure that your automated
-process can start using the demo space in Onedata right away. However, in some scenarios
-you may also find the `await` command for Onezone useful:
+Run it for all the providers to be sure that your automated
+process can start using the demo environment in Onedata right away.
+
+::: tip
+In some scenarios, you may want to only check that the Onezone is operational, without checking the rest of the demo environment.
+In such cases, run:
 
 ```bash
 docker exec oz_test await
 ```
+
+:::
+
+::: tip
+Use the Onezone container IP to [access the Web GUI][accessing the web gui]:
+
+```bash
+echo "URL: https://$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' oz_test)"
+```
+
+:::
 
 ## Acquiring an access token
 
@@ -150,10 +197,16 @@ starting point for creating an integration test setup for your middleware that u
 Onedata:
 
 ```bash
-docker run --rm -it -d --name oz_test onedata/onezone:xRELEASExVERSIONx demo
-OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
-docker run --rm -it -d --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
-OP_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' op_test1)
+docker run --rm -it --detach --name oz_test onedata/onezone:xRELEASExVERSIONx demo
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+docker run --rm -it --detach --name op_test1 onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
+OP_NAME=op_test1;\
+until OP_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OP_NAME 2>/dev/null) && [ -n "$OP_IP" ]; do\
+	echo -en "Awaiting the ${OP_NAME} container...\r"; sleep 1;\
+done; echo; \
 docker exec op_test1 await-demo
 ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 DEMO_SPACE_ID="cb274b2b8bb1750d9be37dd4a3eb7014chb175"
@@ -169,25 +222,18 @@ echo ""
 echo "https://$OZ_IP/#/action/file/show/$FILE_ID"
 ```
 
-::: tip TIPS
-When you visit the above URL:
+The above URL will open the Web GUI; you may consult the [tips how to access it][accessing the web gui].
 
-1. Use `admin : password` to log in.
-2. Upon the “No connection to Oneprovider” error, visit the server URL (as suggested) to
-   accept the self-signed certificate.
-
-:::
-
-### Data access using Python
+## Data access using Python
 
 Onedata provides few interfaces to access its virtual file system from Python, namely:
 
 * [OnedataRESTFS][] — high level pure Python client implemented using [PyFilesystem2][] and
-  [OnedataFileRestClient][]
+  [OnedataFileRestClient][],
 * [OnedataFileRestClient][] — low level pure Python client, which is a wrapper over Onedata
-  [File access and management API][], used as basis for [OnedataRESTFS][]
+  [File access and management API][], used as basis for [OnedataRESTFS][],
 * [OnedataFS][] — Python wrapper for native binary Onedata communication protocol, implemented
-  in C++ (installation of the Python library requires several C++ dependencies beforehand)
+  in C++ (installation of the Python library requires several C++ dependencies beforehand).
 
 In this section we'll present how to set up and use the [OnedataRESTFS][] library, which is
 recommended for ease of installation and use.
@@ -204,15 +250,24 @@ virtualenv -p /usr/bin/python3 venv
 # Install OnedataRESTFS
 pip install fs.onedatarestfs
 
+# If you encounter problems with setuptools, you may need to downgrade the library 
+pip install setuptools==81.0.0
+
 # Export necessary OnedataRESTFS arguments as environment variables
-export OZ_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' oz_test)
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+export OZ_IP
 export ACCESS_TOKEN=$(docker exec op_test1 demo-access-token)
 
 # Finally start Python3 shell
 python3
 ```
 
-### Usage
+#### Usage
+
+Firstly, make sure your demo environment is up and running (with at least one provider).
 
 Since this deployment does not have trusted SSL certificates, we have to mute the SSL
 warnings:
@@ -227,7 +282,7 @@ Now we can create an instance of `OnedataRESTFS` client as follows:
 ```python
 >>> import os
 >>> from fs.onedatarestfs import OnedataRESTFS
->>> onedata_onezone_host = os.getenv("OZ_IP")
+>>> onedata_onezone_host = os.getenv("OZ_IP")       
 >>> onedata_access_token = os.getenv("ACCESS_TOKEN")
 >>> odfs = OnedataRESTFS(onedata_onezone_host, onedata_access_token, verify_ssl=False)
 ```
@@ -248,13 +303,47 @@ or create a simple text file:
 'TEST'
 ```
 
-For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesystem2 Docs][].
+For more information on how to use a `OnedataRESTFS` instance, see the [OnedataRESTFS][]
+chapter.
+
+## Retaining persistence between restarts
+
+**Since version 25.0**, demo mode supports persistence so that data and configuration
+survive container restarts. Use the same approach as for running in the foreground/background, but
+add a fixed hostname and volume mounts.
+
+Onezone with persistence:
+
+```bash
+docker run --rm -it --name oz_test -h oz_test -v /tmp/oz-pers:/volumes/persistence onedata/onezone:xRELEASExVERSIONx demo
+```
+
+Oneprovider with persistence:
+
+```bash
+OZ_NAME=oz_test;\
+until OZ_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $OZ_NAME 2>/dev/null) && [ -n "$OZ_IP" ]; do\
+	echo -en "Awaiting the ${OZ_NAME} container...\r"; sleep 1;\
+done; echo; \
+docker run --rm -it --name op_test1 -h op_test1 -v /tmp/op-pers:/volumes/persistence -v /tmp/op-storage:/volumes/storage onedata/oneprovider:xRELEASExVERSIONx demo $OZ_IP
+```
+
+When using persistence:
+
+1. Set the hostname explicitly (e.g. `-h oz_test`, `-h op_test1`) and **keep it the same**
+   between consecutive runs. Otherwise the service may fail to start without clear logs.
+2. Use the **same** host directory for persistence on every run (e.g. `/tmp/oz-pers` for
+   Onezone, `/tmp/op-pers` for Oneprovider).
+3. For Oneprovider, use the **same** host directory for POSIX storage on every run
+   (e.g. `/tmp/op-storage`).
 
 <!-- References -->
 
 [running in the foreground]: #running-in-the-foreground
 
 [running in the background]: #running-in-the-background
+
+[accessing the web gui]: #accessing-the-web-gui
 
 <!-- TODO VFS-11766 rethink the overview/quickstart approach -->
 
@@ -279,8 +368,6 @@ For more information on how to use a `OnedataRESTFS` instance, see the [PyFilesy
 [OnedataFileRestClient]: ../user-guide/interfaces/onedata-file-rest-client.md
 
 [PyFilesystem2]: https://github.com/PyFilesystem/pyfilesystem2
-
-[PyFilesystem2 Docs]: https://pyfilesystem2.readthedocs.io/en/latest/
 
 [token via gui]: ../user-guide/tokens.md#gui-guide
 

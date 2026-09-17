@@ -30,6 +30,10 @@ Here is a summary of all available data access interfaces:
   functionality and suitable for proxied data access (accessing the data via a Oneprovider
   service), based on the [OnedataFileRestClient][] library. Requires an [access token][].
 
+* [OnedataRESTFSSpec][] (Python) — an [fsspec][] filesystem implementation for Onedata,
+  allowing Python applications and libraries based on `fsspec` to access Onedata spaces
+  using a familiar filesystem API. Requires an [access token][].
+
 * [OnedataFileRestClient][] (Python) — a client to the Onedata file REST API,
   offering basic operations on files as a concise, low-level library.
 
@@ -61,6 +65,8 @@ Here is a summary of all available data access interfaces:
 
 [OnedataRestFS]: ./onedata-rest-fs.md
 
+[OnedataRESTFSSpec]: ./onedata-rest-fsspec.md
+
 [OnedataFileRestClient]: ./onedata-file-rest-client.md
 
 [REST API]: ./data-access-rest-api.md
@@ -68,5 +74,7 @@ Here is a summary of all available data access interfaces:
 [CDMI API]: ./cdmi.md
 
 [PyFilesystem2]: https://www.pyfilesystem.org/
+
+[fsspec]: https://filesystem-spec.readthedocs.io/en/latest/
 
 [access token]: ../tokens.md#access-tokens

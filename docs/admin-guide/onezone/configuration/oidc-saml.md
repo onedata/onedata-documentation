@@ -1949,7 +1949,7 @@ identify the storage users effectively.
 
 To use your custom icon on the login page, place it on the Onezone host under the
 path `/var/www/html/oz_worker/custom/<path>` and reference it in the config like
-this: `iconPath => "/custom/<path>"`. If you are using docker-compose, simply
+this: `iconPath => "/custom/<path>"`. If you are using Docker Compose, simply
 mount your icon by adding a volume, for example:
 
 ```
