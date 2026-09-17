@@ -39,7 +39,7 @@ module.exports = {
         path: '/user-guide/quickstart',
         collapsable: true,
         children: [
-          '/user-guide/quickstart',,
+          '/user-guide/quickstart',
           '/user-guide/overview',
           '/user-guide/user-interface',
           '/user-guide/account-management',

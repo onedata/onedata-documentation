@@ -12,10 +12,10 @@ the [Update User Admin Privileges][] operation.
 Users with admin privileges can access extra features and management options not available
 to regular users. Admin privileges overwrite regular user privileges.
 Example: user belongs to group, but in that group he does not have privilege to modify privileges,
-but have admin privilege: `oz_groups_set_privileges` and
+but has the corresponding admin privilege: `oz_groups_set_privileges` and
 because of that he can modify privileges in that group and others.
 
-Admin privileges cover manage all kinds of resourses:
+Admin privileges provide access to management operations for the following types of resources:
 - privileges — `oz_view_privileges`, `oz_set_privileges`,
 - users — `oz_users_list`, `oz_users_view`, `oz_users_create`, `oz_users_manage_passwords`,
 `oz_users_update`, `oz_users_delete`, `oz_users_list_relationships`,
