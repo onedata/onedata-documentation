@@ -364,7 +364,7 @@ directories, scheduling data transfers, etc.).
 
 <!-- TODO VFS-11766 change to a valid link -->
 
-[data-distribution]: ../data.md#file-distribution
+[data-distribution]: ../data-distribution-and-metrics.md
 
 [transfers]: ../data-transfers.md
 

@@ -87,7 +87,7 @@ file save (use `ctrl+shift+p` and type `open workspace settings (JSON)`):
   }
 ```
 
-#### LTeX — LanguageTool grammar/spell checking (`valentjn.vscode-ltex`)
+#### LTeX — LanguageTool grammar/spell checking (`ltex-plus.vscode-ltex-plus`)
 
 [LTeX][] add-on provides offline grammar and spell checking using the [LanguageTool][].
 Note that the add-on automatically downloads a LanguageTool server to your local
@@ -301,7 +301,7 @@ e.g. `rel/documentation/25`. Calling `make package` will pack it up into a tarba
 
 [nvm website]: https://github.com/nvm-sh/nvm#installing-and-updating
 
-[LTeX]: https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex
+[LTeX]: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
 
 [LanguageTool]: https://languagetool.org
 

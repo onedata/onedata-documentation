@@ -4,4 +4,4 @@
 
 [crash_dump]: https://www.erlang.org/doc/apps/erts/crash_dump.html
 
-[run_erl]: https://www.erlang.org/doc/man/run_erl.html
+[run_erl]: https://www.erlang.org/docs/26/man/run_erl.html

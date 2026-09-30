@@ -2,6 +2,6 @@
   "recommendations": [
     "mermaidchart.vscode-mermaid-chart",
     "unifiedjs.vscode-remark",
-    "valentjn.vscode-ltex"
+    "ltex-plus.vscode-ltex-plus"
   ]
 }

@@ -387,7 +387,7 @@ your own configuration in JSON format.
 
 [26]: #gui-plugin-indices
 
-[33]: ../../../user-guide/groups.md#group-members
+[33]: ../../../user-guide/groups-memberships.md#group-members
 
 [35]: #public-access
 
