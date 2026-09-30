@@ -37,6 +37,7 @@ module.exports = {
           // '/user-guide/overview',
           '/user-guide/account-management',
           '/user-guide/creating-workflow-guide',
+          '/user-guide/creating-lambda-guide-gui',
           '/user-guide/groups',
           '/user-guide/spaces',
           '/user-guide/providers',
@@ -70,6 +71,7 @@ module.exports = {
           '/user-guide/archives',
           '/user-guide/automation',
           '/user-guide/creating-workflow-guide',
+          '/user-guide/creating-lambda-guide-gui',
           '/user-guide/file-registration',
           '/user-guide/views',
           '/user-guide/rest-api'
