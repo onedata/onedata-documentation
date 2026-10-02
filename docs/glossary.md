@@ -611,7 +611,7 @@ by the [Onezone][] service. Learn more [here][docs-intro-zone].
 
 [docs-interfaces]: user-guide/interfaces/overview.md
 
-[docs-intro-onezone]: user-guide/quickstart.md#introduction--onezone-service
+[docs-intro-onezone]: user-guide/quickstart.md#onezone-service
 
 [docs-intro-provider]: intro.md#providers
 

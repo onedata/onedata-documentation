@@ -40,8 +40,7 @@ module.exports = {
         collapsable: true,
         children: [
           '/user-guide/quickstart',
-          '/user-guide/overview',
-          '/user-guide/user-interface',
+          '/user-guide/user-web-interface',
           '/user-guide/account-management',
           '/user-guide/groups-memberships',
           '/user-guide/spaces',
@@ -88,9 +87,9 @@ module.exports = {
         collapsable: true,
         children: [
           '/admin-guide/overview',
-          '/admin-guide/admin-accounts',
           '/admin-guide/architecture',
           '/admin-guide/upgrades-and-compatibility',
+          '/admin-guide/administrative-privileges',
           '/admin-guide/demo-mode',
           {
             title: 'Oneprovider',
@@ -165,7 +164,6 @@ module.exports = {
                   '/admin-guide/onezone/configuration/user-management',
                   '/admin-guide/onezone/configuration/cluster-members',
                   '/admin-guide/onezone/configuration/gui-settings',
-                  '/admin-guide/onezone/configuration/admin-privileges',
                   '/admin-guide/onezone/configuration/rest-api',
                   '/admin-guide/onezone/configuration/data-discovery',
                   '/admin-guide/onezone/configuration/handle-services',

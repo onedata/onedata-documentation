@@ -45,6 +45,26 @@ get it running!
 If you are about to deploy Onedata services on your infrastructure, go the [admin guide][]
 or the relevant chapter for [Onezone][] or [Oneprovider][] service.
 
+## Collaborative data sharing
+
+Collaborative data sharing is a core feature of Onedata.
+It is built around [spaces][], which provide shared work environments where
+users from different organizations can collaborate on common data resources.
+Access to spaces is managed through [groups][], which can represent organizational
+hierarchies or Virtual Organizations (VOs) that bring together users from multiple
+organizations to enable collaboration beyond traditional administrative boundaries.
+Spaces provide a logical abstraction over the physical location of data stored by
+multiple [providers][] on heterogeneous storage backends.
+
+This approach makes it possible to:
+
+* share data between users across organizational and administrative boundaries,
+* support a wide range of applications involving geographically distributed data,
+* combine data from different storage systems under one consistent namespace,
+* enable data copies and movement across geographically distributed locations through
+  replication and managed transfers between providers,
+* allow distributed data to be processed in parallel across multiple locations.
+
 ## Basic concepts
 
 The most important concepts in Onedata are:
@@ -58,7 +78,7 @@ The most important concepts in Onedata are:
 
 ### Spaces
 
-All data stored in Onedata is organized into [Spaces][]. Spaces can be seen as virtual
+All data stored in Onedata is organized into [spaces][]. Spaces can be seen as virtual
 directories or volumes, which can contain an arbitrary directory and file hierarchy while
 being distributed across multiple storage providers. Each space has to be supported by at
 least one provider, which means that this provider reserved a certain storage quota for
@@ -77,7 +97,7 @@ Web UI and a command-line client based on [FUSE][]. It enables mounting your spa
 local filesystem and accessing the data directly from a laptop, a cluster node, or a
 virtual machine deployed in the cloud.
 
-For more information, see the dedicated chapters for [Spaces][] and [Groups][].
+For more information, see the dedicated chapters for [spaces][] and [groups][].
 
 ### Providers
 
@@ -115,6 +135,20 @@ While currently each zone is an isolated, independent ecosystem, the future road
 Onedata is to build a decentralized, peer-to-peer network of zones to allow (optional)
 collaboration between different ecosystems.
 
+## Data sovereignty
+
+Onedata lets independent organizations form a shared data ecosystem while each
+keeps control of its own data. Every organization runs its own Oneprovider on
+its own storage, and files stay there under its administrative control.
+Providers cooperate only through spaces that they both support, and data moves
+between them only within such shared spaces, when users or policies require it.
+The Onezone service coordinates the ecosystem, handling identity, memberships
+and data location, but it does not hold the file contents. Onezone can be
+deployed by your own organization, so you never have to depend on a zone you
+don't trust. Users authenticate with their home institution, and access is
+governed by memberships, ACLs and tokens, so data owners decide who can see
+what.
+
 ## User interfaces
 
 Onedata offers multiple interfaces to manage and access user data: Web GUI, REST API, CDMI
@@ -123,9 +157,13 @@ user gets the same, unified view of all his data.
 
 ### Web GUI
 
-This [rich graphical interface][] can be used for all data management tasks and is designed
-to be intuitive for non-computer-savvy users with basic needs, while offering advanced
-features for skilled personnel, such as data stewards, developers, or administrators.
+Onedata provides a rich graphical interface that can be used for all data management
+tasks. It is designed to be intuitive for non-computer-savvy users with basic needs,
+while offering advanced features for skilled personnel, such as data stewards,
+developers, or service administrators.
+
+The [User Web interface][] chapter is the general guide to the interface and its main
+sections. For data access and management, see the [Web file browser][].
 
 ![screen-web-gui-example][]
 
@@ -148,11 +186,6 @@ scenarios:
 
 <!-- TODO VFS-6805: refresh this screenshot, 
 maybe show only the CLI with the same data as in Web GUI -->
-
-### Administrator Web interface
-
-Dedicated web interface for installation and management of [Oneprovider][op-panel-gui] and
-[Onezone][oz-panel-gui] services.
 
 ### API
 
@@ -193,9 +226,11 @@ described in a [dedicated chapter][interfaces].
 
 [admin guide]: admin-guide/overview.md
 
-[Spaces]: user-guide/spaces.md
+[spaces]: user-guide/spaces.md
 
-[Groups]: user-guide/groups-memberships.md
+[groups]: user-guide/groups-memberships.md
+
+[providers]: user-guide/providers.md
 
 [demo.onedata.org]: https://demo.onedata.org
 
@@ -205,13 +240,11 @@ described in a [dedicated chapter][interfaces].
 
 [FUSE]: https://github.com/libfuse/libfuse
 
-[op-panel-gui]: admin-guide/oneprovider/administration-panel.md
-
-[oz-panel-gui]: admin-guide/onezone/administration-panel.md
-
 [REST interface]: https://onedata.org/#/home/api
 
-[rich graphical interface]: user-guide/interfaces/web-file-browser.md
+[user Web interface]: user-guide/user-web-interface.md
+
+[Web file browser]: user-guide/interfaces/web-file-browser.md
 
 [interfaces]: user-guide/interfaces/overview.md
 

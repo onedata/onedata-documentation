@@ -35,7 +35,7 @@ this setup is not intended to be used in production.
 
 [Introduction]: ../intro.md
 
-[pre-existing Onezone]: ../user-guide/quickstart.md#introduction--onezone-service
+[pre-existing Onezone]: ../user-guide/quickstart.md#onezone-service
 
 [demo mode]: demo-mode.md
 

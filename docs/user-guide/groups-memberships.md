@@ -5,7 +5,7 @@
 ## Membership model overview
 
 Onedata uses a membership-based model to manage user collaboration and access to
-resources. Users can collaborate by joining to the Onedata resources directly
+resources. Users can collaborate by joining the Onedata resources directly
 or via group membership:
 
 * Groups allow members to access and manage shared resources with specified privileges.

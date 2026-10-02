@@ -58,7 +58,7 @@ journalctl -u onedatify.service -f
 
 [properly set up]: ../prerequisites.md
 
-[user account in Onezone]: ../../../user-guide/quickstart.md#introduction--onezone-service
+[user account in Onezone]: ../../../user-guide/quickstart.md#onezone-service
 
 [create a new space]: ../../../user-guide/spaces.md#create-or-join-a-new-space
 
