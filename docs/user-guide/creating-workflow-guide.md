@@ -79,8 +79,9 @@ Then provide the required store details and click **Create**.
 
 Define a Store that will hold the input items.
 
-> \[!NOTE]
-> The Store ID is generated automatically by the system — you do not specify it.
+::: tip NOTE
+The Store ID is generated automatically by the system — you do not specify it.
+:::
 
 * **Name**: `input-files`. A descriptive name indicating that this Store contains files to process.
 * **Type**: `Tree forest`. This type allows the workflow to traverse all files inside directories, or process a single file if a regular file is provided.
@@ -139,7 +140,7 @@ Provide the required task configuration.
 * **Name** – automatically derived from the selected lambda.
 * **Revision** – select the lambda revision to use.
 * **ID** – automatically generated unique identifier for the task.
-* **Name**: `md5`\
+* **Name**: `md5`
   Set a clear and descriptive name indicating that this task calculates the md5 checksum.
 
 ![screen-task-details][]
@@ -164,7 +165,7 @@ This defines the metadata key under which the calculated checksum will be stored
 
 Define how the lambda receives its input:
 
-* **file**\
+* **file**
   Value builder: `Iterated item`.
 
 This means the task will process each file provided by the Lane source Store.

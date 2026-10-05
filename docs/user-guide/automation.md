@@ -13,6 +13,15 @@ An inventory is a logical container for storing workflow schemas and lambda sche
 Similarly to Spaces, it allows users to collaborate on shared resources and
 manage access rights.
 
+### Schema and execution
+
+In the automation system, resources are described using two complementary concepts:
+
+* **Schema** – a static definition (blueprint) that specifies the structure,
+  configuration, and behavior of a resource,
+* **Execution** – a runtime instance created from the schema, representing
+  a specific run of that resource.
+
 ### Workflow
 
 A workflow consists of two complementary parts:
@@ -38,15 +47,6 @@ Changes to a workflow schema do not affect already running or completed workflow
 executions.
 
 To learn how to create workflows, see [Creating a Workflow in the GUI][workflow-creation-guide].
-
-### Schema and execution
-
-In the automation system, resources are described using two complementary concepts:
-
-* **Schema** – a static definition (blueprint) that specifies the structure,
-  configuration, and behavior of a resource,
-* **Execution** – a runtime instance created from the schema, representing
-  a specific run of that resource.
 
 ### Lane
 
@@ -144,9 +144,9 @@ isolated environment, so it does not interfere with other operations and can
 run safely and reproducibly. The system automatically takes care of running the
 lambdas and passing data between workflow steps.
 
-The following diagram presents a simplified workflow execution flow.\
-Lanes are executed sequentially, and the next lane starts only after the previous one completes.\
-Within a lane, parallel boxes are also executed sequentially, while tasks inside the same parallel box can run concurrently.\
+The following diagram presents a simplified workflow execution flow.
+Lanes are executed sequentially, and the next lane starts only after the previous one completes.
+Within a lane, parallel boxes are also executed sequentially, while tasks inside the same parallel box can run concurrently.
 Each task invokes a lambda implementation responsible for the actual data processing logic.
 
 ```mermaid
@@ -223,7 +223,7 @@ inline explanations: [demo lambda][demo-lambda-handler].
 #### Lambda configuration
 
 To create a lambda, users implement the desired logic, package it as a Docker image,
-and publish the image so it can be used by the automation system.\
+and publish the image so it can be used by the automation system.
 The lambda is then added in the GUI and configured according to its implemented
 interface and behavior.
 
