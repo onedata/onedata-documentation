@@ -44,7 +44,6 @@ module.exports = {
           '/user-guide/account-management',
           '/user-guide/creating-workflow-guide',
           '/user-guide/creating-lambda-guide-gui',
-          '/user-guide/groups',
           '/user-guide/groups-memberships',
           '/user-guide/spaces',
           '/user-guide/providers',
