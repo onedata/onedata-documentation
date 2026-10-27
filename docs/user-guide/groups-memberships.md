@@ -142,22 +142,22 @@ groups like removing or adding but also modifying groups.
 
 [Oneprovider panel]: ../admin-guide/oneprovider/administration-panel.md
 
-[screen-create-group]: ../../images/user-guide/groups/create-group.png
+[screen-create-group]: ../../images/user-guide/group-memberships/create-group.png
 
-[screen-group-menu]: ../../images/user-guide/groups/group-menu.png
+[screen-group-menu]: ../../images/user-guide/group-memberships/group-menu.png
 
-[screen-invite-user]: ../../images/user-guide/groups/invite-user.png
+[screen-invite-user]: ../../images/user-guide/group-memberships/invite-user.png
 
-[screen-invite-group]: ../../images/user-guide/groups/invite-group.png
+[screen-invite-group]: ../../images/user-guide/group-memberships/invite-group.png
 
-[screen-create-subgroup]: ../../images/user-guide/groups/create-subgroup.png
+[screen-create-subgroup]: ../../images/user-guide/group-memberships/create-subgroup.png
 
-[screen-modify-privileges]: ../../images/user-guide/groups/modify-privileges.png
+[screen-modify-privileges]: ../../images/user-guide/group-memberships/modify-privileges.png
 
-[screen-bulk-edit]: ../../images/user-guide/groups/bulk-edit.png
+[screen-bulk-edit]: ../../images/user-guide/group-memberships/bulk-edit.png
 
-[screen-hierarchy]: ../../images/user-guide/groups/hierarchy.png
+[screen-hierarchy]: ../../images/user-guide/group-memberships/hierarchy.png
 
-[image-access-to-resources]: ../../images/user-guide/overview/access-to-resources.png
+[image-access-to-resources]: ../../images/user-guide/group-memberships/access-to-resources.png
 
-[image-effective-privs]: ../../images/user-guide/overview/effective-privs.png
+[image-effective-privs]: ../../images/user-guide/group-memberships/effective-privs.png

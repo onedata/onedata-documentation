@@ -64,8 +64,8 @@ way.
 
 [Op Cluster]: oneprovider/administration-panel.md#managing-access-to-the-administration-panel
 
-[Update User Admin Privileges]: https://onedata.org/api/stable/onezone?anchor=operation/update_user_admin_privileges
+[Update User Admin Privileges]: https://onedata.org/api/stable/onezone/operation/update_user_admin_privileges/
 
 [List privileges]: https://onedata.org/api/stable/onezone/operation/list_privileges/
 
-[emergency passphrase]: oneprovider/administration-panel.md#emergency-passphrase
+[emergency passphrase]: onezone/administration-panel.md#emergency-passphrase

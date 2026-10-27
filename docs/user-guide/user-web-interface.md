@@ -78,4 +78,4 @@ For details about administrative privileges, see [Administrative Privileges][].
 
 [spaces]: spaces.md
 
-[screen-main-tabs]: ../../images/user-guide/overview/main-tabs.png
+[screen-main-tabs]: ../../images/user-guide/user-web-interface/main-tabs.png

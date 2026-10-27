@@ -57,7 +57,7 @@ Click **Sign in to emergency interface** and provide the [emergency passphrase][
 
 ::: tip NOTE
 In this mode, your session is not related to any Onezone user. You act as the `root`
-account of Onepanel, which has all rights. Each Onepanel (Onezone and Onezone)
+account of Onepanel, which has all rights. Each Onepanel (Oneprovider and Onezone)
 has its own `root` account.
 
 Because you are not in the unified Onezone GUI, the interface is limited to the
