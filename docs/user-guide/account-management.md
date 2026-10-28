@@ -1,7 +1,5 @@
 # Account management
 
-[toc][1]
-
 To access your user profile page click on **Manage account**, while signed in.
 
 ![screen-manage-account][]
@@ -32,8 +30,6 @@ To connect additional accounts, follow these steps:
 ![screen-linked-accounts][]
 
 <!-- references -->
-
-[1]: <>
 
 [screen-manage-account]: ../../images/user-guide/account-management/manage-account.png
 
