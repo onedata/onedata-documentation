@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "mermaidchart.vscode-mermaid-chart",
+    "unifiedjs.vscode-remark",
+    "ltex-plus.vscode-ltex-plus"
+  ]
+}
