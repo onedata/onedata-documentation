@@ -387,13 +387,50 @@ debugging purposes.
 
 3. `file_access_audit.log`
 
-   File access audit logs record all file operations and provide a comprehensive
-   overview of file-related activities within the system. They are useful for
-   auditing and tracking file access activities.
+   File access audit logs record the requests on files and directories that
+   Oneprovider handles for Oneclient, OneS3, OnedataFS, the Web GUI, and the
+   REST and CDMI APIs: opening, listing, reading, writing, renaming, or deleting
+   a file, setting its extended attributes, changing its permissions or ACL, and
+   so on. A client that reads or writes data directly on the storage appears in
+   the logs only through its requests to Oneprovider, such as opening the file,
+   not through the reads and writes themselves. The logs also record the work
+   that Oneprovider does with files on a user's behalf, under the ID of the user
+   who started it, or who resumed or repeated a workflow: the copying and
+   writing of files by an archive's creation and recall, and the reading of the
+   attributes of the files that a workflow processes. A few of Oneprovider's own
+   operations, such as the removal of a failed upload, appear under the user ID
+   `0`.
 
-   > **NOTE:** Due an overhead to every file operation, they cause a slight
-   > performance drop and as such are disabled by default. To enable them,
-   > set `file_access_audit_log_enabled` to `true` in `op_worker`
+   Oneprovider writes a line before it carries out the request, so the line
+   records the attempt, not its result, and a request that the file's
+   permissions or ACL refuse appears too. Each line names the request by
+   Oneprovider's internal name, the user by ID, and the file by its UUID and its
+   path, which starts with the space's ID:
+
+   ```text
+   [2026-10-22 14:03:11.482] request: fuse_request::file_request::get_file_attr; user: 4b1f0c…; file_uuid: 8d2e6a…; share_id: null; path: /2f0e7c…/dir/file.txt
+   ```
+
+   The logs don't record:
+
+   * reads and writes that a client performs directly on the storage,
+
+   * the requests on datasets, archives, QoS requirements, shares, transfers, or
+     workflows themselves, and the replication of data by transfers and QoS,
+
+   * JSON and RDF metadata read or changed through the metadata endpoints of the
+     REST API and the Web GUI, and the mimetype, transfer encoding, and
+     completion status read or changed through the CDMI API (Oneprovider does
+     record the same values when a client reads or changes them as extended
+     attributes, for example through Oneclient),
+
+   * a request refused before Oneprovider gets to the file, such as one
+     concerning a space that this Oneprovider doesn't support, or an operation
+     that a share doesn't allow.
+
+   > **NOTE:** Due to the overhead they add to every file operation, they cause
+   > a slight performance drop, so they are disabled by default. To enable
+   > them, set `file_access_audit_log_enabled` to `true` in `op_worker`
    > [config][].
 
 4. `journal.log`
