@@ -50,8 +50,8 @@ through Onezone is not possible, for example when the Onezone service is
 unavailable or you have lost access because of incorrect membership or privilege
 settings. Do not use it for everyday administration.
 
-The emergency interface is usually located at `https://onezone.domain.org:9443`,
-where `onezone.domain.org` is the Onezone domain. You can also open it
+The emergency interface is usually located at `https://my.zone.domain.org:9443`,
+where `my.zone.domain.org` is the Onezone domain. You can also open it
 using the IP address of one of the cluster nodes. This is useful if port 9443 is
 not exposed publicly and you must connect from a VPN or an intranet.
 
