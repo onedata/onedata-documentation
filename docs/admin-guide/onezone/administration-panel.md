@@ -1,5 +1,7 @@
 # Administration panel
 
+<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
+
 [toc][]
 
 ## Overview
@@ -134,10 +136,11 @@ emergency passphrase always grants full management rights to the cluster.
 
 [Membership model]: ../../user-guide/groups-memberships.md#membership-model-overview
 
-[screen-onepanel-hosted]: ../../../images/admin-guide/oneprovider/administration-panel/onepanel-hosted.png
+[screen-onepanel-hosted]: ../../../images/admin-guide/onezone/administration-panel/onepanel-hosted.png
 
-[screen-onepanel-emergency-login]: ../../../images/admin-guide/oneprovider/administration-panel/onepanel-emergency-login.png
+[screen-onepanel-emergency-login]: ../../../images/admin-guide/onezone/administration-panel/onepanel-emergency-login.png
 
-[screen-change-emergency-passphrase]: ../../../images/admin-guide/oneprovider/administration-panel/change-emergency-passphrase.png
+[screen-change-emergency-passphrase]: ../../../images/admin-guide/onezone/administration-panel/change-emergency-passphrase.png
 
 [1]: #managing-access-to-the-administration-panel
+

@@ -1,5 +1,7 @@
 # Administration panel
 
+<!-- THIS FILE WAS GENERATED FROM TEMPLATE, DO NOT EDIT IT MANUALLY -->
+
 [toc][]
 
 ## Overview
@@ -28,8 +30,7 @@ use it in the same way as the rest of the GUI. There are two ways to access it:
 ### Access via Onezone service interface
 
 This is the default and recommended method. Log in to Onezone with your user
-account as usual, open the **CLUSTERS** tab and select the Oneprovider cluster
-you want to manage.
+account as usual, open the **CLUSTERS** tab and select the Oneprovider cluster.
 
 When you open a cluster in the **CLUSTERS** tab, the GUI connects behind the
 scenes to the Onepanel service deployed in that cluster. You still work in the
@@ -148,3 +149,4 @@ emergency passphrase always grants full management rights to the cluster.
 [screen-change-emergency-passphrase]: ../../../images/admin-guide/oneprovider/administration-panel/change-emergency-passphrase.png
 
 [1]: #managing-access-to-the-administration-panel
+
