@@ -149,4 +149,3 @@ emergency passphrase always grants full management rights to the cluster.
 [screen-change-emergency-passphrase]: ../../../images/admin-guide/oneprovider/administration-panel/change-emergency-passphrase.png
 
 [1]: #managing-access-to-the-administration-panel
-
