@@ -78,15 +78,7 @@ knows it gets full control of the cluster, so leaking it can lead to
 unauthorized access by third parties and data loss.
 :::
 
-::: tip NOTE
-Do not confuse the `root` account with the `admin` user. A Onezone deployment
-creates a special `admin` user whose password initially equals the Onezone
-emergency passphrase, but it can be changed independently. This is an ordinary
-Onezone user account with privileges assigned to it, unlike `root`, which is not a
-Onezone user. See [Administrative privileges][] for details.
-:::
-
-#### Changing the emergency interface passphrase
+**@insert defaultAdminNote**#### Changing the emergency interface passphrase
 
 You can change the emergency passphrase if you suspect that the current one is
 no longer secure. This is possible only through the emergency interface of the
@@ -116,8 +108,6 @@ emergency passphrase always grants full management rights to the cluster.
 [toc]: <>
 
 [Emergency Passphrase]: #emergency-passphrase
-
-[Administrative privileges]: ../administrative-privileges.md#the-default-admin-user
 
 [cluster members]: configuration/cluster-members.md
 

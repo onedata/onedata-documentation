@@ -86,7 +86,8 @@ Do not confuse the `root` account with the `admin` user. A Onezone deployment
 creates a special `admin` user whose password initially equals the Onezone
 emergency passphrase, but it can be changed independently. This is an ordinary
 Onezone user account with privileges assigned to it, unlike `root`, which is not a
-Onezone user. See [Administrative privileges][] for details.
+Onezone user. See
+[Administrative privileges][2] for details.
 :::
 
 #### Changing the emergency interface passphrase
@@ -120,8 +121,6 @@ emergency passphrase always grants full management rights to the cluster.
 
 [Emergency Passphrase]: #emergency-passphrase
 
-[Administrative privileges]: ../administrative-privileges.md#the-default-admin-user
-
 [cluster members]: configuration/cluster-members.md
 
 [docker-compose]: ./installation.md
@@ -143,3 +142,5 @@ emergency passphrase always grants full management rights to the cluster.
 [screen-change-emergency-passphrase]: ../../../images/admin-guide/onezone/administration-panel/change-emergency-passphrase.png
 
 [1]: #managing-access-to-the-administration-panel
+
+[2]: ../administrative-privileges.md#the-default-admin-user
